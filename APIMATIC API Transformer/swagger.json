@@ -1,0 +1,79 @@
+{
+	"swagger" : "2.0",
+	"info" : {
+		"version" : "1.0",
+		"title" : "APIMATIC API Transformer",
+		"description" : "Transform API Descriptions from/to various formats",
+		"x-logo" : {
+			"url" : "https://apitransformer.com/img/transformer.png"
+		},
+		"termsOfService" : "https://apitransformer.com/",
+		"contact" : {
+			"name" : "API Transformer",
+			"email" : "transform@apimatic.io",
+			"url" : "https://apitransformer.com/"
+		},
+		"license" : {
+			"name" : "MIT",
+			"url" : "http://github.com/gruntjs/grunt/blob/master/LICENSE-MIT"
+		}
+	},
+	"externalDocs" : {
+		"description" : "Website",
+		"url" : "https://apitransformer.com/"
+	},
+	"host" : "apitransformer.com",
+	"basePath" : "/api",
+	"securityDefinitions" : {},
+	"schemes" : [
+		"https"
+	],
+	"consumes" : [
+		"application/json",
+		"application/x-yaml"
+	],
+	"produces" : [
+		"application/json",
+		"application/x-yaml"
+	],
+	"paths" : {
+		"/transform" : {
+			"post" : {
+				"description" : "Transform API Descriptions from/to various formats e.g., Swagger, API Blueprint, RAML, WADL, Google Discovery, I/O Docs.\n\nINPUTS\nAPI Blueprint\nSwagger 1.0 - 1.2\nSwagger 2.0 JSON\nSwagger 2.0 YAML\nWADL - W3C 2009\nGoogle Discovery\nRAML 0.8\nI/O Docs - Mashery\nHAR 1.2\nPostman Collection\nAPIMATIC Format\n\nOUTPUTS\nAPI Blueprint\nSwagger 1.2\nSwagger 2.0 JSON\nSwagger 2.0 YAML\nWADL - W3C 2009\nRAML 0.8\nAPIMATIC Format",
+				"summary" : "Transform API Descriptions from/to various formats",
+				"operationId" : "Convert_API",
+				"produces" : [
+					"application/json",
+					"application/x-yaml"
+				],
+				"parameters" : [{
+						"name" : "output",
+						"in" : "query",
+						"required" : true,
+						"type" : "string",
+						"enum" : [
+							"swagger 1.2",
+							"swagger 2.0",
+							"swagger 2.0 yaml",
+							"api blueprint",
+							"wadl",
+							"raml 0.8",
+							"apimatic"
+						]
+					}, {
+						"name" : "url",
+						"in" : "formData",
+						"required" : false,
+						"type" : "string"
+					}
+				],
+				"responses" : {
+					"200" : {
+						"description" : "The converted API specification"
+					}
+				},
+				"security" : []
+			}
+		}
+	}
+}
