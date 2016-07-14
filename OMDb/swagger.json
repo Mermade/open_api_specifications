@@ -1,0 +1,297 @@
+{
+	"swagger" : "2.0",
+	"info" : {
+		"version" : "1",
+		"title" : "OMDb",
+		"description" : "The Open Movie Database",
+		"license" : {
+			"name" : "CC BY-NC 4.0",
+			"url" : "https://creativecommons.org/licenses/by-nc/4.0/"
+		},
+		"termsOfService": "http://www.omdbapi.com/legal.htm",
+		"x-logo" : {
+			"url" : "http://raw.githubusercontent.com/mermade/swagger/OMDb/OMDb.png",
+			"backgroundColor" : "#FFFFFF"
+		},
+		"contact": {
+		  "name": "Open Movie Database",
+		  "email": "bfritz@fadingsignal.com",
+		  "url": "http://omdbapi.com"
+		},
+	},
+	"externalDocs": {
+		"description": "OMDb Usage",
+		"url": "http://www.omdbapi.com/#usage"
+	},
+	"host" : "www.omdbapi.com",
+	"basePath" : "/",
+	"securityDefinitions" : {},
+	"schemes" : [
+		"http",
+		"https"
+	],
+	"consumes" : [
+		"application/json"
+	],
+	"produces" : [
+		"application/json",
+		"application/xml"
+	],
+	"paths" : {
+		"/" : {
+			"get" : {
+				"description" : "OMDb Search",
+				"operationId" : "Get_OMDb Search_",
+				"produces" : [
+					"application/json",
+					"application/xml"
+				],
+				"parameters" : [{
+						"name" : "t",
+						"in" : "query",
+						"required" : false,
+						"type" : "string",
+						"description" : "Movie title to search for. One of t, i or s is required."
+					}, {
+						"name" : "i",
+						"in" : "query",
+						"required" : false,
+						"type" : "string",
+						"description" : "A valid IMDb ID (e.g. tt1285016). One of t, i or s is required."
+					}, {
+						"name" : "s",
+						"in" : "query",
+						"required" : false,
+						"type" : "string",
+						"description" : "Movie title to search for. One of t, i or s is required."
+					}, {
+						"name" : "y",
+						"in" : "query",
+						"required" : false,
+						"type" : "integer",
+						"description" : "Year of release."
+					}, {
+						"name" : "type",
+						"in" : "query",
+						"required" : false,
+						"type" : "string",
+						"enum" : [
+							"movie",
+							"series",
+							"episode"
+						]
+					}, {
+						"name" : "plot",
+						"in" : "query",
+						"required" : false,
+						"type" : "string",
+						"enum" : [
+							"short",
+							"full"
+						],
+						"description" : "Return short or full plot."
+					}, {
+						"name" : "tomatoes",
+						"in" : "query",
+						"required" : false,
+						"type" : "boolean",
+						"default" : false,
+						"description" : "Include Rotten Tomatoes ratings."
+					}, {
+						"name" : "r",
+						"in" : "query",
+						"required" : true,
+						"type" : "string",
+						"enum" : [
+							"json",
+							"xml"
+						],
+						"default" : "json",
+						"description" : "The data type to return."
+					}, {
+						"name" : "v",
+						"in" : "query",
+						"required" : false,
+						"type" : "integer",
+						"default" : 1,
+						"description" : "API version (reserved for future use)."
+					}, {
+						"name" : "page",
+						"in" : "query",
+						"required" : false,
+						"type" : "integer",
+						"format" : "int32",
+						"default" : 1,
+						"description" : "Page number to return."
+					}, {
+						"name" : "callback",
+						"in" : "query",
+						"required" : false,
+						"type" : "string",
+						"description" : "JSONP callback name."
+					},
+				],
+				"responses" : {
+					"200" : {
+						"description" : "Default response",
+						"schema": {
+							"$ref" : "#/definitions/combinedResult"
+						}
+					}
+				},
+				"security" : [],
+			}
+		}
+	},
+	"definitions" : {
+		"combinedResult" : {
+			"type" : "object",
+			"properties" : {
+				"Title" : {
+					"type" : "string"
+				},
+				"Year" : {
+					"type" : "string"
+				},
+				"Rated" : {
+					"type" : "string"
+				},
+				"Released" : {
+					"type" : "string"
+				},
+				"Runtime" : {
+					"type" : "string"
+				},
+				"Genre" : {
+					"type" : "string"
+				},
+				"Director" : {
+					"type" : "string"
+				},
+				"Writer" : {
+					"type" : "string"
+				},
+				"Actors" : {
+					"type" : "string"
+				},
+				"Plot" : {
+					"type" : "string"
+				},
+				"Language" : {
+					"type" : "string"
+				},
+				"Country" : {
+					"type" : "string"
+				},
+				"Awards" : {
+					"type" : "string"
+				},
+				"Poster" : {
+					"type" : "string"
+				},
+				"Metascore" : {
+					"type" : "string"
+				},
+				"imdbRating" : {
+					"type" : "string"
+				},
+				"imdbVotes" : {
+					"type" : "string"
+				},
+				"imdbID" : {
+					"type" : "string"
+				},
+				"Type" : {
+					"type" : "string"
+				},
+				"totalSeasons" : {
+					"type" : "string"
+				},
+				"tomatoMeter" : {
+					"type" : "string"
+				},
+				"tomatoImage" : {
+					"type" : "string"
+				},
+				"tomatoRating" : {
+					"type" : "string"
+				},
+				"tomatoReviews" : {
+					"type" : "string"
+				},
+				"tomatoFresh" : {
+					"type" : "string"
+				},
+				"tomatoRotten" : {
+					"type" : "string"
+				},
+				"tomatoConsensus" : {
+					"type" : "string"
+				},
+				"tomatoUserMeter" : {
+					"type" : "string"
+				},
+				"tomatoUserRating" : {
+					"type" : "string"
+				},
+				"tomatoUserReviews" : {
+					"type" : "string"
+				},
+				"tomatoURL" : {
+					"type" : "string"
+				},
+				"DVD" : {
+					"type" : "string"
+				},
+				"BoxOffice" : {
+					"type" : "string"
+				},
+				"Production" : {
+					"type" : "string"
+				},
+				"Website" : {
+					"type" : "string"
+				},
+				"Response" : {
+					"type" : "string"
+				},
+				"Search" : {
+					"type" : "array",
+					"items" : {
+						"type" : "object",
+						"properties" : {
+							"Title" : {
+								"type" : "string"
+							},
+							"Year" : {
+								"type" : "string"
+							},
+							"imdbID" : {
+								"type" : "string"
+							},
+							"Type" : {
+								"type" : "string"
+							},
+							"Poster" : {
+								"type" : "string"
+							}
+						},
+						"required" : [
+							"Title",
+							"Year",
+							"imdbID",
+							"Type",
+							"Poster"
+						]
+					}
+				},
+				"totalResults" : {
+					"type" : "string"
+				}
+			},
+			"required" : [
+				"Response"
+			]
+		}
+	}
+}
