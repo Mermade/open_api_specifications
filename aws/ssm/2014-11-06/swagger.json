@@ -1,0 +1,2163 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "2014-11-06",
+    "x-release": "v4",
+    "title": "Amazon Simple Systems Management Service",
+    "description": "<p>Amazon EC2 Simple Systems Manager (SSM) enables you to remotely manage the configuration of your Amazon EC2 instances, virtual machines (VMs), or servers in your on-premises environment or in an environment provided by other cloud providers using scripts, commands, or the Amazon EC2 console. SSM includes an on-demand solution called <i>Amazon EC2 Run Command</i> and a lightweight instance configuration solution called <i>SSM Config</i>. </p> <p>This references is intended to be used with the EC2 Run Command User Guide for <a href=\"http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/execute-remote-commands.html\">Linux</a> or <a href=\"http://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/execute-remote-commands.html\">Windows</a>.</p> <note> <p>You must register your on-premises servers and VMs through an activation process before you can configure them using Run Command. Registered servers and VMs are called <i>managed instances</i>. For more information, see <a href=\"http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/managed-instances.html\">Setting Up Run Command On Managed Instances (On-Premises Servers and VMs) on Linux</a> or <a href=\"http://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/managed-instances.html\">Setting Up Run Command On Managed Instances (On-Premises Servers and VMs) on Windows</a>.</p> </note> <p> <b>Run Command</b> </p> <p>Run Command provides an on-demand experience for executing commands. You can use pre-defined SSM documents to perform the actions listed later in this section, or you can create your own documents. With these documents, you can remotely configure your instances by sending commands using the <b>Commands</b> page in the <a href=\"http://console.aws.amazon.com/ec2/\">Amazon EC2 console</a>, <a href=\"http://docs.aws.amazon.com/powershell/latest/reference/items/Amazon_Simple_Systems_Management_cmdlets.html\">AWS Tools for Windows PowerShell</a>, the <a href=\"http://docs.aws.amazon.com/cli/latest/reference/ssm/index.html\">AWS CLI</a>, or AWS SDKs.</p> <p>Run Command reports the status of the command execution for each instance targeted by a command. You can also audit the command execution to understand who executed commands, when, and what changes were made. By switching between different SSM documents, you can quickly configure your instances with different types of commands. To get started with Run Command, verify that your environment meets the prerequisites for remotely running commands on EC2 instances (<a href=\"http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/remote-commands-prereq.html\">Linux</a> or <a href=\"http://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/remote-commands-prereq.html\">Windows</a>). </p> <p/> <p> <b>SSM Config</b> </p> <p>SSM Config is a lightweight instance configuration solution. SSM Config is currently only available for Windows instances. With SSM Config, you can specify a setup configuration for your instances. SSM Config is similar to EC2 User Data, which is another way of running one-time scripts or applying settings during instance launch. SSM Config is an extension of this capability. Using SSM documents, you can specify which actions the system should perform on your instances, including which applications to install, which AWS Directory Service directory to join, which Microsoft PowerShell modules to install, etc. If an instance is missing one or more of these configurations, the system makes those changes. By default, the system checks every five minutes to see if there is a new configuration to apply as defined in a new SSM document. If so, the system updates the instances accordingly. In this way, you can remotely maintain a consistent configuration baseline on your instances. SSM Config is available using the AWS CLI or the AWS Tools for Windows PowerShell. For more information, see <a href=\"http://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/ec2-configuration-manage.html\">Managing Windows Instance Configuration</a>.</p> <p>SSM Config and Run Command include the following pre-defined documents.</p> <p> <b>Linux</b> </p> <ul> <li> <p> <b>AWS-RunShellScript</b> to run shell scripts</p> </li> <li> <p> <b>AWS-UpdateSSMAgent</b> to update the Amazon SSM agent</p> </li> </ul> <p/> <p> <b>Windows</b> </p> <ul> <li> <p> <b>AWS-JoinDirectoryServiceDomain</b> to join an AWS Directory</p> </li> <li> <p> <b>AWS-RunPowerShellScript</b> to run PowerShell commands or scripts</p> </li> <li> <p> <b>AWS-UpdateEC2Config</b> to update the EC2Config service</p> </li> <li> <p> <b>AWS-ConfigureWindowsUpdate</b> to configure Windows Update settings</p> </li> <li> <p> <b>AWS-InstallApplication</b> to install, repair, or uninstall software using an MSI package</p> </li> <li> <p> <b>AWS-InstallPowerShellModule</b> to install PowerShell modules </p> </li> <li> <p> <b>AWS-ConfigureCloudWatch</b> to configure Amazon CloudWatch Logs to monitor applications and systems</p> </li> <li> <p> <b>AWS-ListWindowsInventory</b> to collect information about an EC2 instance running in Windows.</p> </li> <li> <p> <b>AWS-FindWindowsUpdates</b> to scan an instance and determines which updates are missing.</p> </li> <li> <p> <b>AWS-InstallMissingWindowsUpdates</b> to install missing updates on your EC2 instance.</p> </li> <li> <p> <b>AWS-InstallSpecificWindowsUpdates</b> to install one or more specific updates.</p> </li> </ul> <important> <p>The commands or scripts specified in SSM documents run with administrative privilege on your instances because the Amazon SSM agent runs as root on Linux and the EC2Config service runs in the Local System account on Windows. If a user has permission to execute any of the pre-defined SSM documents (any document that begins with AWS-*) then that user also has administrator access to the instance. Delegate access to Run Command and SSM Config judiciously. This becomes extremely important if you create your own SSM documents. Amazon Web Services does not provide guidance about how to create secure SSM documents. You create SSM documents and delegate access to Run Command at your own risk. As a security best practice, we recommend that you assign access to \"AWS-*\" documents, especially the AWS-RunShellScript document on Linux and the AWS-RunPowerShellScript document on Windows, to trusted administrators only. You can create SSM documents for specific tasks and delegate access to non-administrators.</p> </important> <p>For information about creating and sharing SSM documents, see the following topics in the SSM User Guide: </p> <ul> <li> <p> <a href=\"http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-ssm-doc.html\">Creating SSM Documents</a> and <a href=\"http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ssm-sharing.html\">Sharing SSM Documents</a> (Linux)</p> </li> <li> <p> <a href=\"http://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/create-ssm-doc.html\">Creating SSM Documents</a> and <a href=\"http://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/ssm-sharing.html\">Sharing SSM Documents</a> (Windows)</p> </li> </ul>",
+    "termsOfService": "https://aws.amazon.com/service-terms/",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/aws2openapi"
+    },
+    "license": {
+      "name": "Apache 2.0 License",
+      "url": "http://www.apache.org/licenses/"
+    }
+  },
+  "x-logo": {
+    "url": "https://media.amazonwebservices.com/blog/2007/big_pbaws_logo_300px.jpg",
+    "backgroundColor": "#FFFFFF"
+  },
+  "externalDocs": {
+    "description": "Amazon Web Services documentation",
+    "url": "https://aws.amazon.com/ssm/"
+  },
+  "host": "ssm.us-east-1.amazonaws.com",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/": {
+      "post": {
+        "operationId": "UpdateManagedInstanceRole",
+        "description": "Assigns or changes an Amazon Identity and Access Management (IAM) role to the managed instance.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/UpdateManagedInstanceRoleResult"
+            }
+          },
+          "400": {
+            "description": "InvalidInstanceId",
+            "schema": {
+              "$ref": "#/definitions/InvalidInstanceId"
+            }
+          },
+          "401": {
+            "description": "InternalServerError",
+            "schema": {
+              "$ref": "#/definitions/InternalServerError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateManagedInstanceRoleRequest"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "AccountId": {
+      "type": "string",
+      "x-pattern": "(?i)all|[0-9]{12}"
+    },
+    "AccountIdList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/AccountId"
+      },
+      "maxItems": 20
+    },
+    "Activation": {
+      "type": "object",
+      "properties": {
+        "ActivationId": {
+          "$ref": "#/definitions/ActivationId",
+          "description": "The ID created by SSM when you submitted the activation."
+        },
+        "Description": {
+          "$ref": "#/definitions/ActivationDescription",
+          "description": "A user defined description of the activation."
+        },
+        "DefaultInstanceName": {
+          "$ref": "#/definitions/DefaultInstanceName",
+          "description": "A name for the managed instance when it is created."
+        },
+        "IamRole": {
+          "$ref": "#/definitions/IamRole",
+          "description": "The Amazon Identity and Access Management (IAM) role to assign to the managed instance."
+        },
+        "RegistrationLimit": {
+          "$ref": "#/definitions/RegistrationLimit",
+          "description": "The maximum number of managed instances that can be registered using this activation."
+        },
+        "RegistrationsCount": {
+          "$ref": "#/definitions/RegistrationsCount",
+          "description": "The number of managed instances already registered with this activation."
+        },
+        "ExpirationDate": {
+          "$ref": "#/definitions/ExpirationDate",
+          "description": "The date when this activation can no longer be used to register managed instances."
+        },
+        "Expired": {
+          "$ref": "#/definitions/Boolean",
+          "description": "Whether or not the activation is expired."
+        },
+        "CreatedDate": {
+          "$ref": "#/definitions/CreatedDate",
+          "description": "The date the activation was created."
+        }
+      },
+      "description": "An activation registers one or more on-premises servers or virtual machines (VMs) with AWS so that you can configure those servers or VMs using Run Command. A server or VM that has been registered with AWS is called a managed instance."
+    },
+    "ActivationCode": {
+      "type": "string",
+      "minLength": 20,
+      "maxLength": 250
+    },
+    "ActivationDescription": {
+      "type": "string",
+      "minLength": 0,
+      "maxLength": 256
+    },
+    "ActivationId": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+    },
+    "ActivationList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Activation"
+      }
+    },
+    "AddTagsToResourceRequest": {
+      "type": "object",
+      "required": [
+        "ResourceType",
+        "ResourceId",
+        "Tags"
+      ],
+      "properties": {
+        "ResourceType": {
+          "$ref": "#/definitions/ResourceTypeForTagging",
+          "description": "Specifies the type of resource you are tagging."
+        },
+        "ResourceId": {
+          "$ref": "#/definitions/ResourceId",
+          "description": "The resource ID you want to tag."
+        },
+        "Tags": {
+          "$ref": "#/definitions/TagList",
+          "description": " One or more tags. The value parameter is required, but if you don't want the tag to have a value, specify the parameter with no value, and we set the value to an empty string. "
+        }
+      }
+    },
+    "AddTagsToResourceResult": {
+      "type": "object",
+      "properties": {}
+    },
+    "AssociatedInstances": {
+      "type": "object",
+      "properties": {},
+      "description": "You must disassociate an SSM document from all instances before you can delete it."
+    },
+    "Association": {
+      "type": "object",
+      "properties": {
+        "Name": {
+          "$ref": "#/definitions/DocumentName",
+          "description": "The name of the SSM document."
+        },
+        "InstanceId": {
+          "$ref": "#/definitions/InstanceId",
+          "description": "The ID of the instance."
+        }
+      },
+      "description": "Describes an association of an SSM document and an instance."
+    },
+    "AssociationAlreadyExists": {
+      "type": "object",
+      "properties": {},
+      "description": "The specified association already exists."
+    },
+    "AssociationDescription": {
+      "type": "object",
+      "properties": {
+        "Name": {
+          "$ref": "#/definitions/DocumentName",
+          "description": "The name of the SSM document."
+        },
+        "InstanceId": {
+          "$ref": "#/definitions/InstanceId",
+          "description": "The ID of the instance."
+        },
+        "Date": {
+          "$ref": "#/definitions/DateTime",
+          "description": "The date when the association was made."
+        },
+        "Status": {
+          "$ref": "#/definitions/AssociationStatus",
+          "description": "The association status."
+        },
+        "Parameters": {
+          "$ref": "#/definitions/Parameters",
+          "description": "A description of the parameters for a document. "
+        }
+      },
+      "description": "Describes the parameters for a document."
+    },
+    "AssociationDescriptionList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/AssociationDescription"
+      }
+    },
+    "AssociationDoesNotExist": {
+      "type": "object",
+      "properties": {},
+      "description": "The specified association does not exist."
+    },
+    "AssociationFilter": {
+      "type": "object",
+      "required": [
+        "key",
+        "value"
+      ],
+      "properties": {
+        "key": {
+          "$ref": "#/definitions/AssociationFilterKey",
+          "description": "The name of the filter."
+        },
+        "value": {
+          "$ref": "#/definitions/AssociationFilterValue",
+          "description": "The filter value."
+        }
+      },
+      "description": "Describes a filter."
+    },
+    "AssociationFilterKey": {
+      "type": "string",
+      "enum": [
+        "InstanceId",
+        "Name"
+      ]
+    },
+    "AssociationFilterList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/AssociationFilter"
+      },
+      "minItems": 1
+    },
+    "AssociationFilterValue": {
+      "type": "string",
+      "minLength": 1
+    },
+    "AssociationLimitExceeded": {
+      "type": "object",
+      "properties": {},
+      "description": "You can have at most 2,000 active associations."
+    },
+    "AssociationList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Association"
+      }
+    },
+    "AssociationStatus": {
+      "type": "object",
+      "required": [
+        "Date",
+        "Name",
+        "Message"
+      ],
+      "properties": {
+        "Date": {
+          "$ref": "#/definitions/DateTime",
+          "description": "The date when the status changed."
+        },
+        "Name": {
+          "$ref": "#/definitions/AssociationStatusName",
+          "description": "The status."
+        },
+        "Message": {
+          "$ref": "#/definitions/StatusMessage",
+          "description": "The reason for the status."
+        },
+        "AdditionalInfo": {
+          "$ref": "#/definitions/StatusAdditionalInfo",
+          "description": "A user-defined string."
+        }
+      },
+      "description": "Describes an association status."
+    },
+    "AssociationStatusName": {
+      "type": "string",
+      "enum": [
+        "Pending",
+        "Success",
+        "Failed"
+      ]
+    },
+    "BatchErrorMessage": {
+      "type": "string"
+    },
+    "Boolean": {
+      "type": "boolean"
+    },
+    "CancelCommandRequest": {
+      "type": "object",
+      "required": [
+        "CommandId"
+      ],
+      "properties": {
+        "CommandId": {
+          "$ref": "#/definitions/CommandId",
+          "description": "The ID of the command you want to cancel."
+        },
+        "InstanceIds": {
+          "$ref": "#/definitions/InstanceIdList",
+          "description": "(Optional) A list of instance IDs on which you want to cancel the command. If not provided, the command is canceled on every instance on which it was requested."
+        }
+      },
+      "description": "<p/>"
+    },
+    "CancelCommandResult": {
+      "type": "object",
+      "properties": {},
+      "description": "Whether or not the command was successfully canceled. There is no guarantee that a request can be canceled."
+    },
+    "Command": {
+      "type": "object",
+      "properties": {
+        "CommandId": {
+          "$ref": "#/definitions/CommandId",
+          "description": "A unique identifier for this command."
+        },
+        "DocumentName": {
+          "$ref": "#/definitions/DocumentName",
+          "description": "The name of the SSM document requested for execution."
+        },
+        "Comment": {
+          "$ref": "#/definitions/Comment",
+          "description": "User-specified information about the command, such as a brief description of what the command should do."
+        },
+        "ExpiresAfter": {
+          "$ref": "#/definitions/DateTime",
+          "description": "If this time is reached and the command has not already started executing, it will not execute. Calculated based on the ExpiresAfter user input provided as part of the SendCommand API."
+        },
+        "Parameters": {
+          "$ref": "#/definitions/Parameters",
+          "description": "The parameter values to be inserted in the SSM document when executing the command."
+        },
+        "InstanceIds": {
+          "$ref": "#/definitions/InstanceIdList",
+          "description": "The instance IDs against which this command was requested."
+        },
+        "RequestedDateTime": {
+          "$ref": "#/definitions/DateTime",
+          "description": "The date and time the command was requested."
+        },
+        "Status": {
+          "$ref": "#/definitions/CommandStatus",
+          "description": "The status of the command."
+        },
+        "OutputS3BucketName": {
+          "$ref": "#/definitions/S3BucketName",
+          "description": "The S3 bucket where the responses to the command executions should be stored. This was requested when issuing the command."
+        },
+        "OutputS3KeyPrefix": {
+          "$ref": "#/definitions/S3KeyPrefix",
+          "description": "The S3 directory path inside the bucket where the responses to the command executions should be stored. This was requested when issuing the command."
+        },
+        "ServiceRole": {
+          "$ref": "#/definitions/ServiceRole",
+          "description": "The IAM service role that SSM uses to act on your behalf when sending notifications about command status changes. "
+        },
+        "NotificationConfig": {
+          "$ref": "#/definitions/NotificationConfig",
+          "description": "Configurations for sending notifications about command status changes. "
+        }
+      },
+      "description": "Describes a command request."
+    },
+    "CommandFilter": {
+      "type": "object",
+      "required": [
+        "key",
+        "value"
+      ],
+      "properties": {
+        "key": {
+          "$ref": "#/definitions/CommandFilterKey",
+          "description": "The name of the filter. For example, requested date and time."
+        },
+        "value": {
+          "$ref": "#/definitions/CommandFilterValue",
+          "description": "The filter value. For example: June 30, 2015."
+        }
+      },
+      "description": "Describes a command filter."
+    },
+    "CommandFilterKey": {
+      "type": "string",
+      "enum": [
+        "InvokedAfter",
+        "InvokedBefore",
+        "Status"
+      ]
+    },
+    "CommandFilterList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/CommandFilter"
+      },
+      "minItems": 1,
+      "maxItems": 3
+    },
+    "CommandFilterValue": {
+      "type": "string",
+      "minLength": 1
+    },
+    "CommandId": {
+      "type": "string",
+      "minLength": 36,
+      "maxLength": 36
+    },
+    "CommandInvocation": {
+      "type": "object",
+      "properties": {
+        "CommandId": {
+          "$ref": "#/definitions/CommandId",
+          "description": "The command against which this invocation was requested."
+        },
+        "InstanceId": {
+          "$ref": "#/definitions/InstanceId",
+          "description": "The instance ID in which this invocation was requested."
+        },
+        "Comment": {
+          "$ref": "#/definitions/Comment",
+          "description": "User-specified information about the command, such as a brief description of what the command should do."
+        },
+        "DocumentName": {
+          "$ref": "#/definitions/DocumentName",
+          "description": "The document name that was requested for execution."
+        },
+        "RequestedDateTime": {
+          "$ref": "#/definitions/DateTime",
+          "description": "The time and date the request was sent to this instance."
+        },
+        "Status": {
+          "$ref": "#/definitions/CommandInvocationStatus",
+          "description": "Whether or not the invocation succeeded, failed, or is pending."
+        },
+        "TraceOutput": {
+          "$ref": "#/definitions/InvocationTraceOutput",
+          "description": " Gets the trace output sent by the agent. "
+        },
+        "CommandPlugins": {
+          "$ref": "#/definitions/CommandPluginList"
+        },
+        "ServiceRole": {
+          "$ref": "#/definitions/ServiceRole",
+          "description": "The IAM service role that SSM uses to act on your behalf when sending notifications about command status changes on a per instance basis."
+        },
+        "NotificationConfig": {
+          "$ref": "#/definitions/NotificationConfig",
+          "description": "Configurations for sending notifications about command status changes on a per instance basis."
+        }
+      },
+      "description": "An invocation is copy of a command sent to a specific instance. A command can apply to one or more instances. A command invocation applies to one instance. For example, if a user executes SendCommand against three instances, then a command invocation is created for each requested instance ID. A command invocation returns status and detail information about a command you executed. "
+    },
+    "CommandInvocationList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/CommandInvocation"
+      }
+    },
+    "CommandInvocationStatus": {
+      "type": "string",
+      "enum": [
+        "Pending",
+        "InProgress",
+        "Cancelling",
+        "Success",
+        "TimedOut",
+        "Cancelled",
+        "Failed"
+      ]
+    },
+    "CommandList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Command"
+      }
+    },
+    "CommandMaxResults": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 50
+    },
+    "CommandPlugin": {
+      "type": "object",
+      "properties": {
+        "Name": {
+          "$ref": "#/definitions/CommandPluginName",
+          "description": "The name of the plugin. Must be one of the following: aws:updateAgent, aws:domainjoin, aws:applications, aws:runPowerShellScript, aws:psmodule, aws:cloudWatch, aws:runShellScript, or aws:updateSSMAgent. "
+        },
+        "Status": {
+          "$ref": "#/definitions/CommandPluginStatus",
+          "description": "The status of this plugin. You can execute a document with multiple plugins."
+        },
+        "ResponseCode": {
+          "$ref": "#/definitions/ResponseCode",
+          "description": "A numeric response code generated after executing the plugin. "
+        },
+        "ResponseStartDateTime": {
+          "$ref": "#/definitions/DateTime",
+          "description": "The time the plugin started executing. "
+        },
+        "ResponseFinishDateTime": {
+          "$ref": "#/definitions/DateTime",
+          "description": "The time the plugin stopped executing. Could stop prematurely if, for example, a cancel command was sent. "
+        },
+        "Output": {
+          "$ref": "#/definitions/CommandPluginOutput",
+          "description": "Output of the plugin execution."
+        },
+        "OutputS3BucketName": {
+          "$ref": "#/definitions/S3BucketName",
+          "description": "The S3 bucket where the responses to the command executions should be stored. This was requested when issuing the command."
+        },
+        "OutputS3KeyPrefix": {
+          "$ref": "#/definitions/S3KeyPrefix",
+          "description": "The S3 directory path inside the bucket where the responses to the command executions should be stored. This was requested when issuing the command. "
+        }
+      },
+      "description": "Describes plugin details."
+    },
+    "CommandPluginList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/CommandPlugin"
+      }
+    },
+    "CommandPluginName": {
+      "type": "string",
+      "minLength": 4
+    },
+    "CommandPluginOutput": {
+      "type": "string",
+      "maxLength": 2500
+    },
+    "CommandPluginStatus": {
+      "type": "string",
+      "enum": [
+        "Pending",
+        "InProgress",
+        "Success",
+        "TimedOut",
+        "Cancelled",
+        "Failed"
+      ]
+    },
+    "CommandStatus": {
+      "type": "string",
+      "enum": [
+        "Pending",
+        "InProgress",
+        "Cancelling",
+        "Success",
+        "TimedOut",
+        "Cancelled",
+        "Failed"
+      ]
+    },
+    "Comment": {
+      "type": "string",
+      "maxLength": 100
+    },
+    "ComputerName": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 255
+    },
+    "CreateActivationRequest": {
+      "type": "object",
+      "required": [
+        "IamRole"
+      ],
+      "properties": {
+        "Description": {
+          "$ref": "#/definitions/ActivationDescription",
+          "description": "A user-defined description of the resource that you want to register with Amazon EC2. "
+        },
+        "DefaultInstanceName": {
+          "$ref": "#/definitions/DefaultInstanceName",
+          "description": "The name of the registered, managed instance as it will appear in the Amazon EC2 console or when you use the AWS command line tools to list EC2 resources."
+        },
+        "IamRole": {
+          "$ref": "#/definitions/IamRole",
+          "description": "The Amazon Identity and Access Management (IAM) role that you want to assign to the managed instance. "
+        },
+        "RegistrationLimit": {
+          "$ref": "#/definitions/RegistrationLimit",
+          "description": "Specify the maximum number of managed instances you want to register. The default value is 1 instance."
+        },
+        "ExpirationDate": {
+          "$ref": "#/definitions/ExpirationDate",
+          "description": "The date by which this activation request should expire. The default value is 24 hours."
+        }
+      }
+    },
+    "CreateActivationResult": {
+      "type": "object",
+      "properties": {
+        "ActivationId": {
+          "$ref": "#/definitions/ActivationId",
+          "description": "The ID number generated by the system when it processed the activation. The activation ID functions like a user name."
+        },
+        "ActivationCode": {
+          "$ref": "#/definitions/ActivationCode",
+          "description": "The code the system generates when it processes the activation. The activation code functions like a password to validate the activation ID. "
+        }
+      }
+    },
+    "CreateAssociationBatchRequest": {
+      "type": "object",
+      "required": [
+        "Entries"
+      ],
+      "properties": {
+        "Entries": {
+          "$ref": "#/definitions/CreateAssociationBatchRequestEntries",
+          "description": "One or more associations."
+        }
+      }
+    },
+    "CreateAssociationBatchRequestEntries": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/CreateAssociationBatchRequestEntry"
+      }
+    },
+    "CreateAssociationBatchRequestEntry": {
+      "type": "object",
+      "properties": {
+        "Name": {
+          "$ref": "#/definitions/DocumentName",
+          "description": " The name of the configuration document. "
+        },
+        "InstanceId": {
+          "$ref": "#/definitions/InstanceId",
+          "description": " The ID of the instance. "
+        },
+        "Parameters": {
+          "$ref": "#/definitions/Parameters",
+          "description": "A description of the parameters for a document. "
+        }
+      },
+      "description": " Describes the association of an SSM document and an instance. "
+    },
+    "CreateAssociationBatchResult": {
+      "type": "object",
+      "properties": {
+        "Successful": {
+          "$ref": "#/definitions/AssociationDescriptionList",
+          "description": "Information about the associations that succeeded."
+        },
+        "Failed": {
+          "$ref": "#/definitions/FailedCreateAssociationList",
+          "description": "Information about the associations that failed."
+        }
+      }
+    },
+    "CreateAssociationRequest": {
+      "type": "object",
+      "required": [
+        "Name",
+        "InstanceId"
+      ],
+      "properties": {
+        "Name": {
+          "$ref": "#/definitions/DocumentName",
+          "description": "The name of the SSM document."
+        },
+        "InstanceId": {
+          "$ref": "#/definitions/InstanceId",
+          "description": "The instance ID."
+        },
+        "Parameters": {
+          "$ref": "#/definitions/Parameters",
+          "description": "The parameters for the documents runtime configuration. "
+        }
+      }
+    },
+    "CreateAssociationResult": {
+      "type": "object",
+      "properties": {
+        "AssociationDescription": {
+          "$ref": "#/definitions/AssociationDescription",
+          "description": "Information about the association."
+        }
+      }
+    },
+    "CreateDocumentRequest": {
+      "type": "object",
+      "required": [
+        "Content",
+        "Name"
+      ],
+      "properties": {
+        "Content": {
+          "$ref": "#/definitions/DocumentContent",
+          "description": "A valid JSON string."
+        },
+        "Name": {
+          "$ref": "#/definitions/DocumentName",
+          "description": "A name for the SSM document."
+        }
+      }
+    },
+    "CreateDocumentResult": {
+      "type": "object",
+      "properties": {
+        "DocumentDescription": {
+          "$ref": "#/definitions/DocumentDescription",
+          "description": "Information about the SSM document."
+        }
+      }
+    },
+    "CreatedDate": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "DateTime": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "DefaultInstanceName": {
+      "type": "string",
+      "pattern": "^([\\p{L}\\p{Z}\\p{N}_.:/=+\\-@]*)$",
+      "minLength": 0,
+      "maxLength": 256
+    },
+    "DeleteActivationRequest": {
+      "type": "object",
+      "required": [
+        "ActivationId"
+      ],
+      "properties": {
+        "ActivationId": {
+          "$ref": "#/definitions/ActivationId",
+          "description": "The ID of the activation that you want to delete."
+        }
+      }
+    },
+    "DeleteActivationResult": {
+      "type": "object",
+      "properties": {}
+    },
+    "DeleteAssociationRequest": {
+      "type": "object",
+      "required": [
+        "Name",
+        "InstanceId"
+      ],
+      "properties": {
+        "Name": {
+          "$ref": "#/definitions/DocumentName",
+          "description": "The name of the SSM document."
+        },
+        "InstanceId": {
+          "$ref": "#/definitions/InstanceId",
+          "description": "The ID of the instance."
+        }
+      }
+    },
+    "DeleteAssociationResult": {
+      "type": "object",
+      "properties": {}
+    },
+    "DeleteDocumentRequest": {
+      "type": "object",
+      "required": [
+        "Name"
+      ],
+      "properties": {
+        "Name": {
+          "$ref": "#/definitions/DocumentName",
+          "description": "The name of the SSM document."
+        }
+      }
+    },
+    "DeleteDocumentResult": {
+      "type": "object",
+      "properties": {}
+    },
+    "DeregisterManagedInstanceRequest": {
+      "type": "object",
+      "required": [
+        "InstanceId"
+      ],
+      "properties": {
+        "InstanceId": {
+          "$ref": "#/definitions/ManagedInstanceId",
+          "description": "The ID assigned to the managed instance when you registered it using the activation process. "
+        }
+      }
+    },
+    "DeregisterManagedInstanceResult": {
+      "type": "object",
+      "properties": {}
+    },
+    "DescribeActivationsFilter": {
+      "type": "object",
+      "properties": {
+        "FilterKey": {
+          "$ref": "#/definitions/DescribeActivationsFilterKeys",
+          "description": "The name of the filter."
+        },
+        "FilterValues": {
+          "$ref": "#/definitions/StringList",
+          "description": "The filter values."
+        }
+      },
+      "description": "Filter for the DescribeActivation API."
+    },
+    "DescribeActivationsFilterKeys": {
+      "type": "string",
+      "enum": [
+        "ActivationIds",
+        "DefaultInstanceName",
+        "IamRole"
+      ]
+    },
+    "DescribeActivationsFilterList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/DescribeActivationsFilter"
+      }
+    },
+    "DescribeActivationsRequest": {
+      "type": "object",
+      "properties": {
+        "Filters": {
+          "$ref": "#/definitions/DescribeActivationsFilterList",
+          "description": "A filter to view information about your activations."
+        },
+        "MaxResults": {
+          "$ref": "#/definitions/MaxResults",
+          "description": "The maximum number of items to return for this call. The call also returns a token that you can specify in a subsequent call to get the next set of results."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NextToken",
+          "description": "A token to start the list. Use this token to get the next set of results. "
+        }
+      }
+    },
+    "DescribeActivationsResult": {
+      "type": "object",
+      "properties": {
+        "ActivationList": {
+          "$ref": "#/definitions/ActivationList",
+          "description": "A list of activations for your AWS account."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NextToken",
+          "description": " The token for the next set of items to return. Use this token to get the next set of results. "
+        }
+      }
+    },
+    "DescribeAssociationRequest": {
+      "type": "object",
+      "required": [
+        "Name",
+        "InstanceId"
+      ],
+      "properties": {
+        "Name": {
+          "$ref": "#/definitions/DocumentName",
+          "description": "The name of the SSM document."
+        },
+        "InstanceId": {
+          "$ref": "#/definitions/InstanceId",
+          "description": "The instance ID."
+        }
+      }
+    },
+    "DescribeAssociationResult": {
+      "type": "object",
+      "properties": {
+        "AssociationDescription": {
+          "$ref": "#/definitions/AssociationDescription",
+          "description": "Information about the association."
+        }
+      }
+    },
+    "DescribeDocumentPermissionRequest": {
+      "type": "object",
+      "required": [
+        "Name",
+        "PermissionType"
+      ],
+      "properties": {
+        "Name": {
+          "$ref": "#/definitions/DocumentName",
+          "description": "The name of the document for which you are the owner."
+        },
+        "PermissionType": {
+          "$ref": "#/definitions/DocumentPermissionType",
+          "description": "The permission type for the document. The permission type can be <i>Share</i>."
+        }
+      }
+    },
+    "DescribeDocumentPermissionResponse": {
+      "type": "object",
+      "properties": {
+        "AccountIds": {
+          "$ref": "#/definitions/AccountIdList",
+          "description": "The account IDs that have permission to use this document. The ID can be either an AWS account or <i>All</i>."
+        }
+      }
+    },
+    "DescribeDocumentRequest": {
+      "type": "object",
+      "required": [
+        "Name"
+      ],
+      "properties": {
+        "Name": {
+          "$ref": "#/definitions/DocumentARN",
+          "description": "The name of the SSM document."
+        }
+      }
+    },
+    "DescribeDocumentResult": {
+      "type": "object",
+      "properties": {
+        "Document": {
+          "$ref": "#/definitions/DocumentDescription",
+          "description": "Information about the SSM document."
+        }
+      }
+    },
+    "DescribeInstanceInformationRequest": {
+      "type": "object",
+      "properties": {
+        "InstanceInformationFilterList": {
+          "$ref": "#/definitions/InstanceInformationFilterList",
+          "description": "One or more filters. Use a filter to return a more specific list of instances."
+        },
+        "MaxResults": {
+          "$ref": "#/definitions/MaxResultsEC2Compatible",
+          "description": "The maximum number of items to return for this call. The call also returns a token that you can specify in a subsequent call to get the next set of results. "
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NextToken",
+          "description": "The token for the next set of items to return. (You received this token from a previous call.)"
+        }
+      }
+    },
+    "DescribeInstanceInformationResult": {
+      "type": "object",
+      "properties": {
+        "InstanceInformationList": {
+          "$ref": "#/definitions/InstanceInformationList",
+          "description": "The instance information list."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NextToken",
+          "description": "The token to use when requesting the next set of items. If there are no additional items to return, the string is empty. "
+        }
+      }
+    },
+    "DescriptionInDocument": {
+      "type": "string"
+    },
+    "DocumentARN": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9_\\-.:/]{3,128}$"
+    },
+    "DocumentAlreadyExists": {
+      "type": "object",
+      "properties": {
+        "Message": {
+          "$ref": "#/definitions/String"
+        }
+      },
+      "description": "The specified SSM document already exists."
+    },
+    "DocumentContent": {
+      "type": "string",
+      "minLength": 1
+    },
+    "DocumentDescription": {
+      "type": "object",
+      "properties": {
+        "Sha1": {
+          "$ref": "#/definitions/DocumentSha1",
+          "description": "The SHA1 hash of the document, which you can use for verification purposes."
+        },
+        "Hash": {
+          "$ref": "#/definitions/DocumentHash",
+          "description": "<p>The Sha256 or Sha1 hash created by the system when the document was created. </p> <note> <p>Sha1 hashes have been deprecated.</p> </note>"
+        },
+        "HashType": {
+          "$ref": "#/definitions/DocumentHashType",
+          "description": "<p>Sha256 or Sha1.</p> <note> <p>Sha1 hashes have been deprecated.</p> </note>"
+        },
+        "Name": {
+          "$ref": "#/definitions/DocumentARN",
+          "description": "The name of the SSM document."
+        },
+        "Owner": {
+          "$ref": "#/definitions/DocumentOwner",
+          "description": "The AWS user account of the person who created the document."
+        },
+        "CreatedDate": {
+          "$ref": "#/definitions/DateTime",
+          "description": " The date when the SSM document was created. "
+        },
+        "Status": {
+          "$ref": "#/definitions/DocumentStatus",
+          "description": "The status of the SSM document."
+        },
+        "Description": {
+          "$ref": "#/definitions/DescriptionInDocument",
+          "description": " A description of the document. "
+        },
+        "Parameters": {
+          "$ref": "#/definitions/DocumentParameterList",
+          "description": "A description of the parameters for a document."
+        },
+        "PlatformTypes": {
+          "$ref": "#/definitions/PlatformTypeList",
+          "description": "The list of OS platforms compatible with this SSM document. "
+        }
+      },
+      "description": " Describes an SSM document. "
+    },
+    "DocumentFilter": {
+      "type": "object",
+      "required": [
+        "key",
+        "value"
+      ],
+      "properties": {
+        "key": {
+          "$ref": "#/definitions/DocumentFilterKey",
+          "description": "The name of the filter."
+        },
+        "value": {
+          "$ref": "#/definitions/DocumentFilterValue",
+          "description": "The value of the filter."
+        }
+      },
+      "description": "Describes a filter."
+    },
+    "DocumentFilterKey": {
+      "type": "string",
+      "enum": [
+        "Name",
+        "Owner",
+        "PlatformTypes"
+      ]
+    },
+    "DocumentFilterList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/DocumentFilter"
+      },
+      "minItems": 1
+    },
+    "DocumentFilterValue": {
+      "type": "string",
+      "minLength": 1
+    },
+    "DocumentHash": {
+      "type": "string",
+      "maxLength": 256
+    },
+    "DocumentHashType": {
+      "type": "string",
+      "enum": [
+        "Sha256",
+        "Sha1"
+      ]
+    },
+    "DocumentIdentifier": {
+      "type": "object",
+      "properties": {
+        "Name": {
+          "$ref": "#/definitions/DocumentARN",
+          "description": "The name of the SSM document."
+        },
+        "Owner": {
+          "$ref": "#/definitions/DocumentOwner",
+          "description": "The AWS user account of the person who created the document."
+        },
+        "PlatformTypes": {
+          "$ref": "#/definitions/PlatformTypeList",
+          "description": "The operating system platform. "
+        }
+      },
+      "description": "Describes the name of an SSM document."
+    },
+    "DocumentIdentifierList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/DocumentIdentifier"
+      }
+    },
+    "DocumentLimitExceeded": {
+      "type": "object",
+      "properties": {
+        "Message": {
+          "$ref": "#/definitions/String"
+        }
+      },
+      "description": "You can have at most 200 active SSM documents."
+    },
+    "DocumentName": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9_\\-.]{3,128}$"
+    },
+    "DocumentOwner": {
+      "type": "string"
+    },
+    "DocumentParameter": {
+      "type": "object",
+      "properties": {
+        "Name": {
+          "$ref": "#/definitions/DocumentParameterName",
+          "description": "The name of the parameter."
+        },
+        "Type": {
+          "$ref": "#/definitions/DocumentParameterType",
+          "description": "The type of parameter. The type can be either “String” or “StringList”."
+        },
+        "Description": {
+          "$ref": "#/definitions/DocumentParameterDescrption",
+          "description": "A description of what the parameter does, how to use it, the default value, and whether or not the parameter is optional."
+        },
+        "DefaultValue": {
+          "$ref": "#/definitions/DocumentParameterDefaultValue",
+          "description": "If specified, the default values for the parameters. Parameters without a default value are required. Parameters with a default value are optional."
+        }
+      },
+      "description": "Parameters specified in the SSM document that execute on the server when the command is run. "
+    },
+    "DocumentParameterDefaultValue": {
+      "type": "string"
+    },
+    "DocumentParameterDescrption": {
+      "type": "string"
+    },
+    "DocumentParameterList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/DocumentParameter"
+      }
+    },
+    "DocumentParameterName": {
+      "type": "string"
+    },
+    "DocumentParameterType": {
+      "type": "string",
+      "enum": [
+        "String",
+        "StringList"
+      ]
+    },
+    "DocumentPermissionLimit": {
+      "type": "object",
+      "properties": {
+        "Message": {
+          "$ref": "#/definitions/String"
+        }
+      },
+      "description": "The document cannot be shared with more AWS user accounts. You can share a document with a maximum of 20 accounts. You can publicly share up to five documents. If you need to increase this limit, contact AWS Support."
+    },
+    "DocumentPermissionType": {
+      "type": "string",
+      "enum": [
+        "Share"
+      ]
+    },
+    "DocumentSha1": {
+      "type": "string"
+    },
+    "DocumentStatus": {
+      "type": "string",
+      "enum": [
+        "Creating",
+        "Active",
+        "Deleting"
+      ]
+    },
+    "DuplicateInstanceId": {
+      "type": "object",
+      "properties": {},
+      "description": "You cannot specify an instance ID in more than one association."
+    },
+    "ExpirationDate": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "FailedCreateAssociation": {
+      "type": "object",
+      "properties": {
+        "Entry": {
+          "$ref": "#/definitions/CreateAssociationBatchRequestEntry",
+          "description": "The association."
+        },
+        "Message": {
+          "$ref": "#/definitions/BatchErrorMessage",
+          "description": "A description of the failure."
+        },
+        "Fault": {
+          "$ref": "#/definitions/Fault",
+          "description": "The source of the failure."
+        }
+      },
+      "description": "Describes a failed association."
+    },
+    "FailedCreateAssociationList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/FailedCreateAssociation"
+      }
+    },
+    "Fault": {
+      "type": "string",
+      "enum": [
+        "Client",
+        "Server",
+        "Unknown"
+      ]
+    },
+    "GetDocumentRequest": {
+      "type": "object",
+      "required": [
+        "Name"
+      ],
+      "properties": {
+        "Name": {
+          "$ref": "#/definitions/DocumentARN",
+          "description": "The name of the SSM document."
+        }
+      }
+    },
+    "GetDocumentResult": {
+      "type": "object",
+      "properties": {
+        "Name": {
+          "$ref": "#/definitions/DocumentARN",
+          "description": "The name of the SSM document."
+        },
+        "Content": {
+          "$ref": "#/definitions/DocumentContent",
+          "description": "The contents of the SSM document."
+        }
+      }
+    },
+    "IPAddress": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 46
+    },
+    "IamRole": {
+      "type": "string",
+      "maxLength": 64
+    },
+    "InstanceId": {
+      "type": "string",
+      "pattern": "(^i-(\\w{8}|\\w{17})$)|(^mi-\\w{17}$)"
+    },
+    "InstanceIdList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/InstanceId"
+      },
+      "minItems": 1,
+      "maxItems": 50
+    },
+    "InstanceInformation": {
+      "type": "object",
+      "properties": {
+        "InstanceId": {
+          "$ref": "#/definitions/InstanceId",
+          "description": "The instance ID. "
+        },
+        "PingStatus": {
+          "$ref": "#/definitions/PingStatus",
+          "description": "Connection status of the SSM agent. "
+        },
+        "LastPingDateTime": {
+          "$ref": "#/definitions/DateTime",
+          "description": "The date and time when agent last pinged SSM service. "
+        },
+        "AgentVersion": {
+          "$ref": "#/definitions/Version",
+          "description": "The version of the SSM agent running on your Linux instance. "
+        },
+        "IsLatestVersion": {
+          "$ref": "#/definitions/Boolean",
+          "description": "Indicates whether latest version of the SSM agent is running on your instance. "
+        },
+        "PlatformType": {
+          "$ref": "#/definitions/PlatformType",
+          "description": "The operating system platform type. "
+        },
+        "PlatformName": {
+          "$ref": "#/definitions/String",
+          "description": "The name of the operating system platform running on your instance. "
+        },
+        "PlatformVersion": {
+          "$ref": "#/definitions/String",
+          "description": "The version of the OS platform running on your instance. "
+        },
+        "ActivationId": {
+          "$ref": "#/definitions/ActivationId",
+          "description": "The activation ID created by SSM when the server or VM was registered."
+        },
+        "IamRole": {
+          "$ref": "#/definitions/IamRole",
+          "description": "The Amazon Identity and Access Management (IAM) role assigned to EC2 instances or managed instances. "
+        },
+        "RegistrationDate": {
+          "$ref": "#/definitions/DateTime",
+          "description": "The date the server or VM was registered with AWS as a managed instance."
+        },
+        "ResourceType": {
+          "$ref": "#/definitions/ResourceType",
+          "description": "The type of instance. Instances are either EC2 instances or managed instances. "
+        },
+        "Name": {
+          "$ref": "#/definitions/String",
+          "description": "The name of the managed instance."
+        },
+        "IPAddress": {
+          "$ref": "#/definitions/IPAddress",
+          "description": "The IP address of the managed instance."
+        },
+        "ComputerName": {
+          "$ref": "#/definitions/ComputerName",
+          "description": "The fully qualified host name of the managed instance."
+        }
+      },
+      "description": "Describes a filter for a specific list of instances. "
+    },
+    "InstanceInformationFilter": {
+      "type": "object",
+      "required": [
+        "key",
+        "valueSet"
+      ],
+      "properties": {
+        "key": {
+          "$ref": "#/definitions/InstanceInformationFilterKey",
+          "description": "The name of the filter. "
+        },
+        "valueSet": {
+          "$ref": "#/definitions/InstanceInformationFilterValueSet",
+          "description": "The filter values. "
+        }
+      },
+      "description": "Describes a filter for a specific list of instances. "
+    },
+    "InstanceInformationFilterKey": {
+      "type": "string",
+      "enum": [
+        "InstanceIds",
+        "AgentVersion",
+        "PingStatus",
+        "PlatformTypes",
+        "ActivationIds",
+        "IamRole",
+        "ResourceType"
+      ]
+    },
+    "InstanceInformationFilterList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/InstanceInformationFilter"
+      },
+      "minItems": 1
+    },
+    "InstanceInformationFilterValue": {
+      "type": "string",
+      "minLength": 1
+    },
+    "InstanceInformationFilterValueSet": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/InstanceInformationFilterValue"
+      },
+      "minItems": 1,
+      "maxItems": 100
+    },
+    "InstanceInformationList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/InstanceInformation"
+      }
+    },
+    "InternalServerError": {
+      "type": "object",
+      "properties": {
+        "Message": {
+          "$ref": "#/definitions/String"
+        }
+      },
+      "description": "An error occurred on the server side."
+    },
+    "InvalidActivation": {
+      "type": "object",
+      "properties": {
+        "Message": {
+          "$ref": "#/definitions/String"
+        }
+      },
+      "description": "The activation is not valid. The activation might have been deleted, or the ActivationId and the ActivationCode do not match."
+    },
+    "InvalidActivationId": {
+      "type": "object",
+      "properties": {
+        "Message": {
+          "$ref": "#/definitions/String"
+        }
+      },
+      "description": "The activation ID is not valid. Verify the you entered the correct ActivationId or ActivationCode and try again."
+    },
+    "InvalidCommandId": {
+      "type": "object",
+      "properties": {}
+    },
+    "InvalidDocument": {
+      "type": "object",
+      "properties": {
+        "Message": {
+          "$ref": "#/definitions/String",
+          "description": "The SSM document does not exist or the document is not available to the user. This exception can be issued by CreateAssociation, CreateAssociationBatch, DeleteAssociation, DeleteDocument, DescribeAssociation, DescribeDocument, GetDocument, SendCommand, or UpdateAssociationStatus. "
+        }
+      },
+      "description": "The specified document does not exist."
+    },
+    "InvalidDocumentContent": {
+      "type": "object",
+      "properties": {
+        "Message": {
+          "$ref": "#/definitions/String",
+          "description": "A description of the validation error."
+        }
+      },
+      "description": "The content for the SSM document is not valid."
+    },
+    "InvalidDocumentOperation": {
+      "type": "object",
+      "properties": {
+        "Message": {
+          "$ref": "#/definitions/String"
+        }
+      },
+      "description": "You attempted to delete a document while it is still shared. You must stop sharing the document before you can delete it."
+    },
+    "InvalidFilter": {
+      "type": "object",
+      "properties": {
+        "Message": {
+          "$ref": "#/definitions/String"
+        }
+      },
+      "description": "The filter name is not valid. Verify the you entered the correct name and try again."
+    },
+    "InvalidFilterKey": {
+      "type": "object",
+      "properties": {},
+      "description": "The specified key is not valid."
+    },
+    "InvalidInstanceId": {
+      "type": "object",
+      "properties": {
+        "Message": {
+          "$ref": "#/definitions/String"
+        }
+      },
+      "description": "The instance is not in valid state. Valid states are: Running, Pending, Stopped, Stopping. Invalid states are: Shutting-down and Terminated. "
+    },
+    "InvalidInstanceInformationFilterValue": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "$ref": "#/definitions/String"
+        }
+      },
+      "description": "The specified filter value is not valid."
+    },
+    "InvalidNextToken": {
+      "type": "object",
+      "properties": {},
+      "description": "The specified token is not valid."
+    },
+    "InvalidNotificationConfig": {
+      "type": "object",
+      "properties": {
+        "Message": {
+          "$ref": "#/definitions/String"
+        }
+      },
+      "description": "One or more configuration items is not valid. Verify that a valid Amazon Resource Name (ARN) was provided for an Amazon SNS topic."
+    },
+    "InvalidOutputFolder": {
+      "type": "object",
+      "properties": {},
+      "description": "The S3 bucket does not exist."
+    },
+    "InvalidParameters": {
+      "type": "object",
+      "properties": {
+        "Message": {
+          "$ref": "#/definitions/String"
+        }
+      },
+      "description": "You must specify values for all required parameters in the SSM document. You can only supply values to parameters defined in the SSM document."
+    },
+    "InvalidPermissionType": {
+      "type": "object",
+      "properties": {
+        "Message": {
+          "$ref": "#/definitions/String"
+        }
+      },
+      "description": "The permission type is not supported. <i>Share</i> is the only supported permission type."
+    },
+    "InvalidResourceId": {
+      "type": "object",
+      "properties": {},
+      "description": "The resource ID is not valid. Verify that you entered the correct ID and try again."
+    },
+    "InvalidResourceType": {
+      "type": "object",
+      "properties": {},
+      "description": "The resource type is not valid. If you are attempting to tag an instance, the instance must be a registered, managed instance."
+    },
+    "InvalidRole": {
+      "type": "object",
+      "properties": {
+        "Message": {
+          "$ref": "#/definitions/String"
+        }
+      },
+      "description": "The role name can't contain invalid characters. Also verify that you specified an IAM role for notifications that includes the required trust policy. For information about configuring the IAM role for SSM notifications, see <a href=\"http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/rc-sns.html\">Configuring SNS Notifications SSM</a> in the <i>Amazon Elastic Compute Cloud User Guide </i>."
+    },
+    "InvocationTraceOutput": {
+      "type": "string",
+      "maxLength": 2500
+    },
+    "KeyList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/TagKey"
+      }
+    },
+    "ListAssociationsRequest": {
+      "type": "object",
+      "required": [
+        "AssociationFilterList"
+      ],
+      "properties": {
+        "AssociationFilterList": {
+          "$ref": "#/definitions/AssociationFilterList",
+          "description": "One or more filters. Use a filter to return a more specific list of results."
+        },
+        "MaxResults": {
+          "$ref": "#/definitions/MaxResults",
+          "description": "The maximum number of items to return for this call. The call also returns a token that you can specify in a subsequent call to get the next set of results."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NextToken",
+          "description": "The token for the next set of items to return. (You received this token from a previous call.)"
+        }
+      }
+    },
+    "ListAssociationsResult": {
+      "type": "object",
+      "properties": {
+        "Associations": {
+          "$ref": "#/definitions/AssociationList",
+          "description": "The associations."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NextToken",
+          "description": "The token to use when requesting the next set of items. If there are no additional items to return, the string is empty."
+        }
+      }
+    },
+    "ListCommandInvocationsRequest": {
+      "type": "object",
+      "properties": {
+        "CommandId": {
+          "$ref": "#/definitions/CommandId",
+          "description": "(Optional) The invocations for a specific command ID."
+        },
+        "InstanceId": {
+          "$ref": "#/definitions/InstanceId",
+          "description": "(Optional) The command execution details for a specific instance ID."
+        },
+        "MaxResults": {
+          "$ref": "#/definitions/CommandMaxResults",
+          "description": "(Optional) The maximum number of items to return for this call. The call also returns a token that you can specify in a subsequent call to get the next set of results."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NextToken",
+          "description": "(Optional) The token for the next set of items to return. (You received this token from a previous call.)"
+        },
+        "Filters": {
+          "$ref": "#/definitions/CommandFilterList",
+          "description": "(Optional) One or more filters. Use a filter to return a more specific list of results."
+        },
+        "Details": {
+          "$ref": "#/definitions/Boolean",
+          "description": "(Optional) If set this returns the response of the command executions and any command output. By default this is set to False. "
+        }
+      }
+    },
+    "ListCommandInvocationsResult": {
+      "type": "object",
+      "properties": {
+        "CommandInvocations": {
+          "$ref": "#/definitions/CommandInvocationList",
+          "description": "(Optional) A list of all invocations. "
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NextToken",
+          "description": "(Optional) The token for the next set of items to return. (You received this token from a previous call.)"
+        }
+      }
+    },
+    "ListCommandsRequest": {
+      "type": "object",
+      "properties": {
+        "CommandId": {
+          "$ref": "#/definitions/CommandId",
+          "description": "(Optional) If provided, lists only the specified command."
+        },
+        "InstanceId": {
+          "$ref": "#/definitions/InstanceId",
+          "description": "(Optional) Lists commands issued against this instance ID."
+        },
+        "MaxResults": {
+          "$ref": "#/definitions/CommandMaxResults",
+          "description": "(Optional) The maximum number of items to return for this call. The call also returns a token that you can specify in a subsequent call to get the next set of results."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NextToken",
+          "description": "(Optional) The token for the next set of items to return. (You received this token from a previous call.)"
+        },
+        "Filters": {
+          "$ref": "#/definitions/CommandFilterList",
+          "description": "(Optional) One or more filters. Use a filter to return a more specific list of results. "
+        }
+      }
+    },
+    "ListCommandsResult": {
+      "type": "object",
+      "properties": {
+        "Commands": {
+          "$ref": "#/definitions/CommandList",
+          "description": "(Optional) The list of commands requested by the user. "
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NextToken",
+          "description": "(Optional) The token for the next set of items to return. (You received this token from a previous call.)"
+        }
+      }
+    },
+    "ListDocumentsRequest": {
+      "type": "object",
+      "properties": {
+        "DocumentFilterList": {
+          "$ref": "#/definitions/DocumentFilterList",
+          "description": "One or more filters. Use a filter to return a more specific list of results."
+        },
+        "MaxResults": {
+          "$ref": "#/definitions/MaxResults",
+          "description": "The maximum number of items to return for this call. The call also returns a token that you can specify in a subsequent call to get the next set of results."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NextToken",
+          "description": "The token for the next set of items to return. (You received this token from a previous call.)"
+        }
+      }
+    },
+    "ListDocumentsResult": {
+      "type": "object",
+      "properties": {
+        "DocumentIdentifiers": {
+          "$ref": "#/definitions/DocumentIdentifierList",
+          "description": "The names of the SSM documents."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NextToken",
+          "description": "The token to use when requesting the next set of items. If there are no additional items to return, the string is empty."
+        }
+      }
+    },
+    "ListTagsForResourceRequest": {
+      "type": "object",
+      "required": [
+        "ResourceType",
+        "ResourceId"
+      ],
+      "properties": {
+        "ResourceType": {
+          "$ref": "#/definitions/ResourceTypeForTagging",
+          "description": "Returns a list of tags for a specific resource type."
+        },
+        "ResourceId": {
+          "$ref": "#/definitions/ResourceId",
+          "description": "The resource ID for which you want to see a list of tags."
+        }
+      }
+    },
+    "ListTagsForResourceResult": {
+      "type": "object",
+      "properties": {
+        "TagList": {
+          "$ref": "#/definitions/TagList",
+          "description": "A list of tags."
+        }
+      }
+    },
+    "ManagedInstanceId": {
+      "type": "string",
+      "pattern": "^mi-[0-9a-f]{17}$"
+    },
+    "MaxDocumentSizeExceeded": {
+      "type": "object",
+      "properties": {
+        "Message": {
+          "$ref": "#/definitions/String"
+        }
+      },
+      "description": "The size limit of an SSM document is 64 KB."
+    },
+    "MaxResults": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 50
+    },
+    "MaxResultsEC2Compatible": {
+      "type": "integer",
+      "minimum": 5,
+      "maximum": 50
+    },
+    "ModifyDocumentPermissionRequest": {
+      "type": "object",
+      "required": [
+        "Name",
+        "PermissionType"
+      ],
+      "properties": {
+        "Name": {
+          "$ref": "#/definitions/DocumentName",
+          "description": "The name of the document that you want to share."
+        },
+        "PermissionType": {
+          "$ref": "#/definitions/DocumentPermissionType",
+          "description": "The permission type for the document. The permission type can be <i>Share</i>."
+        },
+        "AccountIdsToAdd": {
+          "$ref": "#/definitions/AccountIdList",
+          "description": "The AWS user accounts that should have access to the document. The account IDs can either be a group of account IDs or <i>All</i>."
+        },
+        "AccountIdsToRemove": {
+          "$ref": "#/definitions/AccountIdList",
+          "description": "The AWS user accounts that should no longer have access to the document. The AWS user account can either be a group of account IDs or <i>All</i>. This action has a higher priority than <i>AccountIdsToAdd</i>. If you specify an account ID to add and the same ID to remove, the system removes access to the document."
+        }
+      }
+    },
+    "ModifyDocumentPermissionResponse": {
+      "type": "object",
+      "properties": {}
+    },
+    "NextToken": {
+      "type": "string"
+    },
+    "NotificationArn": {
+      "type": "string"
+    },
+    "NotificationConfig": {
+      "type": "object",
+      "properties": {
+        "NotificationArn": {
+          "$ref": "#/definitions/NotificationArn",
+          "description": "An Amazon Resource Name (ARN) for a Simple Notification Service (SNS) topic. SSM pushes notifications about command status changes to this topic."
+        },
+        "NotificationEvents": {
+          "$ref": "#/definitions/NotificationEventList",
+          "description": "The different events for which you can receive notifications. These events include the following: All (events), InProgress, Success, TimedOut, Cancelled, Failed. To learn more about these events, see <a href=\"http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/monitor-commands.html\">Monitoring Commands</a> in the <i>Amazon Elastic Compute Cloud User Guide </i>."
+        },
+        "NotificationType": {
+          "$ref": "#/definitions/NotificationType",
+          "description": "Command: Receive notification when the status of a command changes. Invocation: For commands sent to multiple instances, receive notification on a per-instance basis when the status of a command changes. "
+        }
+      },
+      "description": "Configurations for sending notifications."
+    },
+    "NotificationEvent": {
+      "type": "string",
+      "enum": [
+        "All",
+        "InProgress",
+        "Success",
+        "TimedOut",
+        "Cancelled",
+        "Failed"
+      ]
+    },
+    "NotificationEventList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/NotificationEvent"
+      }
+    },
+    "NotificationType": {
+      "type": "string",
+      "enum": [
+        "Command",
+        "Invocation"
+      ]
+    },
+    "ParameterName": {
+      "type": "string"
+    },
+    "ParameterValue": {
+      "type": "string"
+    },
+    "ParameterValueList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ParameterValue"
+      }
+    },
+    "Parameters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "$ref": "#/definitions/ParameterName"
+          },
+          "value": {
+            "$ref": "#/definitions/ParameterValueList"
+          }
+        }
+      }
+    },
+    "PingStatus": {
+      "type": "string",
+      "enum": [
+        "Online",
+        "ConnectionLost",
+        "Inactive"
+      ]
+    },
+    "PlatformType": {
+      "type": "string",
+      "enum": [
+        "Windows",
+        "Linux"
+      ]
+    },
+    "PlatformTypeList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/PlatformType"
+      }
+    },
+    "RegistrationLimit": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 1000
+    },
+    "RegistrationsCount": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 1000
+    },
+    "RemoveTagsFromResourceRequest": {
+      "type": "object",
+      "required": [
+        "ResourceType",
+        "ResourceId",
+        "TagKeys"
+      ],
+      "properties": {
+        "ResourceType": {
+          "$ref": "#/definitions/ResourceTypeForTagging",
+          "description": "The type of resource of which you want to remove a tag."
+        },
+        "ResourceId": {
+          "$ref": "#/definitions/ResourceId",
+          "description": "The resource ID for which you want to remove tags."
+        },
+        "TagKeys": {
+          "$ref": "#/definitions/KeyList",
+          "description": "Tag keys that you want to remove from the specified resource."
+        }
+      }
+    },
+    "RemoveTagsFromResourceResult": {
+      "type": "object",
+      "properties": {}
+    },
+    "ResourceId": {
+      "type": "string",
+      "pattern": "^mi-[0-9a-f]{17}$"
+    },
+    "ResourceType": {
+      "type": "string",
+      "enum": [
+        "ManagedInstance",
+        "Document",
+        "EC2Instance"
+      ]
+    },
+    "ResourceTypeForTagging": {
+      "type": "string",
+      "enum": [
+        "ManagedInstance"
+      ]
+    },
+    "ResponseCode": {
+      "type": "integer"
+    },
+    "S3BucketName": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 63
+    },
+    "S3KeyPrefix": {
+      "type": "string",
+      "maxLength": 500
+    },
+    "SendCommandRequest": {
+      "type": "object",
+      "required": [
+        "InstanceIds",
+        "DocumentName"
+      ],
+      "properties": {
+        "InstanceIds": {
+          "$ref": "#/definitions/InstanceIdList",
+          "description": "Required. The instance IDs where the command should execute. You can specify a maximum of 50 IDs."
+        },
+        "DocumentName": {
+          "$ref": "#/definitions/DocumentARN",
+          "description": "Required. The name of the SSM document to execute. This can be an SSM public document or a custom document."
+        },
+        "DocumentHash": {
+          "$ref": "#/definitions/DocumentHash",
+          "description": "<p>The Sha256 or Sha1 hash created by the system when the document was created. </p> <note> <p>Sha1 hashes have been deprecated.</p> </note>"
+        },
+        "DocumentHashType": {
+          "$ref": "#/definitions/DocumentHashType",
+          "description": "<p>Sha256 or Sha1.</p> <note> <p>Sha1 hashes have been deprecated.</p> </note>"
+        },
+        "TimeoutSeconds": {
+          "$ref": "#/definitions/TimeoutSeconds",
+          "description": "If this time is reached and the command has not already started executing, it will not execute."
+        },
+        "Comment": {
+          "$ref": "#/definitions/Comment",
+          "description": "User-specified information about the command, such as a brief description of what the command should do."
+        },
+        "Parameters": {
+          "$ref": "#/definitions/Parameters",
+          "description": "The required and optional parameters specified in the SSM document being executed."
+        },
+        "OutputS3BucketName": {
+          "$ref": "#/definitions/S3BucketName",
+          "description": "The name of the S3 bucket where command execution responses should be stored."
+        },
+        "OutputS3KeyPrefix": {
+          "$ref": "#/definitions/S3KeyPrefix",
+          "description": "The directory structure within the S3 bucket where the responses should be stored."
+        },
+        "ServiceRoleArn": {
+          "$ref": "#/definitions/ServiceRole",
+          "description": "The IAM role that SSM uses to send notifications. "
+        },
+        "NotificationConfig": {
+          "$ref": "#/definitions/NotificationConfig",
+          "description": "Configurations for sending notifications."
+        }
+      }
+    },
+    "SendCommandResult": {
+      "type": "object",
+      "properties": {
+        "Command": {
+          "$ref": "#/definitions/Command",
+          "description": "The request as it was received by SSM. Also provides the command ID which can be used future references to this request."
+        }
+      }
+    },
+    "ServiceRole": {
+      "type": "string"
+    },
+    "StatusAdditionalInfo": {
+      "type": "string",
+      "maxLength": 1024
+    },
+    "StatusMessage": {
+      "type": "string",
+      "maxLength": 1024
+    },
+    "StatusUnchanged": {
+      "type": "object",
+      "properties": {},
+      "description": "The updated status is the same as the current status."
+    },
+    "String": {
+      "type": "string"
+    },
+    "StringList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/String"
+      }
+    },
+    "Tag": {
+      "type": "object",
+      "required": [
+        "Key",
+        "Value"
+      ],
+      "properties": {
+        "Key": {
+          "$ref": "#/definitions/TagKey",
+          "description": "The name of the tag."
+        },
+        "Value": {
+          "$ref": "#/definitions/TagValue",
+          "description": "The value of the tag."
+        }
+      },
+      "description": " Metadata that you assign to your managed instances. Tags enable you to categorize your managed instances in different ways, for example, by purpose, owner, or environment."
+    },
+    "TagKey": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "x-pattern": "^(?!^(?i)aws:)(?=^[\\p{L}\\p{Z}\\p{N}_.:/=+\\-@]*$).*$"
+    },
+    "TagList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Tag"
+      }
+    },
+    "TagValue": {
+      "type": "string",
+      "pattern": "^([\\p{L}\\p{Z}\\p{N}_.:/=+\\-@]*)$",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "TimeoutSeconds": {
+      "type": "integer",
+      "minimum": 30,
+      "maximum": 2592000
+    },
+    "TooManyUpdates": {
+      "type": "object",
+      "properties": {},
+      "description": "There are concurrent updates for a resource that supports one update at a time."
+    },
+    "UnsupportedPlatformType": {
+      "type": "object",
+      "properties": {
+        "Message": {
+          "$ref": "#/definitions/String"
+        }
+      },
+      "description": "The document does not support the platform type of the given instance ID(s). For example, you sent an SSM document for a Windows instance to a Linux instance."
+    },
+    "UpdateAssociationStatusRequest": {
+      "type": "object",
+      "required": [
+        "Name",
+        "InstanceId",
+        "AssociationStatus"
+      ],
+      "properties": {
+        "Name": {
+          "$ref": "#/definitions/DocumentName",
+          "description": "The name of the SSM document."
+        },
+        "InstanceId": {
+          "$ref": "#/definitions/InstanceId",
+          "description": "The ID of the instance."
+        },
+        "AssociationStatus": {
+          "$ref": "#/definitions/AssociationStatus",
+          "description": "The association status."
+        }
+      }
+    },
+    "UpdateAssociationStatusResult": {
+      "type": "object",
+      "properties": {
+        "AssociationDescription": {
+          "$ref": "#/definitions/AssociationDescription",
+          "description": "Information about the association."
+        }
+      }
+    },
+    "UpdateManagedInstanceRoleRequest": {
+      "type": "object",
+      "required": [
+        "InstanceId",
+        "IamRole"
+      ],
+      "properties": {
+        "InstanceId": {
+          "$ref": "#/definitions/ManagedInstanceId",
+          "description": "The ID of the managed instance where you want to update the role."
+        },
+        "IamRole": {
+          "$ref": "#/definitions/IamRole",
+          "description": "The IAM role you want to assign or change."
+        }
+      }
+    },
+    "UpdateManagedInstanceRoleResult": {
+      "type": "object",
+      "properties": {}
+    },
+    "Version": {
+      "type": "string",
+      "pattern": "^[0-9]{1,6}(\\.[0-9]{1,6}){2,3}$"
+    }
+  }
+}

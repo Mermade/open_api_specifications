@@ -1,0 +1,675 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "2015-12-08",
+    "x-release": "v4",
+    "title": "AWS Certificate Manager",
+    "description": "<fullname>AWS Certificate Manager</fullname> <p>Welcome to the AWS Certificate Manager (ACM) Command Reference. This guide provides descriptions, syntax, and usage examples for each ACM command. You can use AWS Certificate Manager to request ACM Certificates for your AWS-based websites and applications. For general information about using ACM and for more information about using the console, see the <a href=\"http://docs.aws.amazon.com/acm/latest/userguide/acm-overview.html\">AWS Certificate Manager User Guide</a>. For more information about using the ACM API, see the <a href=\"http://docs.aws.amazon.com/acm/latest/APIReference/Welcome.html\">AWS Certificate Manager API Reference</a>.</p>",
+    "termsOfService": "https://aws.amazon.com/service-terms/",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/aws2openapi"
+    },
+    "license": {
+      "name": "Apache 2.0 License",
+      "url": "http://www.apache.org/licenses/"
+    }
+  },
+  "x-logo": {
+    "url": "https://media.amazonwebservices.com/blog/2007/big_pbaws_logo_300px.jpg",
+    "backgroundColor": "#FFFFFF"
+  },
+  "externalDocs": {
+    "description": "Amazon Web Services documentation",
+    "url": "https://aws.amazon.com/acm/"
+  },
+  "host": "acm.us-east-1.amazonaws.com",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/": {
+      "post": {
+        "operationId": "ResendValidationEmail",
+        "description": "Resends the email that requests domain ownership validation. The domain owner or an authorized representative must approve the ACM Certificate before it can be issued. The certificate can be approved by clicking a link in the mail to navigate to the Amazon certificate approval website and then clicking <b>I Approve</b>. However, the validation email can be blocked by spam filters. Therefore, if you do not receive the original mail, you can request that the mail be resent within 72 hours of requesting the ACM Certificate. If more than 72 hours have elapsed since your original request or since your last attempt to resend validation mail, you must request a new certificate.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {}
+          },
+          "400": {
+            "description": "ResourceNotFoundException",
+            "schema": {
+              "$ref": "#/definitions/ResourceNotFoundException"
+            }
+          },
+          "401": {
+            "description": "InvalidStateException",
+            "schema": {
+              "$ref": "#/definitions/InvalidStateException"
+            }
+          },
+          "402": {
+            "description": "InvalidArnException",
+            "schema": {
+              "$ref": "#/definitions/InvalidArnException"
+            }
+          },
+          "403": {
+            "description": "InvalidDomainValidationOptionsException",
+            "schema": {
+              "$ref": "#/definitions/InvalidDomainValidationOptionsException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ResendValidationEmailRequest"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "AddTagsToCertificateRequest": {
+      "type": "object",
+      "required": [
+        "CertificateArn",
+        "Tags"
+      ],
+      "properties": {
+        "CertificateArn": {
+          "$ref": "#/definitions/Arn",
+          "description": "<p>String that contains the ARN of the ACM Certificate to which the tag is to be applied. This must be of the form:</p> <p> <code>arn:aws:acm:region:123456789012:certificate/12345678-1234-1234-1234-123456789012</code> </p> <p>For more information about ARNs, see <a href=\"http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs) and AWS Service Namespaces</a>.</p>"
+        },
+        "Tags": {
+          "$ref": "#/definitions/TagList",
+          "description": "The key-value pair that defines the tag. The tag value is optional."
+        }
+      }
+    },
+    "Arn": {
+      "type": "string",
+      "pattern": "arn:[\\w+=/,.@-]+:[\\w+=/,.@-]+:[\\w+=/,.@-]*:[0-9]+:[\\w+=,.@-]+(/[\\w+=/,.@-]+)*",
+      "minLength": 20,
+      "maxLength": 2048
+    },
+    "CertificateBody": {
+      "type": "string",
+      "pattern": "-{5}BEGIN CERTIFICATE-{5}\\u000D?\\u000A([A-Za-z0-9/+]{64}\\u000D?\\u000A)*[A-Za-z0-9/+]{1,64}={0,2}\\u000D?\\u000A-{5}END CERTIFICATE-{5}(\\u000D?\\u000A)?",
+      "minLength": 1,
+      "maxLength": 524288
+    },
+    "CertificateChain": {
+      "type": "string",
+      "pattern": "(-{5}BEGIN CERTIFICATE-{5}\\u000D?\\u000A([A-Za-z0-9/+]{64}\\u000D?\\u000A)*[A-Za-z0-9/+]{1,64}={0,2}\\u000D?\\u000A-{5}END CERTIFICATE-{5}\\u000D?\\u000A)*-{5}BEGIN CERTIFICATE-{5}\\u000D?\\u000A([A-Za-z0-9/+]{64}\\u000D?\\u000A)*[A-Za-z0-9/+]{1,64}={0,2}\\u000D?\\u000A-{5}END CERTIFICATE-{5}(\\u000D?\\u000A)?",
+      "minLength": 1,
+      "maxLength": 2097152
+    },
+    "CertificateDetail": {
+      "type": "object",
+      "properties": {
+        "CertificateArn": {
+          "$ref": "#/definitions/Arn",
+          "description": "The Amazon Resource Name (ARN) of the certificate. For more information about ARNs, see <a href=\"http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs) and AWS Service Namespaces</a>."
+        },
+        "DomainName": {
+          "$ref": "#/definitions/DomainNameString",
+          "description": "The fully qualified domain name (FQDN) for the certificate, such as www.example.com or example.com."
+        },
+        "SubjectAlternativeNames": {
+          "$ref": "#/definitions/DomainList",
+          "description": "One or more domain names (subject alternative names) included in the certificate request. After the certificate is issued, this list includes the domain names bound to the public key contained in the certificate. The subject alternative names include the canonical domain name (CN) of the certificate and additional domain names that can be used to connect to the website."
+        },
+        "DomainValidationOptions": {
+          "$ref": "#/definitions/DomainValidationList",
+          "description": "Contains information about the email address or addresses used for domain validation."
+        },
+        "Serial": {
+          "$ref": "#/definitions/String",
+          "description": "The serial number of the certificate."
+        },
+        "Subject": {
+          "$ref": "#/definitions/String",
+          "description": "The X.500 distinguished name of the entity associated with the public key contained in the certificate."
+        },
+        "Issuer": {
+          "$ref": "#/definitions/String",
+          "description": "The X.500 distinguished name of the CA that issued and signed the certificate."
+        },
+        "CreatedAt": {
+          "$ref": "#/definitions/TStamp",
+          "description": "The time at which the certificate was requested."
+        },
+        "IssuedAt": {
+          "$ref": "#/definitions/TStamp",
+          "description": "The time at which the certificate was issued."
+        },
+        "Status": {
+          "$ref": "#/definitions/CertificateStatus",
+          "description": "The status of the certificate."
+        },
+        "RevokedAt": {
+          "$ref": "#/definitions/TStamp",
+          "description": "The time at which the certificate was revoked. This value exists only when the certificate status is <code>REVOKED</code>."
+        },
+        "RevocationReason": {
+          "$ref": "#/definitions/RevocationReason",
+          "description": "The reason the certificate was revoked. This value exists only when the certificate status is <code>REVOKED</code>."
+        },
+        "NotBefore": {
+          "$ref": "#/definitions/TStamp",
+          "description": "The time before which the certificate is not valid."
+        },
+        "NotAfter": {
+          "$ref": "#/definitions/TStamp",
+          "description": "The time after which the certificate is not valid."
+        },
+        "KeyAlgorithm": {
+          "$ref": "#/definitions/KeyAlgorithm",
+          "description": "The algorithm used to generate the key pair (the public and private key). Currently the only supported value is <code>RSA_2048</code>."
+        },
+        "SignatureAlgorithm": {
+          "$ref": "#/definitions/String",
+          "description": "The algorithm used to generate a signature. Currently the only supported value is <code>SHA256WITHRSA</code>."
+        },
+        "InUseBy": {
+          "$ref": "#/definitions/InUseList",
+          "description": "A list of ARNs for the resources that are using the certificate. An ACM Certificate can be used by multiple AWS resources."
+        },
+        "FailureReason": {
+          "$ref": "#/definitions/FailureReason",
+          "description": "The reason the certificate request failed. This value exists only when the structure's <code>Status</code> is <code>FAILED</code>. For more information, see <a href=\"http://docs.aws.amazon.com/acm/latest/userguide/troubleshooting.html#troubleshooting-failed\">Certificate Request Failed</a> in the <i>AWS Certificate Manager User Guide</i>."
+        }
+      },
+      "description": "Contains detailed metadata about an ACM Certificate. This structure is returned in the response to a <a>DescribeCertificate</a> request."
+    },
+    "CertificateStatus": {
+      "type": "string",
+      "enum": [
+        "PENDING_VALIDATION",
+        "ISSUED",
+        "INACTIVE",
+        "EXPIRED",
+        "VALIDATION_TIMED_OUT",
+        "REVOKED",
+        "FAILED"
+      ]
+    },
+    "CertificateStatuses": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/CertificateStatus"
+      }
+    },
+    "CertificateSummary": {
+      "type": "object",
+      "properties": {
+        "CertificateArn": {
+          "$ref": "#/definitions/Arn",
+          "description": "<p>Amazon Resource Name (ARN) of the certificate. This is of the form:</p> <p> <code>arn:aws:acm:region:123456789012:certificate/12345678-1234-1234-1234-123456789012</code> </p> <p>For more information about ARNs, see <a href=\"http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs) and AWS Service Namespaces</a>.</p>"
+        },
+        "DomainName": {
+          "$ref": "#/definitions/DomainNameString",
+          "description": "Fully qualified domain name (FQDN), such as www.example.com or example.com, for the certificate."
+        }
+      },
+      "description": "This structure is returned in the response object of <a>ListCertificates</a> action."
+    },
+    "CertificateSummaryList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/CertificateSummary"
+      }
+    },
+    "DeleteCertificateRequest": {
+      "type": "object",
+      "required": [
+        "CertificateArn"
+      ],
+      "properties": {
+        "CertificateArn": {
+          "$ref": "#/definitions/Arn",
+          "description": "<p>String that contains the ARN of the ACM Certificate to be deleted. This must be of the form:</p> <p> <code>arn:aws:acm:region:123456789012:certificate/12345678-1234-1234-1234-123456789012</code> </p> <p>For more information about ARNs, see <a href=\"http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs) and AWS Service Namespaces</a>.</p>"
+        }
+      }
+    },
+    "DescribeCertificateRequest": {
+      "type": "object",
+      "required": [
+        "CertificateArn"
+      ],
+      "properties": {
+        "CertificateArn": {
+          "$ref": "#/definitions/Arn",
+          "description": "<p>String that contains an ACM Certificate ARN. The ARN must be of the form:</p> <p> <code>arn:aws:acm:region:123456789012:certificate/12345678-1234-1234-1234-123456789012</code> </p> <p>For more information about ARNs, see <a href=\"http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs) and AWS Service Namespaces</a>.</p>"
+        }
+      }
+    },
+    "DescribeCertificateResponse": {
+      "type": "object",
+      "properties": {
+        "Certificate": {
+          "$ref": "#/definitions/CertificateDetail",
+          "description": "Contains a <a>CertificateDetail</a> structure that lists the fields of an ACM Certificate."
+        }
+      }
+    },
+    "DomainList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/DomainNameString"
+      },
+      "minItems": 1,
+      "maxItems": 100
+    },
+    "DomainNameString": {
+      "type": "string",
+      "pattern": "^(\\*\\.)?(((?!-)[A-Za-z0-9-]{0,62}[A-Za-z0-9])\\.)+((?!-)[A-Za-z0-9-]{1,62}[A-Za-z0-9])$",
+      "minLength": 1,
+      "maxLength": 253
+    },
+    "DomainValidation": {
+      "type": "object",
+      "required": [
+        "DomainName"
+      ],
+      "properties": {
+        "DomainName": {
+          "$ref": "#/definitions/DomainNameString",
+          "description": "Fully Qualified Domain Name (FQDN) of the form <code>www.example.com or </code> <code>example.com</code>."
+        },
+        "ValidationEmails": {
+          "$ref": "#/definitions/ValidationEmailList",
+          "description": "A list of contact address for the domain registrant."
+        },
+        "ValidationDomain": {
+          "$ref": "#/definitions/DomainNameString",
+          "description": "The base validation domain that acts as the suffix of the email addresses that are used to send the emails."
+        }
+      },
+      "description": "Structure that contains the domain name, the base validation domain to which validation email is sent, and the email addresses used to validate the domain identity."
+    },
+    "DomainValidationList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/DomainValidation"
+      },
+      "minItems": 1,
+      "maxItems": 1000
+    },
+    "DomainValidationOption": {
+      "type": "object",
+      "required": [
+        "DomainName",
+        "ValidationDomain"
+      ],
+      "properties": {
+        "DomainName": {
+          "$ref": "#/definitions/DomainNameString",
+          "description": "Fully Qualified Domain Name (FQDN) of the certificate being requested."
+        },
+        "ValidationDomain": {
+          "$ref": "#/definitions/DomainNameString",
+          "description": "<p>The domain to which validation email is sent. This is the base validation domain that will act as the suffix of the email addresses. This must be the same as the <code>DomainName</code> value or a superdomain of the <code>DomainName</code> value. For example, if you requested a certificate for <code>site.subdomain.example.com</code> and specify a <b>ValidationDomain</b> of <code>subdomain.example.com</code>, ACM sends email to the domain registrant, technical contact, and administrative contact in WHOIS for the base domain and the following five addresses:</p> <ul> <li> <p>admin@subdomain.example.com</p> </li> <li> <p>administrator@subdomain.example.com</p> </li> <li> <p>hostmaster@subdomain.example.com</p> </li> <li> <p>postmaster@subdomain.example.com</p> </li> <li> <p>webmaster@subdomain.example.com</p> </li> </ul>"
+        }
+      },
+      "description": "This structure is used in the request object of the <a>RequestCertificate</a> action."
+    },
+    "DomainValidationOptionList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/DomainValidationOption"
+      },
+      "minItems": 1,
+      "maxItems": 100
+    },
+    "FailureReason": {
+      "type": "string",
+      "enum": [
+        "NO_AVAILABLE_CONTACTS",
+        "ADDITIONAL_VERIFICATION_REQUIRED",
+        "DOMAIN_NOT_ALLOWED",
+        "INVALID_PUBLIC_DOMAIN",
+        "OTHER"
+      ]
+    },
+    "GetCertificateRequest": {
+      "type": "object",
+      "required": [
+        "CertificateArn"
+      ],
+      "properties": {
+        "CertificateArn": {
+          "$ref": "#/definitions/Arn",
+          "description": "<p>String that contains a certificate ARN in the following format:</p> <p> <code>arn:aws:acm:region:123456789012:certificate/12345678-1234-1234-1234-123456789012</code> </p> <p>For more information about ARNs, see <a href=\"http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs) and AWS Service Namespaces</a>.</p>"
+        }
+      }
+    },
+    "GetCertificateResponse": {
+      "type": "object",
+      "properties": {
+        "Certificate": {
+          "$ref": "#/definitions/CertificateBody",
+          "description": "String that contains the ACM Certificate represented by the ARN specified at input."
+        },
+        "CertificateChain": {
+          "$ref": "#/definitions/CertificateChain",
+          "description": "The certificate chain that contains the root certificate issued by the certificate authority (CA)."
+        }
+      }
+    },
+    "IdempotencyToken": {
+      "type": "string",
+      "pattern": "\\w+",
+      "minLength": 1,
+      "maxLength": 32
+    },
+    "InUseList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/String"
+      }
+    },
+    "InvalidArnException": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "$ref": "#/definitions/String"
+        }
+      },
+      "description": "The requested Amazon Resource Name (ARN) does not refer to an existing resource."
+    },
+    "InvalidDomainValidationOptionsException": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "$ref": "#/definitions/String"
+        }
+      },
+      "description": "One or more values in the <a>DomainValidationOption</a> structure is incorrect."
+    },
+    "InvalidStateException": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "$ref": "#/definitions/String"
+        }
+      },
+      "description": "Processing has reached an invalid state. For example, this exception can occur if the specified domain is not using email validation, or the current certificate status does not permit the requested operation. See the exception message returned by ACM to determine which state is not valid."
+    },
+    "InvalidTagException": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "$ref": "#/definitions/String"
+        }
+      },
+      "description": "One or both of the values that make up the key-value pair is not valid. For example, you cannot specify a tag value that begins with <code>aws:</code>."
+    },
+    "KeyAlgorithm": {
+      "type": "string",
+      "enum": [
+        "RSA_2048",
+        "EC_prime256v1"
+      ]
+    },
+    "LimitExceededException": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "$ref": "#/definitions/String"
+        }
+      },
+      "description": "An ACM limit has been exceeded. For example, you may have input more domains than are allowed or you've requested too many certificates for your account. See the exception message returned by ACM to determine which limit you have violated. For more information about ACM limits, see the <a href=\"http://docs.aws.amazon.com/acm/latest/userguide/acm-limits.html\">Limits</a> topic."
+    },
+    "ListCertificatesRequest": {
+      "type": "object",
+      "properties": {
+        "CertificateStatuses": {
+          "$ref": "#/definitions/CertificateStatuses",
+          "description": "The status or statuses on which to filter the list of ACM Certificates."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NextToken",
+          "description": "Use this parameter only when paginating results and only in a subsequent request after you receive a response with truncated results. Set it to the value of <code>NextToken</code> from the response you just received."
+        },
+        "MaxItems": {
+          "$ref": "#/definitions/MaxItems",
+          "description": "Use this parameter when paginating results to specify the maximum number of items to return in the response. If additional items exist beyond the number you specify, the <code>NextToken</code> element is sent in the response. Use this <code>NextToken</code> value in a subsequent request to retrieve additional items."
+        }
+      }
+    },
+    "ListCertificatesResponse": {
+      "type": "object",
+      "properties": {
+        "NextToken": {
+          "$ref": "#/definitions/NextToken",
+          "description": "When the list is truncated, this value is present and contains the value to use for the <code>NextToken</code> parameter in a subsequent pagination request."
+        },
+        "CertificateSummaryList": {
+          "$ref": "#/definitions/CertificateSummaryList",
+          "description": "A list of ACM Certificates."
+        }
+      }
+    },
+    "ListTagsForCertificateRequest": {
+      "type": "object",
+      "required": [
+        "CertificateArn"
+      ],
+      "properties": {
+        "CertificateArn": {
+          "$ref": "#/definitions/Arn",
+          "description": "<p>String that contains the ARN of the ACM Certificate for which you want to list the tags. This must be of the form:</p> <p> <code>arn:aws:acm:region:123456789012:certificate/12345678-1234-1234-1234-123456789012</code> </p> <p>For more information about ARNs, see <a href=\"http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs) and AWS Service Namespaces</a>.</p>"
+        }
+      }
+    },
+    "ListTagsForCertificateResponse": {
+      "type": "object",
+      "properties": {
+        "Tags": {
+          "$ref": "#/definitions/TagList",
+          "description": "The key-value pairs that define the applied tags."
+        }
+      }
+    },
+    "MaxItems": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 1000
+    },
+    "NextToken": {
+      "type": "string",
+      "pattern": "[\\u0009\\u000A\\u000D\\u0020-\\u00FF]*",
+      "minLength": 1,
+      "maxLength": 320
+    },
+    "RemoveTagsFromCertificateRequest": {
+      "type": "object",
+      "required": [
+        "CertificateArn",
+        "Tags"
+      ],
+      "properties": {
+        "CertificateArn": {
+          "$ref": "#/definitions/Arn",
+          "description": "<p>String that contains the ARN of the ACM Certificate with one or more tags that you want to remove. This must be of the form:</p> <p> <code>arn:aws:acm:region:123456789012:certificate/12345678-1234-1234-1234-123456789012</code> </p> <p>For more information about ARNs, see <a href=\"http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs) and AWS Service Namespaces</a>.</p>"
+        },
+        "Tags": {
+          "$ref": "#/definitions/TagList",
+          "description": "The key-value pair that defines the tag to remove."
+        }
+      }
+    },
+    "RequestCertificateRequest": {
+      "type": "object",
+      "required": [
+        "DomainName"
+      ],
+      "properties": {
+        "DomainName": {
+          "$ref": "#/definitions/DomainNameString",
+          "description": "Fully qualified domain name (FQDN), such as www.example.com, of the site you want to secure with an ACM Certificate. Use an asterisk (*) to create a wildcard certificate that protects several sites in the same domain. For example, *.example.com protects www.example.com, site.example.com, and images.example.com."
+        },
+        "SubjectAlternativeNames": {
+          "$ref": "#/definitions/DomainList",
+          "description": "Additional FQDNs to be included in the Subject Alternative Name extension of the ACM Certificate. For example, add the name www.example.net to a certificate for which the <code>DomainName</code> field is www.example.com if users can reach your site by using either name."
+        },
+        "IdempotencyToken": {
+          "$ref": "#/definitions/IdempotencyToken",
+          "description": "Customer chosen string that can be used to distinguish between calls to <code>RequestCertificate</code>. Idempotency tokens time out after one hour. Therefore, if you call <code>RequestCertificate</code> multiple times with the same idempotency token within one hour, ACM recognizes that you are requesting only one certificate and will issue only one. If you change the idempotency token for each call, ACM recognizes that you are requesting multiple certificates."
+        },
+        "DomainValidationOptions": {
+          "$ref": "#/definitions/DomainValidationOptionList",
+          "description": "<p>The base validation domain that will act as the suffix of the email addresses that are used to send the emails. This must be the same as the <code>Domain</code> value or a superdomain of the <code>Domain</code> value. For example, if you requested a certificate for <code>test.example.com</code> and specify <b>DomainValidationOptions</b> of <code>example.com</code>, ACM sends email to the domain registrant, technical contact, and administrative contact in WHOIS and the following five addresses:</p> <ul> <li> <p>admin@example.com</p> </li> <li> <p>administrator@example.com</p> </li> <li> <p>hostmaster@example.com</p> </li> <li> <p>postmaster@example.com</p> </li> <li> <p>webmaster@example.com</p> </li> </ul>"
+        }
+      }
+    },
+    "RequestCertificateResponse": {
+      "type": "object",
+      "properties": {
+        "CertificateArn": {
+          "$ref": "#/definitions/Arn",
+          "description": "<p>String that contains the ARN of the issued certificate. This must be of the form:</p> <p> <code>arn:aws:acm:us-east-1:123456789012:certificate/12345678-1234-1234-1234-123456789012</code> </p>"
+        }
+      }
+    },
+    "RequestInProgressException": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "$ref": "#/definitions/String"
+        }
+      },
+      "description": "The certificate request is in process and the certificate in your account has not yet been issued."
+    },
+    "ResendValidationEmailRequest": {
+      "type": "object",
+      "required": [
+        "CertificateArn",
+        "Domain",
+        "ValidationDomain"
+      ],
+      "properties": {
+        "CertificateArn": {
+          "$ref": "#/definitions/Arn",
+          "description": "<p>String that contains the ARN of the requested certificate. The certificate ARN is generated and returned by the <a>RequestCertificate</a> action as soon as the request is made. By default, using this parameter causes email to be sent to all top-level domains you specified in the certificate request.</p> <p>The ARN must be of the form:</p> <p> <code>arn:aws:acm:us-east-1:123456789012:certificate/12345678-1234-1234-1234-123456789012</code> </p>"
+        },
+        "Domain": {
+          "$ref": "#/definitions/DomainNameString",
+          "description": "The Fully Qualified Domain Name (FQDN) of the certificate that needs to be validated."
+        },
+        "ValidationDomain": {
+          "$ref": "#/definitions/DomainNameString",
+          "description": "<p>The base validation domain that will act as the suffix of the email addresses that are used to send the emails. This must be the same as the <code>Domain</code> value or a superdomain of the <code>Domain</code> value. For example, if you requested a certificate for <code>site.subdomain.example.com</code> and specify a <b>ValidationDomain</b> of <code>subdomain.example.com</code>, ACM sends email to the domain registrant, technical contact, and administrative contact in WHOIS and the following five addresses:</p> <ul> <li> <p>admin@subdomain.example.com</p> </li> <li> <p>administrator@subdomain.example.com</p> </li> <li> <p>hostmaster@subdomain.example.com</p> </li> <li> <p>postmaster@subdomain.example.com</p> </li> <li> <p>webmaster@subdomain.example.com</p> </li> </ul>"
+        }
+      }
+    },
+    "ResourceInUseException": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "$ref": "#/definitions/String"
+        }
+      },
+      "description": "The certificate is in use by another AWS service in the caller's account. Remove the association and try again."
+    },
+    "ResourceNotFoundException": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "$ref": "#/definitions/String"
+        }
+      },
+      "description": "The specified certificate cannot be found in the caller's account, or the caller's account cannot be found."
+    },
+    "RevocationReason": {
+      "type": "string",
+      "enum": [
+        "UNSPECIFIED",
+        "KEY_COMPROMISE",
+        "CA_COMPROMISE",
+        "AFFILIATION_CHANGED",
+        "SUPERCEDED",
+        "CESSATION_OF_OPERATION",
+        "CERTIFICATE_HOLD",
+        "REMOVE_FROM_CRL",
+        "PRIVILEGE_WITHDRAWN",
+        "A_A_COMPROMISE"
+      ]
+    },
+    "String": {
+      "type": "string"
+    },
+    "TStamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "Tag": {
+      "type": "object",
+      "required": [
+        "Key"
+      ],
+      "properties": {
+        "Key": {
+          "$ref": "#/definitions/TagKey",
+          "description": "The key of the tag."
+        },
+        "Value": {
+          "$ref": "#/definitions/TagValue",
+          "description": "The value of the tag."
+        }
+      },
+      "description": "A key-value pair that identifies or specifies metadata about an ACM resource."
+    },
+    "TagKey": {
+      "type": "string",
+      "pattern": "[\\p{L}\\p{Z}\\p{N}_.:\\/=+\\-@]*",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "TagList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Tag"
+      },
+      "minItems": 1,
+      "maxItems": 50
+    },
+    "TagValue": {
+      "type": "string",
+      "pattern": "[\\p{L}\\p{Z}\\p{N}_.:\\/=+\\-@]*",
+      "minLength": 0,
+      "maxLength": 256
+    },
+    "TooManyTagsException": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "$ref": "#/definitions/String"
+        }
+      },
+      "description": "The request contains too many tags. Try the request again with fewer tags."
+    },
+    "ValidationEmailList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/String"
+      }
+    }
+  }
+}

@@ -1,0 +1,1055 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "2010-08-01",
+    "x-release": "v4",
+    "title": "Amazon CloudWatch",
+    "description": "<p>Amazon CloudWatch monitors your Amazon Web Services (AWS) resources and the applications you run on AWS in real-time. You can use CloudWatch to collect and track metrics, which are the variables you want to measure for your resources and applications.</p> <p>CloudWatch alarms send notifications or automatically make changes to the resources you are monitoring based on rules that you define. For example, you can monitor the CPU usage and disk reads and writes of your Amazon Elastic Compute Cloud (Amazon EC2) instances and then use this data to determine whether you should launch additional instances to handle increased load. You can also use this data to stop under-used instances to save money.</p> <p>In addition to monitoring the built-in metrics that come with AWS, you can monitor your own custom metrics. With CloudWatch, you gain system-wide visibility into resource utilization, application performance, and operational health.</p>",
+    "termsOfService": "https://aws.amazon.com/service-terms/",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/aws2openapi"
+    },
+    "license": {
+      "name": "Apache 2.0 License",
+      "url": "http://www.apache.org/licenses/"
+    }
+  },
+  "x-logo": {
+    "url": "https://media.amazonwebservices.com/blog/2007/big_pbaws_logo_300px.jpg",
+    "backgroundColor": "#FFFFFF"
+  },
+  "externalDocs": {
+    "description": "Amazon Web Services documentation",
+    "url": "https://aws.amazon.com/monitoring/"
+  },
+  "host": "monitoring.us-east-1.amazonaws.com",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [],
+  "produces": [],
+  "paths": {
+    "/": {
+      "post": {
+        "operationId": "SetAlarmState",
+        "description": " Temporarily sets the state of an alarm for testing purposes. When the updated <code>StateValue</code> differs from the previous value, the action configured for the appropriate state is invoked. For example, if your alarm is configured to send an Amazon SNS message when an alarm is triggered, temporarily changing the alarm's state to <b>ALARM</b> sends an Amazon SNS message. The alarm returns to its actual state (often within seconds). Because the alarm state change happens very quickly, it is typically only visible in the alarm's <b>History</b> tab in the Amazon CloudWatch console or through <code>DescribeAlarmHistory</code>. ",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {}
+          },
+          "400": {
+            "description": "ResourceNotFound",
+            "schema": {
+              "$ref": "#/definitions/ResourceNotFound"
+            }
+          },
+          "401": {
+            "description": "InvalidFormatFault",
+            "schema": {
+              "$ref": "#/definitions/InvalidFormatFault"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SetAlarmStateInput"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "ActionPrefix": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1024
+    },
+    "ActionsEnabled": {
+      "type": "boolean"
+    },
+    "AlarmArn": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1600
+    },
+    "AlarmDescription": {
+      "type": "string",
+      "minLength": 0,
+      "maxLength": 1024
+    },
+    "AlarmHistoryItem": {
+      "type": "object",
+      "properties": {
+        "AlarmName": {
+          "$ref": "#/definitions/AlarmName",
+          "description": "The descriptive name for the alarm."
+        },
+        "Timestamp": {
+          "$ref": "#/definitions/Timestamp",
+          "description": "The time stamp for the alarm history item."
+        },
+        "HistoryItemType": {
+          "$ref": "#/definitions/HistoryItemType",
+          "description": "The type of alarm history item."
+        },
+        "HistorySummary": {
+          "$ref": "#/definitions/HistorySummary",
+          "description": "A human-readable summary of the alarm history."
+        },
+        "HistoryData": {
+          "$ref": "#/definitions/HistoryData",
+          "description": "Machine-readable data about the alarm in JSON format."
+        }
+      },
+      "description": " The <code>AlarmHistoryItem</code> data type contains descriptive information about the history of a specific alarm. If you call <a>DescribeAlarmHistory</a>, Amazon CloudWatch returns this data type as part of the DescribeAlarmHistoryResult data type. "
+    },
+    "AlarmHistoryItems": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/AlarmHistoryItem"
+      }
+    },
+    "AlarmName": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 255
+    },
+    "AlarmNamePrefix": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 255
+    },
+    "AlarmNames": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/AlarmName"
+      },
+      "maxItems": 100
+    },
+    "AwsQueryErrorMessage": {
+      "type": "string"
+    },
+    "ComparisonOperator": {
+      "type": "string",
+      "enum": [
+        "GreaterThanOrEqualToThreshold",
+        "GreaterThanThreshold",
+        "LessThanThreshold",
+        "LessThanOrEqualToThreshold"
+      ]
+    },
+    "Datapoint": {
+      "type": "object",
+      "properties": {
+        "Timestamp": {
+          "$ref": "#/definitions/Timestamp",
+          "description": "The time stamp used for the datapoint."
+        },
+        "SampleCount": {
+          "$ref": "#/definitions/DatapointValue",
+          "description": "The number of metric values that contributed to the aggregate value of this datapoint."
+        },
+        "Average": {
+          "$ref": "#/definitions/DatapointValue",
+          "description": "The average of metric values that correspond to the datapoint."
+        },
+        "Sum": {
+          "$ref": "#/definitions/DatapointValue",
+          "description": "The sum of metric values used for the datapoint."
+        },
+        "Minimum": {
+          "$ref": "#/definitions/DatapointValue",
+          "description": "The minimum metric value used for the datapoint."
+        },
+        "Maximum": {
+          "$ref": "#/definitions/DatapointValue",
+          "description": "The maximum of the metric value used for the datapoint."
+        },
+        "Unit": {
+          "$ref": "#/definitions/StandardUnit",
+          "description": "The standard unit used for the datapoint."
+        }
+      },
+      "description": " The <code>Datapoint</code> data type encapsulates the statistical data that Amazon CloudWatch computes from metric data. "
+    },
+    "DatapointValue": {
+      "type": "number",
+      "format": "double"
+    },
+    "Datapoints": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Datapoint"
+      }
+    },
+    "DeleteAlarmsInput": {
+      "type": "object",
+      "required": [
+        "AlarmNames"
+      ],
+      "properties": {
+        "AlarmNames": {
+          "$ref": "#/definitions/AlarmNames",
+          "description": "A list of alarms to be deleted."
+        }
+      },
+      "description": "Describes the inputs for DeleteAlarms."
+    },
+    "DescribeAlarmHistoryInput": {
+      "type": "object",
+      "properties": {
+        "AlarmName": {
+          "$ref": "#/definitions/AlarmName",
+          "description": "The name of the alarm."
+        },
+        "HistoryItemType": {
+          "$ref": "#/definitions/HistoryItemType",
+          "description": "The type of alarm histories to retrieve."
+        },
+        "StartDate": {
+          "$ref": "#/definitions/Timestamp",
+          "description": "The starting date to retrieve alarm history."
+        },
+        "EndDate": {
+          "$ref": "#/definitions/Timestamp",
+          "description": "The ending date to retrieve alarm history."
+        },
+        "MaxRecords": {
+          "$ref": "#/definitions/MaxRecords",
+          "description": "The maximum number of alarm history records to retrieve."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NextToken",
+          "description": "The token returned by a previous call to indicate that there is more data available."
+        }
+      },
+      "description": "Describes the inputs for DescribeAlarmHistory."
+    },
+    "DescribeAlarmHistoryOutput": {
+      "type": "object",
+      "properties": {
+        "AlarmHistoryItems": {
+          "$ref": "#/definitions/AlarmHistoryItems",
+          "description": "A list of alarm histories in JSON format."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NextToken",
+          "description": "A string that marks the start of the next batch of returned results."
+        }
+      },
+      "description": " The output for <a>DescribeAlarmHistory</a>. "
+    },
+    "DescribeAlarmsForMetricInput": {
+      "type": "object",
+      "required": [
+        "MetricName",
+        "Namespace"
+      ],
+      "properties": {
+        "MetricName": {
+          "$ref": "#/definitions/MetricName",
+          "description": "The name of the metric."
+        },
+        "Namespace": {
+          "$ref": "#/definitions/Namespace",
+          "description": "The namespace of the metric."
+        },
+        "Statistic": {
+          "$ref": "#/definitions/Statistic",
+          "description": "The statistic for the metric."
+        },
+        "Dimensions": {
+          "$ref": "#/definitions/Dimensions",
+          "description": "The list of dimensions associated with the metric. If the metric has any associated dimensions, you must specify them in order for the DescribeAlarmsForMetric to succeed."
+        },
+        "Period": {
+          "$ref": "#/definitions/Period",
+          "description": "The period in seconds over which the statistic is applied."
+        },
+        "Unit": {
+          "$ref": "#/definitions/StandardUnit",
+          "description": "The unit for the metric."
+        }
+      },
+      "description": "Describes the inputs for DescribeAlarmsForMetric."
+    },
+    "DescribeAlarmsForMetricOutput": {
+      "type": "object",
+      "properties": {
+        "MetricAlarms": {
+          "$ref": "#/definitions/MetricAlarms",
+          "description": "A list of information for each alarm with the specified metric."
+        }
+      },
+      "description": " The output for <a>DescribeAlarmsForMetric</a>. "
+    },
+    "DescribeAlarmsInput": {
+      "type": "object",
+      "properties": {
+        "AlarmNames": {
+          "$ref": "#/definitions/AlarmNames",
+          "description": "A list of alarm names to retrieve information for."
+        },
+        "AlarmNamePrefix": {
+          "$ref": "#/definitions/AlarmNamePrefix",
+          "description": "The alarm name prefix. <code>AlarmNames</code> cannot be specified if this parameter is specified."
+        },
+        "StateValue": {
+          "$ref": "#/definitions/StateValue",
+          "description": "The state value to be used in matching alarms."
+        },
+        "ActionPrefix": {
+          "$ref": "#/definitions/ActionPrefix",
+          "description": "The action name prefix."
+        },
+        "MaxRecords": {
+          "$ref": "#/definitions/MaxRecords",
+          "description": "The maximum number of alarm descriptions to retrieve."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NextToken",
+          "description": "The token returned by a previous call to indicate that there is more data available."
+        }
+      },
+      "description": "Describes the inputs for DescribeAlarms."
+    },
+    "DescribeAlarmsOutput": {
+      "type": "object",
+      "properties": {
+        "MetricAlarms": {
+          "$ref": "#/definitions/MetricAlarms",
+          "description": "A list of information for the specified alarms."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NextToken",
+          "description": "A string that marks the start of the next batch of returned results."
+        }
+      },
+      "description": "The output for <a>DescribeAlarms</a>."
+    },
+    "Dimension": {
+      "type": "object",
+      "required": [
+        "Name",
+        "Value"
+      ],
+      "properties": {
+        "Name": {
+          "$ref": "#/definitions/DimensionName",
+          "description": "The name of the dimension."
+        },
+        "Value": {
+          "$ref": "#/definitions/DimensionValue",
+          "description": "The value representing the dimension measurement"
+        }
+      },
+      "description": "<p> The <code>Dimension</code> data type further expands on the identity of a metric using a Name, Value pair. </p> <p>For examples that use one or more dimensions, see <a>PutMetricData</a>.</p>"
+    },
+    "DimensionFilter": {
+      "type": "object",
+      "required": [
+        "Name"
+      ],
+      "properties": {
+        "Name": {
+          "$ref": "#/definitions/DimensionName",
+          "description": "The dimension name to be matched."
+        },
+        "Value": {
+          "$ref": "#/definitions/DimensionValue",
+          "description": "<p>The value of the dimension to be matched.</p> <note> <p>Specifying a <code>Name</code> without specifying a <code>Value</code> returns all values associated with that <code>Name</code>.</p> </note>"
+        }
+      },
+      "description": " The <code>DimensionFilter</code> data type is used to filter <a>ListMetrics</a> results. "
+    },
+    "DimensionFilters": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/DimensionFilter"
+      },
+      "maxItems": 10
+    },
+    "DimensionName": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 255
+    },
+    "DimensionValue": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 255
+    },
+    "Dimensions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Dimension"
+      },
+      "maxItems": 10
+    },
+    "DisableAlarmActionsInput": {
+      "type": "object",
+      "required": [
+        "AlarmNames"
+      ],
+      "properties": {
+        "AlarmNames": {
+          "$ref": "#/definitions/AlarmNames",
+          "description": "The names of the alarms to disable actions for."
+        }
+      },
+      "description": "<p/>"
+    },
+    "EnableAlarmActionsInput": {
+      "type": "object",
+      "required": [
+        "AlarmNames"
+      ],
+      "properties": {
+        "AlarmNames": {
+          "$ref": "#/definitions/AlarmNames",
+          "description": "The names of the alarms to enable actions for."
+        }
+      },
+      "description": "Describes the inputs for EnableAlarmActions."
+    },
+    "ErrorMessage": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 255
+    },
+    "EvaluationPeriods": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "FaultDescription": {
+      "type": "string"
+    },
+    "GetMetricStatisticsInput": {
+      "type": "object",
+      "required": [
+        "Namespace",
+        "MetricName",
+        "StartTime",
+        "EndTime",
+        "Period",
+        "Statistics"
+      ],
+      "properties": {
+        "Namespace": {
+          "$ref": "#/definitions/Namespace",
+          "description": "The namespace of the metric, with or without spaces."
+        },
+        "MetricName": {
+          "$ref": "#/definitions/MetricName",
+          "description": "The name of the metric, with or without spaces."
+        },
+        "Dimensions": {
+          "$ref": "#/definitions/Dimensions",
+          "description": "A list of dimensions describing qualities of the metric."
+        },
+        "StartTime": {
+          "$ref": "#/definitions/Timestamp",
+          "description": "<p>The time stamp to use for determining the first datapoint to return. The value specified is inclusive; results include datapoints with the time stamp specified. The time stamp must be in ISO 8601 UTC format (e.g., 2014-09-03T23:00:00Z).</p> <note> <p>The specified start time is rounded down to the nearest value. Datapoints are returned for start times up to two weeks in the past. Specified start times that are more than two weeks in the past will not return datapoints for metrics that are older than two weeks.</p> <p>Data that is timestamped 24 hours or more in the past may take in excess of 48 hours to become available from submission time using <code>GetMetricStatistics</code>.</p> </note>"
+        },
+        "EndTime": {
+          "$ref": "#/definitions/Timestamp",
+          "description": "The time stamp to use for determining the last datapoint to return. The value specified is exclusive; results will include datapoints up to the time stamp specified. The time stamp must be in ISO 8601 UTC format (e.g., 2014-09-03T23:00:00Z)."
+        },
+        "Period": {
+          "$ref": "#/definitions/Period",
+          "description": " The granularity, in seconds, of the returned datapoints. A <code>Period</code> can be as short as one minute (60 seconds) or as long as one day (86,400 seconds), and must be a multiple of 60. The default value is 60. "
+        },
+        "Statistics": {
+          "$ref": "#/definitions/Statistics",
+          "description": " The metric statistics to return. For information about specific statistics returned by GetMetricStatistics, see <a href=\"http://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/cloudwatch_concepts.html#Statistic\">Statistics</a> in the <i>Amazon CloudWatch Developer Guide</i>. "
+        },
+        "Unit": {
+          "$ref": "#/definitions/StandardUnit",
+          "description": "The specific unit for a given metric. Metrics may be reported in multiple units. Not supplying a unit results in all units being returned. If the metric only ever reports one unit, specifying a unit will have no effect."
+        }
+      },
+      "description": "Describes the inputs for GetMetricStatistics."
+    },
+    "GetMetricStatisticsOutput": {
+      "type": "object",
+      "properties": {
+        "Label": {
+          "$ref": "#/definitions/MetricLabel",
+          "description": "A label describing the specified metric."
+        },
+        "Datapoints": {
+          "$ref": "#/definitions/Datapoints",
+          "description": "The datapoints for the specified metric."
+        }
+      },
+      "description": " The output for <a>GetMetricStatistics</a>. "
+    },
+    "HistoryData": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4095
+    },
+    "HistoryItemType": {
+      "type": "string",
+      "enum": [
+        "ConfigurationUpdate",
+        "StateUpdate",
+        "Action"
+      ]
+    },
+    "HistorySummary": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 255
+    },
+    "InternalServiceFault": {
+      "type": "object",
+      "properties": {
+        "Message": {
+          "$ref": "#/definitions/FaultDescription",
+          "description": "<p/>"
+        }
+      },
+      "description": "Indicates that the request processing has failed due to some unknown error, exception, or failure."
+    },
+    "InvalidFormatFault": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "$ref": "#/definitions/ErrorMessage",
+          "description": "<p/>"
+        }
+      },
+      "description": "Data was not syntactically valid JSON."
+    },
+    "InvalidNextToken": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "$ref": "#/definitions/ErrorMessage",
+          "description": "<p/>"
+        }
+      },
+      "description": "The next token specified is invalid."
+    },
+    "InvalidParameterCombinationException": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "$ref": "#/definitions/AwsQueryErrorMessage",
+          "description": "<p/>"
+        }
+      },
+      "description": "Parameters that must not be used together were used together."
+    },
+    "InvalidParameterValueException": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "$ref": "#/definitions/AwsQueryErrorMessage",
+          "description": "<p/>"
+        }
+      },
+      "description": "Bad or out-of-range value was supplied for the input parameter."
+    },
+    "LimitExceededFault": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "$ref": "#/definitions/ErrorMessage",
+          "description": "<p/>"
+        }
+      },
+      "description": "The quota for alarms for this customer has already been reached."
+    },
+    "ListMetricsInput": {
+      "type": "object",
+      "properties": {
+        "Namespace": {
+          "$ref": "#/definitions/Namespace",
+          "description": "The namespace to filter against."
+        },
+        "MetricName": {
+          "$ref": "#/definitions/MetricName",
+          "description": "The name of the metric to filter against."
+        },
+        "Dimensions": {
+          "$ref": "#/definitions/DimensionFilters",
+          "description": "A list of dimensions to filter against."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NextToken",
+          "description": "The token returned by a previous call to indicate that there is more data available."
+        }
+      },
+      "description": "Describes the inputs for ListMetrics."
+    },
+    "ListMetricsOutput": {
+      "type": "object",
+      "properties": {
+        "Metrics": {
+          "$ref": "#/definitions/Metrics",
+          "description": "A list of metrics used to generate statistics for an AWS account."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NextToken",
+          "description": "A string that marks the start of the next batch of returned results."
+        }
+      },
+      "description": " The output for <a>ListMetrics</a>. "
+    },
+    "MaxRecords": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100
+    },
+    "Metric": {
+      "type": "object",
+      "properties": {
+        "Namespace": {
+          "$ref": "#/definitions/Namespace",
+          "description": "The namespace of the metric."
+        },
+        "MetricName": {
+          "$ref": "#/definitions/MetricName",
+          "description": "The name of the metric."
+        },
+        "Dimensions": {
+          "$ref": "#/definitions/Dimensions",
+          "description": "A list of dimensions associated with the metric."
+        }
+      },
+      "description": "<p> The <code>Metric</code> data type contains information about a specific metric. If you call <a>ListMetrics</a>, Amazon CloudWatch returns information contained by this data type. </p> <p>The example in the Examples section publishes two metrics named buffers and latency. Both metrics are in the examples namespace. Both metrics have two dimensions, InstanceID and InstanceType.</p>"
+    },
+    "MetricAlarm": {
+      "type": "object",
+      "properties": {
+        "AlarmName": {
+          "$ref": "#/definitions/AlarmName",
+          "description": "The name of the alarm."
+        },
+        "AlarmArn": {
+          "$ref": "#/definitions/AlarmArn",
+          "description": "The Amazon Resource Name (ARN) of the alarm."
+        },
+        "AlarmDescription": {
+          "$ref": "#/definitions/AlarmDescription",
+          "description": "The description for the alarm."
+        },
+        "AlarmConfigurationUpdatedTimestamp": {
+          "$ref": "#/definitions/Timestamp",
+          "description": "The time stamp of the last update to the alarm configuration."
+        },
+        "ActionsEnabled": {
+          "$ref": "#/definitions/ActionsEnabled",
+          "description": "Indicates whether actions should be executed during any changes to the alarm's state."
+        },
+        "OKActions": {
+          "$ref": "#/definitions/ResourceList",
+          "description": " The list of actions to execute when this alarm transitions into an <code>OK</code> state from any other state. Each action is specified as an Amazon Resource Name (ARN). "
+        },
+        "AlarmActions": {
+          "$ref": "#/definitions/ResourceList",
+          "description": " The list of actions to execute when this alarm transitions into an <code>ALARM</code> state from any other state. Each action is specified as an Amazon Resource Name (ARN). "
+        },
+        "InsufficientDataActions": {
+          "$ref": "#/definitions/ResourceList",
+          "description": "<p> The list of actions to execute when this alarm transitions into an <code>INSUFFICIENT_DATA</code> state from any other state. Each action is specified as an Amazon Resource Name (ARN). </p> <important> <p>The current WSDL lists this attribute as <code>UnknownActions</code>.</p> </important>"
+        },
+        "StateValue": {
+          "$ref": "#/definitions/StateValue",
+          "description": "The state value for the alarm."
+        },
+        "StateReason": {
+          "$ref": "#/definitions/StateReason",
+          "description": "A human-readable explanation for the alarm's state."
+        },
+        "StateReasonData": {
+          "$ref": "#/definitions/StateReasonData",
+          "description": "An explanation for the alarm's state in machine-readable JSON format"
+        },
+        "StateUpdatedTimestamp": {
+          "$ref": "#/definitions/Timestamp",
+          "description": "The time stamp of the last update to the alarm's state."
+        },
+        "MetricName": {
+          "$ref": "#/definitions/MetricName",
+          "description": "The name of the alarm's metric."
+        },
+        "Namespace": {
+          "$ref": "#/definitions/Namespace",
+          "description": "The namespace of alarm's associated metric."
+        },
+        "Statistic": {
+          "$ref": "#/definitions/Statistic",
+          "description": "The statistic to apply to the alarm's associated metric."
+        },
+        "Dimensions": {
+          "$ref": "#/definitions/Dimensions",
+          "description": "The list of dimensions associated with the alarm's associated metric."
+        },
+        "Period": {
+          "$ref": "#/definitions/Period",
+          "description": "The period in seconds over which the statistic is applied."
+        },
+        "Unit": {
+          "$ref": "#/definitions/StandardUnit",
+          "description": "The unit of the alarm's associated metric."
+        },
+        "EvaluationPeriods": {
+          "$ref": "#/definitions/EvaluationPeriods",
+          "description": "The number of periods over which data is compared to the specified threshold."
+        },
+        "Threshold": {
+          "$ref": "#/definitions/Threshold",
+          "description": "The value against which the specified statistic is compared."
+        },
+        "ComparisonOperator": {
+          "$ref": "#/definitions/ComparisonOperator",
+          "description": " The arithmetic operation to use when comparing the specified <code>Statistic</code> and <code>Threshold</code>. The specified <code>Statistic</code> value is used as the first operand. "
+        }
+      },
+      "description": " The <a>MetricAlarm</a> data type represents an alarm. You can use <a>PutMetricAlarm</a> to create or update an alarm. "
+    },
+    "MetricAlarms": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/MetricAlarm"
+      }
+    },
+    "MetricData": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/MetricDatum"
+      }
+    },
+    "MetricDatum": {
+      "type": "object",
+      "required": [
+        "MetricName"
+      ],
+      "properties": {
+        "MetricName": {
+          "$ref": "#/definitions/MetricName",
+          "description": "The name of the metric."
+        },
+        "Dimensions": {
+          "$ref": "#/definitions/Dimensions",
+          "description": "A list of dimensions associated with the metric. Note, when using the Dimensions value in a query, you need to append .member.N to it (e.g., Dimensions.member.N)."
+        },
+        "Timestamp": {
+          "$ref": "#/definitions/Timestamp",
+          "description": "The time stamp used for the metric in ISO 8601 Universal Coordinated Time (UTC) format. If not specified, the default value is set to the time the metric data was received."
+        },
+        "Value": {
+          "$ref": "#/definitions/DatapointValue",
+          "description": "<p>The value for the metric.</p> <important> <p>Although the <code>Value</code> parameter accepts numbers of type <code>Double</code>, Amazon CloudWatch rejects values that are either too small or too large. Values must be in the range of 8.515920e-109 to 1.174271e+108 (Base 10) or 2e-360 to 2e360 (Base 2). In addition, special values (e.g., NaN, +Infinity, -Infinity) are not supported.</p> </important>"
+        },
+        "StatisticValues": {
+          "$ref": "#/definitions/StatisticSet",
+          "description": "A set of statistical values describing the metric."
+        },
+        "Unit": {
+          "$ref": "#/definitions/StandardUnit",
+          "description": "The unit of the metric."
+        }
+      },
+      "description": " The <code>MetricDatum</code> data type encapsulates the information sent with <a>PutMetricData</a> to either create a new metric or add new values to be aggregated into an existing metric. "
+    },
+    "MetricLabel": {
+      "type": "string"
+    },
+    "MetricName": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 255
+    },
+    "Metrics": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Metric"
+      }
+    },
+    "MissingRequiredParameterException": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "$ref": "#/definitions/AwsQueryErrorMessage",
+          "description": "<p/>"
+        }
+      },
+      "description": "An input parameter that is mandatory for processing the request is not supplied."
+    },
+    "Namespace": {
+      "type": "string",
+      "pattern": "[^:].*",
+      "minLength": 1,
+      "maxLength": 255
+    },
+    "NextToken": {
+      "type": "string",
+      "minLength": 0,
+      "maxLength": 1024
+    },
+    "Period": {
+      "type": "integer",
+      "minimum": 60
+    },
+    "PutMetricAlarmInput": {
+      "type": "object",
+      "required": [
+        "AlarmName",
+        "MetricName",
+        "Namespace",
+        "Statistic",
+        "Period",
+        "EvaluationPeriods",
+        "Threshold",
+        "ComparisonOperator"
+      ],
+      "properties": {
+        "AlarmName": {
+          "$ref": "#/definitions/AlarmName",
+          "description": "The descriptive name for the alarm. This name must be unique within the user's AWS account"
+        },
+        "AlarmDescription": {
+          "$ref": "#/definitions/AlarmDescription",
+          "description": "The description for the alarm."
+        },
+        "ActionsEnabled": {
+          "$ref": "#/definitions/ActionsEnabled",
+          "description": "Indicates whether or not actions should be executed during any changes to the alarm's state."
+        },
+        "OKActions": {
+          "$ref": "#/definitions/ResourceList",
+          "description": "<p> The list of actions to execute when this alarm transitions into an <code>OK</code> state from any other state. Each action is specified as an Amazon Resource Name (ARN). </p> <p>Valid Values: arn:aws:automate:<i>region (e.g., us-east-1)</i>:ec2:stop | arn:aws:automate:<i>region (e.g., us-east-1)</i>:ec2:terminate | arn:aws:automate:<i>region (e.g., us-east-1)</i>:ec2:recover</p> <p>Valid Values (for use with IAM roles): arn:aws:swf:us-east-1:{<i>customer-account</i>}:action/actions/AWS_EC2.InstanceId.Stop/1.0 | arn:aws:swf:us-east-1:{<i>customer-account</i>}:action/actions/AWS_EC2.InstanceId.Terminate/1.0 | arn:aws:swf:us-east-1:{<i>customer-account</i>}:action/actions/AWS_EC2.InstanceId.Reboot/1.0</p> <p> <b>Note:</b> You must create at least one stop, terminate, or reboot alarm using the Amazon EC2 or CloudWatch console to create the <b>EC2ActionsAccess</b> IAM role for the first time. After this IAM role is created, you can create stop, terminate, or reboot alarms using the CLI.</p>"
+        },
+        "AlarmActions": {
+          "$ref": "#/definitions/ResourceList",
+          "description": "<p> The list of actions to execute when this alarm transitions into an <code>ALARM</code> state from any other state. Each action is specified as an Amazon Resource Name (ARN). </p> <p>Valid Values: arn:aws:automate:<i>region (e.g., us-east-1)</i>:ec2:stop | arn:aws:automate:<i>region (e.g., us-east-1)</i>:ec2:terminate | arn:aws:automate:<i>region (e.g., us-east-1)</i>:ec2:recover</p> <p>Valid Values (for use with IAM roles): arn:aws:swf:us-east-1:{<i>customer-account</i>}:action/actions/AWS_EC2.InstanceId.Stop/1.0 | arn:aws:swf:us-east-1:{<i>customer-account</i>}:action/actions/AWS_EC2.InstanceId.Terminate/1.0 | arn:aws:swf:us-east-1:{<i>customer-account</i>}:action/actions/AWS_EC2.InstanceId.Reboot/1.0</p> <p> <b>Note:</b> You must create at least one stop, terminate, or reboot alarm using the Amazon EC2 or CloudWatch console to create the <b>EC2ActionsAccess</b> IAM role for the first time. After this IAM role is created, you can create stop, terminate, or reboot alarms using the CLI.</p>"
+        },
+        "InsufficientDataActions": {
+          "$ref": "#/definitions/ResourceList",
+          "description": "<p> The list of actions to execute when this alarm transitions into an <code>INSUFFICIENT_DATA</code> state from any other state. Each action is specified as an Amazon Resource Name (ARN). </p> <p>Valid Values: arn:aws:automate:<i>region (e.g., us-east-1)</i>:ec2:stop | arn:aws:automate:<i>region (e.g., us-east-1)</i>:ec2:terminate | arn:aws:automate:<i>region (e.g., us-east-1)</i>:ec2:recover</p> <p>Valid Values (for use with IAM roles): arn:aws:swf:us-east-1:{<i>customer-account</i>}:action/actions/AWS_EC2.InstanceId.Stop/1.0 | arn:aws:swf:us-east-1:{<i>customer-account</i>}:action/actions/AWS_EC2.InstanceId.Terminate/1.0 | arn:aws:swf:us-east-1:{<i>customer-account</i>}:action/actions/AWS_EC2.InstanceId.Reboot/1.0</p> <p> <b>Note:</b> You must create at least one stop, terminate, or reboot alarm using the Amazon EC2 or CloudWatch console to create the <b>EC2ActionsAccess</b> IAM role for the first time. After this IAM role is created, you can create stop, terminate, or reboot alarms using the CLI.</p>"
+        },
+        "MetricName": {
+          "$ref": "#/definitions/MetricName",
+          "description": "The name for the alarm's associated metric."
+        },
+        "Namespace": {
+          "$ref": "#/definitions/Namespace",
+          "description": "The namespace for the alarm's associated metric."
+        },
+        "Statistic": {
+          "$ref": "#/definitions/Statistic",
+          "description": "The statistic to apply to the alarm's associated metric."
+        },
+        "Dimensions": {
+          "$ref": "#/definitions/Dimensions",
+          "description": "The dimensions for the alarm's associated metric."
+        },
+        "Period": {
+          "$ref": "#/definitions/Period",
+          "description": "The period in seconds over which the specified statistic is applied."
+        },
+        "Unit": {
+          "$ref": "#/definitions/StandardUnit",
+          "description": "<p>The statistic's unit of measure. For example, the units for the Amazon EC2 NetworkIn metric are Bytes because NetworkIn tracks the number of bytes that an instance receives on all network interfaces. You can also specify a unit when you create a custom metric. Units help provide conceptual meaning to your data. Metric data points that specify a unit of measure, such as Percent, are aggregated separately.</p> <p> <b>Note:</b> If you specify a unit, you must use a unit that is appropriate for the metric. Otherwise, this can cause an Amazon CloudWatch alarm to get stuck in the INSUFFICIENT DATA state. </p>"
+        },
+        "EvaluationPeriods": {
+          "$ref": "#/definitions/EvaluationPeriods",
+          "description": "The number of periods over which data is compared to the specified threshold."
+        },
+        "Threshold": {
+          "$ref": "#/definitions/Threshold",
+          "description": "The value against which the specified statistic is compared."
+        },
+        "ComparisonOperator": {
+          "$ref": "#/definitions/ComparisonOperator",
+          "description": " The arithmetic operation to use when comparing the specified <code>Statistic</code> and <code>Threshold</code>. The specified <code>Statistic</code> value is used as the first operand. "
+        }
+      },
+      "description": "Describes the inputs for PutMetricAlarm."
+    },
+    "PutMetricDataInput": {
+      "type": "object",
+      "required": [
+        "Namespace",
+        "MetricData"
+      ],
+      "properties": {
+        "Namespace": {
+          "$ref": "#/definitions/Namespace",
+          "description": "<p>The namespace for the metric data.</p> <note> <p>You cannot specify a namespace that begins with \"AWS/\". Namespaces that begin with \"AWS/\" are reserved for other Amazon Web Services products that send metrics to Amazon CloudWatch.</p> </note>"
+        },
+        "MetricData": {
+          "$ref": "#/definitions/MetricData",
+          "description": "A list of data describing the metric."
+        }
+      },
+      "description": "Describes the inputs for PutMetricData."
+    },
+    "ResourceList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ResourceName"
+      },
+      "maxItems": 5
+    },
+    "ResourceName": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1024
+    },
+    "ResourceNotFound": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "$ref": "#/definitions/ErrorMessage",
+          "description": "<p/>"
+        }
+      },
+      "description": "The named resource does not exist."
+    },
+    "SetAlarmStateInput": {
+      "type": "object",
+      "required": [
+        "AlarmName",
+        "StateValue",
+        "StateReason"
+      ],
+      "properties": {
+        "AlarmName": {
+          "$ref": "#/definitions/AlarmName",
+          "description": "The descriptive name for the alarm. This name must be unique within the user's AWS account. The maximum length is 255 characters."
+        },
+        "StateValue": {
+          "$ref": "#/definitions/StateValue",
+          "description": "The value of the state."
+        },
+        "StateReason": {
+          "$ref": "#/definitions/StateReason",
+          "description": "The reason that this alarm is set to this specific state (in human-readable text format)"
+        },
+        "StateReasonData": {
+          "$ref": "#/definitions/StateReasonData",
+          "description": "The reason that this alarm is set to this specific state (in machine-readable JSON format)"
+        }
+      },
+      "description": "Describes the inputs for SetAlarmState."
+    },
+    "StandardUnit": {
+      "type": "string",
+      "enum": [
+        "Seconds",
+        "Microseconds",
+        "Milliseconds",
+        "Bytes",
+        "Kilobytes",
+        "Megabytes",
+        "Gigabytes",
+        "Terabytes",
+        "Bits",
+        "Kilobits",
+        "Megabits",
+        "Gigabits",
+        "Terabits",
+        "Percent",
+        "Count",
+        "Bytes/Second",
+        "Kilobytes/Second",
+        "Megabytes/Second",
+        "Gigabytes/Second",
+        "Terabytes/Second",
+        "Bits/Second",
+        "Kilobits/Second",
+        "Megabits/Second",
+        "Gigabits/Second",
+        "Terabits/Second",
+        "Count/Second",
+        "None"
+      ]
+    },
+    "StateReason": {
+      "type": "string",
+      "minLength": 0,
+      "maxLength": 1023
+    },
+    "StateReasonData": {
+      "type": "string",
+      "minLength": 0,
+      "maxLength": 4000
+    },
+    "StateValue": {
+      "type": "string",
+      "enum": [
+        "OK",
+        "ALARM",
+        "INSUFFICIENT_DATA"
+      ]
+    },
+    "Statistic": {
+      "type": "string",
+      "enum": [
+        "SampleCount",
+        "Average",
+        "Sum",
+        "Minimum",
+        "Maximum"
+      ]
+    },
+    "StatisticSet": {
+      "type": "object",
+      "required": [
+        "SampleCount",
+        "Sum",
+        "Minimum",
+        "Maximum"
+      ],
+      "properties": {
+        "SampleCount": {
+          "$ref": "#/definitions/DatapointValue",
+          "description": "The number of samples used for the statistic set."
+        },
+        "Sum": {
+          "$ref": "#/definitions/DatapointValue",
+          "description": "The sum of values for the sample set."
+        },
+        "Minimum": {
+          "$ref": "#/definitions/DatapointValue",
+          "description": "The minimum value of the sample set."
+        },
+        "Maximum": {
+          "$ref": "#/definitions/DatapointValue",
+          "description": "The maximum value of the sample set."
+        }
+      },
+      "description": " The <code>StatisticSet</code> data type describes the <code>StatisticValues</code> component of <a>MetricDatum</a>, and represents a set of statistics that describes a specific metric. "
+    },
+    "Statistics": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Statistic"
+      },
+      "minItems": 1,
+      "maxItems": 5
+    },
+    "Threshold": {
+      "type": "number",
+      "format": "double"
+    },
+    "Timestamp": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

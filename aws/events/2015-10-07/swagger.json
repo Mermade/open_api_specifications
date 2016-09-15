@@ -1,0 +1,742 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "2015-10-07",
+    "x-release": "v4",
+    "title": "Amazon CloudWatch Events",
+    "description": "<p>Amazon CloudWatch Events helps you to respond to state changes in your AWS resources. When your resources change state they automatically send events into an event stream. You can create rules that match selected events in the stream and route them to targets to take action. You can also use rules to take action on a pre-determined schedule. For example, you can configure rules to: </p> <ul> <li>Automatically invoke an AWS Lambda function to update DNS entries when an event notifies you that Amazon EC2 instance enters the running state.</li> <li>Direct specific API records from CloudTrail to an Amazon Kinesis stream for detailed analysis of potential security or availability risks.</li> <li>Periodically invoke a built-in target to create a snapshot of an Amazon EBS volume.</li> </ul> <p> For more information about Amazon CloudWatch Events features, see the <a href=\"http://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide\">Amazon CloudWatch Developer Guide</a>. </p>",
+    "termsOfService": "https://aws.amazon.com/service-terms/",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/aws2openapi"
+    },
+    "license": {
+      "name": "Apache 2.0 License",
+      "url": "http://www.apache.org/licenses/"
+    }
+  },
+  "x-logo": {
+    "url": "https://media.amazonwebservices.com/blog/2007/big_pbaws_logo_300px.jpg",
+    "backgroundColor": "#FFFFFF"
+  },
+  "externalDocs": {
+    "description": "Amazon Web Services documentation",
+    "url": "https://aws.amazon.com/events/"
+  },
+  "host": "events.us-east-1.amazonaws.com",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/": {
+      "post": {
+        "operationId": "TestEventPattern",
+        "description": "<p>Tests whether an event pattern matches the provided event.</p> <p> <b>Note:</b> Most services in AWS treat : or / as the same character in Amazon Resource Names (ARNs). However, CloudWatch Events uses an exact match in event patterns and rules. Be sure to use the correct ARN characters when creating event patterns so that they match the ARN syntax in the event you want to match. </p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/TestEventPatternResponse"
+            }
+          },
+          "400": {
+            "description": "InvalidEventPatternException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidEventPatternException"
+            }
+          },
+          "401": {
+            "description": "InternalException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TestEventPatternRequest"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "Boolean": {
+      "type": "boolean"
+    },
+    "ConcurrentModificationException": {
+      "type": "object",
+      "properties": {},
+      "description": "This exception occurs if there is concurrent modification on rule or target."
+    },
+    "DeleteRuleRequest": {
+      "type": "object",
+      "required": [
+        "Name"
+      ],
+      "properties": {
+        "Name": {
+          "$ref": "#/definitions/RuleName",
+          "description": "The name of the rule to be deleted."
+        }
+      },
+      "description": "Container for the parameters to the <a>DeleteRule</a> operation."
+    },
+    "DescribeRuleRequest": {
+      "type": "object",
+      "required": [
+        "Name"
+      ],
+      "properties": {
+        "Name": {
+          "$ref": "#/definitions/RuleName",
+          "description": "The name of the rule you want to describe details for."
+        }
+      },
+      "description": "Container for the parameters to the <a>DescribeRule</a> operation."
+    },
+    "DescribeRuleResponse": {
+      "type": "object",
+      "properties": {
+        "Name": {
+          "$ref": "#/definitions/RuleName",
+          "description": "The rule's name."
+        },
+        "Arn": {
+          "$ref": "#/definitions/RuleArn",
+          "description": "The Amazon Resource Name (ARN) associated with the rule."
+        },
+        "EventPattern": {
+          "$ref": "#/definitions/EventPattern",
+          "description": "The event pattern."
+        },
+        "ScheduleExpression": {
+          "$ref": "#/definitions/ScheduleExpression",
+          "description": "The scheduling expression. For example, \"cron(0 20 * * ? *)\", \"rate(5 minutes)\"."
+        },
+        "State": {
+          "$ref": "#/definitions/RuleState",
+          "description": "Specifies whether the rule is enabled or disabled."
+        },
+        "Description": {
+          "$ref": "#/definitions/RuleDescription",
+          "description": "The rule's description."
+        },
+        "RoleArn": {
+          "$ref": "#/definitions/RoleArn",
+          "description": "The Amazon Resource Name (ARN) of the IAM role associated with the rule."
+        }
+      },
+      "description": "The result of the <a>DescribeRule</a> operation."
+    },
+    "DisableRuleRequest": {
+      "type": "object",
+      "required": [
+        "Name"
+      ],
+      "properties": {
+        "Name": {
+          "$ref": "#/definitions/RuleName",
+          "description": "The name of the rule you want to disable."
+        }
+      },
+      "description": "Container for the parameters to the <a>DisableRule</a> operation."
+    },
+    "EnableRuleRequest": {
+      "type": "object",
+      "required": [
+        "Name"
+      ],
+      "properties": {
+        "Name": {
+          "$ref": "#/definitions/RuleName",
+          "description": "The name of the rule that you want to enable."
+        }
+      },
+      "description": "Container for the parameters to the <a>EnableRule</a> operation."
+    },
+    "ErrorCode": {
+      "type": "string"
+    },
+    "ErrorMessage": {
+      "type": "string"
+    },
+    "EventId": {
+      "type": "string"
+    },
+    "EventPattern": {
+      "type": "string",
+      "maxLength": 2048
+    },
+    "EventResource": {
+      "type": "string"
+    },
+    "EventResourceList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/EventResource"
+      }
+    },
+    "EventTime": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "Integer": {
+      "type": "integer"
+    },
+    "InternalException": {
+      "type": "object",
+      "properties": {},
+      "description": "This exception occurs due to unexpected causes."
+    },
+    "InvalidEventPatternException": {
+      "type": "object",
+      "properties": {},
+      "description": "The event pattern is invalid."
+    },
+    "LimitExceededException": {
+      "type": "object",
+      "properties": {},
+      "description": "This exception occurs if you try to create more rules or add more targets to a rule than allowed by default."
+    },
+    "LimitMax100": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100
+    },
+    "ListRuleNamesByTargetRequest": {
+      "type": "object",
+      "required": [
+        "TargetArn"
+      ],
+      "properties": {
+        "TargetArn": {
+          "$ref": "#/definitions/TargetArn",
+          "description": "The Amazon Resource Name (ARN) of the target resource that you want to list the rules for."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NextToken",
+          "description": "The token returned by a previous call to indicate that there is more data available."
+        },
+        "Limit": {
+          "$ref": "#/definitions/LimitMax100",
+          "description": "The maximum number of results to return."
+        }
+      },
+      "description": "Container for the parameters to the <a>ListRuleNamesByTarget</a> operation."
+    },
+    "ListRuleNamesByTargetResponse": {
+      "type": "object",
+      "properties": {
+        "RuleNames": {
+          "$ref": "#/definitions/RuleNameList",
+          "description": "List of rules names that can invoke the given target."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NextToken",
+          "description": "Indicates that there are additional results to retrieve."
+        }
+      },
+      "description": "The result of the <a>ListRuleNamesByTarget</a> operation."
+    },
+    "ListRulesRequest": {
+      "type": "object",
+      "properties": {
+        "NamePrefix": {
+          "$ref": "#/definitions/RuleName",
+          "description": "The prefix matching the rule name."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NextToken",
+          "description": "The token returned by a previous call to indicate that there is more data available."
+        },
+        "Limit": {
+          "$ref": "#/definitions/LimitMax100",
+          "description": "The maximum number of results to return."
+        }
+      },
+      "description": "Container for the parameters to the <a>ListRules</a> operation."
+    },
+    "ListRulesResponse": {
+      "type": "object",
+      "properties": {
+        "Rules": {
+          "$ref": "#/definitions/RuleResponseList",
+          "description": "List of rules matching the specified criteria."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NextToken",
+          "description": "Indicates that there are additional results to retrieve."
+        }
+      },
+      "description": "The result of the <a>ListRules</a> operation."
+    },
+    "ListTargetsByRuleRequest": {
+      "type": "object",
+      "required": [
+        "Rule"
+      ],
+      "properties": {
+        "Rule": {
+          "$ref": "#/definitions/RuleName",
+          "description": "The name of the rule whose targets you want to list."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NextToken",
+          "description": "The token returned by a previous call to indicate that there is more data available."
+        },
+        "Limit": {
+          "$ref": "#/definitions/LimitMax100",
+          "description": "The maximum number of results to return."
+        }
+      },
+      "description": "Container for the parameters to the <a>ListTargetsByRule</a> operation."
+    },
+    "ListTargetsByRuleResponse": {
+      "type": "object",
+      "properties": {
+        "Targets": {
+          "$ref": "#/definitions/TargetList",
+          "description": "Lists the targets assigned to the rule."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NextToken",
+          "description": "Indicates that there are additional results to retrieve."
+        }
+      },
+      "description": "The result of the <a>ListTargetsByRule</a> operation."
+    },
+    "NextToken": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2048
+    },
+    "PutEventsRequest": {
+      "type": "object",
+      "required": [
+        "Entries"
+      ],
+      "properties": {
+        "Entries": {
+          "$ref": "#/definitions/PutEventsRequestEntryList",
+          "description": "The entry that defines an event in your system. You can specify several parameters for the entry such as the source and type of the event, resources associated with the event, and so on."
+        }
+      },
+      "description": "Container for the parameters to the <a>PutEvents</a> operation."
+    },
+    "PutEventsRequestEntry": {
+      "type": "object",
+      "properties": {
+        "Time": {
+          "$ref": "#/definitions/EventTime",
+          "description": "Timestamp of event, per <a href=\"https://www.rfc-editor.org/rfc/rfc3339.txt\">RFC3339</a>. If no timestamp is provided, the timestamp of the <a>PutEvents</a> call will be used."
+        },
+        "Source": {
+          "$ref": "#/definitions/String",
+          "description": "The source of the event."
+        },
+        "Resources": {
+          "$ref": "#/definitions/EventResourceList",
+          "description": "AWS resources, identified by Amazon Resource Name (ARN), which the event primarily concerns. Any number, including zero, may be present."
+        },
+        "DetailType": {
+          "$ref": "#/definitions/String",
+          "description": "Free-form string used to decide what fields to expect in the event detail."
+        },
+        "Detail": {
+          "$ref": "#/definitions/String",
+          "description": "In the JSON sense, an object containing fields, which may also contain nested sub-objects. No constraints are imposed on its contents."
+        }
+      },
+      "description": "Contains information about the event to be used in PutEvents."
+    },
+    "PutEventsRequestEntryList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/PutEventsRequestEntry"
+      },
+      "minItems": 1,
+      "maxItems": 10
+    },
+    "PutEventsResponse": {
+      "type": "object",
+      "properties": {
+        "FailedEntryCount": {
+          "$ref": "#/definitions/Integer",
+          "description": "The number of failed entries."
+        },
+        "Entries": {
+          "$ref": "#/definitions/PutEventsResultEntryList",
+          "description": "A list of successfully and unsuccessfully ingested events results. If the ingestion was successful, the entry will have the event ID in it. If not, then the ErrorCode and ErrorMessage can be used to identify the problem with the entry."
+        }
+      },
+      "description": "The result of the <a>PutEvents</a> operation."
+    },
+    "PutEventsResultEntry": {
+      "type": "object",
+      "properties": {
+        "EventId": {
+          "$ref": "#/definitions/EventId",
+          "description": "The ID of the event submitted to Amazon CloudWatch Events."
+        },
+        "ErrorCode": {
+          "$ref": "#/definitions/ErrorCode",
+          "description": "The error code representing why the event submission failed on this entry."
+        },
+        "ErrorMessage": {
+          "$ref": "#/definitions/ErrorMessage",
+          "description": "The error message explaining why the event submission failed on this entry."
+        }
+      },
+      "description": "A PutEventsResult contains a list of PutEventsResultEntry."
+    },
+    "PutEventsResultEntryList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/PutEventsResultEntry"
+      }
+    },
+    "PutRuleRequest": {
+      "type": "object",
+      "required": [
+        "Name"
+      ],
+      "properties": {
+        "Name": {
+          "$ref": "#/definitions/RuleName",
+          "description": "The name of the rule that you are creating or updating."
+        },
+        "ScheduleExpression": {
+          "$ref": "#/definitions/ScheduleExpression",
+          "description": "The scheduling expression. For example, \"cron(0 20 * * ? *)\", \"rate(5 minutes)\"."
+        },
+        "EventPattern": {
+          "$ref": "#/definitions/EventPattern",
+          "description": "The event pattern."
+        },
+        "State": {
+          "$ref": "#/definitions/RuleState",
+          "description": "Indicates whether the rule is enabled or disabled."
+        },
+        "Description": {
+          "$ref": "#/definitions/RuleDescription",
+          "description": "A description of the rule."
+        },
+        "RoleArn": {
+          "$ref": "#/definitions/RoleArn",
+          "description": "The Amazon Resource Name (ARN) of the IAM role associated with the rule."
+        }
+      },
+      "description": "Container for the parameters to the <a>PutRule</a> operation."
+    },
+    "PutRuleResponse": {
+      "type": "object",
+      "properties": {
+        "RuleArn": {
+          "$ref": "#/definitions/RuleArn",
+          "description": "The Amazon Resource Name (ARN) that identifies the rule."
+        }
+      },
+      "description": "The result of the <a>PutRule</a> operation."
+    },
+    "PutTargetsRequest": {
+      "type": "object",
+      "required": [
+        "Rule",
+        "Targets"
+      ],
+      "properties": {
+        "Rule": {
+          "$ref": "#/definitions/RuleName",
+          "description": "The name of the rule you want to add targets to."
+        },
+        "Targets": {
+          "$ref": "#/definitions/TargetList",
+          "description": "List of targets you want to update or add to the rule."
+        }
+      },
+      "description": "Container for the parameters to the <a>PutTargets</a> operation."
+    },
+    "PutTargetsResponse": {
+      "type": "object",
+      "properties": {
+        "FailedEntryCount": {
+          "$ref": "#/definitions/Integer",
+          "description": "The number of failed entries."
+        },
+        "FailedEntries": {
+          "$ref": "#/definitions/PutTargetsResultEntryList",
+          "description": "An array of failed target entries."
+        }
+      },
+      "description": "The result of the <a>PutTargets</a> operation."
+    },
+    "PutTargetsResultEntry": {
+      "type": "object",
+      "properties": {
+        "TargetId": {
+          "$ref": "#/definitions/TargetId",
+          "description": "The ID of the target submitted to Amazon CloudWatch Events."
+        },
+        "ErrorCode": {
+          "$ref": "#/definitions/ErrorCode",
+          "description": "The error code representing why the target submission failed on this entry."
+        },
+        "ErrorMessage": {
+          "$ref": "#/definitions/ErrorMessage",
+          "description": "The error message explaining why the target submission failed on this entry."
+        }
+      },
+      "description": "A PutTargetsResult contains a list of PutTargetsResultEntry."
+    },
+    "PutTargetsResultEntryList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/PutTargetsResultEntry"
+      }
+    },
+    "RemoveTargetsRequest": {
+      "type": "object",
+      "required": [
+        "Rule",
+        "Ids"
+      ],
+      "properties": {
+        "Rule": {
+          "$ref": "#/definitions/RuleName",
+          "description": "The name of the rule you want to remove targets from."
+        },
+        "Ids": {
+          "$ref": "#/definitions/TargetIdList",
+          "description": "The list of target IDs to remove from the rule."
+        }
+      },
+      "description": "Container for the parameters to the <a>RemoveTargets</a> operation."
+    },
+    "RemoveTargetsResponse": {
+      "type": "object",
+      "properties": {
+        "FailedEntryCount": {
+          "$ref": "#/definitions/Integer",
+          "description": "The number of failed entries."
+        },
+        "FailedEntries": {
+          "$ref": "#/definitions/RemoveTargetsResultEntryList",
+          "description": "An array of failed target entries."
+        }
+      },
+      "description": "The result of the <a>RemoveTargets</a> operation."
+    },
+    "RemoveTargetsResultEntry": {
+      "type": "object",
+      "properties": {
+        "TargetId": {
+          "$ref": "#/definitions/TargetId",
+          "description": "The ID of the target requested to be removed by Amazon CloudWatch Events."
+        },
+        "ErrorCode": {
+          "$ref": "#/definitions/ErrorCode",
+          "description": "The error code representing why the target removal failed on this entry."
+        },
+        "ErrorMessage": {
+          "$ref": "#/definitions/ErrorMessage",
+          "description": "The error message explaining why the target removal failed on this entry."
+        }
+      },
+      "description": "The ID of the target requested to be removed from the rule by Amazon CloudWatch Events."
+    },
+    "RemoveTargetsResultEntryList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/RemoveTargetsResultEntry"
+      }
+    },
+    "ResourceNotFoundException": {
+      "type": "object",
+      "properties": {},
+      "description": "The rule does not exist."
+    },
+    "RoleArn": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1600
+    },
+    "Rule": {
+      "type": "object",
+      "properties": {
+        "Name": {
+          "$ref": "#/definitions/RuleName",
+          "description": "The rule's name."
+        },
+        "Arn": {
+          "$ref": "#/definitions/RuleArn",
+          "description": "The Amazon Resource Name (ARN) of the rule."
+        },
+        "EventPattern": {
+          "$ref": "#/definitions/EventPattern",
+          "description": "The event pattern of the rule."
+        },
+        "State": {
+          "$ref": "#/definitions/RuleState",
+          "description": "The rule's state."
+        },
+        "Description": {
+          "$ref": "#/definitions/RuleDescription",
+          "description": "The description of the rule."
+        },
+        "ScheduleExpression": {
+          "$ref": "#/definitions/ScheduleExpression",
+          "description": "The scheduling expression. For example, \"cron(0 20 * * ? *)\", \"rate(5 minutes)\"."
+        },
+        "RoleArn": {
+          "$ref": "#/definitions/RoleArn",
+          "description": "The Amazon Resource Name (ARN) associated with the role that is used for target invocation."
+        }
+      },
+      "description": "Contains information about a rule in Amazon CloudWatch Events. A ListRulesResult contains a list of Rules."
+    },
+    "RuleArn": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1600
+    },
+    "RuleDescription": {
+      "type": "string",
+      "maxLength": 512
+    },
+    "RuleName": {
+      "type": "string",
+      "pattern": "[\\.\\-_A-Za-z0-9]+",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "RuleNameList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/RuleName"
+      }
+    },
+    "RuleResponseList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Rule"
+      }
+    },
+    "RuleState": {
+      "type": "string",
+      "enum": [
+        "ENABLED",
+        "DISABLED"
+      ]
+    },
+    "ScheduleExpression": {
+      "type": "string",
+      "maxLength": 256
+    },
+    "String": {
+      "type": "string"
+    },
+    "Target": {
+      "type": "object",
+      "required": [
+        "Id",
+        "Arn"
+      ],
+      "properties": {
+        "Id": {
+          "$ref": "#/definitions/TargetId",
+          "description": "The unique target assignment ID."
+        },
+        "Arn": {
+          "$ref": "#/definitions/TargetArn",
+          "description": "The Amazon Resource Name (ARN) associated of the target."
+        },
+        "Input": {
+          "$ref": "#/definitions/TargetInput",
+          "description": "Valid JSON text passed to the target. For more information about JSON text, see <a href=\"http://www.rfc-editor.org/rfc/rfc7159.txt\">The JavaScript Object Notation (JSON) Data Interchange Format</a>."
+        },
+        "InputPath": {
+          "$ref": "#/definitions/TargetInputPath",
+          "description": "The value of the JSONPath that is used for extracting part of the matched event when passing it to the target. For more information about JSON paths, see <a href=\"http://goessner.net/articles/JsonPath/\">JSONPath</a>."
+        }
+      },
+      "description": "<p>Targets are the resources that can be invoked when a rule is triggered. For example, AWS Lambda functions, Amazon Kinesis streams, and built-in targets.</p> <p><b>Input</b> and <b>InputPath</b> are mutually-exclusive and optional parameters of a target. When a rule is triggered due to a matched event, if for a target:</p> <ul> <li>Neither <b>Input</b> nor <b>InputPath</b> is specified, then the entire event is passed to the target in JSON form.</li> <li> <b>InputPath</b> is specified in the form of JSONPath (e.g. <b>$.detail</b>), then only the part of the event specified in the path is passed to the target (e.g. only the detail part of the event is passed). </li> <li> <b>Input</b> is specified in the form of a valid JSON, then the matched event is overridden with this constant.</li> </ul>"
+    },
+    "TargetArn": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1600
+    },
+    "TargetId": {
+      "type": "string",
+      "pattern": "[\\.\\-_A-Za-z0-9]+",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "TargetIdList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/TargetId"
+      },
+      "minItems": 1,
+      "maxItems": 100
+    },
+    "TargetInput": {
+      "type": "string",
+      "maxLength": 8192
+    },
+    "TargetInputPath": {
+      "type": "string",
+      "maxLength": 256
+    },
+    "TargetList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Target"
+      }
+    },
+    "TestEventPatternRequest": {
+      "type": "object",
+      "required": [
+        "EventPattern",
+        "Event"
+      ],
+      "properties": {
+        "EventPattern": {
+          "$ref": "#/definitions/EventPattern",
+          "description": "The event pattern you want to test."
+        },
+        "Event": {
+          "$ref": "#/definitions/String",
+          "description": "The event in the JSON format to test against the event pattern."
+        }
+      },
+      "description": "Container for the parameters to the <a>TestEventPattern</a> operation."
+    },
+    "TestEventPatternResponse": {
+      "type": "object",
+      "properties": {
+        "Result": {
+          "$ref": "#/definitions/Boolean",
+          "description": "Indicates whether the event matches the event pattern."
+        }
+      },
+      "description": "The result of the <a>TestEventPattern</a> operation."
+    }
+  }
+}

@@ -1,0 +1,345 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "2015-05-28",
+    "x-release": "v4",
+    "title": "AWS IoT Data Plane",
+    "description": "<fullname>AWS IoT</fullname> <p>AWS IoT-Data enables secure, bi-directional communication between Internet-connected things (such as sensors, actuators, embedded devices, or smart appliances) and the AWS cloud. It implements a broker for applications and things to publish messages over HTTP (Publish) and retrieve, update, and delete thing shadows. A thing shadow is a persistent representation of your things and their state in the AWS cloud.</p>",
+    "termsOfService": "https://aws.amazon.com/service-terms/",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/aws2openapi"
+    },
+    "license": {
+      "name": "Apache 2.0 License",
+      "url": "http://www.apache.org/licenses/"
+    }
+  },
+  "x-logo": {
+    "url": "https://media.amazonwebservices.com/blog/2007/big_pbaws_logo_300px.jpg",
+    "backgroundColor": "#FFFFFF"
+  },
+  "externalDocs": {
+    "description": "Amazon Web Services documentation",
+    "url": "https://aws.amazon.com/data.iot/"
+  },
+  "host": "data.iot.us-east-1.amazonaws.com",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/things/{thingName}/shadow": {
+      "post": {
+        "operationId": "UpdateThingShadow",
+        "description": "<p>Updates the thing shadow for the specified thing.</p> <p>For more information, see <a href=\"http://docs.aws.amazon.com/iot/latest/developerguide/API_UpdateThingShadow.html\">UpdateThingShadow</a> in the <i>AWS IoT Developer Guide</i>.</p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/UpdateThingShadowResponse"
+            }
+          },
+          "400": {
+            "description": "ConflictException",
+            "schema": {
+              "$ref": "#/definitions/ConflictException"
+            }
+          },
+          "401": {
+            "description": "RequestEntityTooLargeException",
+            "schema": {
+              "$ref": "#/definitions/RequestEntityTooLargeException"
+            }
+          },
+          "402": {
+            "description": "InvalidRequestException",
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "403": {
+            "description": "ThrottlingException",
+            "schema": {
+              "$ref": "#/definitions/ThrottlingException"
+            }
+          },
+          "404": {
+            "description": "UnauthorizedException",
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "405": {
+            "description": "ServiceUnavailableException",
+            "schema": {
+              "$ref": "#/definitions/ServiceUnavailableException"
+            }
+          },
+          "406": {
+            "description": "InternalFailureException",
+            "schema": {
+              "$ref": "#/definitions/InternalFailureException"
+            }
+          },
+          "407": {
+            "description": "MethodNotAllowedException",
+            "schema": {
+              "$ref": "#/definitions/MethodNotAllowedException"
+            }
+          },
+          "408": {
+            "description": "UnsupportedDocumentEncodingException",
+            "schema": {
+              "$ref": "#/definitions/UnsupportedDocumentEncodingException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateThingShadowRequest"
+            }
+          },
+          {
+            "name": "thingName",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/topics/{topic}": {
+      "post": {
+        "operationId": "Publish",
+        "description": "<p>Publishes state information.</p> <p>For more information, see <a href=\"http://docs.aws.amazon.com/iot/latest/developerguide/protocols.html#http\">HTTP Protocol</a> in the <i>AWS IoT Developer Guide</i>.</p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {}
+          },
+          "400": {
+            "description": "InternalFailureException",
+            "schema": {
+              "$ref": "#/definitions/InternalFailureException"
+            }
+          },
+          "401": {
+            "description": "InvalidRequestException",
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "402": {
+            "description": "UnauthorizedException",
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "403": {
+            "description": "MethodNotAllowedException",
+            "schema": {
+              "$ref": "#/definitions/MethodNotAllowedException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PublishRequest"
+            }
+          },
+          {
+            "name": "topic",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "ConflictException": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "$ref": "#/definitions/ErrorMessage",
+          "description": "The message for the exception."
+        }
+      },
+      "description": "The specified version does not match the version of the document."
+    },
+    "DeleteThingShadowRequest": {
+      "type": "object",
+      "properties": {},
+      "description": "The input for the DeleteThingShadow operation."
+    },
+    "DeleteThingShadowResponse": {
+      "type": "object",
+      "required": [
+        "payload"
+      ],
+      "properties": {},
+      "description": "The output from the DeleteThingShadow operation."
+    },
+    "ErrorMessage": {
+      "type": "string"
+    },
+    "GetThingShadowRequest": {
+      "type": "object",
+      "properties": {},
+      "description": "The input for the GetThingShadow operation."
+    },
+    "GetThingShadowResponse": {
+      "type": "object",
+      "properties": {},
+      "description": "The output from the GetThingShadow operation."
+    },
+    "InternalFailureException": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "$ref": "#/definitions/errorMessage",
+          "description": "The message for the exception."
+        }
+      },
+      "description": "An unexpected error has occurred."
+    },
+    "InvalidRequestException": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "$ref": "#/definitions/errorMessage",
+          "description": "The message for the exception."
+        }
+      },
+      "description": "The request is not valid."
+    },
+    "JsonDocument": {
+      "type": "string"
+    },
+    "MethodNotAllowedException": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "$ref": "#/definitions/ErrorMessage",
+          "description": "The message for the exception."
+        }
+      },
+      "description": "The specified combination of HTTP verb and URI is not supported."
+    },
+    "Payload": {
+      "type": "string"
+    },
+    "PublishRequest": {
+      "type": "object",
+      "properties": {},
+      "description": "The input for the Publish operation."
+    },
+    "Qos": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "RequestEntityTooLargeException": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "$ref": "#/definitions/ErrorMessage",
+          "description": "The message for the exception."
+        }
+      },
+      "description": "The payload exceeds the maximum size allowed."
+    },
+    "ResourceNotFoundException": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "$ref": "#/definitions/errorMessage",
+          "description": "The message for the exception."
+        }
+      },
+      "description": "The specified resource does not exist."
+    },
+    "ServiceUnavailableException": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "$ref": "#/definitions/errorMessage",
+          "description": "The message for the exception."
+        }
+      },
+      "description": "The service is temporarily unavailable."
+    },
+    "ThingName": {
+      "type": "string",
+      "pattern": "[a-zA-Z0-9_-]+",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "ThrottlingException": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "$ref": "#/definitions/errorMessage",
+          "description": "The message for the exception."
+        }
+      },
+      "description": "The rate exceeds the limit."
+    },
+    "Topic": {
+      "type": "string"
+    },
+    "UnauthorizedException": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "$ref": "#/definitions/errorMessage",
+          "description": "The message for the exception."
+        }
+      },
+      "description": "You are not authorized to perform this operation."
+    },
+    "UnsupportedDocumentEncodingException": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "$ref": "#/definitions/errorMessage",
+          "description": "The message for the exception."
+        }
+      },
+      "description": "The document encoding is not supported."
+    },
+    "UpdateThingShadowRequest": {
+      "type": "object",
+      "required": [
+        "payload"
+      ],
+      "properties": {},
+      "description": "The input for the UpdateThingShadow operation."
+    },
+    "UpdateThingShadowResponse": {
+      "type": "object",
+      "properties": {},
+      "description": "The output from the UpdateThingShadow operation."
+    },
+    "errorMessage": {
+      "type": "string"
+    }
+  }
+}

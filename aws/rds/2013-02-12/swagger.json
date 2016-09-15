@@ -1,0 +1,3578 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "2013-02-12",
+    "x-release": "v4",
+    "title": "Amazon Relational Database Service",
+    "description": "<fullname>Amazon Relational Database Service</fullname> <p> Amazon Relational Database Service (Amazon RDS) is a web service that makes it easier to set up, operate, and scale a relational database in the cloud. It provides cost-efficient, resizable capacity for an industry-standard relational database and manages common database administration tasks, freeing up developers to focus on what makes their applications and businesses unique. </p> <p> Amazon RDS gives you access to the capabilities of a familiar MySQL or Oracle database server. This means the code, applications, and tools you already use today with your existing MySQL or Oracle databases work with Amazon RDS without modification. Amazon RDS automatically backs up your database and maintains the database software that powers your DB Instance. Amazon RDS is flexible: you can scale your database instance's compute resources and storage capacity to meet your application's demand. As with all Amazon Web Services, there are no up-front investments, and you pay only for the resources you use. </p> <p> This is the <i>Amazon RDS API Reference</i>. It contains a comprehensive description of all Amazon RDS Query APIs and data types. Note that this API is asynchronous and some actions may require polling to determine when an action has been applied. See the parameter description to determine if a change is applied immediately or on the next instance reboot or during the maintenance window. For more information on Amazon RDS concepts and usage scenarios, see the Amazon RDS User Guide. </p>",
+    "termsOfService": "https://aws.amazon.com/service-terms/",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/aws2openapi"
+    },
+    "license": {
+      "name": "Apache 2.0 License",
+      "url": "http://www.apache.org/licenses/"
+    }
+  },
+  "x-logo": {
+    "url": "https://media.amazonwebservices.com/blog/2007/big_pbaws_logo_300px.jpg",
+    "backgroundColor": "#FFFFFF"
+  },
+  "externalDocs": {
+    "description": "Amazon Web Services documentation",
+    "url": "https://aws.amazon.com/rds/"
+  },
+  "host": "rds.us-east-1.amazonaws.com",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [],
+  "produces": [],
+  "paths": {
+    "/": {
+      "post": {
+        "operationId": "RevokeDBSecurityGroupIngress",
+        "description": " Revokes ingress from a DBSecurityGroup for previously authorized IP ranges or EC2 or VPC Security Groups. Required parameters for this API are one of CIDRIP, EC2SecurityGroupId for VPC, or (EC2SecurityGroupOwnerId and either EC2SecurityGroupName or EC2SecurityGroupId). ",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/RevokeDBSecurityGroupIngressResult"
+            }
+          },
+          "400": {
+            "description": "DBSecurityGroupNotFoundFault",
+            "schema": {
+              "$ref": "#/definitions/DBSecurityGroupNotFoundFault"
+            }
+          },
+          "401": {
+            "description": "AuthorizationNotFoundFault",
+            "schema": {
+              "$ref": "#/definitions/AuthorizationNotFoundFault"
+            }
+          },
+          "402": {
+            "description": "InvalidDBSecurityGroupStateFault",
+            "schema": {
+              "$ref": "#/definitions/InvalidDBSecurityGroupStateFault"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RevokeDBSecurityGroupIngressMessage"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "AddSourceIdentifierToSubscriptionMessage": {
+      "type": "object",
+      "required": [
+        "SubscriptionName",
+        "SourceIdentifier"
+      ],
+      "properties": {
+        "SubscriptionName": {
+          "$ref": "#/definitions/String",
+          "description": "The name of the RDS event notification subscription you want to add a source identifier to."
+        },
+        "SourceIdentifier": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The identifier of the event source to be added. An identifier must begin with a letter and must contain only ASCII letters, digits, and hyphens; it cannot end with a hyphen or contain two consecutive hyphens. </p> <p>Constraints:</p> <ul> <li>If the source type is a DB instance, then a DBInstanceIdentifier must be supplied.</li> <li>If the source type is a DB security group, a DBSecurityGroupName must be supplied.</li> <li>If the source type is a DB parameter group, a DBParameterGroupName must be supplied.</li> <li>If the source type is a DB Snapshot, a DBSnapshotIdentifier must be supplied.</li> </ul>"
+        }
+      },
+      "description": "<p/>"
+    },
+    "AddSourceIdentifierToSubscriptionResult": {
+      "type": "object",
+      "properties": {
+        "EventSubscription": {
+          "$ref": "#/definitions/EventSubscription"
+        }
+      }
+    },
+    "AddTagsToResourceMessage": {
+      "type": "object",
+      "required": [
+        "ResourceName",
+        "Tags"
+      ],
+      "properties": {
+        "ResourceName": {
+          "$ref": "#/definitions/String",
+          "description": "The DB Instance the tags will be added to. This value is an Amazon Resource Name (ARN). For information about creating an ARN, see <a href=\"http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.html#USER_Tagging.ARN\"> Constructing an RDS Amazon Resource Name (ARN)</a>."
+        },
+        "Tags": {
+          "$ref": "#/definitions/TagList",
+          "description": "The tags to be assigned to the DB Instance."
+        }
+      },
+      "description": "<p/>"
+    },
+    "ApplyMethod": {
+      "type": "string",
+      "enum": [
+        "immediate",
+        "pending-reboot"
+      ]
+    },
+    "AuthorizationAlreadyExistsFault": {
+      "type": "object",
+      "properties": {},
+      "description": " The specified CIDRIP or EC2 security group is already authorized for the specified DB security group. "
+    },
+    "AuthorizationNotFoundFault": {
+      "type": "object",
+      "properties": {},
+      "description": "<p> Specified CIDRIP or EC2 security group is not authorized for the specified DB security group. </p> <p>RDS may not also be authorized via IAM to perform necessary actions on your behalf.</p>"
+    },
+    "AuthorizationQuotaExceededFault": {
+      "type": "object",
+      "properties": {},
+      "description": " DB security group authorization quota has been reached. "
+    },
+    "AuthorizeDBSecurityGroupIngressMessage": {
+      "type": "object",
+      "required": [
+        "DBSecurityGroupName"
+      ],
+      "properties": {
+        "DBSecurityGroupName": {
+          "$ref": "#/definitions/String",
+          "description": " The name of the DB Security Group to add authorization to. "
+        },
+        "CIDRIP": {
+          "$ref": "#/definitions/String",
+          "description": " The IP range to authorize. "
+        },
+        "EC2SecurityGroupName": {
+          "$ref": "#/definitions/String",
+          "description": " Name of the EC2 Security Group to authorize. For VPC DB Security Groups, <code>EC2SecurityGroupId</code> must be provided. Otherwise, EC2SecurityGroupOwnerId and either <code>EC2SecurityGroupName</code> or <code>EC2SecurityGroupId</code> must be provided. "
+        },
+        "EC2SecurityGroupId": {
+          "$ref": "#/definitions/String",
+          "description": " Id of the EC2 Security Group to authorize. For VPC DB Security Groups, <code>EC2SecurityGroupId</code> must be provided. Otherwise, EC2SecurityGroupOwnerId and either <code>EC2SecurityGroupName</code> or <code>EC2SecurityGroupId</code> must be provided. "
+        },
+        "EC2SecurityGroupOwnerId": {
+          "$ref": "#/definitions/String",
+          "description": " AWS Account Number of the owner of the EC2 Security Group specified in the EC2SecurityGroupName parameter. The AWS Access Key ID is not an acceptable value. For VPC DB Security Groups, <code>EC2SecurityGroupId</code> must be provided. Otherwise, EC2SecurityGroupOwnerId and either <code>EC2SecurityGroupName</code> or <code>EC2SecurityGroupId</code> must be provided. "
+        }
+      },
+      "description": " "
+    },
+    "AuthorizeDBSecurityGroupIngressResult": {
+      "type": "object",
+      "properties": {
+        "DBSecurityGroup": {
+          "$ref": "#/definitions/DBSecurityGroup"
+        }
+      }
+    },
+    "AvailabilityZone": {
+      "type": "object",
+      "properties": {
+        "Name": {
+          "$ref": "#/definitions/String",
+          "description": " The name of the availability zone. "
+        },
+        "ProvisionedIopsCapable": {
+          "$ref": "#/definitions/Boolean",
+          "description": " True indicates the availability zone is capable of provisioned IOPs. "
+        }
+      },
+      "description": "<p> Contains Availability Zone information. </p> <p> This data type is used as an element in the following data type: <ul> <li><a>OrderableDBInstanceOption</a></li> </ul> </p>"
+    },
+    "AvailabilityZoneList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/AvailabilityZone"
+      }
+    },
+    "Boolean": {
+      "type": "boolean"
+    },
+    "BooleanOptional": {
+      "type": "boolean"
+    },
+    "CharacterSet": {
+      "type": "object",
+      "properties": {
+        "CharacterSetName": {
+          "$ref": "#/definitions/String",
+          "description": " The name of the character set. "
+        },
+        "CharacterSetDescription": {
+          "$ref": "#/definitions/String",
+          "description": " The description of the character set. "
+        }
+      },
+      "description": " This data type is used as a response element in the action <a>DescribeDBEngineVersions</a>. "
+    },
+    "CopyDBSnapshotMessage": {
+      "type": "object",
+      "required": [
+        "SourceDBSnapshotIdentifier",
+        "TargetDBSnapshotIdentifier"
+      ],
+      "properties": {
+        "SourceDBSnapshotIdentifier": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The identifier for the source DB snapshot. </p> <p>Constraints:</p> <ul> <li>Must be the identifier for a valid system snapshot in the \"available\" state.</li> </ul> <p>Example: <code>rds:mydb-2012-04-02-00-01</code></p>"
+        },
+        "TargetDBSnapshotIdentifier": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The identifier for the copied snapshot. </p> <p>Constraints:</p> <ul> <li>Cannot be null, empty, or blank</li> <li>Must contain from 1 to 255 alphanumeric characters or hyphens</li> <li>First character must be a letter</li> <li>Cannot end with a hyphen or contain two consecutive hyphens</li> </ul> <p>Example: <code>my-db-snapshot</code></p>"
+        }
+      },
+      "description": " "
+    },
+    "CopyDBSnapshotResult": {
+      "type": "object",
+      "properties": {
+        "DBSnapshot": {
+          "$ref": "#/definitions/DBSnapshot"
+        }
+      }
+    },
+    "CreateDBInstanceMessage": {
+      "type": "object",
+      "required": [
+        "DBInstanceIdentifier",
+        "AllocatedStorage",
+        "DBInstanceClass",
+        "Engine",
+        "MasterUsername",
+        "MasterUserPassword"
+      ],
+      "properties": {
+        "DBName": {
+          "$ref": "#/definitions/String",
+          "description": "<p>The meaning of this parameter differs according to the database engine you use.</p> <p><b>MySQL</b></p> <p>The name of the database to create when the DB Instance is created. If this parameter is not specified, no database is created in the DB Instance. </p> <p>Constraints:</p> <ul> <li>Must contain 1 to 64 alphanumeric characters</li> <li>Cannot be a word reserved by the specified database engine</li> </ul> <p>Type: String</p> <p><b>Oracle</b></p> <p> The Oracle System ID (SID) of the created DB Instance. </p> <p>Default: <code>ORCL</code></p> <p>Constraints:</p> <ul> <li>Cannot be longer than 8 characters</li> </ul> <p><b>SQL Server</b></p> <p>Not applicable. Must be null.</p>"
+        },
+        "DBInstanceIdentifier": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The DB Instance identifier. This parameter is stored as a lowercase string. </p> <p>Constraints:</p> <ul> <li>Must contain from 1 to 63 alphanumeric characters or hyphens (1 to 15 for SQL Server).</li> <li>First character must be a letter.</li> <li>Cannot end with a hyphen or contain two consecutive hyphens.</li> </ul> <p>Example: <code>mydbinstance</code></p>"
+        },
+        "AllocatedStorage": {
+          "$ref": "#/definitions/IntegerOptional",
+          "description": "<p> The amount of storage (in gigabytes) to be initially allocated for the database instance. </p> <p><b>MySQL</b></p> <p> Constraints: Must be an integer from 5 to 1024.</p> <p> Type: Integer</p> <p><b>Oracle</b></p> <p> Constraints: Must be an integer from 10 to 1024.</p> <p><b>SQL Server</b></p> <p> Constraints: Must be an integer from 200 to 1024 (Standard Edition and Enterprise Edition) or from 30 to 1024 (Express Edition and Web Edition)</p>"
+        },
+        "DBInstanceClass": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The compute and memory capacity of the DB Instance. </p> <p> Valid Values: <code>db.t1.micro | db.m1.small | db.m1.medium | db.m1.large | db.m1.xlarge | db.m2.xlarge |db.m2.2xlarge | db.m2.4xlarge</code> </p>"
+        },
+        "Engine": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The name of the database engine to be used for this instance. </p> <p> Valid Values: <code>MySQL</code> | <code>oracle-se1</code> | <code>oracle-se</code> | <code>oracle-ee</code> | <code>sqlserver-ee</code> | <code>sqlserver-se</code> | <code>sqlserver-ex</code> | <code>sqlserver-web</code> </p>"
+        },
+        "MasterUsername": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The name of master user for the client DB Instance. </p> <p><b>MySQL</b></p> <p>Constraints:</p> <ul> <li>Must be 1 to 16 alphanumeric characters.</li> <li>First character must be a letter.</li> <li>Cannot be a reserved word for the chosen database engine.</li> </ul> <p>Type: String</p> <p><b>Oracle</b></p> <p>Constraints:</p> <ul> <li>Must be 1 to 30 alphanumeric characters.</li> <li>First character must be a letter.</li> <li>Cannot be a reserved word for the chosen database engine.</li> </ul> <p><b>SQL Server</b></p> <p>Constraints:</p> <ul> <li>Must be 1 to 128 alphanumeric characters.</li> <li>First character must be a letter.</li> <li>Cannot be a reserved word for the chosen database engine.</li> </ul>"
+        },
+        "MasterUserPassword": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The password for the master database user. Can be any printable ASCII character except \"/\", \"\\\", or \"@\". </p> <p>Type: String</p> <p><b>MySQL</b></p> <p> Constraints: Must contain from 8 to 41 alphanumeric characters. </p> <p><b>Oracle</b></p> <p> Constraints: Must contain from 8 to 30 alphanumeric characters. </p> <p><b>SQL Server</b></p> <p> Constraints: Must contain from 8 to 128 alphanumeric characters. </p>"
+        },
+        "DBSecurityGroups": {
+          "$ref": "#/definitions/DBSecurityGroupNameList",
+          "description": "<p> A list of DB Security Groups to associate with this DB Instance. </p> <p> Default: The default DB Security Group for the database engine. </p>"
+        },
+        "VpcSecurityGroupIds": {
+          "$ref": "#/definitions/VpcSecurityGroupIdList",
+          "description": "<p> A list of EC2 VPC Security Groups to associate with this DB Instance. </p> <p> Default: The default EC2 VPC Security Group for the DB Subnet group's VPC. </p>"
+        },
+        "AvailabilityZone": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The EC2 Availability Zone that the database instance will be created in. </p> <p> Default: A random, system-chosen Availability Zone in the endpoint's region. </p> <p> Example: <code>us-east-1d</code> </p> <p> Constraint: The AvailabilityZone parameter cannot be specified if the MultiAZ parameter is set to <code>true</code>. The specified Availability Zone must be in the same region as the current endpoint. </p>"
+        },
+        "DBSubnetGroupName": {
+          "$ref": "#/definitions/String",
+          "description": "<p> A DB Subnet Group to associate with this DB Instance. </p> <p> If there is no DB Subnet Group, then it is a non-VPC DB instance. </p>"
+        },
+        "PreferredMaintenanceWindow": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The weekly time range (in UTC) during which system maintenance can occur. </p> <p> Format: <code>ddd:hh24:mi-ddd:hh24:mi</code> </p> <p> Default: A 30-minute window selected at random from an 8-hour block of time per region, occurring on a random day of the week. To see the time blocks available, see <a href=\"http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html\"> Adjusting the Preferred Maintenance Window</a> in the Amazon RDS User Guide. </p> <p>Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun</p> <p>Constraints: Minimum 30-minute window.</p>"
+        },
+        "DBParameterGroupName": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The name of the DB Parameter Group to associate with this DB instance. If this argument is omitted, the default DBParameterGroup for the specified engine will be used. </p> <p> Constraints: </p> <ul> <li>Must be 1 to 255 alphanumeric characters</li> <li>First character must be a letter</li> <li>Cannot end with a hyphen or contain two consecutive hyphens</li> </ul>"
+        },
+        "BackupRetentionPeriod": {
+          "$ref": "#/definitions/IntegerOptional",
+          "description": "<p> The number of days for which automated backups are retained. Setting this parameter to a positive number enables backups. Setting this parameter to 0 disables automated backups. </p> <p> Default: 1 </p> <p>Constraints:</p> <ul> <li>Must be a value from 0 to 8</li> <li>Cannot be set to 0 if the DB Instance is a master instance with read replicas</li> </ul>"
+        },
+        "PreferredBackupWindow": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The daily time range during which automated backups are created if automated backups are enabled, using the <code>BackupRetentionPeriod</code> parameter. </p> <p> Default: A 30-minute window selected at random from an 8-hour block of time per region. The following list shows the time blocks for each region from which the default backup windows are assigned. </p> <ul> <li><b>US-East (Northern Virginia) Region:</b> 03:00-11:00 UTC</li> <li><b>US-West (Northern California) Region:</b> 06:00-14:00 UTC</li> <li><b>EU (Ireland) Region:</b> 22:00-06:00 UTC</li> <li><b>Asia Pacific (Singapore) Region:</b> 14:00-22:00 UTC</li> <li><b>Asia Pacific (Tokyo) Region: </b> 17:00-03:00 UTC</li> </ul> <p> Constraints: Must be in the format <code>hh24:mi-hh24:mi</code>. Times should be Universal Time Coordinated (UTC). Must not conflict with the preferred maintenance window. Must be at least 30 minutes. </p>"
+        },
+        "Port": {
+          "$ref": "#/definitions/IntegerOptional",
+          "description": "<p> The port number on which the database accepts connections. </p> <p><b>MySQL</b></p> <p> Default: <code>3306</code> </p> <p> Valid Values: <code>1150-65535</code> </p> <p>Type: Integer </p> <p><b>Oracle</b></p> <p> Default: <code>1521</code> </p> <p> Valid Values: <code>1150-65535</code> </p> <p><b>SQL Server</b></p> <p> Default: <code>1433</code> </p> <p> Valid Values: <code>1150-65535</code> except for <code>1434</code> and <code>3389</code>. </p>"
+        },
+        "MultiAZ": {
+          "$ref": "#/definitions/BooleanOptional",
+          "description": " Specifies if the DB Instance is a Multi-AZ deployment. You cannot set the AvailabilityZone parameter if the MultiAZ parameter is set to true. "
+        },
+        "EngineVersion": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The version number of the database engine to use. </p> <p><b>MySQL</b></p> <p>Example: <code>5.1.42</code></p> <p>Type: String</p> <p><b>Oracle</b></p> <p>Example: <code>11.2.0.2.v2</code></p> <p>Type: String</p> <p><b>SQL Server</b></p> <p>Example: <code>10.50.2789.0.v1</code></p>"
+        },
+        "AutoMinorVersionUpgrade": {
+          "$ref": "#/definitions/BooleanOptional",
+          "description": "<p> Indicates that minor engine upgrades will be applied automatically to the DB Instance during the maintenance window. </p> <p>Default: <code>true</code></p>"
+        },
+        "LicenseModel": {
+          "$ref": "#/definitions/String",
+          "description": "<p> License model information for this DB Instance. </p> <p> Valid values: <code>license-included</code> | <code>bring-your-own-license</code> | <code>general-public-license</code> </p>"
+        },
+        "Iops": {
+          "$ref": "#/definitions/IntegerOptional",
+          "description": "<p> The amount of Provisioned IOPS (input/output operations per second) to be initially allocated for the DB Instance. </p> <p> Constraints: Must be an integer greater than 1000.</p>"
+        },
+        "OptionGroupName": {
+          "$ref": "#/definitions/String",
+          "description": "<p> Indicates that the DB Instance should be associated with the specified option group. </p> <p> Permanent options, such as the TDE option for Oracle Advanced Security TDE, cannot be removed from an option group, and that option group cannot be removed from a DB instance once it is associated with a DB instance </p>"
+        },
+        "CharacterSetName": {
+          "$ref": "#/definitions/String",
+          "description": " For supported engines, indicates that the DB Instance should be associated with the specified CharacterSet. "
+        },
+        "PubliclyAccessible": {
+          "$ref": "#/definitions/BooleanOptional",
+          "description": "<p> Specifies the accessibility options for the DB Instance. A value of true specifies an Internet-facing instance with a publicly resolvable DNS name, which resolves to a public IP address. A value of false specifies an internal instance with a DNS name that resolves to a private IP address. </p> <p> Default: The default behavior varies depending on whether a VPC has been requested or not. The following list shows the default behavior in each case. </p> <ul> <li><b>Default VPC:</b>true</li> <li><b>VPC:</b>false</li> </ul> <p> If no DB subnet group has been specified as part of the request and the PubliclyAccessible value has not been set, the DB instance will be publicly accessible. If a specific DB subnet group has been specified as part of the request and the PubliclyAccessible value has not been set, the DB instance will be private. </p>"
+        }
+      },
+      "description": " "
+    },
+    "CreateDBInstanceReadReplicaMessage": {
+      "type": "object",
+      "required": [
+        "DBInstanceIdentifier",
+        "SourceDBInstanceIdentifier"
+      ],
+      "properties": {
+        "DBInstanceIdentifier": {
+          "$ref": "#/definitions/String",
+          "description": " The DB Instance identifier of the Read Replica. This is the unique key that identifies a DB Instance. This parameter is stored as a lowercase string. "
+        },
+        "SourceDBInstanceIdentifier": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The identifier of the DB Instance that will act as the source for the Read Replica. Each DB Instance can have up to five Read Replicas. </p> <p>Constraints: Must be the identifier of an existing DB Instance that is not already a Read Replica DB Instance. </p>"
+        },
+        "DBInstanceClass": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The compute and memory capacity of the Read Replica. </p> <p> Valid Values: <code>db.m1.small | db.m1.medium | db.m1.large | db.m1.xlarge | db.m2.xlarge |db.m2.2xlarge | db.m2.4xlarge</code> </p> <p>Default: Inherits from the source DB Instance.</p>"
+        },
+        "AvailabilityZone": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The Amazon EC2 Availability Zone that the Read Replica will be created in. </p> <p> Default: A random, system-chosen Availability Zone in the endpoint's region. </p> <p> Example: <code>us-east-1d</code> </p>"
+        },
+        "Port": {
+          "$ref": "#/definitions/IntegerOptional",
+          "description": "<p> The port number that the DB Instance uses for connections. </p> <p>Default: Inherits from the source DB Instance</p> <p>Valid Values: <code>1150-65535</code></p>"
+        },
+        "AutoMinorVersionUpgrade": {
+          "$ref": "#/definitions/BooleanOptional",
+          "description": "<p> Indicates that minor engine upgrades will be applied automatically to the Read Replica during the maintenance window. </p> <p>Default: Inherits from the source DB Instance</p>"
+        },
+        "Iops": {
+          "$ref": "#/definitions/IntegerOptional",
+          "description": " The amount of Provisioned IOPS (input/output operations per second) to be initially allocated for the DB Instance. "
+        },
+        "OptionGroupName": {
+          "$ref": "#/definitions/String",
+          "description": " The option group the DB instance will be associated with. If omitted, the default Option Group for the engine specified will be used. "
+        },
+        "PubliclyAccessible": {
+          "$ref": "#/definitions/BooleanOptional",
+          "description": "<p> Specifies the accessibility options for the DB Instance. A value of true specifies an Internet-facing instance with a publicly resolvable DNS name, which resolves to a public IP address. A value of false specifies an internal instance with a DNS name that resolves to a private IP address. </p> <p> Default: The default behavior varies depending on whether a VPC has been requested or not. The following list shows the default behavior in each case. </p> <ul> <li><b>Default VPC:</b>true</li> <li><b>VPC:</b>false</li> </ul> <p> If no DB subnet group has been specified as part of the request and the PubliclyAccessible value has not been set, the DB instance will be publicly accessible. If a specific DB subnet group has been specified as part of the request and the PubliclyAccessible value has not been set, the DB instance will be private. </p>"
+        }
+      }
+    },
+    "CreateDBInstanceReadReplicaResult": {
+      "type": "object",
+      "properties": {
+        "DBInstance": {
+          "$ref": "#/definitions/DBInstance"
+        }
+      }
+    },
+    "CreateDBInstanceResult": {
+      "type": "object",
+      "properties": {
+        "DBInstance": {
+          "$ref": "#/definitions/DBInstance"
+        }
+      }
+    },
+    "CreateDBParameterGroupMessage": {
+      "type": "object",
+      "required": [
+        "DBParameterGroupName",
+        "DBParameterGroupFamily",
+        "Description"
+      ],
+      "properties": {
+        "DBParameterGroupName": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The name of the DB Parameter Group. </p> <p> Constraints: </p> <ul> <li>Must be 1 to 255 alphanumeric characters</li> <li>First character must be a letter</li> <li>Cannot end with a hyphen or contain two consecutive hyphens</li> </ul> <note>This value is stored as a lower-case string.</note>"
+        },
+        "DBParameterGroupFamily": {
+          "$ref": "#/definitions/String",
+          "description": " The DB Parameter Group Family name. A DB Parameter Group can be associated with one and only one DB Parameter Group Family, and can be applied only to a DB Instance running a database engine and engine version compatible with that DB Parameter Group Family. "
+        },
+        "Description": {
+          "$ref": "#/definitions/String",
+          "description": " The description for the DB Parameter Group. "
+        }
+      },
+      "description": " "
+    },
+    "CreateDBParameterGroupResult": {
+      "type": "object",
+      "properties": {
+        "DBParameterGroup": {
+          "$ref": "#/definitions/DBParameterGroup"
+        }
+      }
+    },
+    "CreateDBSecurityGroupMessage": {
+      "type": "object",
+      "required": [
+        "DBSecurityGroupName",
+        "DBSecurityGroupDescription"
+      ],
+      "properties": {
+        "DBSecurityGroupName": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The name for the DB Security Group. This value is stored as a lowercase string. </p> <p>Constraints: Must contain no more than 255 alphanumeric characters or hyphens. Must not be \"Default\".</p> <p>Example: <code>mysecuritygroup</code></p>"
+        },
+        "DBSecurityGroupDescription": {
+          "$ref": "#/definitions/String",
+          "description": " The description for the DB Security Group. "
+        }
+      },
+      "description": " "
+    },
+    "CreateDBSecurityGroupResult": {
+      "type": "object",
+      "properties": {
+        "DBSecurityGroup": {
+          "$ref": "#/definitions/DBSecurityGroup"
+        }
+      }
+    },
+    "CreateDBSnapshotMessage": {
+      "type": "object",
+      "required": [
+        "DBSnapshotIdentifier",
+        "DBInstanceIdentifier"
+      ],
+      "properties": {
+        "DBSnapshotIdentifier": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The identifier for the DB Snapshot. </p> <p>Constraints:</p> <ul> <li>Cannot be null, empty, or blank</li> <li>Must contain from 1 to 255 alphanumeric characters or hyphens</li> <li>First character must be a letter</li> <li>Cannot end with a hyphen or contain two consecutive hyphens</li> </ul> <p>Example: <code>my-snapshot-id</code></p>"
+        },
+        "DBInstanceIdentifier": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The DB Instance identifier. This is the unique key that identifies a DB Instance. This parameter isn't case sensitive. </p> <p>Constraints:</p> <ul> <li>Must contain from 1 to 63 alphanumeric characters or hyphens</li> <li>First character must be a letter</li> <li>Cannot end with a hyphen or contain two consecutive hyphens</li> </ul>"
+        }
+      },
+      "description": " "
+    },
+    "CreateDBSnapshotResult": {
+      "type": "object",
+      "properties": {
+        "DBSnapshot": {
+          "$ref": "#/definitions/DBSnapshot"
+        }
+      }
+    },
+    "CreateDBSubnetGroupMessage": {
+      "type": "object",
+      "required": [
+        "DBSubnetGroupName",
+        "DBSubnetGroupDescription",
+        "SubnetIds"
+      ],
+      "properties": {
+        "DBSubnetGroupName": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The name for the DB Subnet Group. This value is stored as a lowercase string. </p> <p>Constraints: Must contain no more than 255 alphanumeric characters or hyphens. Must not be \"Default\".</p> <p>Example: <code>mySubnetgroup</code></p>"
+        },
+        "DBSubnetGroupDescription": {
+          "$ref": "#/definitions/String",
+          "description": " The description for the DB Subnet Group. "
+        },
+        "SubnetIds": {
+          "$ref": "#/definitions/SubnetIdentifierList",
+          "description": " The EC2 Subnet IDs for the DB Subnet Group. "
+        }
+      },
+      "description": " "
+    },
+    "CreateDBSubnetGroupResult": {
+      "type": "object",
+      "properties": {
+        "DBSubnetGroup": {
+          "$ref": "#/definitions/DBSubnetGroup"
+        }
+      }
+    },
+    "CreateEventSubscriptionMessage": {
+      "type": "object",
+      "required": [
+        "SubscriptionName",
+        "SnsTopicArn"
+      ],
+      "properties": {
+        "SubscriptionName": {
+          "$ref": "#/definitions/String",
+          "description": "<p>The name of the subscription. </p> <p>Constraints: The name must be less than 255 characters. </p>"
+        },
+        "SnsTopicArn": {
+          "$ref": "#/definitions/String",
+          "description": " The Amazon Resource Name (ARN) of the SNS topic created for event notification. The ARN is created by Amazon SNS when you create a topic and subscribe to it. "
+        },
+        "SourceType": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The type of source that will be generating the events. For example, if you want to be notified of events generated by a DB instance, you would set this parameter to db-instance. if this value is not specified, all events are returned. </p> <p>Valid values: db-instance | db-parameter-group | db-security-group | db-snapshot</p>"
+        },
+        "EventCategories": {
+          "$ref": "#/definitions/EventCategoriesList",
+          "description": " A list of event categories for a SourceType that you want to subscribe to. You can see a list of the categories for a given SourceType in the <a href=\"http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Events.html\">Events</a> topic in the Amazon RDS User Guide or by using the <b>DescribeEventCategories</b> action. "
+        },
+        "SourceIds": {
+          "$ref": "#/definitions/SourceIdsList",
+          "description": "<p> The list of identifiers of the event sources for which events will be returned. If not specified, then all sources are included in the response. An identifier must begin with a letter and must contain only ASCII letters, digits, and hyphens; it cannot end with a hyphen or contain two consecutive hyphens. </p> <p>Constraints:</p> <ul> <li>If SourceIds are supplied, SourceType must also be provided.</li> <li>If the source type is a DB instance, then a DBInstanceIdentifier must be supplied.</li> <li>If the source type is a DB security group, a DBSecurityGroupName must be supplied.</li> <li>If the source type is a DB parameter group, a DBParameterGroupName must be supplied.</li> <li>If the source type is a DB Snapshot, a DBSnapshotIdentifier must be supplied.</li> </ul>"
+        },
+        "Enabled": {
+          "$ref": "#/definitions/BooleanOptional",
+          "description": " A Boolean value; set to <b>true</b> to activate the subscription, set to <b>false</b> to create the subscription but not active it. "
+        }
+      },
+      "description": "<p/>"
+    },
+    "CreateEventSubscriptionResult": {
+      "type": "object",
+      "properties": {
+        "EventSubscription": {
+          "$ref": "#/definitions/EventSubscription"
+        }
+      }
+    },
+    "CreateOptionGroupMessage": {
+      "type": "object",
+      "required": [
+        "OptionGroupName",
+        "EngineName",
+        "MajorEngineVersion",
+        "OptionGroupDescription"
+      ],
+      "properties": {
+        "OptionGroupName": {
+          "$ref": "#/definitions/String",
+          "description": "<p> Specifies the name of the option group to be created. </p> <p> Constraints: </p> <ul> <li>Must be 1 to 255 alphanumeric characters or hyphens</li> <li>First character must be a letter</li> <li>Cannot end with a hyphen or contain two consecutive hyphens</li> </ul> <p>Example: <code>myOptiongroup</code></p>"
+        },
+        "EngineName": {
+          "$ref": "#/definitions/String",
+          "description": " Specifies the name of the engine that this option group should be associated with. "
+        },
+        "MajorEngineVersion": {
+          "$ref": "#/definitions/String",
+          "description": " Specifies the major version of the engine that this option group should be associated with. "
+        },
+        "OptionGroupDescription": {
+          "$ref": "#/definitions/String",
+          "description": " The description of the option group. "
+        }
+      },
+      "description": "<p/>"
+    },
+    "CreateOptionGroupResult": {
+      "type": "object",
+      "properties": {
+        "OptionGroup": {
+          "$ref": "#/definitions/OptionGroup"
+        }
+      }
+    },
+    "DBEngineVersion": {
+      "type": "object",
+      "properties": {
+        "Engine": {
+          "$ref": "#/definitions/String",
+          "description": " The name of the database engine. "
+        },
+        "EngineVersion": {
+          "$ref": "#/definitions/String",
+          "description": " The version number of the database engine. "
+        },
+        "DBParameterGroupFamily": {
+          "$ref": "#/definitions/String",
+          "description": " The name of the DBParameterGroupFamily for the database engine. "
+        },
+        "DBEngineDescription": {
+          "$ref": "#/definitions/String",
+          "description": " The description of the database engine. "
+        },
+        "DBEngineVersionDescription": {
+          "$ref": "#/definitions/String",
+          "description": " The description of the database engine version. "
+        },
+        "DefaultCharacterSet": {
+          "$ref": "#/definitions/CharacterSet",
+          "description": " The default character set for new instances of this engine version, if the <code>CharacterSetName</code> parameter of the CreateDBInstance API is not specified. "
+        },
+        "SupportedCharacterSets": {
+          "$ref": "#/definitions/SupportedCharacterSetsList",
+          "description": " A list of the character sets supported by this engine for the <code>CharacterSetName</code> parameter of the CreateDBInstance API. "
+        }
+      },
+      "description": " This data type is used as a response element in the action <a>DescribeDBEngineVersions</a>. "
+    },
+    "DBEngineVersionList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/DBEngineVersion"
+      }
+    },
+    "DBEngineVersionMessage": {
+      "type": "object",
+      "properties": {
+        "Marker": {
+          "$ref": "#/definitions/String",
+          "description": " An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by <code>MaxRecords</code>. "
+        },
+        "DBEngineVersions": {
+          "$ref": "#/definitions/DBEngineVersionList",
+          "description": " A list of <code>DBEngineVersion</code> elements. "
+        }
+      },
+      "description": " Contains the result of a successful invocation of the <a>DescribeDBEngineVersions</a> action. "
+    },
+    "DBInstance": {
+      "type": "object",
+      "properties": {
+        "DBInstanceIdentifier": {
+          "$ref": "#/definitions/String",
+          "description": " Contains a user-supplied database identifier. This is the unique key that identifies a DB Instance. "
+        },
+        "DBInstanceClass": {
+          "$ref": "#/definitions/String",
+          "description": " Contains the name of the compute and memory capacity class of the DB Instance. "
+        },
+        "Engine": {
+          "$ref": "#/definitions/String",
+          "description": " Provides the name of the database engine to be used for this DB Instance. "
+        },
+        "DBInstanceStatus": {
+          "$ref": "#/definitions/String",
+          "description": " Specifies the current state of this database. "
+        },
+        "MasterUsername": {
+          "$ref": "#/definitions/String",
+          "description": " Contains the master username for the DB Instance. "
+        },
+        "DBName": {
+          "$ref": "#/definitions/String",
+          "description": "<p>The meaning of this parameter differs according to the database engine you use.</p> <p><b>MySQL</b></p> <p> Contains the name of the initial database of this instance that was provided at create time, if one was specified when the DB Instance was created. This same name is returned for the life of the DB Instance. </p> <p>Type: String</p> <p><b>Oracle</b></p> <p> Contains the Oracle System ID (SID) of the created DB Instance. </p>"
+        },
+        "Endpoint": {
+          "$ref": "#/definitions/Endpoint",
+          "description": " Specifies the connection endpoint. "
+        },
+        "AllocatedStorage": {
+          "$ref": "#/definitions/Integer",
+          "description": " Specifies the allocated storage size specified in gigabytes. "
+        },
+        "InstanceCreateTime": {
+          "$ref": "#/definitions/TStamp",
+          "description": " Provides the date and time the DB Instance was created. "
+        },
+        "PreferredBackupWindow": {
+          "$ref": "#/definitions/String",
+          "description": " Specifies the daily time range during which automated backups are created if automated backups are enabled, as determined by the <code>BackupRetentionPeriod</code>. "
+        },
+        "BackupRetentionPeriod": {
+          "$ref": "#/definitions/Integer",
+          "description": " Specifies the number of days for which automatic DB Snapshots are retained. "
+        },
+        "DBSecurityGroups": {
+          "$ref": "#/definitions/DBSecurityGroupMembershipList",
+          "description": " Provides List of DB Security Group elements containing only <code>DBSecurityGroup.Name</code> and <code>DBSecurityGroup.Status</code> subelements. "
+        },
+        "VpcSecurityGroups": {
+          "$ref": "#/definitions/VpcSecurityGroupMembershipList",
+          "description": " Provides List of VPC security group elements that the DB Instance belongs to. "
+        },
+        "DBParameterGroups": {
+          "$ref": "#/definitions/DBParameterGroupStatusList",
+          "description": " Provides the list of DB Parameter Groups applied to this DB Instance. "
+        },
+        "AvailabilityZone": {
+          "$ref": "#/definitions/String",
+          "description": " Specifies the name of the Availability Zone the DB Instance is located in. "
+        },
+        "DBSubnetGroup": {
+          "$ref": "#/definitions/DBSubnetGroup",
+          "description": " Provides the inforamtion of the subnet group associated with the DB instance, including the name, descrption and subnets in the subnet group. "
+        },
+        "PreferredMaintenanceWindow": {
+          "$ref": "#/definitions/String",
+          "description": " Specifies the weekly time range (in UTC) during which system maintenance can occur. "
+        },
+        "PendingModifiedValues": {
+          "$ref": "#/definitions/PendingModifiedValues",
+          "description": " Specifies that changes to the DB Instance are pending. This element is only included when changes are pending. Specific changes are identified by subelements. "
+        },
+        "LatestRestorableTime": {
+          "$ref": "#/definitions/TStamp",
+          "description": " Specifies the latest time to which a database can be restored with point-in-time restore. "
+        },
+        "MultiAZ": {
+          "$ref": "#/definitions/Boolean",
+          "description": " Specifies if the DB Instance is a Multi-AZ deployment. "
+        },
+        "EngineVersion": {
+          "$ref": "#/definitions/String",
+          "description": " Indicates the database engine version. "
+        },
+        "AutoMinorVersionUpgrade": {
+          "$ref": "#/definitions/Boolean",
+          "description": " Indicates that minor version patches are applied automatically. "
+        },
+        "ReadReplicaSourceDBInstanceIdentifier": {
+          "$ref": "#/definitions/String",
+          "description": " Contains the identifier of the source DB Instance if this DB Instance is a Read Replica. "
+        },
+        "ReadReplicaDBInstanceIdentifiers": {
+          "$ref": "#/definitions/ReadReplicaDBInstanceIdentifierList",
+          "description": " Contains one or more identifiers of the Read Replicas associated with this DB Instance. "
+        },
+        "LicenseModel": {
+          "$ref": "#/definitions/String",
+          "description": " License model information for this DB Instance. "
+        },
+        "Iops": {
+          "$ref": "#/definitions/IntegerOptional",
+          "description": " Specifies the Provisioned IOPS (I/O operations per second) value. "
+        },
+        "OptionGroupMemberships": {
+          "$ref": "#/definitions/OptionGroupMembershipList",
+          "description": " Provides the list of option group memberships for this DB Instance. "
+        },
+        "CharacterSetName": {
+          "$ref": "#/definitions/String",
+          "description": " If present, specifies the name of the character set that this instance is associated with. "
+        },
+        "SecondaryAvailabilityZone": {
+          "$ref": "#/definitions/String",
+          "description": " If present, specifies the name of the secondary Availability Zone for a DB instance with multi-AZ support. "
+        },
+        "PubliclyAccessible": {
+          "$ref": "#/definitions/Boolean",
+          "description": "<p> Specifies the accessibility options for the DB Instance. A value of true specifies an Internet-facing instance with a publicly resolvable DNS name, which resolves to a public IP address. A value of false specifies an internal instance with a DNS name that resolves to a private IP address. </p> <p> Default: The default behavior varies depending on whether a VPC has been requested or not. The following list shows the default behavior in each case. </p> <ul> <li><b>Default VPC:</b>true</li> <li><b>VPC:</b>false</li> </ul> <p> If no DB subnet group has been specified as part of the request and the PubliclyAccessible value has not been set, the DB instance will be publicly accessible. If a specific DB subnet group has been specified as part of the request and the PubliclyAccessible value has not been set, the DB instance will be private. </p>"
+        }
+      },
+      "description": "<p> Contains the result of a successful invocation of the following actions: </p> <ul> <li><a>CreateDBInstance</a></li> <li><a>DeleteDBInstance</a></li> <li><a>ModifyDBInstance</a></li> </ul> <p>This data type is used as a response element in the <a>DescribeDBInstances</a> action.</p>"
+    },
+    "DBInstanceAlreadyExistsFault": {
+      "type": "object",
+      "properties": {},
+      "description": " User already has a DB instance with the given identifier. "
+    },
+    "DBInstanceList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/DBInstance"
+      }
+    },
+    "DBInstanceMessage": {
+      "type": "object",
+      "properties": {
+        "Marker": {
+          "$ref": "#/definitions/String",
+          "description": " An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by <code>MaxRecords</code> . "
+        },
+        "DBInstances": {
+          "$ref": "#/definitions/DBInstanceList",
+          "description": " A list of <a>DBInstance</a> instances. "
+        }
+      },
+      "description": " Contains the result of a successful invocation of the <a>DescribeDBInstances</a> action. "
+    },
+    "DBInstanceNotFoundFault": {
+      "type": "object",
+      "properties": {},
+      "description": " <i>DBInstanceIdentifier</i> does not refer to an existing DB instance. "
+    },
+    "DBLogFileNotFoundFault": {
+      "type": "object",
+      "properties": {},
+      "description": "<i>LogFileName</i> does not refer to an existing DB log file."
+    },
+    "DBParameterGroup": {
+      "type": "object",
+      "properties": {
+        "DBParameterGroupName": {
+          "$ref": "#/definitions/String",
+          "description": " Provides the name of the DB Parameter Group. "
+        },
+        "DBParameterGroupFamily": {
+          "$ref": "#/definitions/String",
+          "description": " Provides the name of the DB Parameter Group Family that this DB Parameter Group is compatible with. "
+        },
+        "Description": {
+          "$ref": "#/definitions/String",
+          "description": " Provides the customer-specified description for this DB Parameter Group. "
+        }
+      },
+      "description": "<p> Contains the result of a successful invocation of the <a>CreateDBParameterGroup</a> action. </p> <p> This data type is used as a request parameter in the <a>DeleteDBParameterGroup</a> action, and as a response element in the <a>DescribeDBParameterGroups</a> action. </p>"
+    },
+    "DBParameterGroupAlreadyExistsFault": {
+      "type": "object",
+      "properties": {},
+      "description": " A DB parameter group with the same name exists. "
+    },
+    "DBParameterGroupDetails": {
+      "type": "object",
+      "properties": {
+        "Parameters": {
+          "$ref": "#/definitions/ParametersList",
+          "description": " A list of <a>Parameter</a> instances. "
+        },
+        "Marker": {
+          "$ref": "#/definitions/String",
+          "description": " An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by <code>MaxRecords</code>. "
+        }
+      },
+      "description": " Contains the result of a successful invocation of the <a>DescribeDBParameters</a> action. "
+    },
+    "DBParameterGroupList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/DBParameterGroup"
+      }
+    },
+    "DBParameterGroupNameMessage": {
+      "type": "object",
+      "properties": {
+        "DBParameterGroupName": {
+          "$ref": "#/definitions/String",
+          "description": " The name of the DB Parameter Group. "
+        }
+      },
+      "description": " Contains the result of a successful invocation of the <a>ModifyDBParameterGroup</a> or <a>ResetDBParameterGroup</a> action. "
+    },
+    "DBParameterGroupNotFoundFault": {
+      "type": "object",
+      "properties": {},
+      "description": " <i>DBParameterGroupName</i> does not refer to an existing DB parameter group. "
+    },
+    "DBParameterGroupQuotaExceededFault": {
+      "type": "object",
+      "properties": {},
+      "description": " Request would result in user exceeding the allowed number of DB parameter groups. "
+    },
+    "DBParameterGroupStatus": {
+      "type": "object",
+      "properties": {
+        "DBParameterGroupName": {
+          "$ref": "#/definitions/String",
+          "description": " The name of the DP Parameter Group. "
+        },
+        "ParameterApplyStatus": {
+          "$ref": "#/definitions/String",
+          "description": " The status of parameter updates. "
+        }
+      },
+      "description": "<p> The status of the DB Parameter Group. </p> <p>This data type is used as a response element in the following actions:</p> <ul> <li><a>CreateDBInstance</a></li> <li><a>CreateDBInstanceReadReplica</a></li> <li><a>DeleteDBInstance</a></li> <li><a>ModifyDBInstance</a></li> <li><a>RebootDBInstance</a></li> <li><a>RestoreDBInstanceFromDBSnapshot</a></li> </ul>"
+    },
+    "DBParameterGroupStatusList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/DBParameterGroupStatus"
+      }
+    },
+    "DBParameterGroupsMessage": {
+      "type": "object",
+      "properties": {
+        "Marker": {
+          "$ref": "#/definitions/String",
+          "description": " An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by <code>MaxRecords</code>. "
+        },
+        "DBParameterGroups": {
+          "$ref": "#/definitions/DBParameterGroupList",
+          "description": " A list of <a>DBParameterGroup</a> instances. "
+        }
+      },
+      "description": " Contains the result of a successful invocation of the <a>DescribeDBParameterGroups</a> action. "
+    },
+    "DBSecurityGroup": {
+      "type": "object",
+      "properties": {
+        "OwnerId": {
+          "$ref": "#/definitions/String",
+          "description": " Provides the AWS ID of the owner of a specific DB Security Group. "
+        },
+        "DBSecurityGroupName": {
+          "$ref": "#/definitions/String",
+          "description": " Specifies the name of the DB Security Group. "
+        },
+        "DBSecurityGroupDescription": {
+          "$ref": "#/definitions/String",
+          "description": " Provides the description of the DB Security Group. "
+        },
+        "VpcId": {
+          "$ref": "#/definitions/String",
+          "description": " Provides the VpcId of the DB Security Group. "
+        },
+        "EC2SecurityGroups": {
+          "$ref": "#/definitions/EC2SecurityGroupList",
+          "description": " Contains a list of <a>EC2SecurityGroup</a> elements. "
+        },
+        "IPRanges": {
+          "$ref": "#/definitions/IPRangeList",
+          "description": " Contains a list of <a>IPRange</a> elements. "
+        }
+      },
+      "description": "<p> Contains the result of a successful invocation of the following actions: </p> <ul> <li><a>DescribeDBSecurityGroups</a></li> <li><a>AuthorizeDBSecurityGroupIngress</a></li> <li><a>CreateDBSecurityGroup</a></li> <li><a>RevokeDBSecurityGroupIngress</a></li> </ul> <p>This data type is used as a response element in the <a>DescribeDBSecurityGroups</a> action.</p>"
+    },
+    "DBSecurityGroupAlreadyExistsFault": {
+      "type": "object",
+      "properties": {},
+      "description": " A DB security group with the name specified in <i>DBSecurityGroupName</i> already exists. "
+    },
+    "DBSecurityGroupMembership": {
+      "type": "object",
+      "properties": {
+        "DBSecurityGroupName": {
+          "$ref": "#/definitions/String",
+          "description": " The name of the DB Security Group. "
+        },
+        "Status": {
+          "$ref": "#/definitions/String",
+          "description": " The status of the DB Security Group. "
+        }
+      },
+      "description": "<p> This data type is used as a response element in the following actions: </p> <ul> <li><a>ModifyDBInstance</a></li> <li><a>RebootDBInstance</a></li> <li><a>RestoreDBInstanceFromDBSnapshot</a></li> <li><a>RestoreDBInstanceToPointInTime</a></li> </ul>"
+    },
+    "DBSecurityGroupMembershipList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/DBSecurityGroupMembership"
+      }
+    },
+    "DBSecurityGroupMessage": {
+      "type": "object",
+      "properties": {
+        "Marker": {
+          "$ref": "#/definitions/String",
+          "description": " An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by <code>MaxRecords</code>. "
+        },
+        "DBSecurityGroups": {
+          "$ref": "#/definitions/DBSecurityGroups",
+          "description": " A list of <a>DBSecurityGroup</a> instances. "
+        }
+      },
+      "description": " Contains the result of a successful invocation of the <a>DescribeDBSecurityGroups</a> action. "
+    },
+    "DBSecurityGroupNameList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/String"
+      }
+    },
+    "DBSecurityGroupNotFoundFault": {
+      "type": "object",
+      "properties": {},
+      "description": " <i>DBSecurityGroupName</i> does not refer to an existing DB security group. "
+    },
+    "DBSecurityGroupNotSupportedFault": {
+      "type": "object",
+      "properties": {},
+      "description": " A DB security group is not allowed for this action. "
+    },
+    "DBSecurityGroupQuotaExceededFault": {
+      "type": "object",
+      "properties": {},
+      "description": " Request would result in user exceeding the allowed number of DB security groups. "
+    },
+    "DBSecurityGroups": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/DBSecurityGroup"
+      }
+    },
+    "DBSnapshot": {
+      "type": "object",
+      "properties": {
+        "DBSnapshotIdentifier": {
+          "$ref": "#/definitions/String",
+          "description": " Specifies the identifier for the DB Snapshot. "
+        },
+        "DBInstanceIdentifier": {
+          "$ref": "#/definitions/String",
+          "description": " Specifies the the DBInstanceIdentifier of the DB Instance this DB Snapshot was created from. "
+        },
+        "SnapshotCreateTime": {
+          "$ref": "#/definitions/TStamp",
+          "description": " Provides the time (UTC) when the snapshot was taken. "
+        },
+        "Engine": {
+          "$ref": "#/definitions/String",
+          "description": " Specifies the name of the database engine. "
+        },
+        "AllocatedStorage": {
+          "$ref": "#/definitions/Integer",
+          "description": " Specifies the allocated storage size in gigabytes (GB). "
+        },
+        "Status": {
+          "$ref": "#/definitions/String",
+          "description": " Specifies the status of this DB Snapshot. "
+        },
+        "Port": {
+          "$ref": "#/definitions/Integer",
+          "description": " Specifies the port that the database engine was listening on at the time of the snapshot. "
+        },
+        "AvailabilityZone": {
+          "$ref": "#/definitions/String",
+          "description": " Specifies the name of the Availability Zone the DB Instance was located in at the time of the DB Snapshot. "
+        },
+        "VpcId": {
+          "$ref": "#/definitions/String",
+          "description": " Provides the Vpc Id associated with the DB Snapshot. "
+        },
+        "InstanceCreateTime": {
+          "$ref": "#/definitions/TStamp",
+          "description": " Specifies the time (UTC) when the snapshot was taken. "
+        },
+        "MasterUsername": {
+          "$ref": "#/definitions/String",
+          "description": " Provides the master username for the DB Snapshot. "
+        },
+        "EngineVersion": {
+          "$ref": "#/definitions/String",
+          "description": " Specifies the version of the database engine. "
+        },
+        "LicenseModel": {
+          "$ref": "#/definitions/String",
+          "description": " License model information for the restored DB Instance. "
+        },
+        "SnapshotType": {
+          "$ref": "#/definitions/String",
+          "description": " Provides the type of the DB Snapshot. "
+        },
+        "Iops": {
+          "$ref": "#/definitions/IntegerOptional",
+          "description": " Specifies the Provisioned IOPS (I/O operations per second) value of the DB Instance at the time of the snapshot. "
+        },
+        "OptionGroupName": {
+          "$ref": "#/definitions/String",
+          "description": " Provides the option group name for the DB Snapshot. "
+        }
+      },
+      "description": "<p> Contains the result of a successful invocation of the following actions: </p> <ul> <li><a>CreateDBSnapshot</a></li> <li><a>DeleteDBSnapshot</a></li> </ul> <p>This data type is used as a response element in the <a>DescribeDBSnapshots</a> action.</p>"
+    },
+    "DBSnapshotAlreadyExistsFault": {
+      "type": "object",
+      "properties": {},
+      "description": " <i>DBSnapshotIdentifier</i> is already used by an existing snapshot. "
+    },
+    "DBSnapshotList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/DBSnapshot"
+      }
+    },
+    "DBSnapshotMessage": {
+      "type": "object",
+      "properties": {
+        "Marker": {
+          "$ref": "#/definitions/String",
+          "description": " An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by <code>MaxRecords</code>. "
+        },
+        "DBSnapshots": {
+          "$ref": "#/definitions/DBSnapshotList",
+          "description": " A list of <a>DBSnapshot</a> instances. "
+        }
+      },
+      "description": " Contains the result of a successful invocation of the <a>DescribeDBSnapshots</a> action. "
+    },
+    "DBSnapshotNotFoundFault": {
+      "type": "object",
+      "properties": {},
+      "description": " <i>DBSnapshotIdentifier</i> does not refer to an existing DB snapshot. "
+    },
+    "DBSubnetGroup": {
+      "type": "object",
+      "properties": {
+        "DBSubnetGroupName": {
+          "$ref": "#/definitions/String",
+          "description": " Specifies the name of the DB Subnet Group. "
+        },
+        "DBSubnetGroupDescription": {
+          "$ref": "#/definitions/String",
+          "description": " Provides the description of the DB Subnet Group. "
+        },
+        "VpcId": {
+          "$ref": "#/definitions/String",
+          "description": " Provides the VpcId of the DB Subnet Group. "
+        },
+        "SubnetGroupStatus": {
+          "$ref": "#/definitions/String",
+          "description": " Provides the status of the DB Subnet Group. "
+        },
+        "Subnets": {
+          "$ref": "#/definitions/SubnetList",
+          "description": " Contains a list of <a>Subnet</a> elements. "
+        }
+      },
+      "description": "<p> Contains the result of a successful invocation of the following actions: </p> <ul> <li><a>CreateDBSubnetGroup</a></li> <li><a>ModifyDBSubnetGroup</a></li> <li><a>DescribeDBSubnetGroups</a></li> <li><a>DeleteDBSubnetGroup</a></li> </ul> <p>This data type is used as a response element in the <a>DescribeDBSubnetGroups</a> action.</p>"
+    },
+    "DBSubnetGroupAlreadyExistsFault": {
+      "type": "object",
+      "properties": {},
+      "description": " <i>DBSubnetGroupName</i> is already used by an existing DB subnet group. "
+    },
+    "DBSubnetGroupDoesNotCoverEnoughAZs": {
+      "type": "object",
+      "properties": {},
+      "description": " Subnets in the DB subnet group should cover at least two Availability Zones unless there is only one Availability Zone. "
+    },
+    "DBSubnetGroupMessage": {
+      "type": "object",
+      "properties": {
+        "Marker": {
+          "$ref": "#/definitions/String",
+          "description": " An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by <code>MaxRecords</code>. "
+        },
+        "DBSubnetGroups": {
+          "$ref": "#/definitions/DBSubnetGroups",
+          "description": " A list of <a>DBSubnetGroup</a> instances. "
+        }
+      },
+      "description": " Contains the result of a successful invocation of the <a>DescribeDBSubnetGroups</a> action. "
+    },
+    "DBSubnetGroupNotFoundFault": {
+      "type": "object",
+      "properties": {},
+      "description": " <i>DBSubnetGroupName</i> does not refer to an existing DB subnet group. "
+    },
+    "DBSubnetGroupQuotaExceededFault": {
+      "type": "object",
+      "properties": {},
+      "description": " Request would result in user exceeding the allowed number of DB subnet groups. "
+    },
+    "DBSubnetGroups": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/DBSubnetGroup"
+      }
+    },
+    "DBSubnetQuotaExceededFault": {
+      "type": "object",
+      "properties": {},
+      "description": " Request would result in user exceeding the allowed number of subnets in a DB subnet groups. "
+    },
+    "DBUpgradeDependencyFailureFault": {
+      "type": "object",
+      "properties": {},
+      "description": " The DB upgrade failed because a resource the DB depends on could not be modified. "
+    },
+    "DeleteDBInstanceMessage": {
+      "type": "object",
+      "required": [
+        "DBInstanceIdentifier"
+      ],
+      "properties": {
+        "DBInstanceIdentifier": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The DB Instance identifier for the DB Instance to be deleted. This parameter isn't case sensitive. </p> <p>Constraints:</p> <ul> <li>Must contain from 1 to 63 alphanumeric characters or hyphens</li> <li>First character must be a letter</li> <li>Cannot end with a hyphen or contain two consecutive hyphens</li> </ul>"
+        },
+        "SkipFinalSnapshot": {
+          "$ref": "#/definitions/Boolean",
+          "description": "<p> Determines whether a final DB Snapshot is created before the DB Instance is deleted. If <code>true</code> is specified, no DBSnapshot is created. If false is specified, a DB Snapshot is created before the DB Instance is deleted. </p> <note>The FinalDBSnapshotIdentifier parameter must be specified if SkipFinalSnapshot is <code>false</code>.</note> <p>Default: <code>false</code></p>"
+        },
+        "FinalDBSnapshotIdentifier": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The DBSnapshotIdentifier of the new DBSnapshot created when SkipFinalSnapshot is set to <code>false</code>. </p> <note> Specifying this parameter and also setting the SkipFinalShapshot parameter to true results in an error. </note> <p>Constraints:</p> <ul> <li>Must be 1 to 255 alphanumeric characters</li> <li>First character must be a letter</li> <li>Cannot end with a hyphen or contain two consecutive hyphens</li> </ul>"
+        }
+      },
+      "description": " "
+    },
+    "DeleteDBInstanceResult": {
+      "type": "object",
+      "properties": {
+        "DBInstance": {
+          "$ref": "#/definitions/DBInstance"
+        }
+      }
+    },
+    "DeleteDBParameterGroupMessage": {
+      "type": "object",
+      "required": [
+        "DBParameterGroupName"
+      ],
+      "properties": {
+        "DBParameterGroupName": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The name of the DB Parameter Group. </p> <p>Constraints:</p> <ul> <li>Must be the name of an existing DB Parameter Group</li> <li>You cannot delete a default DB Parameter Group</li> <li>Cannot be associated with any DB Instances</li> </ul>"
+        }
+      },
+      "description": " "
+    },
+    "DeleteDBSecurityGroupMessage": {
+      "type": "object",
+      "required": [
+        "DBSecurityGroupName"
+      ],
+      "properties": {
+        "DBSecurityGroupName": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The name of the DB Security Group to delete. </p> <note>You cannot delete the default DB Security Group.</note> <p> Constraints: </p> <ul> <li>Must be 1 to 255 alphanumeric characters</li> <li>First character must be a letter</li> <li>Cannot end with a hyphen or contain two consecutive hyphens</li> </ul>"
+        }
+      },
+      "description": " "
+    },
+    "DeleteDBSnapshotMessage": {
+      "type": "object",
+      "required": [
+        "DBSnapshotIdentifier"
+      ],
+      "properties": {
+        "DBSnapshotIdentifier": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The DBSnapshot identifier. </p> <p>Constraints: Must be the name of an existing DB Snapshot in the <code>available</code> state.</p>"
+        }
+      },
+      "description": " "
+    },
+    "DeleteDBSnapshotResult": {
+      "type": "object",
+      "properties": {
+        "DBSnapshot": {
+          "$ref": "#/definitions/DBSnapshot"
+        }
+      }
+    },
+    "DeleteDBSubnetGroupMessage": {
+      "type": "object",
+      "required": [
+        "DBSubnetGroupName"
+      ],
+      "properties": {
+        "DBSubnetGroupName": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The name of the database subnet group to delete. </p> <note>You cannot delete the default subnet group.</note> <p> Constraints: </p> <ul> <li>Must be 1 to 255 alphanumeric characters</li> <li>First character must be a letter</li> <li>Cannot end with a hyphen or contain two consecutive hyphens</li> </ul>"
+        }
+      },
+      "description": " "
+    },
+    "DeleteEventSubscriptionMessage": {
+      "type": "object",
+      "required": [
+        "SubscriptionName"
+      ],
+      "properties": {
+        "SubscriptionName": {
+          "$ref": "#/definitions/String",
+          "description": "The name of the RDS event notification subscription you want to delete."
+        }
+      },
+      "description": "<p/>"
+    },
+    "DeleteEventSubscriptionResult": {
+      "type": "object",
+      "properties": {
+        "EventSubscription": {
+          "$ref": "#/definitions/EventSubscription"
+        }
+      }
+    },
+    "DeleteOptionGroupMessage": {
+      "type": "object",
+      "required": [
+        "OptionGroupName"
+      ],
+      "properties": {
+        "OptionGroupName": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The name of the option group to be deleted. </p> <note>You cannot delete default Option Groups.</note>"
+        }
+      },
+      "description": " "
+    },
+    "DescribeDBEngineVersionsMessage": {
+      "type": "object",
+      "properties": {
+        "Engine": {
+          "$ref": "#/definitions/String",
+          "description": " The database engine to return. "
+        },
+        "EngineVersion": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The database engine version to return. </p> <p>Example: <code>5.1.49</code></p>"
+        },
+        "DBParameterGroupFamily": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The name of a specific DB Parameter Group family to return details for. </p> <p>Constraints:</p> <ul> <li>Must be 1 to 255 alphanumeric characters</li> <li>First character must be a letter</li> <li>Cannot end with a hyphen or contain two consecutive hyphens</li> </ul>"
+        },
+        "MaxRecords": {
+          "$ref": "#/definitions/IntegerOptional",
+          "description": "<p> The maximum number of records to include in the response. If more than the <code>MaxRecords</code> value is available, a pagination token called a marker is included in the response so that the following results can be retrieved. </p> <p>Default: 100</p> <p>Constraints: minimum 20, maximum 100</p>"
+        },
+        "Marker": {
+          "$ref": "#/definitions/String",
+          "description": " An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by <code>MaxRecords</code>. "
+        },
+        "DefaultOnly": {
+          "$ref": "#/definitions/Boolean",
+          "description": " Indicates that only the default version of the specified engine or engine and major version combination is returned. "
+        },
+        "ListSupportedCharacterSets": {
+          "$ref": "#/definitions/BooleanOptional",
+          "description": " If this parameter is specified, and if the requested engine supports the CharacterSetName parameter for CreateDBInstance, the response includes a list of supported character sets for each engine version. "
+        }
+      }
+    },
+    "DescribeDBInstancesMessage": {
+      "type": "object",
+      "properties": {
+        "DBInstanceIdentifier": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The user-supplied instance identifier. If this parameter is specified, information from only the specific DB Instance is returned. This parameter isn't case sensitive. </p> <p>Constraints:</p> <ul> <li>Must contain from 1 to 63 alphanumeric characters or hyphens</li> <li>First character must be a letter</li> <li>Cannot end with a hyphen or contain two consecutive hyphens</li> </ul>"
+        },
+        "MaxRecords": {
+          "$ref": "#/definitions/IntegerOptional",
+          "description": "<p> The maximum number of records to include in the response. If more records exist than the specified <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the remaining results may be retrieved. </p> <p>Default: 100</p> <p>Constraints: minimum 20, maximum 100</p>"
+        },
+        "Marker": {
+          "$ref": "#/definitions/String",
+          "description": " An optional pagination token provided by a previous DescribeDBInstances request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by <code>MaxRecords</code> . "
+        }
+      },
+      "description": " "
+    },
+    "DescribeDBLogFilesDetails": {
+      "type": "object",
+      "properties": {
+        "LogFileName": {
+          "$ref": "#/definitions/String",
+          "description": " The name of the log file for the specified DB instance. "
+        },
+        "LastWritten": {
+          "$ref": "#/definitions/Long",
+          "description": " The date and time that the last log entry was written. "
+        },
+        "Size": {
+          "$ref": "#/definitions/Long",
+          "description": " The size, in bytes, of the log file for the specified DB instance. "
+        }
+      },
+      "description": "This data type is used as a response element to <a>DescribeDBLogFiles</a>."
+    },
+    "DescribeDBLogFilesList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/DescribeDBLogFilesDetails"
+      }
+    },
+    "DescribeDBLogFilesMessage": {
+      "type": "object",
+      "required": [
+        "DBInstanceIdentifier"
+      ],
+      "properties": {
+        "DBInstanceIdentifier": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The customer-assigned name of the DB Instance that contains the log files you want to list. </p> <p>Constraints:</p> <ul> <li>Must contain from 1 to 63 alphanumeric characters or hyphens</li> <li>First character must be a letter</li> <li>Cannot end with a hyphen or contain two consecutive hyphens</li> </ul>"
+        },
+        "FilenameContains": {
+          "$ref": "#/definitions/String",
+          "description": " Filters the available log files for log file names that contain the specified string. "
+        },
+        "FileLastWritten": {
+          "$ref": "#/definitions/Long",
+          "description": " Filters the available log files for files written since the specified date. "
+        },
+        "FileSize": {
+          "$ref": "#/definitions/Long",
+          "description": " Filters the available log files for files larger than the specified size. "
+        },
+        "MaxRecords": {
+          "$ref": "#/definitions/IntegerOptional",
+          "description": " The maximum number of records to include in the response. If more records exist than the specified MaxRecords value, a pagination token called a marker is included in the response so that the remaining results can be retrieved. "
+        },
+        "Marker": {
+          "$ref": "#/definitions/String",
+          "description": " The pagination token provided in the previous request. If this parameter is specified the response includes only records beyond the marker, up to MaxRecords. "
+        }
+      },
+      "description": " "
+    },
+    "DescribeDBLogFilesResponse": {
+      "type": "object",
+      "properties": {
+        "DescribeDBLogFiles": {
+          "$ref": "#/definitions/DescribeDBLogFilesList",
+          "description": " The DB log files returned. "
+        },
+        "Marker": {
+          "$ref": "#/definitions/String",
+          "description": " An optional paging token. "
+        }
+      },
+      "description": " The response from a call to <a>DescribeDBLogFiles</a>. "
+    },
+    "DescribeDBParameterGroupsMessage": {
+      "type": "object",
+      "properties": {
+        "DBParameterGroupName": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The name of a specific DB Parameter Group to return details for. </p> <p>Constraints:</p> <ul> <li>Must be 1 to 255 alphanumeric characters</li> <li>First character must be a letter</li> <li>Cannot end with a hyphen or contain two consecutive hyphens</li> </ul>"
+        },
+        "MaxRecords": {
+          "$ref": "#/definitions/IntegerOptional",
+          "description": "<p> The maximum number of records to include in the response. If more records exist than the specified <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the remaining results may be retrieved. </p> <p>Default: 100</p> <p>Constraints: minimum 20, maximum 100</p>"
+        },
+        "Marker": {
+          "$ref": "#/definitions/String",
+          "description": " An optional pagination token provided by a previous DescribeDBParameterGroups request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by <code>MaxRecords</code>. "
+        }
+      },
+      "description": " "
+    },
+    "DescribeDBParametersMessage": {
+      "type": "object",
+      "required": [
+        "DBParameterGroupName"
+      ],
+      "properties": {
+        "DBParameterGroupName": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The name of a specific DB Parameter Group to return details for. </p> <p>Constraints:</p> <ul> <li>Must be 1 to 255 alphanumeric characters</li> <li>First character must be a letter</li> <li>Cannot end with a hyphen or contain two consecutive hyphens</li> </ul>"
+        },
+        "Source": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The parameter types to return. </p> <p>Default: All parameter types returned</p> <p>Valid Values: <code>user | system | engine-default</code></p>"
+        },
+        "MaxRecords": {
+          "$ref": "#/definitions/IntegerOptional",
+          "description": "<p> The maximum number of records to include in the response. If more records exist than the specified <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the remaining results may be retrieved. </p> <p>Default: 100</p> <p>Constraints: minimum 20, maximum 100</p>"
+        },
+        "Marker": {
+          "$ref": "#/definitions/String",
+          "description": " An optional pagination token provided by a previous DescribeDBParameters request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by <code>MaxRecords</code>. "
+        }
+      }
+    },
+    "DescribeDBSecurityGroupsMessage": {
+      "type": "object",
+      "properties": {
+        "DBSecurityGroupName": {
+          "$ref": "#/definitions/String",
+          "description": " The name of the DB Security Group to return details for. "
+        },
+        "MaxRecords": {
+          "$ref": "#/definitions/IntegerOptional",
+          "description": "<p> The maximum number of records to include in the response. If more records exist than the specified <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the remaining results may be retrieved. </p> <p>Default: 100</p> <p>Constraints: minimum 20, maximum 100</p>"
+        },
+        "Marker": {
+          "$ref": "#/definitions/String",
+          "description": " An optional pagination token provided by a previous DescribeDBSecurityGroups request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by <code>MaxRecords</code>. "
+        }
+      },
+      "description": " "
+    },
+    "DescribeDBSnapshotsMessage": {
+      "type": "object",
+      "properties": {
+        "DBInstanceIdentifier": {
+          "$ref": "#/definitions/String",
+          "description": "<p> A DB Instance Identifier to retrieve the list of DB Snapshots for. Cannot be used in conjunction with DBSnapshotIdentifier. This parameter isn't case sensitive. </p> <p>Constraints:</p> <ul> <li>Must contain from 1 to 63 alphanumeric characters or hyphens</li> <li>First character must be a letter</li> <li>Cannot end with a hyphen or contain two consecutive hyphens</li> </ul>"
+        },
+        "DBSnapshotIdentifier": {
+          "$ref": "#/definitions/String",
+          "description": "<p> A specific DB Snapshot Identifier to describe. Cannot be used in conjunction with DBInstanceIdentifier. This value is stored as a lowercase string. </p> <p>Constraints:</p> <ul> <li>Must be 1 to 255 alphanumeric characters</li> <li>First character must be a letter</li> <li>Cannot end with a hyphen or contain two consecutive hyphens</li> <li>If this is the identifier of an automated snapshot, the <code>SnapshotType</code> parameter must also be specified.</li> </ul>"
+        },
+        "SnapshotType": {
+          "$ref": "#/definitions/String",
+          "description": " An optional snapshot type for which snapshots will be returned. If not specified, the returned results will include snapshots of all types. "
+        },
+        "MaxRecords": {
+          "$ref": "#/definitions/IntegerOptional",
+          "description": "<p> The maximum number of records to include in the response. If more records exist than the specified <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the remaining results may be retrieved. </p> <p>Default: 100</p> <p>Constraints: minimum 20, maximum 100</p>"
+        },
+        "Marker": {
+          "$ref": "#/definitions/String",
+          "description": " An optional pagination token provided by a previous DescribeDBSnapshots request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by <code>MaxRecords</code>. "
+        }
+      },
+      "description": " "
+    },
+    "DescribeDBSubnetGroupsMessage": {
+      "type": "object",
+      "properties": {
+        "DBSubnetGroupName": {
+          "$ref": "#/definitions/String",
+          "description": " The name of the DB Subnet Group to return details for. "
+        },
+        "MaxRecords": {
+          "$ref": "#/definitions/IntegerOptional",
+          "description": "<p> The maximum number of records to include in the response. If more records exist than the specified <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the remaining results may be retrieved. </p> <p>Default: 100</p> <p>Constraints: minimum 20, maximum 100</p>"
+        },
+        "Marker": {
+          "$ref": "#/definitions/String",
+          "description": " An optional pagination token provided by a previous DescribeDBSubnetGroups request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by <code>MaxRecords</code>. "
+        }
+      },
+      "description": " "
+    },
+    "DescribeEngineDefaultParametersMessage": {
+      "type": "object",
+      "required": [
+        "DBParameterGroupFamily"
+      ],
+      "properties": {
+        "DBParameterGroupFamily": {
+          "$ref": "#/definitions/String",
+          "description": " The name of the DB Parameter Group Family. "
+        },
+        "MaxRecords": {
+          "$ref": "#/definitions/IntegerOptional",
+          "description": "<p> The maximum number of records to include in the response. If more records exist than the specified <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the remaining results may be retrieved. </p> <p>Default: 100</p> <p>Constraints: minimum 20, maximum 100</p>"
+        },
+        "Marker": {
+          "$ref": "#/definitions/String",
+          "description": " An optional pagination token provided by a previous DescribeEngineDefaultParameters request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by <code>MaxRecords</code>. "
+        }
+      },
+      "description": " "
+    },
+    "DescribeEngineDefaultParametersResult": {
+      "type": "object",
+      "properties": {
+        "EngineDefaults": {
+          "$ref": "#/definitions/EngineDefaults"
+        }
+      }
+    },
+    "DescribeEventCategoriesMessage": {
+      "type": "object",
+      "properties": {
+        "SourceType": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The type of source that will be generating the events. </p> <p>Valid values: db-instance | db-parameter-group | db-security-group | db-snapshot</p>"
+        }
+      },
+      "description": "<p/>"
+    },
+    "DescribeEventSubscriptionsMessage": {
+      "type": "object",
+      "properties": {
+        "SubscriptionName": {
+          "$ref": "#/definitions/String",
+          "description": "The name of the RDS event notification subscription you want to describe."
+        },
+        "MaxRecords": {
+          "$ref": "#/definitions/IntegerOptional",
+          "description": "<p> The maximum number of records to include in the response. If more records exist than the specified <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the remaining results can be retrieved. </p> <p>Default: 100</p> <p>Constraints: minimum 20, maximum 100</p>"
+        },
+        "Marker": {
+          "$ref": "#/definitions/String",
+          "description": " An optional pagination token provided by a previous DescribeOrderableDBInstanceOptions request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by <code>MaxRecords</code> . "
+        }
+      },
+      "description": "<p/>"
+    },
+    "DescribeEventsMessage": {
+      "type": "object",
+      "properties": {
+        "SourceIdentifier": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The identifier of the event source for which events will be returned. If not specified, then all sources are included in the response. </p> <p>Constraints:</p> <ul> <li>If SourceIdentifier is supplied, SourceType must also be provided.</li> <li>If the source type is DBInstance, then a DBInstanceIdentifier must be supplied.</li> <li>If the source type is DBSecurityGroup, a DBSecurityGroupName must be supplied.</li> <li>If the source type is DBParameterGroup, a DBParameterGroupName must be supplied.</li> <li>If the source type is DBSnapshot, a DBSnapshotIdentifier must be supplied.</li> <li>Cannot end with a hyphen or contain two consecutive hyphens.</li> </ul>"
+        },
+        "SourceType": {
+          "$ref": "#/definitions/SourceType",
+          "description": " The event source to retrieve events for. If no value is specified, all events are returned. "
+        },
+        "StartTime": {
+          "$ref": "#/definitions/TStamp",
+          "description": "<p> The beginning of the time interval to retrieve events for, specified in ISO 8601 format. For more information about ISO 8601, go to the <a href=\"http://en.wikipedia.org/wiki/ISO_8601\">ISO8601 Wikipedia page.</a> </p> <p>Example: 2009-07-08T18:00Z</p>"
+        },
+        "EndTime": {
+          "$ref": "#/definitions/TStamp",
+          "description": "<p> The end of the time interval for which to retrieve events, specified in ISO 8601 format. For more information about ISO 8601, go to the <a href=\"http://en.wikipedia.org/wiki/ISO_8601\">ISO8601 Wikipedia page.</a> </p> <p>Example: 2009-07-08T18:00Z</p>"
+        },
+        "Duration": {
+          "$ref": "#/definitions/IntegerOptional",
+          "description": "<p> The number of minutes to retrieve events for. </p> <p>Default: 60</p>"
+        },
+        "EventCategories": {
+          "$ref": "#/definitions/EventCategoriesList",
+          "description": " A list of event categories that trigger notifications for a event notification subscription. "
+        },
+        "MaxRecords": {
+          "$ref": "#/definitions/IntegerOptional",
+          "description": "<p> The maximum number of records to include in the response. If more records exist than the specified <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the remaining results may be retrieved. </p> <p>Default: 100</p> <p>Constraints: minimum 20, maximum 100</p>"
+        },
+        "Marker": {
+          "$ref": "#/definitions/String",
+          "description": " An optional pagination token provided by a previous DescribeEvents request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by <code>MaxRecords</code>. "
+        }
+      },
+      "description": " "
+    },
+    "DescribeOptionGroupOptionsMessage": {
+      "type": "object",
+      "required": [
+        "EngineName"
+      ],
+      "properties": {
+        "EngineName": {
+          "$ref": "#/definitions/String",
+          "description": " A required parameter. Options available for the given Engine name will be described. "
+        },
+        "MajorEngineVersion": {
+          "$ref": "#/definitions/String",
+          "description": " If specified, filters the results to include only options for the specified major engine version. "
+        },
+        "MaxRecords": {
+          "$ref": "#/definitions/IntegerOptional",
+          "description": "<p> The maximum number of records to include in the response. If more records exist than the specified <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the remaining results can be retrieved. </p> <p>Default: 100</p> <p>Constraints: minimum 20, maximum 100</p>"
+        },
+        "Marker": {
+          "$ref": "#/definitions/String",
+          "description": "An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by <code>MaxRecords</code>."
+        }
+      },
+      "description": " "
+    },
+    "DescribeOptionGroupsMessage": {
+      "type": "object",
+      "properties": {
+        "OptionGroupName": {
+          "$ref": "#/definitions/String",
+          "description": " The name of the option group to describe. Cannot be supplied together with EngineName or MajorEngineVersion. "
+        },
+        "Marker": {
+          "$ref": "#/definitions/String",
+          "description": " An optional pagination token provided by a previous DescribeOptionGroups request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by <code>MaxRecords</code>. "
+        },
+        "MaxRecords": {
+          "$ref": "#/definitions/IntegerOptional",
+          "description": "<p> The maximum number of records to include in the response. If more records exist than the specified <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the remaining results can be retrieved. </p> <p>Default: 100</p> <p>Constraints: minimum 20, maximum 100</p>"
+        },
+        "EngineName": {
+          "$ref": "#/definitions/String",
+          "description": " Filters the list of option groups to only include groups associated with a specific database engine. "
+        },
+        "MajorEngineVersion": {
+          "$ref": "#/definitions/String",
+          "description": " Filters the list of option groups to only include groups associated with a specific database engine version. If specified, then EngineName must also be specified. "
+        }
+      },
+      "description": " "
+    },
+    "DescribeOrderableDBInstanceOptionsMessage": {
+      "type": "object",
+      "required": [
+        "Engine"
+      ],
+      "properties": {
+        "Engine": {
+          "$ref": "#/definitions/String",
+          "description": " The name of the engine to retrieve DB Instance options for. "
+        },
+        "EngineVersion": {
+          "$ref": "#/definitions/String",
+          "description": " The engine version filter value. Specify this parameter to show only the available offerings matching the specified engine version. "
+        },
+        "DBInstanceClass": {
+          "$ref": "#/definitions/String",
+          "description": " The DB Instance class filter value. Specify this parameter to show only the available offerings matching the specified DB Instance class. "
+        },
+        "LicenseModel": {
+          "$ref": "#/definitions/String",
+          "description": " The license model filter value. Specify this parameter to show only the available offerings matching the specified license model. "
+        },
+        "Vpc": {
+          "$ref": "#/definitions/BooleanOptional",
+          "description": " The VPC filter value. Specify this parameter to show only the available VPC or non-VPC offerings. "
+        },
+        "MaxRecords": {
+          "$ref": "#/definitions/IntegerOptional",
+          "description": "<p> The maximum number of records to include in the response. If more records exist than the specified <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the remaining results can be retrieved. </p> <p>Default: 100</p> <p>Constraints: minimum 20, maximum 100</p>"
+        },
+        "Marker": {
+          "$ref": "#/definitions/String",
+          "description": " An optional pagination token provided by a previous DescribeOrderableDBInstanceOptions request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by <code>MaxRecords</code> . "
+        }
+      },
+      "description": " "
+    },
+    "DescribeReservedDBInstancesMessage": {
+      "type": "object",
+      "properties": {
+        "ReservedDBInstanceId": {
+          "$ref": "#/definitions/String",
+          "description": " The reserved DB Instance identifier filter value. Specify this parameter to show only the reservation that matches the specified reservation ID. "
+        },
+        "ReservedDBInstancesOfferingId": {
+          "$ref": "#/definitions/String",
+          "description": " The offering identifier filter value. Specify this parameter to show only purchased reservations matching the specified offering identifier. "
+        },
+        "DBInstanceClass": {
+          "$ref": "#/definitions/String",
+          "description": " The DB Instance class filter value. Specify this parameter to show only those reservations matching the specified DB Instances class. "
+        },
+        "Duration": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The duration filter value, specified in years or seconds. Specify this parameter to show only reservations for this duration. </p> <p>Valid Values: <code>1 | 3 | 31536000 | 94608000</code></p>"
+        },
+        "ProductDescription": {
+          "$ref": "#/definitions/String",
+          "description": " The product description filter value. Specify this parameter to show only those reservations matching the specified product description. "
+        },
+        "OfferingType": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The offering type filter value. Specify this parameter to show only the available offerings matching the specified offering type. </p> <p>Valid Values: <code>\"Light Utilization\" | \"Medium Utilization\" | \"Heavy Utilization\" </code></p>"
+        },
+        "MultiAZ": {
+          "$ref": "#/definitions/BooleanOptional",
+          "description": " The Multi-AZ filter value. Specify this parameter to show only those reservations matching the specified Multi-AZ parameter. "
+        },
+        "MaxRecords": {
+          "$ref": "#/definitions/IntegerOptional",
+          "description": "<p> The maximum number of records to include in the response. If more than the <code>MaxRecords</code> value is available, a pagination token called a marker is included in the response so that the following results can be retrieved. </p> <p>Default: 100</p> <p>Constraints: minimum 20, maximum 100</p>"
+        },
+        "Marker": {
+          "$ref": "#/definitions/String",
+          "description": " An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by <code>MaxRecords</code>. "
+        }
+      },
+      "description": " "
+    },
+    "DescribeReservedDBInstancesOfferingsMessage": {
+      "type": "object",
+      "properties": {
+        "ReservedDBInstancesOfferingId": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The offering identifier filter value. Specify this parameter to show only the available offering that matches the specified reservation identifier. </p> <p>Example: <code>438012d3-4052-4cc7-b2e3-8d3372e0e706</code></p>"
+        },
+        "DBInstanceClass": {
+          "$ref": "#/definitions/String",
+          "description": " The DB Instance class filter value. Specify this parameter to show only the available offerings matching the specified DB Instance class. "
+        },
+        "Duration": {
+          "$ref": "#/definitions/String",
+          "description": "<p> Duration filter value, specified in years or seconds. Specify this parameter to show only reservations for this duration. </p> <p>Valid Values: <code>1 | 3 | 31536000 | 94608000</code></p>"
+        },
+        "ProductDescription": {
+          "$ref": "#/definitions/String",
+          "description": " Product description filter value. Specify this parameter to show only the available offerings matching the specified product description. "
+        },
+        "OfferingType": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The offering type filter value. Specify this parameter to show only the available offerings matching the specified offering type. </p> <p>Valid Values: <code>\"Light Utilization\" | \"Medium Utilization\" | \"Heavy Utilization\" </code></p>"
+        },
+        "MultiAZ": {
+          "$ref": "#/definitions/BooleanOptional",
+          "description": " The Multi-AZ filter value. Specify this parameter to show only the available offerings matching the specified Multi-AZ parameter. "
+        },
+        "MaxRecords": {
+          "$ref": "#/definitions/IntegerOptional",
+          "description": "<p> The maximum number of records to include in the response. If more than the <code>MaxRecords</code> value is available, a pagination token called a marker is included in the response so that the following results can be retrieved. </p> <p>Default: 100</p> <p>Constraints: minimum 20, maximum 100</p>"
+        },
+        "Marker": {
+          "$ref": "#/definitions/String",
+          "description": " An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by <code>MaxRecords</code>. "
+        }
+      },
+      "description": " "
+    },
+    "Double": {
+      "type": "number",
+      "format": "double"
+    },
+    "DownloadDBLogFilePortionDetails": {
+      "type": "object",
+      "properties": {
+        "LogFileData": {
+          "$ref": "#/definitions/String",
+          "description": " Entries from the specified log file. "
+        },
+        "Marker": {
+          "$ref": "#/definitions/String",
+          "description": " An optional pagination token provided by a previous DownloadDBLogFilePortion request. "
+        },
+        "AdditionalDataPending": {
+          "$ref": "#/definitions/Boolean",
+          "description": " Boolean value that if true, indicates there is more data to be downloaded. "
+        }
+      },
+      "description": "This data type is used as a response element to <a>DownloadDBLogFilePortion</a>."
+    },
+    "DownloadDBLogFilePortionMessage": {
+      "type": "object",
+      "required": [
+        "DBInstanceIdentifier",
+        "LogFileName"
+      ],
+      "properties": {
+        "DBInstanceIdentifier": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The customer-assigned name of the DB Instance that contains the log files you want to list. </p> <p>Constraints:</p> <ul> <li>Must contain from 1 to 63 alphanumeric characters or hyphens</li> <li>First character must be a letter</li> <li>Cannot end with a hyphen or contain two consecutive hyphens</li> </ul>"
+        },
+        "LogFileName": {
+          "$ref": "#/definitions/String",
+          "description": " The name of the log file to be downloaded. "
+        },
+        "Marker": {
+          "$ref": "#/definitions/String",
+          "description": " The pagination token provided in the previous request. If this parameter is specified the response includes only records beyond the marker, up to MaxRecords. "
+        },
+        "NumberOfLines": {
+          "$ref": "#/definitions/Integer",
+          "description": " The number of lines remaining to be downloaded. "
+        }
+      },
+      "description": " "
+    },
+    "EC2SecurityGroup": {
+      "type": "object",
+      "properties": {
+        "Status": {
+          "$ref": "#/definitions/String",
+          "description": " Provides the status of the EC2 security group. Status can be \"authorizing\", \"authorized\", \"revoking\", and \"revoked\". "
+        },
+        "EC2SecurityGroupName": {
+          "$ref": "#/definitions/String",
+          "description": " Specifies the name of the EC2 Security Group. "
+        },
+        "EC2SecurityGroupId": {
+          "$ref": "#/definitions/String",
+          "description": " Specifies the id of the EC2 Security Group. "
+        },
+        "EC2SecurityGroupOwnerId": {
+          "$ref": "#/definitions/String",
+          "description": " Specifies the AWS ID of the owner of the EC2 security group specified in the <code>EC2SecurityGroupName</code> field. "
+        }
+      },
+      "description": "<p> This data type is used as a response element in the following actions: </p> <ul> <li><a>AuthorizeDBSecurityGroupIngress</a></li> <li><a>DescribeDBSecurityGroups</a></li> <li><a>RevokeDBSecurityGroupIngress</a></li> </ul>"
+    },
+    "EC2SecurityGroupList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/EC2SecurityGroup"
+      }
+    },
+    "Endpoint": {
+      "type": "object",
+      "properties": {
+        "Address": {
+          "$ref": "#/definitions/String",
+          "description": " Specifies the DNS address of the DB Instance. "
+        },
+        "Port": {
+          "$ref": "#/definitions/Integer",
+          "description": " Specifies the port that the database engine is listening on. "
+        }
+      },
+      "description": "<p> This data type is used as a response element in the following actions: </p> <ul> <li><a>CreateDBInstance</a></li> <li><a>DescribeDBInstances</a></li> <li><a>DeleteDBInstance</a></li> </ul>"
+    },
+    "EngineDefaults": {
+      "type": "object",
+      "properties": {
+        "DBParameterGroupFamily": {
+          "$ref": "#/definitions/String",
+          "description": " Specifies the name of the DB Parameter Group Family which the engine default parameters apply to. "
+        },
+        "Marker": {
+          "$ref": "#/definitions/String",
+          "description": " An optional pagination token provided by a previous EngineDefaults request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by <code>MaxRecords</code> . "
+        },
+        "Parameters": {
+          "$ref": "#/definitions/ParametersList",
+          "description": " Contains a list of engine default parameters. "
+        }
+      },
+      "description": " Contains the result of a successful invocation of the <a>DescribeEngineDefaultParameters</a> action. "
+    },
+    "Event": {
+      "type": "object",
+      "properties": {
+        "SourceIdentifier": {
+          "$ref": "#/definitions/String",
+          "description": " Provides the identifier for the source of the event. "
+        },
+        "SourceType": {
+          "$ref": "#/definitions/SourceType",
+          "description": " Specifies the source type for this event. "
+        },
+        "Message": {
+          "$ref": "#/definitions/String",
+          "description": " Provides the text of this event. "
+        },
+        "EventCategories": {
+          "$ref": "#/definitions/EventCategoriesList",
+          "description": " Specifies the category for the event. "
+        },
+        "Date": {
+          "$ref": "#/definitions/TStamp",
+          "description": " Specifies the date and time of the event. "
+        }
+      },
+      "description": " This data type is used as a response element in the <a>DescribeEvents</a> action. "
+    },
+    "EventCategoriesList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/String"
+      }
+    },
+    "EventCategoriesMap": {
+      "type": "object",
+      "properties": {
+        "SourceType": {
+          "$ref": "#/definitions/String",
+          "description": "The source type that the returned categories belong to"
+        },
+        "EventCategories": {
+          "$ref": "#/definitions/EventCategoriesList",
+          "description": "The event categories for the specified source type"
+        }
+      },
+      "description": "Contains the results of a successful invocation of the <a>DescribeEventCategories</a> action."
+    },
+    "EventCategoriesMapList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/EventCategoriesMap"
+      }
+    },
+    "EventCategoriesMessage": {
+      "type": "object",
+      "properties": {
+        "EventCategoriesMapList": {
+          "$ref": "#/definitions/EventCategoriesMapList",
+          "description": "A list of EventCategoriesMap data types."
+        }
+      },
+      "description": "Data returned from the <b>DescribeEventCategories</b> action."
+    },
+    "EventList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Event"
+      }
+    },
+    "EventSubscription": {
+      "type": "object",
+      "properties": {
+        "CustomerAwsId": {
+          "$ref": "#/definitions/String",
+          "description": "The AWS customer account associated with the RDS event notification subscription."
+        },
+        "CustSubscriptionId": {
+          "$ref": "#/definitions/String",
+          "description": "The RDS event notification subscription Id."
+        },
+        "SnsTopicArn": {
+          "$ref": "#/definitions/String",
+          "description": "The topic ARN of the RDS event notification subscription."
+        },
+        "Status": {
+          "$ref": "#/definitions/String",
+          "description": "<p>The status of the RDS event notification subscription.</p> <p>Constraints:</p> <p>Can be one of the following: creating | modifying | deleting | active | no-permission | topic-not-exist</p> <p>The status \"no-permission\" indicates that RDS no longer has permission to post to the SNS topic. The status \"topic-not-exist\" indicates that the topic was deleted after the subscription was created.</p>"
+        },
+        "SubscriptionCreationTime": {
+          "$ref": "#/definitions/String",
+          "description": "The time the RDS event notification subscription was created."
+        },
+        "SourceType": {
+          "$ref": "#/definitions/String",
+          "description": "The source type for the RDS event notification subscription."
+        },
+        "SourceIdsList": {
+          "$ref": "#/definitions/SourceIdsList",
+          "description": "A list of source Ids for the RDS event notification subscription."
+        },
+        "EventCategoriesList": {
+          "$ref": "#/definitions/EventCategoriesList",
+          "description": "A list of event categories for the RDS event notification subscription."
+        },
+        "Enabled": {
+          "$ref": "#/definitions/Boolean",
+          "description": "A Boolean value indicating if the subscription is enabled. True indicates the subscription is enabled."
+        }
+      },
+      "description": "Contains the results of a successful invocation of the <a>DescribeEventSubscriptions</a> action."
+    },
+    "EventSubscriptionQuotaExceededFault": {
+      "type": "object",
+      "properties": {},
+      "description": "You have reached the maximum number of event subscriptions."
+    },
+    "EventSubscriptionsList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/EventSubscription"
+      }
+    },
+    "EventSubscriptionsMessage": {
+      "type": "object",
+      "properties": {
+        "Marker": {
+          "$ref": "#/definitions/String",
+          "description": " An optional pagination token provided by a previous DescribeOrderableDBInstanceOptions request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by <code>MaxRecords</code>. "
+        },
+        "EventSubscriptionsList": {
+          "$ref": "#/definitions/EventSubscriptionsList",
+          "description": "A list of EventSubscriptions data types."
+        }
+      },
+      "description": "Data returned by the <b>DescribeEventSubscriptions</b> action."
+    },
+    "EventsMessage": {
+      "type": "object",
+      "properties": {
+        "Marker": {
+          "$ref": "#/definitions/String",
+          "description": " An optional pagination token provided by a previous Events request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by <code>MaxRecords</code> . "
+        },
+        "Events": {
+          "$ref": "#/definitions/EventList",
+          "description": " A list of <a>Event</a> instances. "
+        }
+      },
+      "description": " Contains the result of a successful invocation of the <a>DescribeEvents</a> action. "
+    },
+    "IPRange": {
+      "type": "object",
+      "properties": {
+        "Status": {
+          "$ref": "#/definitions/String",
+          "description": " Specifies the status of the IP range. Status can be \"authorizing\", \"authorized\", \"revoking\", and \"revoked\". "
+        },
+        "CIDRIP": {
+          "$ref": "#/definitions/String",
+          "description": " Specifies the IP range. "
+        }
+      },
+      "description": " This data type is used as a response element in the <a>DescribeDBSecurityGroups</a> action. "
+    },
+    "IPRangeList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/IPRange"
+      }
+    },
+    "InstanceQuotaExceededFault": {
+      "type": "object",
+      "properties": {},
+      "description": " Request would result in user exceeding the allowed number of DB instances. "
+    },
+    "InsufficientDBInstanceCapacityFault": {
+      "type": "object",
+      "properties": {},
+      "description": " Specified DB instance class is not available in the specified Availability Zone. "
+    },
+    "Integer": {
+      "type": "integer"
+    },
+    "IntegerOptional": {
+      "type": "integer"
+    },
+    "InvalidDBInstanceStateFault": {
+      "type": "object",
+      "properties": {},
+      "description": " The specified DB instance is not in the <i>available</i> state. "
+    },
+    "InvalidDBParameterGroupStateFault": {
+      "type": "object",
+      "properties": {},
+      "description": " The DB parameter group cannot be deleted because it is in use. "
+    },
+    "InvalidDBSecurityGroupStateFault": {
+      "type": "object",
+      "properties": {},
+      "description": " The state of the DB security group does not allow deletion. "
+    },
+    "InvalidDBSnapshotStateFault": {
+      "type": "object",
+      "properties": {},
+      "description": " The state of the DB snapshot does not allow deletion. "
+    },
+    "InvalidDBSubnetGroupStateFault": {
+      "type": "object",
+      "properties": {},
+      "description": " The DB subnet group cannot be deleted because it is in use. "
+    },
+    "InvalidDBSubnetStateFault": {
+      "type": "object",
+      "properties": {},
+      "description": " The DB subnet is not in the <i>available</i> state. "
+    },
+    "InvalidEventSubscriptionStateFault": {
+      "type": "object",
+      "properties": {},
+      "description": "This error can occur if someone else is modifying a subscription. You should retry the action."
+    },
+    "InvalidOptionGroupStateFault": {
+      "type": "object",
+      "properties": {},
+      "description": " The option group is not in the <i>available</i> state. "
+    },
+    "InvalidRestoreFault": {
+      "type": "object",
+      "properties": {},
+      "description": " Cannot restore from vpc backup to non-vpc DB instance. "
+    },
+    "InvalidSubnet": {
+      "type": "object",
+      "properties": {},
+      "description": " The requested subnet is invalid, or multiple subnets were requested that are not all in a common VPC. "
+    },
+    "InvalidVPCNetworkStateFault": {
+      "type": "object",
+      "properties": {},
+      "description": " DB subnet group does not cover all Availability Zones after it is created because users' change. "
+    },
+    "KeyList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/String"
+      }
+    },
+    "ListTagsForResourceMessage": {
+      "type": "object",
+      "required": [
+        "ResourceName"
+      ],
+      "properties": {
+        "ResourceName": {
+          "$ref": "#/definitions/String",
+          "description": "The DB Instance with tags to be listed. This value is an Amazon Resource Name (ARN). For information about creating an ARN, see <a href=\"http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.html#USER_Tagging.ARN\"> Constructing an RDS Amazon Resource Name (ARN)</a>."
+        }
+      },
+      "description": "<p/>"
+    },
+    "Long": {
+      "type": "integer"
+    },
+    "ModifyDBInstanceMessage": {
+      "type": "object",
+      "required": [
+        "DBInstanceIdentifier"
+      ],
+      "properties": {
+        "DBInstanceIdentifier": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The DB Instance identifier. This value is stored as a lowercase string. </p> <p>Constraints:</p> <ul> <li>Must be the identifier for an existing DB Instance</li> <li>Must contain from 1 to 63 alphanumeric characters or hyphens</li> <li>First character must be a letter</li> <li>Cannot end with a hyphen or contain two consecutive hyphens</li> </ul>"
+        },
+        "AllocatedStorage": {
+          "$ref": "#/definitions/IntegerOptional",
+          "description": "<p> The new storage capacity of the RDS instance. Changing this parameter does not result in an outage and the change is applied during the next maintenance window unless the <code>ApplyImmediately</code> parameter is set to <code>true</code> for this request. </p> <p><b>MySQL</b></p> <p>Default: Uses existing setting</p> <p>Valid Values: 5-1024</p> <p>Constraints: Value supplied must be at least 10% greater than the current value. Values that are not at least 10% greater than the existing value are rounded up so that they are 10% greater than the current value.</p> <p>Type: Integer</p> <p><b>Oracle</b></p> <p>Default: Uses existing setting</p> <p>Valid Values: 10-1024</p> <p>Constraints: Value supplied must be at least 10% greater than the current value. Values that are not at least 10% greater than the existing value are rounded up so that they are 10% greater than the current value.</p> <p><b>SQL Server</b></p> <p>Cannot be modified.</p> <p> If you choose to migrate your DB instance from using standard storage to using Provisioned IOPS, or from using Provisioned IOPS to using standard storage, the process can take time. The duration of the migration depends on several factors such as database load, storage size, storage type (standard or Provisioned IOPS), amount of IOPS provisioned (if any), and the number of prior scale storage operations. Typical migration times are under 24 hours, but the process can take up to several days in some cases. During the migration, the DB instance will be available for use, but may experience performance degradation. While the migration takes place, nightly backups for the instance will be suspended. No other Amazon RDS operations can take place for the instance, including modifying the instance, rebooting the instance, deleting the instance, creating a read replica for the instance, and creating a DB snapshot of the instance. </p>"
+        },
+        "DBInstanceClass": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The new compute and memory capacity of the DB Instance. To determine the instance classes that are available for a particular DB engine, use the <a>DescribeOrderableDBInstanceOptions</a> action. </p> <p> Passing a value for this parameter causes an outage during the change and is applied during the next maintenance window, unless the <code>ApplyImmediately</code> parameter is specified as <code>true</code> for this request. </p> <p>Default: Uses existing setting</p> <p>Valid Values: <code>db.t1.micro | db.m1.small | db.m1.medium | db.m1.large | db.m1.xlarge | db.m2.xlarge | db.m2.2xlarge | db.m2.4xlarge</code></p>"
+        },
+        "DBSecurityGroups": {
+          "$ref": "#/definitions/DBSecurityGroupNameList",
+          "description": "<p> A list of DB Security Groups to authorize on this DB Instance. Changing this parameter does not result in an outage and the change is asynchronously applied as soon as possible. </p> <p>Constraints:</p> <ul> <li>Must be 1 to 255 alphanumeric characters</li> <li>First character must be a letter</li> <li>Cannot end with a hyphen or contain two consecutive hyphens</li> </ul>"
+        },
+        "VpcSecurityGroupIds": {
+          "$ref": "#/definitions/VpcSecurityGroupIdList",
+          "description": "<p> A list of EC2 VPC Security Groups to authorize on this DB Instance. This change is asynchronously applied as soon as possible. </p> <p>Constraints:</p> <ul> <li>Must be 1 to 255 alphanumeric characters</li> <li>First character must be a letter</li> <li>Cannot end with a hyphen or contain two consecutive hyphens</li> </ul>"
+        },
+        "ApplyImmediately": {
+          "$ref": "#/definitions/Boolean",
+          "description": "<p> Specifies whether or not the modifications in this request and any pending modifications are asynchronously applied as soon as possible, regardless of the <code>PreferredMaintenanceWindow</code> setting for the DB Instance. </p> <p> If this parameter is passed as <code>false</code>, changes to the DB Instance are applied on the next call to <a>RebootDBInstance</a>, the next maintenance reboot, or the next failure reboot, whichever occurs first. See each parameter to determine when a change is applied. </p> <p>Default: <code>false</code></p>"
+        },
+        "MasterUserPassword": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The new password for the DB Instance master user. Can be any printable ASCII character except \"/\", \"\\\", or \"@\".</p> <p> Changing this parameter does not result in an outage and the change is asynchronously applied as soon as possible. Between the time of the request and the completion of the request, the <code>MasterUserPassword</code> element exists in the <code>PendingModifiedValues</code> element of the operation response. </p> <p>Default: Uses existing setting</p> <p>Constraints: Must be 8 to 41 alphanumeric characters (MySQL), 8 to 30 alphanumeric characters (Oracle), or 8 to 128 alphanumeric characters (SQL Server).</p> <note> Amazon RDS API actions never return the password, so this action provides a way to regain access to a master instance user if the password is lost. </note>"
+        },
+        "DBParameterGroupName": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The name of the DB Parameter Group to apply to this DB Instance. Changing this parameter does not result in an outage and the change is applied during the next maintenance window unless the <code>ApplyImmediately</code> parameter is set to <code>true</code> for this request. </p> <p>Default: Uses existing setting</p> <p>Constraints: The DB Parameter Group must be in the same DB Parameter Group family as this DB Instance.</p>"
+        },
+        "BackupRetentionPeriod": {
+          "$ref": "#/definitions/IntegerOptional",
+          "description": "<p> The number of days to retain automated backups. Setting this parameter to a positive number enables backups. Setting this parameter to 0 disables automated backups. </p> <p>Changing this parameter can result in an outage if you change from 0 to a non-zero value or from a non-zero value to 0. These changes are applied during the next maintenance window unless the <code>ApplyImmediately</code> parameter is set to <code>true</code> for this request. If you change the parameter from one non-zero value to another non-zero value, the change is asynchronously applied as soon as possible.</p> <p>Default: Uses existing setting</p> <p>Constraints:</p> <ul> <li>Must be a value from 0 to 8</li> <li>Cannot be set to 0 if the DB Instance is a master instance with read replicas or if the DB Instance is a read replica</li> </ul>"
+        },
+        "PreferredBackupWindow": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The daily time range during which automated backups are created if automated backups are enabled, as determined by the <code>BackupRetentionPeriod</code>. Changing this parameter does not result in an outage and the change is asynchronously applied as soon as possible. </p> <p>Constraints:</p> <ul> <li>Must be in the format hh24:mi-hh24:mi</li> <li>Times should be Universal Time Coordinated (UTC)</li> <li>Must not conflict with the preferred maintenance window</li> <li>Must be at least 30 minutes</li> </ul>"
+        },
+        "PreferredMaintenanceWindow": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The weekly time range (in UTC) during which system maintenance can occur, which may result in an outage. Changing this parameter does not result in an outage, except in the following situation, and the change is asynchronously applied as soon as possible. If there are pending actions that cause a reboot, and the maintenance window is changed to include the current time, then changing this parameter will cause a reboot of the DB Instance. If moving this window to the current time, there must be at least 30 minutes between the current time and end of the window to ensure pending changes are applied. </p> <p>Default: Uses existing setting</p> <p>Format: ddd:hh24:mi-ddd:hh24:mi</p> <p>Valid Days: Mon | Tue | Wed | Thu | Fri | Sat | Sun</p> <p>Constraints: Must be at least 30 minutes</p>"
+        },
+        "MultiAZ": {
+          "$ref": "#/definitions/BooleanOptional",
+          "description": "<p> Specifies if the DB Instance is a Multi-AZ deployment. Changing this parameter does not result in an outage and the change is applied during the next maintenance window unless the <code>ApplyImmediately</code> parameter is set to <code>true</code> for this request. </p> <p>Constraints: Cannot be specified if the DB Instance is a read replica.</p>"
+        },
+        "EngineVersion": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The version number of the database engine to upgrade to. Changing this parameter results in an outage and the change is applied during the next maintenance window unless the <code>ApplyImmediately</code> parameter is set to <code>true</code> for this request. </p> <p> For major version upgrades, if a nondefault DB Parameter Group is currently in use, a new DB Parameter Group in the DB Parameter Group Family for the new engine version must be specified. The new DB Parameter Group can be the default for that DB Parameter Group Family. </p> <p>Example: <code>5.1.42</code></p>"
+        },
+        "AllowMajorVersionUpgrade": {
+          "$ref": "#/definitions/Boolean",
+          "description": "<p> Indicates that major version upgrades are allowed. Changing this parameter does not result in an outage and the change is asynchronously applied as soon as possible. </p> <p>Constraints: This parameter must be set to true when specifying a value for the EngineVersion parameter that is a different major version than the DB Instance's current version.</p>"
+        },
+        "AutoMinorVersionUpgrade": {
+          "$ref": "#/definitions/BooleanOptional",
+          "description": " Indicates that minor version upgrades will be applied automatically to the DB Instance during the maintenance window. Changing this parameter does not result in an outage except in the following case and the change is asynchronously applied as soon as possible. An outage will result if this parameter is set to <code>true</code> during the maintenance window, and a newer minor version is available, and RDS has enabled auto patching for that engine version. "
+        },
+        "Iops": {
+          "$ref": "#/definitions/IntegerOptional",
+          "description": "<p> The new Provisioned IOPS (I/O operations per second) value for the RDS instance. Changing this parameter does not result in an outage and the change is applied during the next maintenance window unless the <code>ApplyImmediately</code> parameter is set to <code>true</code> for this request. </p> <p>Default: Uses existing setting</p> <p>Constraints: Value supplied must be at least 10% greater than the current value. Values that are not at least 10% greater than the existing value are rounded up so that they are 10% greater than the current value.</p> <p>Type: Integer</p> <p> If you choose to migrate your DB instance from using standard storage to using Provisioned IOPS, or from using Provisioned IOPS to using standard storage, the process can take time. The duration of the migration depends on several factors such as database load, storage size, storage type (standard or Provisioned IOPS), amount of IOPS provisioned (if any), and the number of prior scale storage operations. Typical migration times are under 24 hours, but the process can take up to several days in some cases. During the migration, the DB instance will be available for use, but may experience performance degradation. While the migration takes place, nightly backups for the instance will be suspended. No other Amazon RDS operations can take place for the instance, including modifying the instance, rebooting the instance, deleting the instance, creating a read replica for the instance, and creating a DB snapshot of the instance. </p>"
+        },
+        "OptionGroupName": {
+          "$ref": "#/definitions/String",
+          "description": "<p> Indicates that the DB Instance should be associated with the specified option group. Changing this parameter does not result in an outage except in the following case and the change is applied during the next maintenance window unless the <code>ApplyImmediately</code> parameter is set to <code>true</code> for this request. If the parameter change results in an option group that enables OEM, this change can cause a brief (sub-second) period during which new connections are rejected but existing connections are not interrupted. </p> <p> Permanent options, such as the TDE option for Oracle Advanced Security TDE, cannot be removed from an option group, and that option group cannot be removed from a DB instance once it is associated with a DB instance </p>"
+        },
+        "NewDBInstanceIdentifier": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The new DB Instance identifier for the DB Instance when renaming a DB Instance. This value is stored as a lowercase string. </p> <p>Constraints:</p> <ul> <li>Must contain from 1 to 63 alphanumeric characters or hyphens</li> <li>First character must be a letter</li> <li>Cannot end with a hyphen or contain two consecutive hyphens</li> </ul>"
+        }
+      },
+      "description": " "
+    },
+    "ModifyDBInstanceResult": {
+      "type": "object",
+      "properties": {
+        "DBInstance": {
+          "$ref": "#/definitions/DBInstance"
+        }
+      }
+    },
+    "ModifyDBParameterGroupMessage": {
+      "type": "object",
+      "required": [
+        "DBParameterGroupName",
+        "Parameters"
+      ],
+      "properties": {
+        "DBParameterGroupName": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The name of the DB Parameter Group. </p> <p>Constraints:</p> <ul> <li>Must be the name of an existing DB Parameter Group</li> <li>Must be 1 to 255 alphanumeric characters</li> <li>First character must be a letter</li> <li>Cannot end with a hyphen or contain two consecutive hyphens</li> </ul>"
+        },
+        "Parameters": {
+          "$ref": "#/definitions/ParametersList",
+          "description": "<p> An array of parameter names, values, and the apply method for the parameter update. At least one parameter name, value, and apply method must be supplied; subsequent arguments are optional. A maximum of 20 parameters may be modified in a single request. </p> <p>Valid Values (for the application method): <code>immediate | pending-reboot</code></p> <note>You can use the immediate value with dynamic parameters only. You can use the pending-reboot value for both dynamic and static parameters, and changes are applied when DB Instance reboots. </note>"
+        }
+      },
+      "description": " "
+    },
+    "ModifyDBSubnetGroupMessage": {
+      "type": "object",
+      "required": [
+        "DBSubnetGroupName",
+        "SubnetIds"
+      ],
+      "properties": {
+        "DBSubnetGroupName": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The name for the DB Subnet Group. This value is stored as a lowercase string. </p> <p>Constraints: Must contain no more than 255 alphanumeric characters or hyphens. Must not be \"Default\".</p> <p>Example: <code>mySubnetgroup</code></p>"
+        },
+        "DBSubnetGroupDescription": {
+          "$ref": "#/definitions/String",
+          "description": " The description for the DB Subnet Group. "
+        },
+        "SubnetIds": {
+          "$ref": "#/definitions/SubnetIdentifierList",
+          "description": " The EC2 Subnet IDs for the DB Subnet Group. "
+        }
+      },
+      "description": " "
+    },
+    "ModifyDBSubnetGroupResult": {
+      "type": "object",
+      "properties": {
+        "DBSubnetGroup": {
+          "$ref": "#/definitions/DBSubnetGroup"
+        }
+      }
+    },
+    "ModifyEventSubscriptionMessage": {
+      "type": "object",
+      "required": [
+        "SubscriptionName"
+      ],
+      "properties": {
+        "SubscriptionName": {
+          "$ref": "#/definitions/String",
+          "description": "The name of the RDS event notification subscription."
+        },
+        "SnsTopicArn": {
+          "$ref": "#/definitions/String",
+          "description": " The Amazon Resource Name (ARN) of the SNS topic created for event notification. The ARN is created by Amazon SNS when you create a topic and subscribe to it. "
+        },
+        "SourceType": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The type of source that will be generating the events. For example, if you want to be notified of events generated by a DB instance, you would set this parameter to db-instance. if this value is not specified, all events are returned. </p> <p>Valid values: db-instance | db-parameter-group | db-security-group | db-snapshot</p>"
+        },
+        "EventCategories": {
+          "$ref": "#/definitions/EventCategoriesList",
+          "description": " A list of event categories for a SourceType that you want to subscribe to. You can see a list of the categories for a given SourceType in the <a href=\"http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Events.html\">Events</a> topic in the Amazon RDS User Guide or by using the <b>DescribeEventCategories</b> action. "
+        },
+        "Enabled": {
+          "$ref": "#/definitions/BooleanOptional",
+          "description": " A Boolean value; set to <b>true</b> to activate the subscription. "
+        }
+      },
+      "description": "<p/>"
+    },
+    "ModifyEventSubscriptionResult": {
+      "type": "object",
+      "properties": {
+        "EventSubscription": {
+          "$ref": "#/definitions/EventSubscription"
+        }
+      }
+    },
+    "ModifyOptionGroupMessage": {
+      "type": "object",
+      "required": [
+        "OptionGroupName"
+      ],
+      "properties": {
+        "OptionGroupName": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The name of the option group to be modified. </p> <p> Permanent options, such as the TDE option for Oracle Advanced Security TDE, cannot be removed from an option group, and that option group cannot be removed from a DB instance once it is associated with a DB instance </p>"
+        },
+        "OptionsToInclude": {
+          "$ref": "#/definitions/OptionConfigurationList",
+          "description": " Options in this list are added to the Option Group or, if already present, the specified configuration is used to update the existing configuration. "
+        },
+        "OptionsToRemove": {
+          "$ref": "#/definitions/OptionNamesList",
+          "description": " Options in this list are removed from the Option Group. "
+        },
+        "ApplyImmediately": {
+          "$ref": "#/definitions/Boolean",
+          "description": " Indicates whether the changes should be applied immediately, or during the next maintenance window for each instance associated with the Option Group. "
+        }
+      },
+      "description": " "
+    },
+    "ModifyOptionGroupResult": {
+      "type": "object",
+      "properties": {
+        "OptionGroup": {
+          "$ref": "#/definitions/OptionGroup"
+        }
+      }
+    },
+    "Option": {
+      "type": "object",
+      "properties": {
+        "OptionName": {
+          "$ref": "#/definitions/String",
+          "description": " The name of the option. "
+        },
+        "OptionDescription": {
+          "$ref": "#/definitions/String",
+          "description": " The description of the option. "
+        },
+        "Persistent": {
+          "$ref": "#/definitions/Boolean",
+          "description": " Indicate if this option is persistent. "
+        },
+        "Port": {
+          "$ref": "#/definitions/IntegerOptional",
+          "description": " If required, the port configured for this option to use. "
+        },
+        "OptionSettings": {
+          "$ref": "#/definitions/OptionSettingConfigurationList",
+          "description": " The option settings for this option. "
+        },
+        "DBSecurityGroupMemberships": {
+          "$ref": "#/definitions/DBSecurityGroupMembershipList",
+          "description": " If the option requires access to a port, then this DB Security Group allows access to the port. "
+        },
+        "VpcSecurityGroupMemberships": {
+          "$ref": "#/definitions/VpcSecurityGroupMembershipList",
+          "description": " If the option requires access to a port, then this VPC Security Group allows access to the port. "
+        }
+      },
+      "description": " Option details. "
+    },
+    "OptionConfiguration": {
+      "type": "object",
+      "required": [
+        "OptionName"
+      ],
+      "properties": {
+        "OptionName": {
+          "$ref": "#/definitions/String",
+          "description": " The configuration of options to include in a group. "
+        },
+        "Port": {
+          "$ref": "#/definitions/IntegerOptional",
+          "description": " The optional port for the option. "
+        },
+        "DBSecurityGroupMemberships": {
+          "$ref": "#/definitions/DBSecurityGroupNameList",
+          "description": " A list of DBSecurityGroupMemebrship name strings used for this option. "
+        },
+        "VpcSecurityGroupMemberships": {
+          "$ref": "#/definitions/VpcSecurityGroupIdList",
+          "description": " A list of VpcSecurityGroupMemebrship name strings used for this option. "
+        },
+        "OptionSettings": {
+          "$ref": "#/definitions/OptionSettingsList",
+          "description": " The option settings to include in an option group. "
+        }
+      },
+      "description": " A list of all available options "
+    },
+    "OptionConfigurationList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/OptionConfiguration"
+      }
+    },
+    "OptionGroup": {
+      "type": "object",
+      "properties": {
+        "OptionGroupName": {
+          "$ref": "#/definitions/String",
+          "description": " Specifies the name of the option group. "
+        },
+        "OptionGroupDescription": {
+          "$ref": "#/definitions/String",
+          "description": " Provides the description of the option group. "
+        },
+        "EngineName": {
+          "$ref": "#/definitions/String",
+          "description": " Engine name that this option group can be applied to. "
+        },
+        "MajorEngineVersion": {
+          "$ref": "#/definitions/String",
+          "description": " Indicates the major engine version associated with this option group. "
+        },
+        "Options": {
+          "$ref": "#/definitions/OptionsList",
+          "description": " Indicates what options are available in the option group. "
+        },
+        "AllowsVpcAndNonVpcInstanceMemberships": {
+          "$ref": "#/definitions/Boolean",
+          "description": " Indicates whether this option group can be applied to both VPC and non-VPC instances. The value 'true' indicates the option group can be applied to both VPC and non-VPC instances. "
+        },
+        "VpcId": {
+          "$ref": "#/definitions/String",
+          "description": " If AllowsVpcAndNonVpcInstanceMemberships is 'false', this field is blank. If AllowsVpcAndNonVpcInstanceMemberships is 'true' and this field is blank, then this option group can be applied to both VPC and non-VPC instances. If this field contains a value, then this option group can only be applied to instances that are in the VPC indicated by this field. "
+        }
+      },
+      "description": " "
+    },
+    "OptionGroupAlreadyExistsFault": {
+      "type": "object",
+      "properties": {},
+      "description": " The option group you are trying to create already exists. "
+    },
+    "OptionGroupMembership": {
+      "type": "object",
+      "properties": {
+        "OptionGroupName": {
+          "$ref": "#/definitions/String",
+          "description": " The name of the option group that the instance belongs to. "
+        },
+        "Status": {
+          "$ref": "#/definitions/String",
+          "description": " The status of the DB Instance's option group membership (e.g. in-sync, pending, pending-maintenance, applying). "
+        }
+      },
+      "description": " Provides information on the option groups the DB instance is a member of. "
+    },
+    "OptionGroupMembershipList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/OptionGroupMembership"
+      }
+    },
+    "OptionGroupNotFoundFault": {
+      "type": "object",
+      "properties": {},
+      "description": " The specified option group could not be found. "
+    },
+    "OptionGroupOption": {
+      "type": "object",
+      "properties": {
+        "Name": {
+          "$ref": "#/definitions/String",
+          "description": " The name of the option. "
+        },
+        "Description": {
+          "$ref": "#/definitions/String",
+          "description": " The description of the option. "
+        },
+        "EngineName": {
+          "$ref": "#/definitions/String",
+          "description": " Engine name that this option can be applied to. "
+        },
+        "MajorEngineVersion": {
+          "$ref": "#/definitions/String",
+          "description": " Indicates the major engine version that the option is available for. "
+        },
+        "MinimumRequiredMinorEngineVersion": {
+          "$ref": "#/definitions/String",
+          "description": " The minimum required engine version for the option to be applied. "
+        },
+        "PortRequired": {
+          "$ref": "#/definitions/Boolean",
+          "description": " Specifies whether the option requires a port. "
+        },
+        "DefaultPort": {
+          "$ref": "#/definitions/IntegerOptional",
+          "description": " If the option requires a port, specifies the default port for the option. "
+        },
+        "OptionsDependedOn": {
+          "$ref": "#/definitions/OptionsDependedOn",
+          "description": " List of all options that are prerequisites for this option. "
+        },
+        "Persistent": {
+          "$ref": "#/definitions/Boolean",
+          "description": " Specifies whether the option is persistent in an option group. "
+        },
+        "OptionGroupOptionSettings": {
+          "$ref": "#/definitions/OptionGroupOptionSettingsList",
+          "description": " Specifies the option settings that are available (and the default value) for each option in an option group. "
+        }
+      },
+      "description": " Available option. "
+    },
+    "OptionGroupOptionSetting": {
+      "type": "object",
+      "properties": {
+        "SettingName": {
+          "$ref": "#/definitions/String",
+          "description": " The name of the option group option. "
+        },
+        "SettingDescription": {
+          "$ref": "#/definitions/String",
+          "description": " The description of the option group option. "
+        },
+        "DefaultValue": {
+          "$ref": "#/definitions/String",
+          "description": " The default value for the option group option. "
+        },
+        "ApplyType": {
+          "$ref": "#/definitions/String",
+          "description": " The DB engine specific parameter type for the option group option. "
+        },
+        "AllowedValues": {
+          "$ref": "#/definitions/String",
+          "description": " Indicates the acceptable values for the option group option. "
+        },
+        "IsModifiable": {
+          "$ref": "#/definitions/Boolean",
+          "description": " Boolean value where true indicates that this option group option can be changed from the default value. "
+        }
+      },
+      "description": " Option Group option settings are used to display settings available for each option with their default values and other information. These values are used with the DescribeOptionGroupOptions action. "
+    },
+    "OptionGroupOptionSettingsList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/OptionGroupOptionSetting"
+      }
+    },
+    "OptionGroupOptionsList": {
+      "type": "array",
+      "description": " List of available option group options. ",
+      "items": {
+        "$ref": "#/definitions/OptionGroupOption"
+      }
+    },
+    "OptionGroupOptionsMessage": {
+      "type": "object",
+      "properties": {
+        "OptionGroupOptions": {
+          "$ref": "#/definitions/OptionGroupOptionsList"
+        },
+        "Marker": {
+          "$ref": "#/definitions/String",
+          "description": "An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by <code>MaxRecords</code>."
+        }
+      },
+      "description": " "
+    },
+    "OptionGroupQuotaExceededFault": {
+      "type": "object",
+      "properties": {},
+      "description": " The quota of 20 option groups was exceeded for this AWS account. "
+    },
+    "OptionGroups": {
+      "type": "object",
+      "properties": {
+        "OptionGroupsList": {
+          "$ref": "#/definitions/OptionGroupsList",
+          "description": " List of option groups. "
+        },
+        "Marker": {
+          "$ref": "#/definitions/String",
+          "description": "An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by <code>MaxRecords</code>. "
+        }
+      },
+      "description": " List of option groups. "
+    },
+    "OptionGroupsList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/OptionGroup"
+      }
+    },
+    "OptionNamesList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/String"
+      }
+    },
+    "OptionSetting": {
+      "type": "object",
+      "properties": {
+        "Name": {
+          "$ref": "#/definitions/String",
+          "description": " The name of the option that has settings that you can set. "
+        },
+        "Value": {
+          "$ref": "#/definitions/String",
+          "description": " The current value of the option setting. "
+        },
+        "DefaultValue": {
+          "$ref": "#/definitions/String",
+          "description": " The default value of the option setting. "
+        },
+        "Description": {
+          "$ref": "#/definitions/String",
+          "description": " The description of the option setting. "
+        },
+        "ApplyType": {
+          "$ref": "#/definitions/String",
+          "description": " The DB engine specific parameter type. "
+        },
+        "DataType": {
+          "$ref": "#/definitions/String",
+          "description": " The data type of the option setting. "
+        },
+        "AllowedValues": {
+          "$ref": "#/definitions/String",
+          "description": " The allowed values of the option setting. "
+        },
+        "IsModifiable": {
+          "$ref": "#/definitions/Boolean",
+          "description": " A Boolean value that, when true, indicates the option setting can be modified from the default. "
+        },
+        "IsCollection": {
+          "$ref": "#/definitions/Boolean",
+          "description": " Indicates if the option setting is part of a collection. "
+        }
+      },
+      "description": " Option settings are the actual settings being applied or configured for that option. It is used when you modify an option group or describe option groups. For example, the NATIVE_NETWORK_ENCRYPTION option has a setting called SQLNET.ENCRYPTION_SERVER that can have several different values. "
+    },
+    "OptionSettingConfigurationList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/OptionSetting"
+      }
+    },
+    "OptionSettingsList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/OptionSetting"
+      }
+    },
+    "OptionsDependedOn": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/String"
+      }
+    },
+    "OptionsList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Option"
+      }
+    },
+    "OrderableDBInstanceOption": {
+      "type": "object",
+      "properties": {
+        "Engine": {
+          "$ref": "#/definitions/String",
+          "description": " The engine type of the orderable DB Instance. "
+        },
+        "EngineVersion": {
+          "$ref": "#/definitions/String",
+          "description": " The engine version of the orderable DB Instance. "
+        },
+        "DBInstanceClass": {
+          "$ref": "#/definitions/String",
+          "description": " The DB Instance Class for the orderable DB Instance "
+        },
+        "LicenseModel": {
+          "$ref": "#/definitions/String",
+          "description": " The license model for the orderable DB Instance. "
+        },
+        "AvailabilityZones": {
+          "$ref": "#/definitions/AvailabilityZoneList",
+          "description": " A list of availability zones for the orderable DB Instance. "
+        },
+        "MultiAZCapable": {
+          "$ref": "#/definitions/Boolean",
+          "description": " Indicates whether this orderable DB Instance is multi-AZ capable. "
+        },
+        "ReadReplicaCapable": {
+          "$ref": "#/definitions/Boolean",
+          "description": " Indicates whether this orderable DB Instance can have a read replica. "
+        },
+        "Vpc": {
+          "$ref": "#/definitions/Boolean",
+          "description": " Indicates whether this is a VPC orderable DB Instance. "
+        }
+      },
+      "description": "<p> Contains a list of available options for a DB Instance </p> <p> This data type is used as a response element in the <a>DescribeOrderableDBInstanceOptions</a> action. </p>"
+    },
+    "OrderableDBInstanceOptionsList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/OrderableDBInstanceOption"
+      }
+    },
+    "OrderableDBInstanceOptionsMessage": {
+      "type": "object",
+      "properties": {
+        "OrderableDBInstanceOptions": {
+          "$ref": "#/definitions/OrderableDBInstanceOptionsList",
+          "description": "An <a>OrderableDBInstanceOption</a> structure containing information about orderable options for the DB Instance."
+        },
+        "Marker": {
+          "$ref": "#/definitions/String",
+          "description": " An optional pagination token provided by a previous OrderableDBInstanceOptions request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by <code>MaxRecords</code> . "
+        }
+      },
+      "description": " Contains the result of a successful invocation of the <a>DescribeOrderableDBInstanceOptions</a> action. "
+    },
+    "Parameter": {
+      "type": "object",
+      "properties": {
+        "ParameterName": {
+          "$ref": "#/definitions/String",
+          "description": " Specifies the name of the parameter. "
+        },
+        "ParameterValue": {
+          "$ref": "#/definitions/String",
+          "description": " Specifies the value of the parameter. "
+        },
+        "Description": {
+          "$ref": "#/definitions/String",
+          "description": " Provides a description of the parameter. "
+        },
+        "Source": {
+          "$ref": "#/definitions/String",
+          "description": " Indicates the source of the parameter value. "
+        },
+        "ApplyType": {
+          "$ref": "#/definitions/String",
+          "description": " Specifies the engine specific parameters type. "
+        },
+        "DataType": {
+          "$ref": "#/definitions/String",
+          "description": " Specifies the valid data type for the parameter. "
+        },
+        "AllowedValues": {
+          "$ref": "#/definitions/String",
+          "description": " Specifies the valid range of values for the parameter. "
+        },
+        "IsModifiable": {
+          "$ref": "#/definitions/Boolean",
+          "description": " Indicates whether (<code>true</code>) or not (<code>false</code>) the parameter can be modified. Some parameters have security or operational implications that prevent them from being changed. "
+        },
+        "MinimumEngineVersion": {
+          "$ref": "#/definitions/String",
+          "description": " The earliest engine version to which the parameter can apply. "
+        },
+        "ApplyMethod": {
+          "$ref": "#/definitions/ApplyMethod",
+          "description": " Indicates when to apply parameter updates. "
+        }
+      },
+      "description": "<p> This data type is used as a request parameter in the <a>ModifyDBParameterGroup</a> and <a>ResetDBParameterGroup</a> actions. </p> <p>This data type is used as a response element in the <a>DescribeEngineDefaultParameters</a> and <a>DescribeDBParameters</a> actions.</p>"
+    },
+    "ParametersList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Parameter"
+      }
+    },
+    "PendingModifiedValues": {
+      "type": "object",
+      "properties": {
+        "DBInstanceClass": {
+          "$ref": "#/definitions/String",
+          "description": " Contains the new <code>DBInstanceClass</code> for the DB Instance that will be applied or is in progress. "
+        },
+        "AllocatedStorage": {
+          "$ref": "#/definitions/IntegerOptional",
+          "description": " Contains the new <code>AllocatedStorage</code> size for the DB Instance that will be applied or is in progress. "
+        },
+        "MasterUserPassword": {
+          "$ref": "#/definitions/String",
+          "description": " Contains the pending or in-progress change of the master credentials for the DB Instance. "
+        },
+        "Port": {
+          "$ref": "#/definitions/IntegerOptional",
+          "description": " Specifies the pending port for the DB Instance. "
+        },
+        "BackupRetentionPeriod": {
+          "$ref": "#/definitions/IntegerOptional",
+          "description": " Specifies the pending number of days for which automated backups are retained. "
+        },
+        "MultiAZ": {
+          "$ref": "#/definitions/BooleanOptional",
+          "description": " Indicates that the Single-AZ DB Instance is to change to a Multi-AZ deployment. "
+        },
+        "EngineVersion": {
+          "$ref": "#/definitions/String",
+          "description": " Indicates the database engine version. "
+        },
+        "Iops": {
+          "$ref": "#/definitions/IntegerOptional",
+          "description": " Specifies the new Provisioned IOPS value for the DB Instance that will be applied or is being applied. "
+        },
+        "DBInstanceIdentifier": {
+          "$ref": "#/definitions/String",
+          "description": " Contains the new <code>DBInstanceIdentifier</code> for the DB Instance that will be applied or is in progress. "
+        }
+      },
+      "description": " This data type is used as a response element in the <a>ModifyDBInstance</a> action. "
+    },
+    "PointInTimeRestoreNotEnabledFault": {
+      "type": "object",
+      "properties": {},
+      "description": " <i>SourceDBInstanceIdentifier</i> refers to a DB instance with <i>BackupRetentionPeriod</i> equal to 0. "
+    },
+    "PromoteReadReplicaMessage": {
+      "type": "object",
+      "required": [
+        "DBInstanceIdentifier"
+      ],
+      "properties": {
+        "DBInstanceIdentifier": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The DB Instance identifier. This value is stored as a lowercase string. </p> <p>Constraints:</p> <ul> <li>Must be the identifier for an existing Read Replica DB Instance</li> <li>Must contain from 1 to 63 alphanumeric characters or hyphens</li> <li>First character must be a letter</li> <li>Cannot end with a hyphen or contain two consecutive hyphens</li> </ul> <p>Example: <copy>mydbinstance</copy></p>"
+        },
+        "BackupRetentionPeriod": {
+          "$ref": "#/definitions/IntegerOptional",
+          "description": "<p> The number of days to retain automated backups. Setting this parameter to a positive number enables backups. Setting this parameter to 0 disables automated backups. </p> <p> Default: 1 </p> <p>Constraints:</p> <ul> <li>Must be a value from 0 to 8</li> </ul>"
+        },
+        "PreferredBackupWindow": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The daily time range during which automated backups are created if automated backups are enabled, using the <code>BackupRetentionPeriod</code> parameter. </p> <p> Default: A 30-minute window selected at random from an 8-hour block of time per region. The following list shows the time blocks for each region from which the default backup windows are assigned. </p> <ul> <li><b>US-East (Northern Virginia) Region:</b> 03:00-11:00 UTC</li> <li><b>US-West (Northern California) Region:</b> 06:00-14:00 UTC</li> <li><b>EU (Ireland) Region:</b> 22:00-06:00 UTC</li> <li><b>Asia Pacific (Singapore) Region:</b> 14:00-22:00 UTC</li> <li><b>Asia Pacific (Tokyo) Region: </b> 17:00-03:00 UTC</li> </ul> <p> Constraints: Must be in the format <code>hh24:mi-hh24:mi</code>. Times should be Universal Time Coordinated (UTC). Must not conflict with the preferred maintenance window. Must be at least 30 minutes. </p>"
+        }
+      },
+      "description": " "
+    },
+    "PromoteReadReplicaResult": {
+      "type": "object",
+      "properties": {
+        "DBInstance": {
+          "$ref": "#/definitions/DBInstance"
+        }
+      }
+    },
+    "ProvisionedIopsNotAvailableInAZFault": {
+      "type": "object",
+      "properties": {},
+      "description": " Provisioned IOPS not available in the specified Availability Zone. "
+    },
+    "PurchaseReservedDBInstancesOfferingMessage": {
+      "type": "object",
+      "required": [
+        "ReservedDBInstancesOfferingId"
+      ],
+      "properties": {
+        "ReservedDBInstancesOfferingId": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The ID of the Reserved DB Instance offering to purchase. </p> <p>Example: 438012d3-4052-4cc7-b2e3-8d3372e0e706</p>"
+        },
+        "ReservedDBInstanceId": {
+          "$ref": "#/definitions/String",
+          "description": "<p> Customer-specified identifier to track this reservation. </p> <p>Example: myreservationID</p>"
+        },
+        "DBInstanceCount": {
+          "$ref": "#/definitions/IntegerOptional",
+          "description": "<p> The number of instances to reserve. </p> <p>Default: <code>1</code></p>"
+        }
+      },
+      "description": " "
+    },
+    "PurchaseReservedDBInstancesOfferingResult": {
+      "type": "object",
+      "properties": {
+        "ReservedDBInstance": {
+          "$ref": "#/definitions/ReservedDBInstance"
+        }
+      }
+    },
+    "ReadReplicaDBInstanceIdentifierList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/String"
+      }
+    },
+    "RebootDBInstanceMessage": {
+      "type": "object",
+      "required": [
+        "DBInstanceIdentifier"
+      ],
+      "properties": {
+        "DBInstanceIdentifier": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The DB Instance identifier. This parameter is stored as a lowercase string. </p> <p>Constraints:</p> <ul> <li>Must contain from 1 to 63 alphanumeric characters or hyphens</li> <li>First character must be a letter</li> <li>Cannot end with a hyphen or contain two consecutive hyphens</li> </ul>"
+        },
+        "ForceFailover": {
+          "$ref": "#/definitions/BooleanOptional",
+          "description": "<p> When <code>true</code>, the reboot will be conducted through a MultiAZ failover. </p> <p>Constraint: You cannot specify <code>true</code> if the instance is not configured for MultiAZ.</p>"
+        }
+      },
+      "description": " "
+    },
+    "RebootDBInstanceResult": {
+      "type": "object",
+      "properties": {
+        "DBInstance": {
+          "$ref": "#/definitions/DBInstance"
+        }
+      }
+    },
+    "RecurringCharge": {
+      "type": "object",
+      "properties": {
+        "RecurringChargeAmount": {
+          "$ref": "#/definitions/Double",
+          "description": " The amount of the recurring charge. "
+        },
+        "RecurringChargeFrequency": {
+          "$ref": "#/definitions/String",
+          "description": " The frequency of the recurring charge. "
+        }
+      },
+      "description": " This data type is used as a response element in the <a>DescribeReservedDBInstances</a> and <a>DescribeReservedDBInstancesOfferings</a> actions. "
+    },
+    "RecurringChargeList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/RecurringCharge"
+      }
+    },
+    "RemoveSourceIdentifierFromSubscriptionMessage": {
+      "type": "object",
+      "required": [
+        "SubscriptionName",
+        "SourceIdentifier"
+      ],
+      "properties": {
+        "SubscriptionName": {
+          "$ref": "#/definitions/String",
+          "description": "The name of the RDS event notification subscription you want to remove a source identifier from."
+        },
+        "SourceIdentifier": {
+          "$ref": "#/definitions/String",
+          "description": " The source identifier to be removed from the subscription, such as the <b>DB instance identifier</b> for a DB instance or the name of a security group. "
+        }
+      },
+      "description": "<p/>"
+    },
+    "RemoveSourceIdentifierFromSubscriptionResult": {
+      "type": "object",
+      "properties": {
+        "EventSubscription": {
+          "$ref": "#/definitions/EventSubscription"
+        }
+      }
+    },
+    "RemoveTagsFromResourceMessage": {
+      "type": "object",
+      "required": [
+        "ResourceName",
+        "TagKeys"
+      ],
+      "properties": {
+        "ResourceName": {
+          "$ref": "#/definitions/String",
+          "description": "The DB Instance the tags will be removed from. This value is an Amazon Resource Name (ARN). For information about creating an ARN, see <a href=\"http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.html#USER_Tagging.ARN\"> Constructing an RDS Amazon Resource Name (ARN)</a>."
+        },
+        "TagKeys": {
+          "$ref": "#/definitions/KeyList",
+          "description": "The tag key (name) of the tag to be removed."
+        }
+      },
+      "description": "<p/>"
+    },
+    "ReservedDBInstance": {
+      "type": "object",
+      "properties": {
+        "ReservedDBInstanceId": {
+          "$ref": "#/definitions/String",
+          "description": " The unique identifier for the reservation. "
+        },
+        "ReservedDBInstancesOfferingId": {
+          "$ref": "#/definitions/String",
+          "description": " The offering identifier. "
+        },
+        "DBInstanceClass": {
+          "$ref": "#/definitions/String",
+          "description": " The DB instance class for the reserved DB Instance. "
+        },
+        "StartTime": {
+          "$ref": "#/definitions/TStamp",
+          "description": " The time the reservation started. "
+        },
+        "Duration": {
+          "$ref": "#/definitions/Integer",
+          "description": " The duration of the reservation in seconds. "
+        },
+        "FixedPrice": {
+          "$ref": "#/definitions/Double",
+          "description": " The fixed price charged for this reserved DB Instance. "
+        },
+        "UsagePrice": {
+          "$ref": "#/definitions/Double",
+          "description": " The hourly price charged for this reserved DB Instance. "
+        },
+        "CurrencyCode": {
+          "$ref": "#/definitions/String",
+          "description": " The currency code for the reserved DB Instance. "
+        },
+        "DBInstanceCount": {
+          "$ref": "#/definitions/Integer",
+          "description": " The number of reserved DB Instances. "
+        },
+        "ProductDescription": {
+          "$ref": "#/definitions/String",
+          "description": " The description of the reserved DB Instance. "
+        },
+        "OfferingType": {
+          "$ref": "#/definitions/String",
+          "description": " The offering type of this reserved DB Instance. "
+        },
+        "MultiAZ": {
+          "$ref": "#/definitions/Boolean",
+          "description": " Indicates if the reservation applies to Multi-AZ deployments. "
+        },
+        "State": {
+          "$ref": "#/definitions/String",
+          "description": " The state of the reserved DB Instance. "
+        },
+        "RecurringCharges": {
+          "$ref": "#/definitions/RecurringChargeList",
+          "description": " The recurring price charged to run this reserved DB Instance. "
+        }
+      },
+      "description": " This data type is used as a response element in the <a>DescribeReservedDBInstances</a> and <a>PurchaseReservedDBInstancesOffering</a> actions. "
+    },
+    "ReservedDBInstanceAlreadyExistsFault": {
+      "type": "object",
+      "properties": {},
+      "description": " User already has a reservation with the given identifier. "
+    },
+    "ReservedDBInstanceList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ReservedDBInstance"
+      }
+    },
+    "ReservedDBInstanceMessage": {
+      "type": "object",
+      "properties": {
+        "Marker": {
+          "$ref": "#/definitions/String",
+          "description": " An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by <code>MaxRecords</code>. "
+        },
+        "ReservedDBInstances": {
+          "$ref": "#/definitions/ReservedDBInstanceList",
+          "description": " A list of of reserved DB Instances. "
+        }
+      },
+      "description": " Contains the result of a successful invocation of the <a>DescribeReservedDBInstances</a> action. "
+    },
+    "ReservedDBInstanceNotFoundFault": {
+      "type": "object",
+      "properties": {},
+      "description": " The specified reserved DB Instance not found. "
+    },
+    "ReservedDBInstanceQuotaExceededFault": {
+      "type": "object",
+      "properties": {},
+      "description": " Request would exceed the user's DB Instance quota. "
+    },
+    "ReservedDBInstancesOffering": {
+      "type": "object",
+      "properties": {
+        "ReservedDBInstancesOfferingId": {
+          "$ref": "#/definitions/String",
+          "description": " The offering identifier. "
+        },
+        "DBInstanceClass": {
+          "$ref": "#/definitions/String",
+          "description": " The DB instance class for the reserved DB Instance. "
+        },
+        "Duration": {
+          "$ref": "#/definitions/Integer",
+          "description": " The duration of the offering in seconds. "
+        },
+        "FixedPrice": {
+          "$ref": "#/definitions/Double",
+          "description": " The fixed price charged for this offering. "
+        },
+        "UsagePrice": {
+          "$ref": "#/definitions/Double",
+          "description": " The hourly price charged for this offering. "
+        },
+        "CurrencyCode": {
+          "$ref": "#/definitions/String",
+          "description": " The currency code for the reserved DB Instance offering. "
+        },
+        "ProductDescription": {
+          "$ref": "#/definitions/String",
+          "description": " The database engine used by the offering. "
+        },
+        "OfferingType": {
+          "$ref": "#/definitions/String",
+          "description": " The offering type. "
+        },
+        "MultiAZ": {
+          "$ref": "#/definitions/Boolean",
+          "description": " Indicates if the offering applies to Multi-AZ deployments. "
+        },
+        "RecurringCharges": {
+          "$ref": "#/definitions/RecurringChargeList",
+          "description": " The recurring price charged to run this reserved DB Instance. "
+        }
+      },
+      "description": " This data type is used as a response element in the <a>DescribeReservedDBInstancesOfferings</a> action. "
+    },
+    "ReservedDBInstancesOfferingList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ReservedDBInstancesOffering"
+      }
+    },
+    "ReservedDBInstancesOfferingMessage": {
+      "type": "object",
+      "properties": {
+        "Marker": {
+          "$ref": "#/definitions/String",
+          "description": " An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by <code>MaxRecords</code>. "
+        },
+        "ReservedDBInstancesOfferings": {
+          "$ref": "#/definitions/ReservedDBInstancesOfferingList",
+          "description": " A list of reserved DB Instance offerings. "
+        }
+      },
+      "description": " Contains the result of a successful invocation of the <a>DescribeReservedDBInstancesOfferings</a> action. "
+    },
+    "ReservedDBInstancesOfferingNotFoundFault": {
+      "type": "object",
+      "properties": {},
+      "description": " Specified offering does not exist. "
+    },
+    "ResetDBParameterGroupMessage": {
+      "type": "object",
+      "required": [
+        "DBParameterGroupName"
+      ],
+      "properties": {
+        "DBParameterGroupName": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The name of the DB Parameter Group. </p> <p>Constraints:</p> <ul> <li>Must be 1 to 255 alphanumeric characters</li> <li>First character must be a letter</li> <li>Cannot end with a hyphen or contain two consecutive hyphens</li> </ul>"
+        },
+        "ResetAllParameters": {
+          "$ref": "#/definitions/Boolean",
+          "description": "<p> Specifies whether (<code>true</code>) or not (<code>false</code>) to reset all parameters in the DB Parameter Group to default values. </p> <p>Default: <code>true</code></p>"
+        },
+        "Parameters": {
+          "$ref": "#/definitions/ParametersList",
+          "description": "<p> An array of parameter names, values, and the apply method for the parameter update. At least one parameter name, value, and apply method must be supplied; subsequent arguments are optional. A maximum of 20 parameters may be modified in a single request. </p> <p><b>MySQL</b></p> <p>Valid Values (for Apply method): <code>immediate</code> | <code>pending-reboot</code></p> <p>You can use the immediate value with dynamic parameters only. You can use the <code>pending-reboot</code> value for both dynamic and static parameters, and changes are applied when DB Instance reboots.</p> <p><b>Oracle</b></p> <p>Valid Values (for Apply method): <code>pending-reboot</code></p>"
+        }
+      },
+      "description": " "
+    },
+    "RestoreDBInstanceFromDBSnapshotMessage": {
+      "type": "object",
+      "required": [
+        "DBInstanceIdentifier",
+        "DBSnapshotIdentifier"
+      ],
+      "properties": {
+        "DBInstanceIdentifier": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The identifier for the DB Snapshot to restore from. </p> <p>Constraints:</p> <ul> <li>Must contain from 1 to 63 alphanumeric characters or hyphens</li> <li>First character must be a letter</li> <li>Cannot end with a hyphen or contain two consecutive hyphens</li> </ul>"
+        },
+        "DBSnapshotIdentifier": {
+          "$ref": "#/definitions/String",
+          "description": "<p> Name of the DB Instance to create from the DB Snapshot. This parameter isn't case sensitive. </p> <p>Constraints:</p> <ul> <li>Must contain from 1 to 255 alphanumeric characters or hyphens</li> <li>First character must be a letter</li> <li>Cannot end with a hyphen or contain two consecutive hyphens</li> </ul> <p>Example: <code>my-snapshot-id</code></p>"
+        },
+        "DBInstanceClass": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The compute and memory capacity of the Amazon RDS DB instance. </p> <p>Valid Values: <code>db.t1.micro | db.m1.small | db.m1.medium | db.m1.large | db.m1.xlarge | db.m2.2xlarge | db.m2.4xlarge</code></p>"
+        },
+        "Port": {
+          "$ref": "#/definitions/IntegerOptional",
+          "description": "<p> The port number on which the database accepts connections. </p> <p>Default: The same port as the original DB Instance</p> <p>Constraints: Value must be <code>1150-65535</code></p>"
+        },
+        "AvailabilityZone": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The EC2 Availability Zone that the database instance will be created in. </p> <p>Default: A random, system-chosen Availability Zone.</p> <p>Constraint: You cannot specify the AvailabilityZone parameter if the MultiAZ parameter is set to <code>true</code>.</p> <p>Example: <code>us-east-1a</code></p>"
+        },
+        "DBSubnetGroupName": {
+          "$ref": "#/definitions/String",
+          "description": " The DB Subnet Group name to use for the new instance. "
+        },
+        "MultiAZ": {
+          "$ref": "#/definitions/BooleanOptional",
+          "description": "<p> Specifies if the DB Instance is a Multi-AZ deployment. </p> <p>Constraint: You cannot specify the AvailabilityZone parameter if the MultiAZ parameter is set to <code>true</code>.</p>"
+        },
+        "PubliclyAccessible": {
+          "$ref": "#/definitions/BooleanOptional",
+          "description": "<p> Specifies the accessibility options for the DB Instance. A value of true specifies an Internet-facing instance with a publicly resolvable DNS name, which resolves to a public IP address. A value of false specifies an internal instance with a DNS name that resolves to a private IP address. </p> <p> Default: The default behavior varies depending on whether a VPC has been requested or not. The following list shows the default behavior in each case. </p> <ul> <li><b>Default VPC:</b>true</li> <li><b>VPC:</b>false</li> </ul> <p> If no DB subnet group has been specified as part of the request and the PubliclyAccessible value has not been set, the DB instance will be publicly accessible. If a specific DB subnet group has been specified as part of the request and the PubliclyAccessible value has not been set, the DB instance will be private. </p>"
+        },
+        "AutoMinorVersionUpgrade": {
+          "$ref": "#/definitions/BooleanOptional",
+          "description": " Indicates that minor version upgrades will be applied automatically to the DB Instance during the maintenance window. "
+        },
+        "LicenseModel": {
+          "$ref": "#/definitions/String",
+          "description": "<p> License model information for the restored DB Instance. </p> <p> Default: Same as source. </p> <p> Valid values: <code>license-included</code> | <code>bring-your-own-license</code> | <code>general-public-license</code> </p>"
+        },
+        "DBName": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The database name for the restored DB Instance. </p> <note> <p>This parameter doesn't apply to the MySQL engine.</p> </note>"
+        },
+        "Engine": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The database engine to use for the new instance. </p> <p>Default: The same as source</p> <p>Constraint: Must be compatible with the engine of the source</p> <p>Example: <code>oracle-ee</code></p>"
+        },
+        "Iops": {
+          "$ref": "#/definitions/IntegerOptional",
+          "description": "<p> Specifies the amount of provisioned IOPS for the DB Instance, expressed in I/O operations per second. If this parameter is not specified, the IOPS value will be taken from the backup. If this parameter is set to 0, the new instance will be converted to a non-PIOPS instance, which will take additional time, though your DB instance will be available for connections before the conversion starts. </p> <p> Constraints: Must be an integer greater than 1000.</p>"
+        },
+        "OptionGroupName": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The name of the option group to be used for the restored DB instance.</p> <p> Permanent options, such as the TDE option for Oracle Advanced Security TDE, cannot be removed from an option group, and that option group cannot be removed from a DB instance once it is associated with a DB instance </p>"
+        }
+      },
+      "description": " "
+    },
+    "RestoreDBInstanceFromDBSnapshotResult": {
+      "type": "object",
+      "properties": {
+        "DBInstance": {
+          "$ref": "#/definitions/DBInstance"
+        }
+      }
+    },
+    "RestoreDBInstanceToPointInTimeMessage": {
+      "type": "object",
+      "required": [
+        "SourceDBInstanceIdentifier",
+        "TargetDBInstanceIdentifier"
+      ],
+      "properties": {
+        "SourceDBInstanceIdentifier": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The identifier of the source DB Instance from which to restore. </p> <p>Constraints:</p> <ul> <li>Must be the identifier of an existing database instance</li> <li>Must contain from 1 to 63 alphanumeric characters or hyphens</li> <li>First character must be a letter</li> <li>Cannot end with a hyphen or contain two consecutive hyphens</li> </ul>"
+        },
+        "TargetDBInstanceIdentifier": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The name of the new database instance to be created. </p> <p>Constraints:</p> <ul> <li>Must contain from 1 to 63 alphanumeric characters or hyphens</li> <li>First character must be a letter</li> <li>Cannot end with a hyphen or contain two consecutive hyphens</li> </ul>"
+        },
+        "RestoreTime": {
+          "$ref": "#/definitions/TStamp",
+          "description": "<p> The date and time to restore from. </p> <p>Valid Values: Value must be a UTC time</p> <p>Constraints:</p> <ul> <li>Must be before the latest restorable time for the DB Instance</li> <li>Cannot be specified if UseLatestRestorableTime parameter is true</li> </ul> <p>Example: <code>2009-09-07T23:45:00Z</code></p>"
+        },
+        "UseLatestRestorableTime": {
+          "$ref": "#/definitions/Boolean",
+          "description": "<p> Specifies whether (<code>true</code>) or not (<code>false</code>) the DB Instance is restored from the latest backup time. </p> <p>Default: <code>false</code></p> <p>Constraints: Cannot be specified if RestoreTime parameter is provided.</p>"
+        },
+        "DBInstanceClass": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The compute and memory capacity of the Amazon RDS DB instance. </p> <p>Valid Values: <code>db.t1.micro | db.m1.small | db.m1.medium | db.m1.large | db.m1.xlarge | db.m2.2xlarge | db.m2.4xlarge</code></p> <p>Default: The same DBInstanceClass as the original DB Instance.</p>"
+        },
+        "Port": {
+          "$ref": "#/definitions/IntegerOptional",
+          "description": "<p> The port number on which the database accepts connections. </p> <p>Constraints: Value must be <code>1150-65535</code></p> <p>Default: The same port as the original DB Instance.</p>"
+        },
+        "AvailabilityZone": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The EC2 Availability Zone that the database instance will be created in. </p> <p>Default: A random, system-chosen Availability Zone.</p> <p>Constraint: You cannot specify the AvailabilityZone parameter if the MultiAZ parameter is set to true.</p> <p>Example: <code>us-east-1a</code></p>"
+        },
+        "DBSubnetGroupName": {
+          "$ref": "#/definitions/String",
+          "description": " The DB subnet group name to use for the new instance. "
+        },
+        "MultiAZ": {
+          "$ref": "#/definitions/BooleanOptional",
+          "description": "<p> Specifies if the DB Instance is a Multi-AZ deployment. </p> <p>Constraint: You cannot specify the AvailabilityZone parameter if the MultiAZ parameter is set to <code>true</code>.</p>"
+        },
+        "PubliclyAccessible": {
+          "$ref": "#/definitions/BooleanOptional",
+          "description": "<p> Specifies the accessibility options for the DB Instance. A value of true specifies an Internet-facing instance with a publicly resolvable DNS name, which resolves to a public IP address. A value of false specifies an internal instance with a DNS name that resolves to a private IP address. </p> <p> Default: The default behavior varies depending on whether a VPC has been requested or not. The following list shows the default behavior in each case. </p> <ul> <li><b>Default VPC:</b>true</li> <li><b>VPC:</b>false</li> </ul> <p> If no DB subnet group has been specified as part of the request and the PubliclyAccessible value has not been set, the DB instance will be publicly accessible. If a specific DB subnet group has been specified as part of the request and the PubliclyAccessible value has not been set, the DB instance will be private. </p>"
+        },
+        "AutoMinorVersionUpgrade": {
+          "$ref": "#/definitions/BooleanOptional",
+          "description": " Indicates that minor version upgrades will be applied automatically to the DB Instance during the maintenance window. "
+        },
+        "LicenseModel": {
+          "$ref": "#/definitions/String",
+          "description": "<p> License model information for the restored DB Instance. </p> <p> Default: Same as source. </p> <p> Valid values: <code>license-included</code> | <code>bring-your-own-license</code> | <code>general-public-license</code> </p>"
+        },
+        "DBName": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The database name for the restored DB Instance. </p> <note> <p>This parameter is not used for the MySQL engine.</p> </note>"
+        },
+        "Engine": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The database engine to use for the new instance. </p> <p>Default: The same as source</p> <p>Constraint: Must be compatible with the engine of the source</p> <p>Example: <code>oracle-ee</code></p>"
+        },
+        "Iops": {
+          "$ref": "#/definitions/IntegerOptional",
+          "description": "<p> The amount of Provisioned IOPS (input/output operations per second) to be initially allocated for the DB Instance. </p> <p> Constraints: Must be an integer greater than 1000.</p>"
+        },
+        "OptionGroupName": {
+          "$ref": "#/definitions/String",
+          "description": "<p> The name of the option group to be used for the restored DB instance.</p> <p> Permanent options, such as the TDE option for Oracle Advanced Security TDE, cannot be removed from an option group, and that option group cannot be removed from a DB instance once it is associated with a DB instance </p>"
+        }
+      },
+      "description": " "
+    },
+    "RestoreDBInstanceToPointInTimeResult": {
+      "type": "object",
+      "properties": {
+        "DBInstance": {
+          "$ref": "#/definitions/DBInstance"
+        }
+      }
+    },
+    "RevokeDBSecurityGroupIngressMessage": {
+      "type": "object",
+      "required": [
+        "DBSecurityGroupName"
+      ],
+      "properties": {
+        "DBSecurityGroupName": {
+          "$ref": "#/definitions/String",
+          "description": " The name of the DB Security Group to revoke ingress from. "
+        },
+        "CIDRIP": {
+          "$ref": "#/definitions/String",
+          "description": " The IP range to revoke access from. Must be a valid CIDR range. If <code>CIDRIP</code> is specified, <code>EC2SecurityGroupName</code>, <code>EC2SecurityGroupId</code> and <code>EC2SecurityGroupOwnerId</code> cannot be provided. "
+        },
+        "EC2SecurityGroupName": {
+          "$ref": "#/definitions/String",
+          "description": " The name of the EC2 Security Group to revoke access from. For VPC DB Security Groups, <code>EC2SecurityGroupId</code> must be provided. Otherwise, EC2SecurityGroupOwnerId and either <code>EC2SecurityGroupName</code> or <code>EC2SecurityGroupId</code> must be provided. "
+        },
+        "EC2SecurityGroupId": {
+          "$ref": "#/definitions/String",
+          "description": " The id of the EC2 Security Group to revoke access from. For VPC DB Security Groups, <code>EC2SecurityGroupId</code> must be provided. Otherwise, EC2SecurityGroupOwnerId and either <code>EC2SecurityGroupName</code> or <code>EC2SecurityGroupId</code> must be provided. "
+        },
+        "EC2SecurityGroupOwnerId": {
+          "$ref": "#/definitions/String",
+          "description": " The AWS Account Number of the owner of the EC2 security group specified in the <code>EC2SecurityGroupName</code> parameter. The AWS Access Key ID is not an acceptable value. For VPC DB Security Groups, <code>EC2SecurityGroupId</code> must be provided. Otherwise, EC2SecurityGroupOwnerId and either <code>EC2SecurityGroupName</code> or <code>EC2SecurityGroupId</code> must be provided. "
+        }
+      },
+      "description": " "
+    },
+    "RevokeDBSecurityGroupIngressResult": {
+      "type": "object",
+      "properties": {
+        "DBSecurityGroup": {
+          "$ref": "#/definitions/DBSecurityGroup"
+        }
+      }
+    },
+    "SNSInvalidTopicFault": {
+      "type": "object",
+      "properties": {},
+      "description": "SNS has responded that there is a problem with the SND topic specified."
+    },
+    "SNSNoAuthorizationFault": {
+      "type": "object",
+      "properties": {},
+      "description": "You do not have permission to publish to the SNS topic ARN."
+    },
+    "SNSTopicArnNotFoundFault": {
+      "type": "object",
+      "properties": {},
+      "description": "The SNS topic ARN does not exist."
+    },
+    "SnapshotQuotaExceededFault": {
+      "type": "object",
+      "properties": {},
+      "description": " Request would result in user exceeding the allowed number of DB snapshots. "
+    },
+    "SourceIdsList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/String"
+      }
+    },
+    "SourceNotFoundFault": {
+      "type": "object",
+      "properties": {},
+      "description": "The requested source could not be found."
+    },
+    "SourceType": {
+      "type": "string",
+      "enum": [
+        "db-instance",
+        "db-parameter-group",
+        "db-security-group",
+        "db-snapshot"
+      ]
+    },
+    "StorageQuotaExceededFault": {
+      "type": "object",
+      "properties": {},
+      "description": " Request would result in user exceeding the allowed amount of storage available across all DB instances. "
+    },
+    "String": {
+      "type": "string"
+    },
+    "Subnet": {
+      "type": "object",
+      "properties": {
+        "SubnetIdentifier": {
+          "$ref": "#/definitions/String",
+          "description": " Specifies the identifier of the subnet. "
+        },
+        "SubnetAvailabilityZone": {
+          "$ref": "#/definitions/AvailabilityZone"
+        },
+        "SubnetStatus": {
+          "$ref": "#/definitions/String",
+          "description": " Specifies the status of the subnet. "
+        }
+      },
+      "description": " This data type is used as a response element in the <a>DescribeDBSubnetGroups</a> action. "
+    },
+    "SubnetAlreadyInUse": {
+      "type": "object",
+      "properties": {},
+      "description": " The DB subnet is already in use in the Availability Zone. "
+    },
+    "SubnetIdentifierList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/String"
+      }
+    },
+    "SubnetList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Subnet"
+      }
+    },
+    "SubscriptionAlreadyExistFault": {
+      "type": "object",
+      "properties": {},
+      "description": "The supplied subscription name already exists."
+    },
+    "SubscriptionCategoryNotFoundFault": {
+      "type": "object",
+      "properties": {},
+      "description": "The supplied category does not exist."
+    },
+    "SubscriptionNotFoundFault": {
+      "type": "object",
+      "properties": {},
+      "description": "The subscription name does not exist."
+    },
+    "SupportedCharacterSetsList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/CharacterSet"
+      }
+    },
+    "TStamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "Tag": {
+      "type": "object",
+      "properties": {
+        "Key": {
+          "$ref": "#/definitions/String",
+          "description": "A key is the required name of the tag. The string value can be from 1 to 128 Unicode characters in length and cannot be prefixed with \"aws:\". The string may only contain only the set of Unicode letters, digits, white-space, '_', '.', '/', '=', '+', '-' (Java regex: \"^([\\\\p{L}\\\\p{Z}\\\\p{N}_.:/=+\\\\-]*)$\")."
+        },
+        "Value": {
+          "$ref": "#/definitions/String",
+          "description": "A value is the optional value of the tag. The string value can be from 1 to 256 Unicode characters in length and cannot be prefixed with \"aws:\". The string may only contain only the set of Unicode letters, digits, white-space, '_', '.', '/', '=', '+', '-' (Java regex: \"^([\\\\p{L}\\\\p{Z}\\\\p{N}_.:/=+\\\\-]*)$\")."
+        }
+      },
+      "description": "Metadata assigned to a DB Instance consisting of a key-value pair."
+    },
+    "TagList": {
+      "type": "array",
+      "description": "A list of tags.",
+      "items": {
+        "$ref": "#/definitions/Tag"
+      }
+    },
+    "TagListMessage": {
+      "type": "object",
+      "properties": {
+        "TagList": {
+          "$ref": "#/definitions/TagList",
+          "description": "List of tags returned by the ListTagsForResource operation."
+        }
+      },
+      "description": "<p/>"
+    },
+    "VpcSecurityGroupIdList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/String"
+      }
+    },
+    "VpcSecurityGroupMembership": {
+      "type": "object",
+      "properties": {
+        "VpcSecurityGroupId": {
+          "$ref": "#/definitions/String",
+          "description": "The name of the VPC security group."
+        },
+        "Status": {
+          "$ref": "#/definitions/String",
+          "description": " The status of the VPC Security Group. "
+        }
+      },
+      "description": "This data type is used as a response element for queries on VPC security group membership."
+    },
+    "VpcSecurityGroupMembershipList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/VpcSecurityGroupMembership"
+      }
+    }
+  }
+}

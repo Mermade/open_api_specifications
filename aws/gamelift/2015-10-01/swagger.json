@@ -1,0 +1,2290 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "2015-10-01",
+    "x-release": "v4",
+    "title": "Amazon GameLift",
+    "description": "<fullname>Amazon GameLift Service</fullname> <p>Welcome to the <i>Amazon GameLift API Reference</i>. Amazon GameLift is a managed Amazon Web Services (AWS) service for developers who need a scalable, server-based solution for multiplayer games. Amazon GameLift provides setup and deployment of game servers, and handles infrastructure scaling and session management.</p> <p>This reference describes the low-level service API for GameLift. You can call this API directly or use the <a href=\"https://aws.amazon.com/tools/#sdk\">AWS SDK</a> for your preferred language. The AWS SDK includes a set of high-level GameLift actions multiplayer game sessions. Alternatively, you can use the <a href=\"https://aws.amazon.com/cli/\">AWS command-line interface</a> (CLI) tool, which includes commands for GameLift. For administrative actions, you can also use the Amazon GameLift console. </p> <p><b>More Resources</b></p> <ul> <li> <a href=\"http://docs.aws.amazon.com/gamelift/latest/developerguide/\">Amazon GameLift Developer Guide</a>: Learn more about GameLift features and how to use them </li> <li> <a href=\"https://gamedev.amazon.com/forums/tutorials\">Lumberyard and GameLift Tutorials</a>: Get started fast with walkthroughs and sample projects</li> <li> <a href=\"https://aws.amazon.com/blogs/gamedev/\">GameDev Blog</a>: Stay up to date with new features and techniques</li> <li> <a href=\"https://gamedev.amazon.com/forums/spaces/123/gamelift-discussion.html\">GameDev Forums</a>: Connect with the GameDev community</li> </ul> <p><b>Manage Games and Players Through GameLift</b></p> <p>Call these actions from your game clients and/or services to create and manage multiplayer game sessions and player sessions.</p> <ul> <li> <b>Game sessions</b> <ul> <li><a>CreateGameSession</a></li> <li><a>DescribeGameSessions</a></li> <li><a>DescribeGameSessionDetails</a></li> <li><a>UpdateGameSession</a></li> <li><a>SearchGameSessions</a></li> </ul> </li> <li> <b>Player sessions</b> <ul> <li><a>CreatePlayerSession</a></li> <li><a>CreatePlayerSessions</a></li> <li><a>DescribePlayerSessions</a></li> </ul> </li> <li> <b>Other actions:</b> <ul> <li><a>GetGameSessionLogUrl</a></li> </ul> </li> </ul> <p><b>Set Up and Manage Game Servers</b></p> <p>Use these administrative actions to configure GameLift to host your game servers. When setting up GameLift, you'll need to (1) configure a build for your game and upload build files, and (2) set up one or more fleets to host game sessions. Once you've created and activated a fleet, you can assign aliases to it, scale capacity, track performance and utilization, etc.</p> <ul> <li> <b>Manage your builds:</b> <ul> <li><a>ListBuilds</a></li> <li><a>CreateBuild</a></li> <li><a>DescribeBuild</a></li> <li><a>UpdateBuild</a></li> <li><a>DeleteBuild</a></li> <li><a>RequestUploadCredentials</a></li> </ul> </li> <li> <b>Manage your fleets:</b> <ul> <li><a>ListFleets</a></li> <li><a>CreateFleet</a></li> <li>Describe fleets: <ul> <li><a>DescribeFleetAttributes</a></li> <li><a>DescribeFleetCapacity</a></li> <li><a>DescribeFleetPortSettings</a></li> <li><a>DescribeFleetUtilization</a></li> <li><a>DescribeEC2InstanceLimits</a></li> <li><a>DescribeFleetEvents</a></li> <li><a>DescribeRuntimeConfiguration</a></li> </ul> </li> <li>Update fleets: <ul> <li><a>UpdateFleetAttributes</a></li> <li><a>UpdateFleetCapacity</a></li> <li><a>UpdateFleetPortSettings</a></li> <li><a>UpdateRuntimeConfiguration</a></li> </ul> </li> <li><a>DeleteFleet</a></li> </ul> </li> <li> <b>Manage fleet aliases:</b> <ul> <li><a>ListAliases</a></li> <li><a>CreateAlias</a></li> <li><a>DescribeAlias</a></li> <li><a>UpdateAlias</a></li> <li><a>DeleteAlias</a></li> <li><a>ResolveAlias</a></li> </ul> </li> <li> <b>Manage autoscaling:</b> <ul> <li><a>PutScalingPolicy</a></li> <li><a>DescribeScalingPolicies</a></li> <li><a>DeleteScalingPolicy</a></li> </ul> </li> </ul> <p>To view changes to the API, see the GameLift <a href=\"http://docs.aws.amazon.com/gamelift/latest/developerguide/doc-history.html\">Document History</a> page.</p>",
+    "termsOfService": "https://aws.amazon.com/service-terms/",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/aws2openapi"
+    },
+    "license": {
+      "name": "Apache 2.0 License",
+      "url": "http://www.apache.org/licenses/"
+    }
+  },
+  "x-logo": {
+    "url": "https://media.amazonwebservices.com/blog/2007/big_pbaws_logo_300px.jpg",
+    "backgroundColor": "#FFFFFF"
+  },
+  "externalDocs": {
+    "description": "Amazon Web Services documentation",
+    "url": "https://aws.amazon.com/gamelift/"
+  },
+  "host": "gamelift.us-east-1.amazonaws.com",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/": {
+      "post": {
+        "operationId": "UpdateRuntimeConfiguration",
+        "description": "<p>Updates the current runtime configuration for the specified fleet, which tells GameLift how to launch server processes on instances in the fleet. You can update a fleet's runtime configuration at any time after the fleet is created; it does not need to be in an <code>ACTIVE</code> status.</p> <p>To update runtime configuration, specify the fleet ID and provide a <code>RuntimeConfiguration</code> object with the updated collection of server process configurations.</p> <p>Each instance in a GameLift fleet checks regularly for an updated runtime configuration and changes how it launches server processes to comply with the latest version. Existing server processes are not affected by the update; they continue to run until they end, while GameLift simply adds new server processes to fit the current runtime configuration. As a result, the runtime configuration changes are applied gradually as existing processes shut down and new processes are launched in GameLift's normal process recycling activity.</p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/UpdateRuntimeConfigurationOutput"
+            }
+          },
+          "400": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "401": {
+            "description": "NotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/NotFoundException"
+            }
+          },
+          "402": {
+            "description": "InternalServiceException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalServiceException"
+            }
+          },
+          "403": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "404": {
+            "description": "InvalidFleetStatusException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidFleetStatusException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateRuntimeConfigurationInput"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "Alias": {
+      "type": "object",
+      "properties": {
+        "AliasId": {
+          "$ref": "#/definitions/AliasId",
+          "description": "Unique identifier for a fleet alias."
+        },
+        "Name": {
+          "$ref": "#/definitions/FreeText",
+          "description": "Descriptive label associated with an alias. Alias names do not need to be unique."
+        },
+        "Description": {
+          "$ref": "#/definitions/FreeText",
+          "description": "Human-readable description of an alias."
+        },
+        "RoutingStrategy": {
+          "$ref": "#/definitions/RoutingStrategy"
+        },
+        "CreationTime": {
+          "$ref": "#/definitions/Timestamp",
+          "description": "Time stamp indicating when this data object was created. Format is a number expressed in Unix time as milliseconds (ex: \"1469498468.057\"."
+        },
+        "LastUpdatedTime": {
+          "$ref": "#/definitions/Timestamp",
+          "description": "Time stamp indicating when this data object was last modified. Format is a number expressed in Unix time as milliseconds (ex: \"1469498468.057\"."
+        }
+      },
+      "description": "Properties describing a fleet alias."
+    },
+    "AliasId": {
+      "type": "string",
+      "pattern": "^alias-\\S+"
+    },
+    "AliasList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Alias"
+      }
+    },
+    "AwsCredentials": {
+      "type": "object",
+      "properties": {
+        "AccessKeyId": {
+          "$ref": "#/definitions/NonEmptyString",
+          "description": "Access key for an AWS account."
+        },
+        "SecretAccessKey": {
+          "$ref": "#/definitions/NonEmptyString",
+          "description": "Secret key for an AWS account."
+        },
+        "SessionToken": {
+          "$ref": "#/definitions/NonEmptyString",
+          "description": "Token specific to a build ID."
+        }
+      },
+      "description": "AWS access credentials required to upload game build files to Amazon GameLift. These credentials are generated with <a>CreateBuild</a>, and are valid for a limited time. If they expire before you upload your game build, get a new set by calling <a>RequestUploadCredentials</a>."
+    },
+    "Build": {
+      "type": "object",
+      "properties": {
+        "BuildId": {
+          "$ref": "#/definitions/BuildId",
+          "description": "Unique identifier for a build."
+        },
+        "Name": {
+          "$ref": "#/definitions/FreeText",
+          "description": "Descriptive label associated with a build. Build names do not need to be unique. It can be set using <a>CreateBuild</a> or <a>UpdateBuild</a>."
+        },
+        "Version": {
+          "$ref": "#/definitions/FreeText",
+          "description": "Version associated with this build. Version strings do not need to be unique to a build. This value can be set using <a>CreateBuild</a> or <a>UpdateBuild</a>."
+        },
+        "Status": {
+          "$ref": "#/definitions/BuildStatus",
+          "description": "<p>Current status of the build.</p> <p>Possible build statuses include the following:</p> <ul><li><b>INITIALIZED</b> – A new build has been defined, but no files have been uploaded. You cannot create fleets for builds that are in this status. When a build is successfully created, the build status is set to this value. </li><li><b>READY</b> – The game build has been successfully uploaded. You can now create new fleets for this build.</li><li><b>FAILED</b> – The game build upload failed. You cannot create new fleets for this build. </li></ul>"
+        },
+        "SizeOnDisk": {
+          "$ref": "#/definitions/PositiveLong",
+          "description": "File size of the uploaded game build, expressed in bytes. When the build status is <code>INITIALIZED</code>, this value is 0."
+        },
+        "OperatingSystem": {
+          "$ref": "#/definitions/OperatingSystem",
+          "description": "Operating system that the game server binaries are built to run on. This value determines the type of fleet resources that you can use for this build."
+        },
+        "CreationTime": {
+          "$ref": "#/definitions/Timestamp",
+          "description": "Time stamp indicating when this data object was created. Format is a number expressed in Unix time as milliseconds (ex: \"1469498468.057\"."
+        }
+      },
+      "description": "Properties describing a game build."
+    },
+    "BuildId": {
+      "type": "string",
+      "pattern": "^build-\\S+"
+    },
+    "BuildList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Build"
+      }
+    },
+    "BuildStatus": {
+      "type": "string",
+      "enum": [
+        "INITIALIZED",
+        "READY",
+        "FAILED"
+      ]
+    },
+    "ComparisonOperatorType": {
+      "type": "string",
+      "enum": [
+        "GreaterThanOrEqualToThreshold",
+        "GreaterThanThreshold",
+        "LessThanThreshold",
+        "LessThanOrEqualToThreshold"
+      ]
+    },
+    "ConflictException": {
+      "type": "object",
+      "properties": {
+        "Message": {
+          "$ref": "#/definitions/NonEmptyString"
+        }
+      },
+      "description": "The requested operation would cause a conflict with the current state of a service resource associated with the request. Resolve the conflict before retrying this request."
+    },
+    "CreateAliasInput": {
+      "type": "object",
+      "required": [
+        "Name",
+        "RoutingStrategy"
+      ],
+      "properties": {
+        "Name": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "Descriptive label associated with an alias. Alias names do not need to be unique."
+        },
+        "Description": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "Human-readable description of an alias."
+        },
+        "RoutingStrategy": {
+          "$ref": "#/definitions/RoutingStrategy",
+          "description": "Object specifying the fleet and routing type to use for the alias."
+        }
+      },
+      "description": "Represents the input for a request action."
+    },
+    "CreateAliasOutput": {
+      "type": "object",
+      "properties": {
+        "Alias": {
+          "$ref": "#/definitions/Alias",
+          "description": "Object containing the newly created alias record."
+        }
+      },
+      "description": "Represents the returned data in response to a request action."
+    },
+    "CreateBuildInput": {
+      "type": "object",
+      "properties": {
+        "Name": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "Descriptive label associated with a build. Build names do not need to be unique. A build name can be changed later using <code><a>UpdateBuild</a></code>."
+        },
+        "Version": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "Version associated with this build. Version strings do not need to be unique to a build. A build version can be changed later using <code><a>UpdateBuild</a></code>."
+        },
+        "StorageLocation": {
+          "$ref": "#/definitions/S3Location"
+        },
+        "OperatingSystem": {
+          "$ref": "#/definitions/OperatingSystem",
+          "description": "Operating system that the game server binaries are built to run on. This value determines the type of fleet resources that you can use for this build."
+        }
+      },
+      "description": "Represents the input for a request action."
+    },
+    "CreateBuildOutput": {
+      "type": "object",
+      "properties": {
+        "Build": {
+          "$ref": "#/definitions/Build",
+          "description": "Set of properties for the newly created build."
+        },
+        "UploadCredentials": {
+          "$ref": "#/definitions/AwsCredentials",
+          "description": "AWS credentials required when uploading a game build to the storage location. These credentials have a limited lifespan and are valid only for the build they were issued for. If you need to get fresh credentials, call <code><a>RequestUploadCredentials</a></code>."
+        },
+        "StorageLocation": {
+          "$ref": "#/definitions/S3Location",
+          "description": "Amazon S3 path and key, identifying where the game build files are stored."
+        }
+      },
+      "description": "Represents the returned data in response to a request action."
+    },
+    "CreateFleetInput": {
+      "type": "object",
+      "required": [
+        "Name",
+        "BuildId",
+        "EC2InstanceType"
+      ],
+      "properties": {
+        "Name": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "Descriptive label associated with a fleet. Fleet names do not need to be unique."
+        },
+        "Description": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "Human-readable description of a fleet."
+        },
+        "BuildId": {
+          "$ref": "#/definitions/BuildId",
+          "description": "Unique identifier of the build to be deployed on the new fleet. The build must have been successfully uploaded to GameLift and be in a <code>READY</code> status. This fleet setting cannot be changed once the fleet is created."
+        },
+        "ServerLaunchPath": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "This parameter is no longer used. Instead, specify a server launch path using the <code>RuntimeConfiguration</code> parameter. (Requests that specify a server launch path and launch parameters instead of a runtime configuration will continue to work.)"
+        },
+        "ServerLaunchParameters": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "This parameter is no longer used. Instead, specify server launch parameters in the <code>RuntimeConfiguration</code> parameter. (Requests that specify a server launch path and launch parameters instead of a runtime configuration will continue to work.)"
+        },
+        "LogPaths": {
+          "$ref": "#/definitions/StringList",
+          "description": "Location of default log files. When a server process is shut down, Amazon GameLift captures and stores any log files in this location. These logs are in addition to game session logs; see more on game session logs in the <a href=\"http://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-server-api.html#gamelift-sdk-server-api-server-code\">Amazon GameLift Developer Guide</a>. If no default log path for a fleet is specified, GameLift will automatically upload logs stored on each instance at <code>C:\\game\\logs</code>. Use the GameLift console to access stored logs. "
+        },
+        "EC2InstanceType": {
+          "$ref": "#/definitions/EC2InstanceType",
+          "description": "Name of an EC2 instance type that is supported in Amazon GameLift. A fleet instance type determines the computing resources of each instance in the fleet, including CPU, memory, storage, and networking capacity. GameLift supports the following EC2 instance types. See <a href=\"https://aws.amazon.com/ec2/instance-types/\">Amazon EC2 Instance Types</a> for detailed descriptions."
+        },
+        "EC2InboundPermissions": {
+          "$ref": "#/definitions/IpPermissionsList",
+          "description": "Range of IP addresses and port settings that permit inbound traffic to access server processes running on the fleet. If no inbound permissions are set, including both IP address range and port range, the server processes in the fleet cannot accept connections. You can specify one or more sets of permissions for a fleet."
+        },
+        "NewGameSessionProtectionPolicy": {
+          "$ref": "#/definitions/ProtectionPolicy",
+          "description": "<p>Game session protection policy to apply to all instances in this fleet. If this parameter is not set, instances in this fleet default to no protection. You can change a fleet's protection policy using UpdateFleetAttributes, but this change will only affect sessions created after the policy change. You can also set protection for individual instances using <a>UpdateGameSession</a>.</p> <ul><li><b>NoProtection</b> – The game session can be terminated during a scale-down event.</li> <li><b>FullProtection</b> – If the game session is in an <code>ACTIVE</code> status, it cannot be terminated during a scale-down event.</li></ul>"
+        },
+        "RuntimeConfiguration": {
+          "$ref": "#/definitions/RuntimeConfiguration",
+          "description": "Instructions for launching server processes on each instance in the fleet. The runtime configuration for a fleet has a collection of server process configurations, one for each type of server process to run on an instance. A server process configuration specifies the location of the server executable, launch parameters, and the number of concurrent processes with that configuration to maintain on each instance. A <code>CreateFleet</code> request must include a runtime configuration with at least one server process configuration; otherwise the request will fail with an invalid request exception. (This parameter replaces the parameters <code>ServerLaunchPath</code> and <code>ServerLaunchParameters</code>; requests that contain values for these parameters instead of a runtime configuration will continue to work.) "
+        }
+      },
+      "description": "Represents the input for a request action."
+    },
+    "CreateFleetOutput": {
+      "type": "object",
+      "properties": {
+        "FleetAttributes": {
+          "$ref": "#/definitions/FleetAttributes",
+          "description": "Properties for the newly created fleet."
+        }
+      },
+      "description": "Represents the returned data in response to a request action."
+    },
+    "CreateGameSessionInput": {
+      "type": "object",
+      "required": [
+        "MaximumPlayerSessionCount"
+      ],
+      "properties": {
+        "FleetId": {
+          "$ref": "#/definitions/FleetId",
+          "description": "Unique identifier for a fleet. Each request must reference either a fleet ID or alias ID, but not both."
+        },
+        "AliasId": {
+          "$ref": "#/definitions/AliasId",
+          "description": "Unique identifier for a fleet alias. Each request must reference either a fleet ID or alias ID, but not both."
+        },
+        "MaximumPlayerSessionCount": {
+          "$ref": "#/definitions/WholeNumber",
+          "description": "Maximum number of players that can be connected simultaneously to the game session. "
+        },
+        "Name": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "Descriptive label associated with a game session. Session names do not need to be unique."
+        },
+        "GameProperties": {
+          "$ref": "#/definitions/GamePropertyList",
+          "description": "Set of properties used to administer a game session. These properties are passed to the server process hosting it. "
+        }
+      },
+      "description": "Represents the input for a request action."
+    },
+    "CreateGameSessionOutput": {
+      "type": "object",
+      "properties": {
+        "GameSession": {
+          "$ref": "#/definitions/GameSession",
+          "description": "Object containing the newly created game session record."
+        }
+      },
+      "description": "Represents the returned data in response to a request action."
+    },
+    "CreatePlayerSessionInput": {
+      "type": "object",
+      "required": [
+        "GameSessionId",
+        "PlayerId"
+      ],
+      "properties": {
+        "GameSessionId": {
+          "$ref": "#/definitions/GameSessionId",
+          "description": "Unique identifier for a game session. Specify the game session you want to add a player to."
+        },
+        "PlayerId": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "Unique identifier for the player to be added."
+        }
+      },
+      "description": "Represents the input for a request action."
+    },
+    "CreatePlayerSessionOutput": {
+      "type": "object",
+      "properties": {
+        "PlayerSession": {
+          "$ref": "#/definitions/PlayerSession",
+          "description": "Object containing the newly created player session record."
+        }
+      },
+      "description": "Represents the returned data in response to a request action."
+    },
+    "CreatePlayerSessionsInput": {
+      "type": "object",
+      "required": [
+        "GameSessionId",
+        "PlayerIds"
+      ],
+      "properties": {
+        "GameSessionId": {
+          "$ref": "#/definitions/GameSessionId",
+          "description": "Unique identifier for a game session. "
+        },
+        "PlayerIds": {
+          "$ref": "#/definitions/PlayerIdList",
+          "description": "List of unique identifiers for the players to be added."
+        }
+      },
+      "description": "Represents the input for a request action."
+    },
+    "CreatePlayerSessionsOutput": {
+      "type": "object",
+      "properties": {
+        "PlayerSessions": {
+          "$ref": "#/definitions/PlayerSessionList",
+          "description": "Collection of player session objects created for the added players."
+        }
+      },
+      "description": "Represents the returned data in response to a request action."
+    },
+    "DeleteAliasInput": {
+      "type": "object",
+      "required": [
+        "AliasId"
+      ],
+      "properties": {
+        "AliasId": {
+          "$ref": "#/definitions/AliasId",
+          "description": "Unique identifier for a fleet alias. Specify the alias you want to delete. "
+        }
+      },
+      "description": "Represents the input for a request action."
+    },
+    "DeleteBuildInput": {
+      "type": "object",
+      "required": [
+        "BuildId"
+      ],
+      "properties": {
+        "BuildId": {
+          "$ref": "#/definitions/BuildId",
+          "description": "Unique identifier for the build you want to delete. "
+        }
+      },
+      "description": "Represents the input for a request action."
+    },
+    "DeleteFleetInput": {
+      "type": "object",
+      "required": [
+        "FleetId"
+      ],
+      "properties": {
+        "FleetId": {
+          "$ref": "#/definitions/FleetId",
+          "description": "Unique identifier for the fleet you want to delete."
+        }
+      },
+      "description": "Represents the input for a request action."
+    },
+    "DeleteScalingPolicyInput": {
+      "type": "object",
+      "required": [
+        "Name",
+        "FleetId"
+      ],
+      "properties": {
+        "Name": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "Descriptive label associated with a scaling policy. Policy names do not need to be unique."
+        },
+        "FleetId": {
+          "$ref": "#/definitions/FleetId",
+          "description": "Unique identifier for a fleet."
+        }
+      },
+      "description": "Represents the input for a request action."
+    },
+    "DescribeAliasInput": {
+      "type": "object",
+      "required": [
+        "AliasId"
+      ],
+      "properties": {
+        "AliasId": {
+          "$ref": "#/definitions/AliasId",
+          "description": "Unique identifier for a fleet alias. Specify the alias you want to retrieve. "
+        }
+      },
+      "description": "Represents the input for a request action."
+    },
+    "DescribeAliasOutput": {
+      "type": "object",
+      "properties": {
+        "Alias": {
+          "$ref": "#/definitions/Alias",
+          "description": "Object containing the requested alias."
+        }
+      },
+      "description": "Represents the returned data in response to a request action."
+    },
+    "DescribeBuildInput": {
+      "type": "object",
+      "required": [
+        "BuildId"
+      ],
+      "properties": {
+        "BuildId": {
+          "$ref": "#/definitions/BuildId",
+          "description": "Unique identifier of the build that you want to retrieve properties for. "
+        }
+      },
+      "description": "Represents the input for a request action."
+    },
+    "DescribeBuildOutput": {
+      "type": "object",
+      "properties": {
+        "Build": {
+          "$ref": "#/definitions/Build",
+          "description": "Set of properties describing the requested build."
+        }
+      },
+      "description": "Represents the returned data in response to a request action."
+    },
+    "DescribeEC2InstanceLimitsInput": {
+      "type": "object",
+      "properties": {
+        "EC2InstanceType": {
+          "$ref": "#/definitions/EC2InstanceType",
+          "description": "Name of an EC2 instance type that is supported in Amazon GameLift. A fleet instance type determines the computing resources of each instance in the fleet, including CPU, memory, storage, and networking capacity. GameLift supports the following EC2 instance types. See <a href=\"https://aws.amazon.com/ec2/instance-types/\">Amazon EC2 Instance Types</a> for detailed descriptions. Leave this parameter blank to retrieve limits for all types."
+        }
+      },
+      "description": "Represents the input for a request action."
+    },
+    "DescribeEC2InstanceLimitsOutput": {
+      "type": "object",
+      "properties": {
+        "EC2InstanceLimits": {
+          "$ref": "#/definitions/EC2InstanceLimitList",
+          "description": "Object containing the maximum number of instances for the specified instance type."
+        }
+      },
+      "description": "Represents the returned data in response to a request action."
+    },
+    "DescribeFleetAttributesInput": {
+      "type": "object",
+      "properties": {
+        "FleetIds": {
+          "$ref": "#/definitions/FleetIdList",
+          "description": "Unique identifiers for the fleet(s) that you want to retrieve attributes for. To request attributes for all fleets, leave this parameter empty."
+        },
+        "Limit": {
+          "$ref": "#/definitions/PositiveInteger",
+          "description": "Maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages. This parameter is ignored when the request specifies one or a list of fleet IDs."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "Token indicating the start of the next sequential page of results. Use the token that is returned with a previous call to this action. To specify the start of the result set, do not specify a value. This parameter is ignored when the request specifies one or a list of fleet IDs."
+        }
+      },
+      "description": "Represents the input for a request action."
+    },
+    "DescribeFleetAttributesOutput": {
+      "type": "object",
+      "properties": {
+        "FleetAttributes": {
+          "$ref": "#/definitions/FleetAttributesList",
+          "description": "Collection of objects containing attribute metadata for each requested fleet ID. "
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "<p>Token indicating where to resume retrieving results on the next call to this action. If no token is returned, these results represent the end of the list.</p> <note> <p>If a request has a limit that exactly matches the number of remaining results, a token is returned even though there are no more results to retrieve.</p> </note>"
+        }
+      },
+      "description": "Represents the returned data in response to a request action."
+    },
+    "DescribeFleetCapacityInput": {
+      "type": "object",
+      "properties": {
+        "FleetIds": {
+          "$ref": "#/definitions/FleetIdList",
+          "description": "Unique identifier for the fleet(s) you want to retrieve capacity information for. To request capacity information for all fleets, leave this parameter empty."
+        },
+        "Limit": {
+          "$ref": "#/definitions/PositiveInteger",
+          "description": "Maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages. This parameter is ignored when the request specifies one or a list of fleet IDs."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "Token indicating the start of the next sequential page of results. Use the token that is returned with a previous call to this action. To specify the start of the result set, do not specify a value. This parameter is ignored when the request specifies one or a list of fleet IDs."
+        }
+      },
+      "description": "Represents the input for a request action."
+    },
+    "DescribeFleetCapacityOutput": {
+      "type": "object",
+      "properties": {
+        "FleetCapacity": {
+          "$ref": "#/definitions/FleetCapacityList",
+          "description": "Collection of objects containing capacity information for each requested fleet ID. Leave this parameter empty to retrieve capacity information for all fleets."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "<p>Token indicating where to resume retrieving results on the next call to this action. If no token is returned, these results represent the end of the list.</p> <note> <p>If a request has a limit that exactly matches the number of remaining results, a token is returned even though there are no more results to retrieve.</p> </note>"
+        }
+      },
+      "description": "Represents the returned data in response to a request action."
+    },
+    "DescribeFleetEventsInput": {
+      "type": "object",
+      "required": [
+        "FleetId"
+      ],
+      "properties": {
+        "FleetId": {
+          "$ref": "#/definitions/FleetId",
+          "description": "Unique identifier for the fleet to get event logs for. "
+        },
+        "StartTime": {
+          "$ref": "#/definitions/Timestamp",
+          "description": "Earliest date to retrieve event logs for. If no start time is specified, this call returns entries starting from when the fleet was created to the specified end time. Format is a number expressed in Unix time as milliseconds (ex: \"1469498468.057\"."
+        },
+        "EndTime": {
+          "$ref": "#/definitions/Timestamp",
+          "description": "Most recent date to retrieve event logs for. If no end time is specified, this call returns entries from the specified start time up to the present. Format is a number expressed in Unix time as milliseconds (ex: \"1469498468.057\"."
+        },
+        "Limit": {
+          "$ref": "#/definitions/PositiveInteger",
+          "description": "Maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "Token indicating the start of the next sequential page of results. Use the token that is returned with a previous call to this action. To specify the start of the result set, do not specify a value."
+        }
+      },
+      "description": "Represents the input for a request action."
+    },
+    "DescribeFleetEventsOutput": {
+      "type": "object",
+      "properties": {
+        "Events": {
+          "$ref": "#/definitions/EventList",
+          "description": "Collection of objects containing event log entries for the specified fleet."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "<p>Token indicating where to resume retrieving results on the next call to this action. If no token is returned, these results represent the end of the list.</p> <note> <p>If a request has a limit that exactly matches the number of remaining results, a token is returned even though there are no more results to retrieve.</p> </note>"
+        }
+      },
+      "description": "Represents the returned data in response to a request action."
+    },
+    "DescribeFleetPortSettingsInput": {
+      "type": "object",
+      "required": [
+        "FleetId"
+      ],
+      "properties": {
+        "FleetId": {
+          "$ref": "#/definitions/FleetId",
+          "description": "Unique identifier for the fleet you want to retrieve port settings for. "
+        }
+      },
+      "description": "Represents the input for a request action."
+    },
+    "DescribeFleetPortSettingsOutput": {
+      "type": "object",
+      "properties": {
+        "InboundPermissions": {
+          "$ref": "#/definitions/IpPermissionsList",
+          "description": "Object containing port settings for the requested fleet ID."
+        }
+      },
+      "description": "Represents the returned data in response to a request action."
+    },
+    "DescribeFleetUtilizationInput": {
+      "type": "object",
+      "properties": {
+        "FleetIds": {
+          "$ref": "#/definitions/FleetIdList",
+          "description": "Unique identifier for the fleet(s) you want to retrieve utilization data for. To request utilization data for all fleets, leave this parameter empty."
+        },
+        "Limit": {
+          "$ref": "#/definitions/PositiveInteger",
+          "description": "Maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages. This parameter is ignored when the request specifies one or a list of fleet IDs."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "Token indicating the start of the next sequential page of results. Use the token that is returned with a previous call to this action. To specify the start of the result set, do not specify a value. This parameter is ignored when the request specifies one or a list of fleet IDs."
+        }
+      },
+      "description": "Represents the input for a request action."
+    },
+    "DescribeFleetUtilizationOutput": {
+      "type": "object",
+      "properties": {
+        "FleetUtilization": {
+          "$ref": "#/definitions/FleetUtilizationList",
+          "description": "Collection of objects containing utilization information for each requested fleet ID."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "<p>Token indicating where to resume retrieving results on the next call to this action. If no token is returned, these results represent the end of the list.</p> <note> <p>If a request has a limit that exactly matches the number of remaining results, a token is returned even though there are no more results to retrieve.</p> </note>"
+        }
+      },
+      "description": "Represents the returned data in response to a request action."
+    },
+    "DescribeGameSessionDetailsInput": {
+      "type": "object",
+      "properties": {
+        "FleetId": {
+          "$ref": "#/definitions/FleetId",
+          "description": "Unique identifier for a fleet. Specify a fleet to retrieve information on all game sessions active on the fleet."
+        },
+        "GameSessionId": {
+          "$ref": "#/definitions/GameSessionId",
+          "description": "Unique identifier for a game session. Specify the game session to retrieve information on."
+        },
+        "AliasId": {
+          "$ref": "#/definitions/AliasId",
+          "description": "Unique identifier for a fleet alias. Specify an alias to retrieve information on all game sessions active on the fleet."
+        },
+        "StatusFilter": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "Game session status to filter results on. Possible game session statuses include ACTIVE, <code>TERMINATED</code>, <code>ACTIVATING</code> and <code>TERMINATING</code> (the last two are transitory). "
+        },
+        "Limit": {
+          "$ref": "#/definitions/PositiveInteger",
+          "description": "Maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "Token indicating the start of the next sequential page of results. Use the token that is returned with a previous call to this action. To specify the start of the result set, do not specify a value."
+        }
+      },
+      "description": "Represents the input for a request action."
+    },
+    "DescribeGameSessionDetailsOutput": {
+      "type": "object",
+      "properties": {
+        "GameSessionDetails": {
+          "$ref": "#/definitions/GameSessionDetailList",
+          "description": "Collection of objects containing game session properties and the protection policy currently in force for each session matching the request."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "<p>Token indicating where to resume retrieving results on the next call to this action. If no token is returned, these results represent the end of the list.</p> <note> <p>If a request has a limit that exactly matches the number of remaining results, a token is returned even though there are no more results to retrieve.</p> </note>"
+        }
+      },
+      "description": "Represents the returned data in response to a request action."
+    },
+    "DescribeGameSessionsInput": {
+      "type": "object",
+      "properties": {
+        "FleetId": {
+          "$ref": "#/definitions/FleetId",
+          "description": "Unique identifier for a fleet. Specify a fleet to retrieve information on all game sessions active on the fleet."
+        },
+        "GameSessionId": {
+          "$ref": "#/definitions/GameSessionId",
+          "description": "Unique identifier for a game session. Specify the game session to retrieve information on."
+        },
+        "AliasId": {
+          "$ref": "#/definitions/AliasId",
+          "description": "Unique identifier for a fleet alias. Specify an alias to retrieve information on all game sessions active on the fleet."
+        },
+        "StatusFilter": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "Game session status to filter results on. Possible game session statuses include <code>ACTIVE</code>, <code>TERMINATED</code>, <code>ACTIVATING</code>, and <code>TERMINATING</code> (the last two are transitory). "
+        },
+        "Limit": {
+          "$ref": "#/definitions/PositiveInteger",
+          "description": "Maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "Token indicating the start of the next sequential page of results. Use the token that is returned with a previous call to this action. To specify the start of the result set, do not specify a value."
+        }
+      },
+      "description": "Represents the input for a request action."
+    },
+    "DescribeGameSessionsOutput": {
+      "type": "object",
+      "properties": {
+        "GameSessions": {
+          "$ref": "#/definitions/GameSessionList",
+          "description": "Collection of objects containing game session properties for each session matching the request."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "<p>Token indicating where to resume retrieving results on the next call to this action. If no token is returned, these results represent the end of the list.</p> <note> <p>If a request has a limit that exactly matches the number of remaining results, a token is returned even though there are no more results to retrieve.</p> </note>"
+        }
+      },
+      "description": "Represents the returned data in response to a request action."
+    },
+    "DescribePlayerSessionsInput": {
+      "type": "object",
+      "properties": {
+        "GameSessionId": {
+          "$ref": "#/definitions/GameSessionId",
+          "description": "Unique identifier for a game session."
+        },
+        "PlayerId": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "Unique identifier for a player."
+        },
+        "PlayerSessionId": {
+          "$ref": "#/definitions/PlayerSessionId",
+          "description": "Unique identifier for a player session."
+        },
+        "PlayerSessionStatusFilter": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "<p>Player session status to filter results on.</p> <p>Possible player session statuses include the following:</p> <ul><li><b>RESERVED</b> – The player session request has been received, but the player has not yet connected to the server process and/or been validated. </li><li><b>ACTIVE</b> – The player has been validated by the server process and is currently connected.</li><li><b>COMPLETED</b> – The player connection has been dropped.</li><li><b>TIMEDOUT</b> – A player session request was received, but the player did not connect and/or was not validated within the time-out limit (60 seconds).</li></ul>"
+        },
+        "Limit": {
+          "$ref": "#/definitions/PositiveInteger",
+          "description": "Maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages. If a player session ID is specified, this parameter is ignored."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "Token indicating the start of the next sequential page of results. Use the token that is returned with a previous call to this action. To specify the start of the result set, do not specify a value. If a player session ID is specified, this parameter is ignored."
+        }
+      },
+      "description": "Represents the input for a request action."
+    },
+    "DescribePlayerSessionsOutput": {
+      "type": "object",
+      "properties": {
+        "PlayerSessions": {
+          "$ref": "#/definitions/PlayerSessionList",
+          "description": "Collection of objects containing properties for each player session that matches the request."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "<p>Token indicating where to resume retrieving results on the next call to this action. If no token is returned, these results represent the end of the list.</p> <note> <p>If a request has a limit that exactly matches the number of remaining results, a token is returned even though there are no more results to retrieve.</p> </note>"
+        }
+      },
+      "description": "Represents the returned data in response to a request action."
+    },
+    "DescribeRuntimeConfigurationInput": {
+      "type": "object",
+      "required": [
+        "FleetId"
+      ],
+      "properties": {
+        "FleetId": {
+          "$ref": "#/definitions/FleetId",
+          "description": "Unique identifier of the fleet to get the runtime configuration for."
+        }
+      },
+      "description": "Represents the input for a request action."
+    },
+    "DescribeRuntimeConfigurationOutput": {
+      "type": "object",
+      "properties": {
+        "RuntimeConfiguration": {
+          "$ref": "#/definitions/RuntimeConfiguration",
+          "description": "Instructions describing how server processes should be launched and maintained on each instance in the fleet."
+        }
+      },
+      "description": "Represents the returned data in response to a request action."
+    },
+    "DescribeScalingPoliciesInput": {
+      "type": "object",
+      "required": [
+        "FleetId"
+      ],
+      "properties": {
+        "FleetId": {
+          "$ref": "#/definitions/FleetId",
+          "description": "Unique identifier for a fleet. Specify the fleet to retrieve scaling policies for."
+        },
+        "StatusFilter": {
+          "$ref": "#/definitions/ScalingStatusType",
+          "description": "<p>Scaling policy status to filter results on. A scaling policy is only in force when in an <code>ACTIVE</code> status.</p> <ul> <li> <b>ACTIVE</b> – The scaling policy is currently in force.</li> <li> <b>UPDATEREQUESTED</b> – A request to update the scaling policy has been received.</li> <li> <b>UPDATING</b> – A change is being made to the scaling policy.</li> <li> <b>DELETEREQUESTED</b> – A request to delete the scaling policy has been received.</li> <li> <b>DELETING</b> – The scaling policy is being deleted.</li> <li> <b>DELETED</b> – The scaling policy has been deleted.</li> <li> <b>ERROR</b> – An error occurred in creating the policy. It should be removed and recreated.</li> </ul>"
+        },
+        "Limit": {
+          "$ref": "#/definitions/PositiveInteger",
+          "description": "Maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "Token indicating the start of the next sequential page of results. Use the token that is returned with a previous call to this action. To specify the start of the result set, do not specify a value."
+        }
+      },
+      "description": "Represents the input for a request action."
+    },
+    "DescribeScalingPoliciesOutput": {
+      "type": "object",
+      "properties": {
+        "ScalingPolicies": {
+          "$ref": "#/definitions/ScalingPolicyList",
+          "description": "Collection of objects containing the scaling policies matching the request."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "<p>Token indicating where to resume retrieving results on the next call to this action. If no token is returned, these results represent the end of the list.</p> <note> <p>If a request has a limit that exactly matches the number of remaining results, a token is returned even though there are no more results to retrieve.</p> </note>"
+        }
+      },
+      "description": "Represents the returned data in response to a request action."
+    },
+    "Double": {
+      "type": "number",
+      "format": "double"
+    },
+    "EC2InstanceCounts": {
+      "type": "object",
+      "properties": {
+        "DESIRED": {
+          "$ref": "#/definitions/WholeNumber",
+          "description": "Ideal number of active instances in the fleet."
+        },
+        "MINIMUM": {
+          "$ref": "#/definitions/WholeNumber",
+          "description": "Minimum value allowed for the fleet's instance count."
+        },
+        "MAXIMUM": {
+          "$ref": "#/definitions/WholeNumber",
+          "description": "Maximum value allowed for the fleet's instance count."
+        },
+        "PENDING": {
+          "$ref": "#/definitions/WholeNumber",
+          "description": "Number of instances in the fleet that are starting but not yet active."
+        },
+        "ACTIVE": {
+          "$ref": "#/definitions/WholeNumber",
+          "description": "Actual number of active instances in the fleet."
+        },
+        "IDLE": {
+          "$ref": "#/definitions/WholeNumber",
+          "description": "Number of active instances in the fleet that are not currently hosting a game session."
+        },
+        "TERMINATING": {
+          "$ref": "#/definitions/WholeNumber",
+          "description": "Number of instances in the fleet that are no longer active but haven't yet been terminated. "
+        }
+      },
+      "description": "Current status of fleet capacity. The number of active instances should match or be in the process of matching the number of desired instances. Pending and terminating counts are non-zero only if fleet capacity is adjusting to an <a>UpdateFleetCapacity</a> request, or if access to resources is temporarily affected."
+    },
+    "EC2InstanceLimit": {
+      "type": "object",
+      "properties": {
+        "EC2InstanceType": {
+          "$ref": "#/definitions/EC2InstanceType",
+          "description": "Name of an EC2 instance type that is supported in Amazon GameLift. A fleet instance type determines the computing resources of each instance in the fleet, including CPU, memory, storage, and networking capacity. GameLift supports the following EC2 instance types. See <a href=\"https://aws.amazon.com/ec2/instance-types/\">Amazon EC2 Instance Types</a> for detailed descriptions."
+        },
+        "CurrentInstances": {
+          "$ref": "#/definitions/WholeNumber",
+          "description": "Number of instances of the specified type that are currently in use by this AWS account. "
+        },
+        "InstanceLimit": {
+          "$ref": "#/definitions/WholeNumber",
+          "description": "Number of instances allowed."
+        }
+      },
+      "description": "Maximum number of instances allowed based on the Amazon Elastic Compute Cloud (Amazon EC2) instance type. Instance limits can be retrieved by calling <a>DescribeEC2InstanceLimits</a>."
+    },
+    "EC2InstanceLimitList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/EC2InstanceLimit"
+      }
+    },
+    "EC2InstanceType": {
+      "type": "string",
+      "enum": [
+        "t2.micro",
+        "t2.small",
+        "t2.medium",
+        "t2.large",
+        "c3.large",
+        "c3.xlarge",
+        "c3.2xlarge",
+        "c3.4xlarge",
+        "c3.8xlarge",
+        "c4.large",
+        "c4.xlarge",
+        "c4.2xlarge",
+        "c4.4xlarge",
+        "c4.8xlarge",
+        "r3.large",
+        "r3.xlarge",
+        "r3.2xlarge",
+        "r3.4xlarge",
+        "r3.8xlarge",
+        "m3.medium",
+        "m3.large",
+        "m3.xlarge",
+        "m3.2xlarge",
+        "m4.large",
+        "m4.xlarge",
+        "m4.2xlarge",
+        "m4.4xlarge",
+        "m4.10xlarge"
+      ]
+    },
+    "Event": {
+      "type": "object",
+      "properties": {
+        "EventId": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "Unique identifier for a fleet event."
+        },
+        "ResourceId": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "Unique identifier for the resource, such as a fleet ID."
+        },
+        "EventCode": {
+          "$ref": "#/definitions/EventCode",
+          "description": "Type of event being logged."
+        },
+        "Message": {
+          "$ref": "#/definitions/NonEmptyString",
+          "description": "Additional information related to the event."
+        },
+        "EventTime": {
+          "$ref": "#/definitions/Timestamp",
+          "description": "Time stamp indicating when this event occurred. Format is a number expressed in Unix time as milliseconds (ex: \"1469498468.057\"."
+        }
+      },
+      "description": "Log entry describing an event involving an Amazon GameLift resource (such as a fleet)."
+    },
+    "EventCode": {
+      "type": "string",
+      "enum": [
+        "GENERIC_EVENT",
+        "FLEET_CREATED",
+        "FLEET_DELETED",
+        "FLEET_SCALING_EVENT",
+        "FLEET_STATE_DOWNLOADING",
+        "FLEET_STATE_VALIDATING",
+        "FLEET_STATE_BUILDING",
+        "FLEET_STATE_ACTIVATING",
+        "FLEET_STATE_ACTIVE",
+        "FLEET_STATE_ERROR",
+        "FLEET_INITIALIZATION_FAILED",
+        "FLEET_BINARY_DOWNLOAD_FAILED",
+        "FLEET_VALIDATION_LAUNCH_PATH_NOT_FOUND",
+        "FLEET_VALIDATION_EXECUTABLE_RUNTIME_FAILURE",
+        "FLEET_VALIDATION_TIMED_OUT",
+        "FLEET_ACTIVATION_FAILED",
+        "FLEET_ACTIVATION_FAILED_NO_INSTANCES",
+        "FLEET_NEW_GAME_SESSION_PROTECTION_POLICY_UPDATED"
+      ]
+    },
+    "EventList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Event"
+      }
+    },
+    "FleetAttributes": {
+      "type": "object",
+      "properties": {
+        "FleetId": {
+          "$ref": "#/definitions/FleetId",
+          "description": "Unique identifier for a fleet."
+        },
+        "Description": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "Human-readable description of the fleet."
+        },
+        "Name": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "Descriptive label associated with a fleet. Fleet names do not need to be unique."
+        },
+        "CreationTime": {
+          "$ref": "#/definitions/Timestamp",
+          "description": "Time stamp indicating when this data object was created. Format is a number expressed in Unix time as milliseconds (ex: \"1469498468.057\"."
+        },
+        "TerminationTime": {
+          "$ref": "#/definitions/Timestamp",
+          "description": "Time stamp indicating when this data object was terminated. Format is a number expressed in Unix time as milliseconds (ex: \"1469498468.057\"."
+        },
+        "Status": {
+          "$ref": "#/definitions/FleetStatus",
+          "description": "<p>Current status of the fleet.</p> <p>Possible fleet statuses include the following:</p> <ul><li><b>NEW</b> – A new fleet has been defined and desired instances is set to 1. </li><li><b>DOWNLOADING/VALIDATING/BUILDING/ACTIVATING</b> – GameLift is setting up the new fleet, creating new instances with the game build and starting server processes.</li><li><b>ACTIVE</b> – Hosts can now accept game sessions.</li><li><b>ERROR</b> – An error occurred when downloading, validating, building, or activating the fleet.</li><li><b>DELETING</b> – Hosts are responding to a delete fleet request.</li><li><b>TERMINATED</b> – The fleet no longer exists.</li></ul>"
+        },
+        "BuildId": {
+          "$ref": "#/definitions/BuildId",
+          "description": "Unique identifier for a build."
+        },
+        "ServerLaunchPath": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "Path to a game server executable in the fleet's build, specified for fleets created prior to 2016-08-04 (or AWS SDK v. 0.12.16). Server launch paths for fleets created after this date are specified in the fleet's <code><a>RuntimeConfiguration</a></code>."
+        },
+        "ServerLaunchParameters": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "Game server launch parameters specified for fleets created prior to 2016-08-04 (or AWS SDK v. 0.12.16). Server launch parameters for fleets created after this date are specified in the fleet's <code><a>RuntimeConfiguration</a></code>."
+        },
+        "LogPaths": {
+          "$ref": "#/definitions/StringList",
+          "description": "Location of default log files. When a server process is shut down, Amazon GameLift captures and stores any log files in this location. These logs are in addition to game session logs; see more on game session logs in the <a href=\"http://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-server-api.html#gamelift-sdk-server-api-server-code\">Amazon GameLift Developer Guide</a>. If no default log path for a fleet is specified, GameLift will automatically upload logs stored on each instance at <code>C:\\game\\logs</code>. Use the GameLift console to access stored logs. "
+        },
+        "NewGameSessionProtectionPolicy": {
+          "$ref": "#/definitions/ProtectionPolicy",
+          "description": "<p>Type of game session protection to set for all new instances started in the fleet.</p> <ul><li><b>NoProtection</b> – The game session can be terminated during a scale-down event.</li> <li><b>FullProtection</b> – If the game session is in an <code>ACTIVE</code> status, it cannot be terminated during a scale-down event.</li></ul>"
+        },
+        "OperatingSystem": {
+          "$ref": "#/definitions/OperatingSystem",
+          "description": "Operating system of the fleet's computing resources. A fleet's operating system depends on the OS specified for the build that is deployed on this fleet."
+        }
+      },
+      "description": "General properties describing a fleet."
+    },
+    "FleetAttributesList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/FleetAttributes"
+      }
+    },
+    "FleetCapacity": {
+      "type": "object",
+      "properties": {
+        "FleetId": {
+          "$ref": "#/definitions/FleetId",
+          "description": "Unique identifier for a fleet."
+        },
+        "InstanceType": {
+          "$ref": "#/definitions/EC2InstanceType",
+          "description": "Name of an EC2 instance type that is supported in Amazon GameLift. A fleet instance type determines the computing resources of each instance in the fleet, including CPU, memory, storage, and networking capacity. GameLift supports the following EC2 instance types. See <a href=\"https://aws.amazon.com/ec2/instance-types/\">Amazon EC2 Instance Types</a> for detailed descriptions."
+        },
+        "InstanceCounts": {
+          "$ref": "#/definitions/EC2InstanceCounts",
+          "description": "Current status of fleet capacity."
+        }
+      },
+      "description": "Information about the fleet's capacity. Fleet capacity is measured in EC2 instances. By default, new fleets have a capacity of one instance, but can be updated as needed. The maximum number of instances for a fleet is determined by the fleet's instance type."
+    },
+    "FleetCapacityExceededException": {
+      "type": "object",
+      "properties": {
+        "Message": {
+          "$ref": "#/definitions/NonEmptyString"
+        }
+      },
+      "description": "The specified fleet has no available instances to fulfill a request to create a new game session. Such requests should only be retried once the fleet capacity has been increased. "
+    },
+    "FleetCapacityList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/FleetCapacity"
+      }
+    },
+    "FleetId": {
+      "type": "string",
+      "pattern": "^fleet-\\S+"
+    },
+    "FleetIdList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/FleetId"
+      },
+      "minItems": 1
+    },
+    "FleetStatus": {
+      "type": "string",
+      "enum": [
+        "NEW",
+        "DOWNLOADING",
+        "VALIDATING",
+        "BUILDING",
+        "ACTIVATING",
+        "ACTIVE",
+        "DELETING",
+        "ERROR",
+        "TERMINATED"
+      ]
+    },
+    "FleetUtilization": {
+      "type": "object",
+      "properties": {
+        "FleetId": {
+          "$ref": "#/definitions/FleetId",
+          "description": "Unique identifier for a fleet."
+        },
+        "ActiveServerProcessCount": {
+          "$ref": "#/definitions/WholeNumber",
+          "description": "Number of server processes in an <code>ACTIVE</code> status currently running across all instances in the fleet"
+        },
+        "ActiveGameSessionCount": {
+          "$ref": "#/definitions/WholeNumber",
+          "description": "Number of active game sessions currently being hosted on all instances in the fleet."
+        },
+        "CurrentPlayerSessionCount": {
+          "$ref": "#/definitions/WholeNumber",
+          "description": "Number of active player sessions currently being hosted on all instances in the fleet."
+        },
+        "MaximumPlayerSessionCount": {
+          "$ref": "#/definitions/WholeNumber",
+          "description": "Maximum players allowed across all game sessions currently being hosted on all instances in the fleet."
+        }
+      },
+      "description": "Current status of fleet utilization, including the number of game and player sessions being hosted."
+    },
+    "FleetUtilizationList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/FleetUtilization"
+      }
+    },
+    "FreeText": {
+      "type": "string"
+    },
+    "GameProperty": {
+      "type": "object",
+      "required": [
+        "Key",
+        "Value"
+      ],
+      "properties": {
+        "Key": {
+          "$ref": "#/definitions/GamePropertyKey"
+        },
+        "Value": {
+          "$ref": "#/definitions/GamePropertyValue"
+        }
+      },
+      "description": "Set of key-value pairs containing information a server process requires to set up a game session. This object allows you to pass in any set of data needed for your game. For more information, see the <a href=\"http://docs.aws.amazon.com/gamelift/latest/developerguide/\">Amazon GameLift Developer Guide</a>."
+    },
+    "GamePropertyKey": {
+      "type": "string",
+      "maxLength": 32
+    },
+    "GamePropertyList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/GameProperty"
+      },
+      "maxItems": 16
+    },
+    "GamePropertyValue": {
+      "type": "string",
+      "maxLength": 96
+    },
+    "GameSession": {
+      "type": "object",
+      "properties": {
+        "GameSessionId": {
+          "$ref": "#/definitions/GameSessionId",
+          "description": "Unique identifier for a game session."
+        },
+        "Name": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "Descriptive label associated with a game session. Session names do not need to be unique."
+        },
+        "FleetId": {
+          "$ref": "#/definitions/FleetId",
+          "description": "Unique identifier for a fleet."
+        },
+        "CreationTime": {
+          "$ref": "#/definitions/Timestamp",
+          "description": "Time stamp indicating when this data object was created. Format is a number expressed in Unix time as milliseconds (ex: \"1469498468.057\"."
+        },
+        "TerminationTime": {
+          "$ref": "#/definitions/Timestamp",
+          "description": "Time stamp indicating when this data object was terminated. Format is a number expressed in Unix time as milliseconds (ex: \"1469498468.057\"."
+        },
+        "CurrentPlayerSessionCount": {
+          "$ref": "#/definitions/WholeNumber",
+          "description": "Number of players currently in the game session."
+        },
+        "MaximumPlayerSessionCount": {
+          "$ref": "#/definitions/WholeNumber",
+          "description": "Maximum number of players allowed in the game session."
+        },
+        "Status": {
+          "$ref": "#/definitions/GameSessionStatus",
+          "description": "Current status of the game session. A game session must be in an <code>ACTIVE</code> status to have player sessions."
+        },
+        "GameProperties": {
+          "$ref": "#/definitions/GamePropertyList",
+          "description": "Set of custom properties for the game session."
+        },
+        "IpAddress": {
+          "$ref": "#/definitions/IpAddress",
+          "description": "IP address of the game session. To connect to a GameLift server process, an app needs both the IP address and port number."
+        },
+        "Port": {
+          "$ref": "#/definitions/PortNumber",
+          "description": "Port number for the game session. To connect to a GameLift server process, an app needs both the IP address and port number."
+        },
+        "PlayerSessionCreationPolicy": {
+          "$ref": "#/definitions/PlayerSessionCreationPolicy",
+          "description": "Indicates whether or not the game session is accepting new players."
+        }
+      },
+      "description": "Properties describing a game session."
+    },
+    "GameSessionDetail": {
+      "type": "object",
+      "properties": {
+        "GameSession": {
+          "$ref": "#/definitions/GameSession"
+        },
+        "ProtectionPolicy": {
+          "$ref": "#/definitions/ProtectionPolicy",
+          "description": "<p>Current status of protection for the game session.</p> <ul><li><b>NoProtection</b> – The game session can be terminated during a scale-down event.</li> <li><b>FullProtection</b> – If the game session is in an <code>ACTIVE</code> status, it cannot be terminated during a scale-down event.</li></ul>"
+        }
+      },
+      "description": "A game session's properties and the protection policy currently in force."
+    },
+    "GameSessionDetailList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/GameSessionDetail"
+      }
+    },
+    "GameSessionFullException": {
+      "type": "object",
+      "properties": {
+        "Message": {
+          "$ref": "#/definitions/NonEmptyString"
+        }
+      },
+      "description": "The game instance is currently full and cannot allow the requested player(s) to join. This exception occurs in response to a <a>CreatePlayerSession</a> request. "
+    },
+    "GameSessionId": {
+      "type": "string",
+      "pattern": "^(gamei-|gsess-)\\S+"
+    },
+    "GameSessionList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/GameSession"
+      }
+    },
+    "GameSessionStatus": {
+      "type": "string",
+      "enum": [
+        "ACTIVE",
+        "ACTIVATING",
+        "TERMINATED",
+        "TERMINATING"
+      ]
+    },
+    "GetGameSessionLogUrlInput": {
+      "type": "object",
+      "required": [
+        "GameSessionId"
+      ],
+      "properties": {
+        "GameSessionId": {
+          "$ref": "#/definitions/GameSessionId",
+          "description": "Unique identifier for a game session. Specify the game session you want to get logs for."
+        }
+      },
+      "description": "Represents the input for a request action."
+    },
+    "GetGameSessionLogUrlOutput": {
+      "type": "object",
+      "properties": {
+        "PreSignedUrl": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "Location of the requested game session logs, available for download."
+        }
+      },
+      "description": "Represents the returned data in response to a request action."
+    },
+    "Integer": {
+      "type": "integer"
+    },
+    "InternalServiceException": {
+      "type": "object",
+      "properties": {
+        "Message": {
+          "$ref": "#/definitions/NonEmptyString"
+        }
+      },
+      "description": "The service encountered an unrecoverable internal failure while processing the request. Clients can retry such requests, either immediately or after a back-off period."
+    },
+    "InvalidFleetStatusException": {
+      "type": "object",
+      "properties": {
+        "Message": {
+          "$ref": "#/definitions/NonEmptyString"
+        }
+      },
+      "description": "The requested operation would cause a conflict with the current state of a resource associated with the request and/or the fleet. Resolve the conflict before retrying."
+    },
+    "InvalidGameSessionStatusException": {
+      "type": "object",
+      "properties": {
+        "Message": {
+          "$ref": "#/definitions/NonEmptyString"
+        }
+      },
+      "description": "The requested operation would cause a conflict with the current state of a resource associated with the request and/or the game instance. Clients should not retry such requests without resolving the conflict."
+    },
+    "InvalidRequestException": {
+      "type": "object",
+      "properties": {
+        "Message": {
+          "$ref": "#/definitions/NonEmptyString"
+        }
+      },
+      "description": "One or more parameters specified as part of the request are invalid. Correct the invalid parameters before retrying."
+    },
+    "IpAddress": {
+      "type": "string"
+    },
+    "IpPermission": {
+      "type": "object",
+      "required": [
+        "FromPort",
+        "ToPort",
+        "IpRange",
+        "Protocol"
+      ],
+      "properties": {
+        "FromPort": {
+          "$ref": "#/definitions/PortNumber",
+          "description": "Starting value for a range of allowed port numbers. "
+        },
+        "ToPort": {
+          "$ref": "#/definitions/PortNumber",
+          "description": "Ending value for a range of allowed port numbers. Port numbers are end-inclusive. This value must be higher than <code>FromPort</code>."
+        },
+        "IpRange": {
+          "$ref": "#/definitions/NonBlankString",
+          "description": "Range of allowed IP addresses. This value must be expressed in <a href=\"https://tools.ietf.org/id/cidr\">CIDR notation</a>. Example: \"<code>000.000.000.000/[subnet mask]</code>\" or optionally the shortened version \"<code>0.0.0.0/[subnet mask]</code>\"."
+        },
+        "Protocol": {
+          "$ref": "#/definitions/IpProtocol",
+          "description": "Network communication protocol used by the fleet."
+        }
+      },
+      "description": "A range of IP addresses and port settings that allow inbound traffic to connect to server processes on GameLift. Each game session hosted on a fleet is assigned a unique combination of IP address and port number, which must fall into the fleet's allowed ranges. This combination is included in the <a>GameSession</a> object. "
+    },
+    "IpPermissionsList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/IpPermission"
+      },
+      "maxItems": 50
+    },
+    "IpProtocol": {
+      "type": "string",
+      "enum": [
+        "TCP",
+        "UDP"
+      ]
+    },
+    "LimitExceededException": {
+      "type": "object",
+      "properties": {
+        "Message": {
+          "$ref": "#/definitions/NonEmptyString"
+        }
+      },
+      "description": "The requested operation would cause the resource to exceed the allowed service limit. Resolve the issue before retrying."
+    },
+    "ListAliasesInput": {
+      "type": "object",
+      "properties": {
+        "RoutingStrategyType": {
+          "$ref": "#/definitions/RoutingStrategyType",
+          "description": "<p>Type of routing to filter results on. Use this parameter to retrieve only aliases of a certain type. To retrieve all aliases, leave this parameter empty.</p> <p>Possible routing types include the following:</p> <ul><li><b>SIMPLE</b> – The alias resolves to one specific fleet. Use this type when routing to active fleets.</li><li><b>TERMINAL</b> – The alias does not resolve to a fleet but instead can be used to display a message to the user. A terminal alias throws a TerminalRoutingStrategyException with the <a>RoutingStrategy</a> message embedded.</li></ul>"
+        },
+        "Name": {
+          "$ref": "#/definitions/NonEmptyString",
+          "description": "Descriptive label associated with an alias. Alias names do not need to be unique."
+        },
+        "Limit": {
+          "$ref": "#/definitions/PositiveInteger",
+          "description": "Maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NonEmptyString",
+          "description": "Token indicating the start of the next sequential page of results. Use the token that is returned with a previous call to this action. To specify the start of the result set, do not specify a value."
+        }
+      },
+      "description": "Represents the input for a request action."
+    },
+    "ListAliasesOutput": {
+      "type": "object",
+      "properties": {
+        "Aliases": {
+          "$ref": "#/definitions/AliasList",
+          "description": "Collection of alias records that match the list request. "
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NonEmptyString",
+          "description": "<p>Token indicating where to resume retrieving results on the next call to this action. If no token is returned, these results represent the end of the list.</p> <note> <p>If a request has a limit that exactly matches the number of remaining results, a token is returned even though there are no more results to retrieve.</p> </note>"
+        }
+      },
+      "description": "Represents the returned data in response to a request action."
+    },
+    "ListBuildsInput": {
+      "type": "object",
+      "properties": {
+        "Status": {
+          "$ref": "#/definitions/BuildStatus",
+          "description": "<p>Build status to filter results by. To retrieve all builds, leave this parameter empty.</p> <p>Possible build statuses include the following:</p> <ul><li><b>INITIALIZED</b> – A new build has been defined, but no files have been uploaded. You cannot create fleets for builds that are in this status. When a build is successfully created, the build status is set to this value. </li><li><b>READY</b> – The game build has been successfully uploaded. You can now create new fleets for this build.</li><li><b>FAILED</b> – The game build upload failed. You cannot create new fleets for this build. </li></ul>"
+        },
+        "Limit": {
+          "$ref": "#/definitions/PositiveInteger",
+          "description": "Maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NonEmptyString",
+          "description": "Token indicating the start of the next sequential page of results. Use the token that is returned with a previous call to this action. To specify the start of the result set, do not specify a value."
+        }
+      },
+      "description": "Represents the input for a request action."
+    },
+    "ListBuildsOutput": {
+      "type": "object",
+      "properties": {
+        "Builds": {
+          "$ref": "#/definitions/BuildList",
+          "description": "Collection of build records that match the request. "
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NonEmptyString",
+          "description": "<p>Token indicating where to resume retrieving results on the next call to this action. If no token is returned, these results represent the end of the list.</p> <note> <p>If a request has a limit that exactly matches the number of remaining results, a token is returned even though there are no more results to retrieve.</p> </note>"
+        }
+      },
+      "description": "Represents the returned data in response to a request action."
+    },
+    "ListFleetsInput": {
+      "type": "object",
+      "properties": {
+        "BuildId": {
+          "$ref": "#/definitions/BuildId",
+          "description": "Unique identifier of the build to return fleets for. Use this parameter to return only fleets using the specified build. To retrieve all fleets, leave this parameter empty."
+        },
+        "Limit": {
+          "$ref": "#/definitions/PositiveInteger",
+          "description": "Maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "Token indicating the start of the next sequential page of results. Use the token that is returned with a previous call to this action. To specify the start of the result set, do not specify a value."
+        }
+      },
+      "description": "Represents the input for a request action."
+    },
+    "ListFleetsOutput": {
+      "type": "object",
+      "properties": {
+        "FleetIds": {
+          "$ref": "#/definitions/FleetIdList",
+          "description": "Set of fleet IDs matching the list request. You can retrieve additional information about all returned fleets by passing this result set to a call to <a>DescribeFleetAttributes</a>, <a>DescribeFleetCapacity</a>, and <a>DescribeFleetUtilization</a>."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "<p>Token indicating where to resume retrieving results on the next call to this action. If no token is returned, these results represent the end of the list.</p> <note> <p>If a request has a limit that exactly matches the number of remaining results, a token is returned even though there are no more results to retrieve.</p> </note>"
+        }
+      },
+      "description": "Represents the returned data in response to a request action."
+    },
+    "MetricName": {
+      "type": "string",
+      "enum": [
+        "ActivatingGameSessions",
+        "ActiveGameSessions",
+        "ActiveInstances",
+        "AvailablePlayerSessions",
+        "CurrentPlayerSessions",
+        "IdleInstances"
+      ]
+    },
+    "NonBlankString": {
+      "type": "string",
+      "pattern": "[^\\s]+"
+    },
+    "NonEmptyString": {
+      "type": "string",
+      "minLength": 1
+    },
+    "NonZeroAndMaxString": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1024
+    },
+    "NotFoundException": {
+      "type": "object",
+      "properties": {
+        "Message": {
+          "$ref": "#/definitions/NonEmptyString"
+        }
+      },
+      "description": "A service resource associated with the request could not be found. Clients should not retry such requests"
+    },
+    "OperatingSystem": {
+      "type": "string",
+      "enum": [
+        "WINDOWS_2012",
+        "AMAZON_LINUX"
+      ]
+    },
+    "PlayerIdList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/NonZeroAndMaxString"
+      },
+      "minItems": 1,
+      "maxItems": 25
+    },
+    "PlayerSession": {
+      "type": "object",
+      "properties": {
+        "PlayerSessionId": {
+          "$ref": "#/definitions/PlayerSessionId",
+          "description": "Unique identifier for a player session."
+        },
+        "PlayerId": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "Unique identifier for a player."
+        },
+        "GameSessionId": {
+          "$ref": "#/definitions/GameSessionId",
+          "description": "Unique identifier for a game session."
+        },
+        "FleetId": {
+          "$ref": "#/definitions/FleetId",
+          "description": "Unique identifier for a fleet."
+        },
+        "CreationTime": {
+          "$ref": "#/definitions/Timestamp",
+          "description": "Time stamp indicating when this data object was created. Format is a number expressed in Unix time as milliseconds (ex: \"1469498468.057\"."
+        },
+        "TerminationTime": {
+          "$ref": "#/definitions/Timestamp",
+          "description": "Time stamp indicating when this data object was terminated. Format is a number expressed in Unix time as milliseconds (ex: \"1469498468.057\"."
+        },
+        "Status": {
+          "$ref": "#/definitions/PlayerSessionStatus",
+          "description": "<p>Current status of the player session.</p> <p>Possible player session statuses include the following:</p> <ul><li><b>RESERVED</b> – The player session request has been received, but the player has not yet connected to the server process and/or been validated. </li><li><b>ACTIVE</b> – The player has been validated by the server process and is currently connected.</li><li><b>COMPLETED</b> – The player connection has been dropped.</li><li><b>TIMEDOUT</b> – A player session request was received, but the player did not connect and/or was not validated within the time-out limit (60 seconds).</li></ul>"
+        },
+        "IpAddress": {
+          "$ref": "#/definitions/IpAddress",
+          "description": "Game session IP address. All player sessions reference the game session location. "
+        },
+        "Port": {
+          "$ref": "#/definitions/PortNumber",
+          "description": "Port number for the game session. To connect to a GameLift server process, an app needs both the IP address and port number."
+        }
+      },
+      "description": "Properties describing a player session."
+    },
+    "PlayerSessionCreationPolicy": {
+      "type": "string",
+      "enum": [
+        "ACCEPT_ALL",
+        "DENY_ALL"
+      ]
+    },
+    "PlayerSessionId": {
+      "type": "string",
+      "pattern": "^psess-\\S+"
+    },
+    "PlayerSessionList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/PlayerSession"
+      }
+    },
+    "PlayerSessionStatus": {
+      "type": "string",
+      "enum": [
+        "RESERVED",
+        "ACTIVE",
+        "COMPLETED",
+        "TIMEDOUT"
+      ]
+    },
+    "PortNumber": {
+      "type": "integer",
+      "minimum": 1025,
+      "maximum": 60000
+    },
+    "PositiveInteger": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "PositiveLong": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "ProtectionPolicy": {
+      "type": "string",
+      "enum": [
+        "NoProtection",
+        "FullProtection"
+      ]
+    },
+    "PutScalingPolicyInput": {
+      "type": "object",
+      "required": [
+        "Name",
+        "FleetId",
+        "ScalingAdjustment",
+        "ScalingAdjustmentType",
+        "Threshold",
+        "ComparisonOperator",
+        "EvaluationPeriods",
+        "MetricName"
+      ],
+      "properties": {
+        "Name": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "Descriptive label associated with a scaling policy. Policy names do not need to be unique. A fleet can have only one scaling policy with the same name."
+        },
+        "FleetId": {
+          "$ref": "#/definitions/FleetId",
+          "description": "Unique identity for the fleet to scale with this policy."
+        },
+        "ScalingAdjustment": {
+          "$ref": "#/definitions/Integer",
+          "description": "Amount of adjustment to make, based on the scaling adjustment type."
+        },
+        "ScalingAdjustmentType": {
+          "$ref": "#/definitions/ScalingAdjustmentType",
+          "description": "<p>Type of adjustment to make to a fleet's instance count (see <a>FleetCapacity</a>):</p> <ul> <li> <b>ChangeInCapacity</b> – add (or subtract) the scaling adjustment value from the current instance count. Positive values scale up while negative values scale down.</li> <li> <b>ExactCapacity</b> – set the instance count to the scaling adjustment value.</li> <li> <b>PercentChangeInCapacity</b> – increase or reduce the current instance count by the scaling adjustment, read as a percentage. Positive values scale up while negative values scale down; for example, a value of \"-10\" scales the fleet down by 10%.</li> </ul>"
+        },
+        "Threshold": {
+          "$ref": "#/definitions/Double",
+          "description": "Metric value used to trigger a scaling event."
+        },
+        "ComparisonOperator": {
+          "$ref": "#/definitions/ComparisonOperatorType",
+          "description": "Comparison operator to use when measuring the metric against the threshold value. "
+        },
+        "EvaluationPeriods": {
+          "$ref": "#/definitions/PositiveInteger",
+          "description": "Length of time (in minutes) the metric must be at or beyond the threshold before a scaling event is triggered."
+        },
+        "MetricName": {
+          "$ref": "#/definitions/MetricName",
+          "description": "<p>Name of the Amazon GameLift-defined metric that is used to trigger an adjustment.</p> <ul> <li> <b>ActivatingGameSessions</b> – number of game sessions in the process of being created (game session status = <code>ACTIVATING</code>).</li> <li> <b>ActiveGameSessions</b> – number of game sessions currently running (game session status = <code>ACTIVE</code>).</li> <li> <b>CurrentPlayerSessions</b> – number of active or reserved player sessions (player session status = <code>ACTIVE</code> or <code>RESERVED</code>). </li> <li> <b>AvailablePlayerSessions</b> – number of player session slots currently available in active game sessions across the fleet, calculated by subtracting a game session's current player session count from its maximum player session count. This number includes game sessions that are not currently accepting players (game session <code>PlayerSessionCreationPolicy</code> = <code>DENY_ALL</code>).</li> <li> <b>ActiveInstances</b> – number of instances currently running a game session.</li> <li> <b>IdleInstances</b> – number of instances not currently running a game session.</li> </ul>"
+        }
+      },
+      "description": "Represents the input for a request action."
+    },
+    "PutScalingPolicyOutput": {
+      "type": "object",
+      "properties": {
+        "Name": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "Descriptive label associated with a scaling policy. Policy names do not need to be unique."
+        }
+      },
+      "description": "Represents the returned data in response to a request action."
+    },
+    "RequestUploadCredentialsInput": {
+      "type": "object",
+      "required": [
+        "BuildId"
+      ],
+      "properties": {
+        "BuildId": {
+          "$ref": "#/definitions/BuildId",
+          "description": "Unique identifier for the build you want to get credentials for. "
+        }
+      },
+      "description": "Represents the input for a request action."
+    },
+    "RequestUploadCredentialsOutput": {
+      "type": "object",
+      "properties": {
+        "UploadCredentials": {
+          "$ref": "#/definitions/AwsCredentials",
+          "description": "AWS credentials required when uploading a game build to the storage location. These credentials have a limited lifespan and are valid only for the build they were issued for."
+        },
+        "StorageLocation": {
+          "$ref": "#/definitions/S3Location",
+          "description": "Amazon S3 path and key, identifying where the game build files are stored."
+        }
+      },
+      "description": "Represents the returned data in response to a request action."
+    },
+    "ResolveAliasInput": {
+      "type": "object",
+      "required": [
+        "AliasId"
+      ],
+      "properties": {
+        "AliasId": {
+          "$ref": "#/definitions/AliasId",
+          "description": "Unique identifier for the alias you want to resolve. "
+        }
+      },
+      "description": "Represents the input for a request action."
+    },
+    "ResolveAliasOutput": {
+      "type": "object",
+      "properties": {
+        "FleetId": {
+          "$ref": "#/definitions/FleetId",
+          "description": "Fleet ID associated with the requested alias."
+        }
+      },
+      "description": "Represents the returned data in response to a request action."
+    },
+    "RoutingStrategy": {
+      "type": "object",
+      "properties": {
+        "Type": {
+          "$ref": "#/definitions/RoutingStrategyType",
+          "description": "<p>Type of routing strategy.</p> <p>Possible routing types include the following:</p> <ul><li><b>SIMPLE</b> – The alias resolves to one specific fleet. Use this type when routing to active fleets.</li><li><b>TERMINAL</b> – The alias does not resolve to a fleet but instead can be used to display a message to the user. A terminal alias throws a TerminalRoutingStrategyException with the <a>RoutingStrategy</a> message embedded.</li></ul>"
+        },
+        "FleetId": {
+          "$ref": "#/definitions/FleetId",
+          "description": "Unique identifier for a fleet."
+        },
+        "Message": {
+          "$ref": "#/definitions/FreeText",
+          "description": "Message text to be used with a terminal routing strategy."
+        }
+      },
+      "description": "Routing configuration for a fleet alias. "
+    },
+    "RoutingStrategyType": {
+      "type": "string",
+      "enum": [
+        "SIMPLE",
+        "TERMINAL"
+      ]
+    },
+    "RuntimeConfiguration": {
+      "type": "object",
+      "properties": {
+        "ServerProcesses": {
+          "$ref": "#/definitions/ServerProcessList",
+          "description": "Collection of server process configurations describing what server processes to run on each instance in a fleet "
+        }
+      },
+      "description": "<p>Collection of server process configurations that describe what processes should be run on each instance in a fleet. An instance can launch and maintain multiple server processes based on the runtime configuration; it regularly checks for an updated runtime configuration and starts new server processes to match the latest version.</p> <p>The key purpose of a runtime configuration with multiple server process configurations is to be able to run more than one kind of game server in a single fleet. You can include configurations for more than one server executable in order to run two or more different programs to run on the same instance. This option might be useful, for example, to run more than one version of your game server on the same fleet. Another option is to specify configurations for the same server executable but with different launch parameters.</p> <p>A GameLift instance is limited to 50 processes running simultaneously. To calculate the total number of processes specified in a runtime configuration, add the values of the <code>ConcurrentExecutions</code> parameter for each <code><a>ServerProcess</a></code> object in the runtime configuration.</p>"
+    },
+    "S3Location": {
+      "type": "object",
+      "properties": {
+        "Bucket": {
+          "$ref": "#/definitions/NonEmptyString",
+          "description": "Amazon S3 bucket identifier."
+        },
+        "Key": {
+          "$ref": "#/definitions/NonEmptyString",
+          "description": "Amazon S3 bucket key."
+        },
+        "RoleArn": {
+          "$ref": "#/definitions/NonEmptyString",
+          "description": "Amazon resource number for the cross-account access role that allows GameLift access to the S3 bucket."
+        }
+      },
+      "description": "Location in Amazon Simple Storage Service (Amazon S3) where a build's files are stored. This location is assigned in response to a <a>CreateBuild</a> call, and is always in the same region as the service used to create the build. For more details see the <a href=\"http://aws.amazon.com/documentation/s3/\">Amazon S3 documentation</a>."
+    },
+    "ScalingAdjustmentType": {
+      "type": "string",
+      "enum": [
+        "ChangeInCapacity",
+        "ExactCapacity",
+        "PercentChangeInCapacity"
+      ]
+    },
+    "ScalingPolicy": {
+      "type": "object",
+      "properties": {
+        "FleetId": {
+          "$ref": "#/definitions/FleetId",
+          "description": "Unique identity for the fleet associated with this scaling policy."
+        },
+        "Name": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "Descriptive label associated with a scaling policy. Policy names do not need to be unique."
+        },
+        "Status": {
+          "$ref": "#/definitions/ScalingStatusType",
+          "description": "<p>Current status of the scaling policy. The scaling policy is only in force when in an <code>ACTIVE</code> status.</p> <ul> <li> <b>ACTIVE</b> – The scaling policy is currently in force.</li> <li> <b>UPDATE_REQUESTED</b> – A request to update the scaling policy has been received.</li> <li> <b>UPDATING</b> – A change is being made to the scaling policy.</li> <li> <b>DELETE_REQUESTED</b> – A request to delete the scaling policy has been received.</li> <li> <b>DELETING</b> – The scaling policy is being deleted.</li> <li> <b>DELETED</b> – The scaling policy has been deleted.</li> <li> <b>ERROR</b> – An error occurred in creating the policy. It should be removed and recreated.</li> </ul>"
+        },
+        "ScalingAdjustment": {
+          "$ref": "#/definitions/Integer",
+          "description": "Amount of adjustment to make, based on the scaling adjustment type."
+        },
+        "ScalingAdjustmentType": {
+          "$ref": "#/definitions/ScalingAdjustmentType",
+          "description": "<p>Type of adjustment to make to a fleet's instance count (see <a>FleetCapacity</a>):</p> <ul> <li> <b>ChangeInCapacity</b> – add (or subtract) the scaling adjustment value from the current instance count. Positive values scale up while negative values scale down.</li> <li> <b>ExactCapacity</b> – set the instance count to the scaling adjustment value.</li> <li> <b>PercentChangeInCapacity</b> – increase or reduce the current instance count by the scaling adjustment, read as a percentage. Positive values scale up while negative values scale down.</li> </ul>"
+        },
+        "ComparisonOperator": {
+          "$ref": "#/definitions/ComparisonOperatorType",
+          "description": "Comparison operator to use when measuring a metric against the threshold value. "
+        },
+        "Threshold": {
+          "$ref": "#/definitions/Double",
+          "description": "Metric value used to trigger a scaling event."
+        },
+        "EvaluationPeriods": {
+          "$ref": "#/definitions/PositiveInteger",
+          "description": "Length of time (in minutes) the metric must be at or beyond the threshold before a scaling event is triggered."
+        },
+        "MetricName": {
+          "$ref": "#/definitions/MetricName",
+          "description": "<p>Name of the GameLift-defined metric that is used to trigger an adjustment.</p> <ul> <li> <b>ActivatingGameSessions</b> – number of game sessions in the process of being created (game session status = <code>ACTIVATING</code>).</li> <li> <b>ActiveGameSessions</b> – number of game sessions currently running (game session status = <code>ACTIVE</code>).</li> <li> <b>CurrentPlayerSessions</b> – number of active or reserved player sessions (player session status = <code>ACTIVE</code> or <code>RESERVED</code>). </li> <li> <b>AvailablePlayerSessions</b> – number of player session slots currently available in active game sessions across the fleet, calculated by subtracting a game session's current player session count from its maximum player session count. This number does include game sessions that are not currently accepting players (game session <code>PlayerSessionCreationPolicy</code> = <code>DENY_ALL</code>).</li> <li> <b>ActiveInstances</b> – number of instances currently running a game session.</li> <li> <b>IdleInstances</b> – number of instances not currently running a game session.</li> </ul>"
+        }
+      },
+      "description": "Rule that controls how a fleet is scaled. Scaling policies are uniquely identified by the combination of name and fleet ID."
+    },
+    "ScalingPolicyList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ScalingPolicy"
+      }
+    },
+    "ScalingStatusType": {
+      "type": "string",
+      "enum": [
+        "ACTIVE",
+        "UPDATE_REQUESTED",
+        "UPDATING",
+        "DELETE_REQUESTED",
+        "DELETING",
+        "DELETED",
+        "ERROR"
+      ]
+    },
+    "SearchGameSessionsInput": {
+      "type": "object",
+      "properties": {
+        "FleetId": {
+          "$ref": "#/definitions/FleetId",
+          "description": "Unique identifier for a fleet. Each request must reference either a fleet ID or alias ID, but not both."
+        },
+        "AliasId": {
+          "$ref": "#/definitions/AliasId",
+          "description": "Unique identifier for a fleet alias. Each request must reference either a fleet ID or alias ID, but not both."
+        },
+        "FilterExpression": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "<p>String containing the search criteria for the session search. If no filter expression is included, the request returns results for all game sessions in the fleet that are in ACTIVE status. </p> <p>A filter expression can contain one or multiple conditions. Each condition consists of the following:</p> <ul> <li> <b>Operand</b> -- Name of a game session attribute. Valid values are <code>gameSessionName</code>, <code>gameSessionId</code>, <code>creationTimeMillis</code>, <code>playerSessionCount</code>, <code>maximumSessions</code>, <code>hasAvailablePlayerSessions</code>.</li> <li> <b>Comparator</b> -- Valid comparators are: <code>=</code>, <code>&amp;lt;&amp;gt;</code>, <code>&amp;lt;</code>, <code>&amp;gt;</code>, <code>&amp;lt;=</code>, <code>&amp;gt;=</code>. </li> <li> <b>Value</b> -- Value to be searched for. Values can be numbers, boolean values (true/false) or strings. String values are case sensitive, enclosed in single quotes. Special characters must be escaped. Boolean and string values can only be used with the comparators <code>=</code> and <code>&amp;lt;&amp;gt;</code>. For example, the following filter expression searches on <code>gameSessionName</code>: \"<code>FilterExpression\": \"gameSessionName = 'Matt\\\\'s Awesome Game 1'\"</code>. </li> </ul> <p>To chain multiple conditions in a single expression, use the logical keywords <code>AND</code>, <code>OR</code>, and <code>NOT</code> and parentheses as needed. For example: <code>x AND y AND NOT z</code>, <code>NOT (x OR y)</code>.</p> <p> Session search evaluates conditions from left to right using the following precedence rules: </p> <ol> <li> <code>=</code>, <code>&amp;lt;&amp;gt;</code>, <code>&amp;lt;</code>, <code>&amp;gt;</code>, <code>&amp;lt;=</code>, <code>&amp;gt;=</code> </li> <li>Parentheses </li> <li>NOT</li> <li>AND</li> <li>OR</li> </ol> <p>For example, this filter expression retrieves game sessions hosting at least ten players that have an open player slot: <code>\"maximumSessions&amp;gt;=10 AND hasAvailablePlayerSessions=true\"</code>. </p>"
+        },
+        "SortExpression": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "<p>Instructions on how to sort the search results. If no sort expression is included, the request returns results in random order. A sort expression consists of the following elements: </p> <ul> <li> <b>Operand</b> -- Name of a game session attribute. Valid values are <code>gameSessionName</code>, <code>gameSessionId</code>, <code>creationTimeMillis</code>, <code>playerSessionCount</code>, <code>maximumSessions</code>, <code>hasAvailablePlayerSessions</code>.</li> <li> <b>Order</b> -- Valid sort orders are <code>ASC</code> (ascending) and <code>DESC</code> (descending).</li> </ul> <p>For example, this sort expression returns the oldest active sessions first: <code>\"SortExpression\": \"creationTimeMillis ASC\"</code>. Results with a null value for the sort operand are returned at the end of the list.</p>"
+        },
+        "Limit": {
+          "$ref": "#/definitions/PositiveInteger",
+          "description": "Maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages. The maximum number of results returned is 20, even if this value is not set or is set higher than 20. "
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "Token indicating the start of the next sequential page of results. Use the token that is returned with a previous call to this action. To specify the start of the result set, do not specify a value."
+        }
+      },
+      "description": "Represents the input for a request action."
+    },
+    "SearchGameSessionsOutput": {
+      "type": "object",
+      "properties": {
+        "GameSessions": {
+          "$ref": "#/definitions/GameSessionList",
+          "description": "Collection of objects containing game session properties for each session matching the request."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "<p>Token indicating where to resume retrieving results on the next call to this action. If no token is returned, these results represent the end of the list.</p> <note> <p>If a request has a limit that exactly matches the number of remaining results, a token is returned even though there are no more results to retrieve.</p> </note>"
+        }
+      },
+      "description": "Represents the returned data in response to a request action."
+    },
+    "ServerProcess": {
+      "type": "object",
+      "required": [
+        "LaunchPath",
+        "ConcurrentExecutions"
+      ],
+      "properties": {
+        "LaunchPath": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "Location in the game build of the server executable. All game builds are installed on instances at the root <code>C:\\game\\...</code>, so an executable file located at <code>MyGame\\latest\\server.exe</code> has a launch path of \"<code>C:\\game\\MyGame\\latest\\server.exe</code>\". "
+        },
+        "Parameters": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "Optional list of parameters to pass to the server executable on launch."
+        },
+        "ConcurrentExecutions": {
+          "$ref": "#/definitions/PositiveInteger",
+          "description": "Number of server processes using this configuration to run concurrently on an instance. "
+        }
+      },
+      "description": "A set of instructions for launching server processes on each instance in a fleet. Each instruction set identifies the location of the server executable, optional launch parameters, and the number of server processes with this configuration to maintain concurrently on the instance. Server process configurations make up a fleet's <code><a>RuntimeConfiguration</a></code>."
+    },
+    "ServerProcessList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ServerProcess"
+      },
+      "minItems": 1,
+      "maxItems": 50
+    },
+    "StringList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/NonZeroAndMaxString"
+      }
+    },
+    "TerminalRoutingStrategyException": {
+      "type": "object",
+      "properties": {
+        "Message": {
+          "$ref": "#/definitions/NonEmptyString"
+        }
+      },
+      "description": "The service is unable to resolve the routing for a particular alias because it has a terminal <a>RoutingStrategy</a> associated with it. The message returned in this exception is the message defined in the routing strategy itself. Such requests should only be retried if the routing strategy for the specified alias is modified. "
+    },
+    "Timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "UnauthorizedException": {
+      "type": "object",
+      "properties": {
+        "Message": {
+          "$ref": "#/definitions/NonEmptyString"
+        }
+      },
+      "description": "The client failed authentication. Clients should not retry such requests"
+    },
+    "UpdateAliasInput": {
+      "type": "object",
+      "required": [
+        "AliasId"
+      ],
+      "properties": {
+        "AliasId": {
+          "$ref": "#/definitions/AliasId",
+          "description": "Unique identifier for a fleet alias. Specify the alias you want to update. "
+        },
+        "Name": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "Descriptive label associated with an alias. Alias names do not need to be unique."
+        },
+        "Description": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "Human-readable description of an alias."
+        },
+        "RoutingStrategy": {
+          "$ref": "#/definitions/RoutingStrategy",
+          "description": "Object specifying the fleet and routing type to use for the alias."
+        }
+      },
+      "description": "Represents the input for a request action."
+    },
+    "UpdateAliasOutput": {
+      "type": "object",
+      "properties": {
+        "Alias": {
+          "$ref": "#/definitions/Alias",
+          "description": "Object containing the updated alias configuration."
+        }
+      },
+      "description": "Represents the returned data in response to a request action."
+    },
+    "UpdateBuildInput": {
+      "type": "object",
+      "required": [
+        "BuildId"
+      ],
+      "properties": {
+        "BuildId": {
+          "$ref": "#/definitions/BuildId",
+          "description": "Unique identifier of the build you want to update. "
+        },
+        "Name": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "Descriptive label associated with a build. Build names do not need to be unique."
+        },
+        "Version": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "Version associated with this build. Version strings do not need to be unique to a build."
+        }
+      },
+      "description": "Represents the input for a request action."
+    },
+    "UpdateBuildOutput": {
+      "type": "object",
+      "properties": {
+        "Build": {
+          "$ref": "#/definitions/Build",
+          "description": "Object containing the updated build record."
+        }
+      },
+      "description": "Represents the returned data in response to a request action."
+    },
+    "UpdateFleetAttributesInput": {
+      "type": "object",
+      "required": [
+        "FleetId"
+      ],
+      "properties": {
+        "FleetId": {
+          "$ref": "#/definitions/FleetId",
+          "description": "Unique identifier for the fleet you want to update attribute metadata for. "
+        },
+        "Name": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "Descriptive label associated with a fleet. Fleet names do not need to be unique."
+        },
+        "Description": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "Human-readable description of a fleet."
+        },
+        "NewGameSessionProtectionPolicy": {
+          "$ref": "#/definitions/ProtectionPolicy",
+          "description": "<p>Game session protection policy to apply to all new instances created in this fleet. Instances that already exist are not affected. You can set protection for individual instances using <a>UpdateGameSession</a>.</p> <ul><li><b>NoProtection</b> – The game session can be terminated during a scale-down event.</li> <li><b>FullProtection</b> – If the game session is in an <code>ACTIVE</code> status, it cannot be terminated during a scale-down event.</li></ul>"
+        }
+      },
+      "description": "Represents the input for a request action."
+    },
+    "UpdateFleetAttributesOutput": {
+      "type": "object",
+      "properties": {
+        "FleetId": {
+          "$ref": "#/definitions/FleetId",
+          "description": "Unique identifier for the updated fleet."
+        }
+      },
+      "description": "Represents the returned data in response to a request action."
+    },
+    "UpdateFleetCapacityInput": {
+      "type": "object",
+      "required": [
+        "FleetId"
+      ],
+      "properties": {
+        "FleetId": {
+          "$ref": "#/definitions/FleetId",
+          "description": "Unique identifier for the fleet you want to update capacity for. "
+        },
+        "DesiredInstances": {
+          "$ref": "#/definitions/WholeNumber",
+          "description": "Number of EC2 instances you want this fleet to host."
+        },
+        "MinSize": {
+          "$ref": "#/definitions/WholeNumber",
+          "description": "Minimum value allowed for the fleet's instance count. Default if not set is 0."
+        },
+        "MaxSize": {
+          "$ref": "#/definitions/WholeNumber",
+          "description": "Maximum value allowed for the fleet's instance count. Default if not set is 1."
+        }
+      },
+      "description": "Represents the input for a request action."
+    },
+    "UpdateFleetCapacityOutput": {
+      "type": "object",
+      "properties": {
+        "FleetId": {
+          "$ref": "#/definitions/FleetId",
+          "description": "Unique identifier for the updated fleet."
+        }
+      },
+      "description": "Represents the returned data in response to a request action."
+    },
+    "UpdateFleetPortSettingsInput": {
+      "type": "object",
+      "required": [
+        "FleetId"
+      ],
+      "properties": {
+        "FleetId": {
+          "$ref": "#/definitions/FleetId",
+          "description": "Unique identifier for the fleet you want to update port settings for. "
+        },
+        "InboundPermissionAuthorizations": {
+          "$ref": "#/definitions/IpPermissionsList",
+          "description": "Collection of port settings to be added to the fleet record."
+        },
+        "InboundPermissionRevocations": {
+          "$ref": "#/definitions/IpPermissionsList",
+          "description": "Collection of port settings to be removed from the fleet record."
+        }
+      },
+      "description": "Represents the input for a request action."
+    },
+    "UpdateFleetPortSettingsOutput": {
+      "type": "object",
+      "properties": {
+        "FleetId": {
+          "$ref": "#/definitions/FleetId",
+          "description": "Unique identifier for the updated fleet."
+        }
+      },
+      "description": "Represents the returned data in response to a request action."
+    },
+    "UpdateGameSessionInput": {
+      "type": "object",
+      "required": [
+        "GameSessionId"
+      ],
+      "properties": {
+        "GameSessionId": {
+          "$ref": "#/definitions/GameSessionId",
+          "description": "Unique identifier for a game session. Specify the game session you want to update. "
+        },
+        "MaximumPlayerSessionCount": {
+          "$ref": "#/definitions/WholeNumber",
+          "description": "Maximum number of players that can be simultaneously connected to the game session."
+        },
+        "Name": {
+          "$ref": "#/definitions/NonZeroAndMaxString",
+          "description": "Descriptive label associated with a game session. Session names do not need to be unique."
+        },
+        "PlayerSessionCreationPolicy": {
+          "$ref": "#/definitions/PlayerSessionCreationPolicy",
+          "description": "Policy determining whether or not the game session accepts new players."
+        },
+        "ProtectionPolicy": {
+          "$ref": "#/definitions/ProtectionPolicy",
+          "description": "<p>Game session protection policy to apply to this game session only.</p> <ul><li><b>NoProtection</b> – The game session can be terminated during a scale-down event.</li> <li><b>FullProtection</b> – If the game session is in an <code>ACTIVE</code> status, it cannot be terminated during a scale-down event.</li></ul>"
+        }
+      },
+      "description": "Represents the input for a request action."
+    },
+    "UpdateGameSessionOutput": {
+      "type": "object",
+      "properties": {
+        "GameSession": {
+          "$ref": "#/definitions/GameSession",
+          "description": "Object containing the updated game session metadata."
+        }
+      },
+      "description": "Represents the returned data in response to a request action."
+    },
+    "UpdateRuntimeConfigurationInput": {
+      "type": "object",
+      "required": [
+        "FleetId",
+        "RuntimeConfiguration"
+      ],
+      "properties": {
+        "FleetId": {
+          "$ref": "#/definitions/FleetId",
+          "description": "Unique identifier of the fleet to update runtime configuration for."
+        },
+        "RuntimeConfiguration": {
+          "$ref": "#/definitions/RuntimeConfiguration",
+          "description": "Instructions for launching server processes on each instance in the fleet. The runtime configuration for a fleet has a collection of server process configurations, one for each type of server process to run on an instance. A server process configuration specifies the location of the server executable, launch parameters, and the number of concurrent processes with that configuration to maintain on each instance."
+        }
+      },
+      "description": "Represents the input for a request action."
+    },
+    "UpdateRuntimeConfigurationOutput": {
+      "type": "object",
+      "properties": {
+        "RuntimeConfiguration": {
+          "$ref": "#/definitions/RuntimeConfiguration",
+          "description": "The runtime configuration currently in force. If the update was successful, this object matches the one in the request."
+        }
+      },
+      "description": "Represents the returned data in response to a request action."
+    },
+    "WholeNumber": {
+      "type": "integer",
+      "minimum": 0
+    }
+  }
+}
