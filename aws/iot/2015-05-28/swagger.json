@@ -3912,7 +3912,7 @@
         },
         "elasticsearch": {
           "$ref": "#/definitions/ElasticsearchAction",
-          "description": "Write data to an Amazon Elasticsearch Service; domain."
+          "description": "Write data to an Amazon Elasticsearch Service domain."
         }
       },
       "description": "Describes the actions associated with a rule."
@@ -4084,6 +4084,19 @@
       "type": "object",
       "properties": {},
       "description": "The input for the CancelCertificateTransfer operation."
+    },
+    "CannedAccessControlList": {
+      "type": "string",
+      "enum": [
+        "private",
+        "public-read",
+        "public-read-write",
+        "aws-exec-read",
+        "authenticated-read",
+        "bucket-owner-read",
+        "bucket-owner-full-control",
+        "log-delivery-write"
+      ]
     },
     "Certificate": {
       "type": "object",
@@ -4797,7 +4810,7 @@
           "description": "The unique identifier for the document you are storing."
         }
       },
-      "description": "Describes an action that writes data to an Amazon Elasticsearch Service; domain."
+      "description": "Describes an action that writes data to an Amazon Elasticsearch Service domain."
     },
     "ElasticsearchEndpoint": {
       "type": "string",
@@ -4837,7 +4850,7 @@
         },
         "separator": {
           "$ref": "#/definitions/FirehoseSeparator",
-          "description": "A character separator that will be used to separate records written to the firehose stream. Valid values are: '\\n' (newline), '\\t' (tab), '\\r\\n' (Windows newline), ',' (comma)."
+          "description": "A character separator that will be used to separate records written to the Firehose stream. Valid values are: '\\n' (newline), '\\t' (tab), '\\r\\n' (Windows newline), ',' (comma)."
         }
       },
       "description": "Describes an action that writes data to an Amazon Kinesis Firehose stream."
@@ -5565,6 +5578,9 @@
         "caCertificatePem": {
           "$ref": "#/definitions/CertificatePem",
           "description": "The CA certificate used to sign the device certificate being registered."
+        },
+        "status": {
+          "$ref": "#/definitions/CertificateStatus"
         }
       },
       "description": "The input to the RegisterCertificate operation."
@@ -5649,6 +5665,14 @@
         "message": {
           "$ref": "#/definitions/errorMessage",
           "description": "The message for the exception."
+        },
+        "resourceId": {
+          "$ref": "#/definitions/resourceId",
+          "description": "The ID of the resource that caused the exception."
+        },
+        "resourceArn": {
+          "$ref": "#/definitions/resourceArn",
+          "description": "The ARN of the resource that caused the exception."
         }
       },
       "description": "The resource already exists."
@@ -5691,6 +5715,10 @@
         "key": {
           "$ref": "#/definitions/Key",
           "description": "The object key."
+        },
+        "cannedAcl": {
+          "$ref": "#/definitions/CannedAccessControlList",
+          "description": "The Amazon S3 canned ACL that controls access to the object identified by the object key. For more information, see <a href=\"http://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl\">S3 canned ACLs</a>."
         }
       },
       "description": "Describes an action to write data to an Amazon S3 bucket."
@@ -5715,6 +5743,9 @@
       "description": "The service is temporarily unavailable."
     },
     "SetAsActive": {
+      "type": "boolean"
+    },
+    "SetAsActiveFlag": {
       "type": "boolean"
     },
     "SetAsDefault": {
@@ -6167,6 +6198,12 @@
       "description": "The number of policy versions exceeds the limit."
     },
     "errorMessage": {
+      "type": "string"
+    },
+    "resourceArn": {
+      "type": "string"
+    },
+    "resourceId": {
       "type": "string"
     }
   }

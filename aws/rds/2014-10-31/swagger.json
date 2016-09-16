@@ -55,19 +55,19 @@
               "$ref": "#/definitions/RevokeDBSecurityGroupIngressResult"
             }
           },
-          "400": {
+          "480": {
             "description": "DBSecurityGroupNotFoundFault",
             "schema": {
               "$ref": "#/definitions/DBSecurityGroupNotFoundFault"
             }
           },
-          "401": {
+          "481": {
             "description": "AuthorizationNotFoundFault",
             "schema": {
               "$ref": "#/definitions/AuthorizationNotFoundFault"
             }
           },
-          "402": {
+          "482": {
             "description": "InvalidDBSecurityGroupStateFault",
             "schema": {
               "$ref": "#/definitions/InvalidDBSecurityGroupStateFault"
@@ -713,7 +713,7 @@
         },
         "Engine": {
           "$ref": "#/definitions/String",
-          "description": "<p>The name of the database engine to be used for this instance.</p> <p> Valid Values: <code>MySQL</code> | <code>mariadb</code> | <code>oracle-se1</code> | <code>oracle-se</code> | <code>oracle-ee</code> | <code>sqlserver-ee</code> | <code>sqlserver-se</code> | <code>sqlserver-ex</code> | <code>sqlserver-web</code> | <code>postgres</code> | <code>aurora</code> </p> <p>Not every database engine is available for every AWS region.</p>"
+          "description": "<p>The name of the database engine to be used for this instance.</p> <p> Valid Values: <code>mysql</code> | <code>mariadb</code> | <code>oracle-se1</code> | <code>oracle-se2</code> | <code>oracle-se</code> | <code>oracle-ee</code> | <code>sqlserver-ee</code> | <code>sqlserver-se</code> | <code>sqlserver-ex</code> | <code>sqlserver-web</code> | <code>postgres</code> | <code>aurora</code> </p> <p>Not every database engine is available for every AWS region.</p>"
         },
         "MasterUsername": {
           "$ref": "#/definitions/String",
@@ -1189,6 +1189,10 @@
         "Endpoint": {
           "$ref": "#/definitions/String",
           "description": "Specifies the connection endpoint for the primary instance of the DB cluster."
+        },
+        "ReaderEndpoint": {
+          "$ref": "#/definitions/String",
+          "description": "<p>The reader endpoint for the DB cluster. The reader endpoint for a DB cluster load-balances connections across the Aurora Replicas that are available in a DB cluster. As clients request new connections to the reader endpoint, Aurora distributes the connection requests among the Aurora Replicas in the DB cluster. This functionality can help balance your read workload across multiple Aurora Replicas in your DB cluster. </p> <p>If a failover occurs, and the Aurora Replica that you are connected to is promoted to be the primary instance, your connection will be dropped. To continue sending your read workload to other Aurora Replicas in the cluster, you can then recoonect to the reader endpoint.</p>"
         },
         "Engine": {
           "$ref": "#/definitions/String",
@@ -3311,7 +3315,7 @@
       "properties": {
         "RegionName": {
           "$ref": "#/definitions/String",
-          "description": "<p>The source region name, for example US West (Oregon).</p> <p>Constraints:</p> <ul> <li> <p>Must specify a valid AWS Region name, for example US West (Oregon).</p> </li> </ul>"
+          "description": "<p>The source region name. For example, <code>us-east-1</code>.</p> <p>Constraints:</p> <ul> <li> <p>Must specify a valid AWS Region name.</p> </li> </ul>"
         },
         "MaxRecords": {
           "$ref": "#/definitions/IntegerOptional",
@@ -4052,7 +4056,7 @@
         },
         "Domain": {
           "$ref": "#/definitions/String",
-          "description": "<p>Specify the Active Directory Domain to move the instance to.</p> <p>The specified Active Directory Domain must be created prior to this operation. Currently only a SQL Server instance can be created in a Active Directory Domain.</p>"
+          "description": "The Active Directory Domain to move the instance to. Specify <code>none</code> to remove the instance from its current domain. The domain must be created prior to this operation. Currently only a Microsoft SQL Server instance can be created in a Active Directory Domain. "
         },
         "CopyTagsToSnapshot": {
           "$ref": "#/definitions/BooleanOptional",
@@ -4076,7 +4080,7 @@
         },
         "DomainIAMRoleName": {
           "$ref": "#/definitions/String",
-          "description": "Specify the name of the IAM role to be used when making API calls to the Directory Service."
+          "description": "The name of the IAM role to use when making API calls to the Directory Service."
         },
         "PromotionTier": {
           "$ref": "#/definitions/IntegerOptional",
