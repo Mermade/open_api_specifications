@@ -34,8 +34,88 @@
   "produces": [
     "text/xml"
   ],
+  "securityDefinitions": {
+    "hmac": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "hmac": []
+    }
+  ],
   "paths": {
     "/{Bucket}/{Key}": {
+      "delete": {
+        "operationId": "DeleteObject",
+        "description": "Removes the null version (if there is one) of an object and inserts a delete marker, which becomes the latest version of the object. If there isn't a null version, Amazon S3 does not remove any objects.<p>http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectDELETE.html</p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DeleteObjectOutput"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteObjectRequest"
+            }
+          },
+          {
+            "name": "Bucket",
+            "in": "path",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "Key",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "post": {
+        "operationId": "CompleteMultipartUpload",
+        "description": "Completes a multipart upload by assembling previously uploaded parts.<p>http://docs.amazonwebservices.com/AmazonS3/latest/API/mpUploadComplete.html</p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CompleteMultipartUploadOutput"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CompleteMultipartUploadRequest"
+            }
+          },
+          {
+            "name": "Bucket",
+            "in": "path",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "Key",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
       "put": {
         "operationId": "UploadPartCopy",
         "description": "Uploads a part by copying data from an existing object as data source.<p>http://docs.amazonwebservices.com/AmazonS3/latest/API/mpUploadUploadPartCopy.html</p>",
@@ -69,9 +149,179 @@
             "required": true
           }
         ]
+      },
+      "get": {
+        "operationId": "ListParts",
+        "description": "Lists the parts that have been uploaded for a specific multipart upload.<p>http://docs.amazonwebservices.com/AmazonS3/latest/API/mpUploadListParts.html</p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ListPartsOutput"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ListPartsRequest"
+            }
+          },
+          {
+            "name": "Bucket",
+            "in": "path",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "Key",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "head": {
+        "operationId": "HeadObject",
+        "description": "The HEAD operation retrieves metadata from an object without returning the object itself. This operation is useful if you're only interested in an object's metadata. To use HEAD, you must have READ access to the object.<p>http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectHEAD.html</p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/HeadObjectOutput"
+            }
+          },
+          "400": {
+            "description": "NoSuchKey",
+            "schema": {
+              "$ref": "#/definitions/NoSuchKey"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HeadObjectRequest"
+            }
+          },
+          {
+            "name": "Bucket",
+            "in": "path",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "Key",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
       }
     },
     "/{Bucket}": {
+      "put": {
+        "operationId": "CreateBucket",
+        "description": "Creates a new bucket.<p>http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketPUT.html</p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CreateBucketOutput"
+            }
+          },
+          "400": {
+            "description": "BucketAlreadyExists",
+            "schema": {
+              "$ref": "#/definitions/BucketAlreadyExists"
+            }
+          },
+          "401": {
+            "description": "BucketAlreadyOwnedByYou",
+            "schema": {
+              "$ref": "#/definitions/BucketAlreadyOwnedByYou"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateBucketRequest"
+            }
+          },
+          {
+            "name": "Bucket",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "DeleteBucket",
+        "description": "Deletes the bucket. All objects (including all object versions and Delete Markers) in the bucket must be deleted before the bucket itself can be deleted.<p>http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketDELETE.html</p>",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteBucketRequest"
+            }
+          },
+          {
+            "name": "Bucket",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "head": {
+        "operationId": "HeadBucket",
+        "description": "This operation is useful to determine if a bucket exists and you have permission to access it.<p>http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketHEAD.html</p>",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "NoSuchBucket",
+            "schema": {
+              "$ref": "#/definitions/NoSuchBucket"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HeadBucketRequest"
+            }
+          },
+          {
+            "name": "Bucket",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
       "get": {
         "operationId": "ListObjects",
         "description": "Returns some or all (up to 1000) of the objects in a bucket. You can use the request parameters as selection criteria to return a subset of the objects in a bucket.<p>http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketGET.html</p>",
@@ -144,13 +394,65 @@
       }
     },
     "/{Bucket}?cors": {
+      "delete": {
+        "operationId": "DeleteBucketCors",
+        "description": "Deletes the cors configuration information set for the bucket.<p>http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketDELETEcors.html</p>",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteBucketCorsRequest"
+            }
+          },
+          {
+            "name": "Bucket",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "get": {
+        "operationId": "GetBucketCors",
+        "description": "Returns the cors configuration for the bucket.<p>http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketGETcors.html</p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetBucketCorsOutput"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetBucketCorsRequest"
+            }
+          },
+          {
+            "name": "Bucket",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
       "put": {
         "operationId": "PutBucketCors",
         "description": "Sets the cors configuration for a bucket.<p>http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketPUTcors.html</p>",
         "responses": {
           "200": {
-            "description": "Success",
-            "schema": {}
+            "description": "Success"
           }
         },
         "parameters": [
@@ -172,13 +474,65 @@
       }
     },
     "/{Bucket}?lifecycle": {
+      "delete": {
+        "operationId": "DeleteBucketLifecycle",
+        "description": "Deletes the lifecycle configuration from the bucket.<p>http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketDELETElifecycle.html</p>",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteBucketLifecycleRequest"
+            }
+          },
+          {
+            "name": "Bucket",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "get": {
+        "operationId": "GetBucketLifecycleConfiguration",
+        "description": "Returns the lifecycle configuration information set on the bucket.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetBucketLifecycleConfigurationOutput"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetBucketLifecycleConfigurationRequest"
+            }
+          },
+          {
+            "name": "Bucket",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
       "put": {
         "operationId": "PutBucketLifecycleConfiguration",
         "description": "Sets lifecycle configuration for your bucket. If a lifecycle configuration exists, it replaces it.",
         "responses": {
           "200": {
-            "description": "Success",
-            "schema": {}
+            "description": "Success"
           }
         },
         "parameters": [
@@ -200,13 +554,65 @@
       }
     },
     "/{Bucket}?policy": {
+      "delete": {
+        "operationId": "DeleteBucketPolicy",
+        "description": "Deletes the policy from the bucket.<p>http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketDELETEpolicy.html</p>",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteBucketPolicyRequest"
+            }
+          },
+          {
+            "name": "Bucket",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "get": {
+        "operationId": "GetBucketPolicy",
+        "description": "Returns the policy of a specified bucket.<p>http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketGETpolicy.html</p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetBucketPolicyOutput"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetBucketPolicyRequest"
+            }
+          },
+          {
+            "name": "Bucket",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
       "put": {
         "operationId": "PutBucketPolicy",
         "description": "Replaces a policy on a bucket. If the bucket already has a policy, the one in this request completely replaces it.<p>http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketPUTpolicy.html</p>",
         "responses": {
           "200": {
-            "description": "Success",
-            "schema": {}
+            "description": "Success"
           }
         },
         "parameters": [
@@ -228,13 +634,65 @@
       }
     },
     "/{Bucket}?replication": {
+      "delete": {
+        "operationId": "DeleteBucketReplication",
+        "description": "Deletes the replication configuration from the bucket.",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteBucketReplicationRequest"
+            }
+          },
+          {
+            "name": "Bucket",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "get": {
+        "operationId": "GetBucketReplication",
+        "description": "Returns the replication configuration of a bucket.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetBucketReplicationOutput"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetBucketReplicationRequest"
+            }
+          },
+          {
+            "name": "Bucket",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
       "put": {
         "operationId": "PutBucketReplication",
         "description": "Creates a new replication configuration (or replaces an existing one, if present).",
         "responses": {
           "200": {
-            "description": "Success",
-            "schema": {}
+            "description": "Success"
           }
         },
         "parameters": [
@@ -256,13 +714,65 @@
       }
     },
     "/{Bucket}?tagging": {
+      "delete": {
+        "operationId": "DeleteBucketTagging",
+        "description": "Deletes the tags from the bucket.<p>http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketDELETEtagging.html</p>",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteBucketTaggingRequest"
+            }
+          },
+          {
+            "name": "Bucket",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "get": {
+        "operationId": "GetBucketTagging",
+        "description": "Returns the tag set associated with the bucket.<p>http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketGETtagging.html</p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetBucketTaggingOutput"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetBucketTaggingRequest"
+            }
+          },
+          {
+            "name": "Bucket",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
       "put": {
         "operationId": "PutBucketTagging",
         "description": "Sets the tags for a bucket.<p>http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketPUTtagging.html</p>",
         "responses": {
           "200": {
-            "description": "Success",
-            "schema": {}
+            "description": "Success"
           }
         },
         "parameters": [
@@ -284,13 +794,65 @@
       }
     },
     "/{Bucket}?website": {
+      "delete": {
+        "operationId": "DeleteBucketWebsite",
+        "description": "This operation removes the website configuration from the bucket.<p>http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketDELETEwebsite.html</p>",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteBucketWebsiteRequest"
+            }
+          },
+          {
+            "name": "Bucket",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "get": {
+        "operationId": "GetBucketWebsite",
+        "description": "Returns the website configuration for a bucket.<p>http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketGETwebsite.html</p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetBucketWebsiteOutput"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetBucketWebsiteRequest"
+            }
+          },
+          {
+            "name": "Bucket",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
       "put": {
         "operationId": "PutBucketWebsite",
         "description": "Set the website configuration for a bucket.<p>http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketPUTwebsite.html</p>",
         "responses": {
           "200": {
-            "description": "Success",
-            "schema": {}
+            "description": "Success"
           }
         },
         "parameters": [
@@ -342,13 +904,40 @@
       }
     },
     "/{Bucket}?accelerate": {
+      "get": {
+        "operationId": "GetBucketAccelerateConfiguration",
+        "description": "Returns the accelerate configuration of a bucket.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetBucketAccelerateConfigurationOutput"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetBucketAccelerateConfigurationRequest"
+            }
+          },
+          {
+            "name": "Bucket",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
       "put": {
         "operationId": "PutBucketAccelerateConfiguration",
         "description": "Sets the accelerate configuration of an existing bucket.",
         "responses": {
           "200": {
-            "description": "Success",
-            "schema": {}
+            "description": "Success"
           }
         },
         "parameters": [
@@ -370,13 +959,40 @@
       }
     },
     "/{Bucket}?acl": {
+      "get": {
+        "operationId": "GetBucketAcl",
+        "description": "Gets the access control policy for the bucket.<p>http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketGETacl.html</p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetBucketAclOutput"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetBucketAclRequest"
+            }
+          },
+          {
+            "name": "Bucket",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
       "put": {
         "operationId": "PutBucketAcl",
         "description": "Sets the permissions on a bucket using access control lists (ACL).<p>http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketPUTacl.html</p>",
         "responses": {
           "200": {
-            "description": "Success",
-            "schema": {}
+            "description": "Success"
           }
         },
         "parameters": [
@@ -428,13 +1044,40 @@
       }
     },
     "/{Bucket}?logging": {
+      "get": {
+        "operationId": "GetBucketLogging",
+        "description": "Returns the logging status of a bucket and the permissions users have to view and modify that status. To use GET, you must be the bucket owner.<p>http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketGETlogging.html</p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetBucketLoggingOutput"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetBucketLoggingRequest"
+            }
+          },
+          {
+            "name": "Bucket",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
       "put": {
         "operationId": "PutBucketLogging",
         "description": "Set the logging parameters for a bucket and to specify permissions for who can view and modify the logging parameters. To set the logging status of a bucket, you must be the bucket owner.<p>http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketPUTlogging.html</p>",
         "responses": {
           "200": {
-            "description": "Success",
-            "schema": {}
+            "description": "Success"
           }
         },
         "parameters": [
@@ -456,13 +1099,40 @@
       }
     },
     "/{Bucket}?notification": {
+      "get": {
+        "operationId": "GetBucketNotificationConfiguration",
+        "description": "Returns the notification configuration of a bucket.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/NotificationConfiguration"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetBucketNotificationConfigurationRequest"
+            }
+          },
+          {
+            "name": "Bucket",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
       "put": {
         "operationId": "PutBucketNotificationConfiguration",
         "description": "Enables notifications of specified events for a bucket.",
         "responses": {
           "200": {
-            "description": "Success",
-            "schema": {}
+            "description": "Success"
           }
         },
         "parameters": [
@@ -484,13 +1154,40 @@
       }
     },
     "/{Bucket}?requestPayment": {
+      "get": {
+        "operationId": "GetBucketRequestPayment",
+        "description": "Returns the request payment configuration of a bucket.<p>http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTrequestPaymentGET.html</p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetBucketRequestPaymentOutput"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetBucketRequestPaymentRequest"
+            }
+          },
+          {
+            "name": "Bucket",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
       "put": {
         "operationId": "PutBucketRequestPayment",
         "description": "Sets the request payment configuration for a bucket. By default, the bucket owner pays for downloads from the bucket. This configuration parameter enables the bucket owner (only) to specify that the person requesting the download will be charged for the download. Documentation on requester pays buckets can be found at http://docs.aws.amazon.com/AmazonS3/latest/dev/RequesterPaysBuckets.html<p>http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTrequestPaymentPUT.html</p>",
         "responses": {
           "200": {
-            "description": "Success",
-            "schema": {}
+            "description": "Success"
           }
         },
         "parameters": [
@@ -512,13 +1209,40 @@
       }
     },
     "/{Bucket}?versioning": {
+      "get": {
+        "operationId": "GetBucketVersioning",
+        "description": "Returns the versioning state of a bucket.<p>http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketGETversioningStatus.html</p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetBucketVersioningOutput"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetBucketVersioningRequest"
+            }
+          },
+          {
+            "name": "Bucket",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
       "put": {
         "operationId": "PutBucketVersioning",
         "description": "Sets the versioning state of an existing bucket. To set the versioning state, you must be the bucket owner.<p>http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketPUTVersioningStatus.html</p>",
         "responses": {
           "200": {
-            "description": "Success",
-            "schema": {}
+            "description": "Success"
           }
         },
         "parameters": [
@@ -540,6 +1264,46 @@
       }
     },
     "/{Bucket}/{Key}?acl": {
+      "get": {
+        "operationId": "GetObjectAcl",
+        "description": "Returns the access control list (ACL) of an object.<p>http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectGETacl.html</p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetObjectAclOutput"
+            }
+          },
+          "400": {
+            "description": "NoSuchKey",
+            "schema": {
+              "$ref": "#/definitions/NoSuchKey"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetObjectAclRequest"
+            }
+          },
+          {
+            "name": "Bucket",
+            "in": "path",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "Key",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
       "put": {
         "operationId": "PutObjectAcl",
         "description": "uses the acl subresource to set the access control list (ACL) permissions for an object that already exists in a bucket<p>http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectPUTacl.html</p>",
