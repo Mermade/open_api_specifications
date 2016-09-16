@@ -6,13 +6,13 @@
 	"host": "api.github.com",
 	"basePath": "/",
 	"info": {
-		"description": "How people build software<p>Millions of developers use GitHub to build personal projects, support their businesses, and work together on open source technologies.",
+		"description": "How people build software<p>Millions of developers use GitHub to build personal projects, support their businesses, and work together on open source technologies. You must currently be enrolled in the [Early Access programme](https://github.com/prerelease/agreement) to use this API.",
 		"version": "1.0.0",
-		"title": "GitHub GraphQl",
-		"termsOfService": "https://help.github.com/articles/github-terms-of-service/",
+		"title": "GitHub GraphQL",
+		"termsOfService": "https://help.github.com/articles/github-terms-of-service/#b-api-terms",
 		"contact": {
 			"email": "support@github.com",
-			"url": "https://github.com/contact?form%5Bsubject%5D=GraphQl"
+			"url": "https://github.com/contact?form%5Bsubject%5D=GraphQL"
 		},
 		"license": {
 			"name": "MIT",
@@ -24,7 +24,7 @@
 		}
 	},
 	"externalDocs": {
-		"description": "GraphQL is a new way to think about building and querying APIs. Rather than construct several REST requests to fetch data that you're interested in, you can often make a single call to fetch the information you need. You must currently be enrolled in the Early Access programme to use this API. Sign up here: https://github.com/prerelease/agreement",
+		"description": "GraphQL is a new way to think about building and querying APIs. Rather than construct several REST requests to fetch data that you're interested in, you can often make a single call to fetch the information you need.",
 		"url": "https://developer.github.com/early-access/graphql/"
 	},
 	"produces": [
@@ -35,8 +35,8 @@
 	],
 	"tags": [
 		{
-			"name": "GraphQl Query",
-			"description": "GraphQl Query operations"
+			"name": "GraphQL Query",
+			"description": "GraphQL Query operations"
 		}
 	],
 	"securityDefinitions": {
@@ -82,27 +82,20 @@
 		"/graphql": {
 			"parameters": [
 				{
-					"name": "query",
-					"in": "query",
-					"description": "Optional query parameter",
-					"type": "string",
-					"required": false
-				},
-				{
 					"name": "body",
 					"in": "body",
-					"description": "GraphQl query parameter",
+					"description": "GraphQL query parameter",
 					"schema": {
 						"$ref": "#/definitions/Query"
 					},
-					"required": false
+					"required": true
 				}
 			],
 			"post": {
 				"tags": [
-					"GraphQl Query"
+					"GraphQL Query"
 				],
-				"summary": "Submit GraphQl query",
+				"summary": "Submit GraphQL query",
 				"description": "You can make a GraphQL query by issuing a <b>POST</b> request with a JSON payload. The payload must have a string called <b>query</b>.",
 				"operationId": "postQuery",
 				"parameters": [
@@ -152,7 +145,8 @@
 							"application/json": {
 								  "data": {
 									"viewer": {
-									  "login": "MikeRalphson"
+									  "login": "MikeRalphson",
+									  "email": "mike.ralphson@gmail.com"
 									}
 								}
 							}
@@ -171,14 +165,14 @@
 	"definitions": {
 		"Query": {
 			"type": "object",
-			"description": "The GraphQl query",
+			"description": "The GraphQL query",
 			"properties": {
 				"query": {
 					"type": "string"
 				}
 			},
 			"example": {
-				"query": "query { viewer { login } }"
+				"query": "query { viewer { login email } }"
 			}
 		},
 		"Response": {
