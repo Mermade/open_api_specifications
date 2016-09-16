@@ -1,0 +1,188 @@
+{
+	"swagger": "2.0",
+	"schemes": [
+		"https"
+	],
+	"host": "api.github.com",
+	"basePath": "/graphql",
+	"info": {
+		"description": "GitHub GraphQl API",
+		"version": "1.0.0",
+		"title": "GitHub GraphQl API",
+		"termsOfService": "https://help.github.com/articles/github-terms-of-service/",
+		"contact": {
+			"email": "support@github.com",
+			"url": "https://github.com/contact?form%5Bsubject%5D=GraphQl"
+		},
+		"license": {
+			"name": "MIT",
+			"url": "https://opensource.org/licenses/MIT"
+		},
+		"x-logo": {
+			"url": "https://assets-cdn.github.com/images/modules/logos_page/GitHub-Logo.png",
+			"backgroundColor": "#FFFFFF"
+		}
+	},
+	"externalDocs": {
+		"description": "GraphQL is a new way to think about building and querying APIs. Rather than construct several REST requests to fetch data that you're interested in, you can often make a single call to fetch the information you need.",
+		"url": "https://developer.github.com/early-access/graphql/"
+	},
+	"produces": [
+		"application/json",
+	],
+	"consumes": [
+		"application/json",
+	],
+	"tags": [
+		{
+			"name": "GraphQl Query",
+			"description": "GraphQl Query operations"
+		}
+	],
+	"securityDefinitions": {
+		"main_auth": {
+			"type": "oauth2",
+			"authorizationUrl": "https://github.com/settings/tokens",
+			"flow": "implicit",
+			"scopes": {
+				"repo": "Full control of private repositories",
+				"repo:status": "Access commit status",
+				"repo_deployment": "Access deployment status",
+				"public_repo": "Access public repositories",
+				"admin:org": "Full control of orgs and teams",
+				"write:org": "Read and write org and team membership",
+				"read:org": "Read org and team membership",
+				"admin:public_key": "Full control of user public keys",
+				"write:public_key": "Write user public keys",
+				"read:public_key": "Read user public keys",
+				"admin:repo_hook": "Full control of repository hooks",
+				"write:repo_hook": "Write repository hooks",
+				"read:repo_hook": "Read repository hooks",
+				"admin:org_hook": "Full control of organization hooks",
+				"gist": "Create gists",
+				"notifications": "Access notifications",
+				"user": "Update all user data",
+				"user:email": "Access user email addresses (read-only)",
+				"user:follow": "Follow and unfollow users",
+				"delete_repo": "Delete repositories",
+				"admin:gpg_key": "Full control of user gpg keys (Developer Preview)",
+				"write:gpg_key": "Write user gpg keys",
+				"read:gpg_key": "Read user gpg keys"
+			}
+		},
+		"api_key": {
+			"type": "apiKey",
+			"in": "header",
+			"name": "Authorization"
+		}
+	},
+	"paths": {
+		"/": {
+			"parameters": [
+				{
+					"name": "query",
+					"in": "query",
+					"description": "Optional query parameter",
+					"type": "string",
+					"required": false
+				},
+				{
+					"name": "body",
+					"in": "body",
+					"description": "GraphQl query parameter",
+					"schema": {
+						"$ref": "#/definitions/Query"
+					},
+					"required": false
+				}
+			],
+			"post": {
+				"tags": [
+					"GraphQl Query"
+				],
+				"summary": "Submit GraphQl query",
+				"description": "You can make a GraphQL query by issuing a <b>POST</b> request with a JSON payload. The payload must have a string called <b>query</b>.",
+				"operationId": "postQuery",
+				"parameters": [
+				],
+				"security": [
+					{
+						"main_auth": [
+							"repo",
+							"repo:status",
+							"repo_deployment",
+							"public_repo",
+							"admin:org",
+							"write:org",
+							"read:org",
+							"admin:public_key",
+							"write:public_key",
+							"read:public_key",
+							"admin:repo_hook",
+							"write:repo_hook",
+							"read:repo_hook",
+							"admin:org_hook",
+							"gist",
+							"notifications",
+							"user",
+							"user:email",
+							"user:follow",
+							"delete_repo",
+							"admin:gpg_key",
+							"write:gpg_key",
+							"read:gpg_key"
+						]
+					}
+				],
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"schema": {
+							"$ref": "#/definitions/Response"
+						},
+						"examples": {
+							"application/json": {
+								{
+								  "data": {
+									"viewer": {
+									  "login": "MikeRalphson"
+									}
+								  }
+								}
+							}
+						}
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not found"
+					}
+				}
+			}
+		}
+	},
+	"definitions": {
+		"Query": {
+			"type": "object",
+			"description": "The GraphQl query",
+			"properties": {
+				"query": {
+					"type": "object"
+				}
+			}
+		},
+		"Response": {
+			"type": "object",
+			"properties": {
+				"data": {
+					"description": "The returned data",
+					"type": "object",
+				}
+			}
+		}
+	}
+}
