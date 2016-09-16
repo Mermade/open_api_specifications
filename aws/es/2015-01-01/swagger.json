@@ -35,6 +35,18 @@
   "produces": [
     "application/json"
   ],
+  "securityDefinitions": {
+    "hmac": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "hmac": []
+    }
+  ],
   "paths": {
     "/2015-01-01/tags": {
       "post": {
@@ -42,8 +54,7 @@
         "description": "Attaches tags to an existing Elasticsearch domain. Tags are a set of case-sensitive key value pairs. An Elasticsearch domain may have up to 10 tags. See <a href=\"http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-managedomains.html#es-managedomains-awsresorcetagging\" target=\"_blank\"> Tagging Amazon Elasticsearch Service Domains for more information.</a>",
         "responses": {
           "200": {
-            "description": "Success",
-            "schema": {}
+            "description": "Success"
           },
           "400": {
             "description": "BaseException",
@@ -149,6 +160,58 @@
       }
     },
     "/2015-01-01/es/domain/{DomainName}": {
+      "delete": {
+        "operationId": "DeleteElasticsearchDomain",
+        "description": "Permanently deletes the specified Elasticsearch domain and all of its data. Once a domain is deleted, it cannot be recovered.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DeleteElasticsearchDomainResponse"
+            }
+          },
+          "400": {
+            "description": "BaseException",
+            "schema": {
+              "$ref": "#/definitions/BaseException"
+            }
+          },
+          "401": {
+            "description": "InternalException",
+            "schema": {
+              "$ref": "#/definitions/InternalException"
+            }
+          },
+          "402": {
+            "description": "ResourceNotFoundException",
+            "schema": {
+              "$ref": "#/definitions/ResourceNotFoundException"
+            }
+          },
+          "403": {
+            "description": "ValidationException",
+            "schema": {
+              "$ref": "#/definitions/ValidationException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteElasticsearchDomainRequest"
+            }
+          },
+          {
+            "name": "DomainName",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
       "get": {
         "operationId": "DescribeElasticsearchDomain",
         "description": "Returns domain configuration information about the specified Elasticsearch domain, including the domain ID, domain endpoint, and domain ARN.",
@@ -203,6 +266,58 @@
       }
     },
     "/2015-01-01/es/domain/{DomainName}/config": {
+      "get": {
+        "operationId": "DescribeElasticsearchDomainConfig",
+        "description": "Provides cluster configuration information about the specified Elasticsearch domain, such as the state, creation date, update version, and update date for cluster options.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DescribeElasticsearchDomainConfigResponse"
+            }
+          },
+          "400": {
+            "description": "BaseException",
+            "schema": {
+              "$ref": "#/definitions/BaseException"
+            }
+          },
+          "401": {
+            "description": "InternalException",
+            "schema": {
+              "$ref": "#/definitions/InternalException"
+            }
+          },
+          "402": {
+            "description": "ResourceNotFoundException",
+            "schema": {
+              "$ref": "#/definitions/ResourceNotFoundException"
+            }
+          },
+          "403": {
+            "description": "ValidationException",
+            "schema": {
+              "$ref": "#/definitions/ValidationException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DescribeElasticsearchDomainConfigRequest"
+            }
+          },
+          {
+            "name": "DomainName",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
       "post": {
         "operationId": "UpdateElasticsearchDomainConfig",
         "description": "Modifies the cluster configuration of the specified Elasticsearch domain, setting as setting the instance type and the number of instances. ",
@@ -390,8 +505,7 @@
         "description": "Removes the specified set of tags from the specified Elasticsearch domain.",
         "responses": {
           "200": {
-            "description": "Success",
-            "schema": {}
+            "description": "Success"
           },
           "400": {
             "description": "BaseException",

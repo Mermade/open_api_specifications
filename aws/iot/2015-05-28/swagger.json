@@ -35,6 +35,18 @@
   "produces": [
     "application/json"
   ],
+  "securityDefinitions": {
+    "hmac": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "hmac": []
+    }
+  ],
   "paths": {
     "/accept-certificate-transfer/{certificateId}": {
       "patch": {
@@ -42,8 +54,7 @@
         "description": "<p>Accepts a pending certificate transfer. The default state of the certificate is INACTIVE.</p> <p>To check for pending certificate transfers, call <a>ListCertificates</a> to enumerate your certificates.</p>",
         "responses": {
           "200": {
-            "description": "Success",
-            "schema": {}
+            "description": "Success"
           },
           "400": {
             "description": "InvalidRequestException",
@@ -114,13 +125,86 @@
       }
     },
     "/principal-policies/{policyName}": {
+      "put": {
+        "operationId": "AttachPrincipalPolicy",
+        "description": "Attaches the specified policy to the specified principal (certificate or other credential).",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "401": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "404": {
+            "description": "ResourceNotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ResourceNotFoundException"
+            }
+          },
+          "410": {
+            "description": "LimitExceededException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/LimitExceededException"
+            }
+          },
+          "429": {
+            "description": "ThrottlingException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ThrottlingException"
+            }
+          },
+          "500": {
+            "description": "InternalFailureException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalFailureException"
+            }
+          },
+          "503": {
+            "description": "ServiceUnavailableException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ServiceUnavailableException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AttachPrincipalPolicyRequest"
+            }
+          },
+          {
+            "name": "policyName",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
       "delete": {
         "operationId": "DetachPrincipalPolicy",
         "description": "Removes the specified policy from the specified certificate.",
         "responses": {
           "200": {
-            "description": "Success",
-            "schema": {}
+            "description": "Success"
           },
           "400": {
             "description": "InvalidRequestException",
@@ -184,6 +268,146 @@
       }
     },
     "/things/{thingName}/principals": {
+      "put": {
+        "operationId": "AttachThingPrincipal",
+        "description": "Attaches the specified principal to the specified thing.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/AttachThingPrincipalResponse"
+            }
+          },
+          "400": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "401": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "404": {
+            "description": "ResourceNotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ResourceNotFoundException"
+            }
+          },
+          "429": {
+            "description": "ThrottlingException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ThrottlingException"
+            }
+          },
+          "500": {
+            "description": "InternalFailureException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalFailureException"
+            }
+          },
+          "503": {
+            "description": "ServiceUnavailableException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ServiceUnavailableException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AttachThingPrincipalRequest"
+            }
+          },
+          {
+            "name": "thingName",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "DetachThingPrincipal",
+        "description": "Detaches the specified principal from the specified thing.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DetachThingPrincipalResponse"
+            }
+          },
+          "400": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "401": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "404": {
+            "description": "ResourceNotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ResourceNotFoundException"
+            }
+          },
+          "429": {
+            "description": "ThrottlingException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ThrottlingException"
+            }
+          },
+          "500": {
+            "description": "InternalFailureException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalFailureException"
+            }
+          },
+          "503": {
+            "description": "ServiceUnavailableException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ServiceUnavailableException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DetachThingPrincipalRequest"
+            }
+          },
+          {
+            "name": "thingName",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
       "get": {
         "operationId": "ListThingPrincipals",
         "description": "Lists the principals associated with the specified thing.",
@@ -261,8 +485,7 @@
         "description": "<p>Cancels a pending transfer for the specified certificate.</p> <p><b>Note</b> Only the transfer source account can use this operation to cancel a transfer. (Transfer destinations can use <a>RejectCertificateTransfer</a> instead.) After transfer, AWS IoT returns the certificate to the source account in the INACTIVE state. After the destination account has accepted the transfer, the transfer cannot be cancelled.</p> <p>After a certificate transfer is cancelled, the status of the certificate changes from PENDING_TRANSFER to INACTIVE.</p>",
         "responses": {
           "200": {
-            "description": "Success",
-            "schema": {}
+            "description": "Success"
           },
           "400": {
             "description": "InvalidRequestException",
@@ -333,6 +556,63 @@
       }
     },
     "/certificates": {
+      "post": {
+        "operationId": "CreateCertificateFromCsr",
+        "description": "<p>Creates an X.509 certificate using the specified certificate signing request.</p> <p><b>Note</b> Reusing the same certificate signing request (CSR) results in a distinct certificate.</p> <p>You can create multiple certificates in a batch by creating a directory, copying multiple .csr files into that directory, and then specifying that directory on the command line. The following commands show how to create a batch of certificates given a batch of CSRs. </p> <p>Assuming a set of CSRs are located inside of the directory my-csr-directory:</p> <p>On Linux and OS X, the command is:</p> <p>$ ls my-csr-directory/ | xargs -I {} aws iot create-certificate-from-csr --certificate-signing-request file://my-csr-directory/{}</p> <p> This command lists all of the CSRs in my-csr-directory and pipes each CSR file name to the aws iot create-certificate-from-csr AWS CLI command to create a certificate for the corresponding CSR. </p> <p> The aws iot create-certificate-from-csr part of the command can also be run in parallel to speed up the certificate creation process: </p> <p> $ ls my-csr-directory/ | xargs -P 10 -I {} aws iot create-certificate-from-csr --certificate-signing-request file://my-csr-directory/{} </p> <p> On Windows PowerShell, the command to create certificates for all CSRs in my-csr-directory is: </p> <p> &gt; ls -Name my-csr-directory | %{aws iot create-certificate-from-csr --certificate-signing-request file://my-csr-directory/$_} </p> <p> On a Windows command prompt, the command to create certificates for all CSRs in my-csr-directory is: </p> <p> &gt; forfiles /p my-csr-directory /c \"cmd /c aws iot create-certificate-from-csr --certificate-signing-request file://@path\"</p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CreateCertificateFromCsrResponse"
+            }
+          },
+          "400": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "401": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "429": {
+            "description": "ThrottlingException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ThrottlingException"
+            }
+          },
+          "500": {
+            "description": "InternalFailureException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalFailureException"
+            }
+          },
+          "503": {
+            "description": "ServiceUnavailableException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ServiceUnavailableException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateCertificateFromCsrRequest"
+            }
+          }
+        ]
+      },
       "get": {
         "operationId": "ListCertificates",
         "description": "<p>Lists the certificates registered in your AWS account.</p> <p>The results are paginated with a default page size of 25. You can use the returned marker to retrieve additional results.</p>",
@@ -451,6 +731,150 @@
       }
     },
     "/policies/{policyName}": {
+      "post": {
+        "operationId": "CreatePolicy",
+        "description": "<p>Creates an AWS IoT policy.</p> <p>The created policy is the default version for the policy. This operation creates a policy version with a version identifier of <b>1</b> and sets <b>1</b> as the policy's default version.</p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CreatePolicyResponse"
+            }
+          },
+          "400": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "401": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "409": {
+            "description": "ResourceAlreadyExistsException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ResourceAlreadyExistsException"
+            }
+          },
+          "429": {
+            "description": "ThrottlingException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ThrottlingException"
+            }
+          },
+          "500": {
+            "description": "InternalFailureException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalFailureException"
+            }
+          },
+          "503": {
+            "description": "ServiceUnavailableException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ServiceUnavailableException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreatePolicyRequest"
+            }
+          },
+          {
+            "name": "policyName",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "DeletePolicy",
+        "description": "<p>Deletes the specified policy.</p> <p>A policy cannot be deleted if it has non-default versions or it is attached to any certificate.</p> <p>To delete a policy, use the DeletePolicyVersion API to delete all non-default versions of the policy; use the DetachPrincipalPolicy API to detach the policy from any certificate; and then use the DeletePolicy API to delete the policy.</p> <p>When a policy is deleted using DeletePolicy, its default version is deleted with it.</p>",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "401": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "404": {
+            "description": "ResourceNotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ResourceNotFoundException"
+            }
+          },
+          "409": {
+            "description": "DeleteConflictException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteConflictException"
+            }
+          },
+          "429": {
+            "description": "ThrottlingException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ThrottlingException"
+            }
+          },
+          "500": {
+            "description": "InternalFailureException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalFailureException"
+            }
+          },
+          "503": {
+            "description": "ServiceUnavailableException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ServiceUnavailableException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeletePolicyRequest"
+            }
+          },
+          {
+            "name": "policyName",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
       "get": {
         "operationId": "GetPolicy",
         "description": "Gets information about the specified policy with the policy document of the default version.",
@@ -523,6 +947,83 @@
       }
     },
     "/policies/{policyName}/version": {
+      "post": {
+        "operationId": "CreatePolicyVersion",
+        "description": "<p>Creates a new version of the specified AWS IoT policy. To update a policy, create a new policy version. A managed policy can have up to five versions. If the policy has five versions, you must use <a>DeletePolicyVersion</a> to delete an existing version before you create a new one.</p> <p>Optionally, you can set the new version as the policy's default version. The default version is the operative version (that is, the version that is in effect for the certificates to which the policy is attached).</p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CreatePolicyVersionResponse"
+            }
+          },
+          "400": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "401": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "404": {
+            "description": "ResourceNotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ResourceNotFoundException"
+            }
+          },
+          "409": {
+            "description": "VersionsLimitExceededException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/VersionsLimitExceededException"
+            }
+          },
+          "429": {
+            "description": "ThrottlingException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ThrottlingException"
+            }
+          },
+          "500": {
+            "description": "InternalFailureException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalFailureException"
+            }
+          },
+          "503": {
+            "description": "ServiceUnavailableException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ServiceUnavailableException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreatePolicyVersionRequest"
+            }
+          },
+          {
+            "name": "policyName",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
       "get": {
         "operationId": "ListPolicyVersions",
         "description": "Lists the versions of the specified policy and identifies the default version.",
@@ -595,6 +1096,230 @@
       }
     },
     "/things/{thingName}": {
+      "post": {
+        "operationId": "CreateThing",
+        "description": "Creates a thing record in the thing registry.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CreateThingResponse"
+            }
+          },
+          "400": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "401": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "404": {
+            "description": "ResourceNotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ResourceNotFoundException"
+            }
+          },
+          "409": {
+            "description": "ResourceAlreadyExistsException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ResourceAlreadyExistsException"
+            }
+          },
+          "429": {
+            "description": "ThrottlingException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ThrottlingException"
+            }
+          },
+          "500": {
+            "description": "InternalFailureException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalFailureException"
+            }
+          },
+          "503": {
+            "description": "ServiceUnavailableException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ServiceUnavailableException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateThingRequest"
+            }
+          },
+          {
+            "name": "thingName",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "DeleteThing",
+        "description": "Deletes the specified thing.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DeleteThingResponse"
+            }
+          },
+          "400": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "401": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "404": {
+            "description": "ResourceNotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ResourceNotFoundException"
+            }
+          },
+          "409": {
+            "description": "VersionConflictException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/VersionConflictException"
+            }
+          },
+          "429": {
+            "description": "ThrottlingException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ThrottlingException"
+            }
+          },
+          "500": {
+            "description": "InternalFailureException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalFailureException"
+            }
+          },
+          "503": {
+            "description": "ServiceUnavailableException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ServiceUnavailableException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteThingRequest"
+            }
+          },
+          {
+            "name": "thingName",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "get": {
+        "operationId": "DescribeThing",
+        "description": "Gets information about the specified thing.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DescribeThingResponse"
+            }
+          },
+          "400": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "401": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "404": {
+            "description": "ResourceNotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ResourceNotFoundException"
+            }
+          },
+          "429": {
+            "description": "ThrottlingException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ThrottlingException"
+            }
+          },
+          "500": {
+            "description": "InternalFailureException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalFailureException"
+            }
+          },
+          "503": {
+            "description": "ServiceUnavailableException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ServiceUnavailableException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DescribeThingRequest"
+            }
+          },
+          {
+            "name": "thingName",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
       "patch": {
         "operationId": "UpdateThing",
         "description": "Updates the data for a thing.",
@@ -674,6 +1399,156 @@
       }
     },
     "/thing-types/{thingTypeName}": {
+      "post": {
+        "operationId": "CreateThingType",
+        "description": "Creates a new thing type.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CreateThingTypeResponse"
+            }
+          },
+          "400": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "401": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "409": {
+            "description": "ResourceAlreadyExistsException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ResourceAlreadyExistsException"
+            }
+          },
+          "429": {
+            "description": "ThrottlingException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ThrottlingException"
+            }
+          },
+          "500": {
+            "description": "InternalFailureException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalFailureException"
+            }
+          },
+          "503": {
+            "description": "ServiceUnavailableException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ServiceUnavailableException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateThingTypeRequest"
+            }
+          },
+          {
+            "name": "thingTypeName",
+            "in": "path",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "thingTypeName",
+            "in": "query",
+            "type": "string"
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "DeleteThingType",
+        "description": "Deletes the specified thing type . You cannot delete a thing type if it has things associated with it. To delete a thing type, first mark it as deprecated by calling <a>DeprecateThingType</a>, then remove any associated things by calling <a>UpdateThing</a> to change the thing type on any associated thing, and finally use <a>DeleteThingType</a> to delete the thing type.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DeleteThingTypeResponse"
+            }
+          },
+          "400": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "401": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "404": {
+            "description": "ResourceNotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ResourceNotFoundException"
+            }
+          },
+          "429": {
+            "description": "ThrottlingException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ThrottlingException"
+            }
+          },
+          "500": {
+            "description": "InternalFailureException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalFailureException"
+            }
+          },
+          "503": {
+            "description": "ServiceUnavailableException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ServiceUnavailableException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteThingTypeRequest"
+            }
+          },
+          {
+            "name": "thingTypeName",
+            "in": "path",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "thingTypeName",
+            "in": "query",
+            "type": "string"
+          }
+        ]
+      },
       "get": {
         "operationId": "DescribeThingType",
         "description": "Gets information about the specified thing type.",
@@ -751,13 +1626,174 @@
       }
     },
     "/rules/{ruleName}": {
+      "post": {
+        "operationId": "CreateTopicRule",
+        "description": "Creates a rule. Creating rules is an administrator-level action. Any user who has permission to create rules will be able to access data processed by the rule.",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "409": {
+            "description": "ResourceAlreadyExistsException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ResourceAlreadyExistsException"
+            }
+          },
+          "500": {
+            "description": "InternalException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalException"
+            }
+          },
+          "503": {
+            "description": "ServiceUnavailableException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ServiceUnavailableException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateTopicRuleRequest"
+            }
+          },
+          {
+            "name": "ruleName",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "DeleteTopicRule",
+        "description": "Deletes the specified rule.",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "401": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "500": {
+            "description": "InternalException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalException"
+            }
+          },
+          "503": {
+            "description": "ServiceUnavailableException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ServiceUnavailableException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteTopicRuleRequest"
+            }
+          },
+          {
+            "name": "ruleName",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "get": {
+        "operationId": "GetTopicRule",
+        "description": "Gets information about the specified rule.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetTopicRuleResponse"
+            }
+          },
+          "400": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "401": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "500": {
+            "description": "InternalException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalException"
+            }
+          },
+          "503": {
+            "description": "ServiceUnavailableException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ServiceUnavailableException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetTopicRuleRequest"
+            }
+          },
+          {
+            "name": "ruleName",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
       "patch": {
         "operationId": "ReplaceTopicRule",
         "description": "Replaces the specified rule. You must specify all parameters for the new rule. Creating rules is an administrator-level action. Any user who has permission to create rules will be able to access data processed by the rule.",
         "responses": {
           "200": {
-            "description": "Success",
-            "schema": {}
+            "description": "Success"
           },
           "400": {
             "description": "InvalidRequestException",
@@ -807,13 +1843,159 @@
       }
     },
     "/cacertificate/{caCertificateId}": {
+      "delete": {
+        "operationId": "DeleteCACertificate",
+        "description": "Deletes a registered CA certificate.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DeleteCACertificateResponse"
+            }
+          },
+          "400": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "401": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "404": {
+            "description": "ResourceNotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ResourceNotFoundException"
+            }
+          },
+          "406": {
+            "description": "CertificateStateException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/CertificateStateException"
+            }
+          },
+          "429": {
+            "description": "ThrottlingException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ThrottlingException"
+            }
+          },
+          "500": {
+            "description": "InternalFailureException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalFailureException"
+            }
+          },
+          "503": {
+            "description": "ServiceUnavailableException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ServiceUnavailableException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteCACertificateRequest"
+            }
+          },
+          {
+            "name": "caCertificateId",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "get": {
+        "operationId": "DescribeCACertificate",
+        "description": "Describes a registered CA certificate.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DescribeCACertificateResponse"
+            }
+          },
+          "400": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "401": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "404": {
+            "description": "ResourceNotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ResourceNotFoundException"
+            }
+          },
+          "429": {
+            "description": "ThrottlingException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ThrottlingException"
+            }
+          },
+          "500": {
+            "description": "InternalFailureException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalFailureException"
+            }
+          },
+          "503": {
+            "description": "ServiceUnavailableException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ServiceUnavailableException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DescribeCACertificateRequest"
+            }
+          },
+          {
+            "name": "caCertificateId",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
       "put": {
         "operationId": "UpdateCACertificate",
         "description": "Updates a registered CA certificate.",
         "responses": {
           "200": {
-            "description": "Success",
-            "schema": {}
+            "description": "Success"
           },
           "400": {
             "description": "InvalidRequestException",
@@ -877,13 +2059,163 @@
       }
     },
     "/certificates/{certificateId}": {
+      "delete": {
+        "operationId": "DeleteCertificate",
+        "description": "<p>Deletes the specified certificate.</p> <p>A certificate cannot be deleted if it has a policy attached to it or if its status is set to ACTIVE. To delete a certificate, first use the <a>DetachPrincipalPolicy</a> API to detach all policies. Next, use the <a>UpdateCertificate</a> API to set the certificate to the INACTIVE status.</p>",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "401": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "404": {
+            "description": "ResourceNotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ResourceNotFoundException"
+            }
+          },
+          "406": {
+            "description": "CertificateStateException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/CertificateStateException"
+            }
+          },
+          "409": {
+            "description": "DeleteConflictException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteConflictException"
+            }
+          },
+          "429": {
+            "description": "ThrottlingException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ThrottlingException"
+            }
+          },
+          "500": {
+            "description": "InternalFailureException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalFailureException"
+            }
+          },
+          "503": {
+            "description": "ServiceUnavailableException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ServiceUnavailableException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteCertificateRequest"
+            }
+          },
+          {
+            "name": "certificateId",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "get": {
+        "operationId": "DescribeCertificate",
+        "description": "Gets information about the specified certificate.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DescribeCertificateResponse"
+            }
+          },
+          "400": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "401": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "404": {
+            "description": "ResourceNotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ResourceNotFoundException"
+            }
+          },
+          "429": {
+            "description": "ThrottlingException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ThrottlingException"
+            }
+          },
+          "500": {
+            "description": "InternalFailureException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalFailureException"
+            }
+          },
+          "503": {
+            "description": "ServiceUnavailableException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ServiceUnavailableException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DescribeCertificateRequest"
+            }
+          },
+          {
+            "name": "certificateId",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
       "put": {
         "operationId": "UpdateCertificate",
         "description": "<p>Updates the status of the specified certificate. This operation is idempotent.</p> <p>Moving a certificate from the ACTIVE state (including REVOKED) will not disconnect currently connected devices, but these devices will be unable to reconnect.</p> <p>The ACTIVE state is required to authenticate devices connecting to AWS IoT using a certificate.</p>",
         "responses": {
           "200": {
-            "description": "Success",
-            "schema": {}
+            "description": "Success"
           },
           "400": {
             "description": "InvalidRequestException",
@@ -954,13 +2286,168 @@
       }
     },
     "/policies/{policyName}/version/{policyVersionId}": {
+      "delete": {
+        "operationId": "DeletePolicyVersion",
+        "description": "Deletes the specified version of the specified policy. You cannot delete the default version of a policy using this API. To delete the default version of a policy, use <a>DeletePolicy</a>. To find out which version of a policy is marked as the default version, use ListPolicyVersions.",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "401": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "404": {
+            "description": "ResourceNotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ResourceNotFoundException"
+            }
+          },
+          "409": {
+            "description": "DeleteConflictException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteConflictException"
+            }
+          },
+          "429": {
+            "description": "ThrottlingException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ThrottlingException"
+            }
+          },
+          "500": {
+            "description": "InternalFailureException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalFailureException"
+            }
+          },
+          "503": {
+            "description": "ServiceUnavailableException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ServiceUnavailableException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeletePolicyVersionRequest"
+            }
+          },
+          {
+            "name": "policyName",
+            "in": "path",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "policyVersionId",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "get": {
+        "operationId": "GetPolicyVersion",
+        "description": "Gets information about the specified policy version.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetPolicyVersionResponse"
+            }
+          },
+          "400": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "401": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "404": {
+            "description": "ResourceNotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ResourceNotFoundException"
+            }
+          },
+          "429": {
+            "description": "ThrottlingException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ThrottlingException"
+            }
+          },
+          "500": {
+            "description": "InternalFailureException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalFailureException"
+            }
+          },
+          "503": {
+            "description": "ServiceUnavailableException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ServiceUnavailableException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetPolicyVersionRequest"
+            }
+          },
+          {
+            "name": "policyName",
+            "in": "path",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "policyVersionId",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
       "patch": {
         "operationId": "SetDefaultPolicyVersion",
         "description": "Sets the specified version of the specified policy as the policy's default (operative) version. This action affects all certificates to which the policy is attached. To list the principals the policy is attached to, use the ListPrincipalPolicy API.",
         "responses": {
           "200": {
-            "description": "Success",
-            "schema": {}
+            "description": "Success"
           },
           "400": {
             "description": "InvalidRequestException",
@@ -1030,6 +2517,63 @@
       }
     },
     "/registrationcode": {
+      "delete": {
+        "operationId": "DeleteRegistrationCode",
+        "description": "Deletes a CA certificate registration code.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DeleteRegistrationCodeResponse"
+            }
+          },
+          "401": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "404": {
+            "description": "ResourceNotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ResourceNotFoundException"
+            }
+          },
+          "429": {
+            "description": "ThrottlingException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ThrottlingException"
+            }
+          },
+          "500": {
+            "description": "InternalFailureException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalFailureException"
+            }
+          },
+          "503": {
+            "description": "ServiceUnavailableException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ServiceUnavailableException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteRegistrationCodeRequest"
+            }
+          }
+        ]
+      },
       "get": {
         "operationId": "GetRegistrationCode",
         "description": "Gets a registration code used to register a CA certificate with AWS IoT.",
@@ -1216,8 +2760,7 @@
         "description": "Disables the specified rule.",
         "responses": {
           "200": {
-            "description": "Success",
-            "schema": {}
+            "description": "Success"
           },
           "400": {
             "description": "InvalidRequestException",
@@ -1272,8 +2815,7 @@
         "description": "Enables the specified rule.",
         "responses": {
           "200": {
-            "description": "Success",
-            "schema": {}
+            "description": "Success"
           },
           "400": {
             "description": "InvalidRequestException",
@@ -1323,13 +2865,55 @@
       }
     },
     "/loggingOptions": {
+      "get": {
+        "operationId": "GetLoggingOptions",
+        "description": "Gets the logging options.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetLoggingOptionsResponse"
+            }
+          },
+          "400": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "500": {
+            "description": "InternalException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalException"
+            }
+          },
+          "503": {
+            "description": "ServiceUnavailableException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ServiceUnavailableException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetLoggingOptionsRequest"
+            }
+          }
+        ]
+      },
       "post": {
         "operationId": "SetLoggingOptions",
         "description": "Sets the logging options.",
         "responses": {
           "200": {
-            "description": "Success",
-            "schema": {}
+            "description": "Success"
           },
           "400": {
             "description": "InvalidRequestException",
@@ -2120,8 +3704,7 @@
         "description": "<p>Rejects a pending certificate transfer. After AWS IoT rejects a certificate transfer, the certificate status changes from <b>PENDING_TRANSFER</b> to <b>INACTIVE</b>.</p> <p>To check for pending certificate transfers, call <a>ListCertificates</a> to enumerate your certificates.</p> <p>This operation can only be called by the transfer destination. After it is called, the certificate will be returned to the source's account in the INACTIVE state.</p>",
         "responses": {
           "200": {
-            "description": "Success",
-            "schema": {}
+            "description": "Success"
           },
           "400": {
             "description": "InvalidRequestException",
