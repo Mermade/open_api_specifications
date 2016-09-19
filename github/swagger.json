@@ -6,7 +6,7 @@
 	"host": "api.github.com",
 	"basePath": "/",
 	"info": {
-		"description": "How people build software<p>Millions of developers use GitHub to build personal projects, support their businesses, and work together on open source technologies. You must currently be enrolled in the [Early Access programme](https://github.com/prerelease/agreement) to use this API.",
+		"description": "How people build software<p>Millions of developers use GitHub to build personal projects, support their businesses, and work together on open source technologies. You must currently be enrolled in the [Early Access programme](https://github.com/prerelease/agreement) to use this API. See [more example queries](https://github.com/github/platform-samples/tree/master/graphql/queries).",
 		"version": "1.0.0",
 		"title": "GitHub GraphQL",
 		"termsOfService": "https://help.github.com/articles/github-terms-of-service/#b-api-terms",
@@ -40,7 +40,13 @@
 		}
 	],
 	"securityDefinitions": {
-		"main_auth": {
+		"api_key": {
+			"type": "apiKey",
+			"in": "header",
+			"name": "Authorization",
+			"description": "Set your header value to 'bearer xxx' where xxx is your GitHub oAuth token"
+		},
+		"oauth_flow": {
 			"type": "oauth2",
 			"authorizationUrl": "https://github.com/login/oauth/authorize",
 			"tokenUrl": "https://github.com/login/oauth/access_token",
@@ -70,39 +76,34 @@
 				"write:gpg_key": "Write user gpg keys",
 				"read:gpg_key": "Read user gpg keys"
 			}
-		},
-		"api_key": {
-			"type": "apiKey",
-			"in": "header",
-			"name": "Authorization",
-			"description": "Set your header value to 'bearer xxx' where xxx is your GitHub oAuth token"
 		}
 	},
 	"paths": {
 		"/graphql": {
-			"parameters": [
-				{
-					"name": "body",
-					"in": "body",
-					"description": "GraphQL query parameter",
-					"schema": {
-						"$ref": "#/definitions/Query"
-					},
-					"required": true
-				}
-			],
 			"post": {
 				"tags": [
 					"GraphQL Query"
 				],
 				"summary": "Submit GraphQL query",
-				"description": "You can make a GraphQL query by issuing a <b>POST</b> request with a JSON payload. The payload must have a string called <b>query</b>.",
+				"description": "You can make a GraphQL query by issuing a <b>POST</b> request with a JSON payload. The payload must have a string called <b>query</b>, and may optionally have a <b>variables</b> object. If the <b>query</b> parameter contains multiple queries, the <b>operationName</b> parameter must be sent to indicate which query to execute.",
 				"operationId": "postQuery",
 				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "GraphQL query parameter",
+						"schema": {
+							"$ref": "#/definitions/Query"
+						},
+						"required": true
+					}
 				],
 				"security": [
 					{
-						"main_auth": [
+						"api_key": []
+					},
+					{
+						"oauth_flow": [
 							"repo",
 							"repo:status",
 							"repo_deployment",
@@ -127,10 +128,11 @@
 							"write:gpg_key",
 							"read:gpg_key"
 						]
-					},
-					{
-						"api_key": []
 					}
+				],
+				"consumes": [
+					"application/json",
+					"application/graphql"
 				],
 				"produces": [
 					"application/json"
@@ -159,21 +161,102 @@
 						"description": "Internal server error"
 					}
 				}
+			},
+			"get": {
+				"tags": [
+					"GraphQL Query"
+				],
+				"summary": "Submit GraphQL query",
+				"description": "You can make a GraphQL query by issuing a <b>GET</b> request to retrieve the GitHub GraphQL schema.",
+				"operationId": "postQuery",
+				"security": [
+					{
+						"api_key": []
+					},
+					{
+						"oauth_flow": [
+							"repo",
+							"repo:status",
+							"repo_deployment",
+							"public_repo",
+							"admin:org",
+							"write:org",
+							"read:org",
+							"admin:public_key",
+							"write:public_key",
+							"read:public_key",
+							"admin:repo_hook",
+							"write:repo_hook",
+							"read:repo_hook",
+							"admin:org_hook",
+							"gist",
+							"notifications",
+							"user",
+							"user:email",
+							"user:follow",
+							"delete_repo",
+							"admin:gpg_key",
+							"write:gpg_key",
+							"read:gpg_key"
+						]
+					}
+				],
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"schema": {
+							"$ref": "#/definitions/Response"
+						},
+						"examples": {
+							"application/json": {
+							  "data": {
+								"__schema": {
+									  "queryType": {
+										"name": "Query"
+									  },
+									  "mutationType": {
+										"name": "Mutation"
+									  },
+									  "subscriptionType": null,
+									  "types": []
+									}
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Not found"
+					},
+					"500": {
+						"description": "Internal server error"
+					}
+				}
 			}
 		}
 	},
 	"definitions": {
 		"Query": {
-			"type": "object",
-			"description": "The GraphQL query",
 			"properties": {
 				"query": {
 					"type": "string"
+				},
+				"variables": {
+					"type": "object"
+				},
+				"operationName": {
+					"type": "string"
 				}
 			},
+			"required": [
+				"query"
+			],
 			"example": {
 				"query": "query { viewer { login email } }"
 			}
+
 		},
 		"Response": {
 			"type": "object",
@@ -181,6 +264,37 @@
 				"data": {
 					"description": "The returned data",
 					"type": "object"
+				},
+				"errors": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Error"
+					}
+				}
+			}
+		},
+		"Error": {
+			"type": "object",
+			"properties": {
+				"message": {
+					"type": "string"
+				},
+				"locations": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Location"
+					}
+				}
+			}
+		},
+		"Location": {
+			"type": "object",
+			"properties": {
+				"line": {
+					"type": "integer"
+				},
+				"column": {
+					"type": "integer"
 				}
 			}
 		}
