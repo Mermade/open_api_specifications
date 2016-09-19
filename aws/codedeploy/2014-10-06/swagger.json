@@ -35,11 +35,28 @@
   "produces": [
     "application/json"
   ],
+  "parameters": {
+    "X-Amz-Content-Sha256": {
+      "name": "X-Amz-Content-Sha256",
+      "in": "header",
+      "type": "string",
+      "required": true
+    },
+    "X-Amz-Date": {
+      "name": "X-Amz-Date",
+      "in": "header",
+      "type": "string",
+      "format": "date-time",
+      "required": true
+    }
+  },
   "securityDefinitions": {
     "hmac": {
       "type": "apiKey",
       "name": "Authorization",
-      "in": "header"
+      "in": "header",
+      "description": "Amazon Signature authorization v4",
+      "x-amazon-apigateway-authtype": "awsSigv4"
     }
   },
   "security": [
@@ -59,97 +76,97 @@
               "$ref": "#/definitions/UpdateDeploymentGroupOutput"
             }
           },
-          "400": {
+          "480": {
             "description": "ApplicationNameRequiredException",
             "schema": {
               "$ref": "#/definitions/ApplicationNameRequiredException"
             }
           },
-          "401": {
+          "481": {
             "description": "InvalidApplicationNameException",
             "schema": {
               "$ref": "#/definitions/InvalidApplicationNameException"
             }
           },
-          "402": {
+          "482": {
             "description": "ApplicationDoesNotExistException",
             "schema": {
               "$ref": "#/definitions/ApplicationDoesNotExistException"
             }
           },
-          "403": {
+          "483": {
             "description": "InvalidDeploymentGroupNameException",
             "schema": {
               "$ref": "#/definitions/InvalidDeploymentGroupNameException"
             }
           },
-          "404": {
+          "484": {
             "description": "DeploymentGroupAlreadyExistsException",
             "schema": {
               "$ref": "#/definitions/DeploymentGroupAlreadyExistsException"
             }
           },
-          "405": {
+          "485": {
             "description": "DeploymentGroupNameRequiredException",
             "schema": {
               "$ref": "#/definitions/DeploymentGroupNameRequiredException"
             }
           },
-          "406": {
+          "486": {
             "description": "DeploymentGroupDoesNotExistException",
             "schema": {
               "$ref": "#/definitions/DeploymentGroupDoesNotExistException"
             }
           },
-          "407": {
+          "487": {
             "description": "InvalidEC2TagException",
             "schema": {
               "$ref": "#/definitions/InvalidEC2TagException"
             }
           },
-          "408": {
+          "488": {
             "description": "InvalidTagException",
             "schema": {
               "$ref": "#/definitions/InvalidTagException"
             }
           },
-          "409": {
+          "489": {
             "description": "InvalidAutoScalingGroupException",
             "schema": {
               "$ref": "#/definitions/InvalidAutoScalingGroupException"
             }
           },
-          "410": {
+          "490": {
             "description": "InvalidDeploymentConfigNameException",
             "schema": {
               "$ref": "#/definitions/InvalidDeploymentConfigNameException"
             }
           },
-          "411": {
+          "491": {
             "description": "DeploymentConfigDoesNotExistException",
             "schema": {
               "$ref": "#/definitions/DeploymentConfigDoesNotExistException"
             }
           },
-          "412": {
+          "492": {
             "description": "InvalidRoleException",
             "schema": {
               "$ref": "#/definitions/InvalidRoleException"
             }
           },
-          "413": {
+          "493": {
             "description": "LifecycleHookLimitExceededException",
             "schema": {
               "$ref": "#/definitions/LifecycleHookLimitExceededException"
             }
           },
-          "414": {
+          "494": {
             "description": "InvalidTriggerConfigException",
             "schema": {
               "$ref": "#/definitions/InvalidTriggerConfigException"
             }
           },
-          "415": {
+          "495": {
             "description": "TriggerTargetsLimitExceededException",
             "schema": {
               "$ref": "#/definitions/TriggerTargetsLimitExceededException"
@@ -166,7 +183,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     }
   },
   "definitions": {

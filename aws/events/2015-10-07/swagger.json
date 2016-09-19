@@ -35,11 +35,28 @@
   "produces": [
     "application/json"
   ],
+  "parameters": {
+    "X-Amz-Content-Sha256": {
+      "name": "X-Amz-Content-Sha256",
+      "in": "header",
+      "type": "string",
+      "required": true
+    },
+    "X-Amz-Date": {
+      "name": "X-Amz-Date",
+      "in": "header",
+      "type": "string",
+      "format": "date-time",
+      "required": true
+    }
+  },
   "securityDefinitions": {
     "hmac": {
       "type": "apiKey",
       "name": "Authorization",
-      "in": "header"
+      "in": "header",
+      "description": "Amazon Signature authorization v4",
+      "x-amazon-apigateway-authtype": "awsSigv4"
     }
   },
   "security": [
@@ -59,14 +76,14 @@
               "$ref": "#/definitions/TestEventPatternResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "InvalidEventPatternException",
             "x-aws-exception": true,
             "schema": {
               "$ref": "#/definitions/InvalidEventPatternException"
             }
           },
-          "401": {
+          "481": {
             "description": "InternalException",
             "x-aws-exception": true,
             "schema": {
@@ -84,7 +101,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     }
   },
   "definitions": {

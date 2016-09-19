@@ -35,11 +35,28 @@
   "produces": [
     "application/json"
   ],
+  "parameters": {
+    "X-Amz-Content-Sha256": {
+      "name": "X-Amz-Content-Sha256",
+      "in": "header",
+      "type": "string",
+      "required": true
+    },
+    "X-Amz-Date": {
+      "name": "X-Amz-Date",
+      "in": "header",
+      "type": "string",
+      "format": "date-time",
+      "required": true
+    }
+  },
   "securityDefinitions": {
     "hmac": {
       "type": "apiKey",
       "name": "Authorization",
-      "in": "header"
+      "in": "header",
+      "description": "Amazon Signature authorization v4",
+      "x-amazon-apigateway-authtype": "awsSigv4"
     }
   },
   "security": [
@@ -59,28 +76,28 @@
               "$ref": "#/definitions/ValidatePipelineDefinitionOutput"
             }
           },
-          "400": {
+          "480": {
             "description": "InternalServiceError",
             "x-aws-exception": true,
             "schema": {
               "$ref": "#/definitions/InternalServiceError"
             }
           },
-          "401": {
+          "481": {
             "description": "InvalidRequestException",
             "x-aws-exception": true,
             "schema": {
               "$ref": "#/definitions/InvalidRequestException"
             }
           },
-          "402": {
+          "482": {
             "description": "PipelineNotFoundException",
             "x-aws-exception": true,
             "schema": {
               "$ref": "#/definitions/PipelineNotFoundException"
             }
           },
-          "403": {
+          "483": {
             "description": "PipelineDeletedException",
             "x-aws-exception": true,
             "schema": {
@@ -98,7 +115,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     }
   },
   "definitions": {

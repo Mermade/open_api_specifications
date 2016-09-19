@@ -35,11 +35,28 @@
   "produces": [
     "application/json"
   ],
+  "parameters": {
+    "X-Amz-Content-Sha256": {
+      "name": "X-Amz-Content-Sha256",
+      "in": "header",
+      "type": "string",
+      "required": true
+    },
+    "X-Amz-Date": {
+      "name": "X-Amz-Date",
+      "in": "header",
+      "type": "string",
+      "format": "date-time",
+      "required": true
+    }
+  },
   "securityDefinitions": {
     "hmac": {
       "type": "apiKey",
       "name": "Authorization",
-      "in": "header"
+      "in": "header",
+      "description": "Amazon Signature authorization v4",
+      "x-amazon-apigateway-authtype": "awsSigv4"
     }
   },
   "security": [
@@ -59,37 +76,37 @@
               "$ref": "#/definitions/AddPermissionResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "ServiceException",
             "schema": {
               "$ref": "#/definitions/ServiceException"
             }
           },
-          "401": {
+          "481": {
             "description": "ResourceNotFoundException",
             "schema": {
               "$ref": "#/definitions/ResourceNotFoundException"
             }
           },
-          "402": {
+          "482": {
             "description": "ResourceConflictException",
             "schema": {
               "$ref": "#/definitions/ResourceConflictException"
             }
           },
-          "403": {
+          "483": {
             "description": "InvalidParameterValueException",
             "schema": {
               "$ref": "#/definitions/InvalidParameterValueException"
             }
           },
-          "404": {
+          "484": {
             "description": "PolicyLengthExceededException",
             "schema": {
               "$ref": "#/definitions/PolicyLengthExceededException"
             }
           },
-          "405": {
+          "485": {
             "description": "TooManyRequestsException",
             "schema": {
               "$ref": "#/definitions/TooManyRequestsException"
@@ -118,6 +135,14 @@
           }
         ]
       },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ],
       "get": {
         "operationId": "GetPolicy",
         "description": "<p>Returns the resource policy associated with the specified Lambda function.</p> <p> If you are using the versioning feature, you can get the resource policy associated with the specific Lambda function version or alias by specifying the version or alias name using the <code>Qualifier</code> parameter. For more information about versioning, see <a href=\"http://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html\">AWS Lambda Function Versioning and Aliases</a>. </p> <p>For information about adding permissions, see <a>AddPermission</a>.</p> <p>You need permission for the <code>lambda:GetPolicy action.</code> </p>",
@@ -128,25 +153,25 @@
               "$ref": "#/definitions/GetPolicyResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "ServiceException",
             "schema": {
               "$ref": "#/definitions/ServiceException"
             }
           },
-          "401": {
+          "481": {
             "description": "ResourceNotFoundException",
             "schema": {
               "$ref": "#/definitions/ResourceNotFoundException"
             }
           },
-          "402": {
+          "482": {
             "description": "TooManyRequestsException",
             "schema": {
               "$ref": "#/definitions/TooManyRequestsException"
             }
           },
-          "403": {
+          "483": {
             "description": "InvalidParameterValueException",
             "schema": {
               "$ref": "#/definitions/InvalidParameterValueException"
@@ -187,31 +212,31 @@
               "$ref": "#/definitions/AliasConfiguration"
             }
           },
-          "400": {
+          "480": {
             "description": "ServiceException",
             "schema": {
               "$ref": "#/definitions/ServiceException"
             }
           },
-          "401": {
+          "481": {
             "description": "ResourceNotFoundException",
             "schema": {
               "$ref": "#/definitions/ResourceNotFoundException"
             }
           },
-          "402": {
+          "482": {
             "description": "ResourceConflictException",
             "schema": {
               "$ref": "#/definitions/ResourceConflictException"
             }
           },
-          "403": {
+          "483": {
             "description": "InvalidParameterValueException",
             "schema": {
               "$ref": "#/definitions/InvalidParameterValueException"
             }
           },
-          "404": {
+          "484": {
             "description": "TooManyRequestsException",
             "schema": {
               "$ref": "#/definitions/TooManyRequestsException"
@@ -240,6 +265,14 @@
           }
         ]
       },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ],
       "get": {
         "operationId": "ListAliases",
         "description": "<p>Returns list of aliases created for a Lambda function. For each alias, the response includes information such as the alias ARN, description, alias name, and the function version to which it points. For more information, see <a href=\"http://docs.aws.amazon.com/lambda/latest/dg/aliases-intro.html\">Introduction to AWS Lambda Aliases</a>.</p> <p>This requires permission for the lambda:ListAliases action.</p>",
@@ -250,25 +283,25 @@
               "$ref": "#/definitions/ListAliasesResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "ServiceException",
             "schema": {
               "$ref": "#/definitions/ServiceException"
             }
           },
-          "401": {
+          "481": {
             "description": "ResourceNotFoundException",
             "schema": {
               "$ref": "#/definitions/ResourceNotFoundException"
             }
           },
-          "402": {
+          "482": {
             "description": "InvalidParameterValueException",
             "schema": {
               "$ref": "#/definitions/InvalidParameterValueException"
             }
           },
-          "403": {
+          "483": {
             "description": "TooManyRequestsException",
             "schema": {
               "$ref": "#/definitions/TooManyRequestsException"
@@ -309,31 +342,31 @@
               "$ref": "#/definitions/EventSourceMappingConfiguration"
             }
           },
-          "400": {
+          "480": {
             "description": "ServiceException",
             "schema": {
               "$ref": "#/definitions/ServiceException"
             }
           },
-          "401": {
+          "481": {
             "description": "InvalidParameterValueException",
             "schema": {
               "$ref": "#/definitions/InvalidParameterValueException"
             }
           },
-          "402": {
+          "482": {
             "description": "ResourceConflictException",
             "schema": {
               "$ref": "#/definitions/ResourceConflictException"
             }
           },
-          "403": {
+          "483": {
             "description": "TooManyRequestsException",
             "schema": {
               "$ref": "#/definitions/TooManyRequestsException"
             }
           },
-          "404": {
+          "484": {
             "description": "ResourceNotFoundException",
             "schema": {
               "$ref": "#/definitions/ResourceNotFoundException"
@@ -351,6 +384,14 @@
           }
         ]
       },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ],
       "get": {
         "operationId": "ListEventSourceMappings",
         "description": "<p>Returns a list of event source mappings you created using the <code>CreateEventSourceMapping</code> (see <a>CreateEventSourceMapping</a>). </p> <p>For each mapping, the API returns configuration information. You can optionally specify filters to retrieve specific event source mappings.</p> <p>If you are using the versioning feature, you can get list of event source mappings for a specific Lambda function version or an alias as described in the <code>FunctionName</code> parameter. For information about the versioning feature, see <a href=\"http://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html\">AWS Lambda Function Versioning and Aliases</a>. </p> <p>This operation requires permission for the <code>lambda:ListEventSourceMappings</code> action.</p>",
@@ -361,25 +402,25 @@
               "$ref": "#/definitions/ListEventSourceMappingsResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "ServiceException",
             "schema": {
               "$ref": "#/definitions/ServiceException"
             }
           },
-          "401": {
+          "481": {
             "description": "ResourceNotFoundException",
             "schema": {
               "$ref": "#/definitions/ResourceNotFoundException"
             }
           },
-          "402": {
+          "482": {
             "description": "InvalidParameterValueException",
             "schema": {
               "$ref": "#/definitions/InvalidParameterValueException"
             }
           },
-          "403": {
+          "483": {
             "description": "TooManyRequestsException",
             "schema": {
               "$ref": "#/definitions/TooManyRequestsException"
@@ -409,37 +450,37 @@
               "$ref": "#/definitions/FunctionConfiguration"
             }
           },
-          "400": {
+          "480": {
             "description": "ServiceException",
             "schema": {
               "$ref": "#/definitions/ServiceException"
             }
           },
-          "401": {
+          "481": {
             "description": "InvalidParameterValueException",
             "schema": {
               "$ref": "#/definitions/InvalidParameterValueException"
             }
           },
-          "402": {
+          "482": {
             "description": "ResourceNotFoundException",
             "schema": {
               "$ref": "#/definitions/ResourceNotFoundException"
             }
           },
-          "403": {
+          "483": {
             "description": "ResourceConflictException",
             "schema": {
               "$ref": "#/definitions/ResourceConflictException"
             }
           },
-          "404": {
+          "484": {
             "description": "TooManyRequestsException",
             "schema": {
               "$ref": "#/definitions/TooManyRequestsException"
             }
           },
-          "405": {
+          "485": {
             "description": "CodeStorageExceededException",
             "schema": {
               "$ref": "#/definitions/CodeStorageExceededException"
@@ -456,7 +497,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/2015-03-31/functions/{FunctionName}/aliases/{Name}": {
       "delete": {
@@ -466,19 +515,19 @@
           "204": {
             "description": "Success"
           },
-          "400": {
+          "480": {
             "description": "ServiceException",
             "schema": {
               "$ref": "#/definitions/ServiceException"
             }
           },
-          "401": {
+          "481": {
             "description": "InvalidParameterValueException",
             "schema": {
               "$ref": "#/definitions/InvalidParameterValueException"
             }
           },
-          "402": {
+          "482": {
             "description": "TooManyRequestsException",
             "schema": {
               "$ref": "#/definitions/TooManyRequestsException"
@@ -513,6 +562,14 @@
           }
         ]
       },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ],
       "get": {
         "operationId": "GetAlias",
         "description": "<p>Returns the specified alias information such as the alias ARN, description, and function version it is pointing to. For more information, see <a href=\"http://docs.aws.amazon.com/lambda/latest/dg/aliases-intro.html\">Introduction to AWS Lambda Aliases</a>.</p> <p>This requires permission for the <code>lambda:GetAlias</code> action.</p>",
@@ -523,25 +580,25 @@
               "$ref": "#/definitions/AliasConfiguration"
             }
           },
-          "400": {
+          "480": {
             "description": "ServiceException",
             "schema": {
               "$ref": "#/definitions/ServiceException"
             }
           },
-          "401": {
+          "481": {
             "description": "ResourceNotFoundException",
             "schema": {
               "$ref": "#/definitions/ResourceNotFoundException"
             }
           },
-          "402": {
+          "482": {
             "description": "InvalidParameterValueException",
             "schema": {
               "$ref": "#/definitions/InvalidParameterValueException"
             }
           },
-          "403": {
+          "483": {
             "description": "TooManyRequestsException",
             "schema": {
               "$ref": "#/definitions/TooManyRequestsException"
@@ -586,25 +643,25 @@
               "$ref": "#/definitions/AliasConfiguration"
             }
           },
-          "400": {
+          "480": {
             "description": "ServiceException",
             "schema": {
               "$ref": "#/definitions/ServiceException"
             }
           },
-          "401": {
+          "481": {
             "description": "ResourceNotFoundException",
             "schema": {
               "$ref": "#/definitions/ResourceNotFoundException"
             }
           },
-          "402": {
+          "482": {
             "description": "InvalidParameterValueException",
             "schema": {
               "$ref": "#/definitions/InvalidParameterValueException"
             }
           },
-          "403": {
+          "483": {
             "description": "TooManyRequestsException",
             "schema": {
               "$ref": "#/definitions/TooManyRequestsException"
@@ -651,25 +708,25 @@
               "$ref": "#/definitions/EventSourceMappingConfiguration"
             }
           },
-          "400": {
+          "480": {
             "description": "ServiceException",
             "schema": {
               "$ref": "#/definitions/ServiceException"
             }
           },
-          "401": {
+          "481": {
             "description": "ResourceNotFoundException",
             "schema": {
               "$ref": "#/definitions/ResourceNotFoundException"
             }
           },
-          "402": {
+          "482": {
             "description": "InvalidParameterValueException",
             "schema": {
               "$ref": "#/definitions/InvalidParameterValueException"
             }
           },
-          "403": {
+          "483": {
             "description": "TooManyRequestsException",
             "schema": {
               "$ref": "#/definitions/TooManyRequestsException"
@@ -693,6 +750,14 @@
           }
         ]
       },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ],
       "get": {
         "operationId": "GetEventSourceMapping",
         "description": "<p>Returns configuration information for the specified event source mapping (see <a>CreateEventSourceMapping</a>).</p> <p>This operation requires permission for the <code>lambda:GetEventSourceMapping</code> action.</p>",
@@ -703,25 +768,25 @@
               "$ref": "#/definitions/EventSourceMappingConfiguration"
             }
           },
-          "400": {
+          "480": {
             "description": "ServiceException",
             "schema": {
               "$ref": "#/definitions/ServiceException"
             }
           },
-          "401": {
+          "481": {
             "description": "ResourceNotFoundException",
             "schema": {
               "$ref": "#/definitions/ResourceNotFoundException"
             }
           },
-          "402": {
+          "482": {
             "description": "InvalidParameterValueException",
             "schema": {
               "$ref": "#/definitions/InvalidParameterValueException"
             }
           },
-          "403": {
+          "483": {
             "description": "TooManyRequestsException",
             "schema": {
               "$ref": "#/definitions/TooManyRequestsException"
@@ -755,31 +820,31 @@
               "$ref": "#/definitions/EventSourceMappingConfiguration"
             }
           },
-          "400": {
+          "480": {
             "description": "ServiceException",
             "schema": {
               "$ref": "#/definitions/ServiceException"
             }
           },
-          "401": {
+          "481": {
             "description": "ResourceNotFoundException",
             "schema": {
               "$ref": "#/definitions/ResourceNotFoundException"
             }
           },
-          "402": {
+          "482": {
             "description": "InvalidParameterValueException",
             "schema": {
               "$ref": "#/definitions/InvalidParameterValueException"
             }
           },
-          "403": {
+          "483": {
             "description": "TooManyRequestsException",
             "schema": {
               "$ref": "#/definitions/TooManyRequestsException"
             }
           },
-          "404": {
+          "484": {
             "description": "ResourceConflictException",
             "schema": {
               "$ref": "#/definitions/ResourceConflictException"
@@ -812,31 +877,31 @@
           "204": {
             "description": "Success"
           },
-          "400": {
+          "480": {
             "description": "ServiceException",
             "schema": {
               "$ref": "#/definitions/ServiceException"
             }
           },
-          "401": {
+          "481": {
             "description": "ResourceNotFoundException",
             "schema": {
               "$ref": "#/definitions/ResourceNotFoundException"
             }
           },
-          "402": {
+          "482": {
             "description": "TooManyRequestsException",
             "schema": {
               "$ref": "#/definitions/TooManyRequestsException"
             }
           },
-          "403": {
+          "483": {
             "description": "InvalidParameterValueException",
             "schema": {
               "$ref": "#/definitions/InvalidParameterValueException"
             }
           },
-          "404": {
+          "484": {
             "description": "ResourceConflictException",
             "schema": {
               "$ref": "#/definitions/ResourceConflictException"
@@ -865,6 +930,14 @@
           }
         ]
       },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ],
       "get": {
         "operationId": "GetFunction",
         "description": "<p>Returns the configuration information of the Lambda function and a presigned URL link to the .zip file you uploaded with <a>CreateFunction</a> so you can download the .zip file. Note that the URL is valid for up to 10 minutes. The configuration information is the same information you provided as parameters when uploading the function.</p> <p>Using the optional <code>Qualifier</code> parameter, you can specify a specific function version for which you want this information. If you don't specify this parameter, the API uses unqualified function ARN which return information about the <code>$LATEST</code> version of the Lambda function. For more information, see <a href=\"http://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html\">AWS Lambda Function Versioning and Aliases</a>.</p> <p>This operation requires permission for the <code>lambda:GetFunction</code> action.</p>",
@@ -875,25 +948,25 @@
               "$ref": "#/definitions/GetFunctionResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "ServiceException",
             "schema": {
               "$ref": "#/definitions/ServiceException"
             }
           },
-          "401": {
+          "481": {
             "description": "ResourceNotFoundException",
             "schema": {
               "$ref": "#/definitions/ResourceNotFoundException"
             }
           },
-          "402": {
+          "482": {
             "description": "TooManyRequestsException",
             "schema": {
               "$ref": "#/definitions/TooManyRequestsException"
             }
           },
-          "403": {
+          "483": {
             "description": "InvalidParameterValueException",
             "schema": {
               "$ref": "#/definitions/InvalidParameterValueException"
@@ -934,25 +1007,25 @@
               "$ref": "#/definitions/FunctionConfiguration"
             }
           },
-          "400": {
+          "480": {
             "description": "ServiceException",
             "schema": {
               "$ref": "#/definitions/ServiceException"
             }
           },
-          "401": {
+          "481": {
             "description": "ResourceNotFoundException",
             "schema": {
               "$ref": "#/definitions/ResourceNotFoundException"
             }
           },
-          "402": {
+          "482": {
             "description": "TooManyRequestsException",
             "schema": {
               "$ref": "#/definitions/TooManyRequestsException"
             }
           },
-          "403": {
+          "483": {
             "description": "InvalidParameterValueException",
             "schema": {
               "$ref": "#/definitions/InvalidParameterValueException"
@@ -981,6 +1054,14 @@
           }
         ]
       },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ],
       "put": {
         "operationId": "UpdateFunctionConfiguration",
         "description": "<p>Updates the configuration parameters for the specified Lambda function by using the values provided in the request. You provide only the parameters you want to change. This operation must only be used on an existing Lambda function and cannot be used to update the function's code.</p> <p>If you are using the versioning feature, note this API will always update the $LATEST version of your Lambda function. For information about the versioning feature, see <a href=\"http://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html\">AWS Lambda Function Versioning and Aliases</a>. </p> <p>This operation requires permission for the <code>lambda:UpdateFunctionConfiguration</code> action.</p>",
@@ -991,25 +1072,25 @@
               "$ref": "#/definitions/FunctionConfiguration"
             }
           },
-          "400": {
+          "480": {
             "description": "ServiceException",
             "schema": {
               "$ref": "#/definitions/ServiceException"
             }
           },
-          "401": {
+          "481": {
             "description": "ResourceNotFoundException",
             "schema": {
               "$ref": "#/definitions/ResourceNotFoundException"
             }
           },
-          "402": {
+          "482": {
             "description": "InvalidParameterValueException",
             "schema": {
               "$ref": "#/definitions/InvalidParameterValueException"
             }
           },
-          "403": {
+          "483": {
             "description": "TooManyRequestsException",
             "schema": {
               "$ref": "#/definitions/TooManyRequestsException"
@@ -1050,91 +1131,91 @@
               "$ref": "#/definitions/InvocationResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "ServiceException",
             "schema": {
               "$ref": "#/definitions/ServiceException"
             }
           },
-          "401": {
+          "481": {
             "description": "ResourceNotFoundException",
             "schema": {
               "$ref": "#/definitions/ResourceNotFoundException"
             }
           },
-          "402": {
+          "482": {
             "description": "InvalidRequestContentException",
             "schema": {
               "$ref": "#/definitions/InvalidRequestContentException"
             }
           },
-          "403": {
+          "483": {
             "description": "RequestTooLargeException",
             "schema": {
               "$ref": "#/definitions/RequestTooLargeException"
             }
           },
-          "404": {
+          "484": {
             "description": "UnsupportedMediaTypeException",
             "schema": {
               "$ref": "#/definitions/UnsupportedMediaTypeException"
             }
           },
-          "405": {
+          "485": {
             "description": "TooManyRequestsException",
             "schema": {
               "$ref": "#/definitions/TooManyRequestsException"
             }
           },
-          "406": {
+          "486": {
             "description": "InvalidParameterValueException",
             "schema": {
               "$ref": "#/definitions/InvalidParameterValueException"
             }
           },
-          "407": {
+          "487": {
             "description": "EC2UnexpectedException",
             "schema": {
               "$ref": "#/definitions/EC2UnexpectedException"
             }
           },
-          "408": {
+          "488": {
             "description": "SubnetIPAddressLimitReachedException",
             "schema": {
               "$ref": "#/definitions/SubnetIPAddressLimitReachedException"
             }
           },
-          "409": {
+          "489": {
             "description": "ENILimitReachedException",
             "schema": {
               "$ref": "#/definitions/ENILimitReachedException"
             }
           },
-          "410": {
+          "490": {
             "description": "EC2ThrottledException",
             "schema": {
               "$ref": "#/definitions/EC2ThrottledException"
             }
           },
-          "411": {
+          "491": {
             "description": "EC2AccessDeniedException",
             "schema": {
               "$ref": "#/definitions/EC2AccessDeniedException"
             }
           },
-          "412": {
+          "492": {
             "description": "InvalidSubnetIDException",
             "schema": {
               "$ref": "#/definitions/InvalidSubnetIDException"
             }
           },
-          "413": {
+          "493": {
             "description": "InvalidSecurityGroupIDException",
             "schema": {
               "$ref": "#/definitions/InvalidSecurityGroupIDException"
             }
           },
-          "414": {
+          "494": {
             "description": "InvalidZipFileException",
             "schema": {
               "$ref": "#/definitions/InvalidZipFileException"
@@ -1162,7 +1243,15 @@
             "type": "string"
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/2014-11-13/functions/{FunctionName}/invoke-async/": {
       "post": {
@@ -1175,19 +1264,19 @@
               "$ref": "#/definitions/InvokeAsyncResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "ServiceException",
             "schema": {
               "$ref": "#/definitions/ServiceException"
             }
           },
-          "401": {
+          "481": {
             "description": "ResourceNotFoundException",
             "schema": {
               "$ref": "#/definitions/ResourceNotFoundException"
             }
           },
-          "402": {
+          "482": {
             "description": "InvalidRequestContentException",
             "schema": {
               "$ref": "#/definitions/InvalidRequestContentException"
@@ -1215,7 +1304,15 @@
             "type": "string"
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/2015-03-31/functions/": {
       "get": {
@@ -1228,13 +1325,13 @@
               "$ref": "#/definitions/ListFunctionsResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "ServiceException",
             "schema": {
               "$ref": "#/definitions/ServiceException"
             }
           },
-          "401": {
+          "481": {
             "description": "TooManyRequestsException",
             "schema": {
               "$ref": "#/definitions/TooManyRequestsException"
@@ -1251,7 +1348,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/2015-03-31/functions/{FunctionName}/versions": {
       "get": {
@@ -1264,25 +1369,25 @@
               "$ref": "#/definitions/ListVersionsByFunctionResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "ServiceException",
             "schema": {
               "$ref": "#/definitions/ServiceException"
             }
           },
-          "401": {
+          "481": {
             "description": "ResourceNotFoundException",
             "schema": {
               "$ref": "#/definitions/ResourceNotFoundException"
             }
           },
-          "402": {
+          "482": {
             "description": "InvalidParameterValueException",
             "schema": {
               "$ref": "#/definitions/InvalidParameterValueException"
             }
           },
-          "403": {
+          "483": {
             "description": "TooManyRequestsException",
             "schema": {
               "$ref": "#/definitions/TooManyRequestsException"
@@ -1311,6 +1416,14 @@
           }
         ]
       },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ],
       "post": {
         "operationId": "PublishVersion",
         "description": "Publishes a version of your function from the current snapshot of $LATEST. That is, AWS Lambda takes a snapshot of the function code and configuration information from $LATEST and publishes a new version. The code and configuration cannot be modified after publication. For information about the versioning feature, see <a href=\"http://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html\">AWS Lambda Function Versioning and Aliases</a>. ",
@@ -1321,31 +1434,31 @@
               "$ref": "#/definitions/FunctionConfiguration"
             }
           },
-          "400": {
+          "480": {
             "description": "ServiceException",
             "schema": {
               "$ref": "#/definitions/ServiceException"
             }
           },
-          "401": {
+          "481": {
             "description": "ResourceNotFoundException",
             "schema": {
               "$ref": "#/definitions/ResourceNotFoundException"
             }
           },
-          "402": {
+          "482": {
             "description": "InvalidParameterValueException",
             "schema": {
               "$ref": "#/definitions/InvalidParameterValueException"
             }
           },
-          "403": {
+          "483": {
             "description": "TooManyRequestsException",
             "schema": {
               "$ref": "#/definitions/TooManyRequestsException"
             }
           },
-          "404": {
+          "484": {
             "description": "CodeStorageExceededException",
             "schema": {
               "$ref": "#/definitions/CodeStorageExceededException"
@@ -1383,25 +1496,25 @@
           "204": {
             "description": "Success"
           },
-          "400": {
+          "480": {
             "description": "ServiceException",
             "schema": {
               "$ref": "#/definitions/ServiceException"
             }
           },
-          "401": {
+          "481": {
             "description": "ResourceNotFoundException",
             "schema": {
               "$ref": "#/definitions/ResourceNotFoundException"
             }
           },
-          "402": {
+          "482": {
             "description": "InvalidParameterValueException",
             "schema": {
               "$ref": "#/definitions/InvalidParameterValueException"
             }
           },
-          "403": {
+          "483": {
             "description": "TooManyRequestsException",
             "schema": {
               "$ref": "#/definitions/TooManyRequestsException"
@@ -1435,7 +1548,15 @@
             "required": true
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/2015-03-31/functions/{FunctionName}/code": {
       "put": {
@@ -1448,31 +1569,31 @@
               "$ref": "#/definitions/FunctionConfiguration"
             }
           },
-          "400": {
+          "480": {
             "description": "ServiceException",
             "schema": {
               "$ref": "#/definitions/ServiceException"
             }
           },
-          "401": {
+          "481": {
             "description": "ResourceNotFoundException",
             "schema": {
               "$ref": "#/definitions/ResourceNotFoundException"
             }
           },
-          "402": {
+          "482": {
             "description": "InvalidParameterValueException",
             "schema": {
               "$ref": "#/definitions/InvalidParameterValueException"
             }
           },
-          "403": {
+          "483": {
             "description": "TooManyRequestsException",
             "schema": {
               "$ref": "#/definitions/TooManyRequestsException"
             }
           },
-          "404": {
+          "484": {
             "description": "CodeStorageExceededException",
             "schema": {
               "$ref": "#/definitions/CodeStorageExceededException"
@@ -1500,7 +1621,15 @@
             "type": "string"
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     }
   },
   "definitions": {

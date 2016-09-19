@@ -35,11 +35,28 @@
   "produces": [
     "application/json"
   ],
+  "parameters": {
+    "X-Amz-Content-Sha256": {
+      "name": "X-Amz-Content-Sha256",
+      "in": "header",
+      "type": "string",
+      "required": true
+    },
+    "X-Amz-Date": {
+      "name": "X-Amz-Date",
+      "in": "header",
+      "type": "string",
+      "format": "date-time",
+      "required": true
+    }
+  },
   "securityDefinitions": {
     "hmac": {
       "type": "apiKey",
       "name": "Authorization",
-      "in": "header"
+      "in": "header",
+      "description": "Amazon Signature authorization v4",
+      "x-amazon-apigateway-authtype": "awsSigv4"
     }
   },
   "security": [
@@ -59,49 +76,49 @@
               "$ref": "#/definitions/UpdateXssMatchSetResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "WAFInternalErrorException",
             "schema": {
               "$ref": "#/definitions/WAFInternalErrorException"
             }
           },
-          "401": {
+          "481": {
             "description": "WAFInvalidAccountException",
             "schema": {
               "$ref": "#/definitions/WAFInvalidAccountException"
             }
           },
-          "402": {
+          "482": {
             "description": "WAFInvalidOperationException",
             "schema": {
               "$ref": "#/definitions/WAFInvalidOperationException"
             }
           },
-          "403": {
+          "483": {
             "description": "WAFInvalidParameterException",
             "schema": {
               "$ref": "#/definitions/WAFInvalidParameterException"
             }
           },
-          "404": {
+          "484": {
             "description": "WAFNonexistentContainerException",
             "schema": {
               "$ref": "#/definitions/WAFNonexistentContainerException"
             }
           },
-          "405": {
+          "485": {
             "description": "WAFNonexistentItemException",
             "schema": {
               "$ref": "#/definitions/WAFNonexistentItemException"
             }
           },
-          "406": {
+          "486": {
             "description": "WAFStaleDataException",
             "schema": {
               "$ref": "#/definitions/WAFStaleDataException"
             }
           },
-          "407": {
+          "487": {
             "description": "WAFLimitsExceededException",
             "schema": {
               "$ref": "#/definitions/WAFLimitsExceededException"
@@ -118,7 +135,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     }
   },
   "definitions": {

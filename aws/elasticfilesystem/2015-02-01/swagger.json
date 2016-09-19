@@ -35,11 +35,28 @@
   "produces": [
     "application/json"
   ],
+  "parameters": {
+    "X-Amz-Content-Sha256": {
+      "name": "X-Amz-Content-Sha256",
+      "in": "header",
+      "type": "string",
+      "required": true
+    },
+    "X-Amz-Date": {
+      "name": "X-Amz-Date",
+      "in": "header",
+      "type": "string",
+      "format": "date-time",
+      "required": true
+    }
+  },
   "securityDefinitions": {
     "hmac": {
       "type": "apiKey",
       "name": "Authorization",
-      "in": "header"
+      "in": "header",
+      "description": "Amazon Signature authorization v4",
+      "x-amazon-apigateway-authtype": "awsSigv4"
     }
   },
   "security": [
@@ -59,25 +76,25 @@
               "$ref": "#/definitions/FileSystemDescription"
             }
           },
-          "400": {
+          "480": {
             "description": "BadRequest",
             "schema": {
               "$ref": "#/definitions/BadRequest"
             }
           },
-          "401": {
+          "481": {
             "description": "InternalServerError",
             "schema": {
               "$ref": "#/definitions/InternalServerError"
             }
           },
-          "402": {
+          "482": {
             "description": "FileSystemAlreadyExists",
             "schema": {
               "$ref": "#/definitions/FileSystemAlreadyExists"
             }
           },
-          "403": {
+          "483": {
             "description": "FileSystemLimitExceeded",
             "schema": {
               "$ref": "#/definitions/FileSystemLimitExceeded"
@@ -95,6 +112,14 @@
           }
         ]
       },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ],
       "get": {
         "operationId": "DescribeFileSystems",
         "description": "<p>Returns the description of a specific Amazon EFS file system if either the file system <code>CreationToken</code> or the <code>FileSystemId</code> is provided. Otherwise, it returns descriptions of all file systems owned by the caller's AWS account in the AWS Region of the endpoint that you're calling.</p> <p> When retrieving all file system descriptions, you can optionally specify the <code>MaxItems</code> parameter to limit the number of descriptions in a response. If more file system descriptions remain, Amazon EFS returns a <code>NextMarker</code>, an opaque token, in the response. In this case, you should send a subsequent request with the <code>Marker</code> request parameter set to the value of <code>NextMarker</code>. </p> <p>To retrieve a list of your file system descriptions, this operation is used in an iterative process, where <code>DescribeFileSystems</code> is called first without the <code>Marker</code> and then the operation continues to call it with the <code>Marker</code> parameter set to the value of the <code>NextMarker</code> from the previous response until the response has no <code>NextMarker</code>. </p> <p>The implementation may return fewer than <code>MaxItems</code> file system descriptions while still including a <code>NextMarker</code> value. </p> <p> The order of file systems returned in the response of one <code>DescribeFileSystems</code> call and the order of file systems returned across the responses of a multi-call iteration is unspecified. </p> <p> This operation requires permissions for the <code>elasticfilesystem:DescribeFileSystems</code> action. </p>",
@@ -105,19 +130,19 @@
               "$ref": "#/definitions/DescribeFileSystemsResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "BadRequest",
             "schema": {
               "$ref": "#/definitions/BadRequest"
             }
           },
-          "401": {
+          "481": {
             "description": "InternalServerError",
             "schema": {
               "$ref": "#/definitions/InternalServerError"
             }
           },
-          "402": {
+          "482": {
             "description": "FileSystemNotFound",
             "schema": {
               "$ref": "#/definitions/FileSystemNotFound"
@@ -147,73 +172,73 @@
               "$ref": "#/definitions/MountTargetDescription"
             }
           },
-          "400": {
+          "480": {
             "description": "BadRequest",
             "schema": {
               "$ref": "#/definitions/BadRequest"
             }
           },
-          "401": {
+          "481": {
             "description": "InternalServerError",
             "schema": {
               "$ref": "#/definitions/InternalServerError"
             }
           },
-          "402": {
+          "482": {
             "description": "FileSystemNotFound",
             "schema": {
               "$ref": "#/definitions/FileSystemNotFound"
             }
           },
-          "403": {
+          "483": {
             "description": "IncorrectFileSystemLifeCycleState",
             "schema": {
               "$ref": "#/definitions/IncorrectFileSystemLifeCycleState"
             }
           },
-          "404": {
+          "484": {
             "description": "MountTargetConflict",
             "schema": {
               "$ref": "#/definitions/MountTargetConflict"
             }
           },
-          "405": {
+          "485": {
             "description": "SubnetNotFound",
             "schema": {
               "$ref": "#/definitions/SubnetNotFound"
             }
           },
-          "406": {
+          "486": {
             "description": "NoFreeAddressesInSubnet",
             "schema": {
               "$ref": "#/definitions/NoFreeAddressesInSubnet"
             }
           },
-          "407": {
+          "487": {
             "description": "IpAddressInUse",
             "schema": {
               "$ref": "#/definitions/IpAddressInUse"
             }
           },
-          "408": {
+          "488": {
             "description": "NetworkInterfaceLimitExceeded",
             "schema": {
               "$ref": "#/definitions/NetworkInterfaceLimitExceeded"
             }
           },
-          "409": {
+          "489": {
             "description": "SecurityGroupLimitExceeded",
             "schema": {
               "$ref": "#/definitions/SecurityGroupLimitExceeded"
             }
           },
-          "410": {
+          "490": {
             "description": "SecurityGroupNotFound",
             "schema": {
               "$ref": "#/definitions/SecurityGroupNotFound"
             }
           },
-          "411": {
+          "491": {
             "description": "UnsupportedAvailabilityZone",
             "schema": {
               "$ref": "#/definitions/UnsupportedAvailabilityZone"
@@ -231,6 +256,14 @@
           }
         ]
       },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ],
       "get": {
         "operationId": "DescribeMountTargets",
         "description": "<p>Returns the descriptions of all the current mount targets, or a specific mount target, for a file system. When requesting all of the current mount targets, the order of mount targets returned in the response is unspecified.</p> <p>This operation requires permissions for the <code>elasticfilesystem:DescribeMountTargets</code> action, on either the file system ID that you specify in <code>FileSystemId</code>, or on the file system of the mount target that you specify in <code>MountTargetId</code>.</p>",
@@ -241,25 +274,25 @@
               "$ref": "#/definitions/DescribeMountTargetsResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "BadRequest",
             "schema": {
               "$ref": "#/definitions/BadRequest"
             }
           },
-          "401": {
+          "481": {
             "description": "InternalServerError",
             "schema": {
               "$ref": "#/definitions/InternalServerError"
             }
           },
-          "402": {
+          "482": {
             "description": "FileSystemNotFound",
             "schema": {
               "$ref": "#/definitions/FileSystemNotFound"
             }
           },
-          "403": {
+          "483": {
             "description": "MountTargetNotFound",
             "schema": {
               "$ref": "#/definitions/MountTargetNotFound"
@@ -286,19 +319,19 @@
           "204": {
             "description": "Success"
           },
-          "400": {
+          "480": {
             "description": "BadRequest",
             "schema": {
               "$ref": "#/definitions/BadRequest"
             }
           },
-          "401": {
+          "481": {
             "description": "InternalServerError",
             "schema": {
               "$ref": "#/definitions/InternalServerError"
             }
           },
-          "402": {
+          "482": {
             "description": "FileSystemNotFound",
             "schema": {
               "$ref": "#/definitions/FileSystemNotFound"
@@ -326,7 +359,15 @@
             "type": "string"
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/2015-02-01/file-systems/{FileSystemId}": {
       "delete": {
@@ -336,25 +377,25 @@
           "204": {
             "description": "Success"
           },
-          "400": {
+          "480": {
             "description": "BadRequest",
             "schema": {
               "$ref": "#/definitions/BadRequest"
             }
           },
-          "401": {
+          "481": {
             "description": "InternalServerError",
             "schema": {
               "$ref": "#/definitions/InternalServerError"
             }
           },
-          "402": {
+          "482": {
             "description": "FileSystemNotFound",
             "schema": {
               "$ref": "#/definitions/FileSystemNotFound"
             }
           },
-          "403": {
+          "483": {
             "description": "FileSystemInUse",
             "schema": {
               "$ref": "#/definitions/FileSystemInUse"
@@ -382,7 +423,15 @@
             "type": "string"
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/2015-02-01/mount-targets/{MountTargetId}": {
       "delete": {
@@ -392,25 +441,25 @@
           "204": {
             "description": "Success"
           },
-          "400": {
+          "480": {
             "description": "BadRequest",
             "schema": {
               "$ref": "#/definitions/BadRequest"
             }
           },
-          "401": {
+          "481": {
             "description": "InternalServerError",
             "schema": {
               "$ref": "#/definitions/InternalServerError"
             }
           },
-          "402": {
+          "482": {
             "description": "DependencyTimeout",
             "schema": {
               "$ref": "#/definitions/DependencyTimeout"
             }
           },
-          "403": {
+          "483": {
             "description": "MountTargetNotFound",
             "schema": {
               "$ref": "#/definitions/MountTargetNotFound"
@@ -438,7 +487,15 @@
             "type": "string"
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/2015-02-01/delete-tags/{FileSystemId}": {
       "post": {
@@ -448,19 +505,19 @@
           "204": {
             "description": "Success"
           },
-          "400": {
+          "480": {
             "description": "BadRequest",
             "schema": {
               "$ref": "#/definitions/BadRequest"
             }
           },
-          "401": {
+          "481": {
             "description": "InternalServerError",
             "schema": {
               "$ref": "#/definitions/InternalServerError"
             }
           },
-          "402": {
+          "482": {
             "description": "FileSystemNotFound",
             "schema": {
               "$ref": "#/definitions/FileSystemNotFound"
@@ -488,7 +545,15 @@
             "type": "string"
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/2015-02-01/mount-targets/{MountTargetId}/security-groups": {
       "get": {
@@ -501,25 +566,25 @@
               "$ref": "#/definitions/DescribeMountTargetSecurityGroupsResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "BadRequest",
             "schema": {
               "$ref": "#/definitions/BadRequest"
             }
           },
-          "401": {
+          "481": {
             "description": "InternalServerError",
             "schema": {
               "$ref": "#/definitions/InternalServerError"
             }
           },
-          "402": {
+          "482": {
             "description": "MountTargetNotFound",
             "schema": {
               "$ref": "#/definitions/MountTargetNotFound"
             }
           },
-          "403": {
+          "483": {
             "description": "IncorrectMountTargetState",
             "schema": {
               "$ref": "#/definitions/IncorrectMountTargetState"
@@ -548,6 +613,14 @@
           }
         ]
       },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ],
       "put": {
         "operationId": "ModifyMountTargetSecurityGroups",
         "description": "<p>Modifies the set of security groups in effect for a mount target.</p> <p>When you create a mount target, Amazon EFS also creates a new network interface. For more information, see <a>CreateMountTarget</a>. This operation replaces the security groups in effect for the network interface associated with a mount target, with the <code>SecurityGroups</code> provided in the request. This operation requires that the network interface of the mount target has been created and the lifecycle state of the mount target is not <code>deleted</code>. </p> <p>The operation requires permissions for the following actions:</p> <ul> <li> <p> <code>elasticfilesystem:ModifyMountTargetSecurityGroups</code> action on the mount target's file system. </p> </li> <li> <p> <code>ec2:ModifyNetworkInterfaceAttribute</code> action on the mount target's network interface. </p> </li> </ul>",
@@ -555,37 +628,37 @@
           "204": {
             "description": "Success"
           },
-          "400": {
+          "480": {
             "description": "BadRequest",
             "schema": {
               "$ref": "#/definitions/BadRequest"
             }
           },
-          "401": {
+          "481": {
             "description": "InternalServerError",
             "schema": {
               "$ref": "#/definitions/InternalServerError"
             }
           },
-          "402": {
+          "482": {
             "description": "MountTargetNotFound",
             "schema": {
               "$ref": "#/definitions/MountTargetNotFound"
             }
           },
-          "403": {
+          "483": {
             "description": "IncorrectMountTargetState",
             "schema": {
               "$ref": "#/definitions/IncorrectMountTargetState"
             }
           },
-          "404": {
+          "484": {
             "description": "SecurityGroupLimitExceeded",
             "schema": {
               "$ref": "#/definitions/SecurityGroupLimitExceeded"
             }
           },
-          "405": {
+          "485": {
             "description": "SecurityGroupNotFound",
             "schema": {
               "$ref": "#/definitions/SecurityGroupNotFound"
@@ -626,19 +699,19 @@
               "$ref": "#/definitions/DescribeTagsResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "BadRequest",
             "schema": {
               "$ref": "#/definitions/BadRequest"
             }
           },
-          "401": {
+          "481": {
             "description": "InternalServerError",
             "schema": {
               "$ref": "#/definitions/InternalServerError"
             }
           },
-          "402": {
+          "482": {
             "description": "FileSystemNotFound",
             "schema": {
               "$ref": "#/definitions/FileSystemNotFound"
@@ -666,7 +739,15 @@
             "type": "string"
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     }
   },
   "definitions": {

@@ -35,11 +35,27 @@
   "produces": [
     "application/json"
   ],
+  "parameters": {
+    "X-Amz-Content-Sha256": {
+      "name": "X-Amz-Content-Sha256",
+      "in": "header",
+      "type": "string",
+      "required": true
+    },
+    "X-Amz-Date": {
+      "name": "X-Amz-Date",
+      "in": "header",
+      "type": "string",
+      "format": "date-time",
+      "required": true
+    }
+  },
   "securityDefinitions": {
     "hmac": {
       "type": "apiKey",
       "name": "Authorization",
       "in": "header",
+      "description": "Amazon Signature authorization v4",
       "x-amazon-apigateway-authtype": "awsSigv4"
     }
   },
@@ -123,7 +139,15 @@
             "required": true
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/principal-policies/{policyName}": {
       "put": {
@@ -200,6 +224,14 @@
           }
         ]
       },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ],
       "delete": {
         "operationId": "DetachPrincipalPolicy",
         "description": "Removes the specified policy from the specified certificate.",
@@ -339,6 +371,14 @@
           }
         ]
       },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ],
       "delete": {
         "operationId": "DetachThingPrincipal",
         "description": "Detaches the specified principal from the specified thing.",
@@ -554,7 +594,15 @@
             "required": true
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/certificates": {
       "post": {
@@ -614,6 +662,14 @@
           }
         ]
       },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ],
       "get": {
         "operationId": "ListCertificates",
         "description": "<p>Lists the certificates registered in your AWS account.</p> <p>The results are paginated with a default page size of 25. You can use the returned marker to retrieve additional results.</p>",
@@ -729,7 +785,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/policies/{policyName}": {
       "post": {
@@ -802,6 +866,14 @@
           }
         ]
       },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ],
       "delete": {
         "operationId": "DeletePolicy",
         "description": "<p>Deletes the specified policy.</p> <p>A policy cannot be deleted if it has non-default versions or it is attached to any certificate.</p> <p>To delete a policy, use the DeletePolicyVersion API to delete all non-default versions of the policy; use the DetachPrincipalPolicy API to detach the policy from any certificate; and then use the DeletePolicy API to delete the policy.</p> <p>When a policy is deleted using DeletePolicy, its default version is deleted with it.</p>",
@@ -1025,6 +1097,14 @@
           }
         ]
       },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ],
       "get": {
         "operationId": "ListPolicyVersions",
         "description": "Lists the versions of the specified policy and identifies the default version.",
@@ -1174,6 +1254,14 @@
           }
         ]
       },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ],
       "delete": {
         "operationId": "DeleteThing",
         "description": "Deletes the specified thing.",
@@ -1475,6 +1563,14 @@
           }
         ]
       },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ],
       "delete": {
         "operationId": "DeleteThingType",
         "description": "Deletes the specified thing type . You cannot delete a thing type if it has things associated with it. To delete a thing type, first mark it as deprecated by calling <a>DeprecateThingType</a>, then remove any associated things by calling <a>UpdateThing</a> to change the thing type on any associated thing, and finally use <a>DeleteThingType</a> to delete the thing type.",
@@ -1680,6 +1776,14 @@
           }
         ]
       },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ],
       "delete": {
         "operationId": "DeleteTopicRule",
         "description": "Deletes the specified rule.",
@@ -1921,6 +2025,14 @@
           }
         ]
       },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ],
       "get": {
         "operationId": "DescribeCACertificate",
         "description": "Describes a registered CA certificate.",
@@ -2141,6 +2253,14 @@
           }
         ]
       },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ],
       "get": {
         "operationId": "DescribeCertificate",
         "description": "Gets information about the specified certificate.",
@@ -2367,6 +2487,14 @@
           }
         ]
       },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ],
       "get": {
         "operationId": "GetPolicyVersion",
         "description": "Gets information about the specified policy version.",
@@ -2575,6 +2703,14 @@
           }
         ]
       },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ],
       "get": {
         "operationId": "GetRegistrationCode",
         "description": "Gets a registration code used to register a CA certificate with AWS IoT.",
@@ -2708,7 +2844,15 @@
             "type": "string"
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/endpoint": {
       "get": {
@@ -2753,7 +2897,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/rules/{ruleName}/disable": {
       "post": {
@@ -2808,7 +2960,15 @@
             "required": true
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/rules/{ruleName}/enable": {
       "post": {
@@ -2863,7 +3023,15 @@
             "required": true
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/loggingOptions": {
       "get": {
@@ -2909,6 +3077,14 @@
           }
         ]
       },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ],
       "post": {
         "operationId": "SetLoggingOptions",
         "description": "Sets the logging options.",
@@ -3007,7 +3183,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/certificates-by-ca/{caCertificateId}": {
       "get": {
@@ -3072,7 +3256,15 @@
             "required": true
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/certificates-out-going": {
       "get": {
@@ -3131,7 +3323,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/policies": {
       "get": {
@@ -3190,7 +3390,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/policy-principals": {
       "get": {
@@ -3256,7 +3464,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/principal-policies": {
       "get": {
@@ -3322,7 +3538,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/principals/things": {
       "get": {
@@ -3388,7 +3612,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/thing-types": {
       "get": {
@@ -3447,7 +3679,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/things": {
       "get": {
@@ -3506,7 +3746,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/rules": {
       "get": {
@@ -3551,7 +3799,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/cacertificate": {
       "post": {
@@ -3624,7 +3880,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/certificate/register": {
       "post": {
@@ -3697,7 +3961,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/reject-certificate-transfer/{certificateId}": {
       "patch": {
@@ -3773,7 +4045,15 @@
             "required": true
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/transfer-certificate/{certificateId}": {
       "patch": {
@@ -3859,7 +4139,15 @@
             "required": true
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     }
   },
   "definitions": {

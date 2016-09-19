@@ -35,11 +35,28 @@
   "produces": [
     "application/json"
   ],
+  "parameters": {
+    "X-Amz-Content-Sha256": {
+      "name": "X-Amz-Content-Sha256",
+      "in": "header",
+      "type": "string",
+      "required": true
+    },
+    "X-Amz-Date": {
+      "name": "X-Amz-Date",
+      "in": "header",
+      "type": "string",
+      "format": "date-time",
+      "required": true
+    }
+  },
   "securityDefinitions": {
     "hmac": {
       "type": "apiKey",
       "name": "Authorization",
-      "in": "header"
+      "in": "header",
+      "description": "Amazon Signature authorization v4",
+      "x-amazon-apigateway-authtype": "awsSigv4"
     }
   },
   "security": [
@@ -59,37 +76,37 @@
               "$ref": "#/definitions/UploadLayerPartResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "ServerException",
             "schema": {
               "$ref": "#/definitions/ServerException"
             }
           },
-          "401": {
+          "481": {
             "description": "InvalidParameterException",
             "schema": {
               "$ref": "#/definitions/InvalidParameterException"
             }
           },
-          "402": {
+          "482": {
             "description": "InvalidLayerPartException",
             "schema": {
               "$ref": "#/definitions/InvalidLayerPartException"
             }
           },
-          "403": {
+          "483": {
             "description": "RepositoryNotFoundException",
             "schema": {
               "$ref": "#/definitions/RepositoryNotFoundException"
             }
           },
-          "404": {
+          "484": {
             "description": "UploadNotFoundException",
             "schema": {
               "$ref": "#/definitions/UploadNotFoundException"
             }
           },
-          "405": {
+          "485": {
             "description": "LimitExceededException",
             "schema": {
               "$ref": "#/definitions/LimitExceededException"
@@ -106,7 +123,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     }
   },
   "definitions": {

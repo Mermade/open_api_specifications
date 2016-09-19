@@ -31,11 +31,28 @@
   ],
   "consumes": [],
   "produces": [],
+  "parameters": {
+    "X-Amz-Content-Sha256": {
+      "name": "X-Amz-Content-Sha256",
+      "in": "header",
+      "type": "string",
+      "required": true
+    },
+    "X-Amz-Date": {
+      "name": "X-Amz-Date",
+      "in": "header",
+      "type": "string",
+      "format": "date-time",
+      "required": true
+    }
+  },
   "securityDefinitions": {
     "hmac": {
       "type": "apiKey",
       "name": "Authorization",
-      "in": "header"
+      "in": "header",
+      "description": "Amazon Signature authorization v4",
+      "x-amazon-apigateway-authtype": "awsSigv4"
     }
   },
   "security": [
@@ -55,25 +72,25 @@
               "$ref": "#/definitions/SetLoadBalancerPoliciesOfListenerOutput"
             }
           },
-          "400": {
+          "480": {
             "description": "AccessPointNotFoundException",
             "schema": {
               "$ref": "#/definitions/AccessPointNotFoundException"
             }
           },
-          "401": {
+          "481": {
             "description": "PolicyNotFoundException",
             "schema": {
               "$ref": "#/definitions/PolicyNotFoundException"
             }
           },
-          "402": {
+          "482": {
             "description": "ListenerNotFoundException",
             "schema": {
               "$ref": "#/definitions/ListenerNotFoundException"
             }
           },
-          "403": {
+          "483": {
             "description": "InvalidConfigurationRequestException",
             "schema": {
               "$ref": "#/definitions/InvalidConfigurationRequestException"
@@ -90,7 +107,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     }
   },
   "definitions": {

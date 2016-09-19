@@ -35,11 +35,28 @@
   "produces": [
     "application/json"
   ],
+  "parameters": {
+    "X-Amz-Content-Sha256": {
+      "name": "X-Amz-Content-Sha256",
+      "in": "header",
+      "type": "string",
+      "required": true
+    },
+    "X-Amz-Date": {
+      "name": "X-Amz-Date",
+      "in": "header",
+      "type": "string",
+      "format": "date-time",
+      "required": true
+    }
+  },
   "securityDefinitions": {
     "hmac": {
       "type": "apiKey",
       "name": "Authorization",
-      "in": "header"
+      "in": "header",
+      "description": "Amazon Signature authorization v4",
+      "x-amazon-apigateway-authtype": "awsSigv4"
     }
   },
   "security": [
@@ -56,25 +73,25 @@
           "200": {
             "description": "Success"
           },
-          "400": {
+          "480": {
             "description": "BaseException",
             "schema": {
               "$ref": "#/definitions/BaseException"
             }
           },
-          "401": {
+          "481": {
             "description": "LimitExceededException",
             "schema": {
               "$ref": "#/definitions/LimitExceededException"
             }
           },
-          "402": {
+          "482": {
             "description": "ValidationException",
             "schema": {
               "$ref": "#/definitions/ValidationException"
             }
           },
-          "403": {
+          "483": {
             "description": "InternalException",
             "schema": {
               "$ref": "#/definitions/InternalException"
@@ -91,7 +108,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/2015-01-01/es/domain": {
       "post": {
@@ -104,43 +129,43 @@
               "$ref": "#/definitions/CreateElasticsearchDomainResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "BaseException",
             "schema": {
               "$ref": "#/definitions/BaseException"
             }
           },
-          "401": {
+          "481": {
             "description": "DisabledOperationException",
             "schema": {
               "$ref": "#/definitions/DisabledOperationException"
             }
           },
-          "402": {
+          "482": {
             "description": "InternalException",
             "schema": {
               "$ref": "#/definitions/InternalException"
             }
           },
-          "403": {
+          "483": {
             "description": "InvalidTypeException",
             "schema": {
               "$ref": "#/definitions/InvalidTypeException"
             }
           },
-          "404": {
+          "484": {
             "description": "LimitExceededException",
             "schema": {
               "$ref": "#/definitions/LimitExceededException"
             }
           },
-          "405": {
+          "485": {
             "description": "ResourceAlreadyExistsException",
             "schema": {
               "$ref": "#/definitions/ResourceAlreadyExistsException"
             }
           },
-          "406": {
+          "486": {
             "description": "ValidationException",
             "schema": {
               "$ref": "#/definitions/ValidationException"
@@ -157,7 +182,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/2015-01-01/es/domain/{DomainName}": {
       "delete": {
@@ -170,25 +203,25 @@
               "$ref": "#/definitions/DeleteElasticsearchDomainResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "BaseException",
             "schema": {
               "$ref": "#/definitions/BaseException"
             }
           },
-          "401": {
+          "481": {
             "description": "InternalException",
             "schema": {
               "$ref": "#/definitions/InternalException"
             }
           },
-          "402": {
+          "482": {
             "description": "ResourceNotFoundException",
             "schema": {
               "$ref": "#/definitions/ResourceNotFoundException"
             }
           },
-          "403": {
+          "483": {
             "description": "ValidationException",
             "schema": {
               "$ref": "#/definitions/ValidationException"
@@ -212,6 +245,14 @@
           }
         ]
       },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ],
       "get": {
         "operationId": "DescribeElasticsearchDomain",
         "description": "Returns domain configuration information about the specified Elasticsearch domain, including the domain ID, domain endpoint, and domain ARN.",
@@ -222,25 +263,25 @@
               "$ref": "#/definitions/DescribeElasticsearchDomainResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "BaseException",
             "schema": {
               "$ref": "#/definitions/BaseException"
             }
           },
-          "401": {
+          "481": {
             "description": "InternalException",
             "schema": {
               "$ref": "#/definitions/InternalException"
             }
           },
-          "402": {
+          "482": {
             "description": "ResourceNotFoundException",
             "schema": {
               "$ref": "#/definitions/ResourceNotFoundException"
             }
           },
-          "403": {
+          "483": {
             "description": "ValidationException",
             "schema": {
               "$ref": "#/definitions/ValidationException"
@@ -276,25 +317,25 @@
               "$ref": "#/definitions/DescribeElasticsearchDomainConfigResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "BaseException",
             "schema": {
               "$ref": "#/definitions/BaseException"
             }
           },
-          "401": {
+          "481": {
             "description": "InternalException",
             "schema": {
               "$ref": "#/definitions/InternalException"
             }
           },
-          "402": {
+          "482": {
             "description": "ResourceNotFoundException",
             "schema": {
               "$ref": "#/definitions/ResourceNotFoundException"
             }
           },
-          "403": {
+          "483": {
             "description": "ValidationException",
             "schema": {
               "$ref": "#/definitions/ValidationException"
@@ -318,6 +359,14 @@
           }
         ]
       },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ],
       "post": {
         "operationId": "UpdateElasticsearchDomainConfig",
         "description": "Modifies the cluster configuration of the specified Elasticsearch domain, setting as setting the instance type and the number of instances. ",
@@ -328,37 +377,37 @@
               "$ref": "#/definitions/UpdateElasticsearchDomainConfigResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "BaseException",
             "schema": {
               "$ref": "#/definitions/BaseException"
             }
           },
-          "401": {
+          "481": {
             "description": "InternalException",
             "schema": {
               "$ref": "#/definitions/InternalException"
             }
           },
-          "402": {
+          "482": {
             "description": "InvalidTypeException",
             "schema": {
               "$ref": "#/definitions/InvalidTypeException"
             }
           },
-          "403": {
+          "483": {
             "description": "LimitExceededException",
             "schema": {
               "$ref": "#/definitions/LimitExceededException"
             }
           },
-          "404": {
+          "484": {
             "description": "ResourceNotFoundException",
             "schema": {
               "$ref": "#/definitions/ResourceNotFoundException"
             }
           },
-          "405": {
+          "485": {
             "description": "ValidationException",
             "schema": {
               "$ref": "#/definitions/ValidationException"
@@ -394,19 +443,19 @@
               "$ref": "#/definitions/DescribeElasticsearchDomainsResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "BaseException",
             "schema": {
               "$ref": "#/definitions/BaseException"
             }
           },
-          "401": {
+          "481": {
             "description": "InternalException",
             "schema": {
               "$ref": "#/definitions/InternalException"
             }
           },
-          "402": {
+          "482": {
             "description": "ValidationException",
             "schema": {
               "$ref": "#/definitions/ValidationException"
@@ -423,7 +472,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/2015-01-01/domain": {
       "get": {
@@ -436,20 +493,28 @@
               "$ref": "#/definitions/ListDomainNamesResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "BaseException",
             "schema": {
               "$ref": "#/definitions/BaseException"
             }
           },
-          "401": {
+          "481": {
             "description": "ValidationException",
             "schema": {
               "$ref": "#/definitions/ValidationException"
             }
           }
         }
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/2015-01-01/tags/": {
       "get": {
@@ -462,25 +527,25 @@
               "$ref": "#/definitions/ListTagsResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "BaseException",
             "schema": {
               "$ref": "#/definitions/BaseException"
             }
           },
-          "401": {
+          "481": {
             "description": "ResourceNotFoundException",
             "schema": {
               "$ref": "#/definitions/ResourceNotFoundException"
             }
           },
-          "402": {
+          "482": {
             "description": "ValidationException",
             "schema": {
               "$ref": "#/definitions/ValidationException"
             }
           },
-          "403": {
+          "483": {
             "description": "InternalException",
             "schema": {
               "$ref": "#/definitions/InternalException"
@@ -497,7 +562,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/2015-01-01/tags-removal": {
       "post": {
@@ -507,19 +580,19 @@
           "200": {
             "description": "Success"
           },
-          "400": {
+          "480": {
             "description": "BaseException",
             "schema": {
               "$ref": "#/definitions/BaseException"
             }
           },
-          "401": {
+          "481": {
             "description": "ValidationException",
             "schema": {
               "$ref": "#/definitions/ValidationException"
             }
           },
-          "402": {
+          "482": {
             "description": "InternalException",
             "schema": {
               "$ref": "#/definitions/InternalException"
@@ -536,7 +609,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     }
   },
   "definitions": {

@@ -31,11 +31,28 @@
   ],
   "consumes": [],
   "produces": [],
+  "parameters": {
+    "X-Amz-Content-Sha256": {
+      "name": "X-Amz-Content-Sha256",
+      "in": "header",
+      "type": "string",
+      "required": true
+    },
+    "X-Amz-Date": {
+      "name": "X-Amz-Date",
+      "in": "header",
+      "type": "string",
+      "format": "date-time",
+      "required": true
+    }
+  },
   "securityDefinitions": {
     "hmac": {
       "type": "apiKey",
       "name": "Authorization",
-      "in": "header"
+      "in": "header",
+      "description": "Amazon Signature authorization v4",
+      "x-amazon-apigateway-authtype": "awsSigv4"
     }
   },
   "security": [
@@ -55,25 +72,25 @@
               "$ref": "#/definitions/SetSubnetsOutput"
             }
           },
-          "400": {
+          "480": {
             "description": "LoadBalancerNotFoundException",
             "schema": {
               "$ref": "#/definitions/LoadBalancerNotFoundException"
             }
           },
-          "401": {
+          "481": {
             "description": "InvalidConfigurationRequestException",
             "schema": {
               "$ref": "#/definitions/InvalidConfigurationRequestException"
             }
           },
-          "402": {
+          "482": {
             "description": "SubnetNotFoundException",
             "schema": {
               "$ref": "#/definitions/SubnetNotFoundException"
             }
           },
-          "403": {
+          "483": {
             "description": "InvalidSubnetException",
             "schema": {
               "$ref": "#/definitions/InvalidSubnetException"
@@ -90,7 +107,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     }
   },
   "definitions": {

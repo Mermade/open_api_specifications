@@ -34,11 +34,28 @@
   "produces": [
     "text/xml"
   ],
+  "parameters": {
+    "X-Amz-Content-Sha256": {
+      "name": "X-Amz-Content-Sha256",
+      "in": "header",
+      "type": "string",
+      "required": true
+    },
+    "X-Amz-Date": {
+      "name": "X-Amz-Date",
+      "in": "header",
+      "type": "string",
+      "format": "date-time",
+      "required": true
+    }
+  },
   "securityDefinitions": {
     "hmac": {
       "type": "apiKey",
       "name": "Authorization",
-      "in": "header"
+      "in": "header",
+      "description": "Amazon Signature authorization v4",
+      "x-amazon-apigateway-authtype": "awsSigv4"
     }
   },
   "security": [
@@ -58,37 +75,37 @@
               "$ref": "#/definitions/AssociateVPCWithHostedZoneResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "NoSuchHostedZone",
             "schema": {
               "$ref": "#/definitions/NoSuchHostedZone"
             }
           },
-          "401": {
+          "481": {
             "description": "InvalidVPCId",
             "schema": {
               "$ref": "#/definitions/InvalidVPCId"
             }
           },
-          "402": {
+          "482": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
             }
           },
-          "403": {
+          "483": {
             "description": "PublicZoneVPCAssociation",
             "schema": {
               "$ref": "#/definitions/PublicZoneVPCAssociation"
             }
           },
-          "404": {
+          "484": {
             "description": "ConflictingDomainExists",
             "schema": {
               "$ref": "#/definitions/ConflictingDomainExists"
             }
           },
-          "405": {
+          "485": {
             "description": "LimitsExceeded",
             "schema": {
               "$ref": "#/definitions/LimitsExceeded"
@@ -111,7 +128,15 @@
             "required": true
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/2013-04-01/hostedzone/{Id}/rrset/": {
       "post": {
@@ -124,31 +149,31 @@
               "$ref": "#/definitions/ChangeResourceRecordSetsResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "NoSuchHostedZone",
             "schema": {
               "$ref": "#/definitions/NoSuchHostedZone"
             }
           },
-          "401": {
+          "481": {
             "description": "NoSuchHealthCheck",
             "schema": {
               "$ref": "#/definitions/NoSuchHealthCheck"
             }
           },
-          "402": {
+          "482": {
             "description": "InvalidChangeBatch",
             "schema": {
               "$ref": "#/definitions/InvalidChangeBatch"
             }
           },
-          "403": {
+          "483": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
             }
           },
-          "404": {
+          "484": {
             "description": "PriorRequestNotComplete",
             "schema": {
               "$ref": "#/definitions/PriorRequestNotComplete"
@@ -171,7 +196,15 @@
             "required": true
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/2013-04-01/tags/{ResourceType}/{ResourceId}": {
       "post": {
@@ -184,31 +217,31 @@
               "$ref": "#/definitions/ChangeTagsForResourceResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
             }
           },
-          "401": {
+          "481": {
             "description": "NoSuchHealthCheck",
             "schema": {
               "$ref": "#/definitions/NoSuchHealthCheck"
             }
           },
-          "402": {
+          "482": {
             "description": "NoSuchHostedZone",
             "schema": {
               "$ref": "#/definitions/NoSuchHostedZone"
             }
           },
-          "403": {
+          "483": {
             "description": "PriorRequestNotComplete",
             "schema": {
               "$ref": "#/definitions/PriorRequestNotComplete"
             }
           },
-          "404": {
+          "484": {
             "description": "ThrottlingException",
             "schema": {
               "$ref": "#/definitions/ThrottlingException"
@@ -238,6 +271,14 @@
           }
         ]
       },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ],
       "get": {
         "operationId": "ListTagsForResource",
         "description": "",
@@ -248,31 +289,31 @@
               "$ref": "#/definitions/ListTagsForResourceResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
             }
           },
-          "401": {
+          "481": {
             "description": "NoSuchHealthCheck",
             "schema": {
               "$ref": "#/definitions/NoSuchHealthCheck"
             }
           },
-          "402": {
+          "482": {
             "description": "NoSuchHostedZone",
             "schema": {
               "$ref": "#/definitions/NoSuchHostedZone"
             }
           },
-          "403": {
+          "483": {
             "description": "PriorRequestNotComplete",
             "schema": {
               "$ref": "#/definitions/PriorRequestNotComplete"
             }
           },
-          "404": {
+          "484": {
             "description": "ThrottlingException",
             "schema": {
               "$ref": "#/definitions/ThrottlingException"
@@ -314,19 +355,19 @@
               "$ref": "#/definitions/CreateHealthCheckResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "TooManyHealthChecks",
             "schema": {
               "$ref": "#/definitions/TooManyHealthChecks"
             }
           },
-          "401": {
+          "481": {
             "description": "HealthCheckAlreadyExists",
             "schema": {
               "$ref": "#/definitions/HealthCheckAlreadyExists"
             }
           },
-          "402": {
+          "482": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
@@ -344,6 +385,14 @@
           }
         ]
       },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ],
       "get": {
         "operationId": "ListHealthChecks",
         "description": "<p>Retrieve a list of your health checks. Send a <code>GET</code> request to the <code>/2013-04-01/healthcheck</code> resource. The response to this request includes a <code>HealthChecks</code> element with zero or more <code>HealthCheck</code> child elements. By default, the list of health checks is displayed on a single page. You can control the length of the page that is displayed by using the <code>MaxItems</code> parameter. You can use the <code>Marker</code> parameter to control the health check that the list begins with.</p> <p>For information about listing health checks using the Amazon Route 53 console, see <a href=\"http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover.html\">Amazon Route 53 Health Checks and DNS Failover</a>.</p>",
@@ -354,13 +403,13 @@
               "$ref": "#/definitions/ListHealthChecksResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
             }
           },
-          "401": {
+          "481": {
             "description": "IncompatibleVersion",
             "schema": {
               "$ref": "#/definitions/IncompatibleVersion"
@@ -390,55 +439,55 @@
               "$ref": "#/definitions/CreateHostedZoneResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "InvalidDomainName",
             "schema": {
               "$ref": "#/definitions/InvalidDomainName"
             }
           },
-          "401": {
+          "481": {
             "description": "HostedZoneAlreadyExists",
             "schema": {
               "$ref": "#/definitions/HostedZoneAlreadyExists"
             }
           },
-          "402": {
+          "482": {
             "description": "TooManyHostedZones",
             "schema": {
               "$ref": "#/definitions/TooManyHostedZones"
             }
           },
-          "403": {
+          "483": {
             "description": "InvalidVPCId",
             "schema": {
               "$ref": "#/definitions/InvalidVPCId"
             }
           },
-          "404": {
+          "484": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
             }
           },
-          "405": {
+          "485": {
             "description": "DelegationSetNotAvailable",
             "schema": {
               "$ref": "#/definitions/DelegationSetNotAvailable"
             }
           },
-          "406": {
+          "486": {
             "description": "ConflictingDomainExists",
             "schema": {
               "$ref": "#/definitions/ConflictingDomainExists"
             }
           },
-          "407": {
+          "487": {
             "description": "NoSuchDelegationSet",
             "schema": {
               "$ref": "#/definitions/NoSuchDelegationSet"
             }
           },
-          "408": {
+          "488": {
             "description": "DelegationSetNotReusable",
             "schema": {
               "$ref": "#/definitions/DelegationSetNotReusable"
@@ -456,6 +505,14 @@
           }
         ]
       },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ],
       "get": {
         "operationId": "ListHostedZones",
         "description": "<p>To retrieve a list of your public and private hosted zones, send a <code>GET</code> request to the <code>/2013-04-01/hostedzone</code> resource. The response to this request includes a <code>HostedZones</code> child element for each hosted zone created by the current AWS account.</p> <p>Amazon Route 53 returns a maximum of 100 items in each response. If you have a lot of hosted zones, you can use the <code>maxitems</code> parameter to list them in groups of up to 100. The response includes four values that help navigate from one group of <code>maxitems</code> hosted zones to the next:</p> <ul> <li> <p> <code>MaxItems</code>is the value specified for the <code>maxitems</code> parameter in the request that produced the current response.</p> </li> <li> <p>If the value of <code>IsTruncated</code> in the response is true, there are more hosted zones associated with the current AWS account. </p> </li> <li> <p> <code>NextMarker</code>is the hosted zone ID of the next hosted zone that is associated with the current AWS account. If you want to list more hosted zones, make another call to <code>ListHostedZones</code>, and specify the value of the <code>NextMarker</code> element in the marker parameter. </p> <p>If <code>IsTruncated</code> is false, the <code>NextMarker</code> element is omitted from the response.</p> </li> <li> <p>If you're making the second or subsequent call to <code>ListHostedZones</code>, the <code>Marker</code> element matches the value that you specified in the <code>marker</code> parameter in the previous request.</p> </li> </ul>",
@@ -466,19 +523,19 @@
               "$ref": "#/definitions/ListHostedZonesResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
             }
           },
-          "401": {
+          "481": {
             "description": "NoSuchDelegationSet",
             "schema": {
               "$ref": "#/definitions/NoSuchDelegationSet"
             }
           },
-          "402": {
+          "482": {
             "description": "DelegationSetNotReusable",
             "schema": {
               "$ref": "#/definitions/DelegationSetNotReusable"
@@ -508,43 +565,43 @@
               "$ref": "#/definitions/CreateReusableDelegationSetResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "DelegationSetAlreadyCreated",
             "schema": {
               "$ref": "#/definitions/DelegationSetAlreadyCreated"
             }
           },
-          "401": {
+          "481": {
             "description": "LimitsExceeded",
             "schema": {
               "$ref": "#/definitions/LimitsExceeded"
             }
           },
-          "402": {
+          "482": {
             "description": "HostedZoneNotFound",
             "schema": {
               "$ref": "#/definitions/HostedZoneNotFound"
             }
           },
-          "403": {
+          "483": {
             "description": "InvalidArgument",
             "schema": {
               "$ref": "#/definitions/InvalidArgument"
             }
           },
-          "404": {
+          "484": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
             }
           },
-          "405": {
+          "485": {
             "description": "DelegationSetNotAvailable",
             "schema": {
               "$ref": "#/definitions/DelegationSetNotAvailable"
             }
           },
-          "406": {
+          "486": {
             "description": "DelegationSetAlreadyReusable",
             "schema": {
               "$ref": "#/definitions/DelegationSetAlreadyReusable"
@@ -562,6 +619,14 @@
           }
         ]
       },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ],
       "get": {
         "operationId": "ListReusableDelegationSets",
         "description": "<p>To retrieve a list of your reusable delegation sets, send a <code>GET</code> request to the <code>/2013-04-01/delegationset</code> resource. The response to this request includes a <code>DelegationSets</code> element with zero, one, or multiple <code>DelegationSet</code> child elements. By default, the list of delegation sets is displayed on a single page. You can control the length of the page that is displayed by using the <code>MaxItems</code> parameter. You can use the <code>Marker</code> parameter to control the delegation set that the list begins with. </p> <note> <p> Amazon Route 53 returns a maximum of 100 items. If you set MaxItems to a value greater than 100, Amazon Route 53 returns only the first 100.</p> </note>",
@@ -572,7 +637,7 @@
               "$ref": "#/definitions/ListReusableDelegationSetsResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
@@ -602,25 +667,25 @@
               "$ref": "#/definitions/CreateTrafficPolicyResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
             }
           },
-          "401": {
+          "481": {
             "description": "TooManyTrafficPolicies",
             "schema": {
               "$ref": "#/definitions/TooManyTrafficPolicies"
             }
           },
-          "402": {
+          "482": {
             "description": "TrafficPolicyAlreadyExists",
             "schema": {
               "$ref": "#/definitions/TrafficPolicyAlreadyExists"
             }
           },
-          "403": {
+          "483": {
             "description": "InvalidTrafficPolicyDocument",
             "schema": {
               "$ref": "#/definitions/InvalidTrafficPolicyDocument"
@@ -637,7 +702,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/2013-04-01/trafficpolicyinstance": {
       "post": {
@@ -650,31 +723,31 @@
               "$ref": "#/definitions/CreateTrafficPolicyInstanceResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "NoSuchHostedZone",
             "schema": {
               "$ref": "#/definitions/NoSuchHostedZone"
             }
           },
-          "401": {
+          "481": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
             }
           },
-          "402": {
+          "482": {
             "description": "TooManyTrafficPolicyInstances",
             "schema": {
               "$ref": "#/definitions/TooManyTrafficPolicyInstances"
             }
           },
-          "403": {
+          "483": {
             "description": "NoSuchTrafficPolicy",
             "schema": {
               "$ref": "#/definitions/NoSuchTrafficPolicy"
             }
           },
-          "404": {
+          "484": {
             "description": "TrafficPolicyInstanceAlreadyExists",
             "schema": {
               "$ref": "#/definitions/TrafficPolicyInstanceAlreadyExists"
@@ -691,7 +764,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/2013-04-01/trafficpolicy/{Id}": {
       "post": {
@@ -704,25 +785,25 @@
               "$ref": "#/definitions/CreateTrafficPolicyVersionResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "NoSuchTrafficPolicy",
             "schema": {
               "$ref": "#/definitions/NoSuchTrafficPolicy"
             }
           },
-          "401": {
+          "481": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
             }
           },
-          "402": {
+          "482": {
             "description": "ConcurrentModification",
             "schema": {
               "$ref": "#/definitions/ConcurrentModification"
             }
           },
-          "403": {
+          "483": {
             "description": "InvalidTrafficPolicyDocument",
             "schema": {
               "$ref": "#/definitions/InvalidTrafficPolicyDocument"
@@ -745,7 +826,15 @@
             "required": true
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/2013-04-01/healthcheck/{HealthCheckId}": {
       "delete": {
@@ -758,19 +847,19 @@
               "$ref": "#/definitions/DeleteHealthCheckResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "NoSuchHealthCheck",
             "schema": {
               "$ref": "#/definitions/NoSuchHealthCheck"
             }
           },
-          "401": {
+          "481": {
             "description": "HealthCheckInUse",
             "schema": {
               "$ref": "#/definitions/HealthCheckInUse"
             }
           },
-          "402": {
+          "482": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
@@ -794,6 +883,14 @@
           }
         ]
       },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ],
       "get": {
         "operationId": "GetHealthCheck",
         "description": "Gets information about a specified health check. Send a <code>GET</code> request to the <code>/2013-04-01/healthcheck/<i>health check ID</i> </code> resource. For more information about using the console to perform this operation, see <a href=\"http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover.html\">Amazon Route 53 Health Checks and DNS Failover</a> in the Amazon Route 53 Developer Guide.",
@@ -804,19 +901,19 @@
               "$ref": "#/definitions/GetHealthCheckResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "NoSuchHealthCheck",
             "schema": {
               "$ref": "#/definitions/NoSuchHealthCheck"
             }
           },
-          "401": {
+          "481": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
             }
           },
-          "402": {
+          "482": {
             "description": "IncompatibleVersion",
             "schema": {
               "$ref": "#/definitions/IncompatibleVersion"
@@ -850,19 +947,19 @@
               "$ref": "#/definitions/UpdateHealthCheckResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "NoSuchHealthCheck",
             "schema": {
               "$ref": "#/definitions/NoSuchHealthCheck"
             }
           },
-          "401": {
+          "481": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
             }
           },
-          "402": {
+          "482": {
             "description": "HealthCheckVersionMismatch",
             "schema": {
               "$ref": "#/definitions/HealthCheckVersionMismatch"
@@ -898,31 +995,31 @@
               "$ref": "#/definitions/DeleteHostedZoneResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "NoSuchHostedZone",
             "schema": {
               "$ref": "#/definitions/NoSuchHostedZone"
             }
           },
-          "401": {
+          "481": {
             "description": "HostedZoneNotEmpty",
             "schema": {
               "$ref": "#/definitions/HostedZoneNotEmpty"
             }
           },
-          "402": {
+          "482": {
             "description": "PriorRequestNotComplete",
             "schema": {
               "$ref": "#/definitions/PriorRequestNotComplete"
             }
           },
-          "403": {
+          "483": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
             }
           },
-          "404": {
+          "484": {
             "description": "InvalidDomainName",
             "schema": {
               "$ref": "#/definitions/InvalidDomainName"
@@ -946,6 +1043,14 @@
           }
         ]
       },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ],
       "get": {
         "operationId": "GetHostedZone",
         "description": "Retrieves the delegation set for a hosted zone, including the four name servers assigned to the hosted zone. Send a <code>GET</code> request to the <code>/<i>Amazon Route 53 API version</i>/hostedzone/<i>hosted zone ID</i> </code> resource. ",
@@ -956,13 +1061,13 @@
               "$ref": "#/definitions/GetHostedZoneResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "NoSuchHostedZone",
             "schema": {
               "$ref": "#/definitions/NoSuchHostedZone"
             }
           },
-          "401": {
+          "481": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
@@ -996,13 +1101,13 @@
               "$ref": "#/definitions/UpdateHostedZoneCommentResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "NoSuchHostedZone",
             "schema": {
               "$ref": "#/definitions/NoSuchHostedZone"
             }
           },
-          "401": {
+          "481": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
@@ -1038,25 +1143,25 @@
               "$ref": "#/definitions/DeleteReusableDelegationSetResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "NoSuchDelegationSet",
             "schema": {
               "$ref": "#/definitions/NoSuchDelegationSet"
             }
           },
-          "401": {
+          "481": {
             "description": "DelegationSetInUse",
             "schema": {
               "$ref": "#/definitions/DelegationSetInUse"
             }
           },
-          "402": {
+          "482": {
             "description": "DelegationSetNotReusable",
             "schema": {
               "$ref": "#/definitions/DelegationSetNotReusable"
             }
           },
-          "403": {
+          "483": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
@@ -1080,6 +1185,14 @@
           }
         ]
       },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ],
       "get": {
         "operationId": "GetReusableDelegationSet",
         "description": "Retrieves the reusable delegation set. Send a <code>GET</code> request to the <code>/2013-04-01/delegationset/<i>delegation set ID</i> </code> resource.",
@@ -1090,19 +1203,19 @@
               "$ref": "#/definitions/GetReusableDelegationSetResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "NoSuchDelegationSet",
             "schema": {
               "$ref": "#/definitions/NoSuchDelegationSet"
             }
           },
-          "401": {
+          "481": {
             "description": "DelegationSetNotReusable",
             "schema": {
               "$ref": "#/definitions/DelegationSetNotReusable"
             }
           },
-          "402": {
+          "482": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
@@ -1138,25 +1251,25 @@
               "$ref": "#/definitions/DeleteTrafficPolicyResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "NoSuchTrafficPolicy",
             "schema": {
               "$ref": "#/definitions/NoSuchTrafficPolicy"
             }
           },
-          "401": {
+          "481": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
             }
           },
-          "402": {
+          "482": {
             "description": "TrafficPolicyInUse",
             "schema": {
               "$ref": "#/definitions/TrafficPolicyInUse"
             }
           },
-          "403": {
+          "483": {
             "description": "ConcurrentModification",
             "schema": {
               "$ref": "#/definitions/ConcurrentModification"
@@ -1186,6 +1299,14 @@
           }
         ]
       },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ],
       "get": {
         "operationId": "GetTrafficPolicy",
         "description": "<p>Gets information about a specific traffic policy version.</p> <p>Send a <code>GET</code> request to the <code>/<i>Amazon Route 53 API version</i>/trafficpolicy</code> resource.</p>",
@@ -1196,13 +1317,13 @@
               "$ref": "#/definitions/GetTrafficPolicyResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "NoSuchTrafficPolicy",
             "schema": {
               "$ref": "#/definitions/NoSuchTrafficPolicy"
             }
           },
-          "401": {
+          "481": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
@@ -1242,19 +1363,19 @@
               "$ref": "#/definitions/UpdateTrafficPolicyCommentResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
             }
           },
-          "401": {
+          "481": {
             "description": "NoSuchTrafficPolicy",
             "schema": {
               "$ref": "#/definitions/NoSuchTrafficPolicy"
             }
           },
-          "402": {
+          "482": {
             "description": "ConcurrentModification",
             "schema": {
               "$ref": "#/definitions/ConcurrentModification"
@@ -1296,19 +1417,19 @@
               "$ref": "#/definitions/DeleteTrafficPolicyInstanceResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "NoSuchTrafficPolicyInstance",
             "schema": {
               "$ref": "#/definitions/NoSuchTrafficPolicyInstance"
             }
           },
-          "401": {
+          "481": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
             }
           },
-          "402": {
+          "482": {
             "description": "PriorRequestNotComplete",
             "schema": {
               "$ref": "#/definitions/PriorRequestNotComplete"
@@ -1332,6 +1453,14 @@
           }
         ]
       },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ],
       "get": {
         "operationId": "GetTrafficPolicyInstance",
         "description": "<p>Gets information about a specified traffic policy instance.</p> <p>Send a <code>GET</code> request to the <code>/<i>Amazon Route 53 API version</i>/trafficpolicyinstance</code> resource.</p> <note> <p>After you submit a <code>CreateTrafficPolicyInstance</code> or an <code>UpdateTrafficPolicyInstance</code> request, there's a brief delay while Amazon Route 53 creates the resource record sets that are specified in the traffic policy definition. For more information, see the <code>State</code> response element.</p> </note> <note> <p>In the Amazon Route 53 console, traffic policy instances are known as policy records.</p> </note>",
@@ -1342,13 +1471,13 @@
               "$ref": "#/definitions/GetTrafficPolicyInstanceResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "NoSuchTrafficPolicyInstance",
             "schema": {
               "$ref": "#/definitions/NoSuchTrafficPolicyInstance"
             }
           },
-          "401": {
+          "481": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
@@ -1382,31 +1511,31 @@
               "$ref": "#/definitions/UpdateTrafficPolicyInstanceResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
             }
           },
-          "401": {
+          "481": {
             "description": "NoSuchTrafficPolicy",
             "schema": {
               "$ref": "#/definitions/NoSuchTrafficPolicy"
             }
           },
-          "402": {
+          "482": {
             "description": "NoSuchTrafficPolicyInstance",
             "schema": {
               "$ref": "#/definitions/NoSuchTrafficPolicyInstance"
             }
           },
-          "403": {
+          "483": {
             "description": "PriorRequestNotComplete",
             "schema": {
               "$ref": "#/definitions/PriorRequestNotComplete"
             }
           },
-          "404": {
+          "484": {
             "description": "ConflictingTypes",
             "schema": {
               "$ref": "#/definitions/ConflictingTypes"
@@ -1442,31 +1571,31 @@
               "$ref": "#/definitions/DisassociateVPCFromHostedZoneResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "NoSuchHostedZone",
             "schema": {
               "$ref": "#/definitions/NoSuchHostedZone"
             }
           },
-          "401": {
+          "481": {
             "description": "InvalidVPCId",
             "schema": {
               "$ref": "#/definitions/InvalidVPCId"
             }
           },
-          "402": {
+          "482": {
             "description": "VPCAssociationNotFound",
             "schema": {
               "$ref": "#/definitions/VPCAssociationNotFound"
             }
           },
-          "403": {
+          "483": {
             "description": "LastVPCAssociation",
             "schema": {
               "$ref": "#/definitions/LastVPCAssociation"
             }
           },
-          "404": {
+          "484": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
@@ -1489,7 +1618,15 @@
             "required": true
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/2013-04-01/change/{Id}": {
       "get": {
@@ -1502,13 +1639,13 @@
               "$ref": "#/definitions/GetChangeResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "NoSuchChange",
             "schema": {
               "$ref": "#/definitions/NoSuchChange"
             }
           },
-          "401": {
+          "481": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
@@ -1531,7 +1668,15 @@
             "required": true
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/2013-04-01/changedetails/{Id}": {
       "get": {
@@ -1544,13 +1689,13 @@
               "$ref": "#/definitions/GetChangeDetailsResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "NoSuchChange",
             "schema": {
               "$ref": "#/definitions/NoSuchChange"
             }
           },
-          "401": {
+          "481": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
@@ -1573,7 +1718,15 @@
             "required": true
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/2013-04-01/checkeripranges": {
       "get": {
@@ -1597,7 +1750,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/2013-04-01/geolocation": {
       "get": {
@@ -1610,13 +1771,13 @@
               "$ref": "#/definitions/GetGeoLocationResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "NoSuchGeoLocation",
             "schema": {
               "$ref": "#/definitions/NoSuchGeoLocation"
             }
           },
-          "401": {
+          "481": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
@@ -1633,7 +1794,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/2013-04-01/healthcheckcount": {
       "get": {
@@ -1657,7 +1826,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/2013-04-01/healthcheck/{HealthCheckId}/lastfailurereason": {
       "get": {
@@ -1670,13 +1847,13 @@
               "$ref": "#/definitions/GetHealthCheckLastFailureReasonResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "NoSuchHealthCheck",
             "schema": {
               "$ref": "#/definitions/NoSuchHealthCheck"
             }
           },
-          "401": {
+          "481": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
@@ -1699,7 +1876,15 @@
             "required": true
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/2013-04-01/healthcheck/{HealthCheckId}/status": {
       "get": {
@@ -1712,13 +1897,13 @@
               "$ref": "#/definitions/GetHealthCheckStatusResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "NoSuchHealthCheck",
             "schema": {
               "$ref": "#/definitions/NoSuchHealthCheck"
             }
           },
-          "401": {
+          "481": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
@@ -1741,7 +1926,15 @@
             "required": true
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/2013-04-01/hostedzonecount": {
       "get": {
@@ -1754,7 +1947,7 @@
               "$ref": "#/definitions/GetHostedZoneCountResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
@@ -1771,7 +1964,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/2013-04-01/trafficpolicyinstancecount": {
       "get": {
@@ -1795,7 +1996,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/2013-04-01/hostedzone/{Id}/changes": {
       "get": {
@@ -1808,13 +2017,13 @@
               "$ref": "#/definitions/ListChangeBatchesByHostedZoneResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "NoSuchHostedZone",
             "schema": {
               "$ref": "#/definitions/NoSuchHostedZone"
             }
           },
-          "401": {
+          "481": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
@@ -1837,7 +2046,15 @@
             "required": true
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/2013-04-01/hostedzone/{Id}/rrsChanges": {
       "get": {
@@ -1850,13 +2067,13 @@
               "$ref": "#/definitions/ListChangeBatchesByRRSetResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "NoSuchHostedZone",
             "schema": {
               "$ref": "#/definitions/NoSuchHostedZone"
             }
           },
-          "401": {
+          "481": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
@@ -1879,7 +2096,15 @@
             "required": true
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/2013-04-01/geolocations": {
       "get": {
@@ -1892,7 +2117,7 @@
               "$ref": "#/definitions/ListGeoLocationsResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
@@ -1909,7 +2134,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/2013-04-01/hostedzonesbyname": {
       "get": {
@@ -1922,13 +2155,13 @@
               "$ref": "#/definitions/ListHostedZonesByNameResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
             }
           },
-          "401": {
+          "481": {
             "description": "InvalidDomainName",
             "schema": {
               "$ref": "#/definitions/InvalidDomainName"
@@ -1945,7 +2178,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/2013-04-01/hostedzone/{Id}/rrset": {
       "get": {
@@ -1958,13 +2199,13 @@
               "$ref": "#/definitions/ListResourceRecordSetsResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "NoSuchHostedZone",
             "schema": {
               "$ref": "#/definitions/NoSuchHostedZone"
             }
           },
-          "401": {
+          "481": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
@@ -1987,7 +2228,15 @@
             "required": true
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/2013-04-01/tags/{ResourceType}": {
       "post": {
@@ -2000,31 +2249,31 @@
               "$ref": "#/definitions/ListTagsForResourcesResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
             }
           },
-          "401": {
+          "481": {
             "description": "NoSuchHealthCheck",
             "schema": {
               "$ref": "#/definitions/NoSuchHealthCheck"
             }
           },
-          "402": {
+          "482": {
             "description": "NoSuchHostedZone",
             "schema": {
               "$ref": "#/definitions/NoSuchHostedZone"
             }
           },
-          "403": {
+          "483": {
             "description": "PriorRequestNotComplete",
             "schema": {
               "$ref": "#/definitions/PriorRequestNotComplete"
             }
           },
-          "404": {
+          "484": {
             "description": "ThrottlingException",
             "schema": {
               "$ref": "#/definitions/ThrottlingException"
@@ -2047,7 +2296,15 @@
             "required": true
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/2013-04-01/trafficpolicies": {
       "get": {
@@ -2060,7 +2317,7 @@
               "$ref": "#/definitions/ListTrafficPoliciesResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
@@ -2077,7 +2334,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/2013-04-01/trafficpolicyinstances": {
       "get": {
@@ -2090,13 +2355,13 @@
               "$ref": "#/definitions/ListTrafficPolicyInstancesResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
             }
           },
-          "401": {
+          "481": {
             "description": "NoSuchTrafficPolicyInstance",
             "schema": {
               "$ref": "#/definitions/NoSuchTrafficPolicyInstance"
@@ -2113,7 +2378,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/2013-04-01/trafficpolicyinstances/hostedzone": {
       "get": {
@@ -2126,19 +2399,19 @@
               "$ref": "#/definitions/ListTrafficPolicyInstancesByHostedZoneResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
             }
           },
-          "401": {
+          "481": {
             "description": "NoSuchTrafficPolicyInstance",
             "schema": {
               "$ref": "#/definitions/NoSuchTrafficPolicyInstance"
             }
           },
-          "402": {
+          "482": {
             "description": "NoSuchHostedZone",
             "schema": {
               "$ref": "#/definitions/NoSuchHostedZone"
@@ -2155,7 +2428,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/2013-04-01/trafficpolicyinstances/trafficpolicy": {
       "get": {
@@ -2168,19 +2449,19 @@
               "$ref": "#/definitions/ListTrafficPolicyInstancesByPolicyResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
             }
           },
-          "401": {
+          "481": {
             "description": "NoSuchTrafficPolicyInstance",
             "schema": {
               "$ref": "#/definitions/NoSuchTrafficPolicyInstance"
             }
           },
-          "402": {
+          "482": {
             "description": "NoSuchTrafficPolicy",
             "schema": {
               "$ref": "#/definitions/NoSuchTrafficPolicy"
@@ -2197,7 +2478,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/2013-04-01/trafficpolicies/{Id}/versions": {
       "get": {
@@ -2210,13 +2499,13 @@
               "$ref": "#/definitions/ListTrafficPolicyVersionsResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
             }
           },
-          "401": {
+          "481": {
             "description": "NoSuchTrafficPolicy",
             "schema": {
               "$ref": "#/definitions/NoSuchTrafficPolicy"
@@ -2239,7 +2528,15 @@
             "required": true
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/2013-04-01/testdnsanswer": {
       "get": {
@@ -2252,13 +2549,13 @@
               "$ref": "#/definitions/TestDNSAnswerResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "NoSuchHostedZone",
             "schema": {
               "$ref": "#/definitions/NoSuchHostedZone"
             }
           },
-          "401": {
+          "481": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
@@ -2275,7 +2572,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     }
   },
   "definitions": {

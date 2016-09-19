@@ -35,11 +35,28 @@
   "produces": [
     "application/json"
   ],
+  "parameters": {
+    "X-Amz-Content-Sha256": {
+      "name": "X-Amz-Content-Sha256",
+      "in": "header",
+      "type": "string",
+      "required": true
+    },
+    "X-Amz-Date": {
+      "name": "X-Amz-Date",
+      "in": "header",
+      "type": "string",
+      "format": "date-time",
+      "required": true
+    }
+  },
   "securityDefinitions": {
     "hmac": {
       "type": "apiKey",
       "name": "Authorization",
-      "in": "header"
+      "in": "header",
+      "description": "Amazon Signature authorization v4",
+      "x-amazon-apigateway-authtype": "awsSigv4"
     }
   },
   "security": [
@@ -56,25 +73,25 @@
           "200": {
             "description": "Success"
           },
-          "400": {
+          "480": {
             "description": "ResourceNotFoundException",
             "schema": {
               "$ref": "#/definitions/ResourceNotFoundException"
             }
           },
-          "401": {
+          "481": {
             "description": "InvalidStateException",
             "schema": {
               "$ref": "#/definitions/InvalidStateException"
             }
           },
-          "402": {
+          "482": {
             "description": "InvalidArnException",
             "schema": {
               "$ref": "#/definitions/InvalidArnException"
             }
           },
-          "403": {
+          "483": {
             "description": "InvalidDomainValidationOptionsException",
             "schema": {
               "$ref": "#/definitions/InvalidDomainValidationOptionsException"
@@ -91,7 +108,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     }
   },
   "definitions": {

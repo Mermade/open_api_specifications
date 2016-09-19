@@ -31,11 +31,28 @@
   ],
   "consumes": [],
   "produces": [],
+  "parameters": {
+    "X-Amz-Content-Sha256": {
+      "name": "X-Amz-Content-Sha256",
+      "in": "header",
+      "type": "string",
+      "required": true
+    },
+    "X-Amz-Date": {
+      "name": "X-Amz-Date",
+      "in": "header",
+      "type": "string",
+      "format": "date-time",
+      "required": true
+    }
+  },
   "securityDefinitions": {
     "hmac": {
       "type": "apiKey",
       "name": "Authorization",
-      "in": "header"
+      "in": "header",
+      "description": "Amazon Signature authorization v4",
+      "x-amazon-apigateway-authtype": "awsSigv4"
     }
   },
   "security": [
@@ -55,18 +72,18 @@
               "$ref": "#/definitions/UpdateSynonymOptionsResponse"
             }
           },
-          "400": {
-            "description": "BaseException",
-            "x-aws-exception": true,
-            "schema": {
-              "$ref": "#/definitions/BaseException"
-            }
-          },
           "409": {
             "description": "ResourceNotFoundException",
             "x-aws-exception": true,
             "schema": {
               "$ref": "#/definitions/ResourceNotFoundException"
+            }
+          },
+          "480": {
+            "description": "BaseException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/BaseException"
             }
           },
           "500": {
@@ -87,7 +104,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     }
   },
   "definitions": {

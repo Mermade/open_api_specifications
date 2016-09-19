@@ -34,11 +34,28 @@
   "produces": [
     "application/json"
   ],
+  "parameters": {
+    "X-Amz-Content-Sha256": {
+      "name": "X-Amz-Content-Sha256",
+      "in": "header",
+      "type": "string",
+      "required": true
+    },
+    "X-Amz-Date": {
+      "name": "X-Amz-Date",
+      "in": "header",
+      "type": "string",
+      "format": "date-time",
+      "required": true
+    }
+  },
   "securityDefinitions": {
     "hmac": {
       "type": "apiKey",
       "name": "Authorization",
-      "in": "header"
+      "in": "header",
+      "description": "Amazon Signature authorization v4",
+      "x-amazon-apigateway-authtype": "awsSigv4"
     }
   },
   "security": [
@@ -58,31 +75,31 @@
               "$ref": "#/definitions/UpdateApplicationResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "CodeValidationException",
             "schema": {
               "$ref": "#/definitions/CodeValidationException"
             }
           },
-          "401": {
+          "481": {
             "description": "ResourceNotFoundException",
             "schema": {
               "$ref": "#/definitions/ResourceNotFoundException"
             }
           },
-          "402": {
+          "482": {
             "description": "ResourceInUseException",
             "schema": {
               "$ref": "#/definitions/ResourceInUseException"
             }
           },
-          "403": {
+          "483": {
             "description": "InvalidArgumentException",
             "schema": {
               "$ref": "#/definitions/InvalidArgumentException"
             }
           },
-          "404": {
+          "484": {
             "description": "ConcurrentModificationException",
             "schema": {
               "$ref": "#/definitions/ConcurrentModificationException"
@@ -99,7 +116,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     }
   },
   "definitions": {

@@ -35,11 +35,28 @@
   "produces": [
     "application/json"
   ],
+  "parameters": {
+    "X-Amz-Content-Sha256": {
+      "name": "X-Amz-Content-Sha256",
+      "in": "header",
+      "type": "string",
+      "required": true
+    },
+    "X-Amz-Date": {
+      "name": "X-Amz-Date",
+      "in": "header",
+      "type": "string",
+      "format": "date-time",
+      "required": true
+    }
+  },
   "securityDefinitions": {
     "hmac": {
       "type": "apiKey",
       "name": "Authorization",
-      "in": "header"
+      "in": "header",
+      "description": "Amazon Signature authorization v4",
+      "x-amazon-apigateway-authtype": "awsSigv4"
     }
   },
   "security": [
@@ -59,37 +76,37 @@
               "$ref": "#/definitions/UpdateServiceResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "ServerException",
             "schema": {
               "$ref": "#/definitions/ServerException"
             }
           },
-          "401": {
+          "481": {
             "description": "ClientException",
             "schema": {
               "$ref": "#/definitions/ClientException"
             }
           },
-          "402": {
+          "482": {
             "description": "InvalidParameterException",
             "schema": {
               "$ref": "#/definitions/InvalidParameterException"
             }
           },
-          "403": {
+          "483": {
             "description": "ClusterNotFoundException",
             "schema": {
               "$ref": "#/definitions/ClusterNotFoundException"
             }
           },
-          "404": {
+          "484": {
             "description": "ServiceNotFoundException",
             "schema": {
               "$ref": "#/definitions/ServiceNotFoundException"
             }
           },
-          "405": {
+          "485": {
             "description": "ServiceNotActiveException",
             "schema": {
               "$ref": "#/definitions/ServiceNotActiveException"
@@ -106,7 +123,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     }
   },
   "definitions": {

@@ -35,11 +35,28 @@
   "produces": [
     "application/json"
   ],
+  "parameters": {
+    "X-Amz-Content-Sha256": {
+      "name": "X-Amz-Content-Sha256",
+      "in": "header",
+      "type": "string",
+      "required": true
+    },
+    "X-Amz-Date": {
+      "name": "X-Amz-Date",
+      "in": "header",
+      "type": "string",
+      "format": "date-time",
+      "required": true
+    }
+  },
   "securityDefinitions": {
     "hmac": {
       "type": "apiKey",
       "name": "Authorization",
-      "in": "header"
+      "in": "header",
+      "description": "Amazon Signature authorization v4",
+      "x-amazon-apigateway-authtype": "awsSigv4"
     }
   },
   "security": [
@@ -59,127 +76,127 @@
               "$ref": "#/definitions/UpdateTrailResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "S3BucketDoesNotExistException",
             "schema": {
               "$ref": "#/definitions/S3BucketDoesNotExistException"
             }
           },
-          "401": {
+          "481": {
             "description": "InsufficientS3BucketPolicyException",
             "schema": {
               "$ref": "#/definitions/InsufficientS3BucketPolicyException"
             }
           },
-          "402": {
+          "482": {
             "description": "InsufficientSnsTopicPolicyException",
             "schema": {
               "$ref": "#/definitions/InsufficientSnsTopicPolicyException"
             }
           },
-          "403": {
+          "483": {
             "description": "InsufficientEncryptionPolicyException",
             "schema": {
               "$ref": "#/definitions/InsufficientEncryptionPolicyException"
             }
           },
-          "404": {
+          "484": {
             "description": "TrailNotFoundException",
             "schema": {
               "$ref": "#/definitions/TrailNotFoundException"
             }
           },
-          "405": {
+          "485": {
             "description": "InvalidS3BucketNameException",
             "schema": {
               "$ref": "#/definitions/InvalidS3BucketNameException"
             }
           },
-          "406": {
+          "486": {
             "description": "InvalidS3PrefixException",
             "schema": {
               "$ref": "#/definitions/InvalidS3PrefixException"
             }
           },
-          "407": {
+          "487": {
             "description": "InvalidSnsTopicNameException",
             "schema": {
               "$ref": "#/definitions/InvalidSnsTopicNameException"
             }
           },
-          "408": {
+          "488": {
             "description": "InvalidKmsKeyIdException",
             "schema": {
               "$ref": "#/definitions/InvalidKmsKeyIdException"
             }
           },
-          "409": {
+          "489": {
             "description": "InvalidTrailNameException",
             "schema": {
               "$ref": "#/definitions/InvalidTrailNameException"
             }
           },
-          "410": {
+          "490": {
             "description": "TrailNotProvidedException",
             "schema": {
               "$ref": "#/definitions/TrailNotProvidedException"
             }
           },
-          "411": {
+          "491": {
             "description": "InvalidParameterCombinationException",
             "schema": {
               "$ref": "#/definitions/InvalidParameterCombinationException"
             }
           },
-          "412": {
+          "492": {
             "description": "InvalidHomeRegionException",
             "schema": {
               "$ref": "#/definitions/InvalidHomeRegionException"
             }
           },
-          "413": {
+          "493": {
             "description": "KmsKeyNotFoundException",
             "schema": {
               "$ref": "#/definitions/KmsKeyNotFoundException"
             }
           },
-          "414": {
+          "494": {
             "description": "KmsKeyDisabledException",
             "schema": {
               "$ref": "#/definitions/KmsKeyDisabledException"
             }
           },
-          "415": {
+          "495": {
             "description": "KmsException",
             "schema": {
               "$ref": "#/definitions/KmsException"
             }
           },
-          "416": {
+          "496": {
             "description": "InvalidCloudWatchLogsLogGroupArnException",
             "schema": {
               "$ref": "#/definitions/InvalidCloudWatchLogsLogGroupArnException"
             }
           },
-          "417": {
+          "497": {
             "description": "InvalidCloudWatchLogsRoleArnException",
             "schema": {
               "$ref": "#/definitions/InvalidCloudWatchLogsRoleArnException"
             }
           },
-          "418": {
+          "498": {
             "description": "CloudWatchLogsDeliveryUnavailableException",
             "schema": {
               "$ref": "#/definitions/CloudWatchLogsDeliveryUnavailableException"
             }
           },
-          "419": {
+          "499": {
             "description": "UnsupportedOperationException",
             "schema": {
               "$ref": "#/definitions/UnsupportedOperationException"
             }
           },
-          "420": {
+          "500": {
             "description": "OperationNotPermittedException",
             "schema": {
               "$ref": "#/definitions/OperationNotPermittedException"
@@ -196,7 +213,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     }
   },
   "definitions": {

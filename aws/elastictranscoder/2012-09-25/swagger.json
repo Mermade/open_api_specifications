@@ -35,11 +35,28 @@
   "produces": [
     "application/json"
   ],
+  "parameters": {
+    "X-Amz-Content-Sha256": {
+      "name": "X-Amz-Content-Sha256",
+      "in": "header",
+      "type": "string",
+      "required": true
+    },
+    "X-Amz-Date": {
+      "name": "X-Amz-Date",
+      "in": "header",
+      "type": "string",
+      "format": "date-time",
+      "required": true
+    }
+  },
   "securityDefinitions": {
     "hmac": {
       "type": "apiKey",
       "name": "Authorization",
-      "in": "header"
+      "in": "header",
+      "description": "Amazon Signature authorization v4",
+      "x-amazon-apigateway-authtype": "awsSigv4"
     }
   },
   "security": [
@@ -59,37 +76,37 @@
               "$ref": "#/definitions/CancelJobResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "ValidationException",
             "schema": {
               "$ref": "#/definitions/ValidationException"
             }
           },
-          "401": {
+          "481": {
             "description": "IncompatibleVersionException",
             "schema": {
               "$ref": "#/definitions/IncompatibleVersionException"
             }
           },
-          "402": {
+          "482": {
             "description": "ResourceNotFoundException",
             "schema": {
               "$ref": "#/definitions/ResourceNotFoundException"
             }
           },
-          "403": {
+          "483": {
             "description": "ResourceInUseException",
             "schema": {
               "$ref": "#/definitions/ResourceInUseException"
             }
           },
-          "404": {
+          "484": {
             "description": "AccessDeniedException",
             "schema": {
               "$ref": "#/definitions/AccessDeniedException"
             }
           },
-          "405": {
+          "485": {
             "description": "InternalServiceException",
             "schema": {
               "$ref": "#/definitions/InternalServiceException"
@@ -113,6 +130,14 @@
           }
         ]
       },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ],
       "get": {
         "operationId": "ReadJob",
         "description": "The ReadJob operation returns detailed information about a job.",
@@ -123,31 +148,31 @@
               "$ref": "#/definitions/ReadJobResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "ValidationException",
             "schema": {
               "$ref": "#/definitions/ValidationException"
             }
           },
-          "401": {
+          "481": {
             "description": "IncompatibleVersionException",
             "schema": {
               "$ref": "#/definitions/IncompatibleVersionException"
             }
           },
-          "402": {
+          "482": {
             "description": "ResourceNotFoundException",
             "schema": {
               "$ref": "#/definitions/ResourceNotFoundException"
             }
           },
-          "403": {
+          "483": {
             "description": "AccessDeniedException",
             "schema": {
               "$ref": "#/definitions/AccessDeniedException"
             }
           },
-          "404": {
+          "484": {
             "description": "InternalServiceException",
             "schema": {
               "$ref": "#/definitions/InternalServiceException"
@@ -183,37 +208,37 @@
               "$ref": "#/definitions/CreateJobResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "ValidationException",
             "schema": {
               "$ref": "#/definitions/ValidationException"
             }
           },
-          "401": {
+          "481": {
             "description": "IncompatibleVersionException",
             "schema": {
               "$ref": "#/definitions/IncompatibleVersionException"
             }
           },
-          "402": {
+          "482": {
             "description": "ResourceNotFoundException",
             "schema": {
               "$ref": "#/definitions/ResourceNotFoundException"
             }
           },
-          "403": {
+          "483": {
             "description": "AccessDeniedException",
             "schema": {
               "$ref": "#/definitions/AccessDeniedException"
             }
           },
-          "404": {
+          "484": {
             "description": "LimitExceededException",
             "schema": {
               "$ref": "#/definitions/LimitExceededException"
             }
           },
-          "405": {
+          "485": {
             "description": "InternalServiceException",
             "schema": {
               "$ref": "#/definitions/InternalServiceException"
@@ -230,7 +255,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/2012-09-25/pipelines": {
       "post": {
@@ -243,37 +276,37 @@
               "$ref": "#/definitions/CreatePipelineResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "ValidationException",
             "schema": {
               "$ref": "#/definitions/ValidationException"
             }
           },
-          "401": {
+          "481": {
             "description": "IncompatibleVersionException",
             "schema": {
               "$ref": "#/definitions/IncompatibleVersionException"
             }
           },
-          "402": {
+          "482": {
             "description": "AccessDeniedException",
             "schema": {
               "$ref": "#/definitions/AccessDeniedException"
             }
           },
-          "403": {
+          "483": {
             "description": "ResourceNotFoundException",
             "schema": {
               "$ref": "#/definitions/ResourceNotFoundException"
             }
           },
-          "404": {
+          "484": {
             "description": "LimitExceededException",
             "schema": {
               "$ref": "#/definitions/LimitExceededException"
             }
           },
-          "405": {
+          "485": {
             "description": "InternalServiceException",
             "schema": {
               "$ref": "#/definitions/InternalServiceException"
@@ -291,6 +324,14 @@
           }
         ]
       },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ],
       "get": {
         "operationId": "ListPipelines",
         "description": "The ListPipelines operation gets a list of the pipelines associated with the current AWS account.",
@@ -301,25 +342,25 @@
               "$ref": "#/definitions/ListPipelinesResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "ValidationException",
             "schema": {
               "$ref": "#/definitions/ValidationException"
             }
           },
-          "401": {
+          "481": {
             "description": "IncompatibleVersionException",
             "schema": {
               "$ref": "#/definitions/IncompatibleVersionException"
             }
           },
-          "402": {
+          "482": {
             "description": "AccessDeniedException",
             "schema": {
               "$ref": "#/definitions/AccessDeniedException"
             }
           },
-          "403": {
+          "483": {
             "description": "InternalServiceException",
             "schema": {
               "$ref": "#/definitions/InternalServiceException"
@@ -349,31 +390,31 @@
               "$ref": "#/definitions/CreatePresetResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "ValidationException",
             "schema": {
               "$ref": "#/definitions/ValidationException"
             }
           },
-          "401": {
+          "481": {
             "description": "IncompatibleVersionException",
             "schema": {
               "$ref": "#/definitions/IncompatibleVersionException"
             }
           },
-          "402": {
+          "482": {
             "description": "AccessDeniedException",
             "schema": {
               "$ref": "#/definitions/AccessDeniedException"
             }
           },
-          "403": {
+          "483": {
             "description": "LimitExceededException",
             "schema": {
               "$ref": "#/definitions/LimitExceededException"
             }
           },
-          "404": {
+          "484": {
             "description": "InternalServiceException",
             "schema": {
               "$ref": "#/definitions/InternalServiceException"
@@ -391,6 +432,14 @@
           }
         ]
       },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ],
       "get": {
         "operationId": "ListPresets",
         "description": "The ListPresets operation gets a list of the default presets included with Elastic Transcoder and the presets that you've added in an AWS region.",
@@ -401,25 +450,25 @@
               "$ref": "#/definitions/ListPresetsResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "ValidationException",
             "schema": {
               "$ref": "#/definitions/ValidationException"
             }
           },
-          "401": {
+          "481": {
             "description": "IncompatibleVersionException",
             "schema": {
               "$ref": "#/definitions/IncompatibleVersionException"
             }
           },
-          "402": {
+          "482": {
             "description": "AccessDeniedException",
             "schema": {
               "$ref": "#/definitions/AccessDeniedException"
             }
           },
-          "403": {
+          "483": {
             "description": "InternalServiceException",
             "schema": {
               "$ref": "#/definitions/InternalServiceException"
@@ -449,37 +498,37 @@
               "$ref": "#/definitions/DeletePipelineResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "ValidationException",
             "schema": {
               "$ref": "#/definitions/ValidationException"
             }
           },
-          "401": {
+          "481": {
             "description": "IncompatibleVersionException",
             "schema": {
               "$ref": "#/definitions/IncompatibleVersionException"
             }
           },
-          "402": {
+          "482": {
             "description": "ResourceNotFoundException",
             "schema": {
               "$ref": "#/definitions/ResourceNotFoundException"
             }
           },
-          "403": {
+          "483": {
             "description": "ResourceInUseException",
             "schema": {
               "$ref": "#/definitions/ResourceInUseException"
             }
           },
-          "404": {
+          "484": {
             "description": "AccessDeniedException",
             "schema": {
               "$ref": "#/definitions/AccessDeniedException"
             }
           },
-          "405": {
+          "485": {
             "description": "InternalServiceException",
             "schema": {
               "$ref": "#/definitions/InternalServiceException"
@@ -503,6 +552,14 @@
           }
         ]
       },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ],
       "get": {
         "operationId": "ReadPipeline",
         "description": "The ReadPipeline operation gets detailed information about a pipeline.",
@@ -513,31 +570,31 @@
               "$ref": "#/definitions/ReadPipelineResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "ValidationException",
             "schema": {
               "$ref": "#/definitions/ValidationException"
             }
           },
-          "401": {
+          "481": {
             "description": "IncompatibleVersionException",
             "schema": {
               "$ref": "#/definitions/IncompatibleVersionException"
             }
           },
-          "402": {
+          "482": {
             "description": "ResourceNotFoundException",
             "schema": {
               "$ref": "#/definitions/ResourceNotFoundException"
             }
           },
-          "403": {
+          "483": {
             "description": "AccessDeniedException",
             "schema": {
               "$ref": "#/definitions/AccessDeniedException"
             }
           },
-          "404": {
+          "484": {
             "description": "InternalServiceException",
             "schema": {
               "$ref": "#/definitions/InternalServiceException"
@@ -571,37 +628,37 @@
               "$ref": "#/definitions/UpdatePipelineResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "ValidationException",
             "schema": {
               "$ref": "#/definitions/ValidationException"
             }
           },
-          "401": {
+          "481": {
             "description": "IncompatibleVersionException",
             "schema": {
               "$ref": "#/definitions/IncompatibleVersionException"
             }
           },
-          "402": {
+          "482": {
             "description": "AccessDeniedException",
             "schema": {
               "$ref": "#/definitions/AccessDeniedException"
             }
           },
-          "403": {
+          "483": {
             "description": "ResourceInUseException",
             "schema": {
               "$ref": "#/definitions/ResourceInUseException"
             }
           },
-          "404": {
+          "484": {
             "description": "ResourceNotFoundException",
             "schema": {
               "$ref": "#/definitions/ResourceNotFoundException"
             }
           },
-          "405": {
+          "485": {
             "description": "InternalServiceException",
             "schema": {
               "$ref": "#/definitions/InternalServiceException"
@@ -637,31 +694,31 @@
               "$ref": "#/definitions/DeletePresetResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "ValidationException",
             "schema": {
               "$ref": "#/definitions/ValidationException"
             }
           },
-          "401": {
+          "481": {
             "description": "IncompatibleVersionException",
             "schema": {
               "$ref": "#/definitions/IncompatibleVersionException"
             }
           },
-          "402": {
+          "482": {
             "description": "ResourceNotFoundException",
             "schema": {
               "$ref": "#/definitions/ResourceNotFoundException"
             }
           },
-          "403": {
+          "483": {
             "description": "AccessDeniedException",
             "schema": {
               "$ref": "#/definitions/AccessDeniedException"
             }
           },
-          "404": {
+          "484": {
             "description": "InternalServiceException",
             "schema": {
               "$ref": "#/definitions/InternalServiceException"
@@ -685,6 +742,14 @@
           }
         ]
       },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ],
       "get": {
         "operationId": "ReadPreset",
         "description": "The ReadPreset operation gets detailed information about a preset.",
@@ -695,31 +760,31 @@
               "$ref": "#/definitions/ReadPresetResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "ValidationException",
             "schema": {
               "$ref": "#/definitions/ValidationException"
             }
           },
-          "401": {
+          "481": {
             "description": "IncompatibleVersionException",
             "schema": {
               "$ref": "#/definitions/IncompatibleVersionException"
             }
           },
-          "402": {
+          "482": {
             "description": "ResourceNotFoundException",
             "schema": {
               "$ref": "#/definitions/ResourceNotFoundException"
             }
           },
-          "403": {
+          "483": {
             "description": "AccessDeniedException",
             "schema": {
               "$ref": "#/definitions/AccessDeniedException"
             }
           },
-          "404": {
+          "484": {
             "description": "InternalServiceException",
             "schema": {
               "$ref": "#/definitions/InternalServiceException"
@@ -755,31 +820,31 @@
               "$ref": "#/definitions/ListJobsByPipelineResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "ValidationException",
             "schema": {
               "$ref": "#/definitions/ValidationException"
             }
           },
-          "401": {
+          "481": {
             "description": "IncompatibleVersionException",
             "schema": {
               "$ref": "#/definitions/IncompatibleVersionException"
             }
           },
-          "402": {
+          "482": {
             "description": "ResourceNotFoundException",
             "schema": {
               "$ref": "#/definitions/ResourceNotFoundException"
             }
           },
-          "403": {
+          "483": {
             "description": "AccessDeniedException",
             "schema": {
               "$ref": "#/definitions/AccessDeniedException"
             }
           },
-          "404": {
+          "484": {
             "description": "InternalServiceException",
             "schema": {
               "$ref": "#/definitions/InternalServiceException"
@@ -802,7 +867,15 @@
             "required": true
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/2012-09-25/jobsByStatus/{Status}": {
       "get": {
@@ -815,31 +888,31 @@
               "$ref": "#/definitions/ListJobsByStatusResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "ValidationException",
             "schema": {
               "$ref": "#/definitions/ValidationException"
             }
           },
-          "401": {
+          "481": {
             "description": "IncompatibleVersionException",
             "schema": {
               "$ref": "#/definitions/IncompatibleVersionException"
             }
           },
-          "402": {
+          "482": {
             "description": "ResourceNotFoundException",
             "schema": {
               "$ref": "#/definitions/ResourceNotFoundException"
             }
           },
-          "403": {
+          "483": {
             "description": "AccessDeniedException",
             "schema": {
               "$ref": "#/definitions/AccessDeniedException"
             }
           },
-          "404": {
+          "484": {
             "description": "InternalServiceException",
             "schema": {
               "$ref": "#/definitions/InternalServiceException"
@@ -862,7 +935,15 @@
             "required": true
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/2012-09-25/roleTests": {
       "post": {
@@ -875,31 +956,31 @@
               "$ref": "#/definitions/TestRoleResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "ValidationException",
             "schema": {
               "$ref": "#/definitions/ValidationException"
             }
           },
-          "401": {
+          "481": {
             "description": "IncompatibleVersionException",
             "schema": {
               "$ref": "#/definitions/IncompatibleVersionException"
             }
           },
-          "402": {
+          "482": {
             "description": "ResourceNotFoundException",
             "schema": {
               "$ref": "#/definitions/ResourceNotFoundException"
             }
           },
-          "403": {
+          "483": {
             "description": "AccessDeniedException",
             "schema": {
               "$ref": "#/definitions/AccessDeniedException"
             }
           },
-          "404": {
+          "484": {
             "description": "InternalServiceException",
             "schema": {
               "$ref": "#/definitions/InternalServiceException"
@@ -916,7 +997,15 @@
             }
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/2012-09-25/pipelines/{Id}/notifications": {
       "post": {
@@ -929,37 +1018,37 @@
               "$ref": "#/definitions/UpdatePipelineNotificationsResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "ValidationException",
             "schema": {
               "$ref": "#/definitions/ValidationException"
             }
           },
-          "401": {
+          "481": {
             "description": "IncompatibleVersionException",
             "schema": {
               "$ref": "#/definitions/IncompatibleVersionException"
             }
           },
-          "402": {
+          "482": {
             "description": "ResourceNotFoundException",
             "schema": {
               "$ref": "#/definitions/ResourceNotFoundException"
             }
           },
-          "403": {
+          "483": {
             "description": "ResourceInUseException",
             "schema": {
               "$ref": "#/definitions/ResourceInUseException"
             }
           },
-          "404": {
+          "484": {
             "description": "AccessDeniedException",
             "schema": {
               "$ref": "#/definitions/AccessDeniedException"
             }
           },
-          "405": {
+          "485": {
             "description": "InternalServiceException",
             "schema": {
               "$ref": "#/definitions/InternalServiceException"
@@ -982,7 +1071,15 @@
             "required": true
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     },
     "/2012-09-25/pipelines/{Id}/status": {
       "post": {
@@ -995,37 +1092,37 @@
               "$ref": "#/definitions/UpdatePipelineStatusResponse"
             }
           },
-          "400": {
+          "480": {
             "description": "ValidationException",
             "schema": {
               "$ref": "#/definitions/ValidationException"
             }
           },
-          "401": {
+          "481": {
             "description": "IncompatibleVersionException",
             "schema": {
               "$ref": "#/definitions/IncompatibleVersionException"
             }
           },
-          "402": {
+          "482": {
             "description": "ResourceNotFoundException",
             "schema": {
               "$ref": "#/definitions/ResourceNotFoundException"
             }
           },
-          "403": {
+          "483": {
             "description": "ResourceInUseException",
             "schema": {
               "$ref": "#/definitions/ResourceInUseException"
             }
           },
-          "404": {
+          "484": {
             "description": "AccessDeniedException",
             "schema": {
               "$ref": "#/definitions/AccessDeniedException"
             }
           },
-          "405": {
+          "485": {
             "description": "InternalServiceException",
             "schema": {
               "$ref": "#/definitions/InternalServiceException"
@@ -1048,7 +1145,15 @@
             "required": true
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        }
+      ]
     }
   },
   "definitions": {
