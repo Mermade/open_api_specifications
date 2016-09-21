@@ -1,0 +1,297 @@
+{
+  "endpoints": [
+    {
+      "name": "Items",
+      "methods": [
+        {
+          "MethodName": "item_by_counter",
+          "Synopsis": "Returns the item ID for a specified project counter. The 'counter' is the number you see in urls like https://rollbar.com/accountname/projectname/items/1234/",
+          "HTTPMethod": "GET",
+          "URI": "/item_by_counter/:counter",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "counter",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "The project-specific counter identifier of the item. Get this from URLs like https://rollbar.com/accountname/projectname/items/1234/"
+            }
+          ],
+          "examples": {
+            "curl": "item_by_counter.get.curl",
+            "python": "item_by_counter.get.python"
+          }
+        },
+        {
+          "MethodName": "item",
+          "Synopsis": "Returns data for the specified item ID.",
+          "HTTPMethod": "GET",
+          "URI": "/item/:item_id",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "item_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "The system-wide ID of the item. Get this ID from the /item_by_counter/:counter endpoint."
+            }
+          ],
+          "examples": {
+            "curl": "item.get.curl",
+            "python": "item.get.python"
+          }
+        },
+        {
+          "MethodName": "items",
+          "Synopsis": "Returns a page of all items for the project.",
+          "HTTPMethod": "GET",
+          "URI": "/items/",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "status",
+              "Required": "N",
+              "Default": "",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "active",
+                "resolved"
+              ],
+              "Description": "If not empty, only return items with the specified status. Note: does not affect the result when 'ids' is used."
+            },
+            {
+              "Name": "ids",
+              "Required": "N",
+              "Default": "",
+              "Type": "comma-separated list of integers",
+              "Description": "If not empty, list of item IDs to return instead of using all items from the project."
+            },
+            {
+              "Name": "page",
+              "Required": "N",
+              "Default": "",
+              "Type": "integer",
+              "Description": "Page number, optional, starting from 1. 20 items are returned per page."
+            }
+          ],
+          "examples": {
+            "curl": "items.get.curl",
+            "python": "items.get.python"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Instances",
+      "methods": [
+        {
+          "MethodName": "instance",
+          "Synopsis": "Returns data for the specified instance ID.",
+          "HTTPMethod": "GET",
+          "URI": "/instance/:instance_id",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "instance_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "integer",
+              "Description": "ID of the instance to retrieve. Same as found in URLS like rollbar.com/item/:item_id/instance/:instance_id"
+            }
+          ],
+          "examples": {
+            "curl": "instance.get.curl",
+            "python": "instance.get.python"
+          }
+        },
+        {
+          "MethodName": "instances",
+          "Synopsis": "Returns a page of all the instances for the project.",
+          "HTTPMethod": "GET",
+          "URI": "/instances/",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "ids",
+              "Required": "N",
+              "Default": "",
+              "Type": "comma-separated list of integers",
+              "Description": "If not empty, list of item IDs to return instead of using all items from the project."
+            },
+            {
+              "Name": "page",
+              "Required": "N",
+              "Default": "",
+              "Type": "integer",
+              "Description": "Page number, optional, starting from 1. 20 instances are returned per page."
+            }
+          ],
+          "examples": {
+            "curl": "instances.get.curl",
+            "python": "instances.get.python"
+          }
+        },
+        {
+          "MethodName": "item/instances",
+          "Synopsis": "Returns a page of all instances for a particular item.",
+          "HTTPMethod": "GET",
+          "URI": "/item/:item_id/instances/",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "item_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "The ID of the item. Same as the ID found in the URL, e.g. http://rollbar.com/item/:item_id"
+            },
+            {
+              "Name": "page",
+              "Required": "N",
+              "Default": "",
+              "Type": "integer",
+              "Description": "Page number, optional, starting from 1. 20 items are returned per page."
+            }
+          ],
+          "examples": {
+            "curl": "iteminstances.get.curl",
+            "python": "iteminstances.get.python"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Deploys",
+      "methods": [
+        {
+          "MethodName": "deploy",
+          "Synopsis": "Returns data for the specified deploy ID.",
+          "HTTPMethod": "GET",
+          "URI": "/deploy/:deploy_id",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "deploy_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "integer",
+              "Description": "The ID of the deploy. Same as the ID found in URLs like rollbar.com/deploy/:deploy_id"
+            }
+          ],
+          "examples": {
+            "curl": "deploy.get.curl",
+            "python": "deploy.get.python"
+          }
+        },
+        {
+          "MethodName": "deploys",
+          "Synopsis": "Returns a page of all deploys for the project.",
+          "HTTPMethod": "GET",
+          "URI": "/deploys/",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "ids",
+              "Required": "N",
+              "Default": "",
+              "Type": "comma-separated list of integers",
+              "Description": "If not empty, list of deploy IDs to return instead of using all deploys from the project."
+            },
+            {
+              "Name": "page",
+              "Required": "N",
+              "Default": "",
+              "Type": "integer",
+              "Description": "Page number, optional, starting from 1. 20 deploys are returned per page."
+            }
+          ],
+          "examples": {
+            "curl": "deploys.get.curl",
+            "python": "deploys.get.python"
+          }
+        },
+        {
+          "MethodName": "deploy",
+          "Synopsis": "Notify Rollbar of a deploy",
+          "HTTPMethod": "POST",
+          "URI": "/deploy/",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "environment",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Environment name. Any string up to 255 characters is OK. For best results, use conventional names like 'production', 'staging', 'development' when applicable."
+            },
+            {
+              "Name": "revision",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Revision identifier. For git, use the full sha."
+            },
+            {
+              "Name": "timestamp",
+              "Required": "N",
+              "Default": "",
+              "Type": "integer",
+              "Description": "Unix timestamp when the deploy completed. Defaults to the current timestamp."
+            },
+            {
+              "Name": "duration",
+              "Required": "N",
+              "Default": "",
+              "Type": "integer",
+              "Description": "Deploy duration, in seconds. Defaults to 1. If you don't measure this, just omit it."
+            },
+            {
+              "Name": "comment",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Free-form text describing the deploy"
+            },
+            {
+              "Name": "local_username",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Username or other identifier of the user who deployed. For example, the output of `whoami`"
+            },
+            {
+              "Name": "rollbar_username",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Rollbar username of the user who deployed."
+            }
+          ],
+          "examples": {
+            "curl": "deploy.post.curl",
+            "python": "deploy.post.python"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Project",
+      "methods": [
+        {
+          "MethodName": "project",
+          "Synopsis": "Returns information about the project that the used access_token belongs to.",
+          "HTTPMethod": "GET",
+          "URI": "/project",
+          "RequiresOAuth": "N",
+          "parameters": [],
+          "examples": {
+            "curl": "project.get.curl",
+            "python": "project.get.python"
+          }
+        }
+      ]
+    }
+  ]
+}

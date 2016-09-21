@@ -1,0 +1,3828 @@
+{
+  "endpoints": [
+    {
+      "name": "Currencies",
+      "methods": [
+        {
+          "MethodName": "Get currencies",
+          "Synopsis": "Get a list of all currencies",
+          "HTTPMethod": "GET",
+          "URI": "/currencies.:format",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Get currency",
+          "Synopsis": "Get currency data",
+          "HTTPMethod": "GET",
+          "URI": "/currencies/:id.:format",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Currency identifier or code"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Rooms",
+      "methods": [
+        {
+          "MethodName": "Find",
+          "Synopsis": "Get rooms",
+          "HTTPMethod": "GET",
+          "URI": "/rooms.:format",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "destination",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Name of the destination to search in, Either destination or destination_id are required"
+            },
+            {
+              "Name": "destination_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "ID of the destination to search in. Either destination or destination_id are required"
+            },
+            {
+              "Name": "ids",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "ID of rooms to search in. Comma-separated string of room ids"
+            },
+            {
+              "Name": "check_in",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "ISO 8601 (YYYY-MM-DD) format date of the check-in date. If this is specified, check_out is required"
+            },
+            {
+              "Name": "check_out",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "ISO 8601 (YYYY-MM-DD) format date of the check-out date. If this is specified, check_in is required"
+            },
+            {
+              "Name": "num_guests",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Number of guests to search for"
+            },
+            {
+              "Name": "num_rooms",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Minimum number of rooms"
+            },
+            {
+              "Name": "max_price",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Maximum nightly rate in USD"
+            },
+            {
+              "Name": "min_price",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Minimum nightly rate in USD"
+            },
+            {
+              "Name": "room_types",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Filter on comma-separated list of available room types. See the list of room types under enumerables"
+            },
+            {
+              "Name": "amenities",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Filter on comma-separated list of available amenities. See the list of amenities under enumerables"
+            },
+            {
+              "Name": "multi_unit",
+              "Required": "N",
+              "Default": "",
+              "Type": "boolean",
+              "Description": "Show multi-unit properties"
+            },
+            {
+              "Name": "instantly_bookable",
+              "Required": "N",
+              "Default": "",
+              "Type": "boolean",
+              "Description": "Show instantly-bookable properties"
+            },
+            {
+              "Name": "order",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Ordering, possible values are: recently_active, price_asc, price_desc"
+            },
+            {
+              "Name": "limit",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Number of results to return, defaults to 10 if not specified, maximum of 100 (specify a page parameter if you need more)"
+            },
+            {
+              "Name": "since",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "ISO 8601 (YYYY-MM-DD) format date or Unix time in seconds. Adding this parameter will only return records updated after this time."
+            },
+            {
+              "Name": "currency",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Currency code for conversion or the resulting pricing"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Recently Updated",
+          "Synopsis": "Get the rooms that have been updated since an specified date",
+          "HTTPMethod": "GET",
+          "URI": "/rooms/recently_updated.:format",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "since",
+              "Required": "N",
+              "Type": "string",
+              "Description": "Return rooms updated after this date until now. ISO 8601 (YYYY-MM-DD). Max: 1 week ago. Default: 1 week ago"
+            },
+            {
+              "Name": "page",
+              "Required": "N",
+              "Type": "integer",
+              "Description": "Page to display"
+            },
+            {
+              "Name": "limit",
+              "Required": "N",
+              "Type": "integer",
+              "Description": "Number of rooms per page. (Default: 10, Max: 100)"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Get Data",
+          "Synopsis": "Get room data",
+          "HTTPMethod": "GET",
+          "URI": "/rooms/:id.:format",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Property identifier"
+            },
+            {
+              "Name": "currency",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Currency code for conversion or the resulting pricing"
+            },
+            {
+              "Name": "strip_html",
+              "Required": "N",
+              "Default": "",
+              "Type": "boolean",
+              "Description": "Strip html tags out of property descriptions"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Find Similar",
+          "Synopsis": "Find and display similar properties from Roomorama",
+          "HTTPMethod": "GET",
+          "URI": "/rooms/:room_id/similar.:format",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "room_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Property identifier"
+            },
+            {
+              "Name": "limit",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Maximum number of results returned. (default = 5, max = 20)"
+            },
+            {
+              "Name": "currency",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Currency code for conversion or the resulting pricing"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Availabilities",
+          "Synopsis": "Get availability and rates for this property. Calling it without start_date or end_date will return availability date for the upcoming month. Calling it with since will only return the availabilities that were updated since then.",
+          "HTTPMethod": "GET",
+          "URI": "/rooms/:room_id/availabilities.:format",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "room_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Property identifier"
+            },
+            {
+              "Name": "start_date",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Start date for the availability period to fetch. Must be after today. Format: YYYY-MM-DD"
+            },
+            {
+              "Name": "end_date",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Start date for the availability period to fetch. Format: YYYY-MM-DD"
+            },
+            {
+              "Name": "currency",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Currency code for conversion or the resulting pricing"
+            },
+            {
+              "Name": "since",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "ISO 8601 (YYYY-MM-DD) format date or Unix time in seconds. Adding this parameter will only return records updated after this time. Useful for synchronizing availability."
+            },
+            {
+              "Name": "filter",
+              "Required": "N",
+              "Default": "",
+              "Type": "enumerated",
+              "Description": "Filter only the available or unavailable availability records",
+              "EnumeratedList": [
+                "available",
+                "unavailable"
+              ]
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Price Check",
+          "Synopsis": "Price Check",
+          "HTTPMethod": "GET",
+          "URI": "/inquiries/new.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "room_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Property Identifier"
+            },
+            {
+              "Name": "check_in",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Check-in date"
+            },
+            {
+              "Name": "check_out",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Check-out date"
+            },
+            {
+              "Name": "num_guests",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Number of guests"
+            },
+            {
+              "Name": "currency",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Currency code for conversion or the resulting pricing"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Price Check in Bulk",
+          "Synopsis": "Get price information for multiple rooms in the same API call. Useful when rendering a search results page, passing the IDs of all rooms in the page, to get the accurate price. The `accurate` flag in the response indicates if the price is live or not. If the price is not live, `accurate` will be set to false, causing it to be updated in the background. A subsequent call should therefore include accurate price.",
+          "HTTPMethod": "GET",
+          "URI": "/inquiries/multiple.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "rooms",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Comma-separated list of room IDs"
+            },
+            {
+              "Name": "check_in",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Check-in date"
+            },
+            {
+              "Name": "check_out",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Check-out date"
+            },
+            {
+              "Name": "num_guests",
+              "Required": "N",
+              "Default": "1",
+              "Type": "integer",
+              "Description": "Number of guests"
+            },
+            {
+              "Name": "currency",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Currency code for conversion or the resulting pricing"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Reviews",
+          "Synopsis": "Get reviews received by this property.",
+          "HTTPMethod": "GET",
+          "URI": "/rooms/:room_id/reviews.:format",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "room_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Property identifier"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Favorites",
+      "methods": [
+        {
+          "MethodName": "List",
+          "Synopsis": "List of the user favorites",
+          "HTTPMethod": "GET",
+          "URI": "/favorites.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "currency",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Currency code for conversion or the resulting pricing"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Create",
+          "Synopsis": "Create a user favorite property",
+          "HTTPMethod": "POST",
+          "URI": "/favorites.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            },
+            {
+              "Name": "room_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "ID of the property to add to favorites"
+            }
+          ]
+        },
+        {
+          "MethodName": "Delete",
+          "Synopsis": "Remove favorite property from list of favorites",
+          "HTTPMethod": "DELETE",
+          "URI": "/favorites/:id.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            },
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "ID of the property to remove from favorites"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "methods": [
+        {
+          "MethodName": "me",
+          "Synopsis": "Get my user profile",
+          "HTTPMethod": "GET",
+          "URI": "/me.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "strip_html",
+              "Required": "N",
+              "Default": "",
+              "Type": "boolean",
+              "Description": "Strip html tags out of user descriptions"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ],
+          "ExpectResponses": [
+            {
+              "Format": "json",
+              "Schema": {
+                "type": "object",
+                "properties": {
+                  "result": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "description": "User identifier",
+                        "required": true
+                      }
+                    }
+                  },
+                  "status": {
+                    "type": "number",
+                    "description": "Response status code"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "MethodName": "Update Profile",
+          "Synopsis": "Update your user profile",
+          "HTTPMethod": "PUT",
+          "URI": "/me.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "email",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Email"
+            },
+            {
+              "Name": "first_name",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "First name"
+            },
+            {
+              "Name": "last_name",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Last name"
+            },
+            {
+              "Name": "phone_number",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Phone number"
+            },
+            {
+              "Name": "city",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "City"
+            },
+            {
+              "Name": "country",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Country"
+            },
+            {
+              "Name": "email2",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Secondary email"
+            },
+            {
+              "Name": "description",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Profile description"
+            },
+            {
+              "Name": "date_of_birth",
+              "Required": "N",
+              "Default": "",
+              "Type": "date",
+              "Description": "Date of birth"
+            },
+            {
+              "Name": "gender",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Gender (m or f)"
+            },
+            {
+              "Name": "locale",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Preferred language"
+            },
+            {
+              "Name": "time_zone",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "User timezone"
+            },
+            {
+              "Name": "shoutouts_notifications_frequency",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Shoutouts notifications frequency ('none', 'daily' or 'instant')"
+            },
+            {
+              "Name": "wants_unresponded_inquiries_notification",
+              "Required": "N",
+              "Default": "",
+              "Type": "boolean",
+              "Description": "Receive reminders for unresponded inquiries?"
+            },
+            {
+              "Name": "wants_daily_guest_summary_notification",
+              "Required": "N",
+              "Default": "",
+              "Type": "boolean",
+              "Description": "Receive daily guest summaries?"
+            },
+            {
+              "Name": "wants_mailings",
+              "Required": "N",
+              "Default": "",
+              "Type": "boolean",
+              "Description": "Receive promotional mailings?"
+            },
+            {
+              "Name": "old_password",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Current user password (Required when changing password) "
+            },
+            {
+              "Name": "new_password",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "New password to be updated to (Requires old_password)"
+            },
+            {
+              "Name": "new_password_confirmation",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "New password again to confirm"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Upload Avatar",
+          "Synopsis": "Post an image for a property under this host account specified by the id parameter using the post data defined in the parameters below.",
+          "HTTPMethod": "PUT",
+          "URI": "/me/avatar.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "data",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "POST image data or base64 encoded image data"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Update Payout information",
+          "Synopsis": "Update your payout information for host payouts or referral bonuses",
+          "HTTPMethod": "PUT",
+          "URI": "/me/payment_method.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "payment_country",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "User payout country code (ISO 2-letter country code)"
+            },
+            {
+              "Name": "type",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Payment method type. Please see the enumerables page for a list of payment methods available and their required parameters."
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Get Data",
+          "Synopsis": "Get user data for a user id",
+          "HTTPMethod": "GET",
+          "URI": "/users/:id.:format",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "User Identifier"
+            },
+            {
+              "Name": "strip_html",
+              "Required": "N",
+              "Default": "",
+              "Type": "boolean",
+              "Description": "Strip html tags out of user descriptions"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Register",
+          "Synopsis": "Register a new user account on Roomorama. This call does not require you to be authenticated with OAuth. If you do pass a valid authorization header, the newly created user account will automatically be linked to the caller user account for the purpose of referral bonus calculation. Additionally we will directly generate an access token for the new user account which will be returned as part of the response.",
+          "HTTPMethod": "POST",
+          "URI": "/users.:format",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "login",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "User login"
+            },
+            {
+              "Name": "password",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Password"
+            },
+            {
+              "Name": "email",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Email"
+            },
+            {
+              "Name": "first_name",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "First name"
+            },
+            {
+              "Name": "last_name",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Last name"
+            },
+            {
+              "Name": "phone_number",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Phone number"
+            },
+            {
+              "Name": "city",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "City"
+            },
+            {
+              "Name": "country",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Country"
+            },
+            {
+              "Name": "email2",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Secondary email"
+            },
+            {
+              "Name": "description",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Profile description"
+            },
+            {
+              "Name": "date_of_birth",
+              "Required": "N",
+              "Default": "",
+              "Type": "date",
+              "Description": "Date of birth"
+            },
+            {
+              "Name": "gender",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Gender (m or f)"
+            },
+            {
+              "Name": "locale",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Preferred language"
+            },
+            {
+              "Name": "time_zone",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "User timezone"
+            },
+            {
+              "Name": "shoutouts_notifications_frequency",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Shoutouts notifications frequency ('none', 'daily' or 'instant')"
+            },
+            {
+              "Name": "wants_unresponded_inquiries_notification",
+              "Required": "N",
+              "Default": "",
+              "Type": "boolean",
+              "Description": "Receive reminders for unresponded inquiries?"
+            },
+            {
+              "Name": "wants_daily_guest_summary_notification",
+              "Required": "N",
+              "Default": "",
+              "Type": "boolean",
+              "Description": "Receive daily guest summaries?"
+            },
+            {
+              "Name": "wants_mailings",
+              "Required": "N",
+              "Default": "",
+              "Type": "boolean",
+              "Description": "Receive promotional mailings?"
+            },
+            {
+              "Name": "image_url",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "URL to remote image for upload of profile picture"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Reviews",
+          "Synopsis": "Get reviews received by this user.",
+          "HTTPMethod": "GET",
+          "URI": "/users/:user_id/reviews.:format",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "user_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "User identifier"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Host/Inquiries",
+      "methods": [
+        {
+          "MethodName": "List",
+          "Synopsis": "List of host inquiries",
+          "HTTPMethod": "GET",
+          "URI": "/host/inquiries.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "state",
+              "Required": "N",
+              "Default": "",
+              "Type": "enumerated",
+              "Description": "State of inquiries to query on",
+              "EnumeratedList": [
+                "guest_to_pay",
+                "host_to_confirm",
+                "host_to_enter_code",
+                "roomorama_to_pay",
+                "booked",
+                "completed",
+                "cancelled",
+                "declined"
+              ]
+            },
+            {
+              "Name": "express_booking",
+              "Required": "N",
+              "Default": "null",
+              "Type": "enumerated",
+              "Description": "Passing in this parameter allows you to only display express bookings",
+              "EnumeratedList": [
+                null,
+                "true"
+              ]
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Show",
+          "Synopsis": "Get the inquiry data for a inquiry under this host account specified by the id parameter.",
+          "HTTPMethod": "GET",
+          "URI": "/host/inquiries/:id.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Inquiry identifier"
+            },
+            {
+              "Name": "currency",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Currency code for conversion or the resulting pricing"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Update",
+          "Synopsis": "Update a inquiry under this host account specified by the id parameter. Please note that you can only edit inquiry details while the inquiry has not been paid for. The inquiry will also be blocked from updating if the guest has displayed the check-out page in the last 30 minutes.",
+          "HTTPMethod": "PUT",
+          "URI": "/host/inquiries/:id.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Inquiry identifier"
+            },
+            {
+              "Name": "start_date",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Inquiry check-in date"
+            },
+            {
+              "Name": "end_date",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Inquiry check-out date"
+            },
+            {
+              "Name": "num_guests",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Number of guests indicated in inquiry"
+            },
+            {
+              "Name": "subtotal",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Change the base rental fee for the inquiry"
+            },
+            {
+              "Name": "tax_amount",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Amount of tax charged on the inquiry"
+            },
+            {
+              "Name": "extra_guests_surcharge",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Extra guest surcharge charged on the inquiry"
+            },
+            {
+              "Name": "additional_fee",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Additional misc. fees charged on the inquiry"
+            },
+            {
+              "Name": "deposit_type",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Type of Security deposit (cash/creditcard)"
+            },
+            {
+              "Name": "deposit_amount",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Security deposit amount"
+            },
+            {
+              "Name": "deposit_currency_code",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Deposit currency code"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Confirm",
+          "Synopsis": "Confirm availability for an inquiry specified by the id parameter. If the inquiry is an express booking, the booking will be confirmed.",
+          "HTTPMethod": "PUT",
+          "URI": "/host/inquiries/:id/confirm.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Inquiry identifier"
+            },
+            {
+              "Name": "message",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Message to send to the guest"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Decline",
+          "Synopsis": "Decline availability for an inquiry specified by the id parameter. If the inquiry is an express booking, it will be cancelled. This currently does not work for bookings that have already been paid for.",
+          "HTTPMethod": "DELETE",
+          "URI": "/host/inquiries/:id.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Inquiry identifier"
+            },
+            {
+              "Name": "message",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Message to send to the guest"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Create Review",
+          "Synopsis": "Allows the host to create a review to the guest.",
+          "HTTPMethod": "PUT",
+          "URI": "/host/inquiries/:id/review.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Inquiry identifier"
+            },
+            {
+              "Name": "rating",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Host rating of the guest. 0 - negative review, 1 - positive review"
+            },
+            {
+              "Name": "comment",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Additional comments/feedbacks of the guest."
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Host/Inquiries/Messages",
+      "methods": [
+        {
+          "MethodName": "Create",
+          "Synopsis": "Create a new inquiry message using the post data defined in the parameters below. The response for a successful create will be a 201, with the location header set to the inquiry URL.",
+          "HTTPMethod": "POST",
+          "URI": "/host/inquiries/:inquiry_id/messages.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "inquiry_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Inquiry identifier"
+            },
+            {
+              "Name": "message",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Message string"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Host/Rooms",
+      "methods": [
+        {
+          "MethodName": "List",
+          "Synopsis": "List of all your properties",
+          "HTTPMethod": "GET",
+          "URI": "/host/rooms.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Show",
+          "Synopsis": "Get the property data for a property under this host account specified by the id parameter.",
+          "HTTPMethod": "GET",
+          "URI": "/host/rooms/:id.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Property identifier"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Create",
+          "Synopsis": "Create a new property using the post data defined. List of available amenities for the amenities field: https://roomorama.com/api/enumerables#amenities",
+          "HTTPMethod": "POST",
+          "URI": "/host/rooms.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "type",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Property type (eg. 'room', 'apartment' or 'house')"
+            },
+            {
+              "Name": "subtype",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Property subtype"
+            },
+            {
+              "Name": "title",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Property title"
+            },
+            {
+              "Name": "address",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Street address"
+            },
+            {
+              "Name": "apartment_number",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Apartment number (required if property type is apartment)"
+            },
+            {
+              "Name": "postal_code",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Zip or Postal Code"
+            },
+            {
+              "Name": "city",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "City name"
+            },
+            {
+              "Name": "neighborhood",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Neighborhood name"
+            },
+            {
+              "Name": "country_code",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "ISO 3166-1 alpha-2 country code"
+            },
+            {
+              "Name": "lat",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Latitude"
+            },
+            {
+              "Name": "lng",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Longitude"
+            },
+            {
+              "Name": "description",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Description text"
+            },
+            {
+              "Name": "number_of_bedrooms",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Number of bedrooms, not required if property type is 'room'"
+            },
+            {
+              "Name": "number_of_bathrooms",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Number of bathrooms"
+            },
+            {
+              "Name": "floor",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Floor on which the property is located"
+            },
+            {
+              "Name": "number_of_double_beds",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Number of double beds"
+            },
+            {
+              "Name": "number_of_single_beds",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Number of single beds"
+            },
+            {
+              "Name": "number_of_sofa_beds",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Number of sofa beds"
+            },
+            {
+              "Name": "surface",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Surface area of property"
+            },
+            {
+              "Name": "surface_unit",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Surface area unit (either 'metric' or 'imperial')"
+            },
+            {
+              "Name": "amenities",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Comma-separated string of available amenities. Please check The list of available amenities for supported values"
+            },
+            {
+              "Name": "max_guests",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Maximum number of guests"
+            },
+            {
+              "Name": "minimum_stay",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Minimum length of stay in nights"
+            },
+            {
+              "Name": "multi_unit",
+              "Required": "N",
+              "Default": "",
+              "Type": "boolean",
+              "Description": "Does this property have multiple units available?"
+            },
+            {
+              "Name": "smoking_allowed",
+              "Required": "N",
+              "Default": "",
+              "Type": "boolean",
+              "Description": "Smoking allowed?"
+            },
+            {
+              "Name": "pets_allowed",
+              "Required": "N",
+              "Default": "",
+              "Type": "boolean",
+              "Description": "Pets allowed"
+            },
+            {
+              "Name": "check_in_instructions",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Check-in instructions"
+            },
+            {
+              "Name": "check_in_time",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Check-in time (format: HH:MM)"
+            },
+            {
+              "Name": "check_out_time",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Check-out time (format: HH:MM)"
+            },
+            {
+              "Name": "currency_code",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Currency code of the listing. Will default to the standard currency of the location you are listing in if not set. Please check the list of availble currencies for supported values"
+            },
+            {
+              "Name": "nightly_rate",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Default nightly rate"
+            },
+            {
+              "Name": "weekly_rate",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Default weekly rate"
+            },
+            {
+              "Name": "monthly_rate",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Default monthly rate"
+            },
+            {
+              "Name": "security_deposit_amount",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Security deposit amount"
+            },
+            {
+              "Name": "security_deposit_type",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Security deposit type (one of 'cash', 'credit_card_auth', 'paypal') full list of deposit types"
+            },
+            {
+              "Name": "security_deposit_currency_code",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Security deposit currency code"
+            },
+            {
+              "Name": "tax_rate",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Tax rate in percent"
+            },
+            {
+              "Name": "extra_charges",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Additional miscellaneous charges per booking"
+            },
+            {
+              "Name": "rate_base_max_guests",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "If this is set, the rates are based on this number of guests, any additional guests will incur surcharges defined in extra_guest_surcharge"
+            },
+            {
+              "Name": "extra_guest_surcharge",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Nightly surcharge per guest over the rate_base_max_guests number"
+            },
+            {
+              "Name": "default_to_available",
+              "Required": "Y",
+              "Default": "",
+              "Type": "boolean",
+              "Description": "Availability mode, if this is set to true, the property will default to being available unless specified otherwise. If set to false it will only be available when specified"
+            },
+            {
+              "Name": "cancellation_policy",
+              "Required": "N",
+              "Default": "standard",
+              "Type": "string",
+              "Description": "Roomorama Cancellation Policy that applies to this property. Defaults to 'standard'. Certified or Elite hosts have additonal Policy options."
+            },
+            {
+              "Name": "services_cleaning",
+              "Required": "N",
+              "Default": "",
+              "Type": "boolean",
+              "Description": "Cleaning service is available if set to true"
+            },
+            {
+              "Name": "services_cleaning_rate",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Rate charged for this cleaning service"
+            },
+            {
+              "Name": "services_cleaning_required",
+              "Required": "N",
+              "Default": "",
+              "Type": "boolean",
+              "Description": "Whether this service is required for every booking"
+            },
+            {
+              "Name": "services_airport_pickup",
+              "Required": "N",
+              "Default": "",
+              "Type": "boolean",
+              "Description": "Airport pickup is available if set to true"
+            },
+            {
+              "Name": "services_airport_pickup_rate",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Rate charged for this Airport pickup"
+            },
+            {
+              "Name": "services_car_rental",
+              "Required": "N",
+              "Default": "",
+              "Type": "boolean",
+              "Description": "Car rental is available if set to true"
+            },
+            {
+              "Name": "services_car_rental_rate",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Rate charged for this car rental"
+            },
+            {
+              "Name": "services_concierge",
+              "Required": "N",
+              "Default": "",
+              "Type": "boolean",
+              "Description": "Concierge service is available if set to true"
+            },
+            {
+              "Name": "services_concierge_rate",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Rate charged for this concierge service"
+            },
+            {
+              "Name": "disabled",
+              "Required": "N",
+              "Default": "",
+              "Type": "boolean",
+              "Description": "If set to true this property will be hidden from the search"
+            },
+            {
+              "Name": "instant_booking",
+              "Required": "N",
+              "Default": "false",
+              "Type": "boolean",
+              "Description": "Whether the property supports instant confirmation via webhooks. Setting to `true` will only have effect if the account has properly set up the required webhooks."
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Update",
+          "Synopsis": "Update an existing property for a property under this host account specified by the id parameter. List of available amenities for the amenities field: https://roomorama.com/api/enumerables#amenities",
+          "HTTPMethod": "PUT",
+          "URI": "/host/rooms/:id.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Property identifier"
+            },
+            {
+              "Name": "type",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Property type (eg. 'room', 'apartment' or 'house')"
+            },
+            {
+              "Name": "subtype",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Property subtype"
+            },
+            {
+              "Name": "title",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Property title"
+            },
+            {
+              "Name": "address",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Street address"
+            },
+            {
+              "Name": "apartment_number",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Apartment number (required if property type is apartment)"
+            },
+            {
+              "Name": "postal_code",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Zip or Postal Code"
+            },
+            {
+              "Name": "city",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "City name"
+            },
+            {
+              "Name": "neighborhood",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Neighborhood name"
+            },
+            {
+              "Name": "description",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Description text"
+            },
+            {
+              "Name": "number_of_bedrooms",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Number of bedrooms, not required if property type is 'room'"
+            },
+            {
+              "Name": "number_of_bathrooms",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Number of bathrooms"
+            },
+            {
+              "Name": "floor",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Floor on which the property is located"
+            },
+            {
+              "Name": "number_of_double_beds",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Number of double beds"
+            },
+            {
+              "Name": "number_of_single_beds",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Number of single beds"
+            },
+            {
+              "Name": "number_of_sofa_beds",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Number of sofa beds"
+            },
+            {
+              "Name": "surface",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Surface area of property"
+            },
+            {
+              "Name": "surface_unit",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Surface area unit (either 'metric' or 'imperial')"
+            },
+            {
+              "Name": "max_guests",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Maximum number of guests"
+            },
+            {
+              "Name": "minimum_stay",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Minimum length of stay in nights"
+            },
+            {
+              "Name": "multi_unit",
+              "Required": "N",
+              "Default": "",
+              "Type": "boolean",
+              "Description": "Does this property have multiple units available?"
+            },
+            {
+              "Name": "amenities",
+              "Required": "N",
+              "Default": null,
+              "Type": "string",
+              "Description": "Comma-separated list of amenities in this room. To clear all amenities pass any other string like 'none' as value"
+            },
+            {
+              "Name": "smoking_allowed",
+              "Required": "N",
+              "Default": "",
+              "Type": "boolean",
+              "Description": "Smoking allowed?"
+            },
+            {
+              "Name": "pets_allowed",
+              "Required": "N",
+              "Default": "",
+              "Type": "boolean",
+              "Description": "Pets allowed"
+            },
+            {
+              "Name": "check_in_instructions",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Check-in instructions"
+            },
+            {
+              "Name": "check_in_time",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Check-in time (format: HH:MM)"
+            },
+            {
+              "Name": "check_out_time",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Check-out time (format: HH:MM)"
+            },
+            {
+              "Name": "nightly_rate",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Default nightly rate"
+            },
+            {
+              "Name": "weekly_rate",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Default weekly rate"
+            },
+            {
+              "Name": "monthly_rate",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Default monthly rate"
+            },
+            {
+              "Name": "security_deposit_amount",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Security deposit amount"
+            },
+            {
+              "Name": "security_deposit_type",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Security deposit type (one of 'cash', 'credit_card_auth', 'paypal') full list of deposit types"
+            },
+            {
+              "Name": "security_deposit_currency_code",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Security deposit currency code"
+            },
+            {
+              "Name": "tax_rate",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Tax rate in percent"
+            },
+            {
+              "Name": "extra_charges",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Additional miscellaneous charges per booking"
+            },
+            {
+              "Name": "rate_base_max_guests",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "If this is set, the rates are based on this number of guests, any additional guests will incur surcharges defined in extra_guest_surcharge"
+            },
+            {
+              "Name": "extra_guest_surcharge",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Nightly surcharge per guest over the rate_base_max_guests number"
+            },
+            {
+              "Name": "default_to_available",
+              "Required": "N",
+              "Default": "",
+              "Type": "boolean",
+              "Description": "Availability mode, if this is set to true, the property will default to being available unless specified otherwise. If set to false it will only be available when specified"
+            },
+            {
+              "Name": "cancellation_policy",
+              "Required": "N",
+              "Default": "standard",
+              "Type": "string",
+              "Description": "Roomorama Cancellation Policy that applies to this property. Defaults to 'standard'. Certified or Elite hosts have additonal Policy options."
+            },
+            {
+              "Name": "services_cleaning",
+              "Required": "N",
+              "Default": "",
+              "Type": "boolean",
+              "Description": "Cleaning service is available if set to true"
+            },
+            {
+              "Name": "services_cleaning_rate",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Rate charged for this cleaning service"
+            },
+            {
+              "Name": "services_cleaning_required",
+              "Required": "N",
+              "Default": "",
+              "Type": "boolean",
+              "Description": "Whether this service is required for every booking"
+            },
+            {
+              "Name": "services_airport_pickup",
+              "Required": "N",
+              "Default": "",
+              "Type": "boolean",
+              "Description": "Airport pickup is available if set to true"
+            },
+            {
+              "Name": "services_airport_pickup_rate",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Rate charged for this Airport pickup"
+            },
+            {
+              "Name": "services_car_rental",
+              "Required": "N",
+              "Default": "",
+              "Type": "boolean",
+              "Description": "Car rental is available if set to true"
+            },
+            {
+              "Name": "services_car_rental_rate",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Rate charged for this car rental"
+            },
+            {
+              "Name": "services_concierge",
+              "Required": "N",
+              "Default": "",
+              "Type": "boolean",
+              "Description": "Concierge service is available if set to true"
+            },
+            {
+              "Name": "services_concierge_rate",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Rate charged for this concierge service"
+            },
+            {
+              "Name": "disabled",
+              "Required": "N",
+              "Default": "",
+              "Type": "boolean",
+              "Description": "If set to true this property will be hidden from the search"
+            },
+            {
+              "Name": "instant_booking",
+              "Required": "N",
+              "Default": "false",
+              "Type": "boolean",
+              "Description": "Whether the property supports instant confirmation via webhooks. Setting to `true` will only have effect if the account has properly set up the required webhooks."
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Destroy",
+          "Synopsis": "Remove an existing property from your account. Performing this action will decline all pending inquiries for this property.",
+          "HTTPMethod": "DELETE",
+          "URI": "/host/rooms/:id.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Property identifier"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Host/Rooms/Availabilities",
+      "methods": [
+        {
+          "MethodName": "List",
+          "Synopsis": "Get the availability and rate data for a property for a certain period of time as defined by the start_date and end_date parameters, or for the upcoming year by default",
+          "HTTPMethod": "GET",
+          "URI": "/host/rooms/:room_id/availabilities.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "room_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Property identifier"
+            },
+            {
+              "Name": "start_date",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Start date of the period to query on (defaults to today if not specified)"
+            },
+            {
+              "Name": "end_date",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "End date of the period to query on (defaults to a year from yesterday if not specified)"
+            },
+            {
+              "Name": "since",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "ISO 8601 (YYYY-MM-DD) format date or Unix time in seconds. Adding this parameter will only return records updated after this time."
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Update",
+          "Synopsis": "Set availability and rate data for a certain property for a range of dates",
+          "HTTPMethod": "PUT",
+          "URI": "/host/rooms/:room_id/availabilities.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "room_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Property identifier"
+            },
+            {
+              "Name": "date",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Date of availability in ISO 8601 format (eg. 2011-10-24)"
+            },
+            {
+              "Name": "start_date",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Start date of availability in ISO 8601 format (eg. 2011-10-24)"
+            },
+            {
+              "Name": "end_date",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "End date of availability in ISO 8601 format (eg. 2011-10-24)"
+            },
+            {
+              "Name": "available",
+              "Required": "N",
+              "Default": "",
+              "Type": "boolean",
+              "Description": "Is the property available on this date (no change if not set)"
+            },
+            {
+              "Name": "nightly_rate",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Set the nightly rate for this date (no change if not set)"
+            },
+            {
+              "Name": "weekly_rate",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Set the weekly rate for this date (no change if not set)"
+            },
+            {
+              "Name": "monthly_rate",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Set the monthly rate for this date (no change if not set)"
+            },
+            {
+              "Name": "can_checkin",
+              "Required": "N",
+              "Default": "",
+              "Type": "boolean",
+              "Description": "Can check in on this date"
+            },
+            {
+              "Name": "can_checkout",
+              "Required": "N",
+              "Default": "",
+              "Type": "boolean",
+              "Description": "Can check out on this date"
+            },
+            {
+              "Name": "minimum_stay",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "A guest can stay at minimum number of days for these dates"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Host/Rooms/Images",
+      "methods": [
+        {
+          "MethodName": "List",
+          "Synopsis": "Get a list of property images.",
+          "HTTPMethod": "GET",
+          "URI": "/host/rooms/:room_id/images.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "room_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Property identifier"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Show",
+          "Synopsis": "Get a property image.",
+          "HTTPMethod": "GET",
+          "URI": "/host/rooms/:room_id/images/:id.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "room_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Property identifier"
+            },
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Image identifier"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Upload",
+          "Synopsis": "Post an image for a property under this host account specified by the id parameter using the post data defined in the parameters below.",
+          "HTTPMethod": "POST",
+          "URI": "/host/rooms/:room_id/images.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "room_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Property identifier"
+            },
+            {
+              "Name": "data",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "POST image data or base64 encoded image data"
+            },
+            {
+              "Name": "image_url",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "URL of the image"
+            },
+            {
+              "Name": "caption",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Text caption"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Update",
+          "Synopsis": "Update image caption or ordering.",
+          "HTTPMethod": "PUT",
+          "URI": "/host/rooms/:room_id/images/:id.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "room_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Property identifier"
+            },
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Image identifier"
+            },
+            {
+              "Name": "caption",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Text caption"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Reorder",
+          "Synopsis": "Perform a reordering of all images of a room.",
+          "HTTPMethod": "PUT",
+          "URI": "/host/rooms/:room_id/images.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "room_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Property identifier"
+            },
+            {
+              "Name": "images",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Comma-separated list of image ID's, in the order they should appear"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Delete",
+          "Synopsis": "Delete a property image by sending a DELETE request to the resource url of the image.",
+          "HTTPMethod": "DELETE",
+          "URI": "/host/rooms/:room_id/images/:id.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "room_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Property identifier"
+            },
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Image identifier"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Mass Delete",
+          "Synopsis": "Delete multiple property images by sending a DELETE request with image id's to the images resouce.",
+          "HTTPMethod": "DELETE",
+          "URI": "/host/rooms/:room_id/images.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "room_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Property identifier"
+            },
+            {
+              "Name": "images",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Comma-separated list of image ID's"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Host/Rooms/Units",
+      "methods": [
+        {
+          "MethodName": "List",
+          "Synopsis": "List of all your units in your property",
+          "HTTPMethod": "GET",
+          "URI": "/host/rooms/:room_id/units.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "room_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Property identifier"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Show",
+          "Synopsis": "Get the unit data for a unit under this host account specified by the id parameter.",
+          "HTTPMethod": "GET",
+          "URI": "/host/rooms/:room_id/units/:id.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "room_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Property identifier"
+            },
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Unit identifier"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Create",
+          "Synopsis": "Create a new unit using the post data defined. List of available amenities for the amenities field: https://roomorama.com/api/enumerables#amenities",
+          "HTTPMethod": "POST",
+          "URI": "/host/rooms/:room_id/units.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "room_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Property identifier"
+            },
+            {
+              "Name": "title",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Unit title"
+            },
+            {
+              "Name": "nightly_rate",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Default nightly rate"
+            },
+            {
+              "Name": "weekly_rate",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Default weekly rate"
+            },
+            {
+              "Name": "monthly_rate",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Default monthly rate"
+            },
+            {
+              "Name": "number_of_rooms",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Number of rooms in the unit"
+            },
+            {
+              "Name": "number_of_units",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Number of available units"
+            },
+            {
+              "Name": "type",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Unit type (eg. 'room', 'apartment' or 'house')"
+            },
+            {
+              "Name": "subtype",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Unit subtype"
+            },
+            {
+              "Name": "description",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Description text"
+            },
+            {
+              "Name": "number_of_bathrooms",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Number of bathrooms"
+            },
+            {
+              "Name": "floor",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Floor on which the unit is located"
+            },
+            {
+              "Name": "number_of_double_beds",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Number of double beds"
+            },
+            {
+              "Name": "number_of_single_beds",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Number of single beds"
+            },
+            {
+              "Name": "number_of_sofa_beds",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Number of sofa beds"
+            },
+            {
+              "Name": "surface",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Surface area of unit"
+            },
+            {
+              "Name": "amenities",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Comma-separated string of available amenities. Please check The list of available amenities for supported values"
+            },
+            {
+              "Name": "max_guests",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Maximum number of guests"
+            },
+            {
+              "Name": "minimum_stay",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Minimum length of stay in nights"
+            },
+            {
+              "Name": "smoking_allowed",
+              "Required": "N",
+              "Default": "",
+              "Type": "boolean",
+              "Description": "Smoking allowed?"
+            },
+            {
+              "Name": "pets_allowed",
+              "Required": "N",
+              "Default": "",
+              "Type": "boolean",
+              "Description": "Pets allowed?"
+            },
+            {
+              "Name": "tax_rate",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Tax rate in percent"
+            },
+            {
+              "Name": "extra_guest_surcharge",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Nightly surcharge per guest over the rate_base_max_guests number"
+            },
+            {
+              "Name": "disabled",
+              "Required": "N",
+              "Default": "",
+              "Type": "boolean",
+              "Description": "If set to true this unit will be hidden from the search"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Update",
+          "Synopsis": "Update an existing unit under this host account specified by the id and room_id parameters. List of available amenities for the amenities field: https://roomorama.com/api/enumerables#amenities",
+          "HTTPMethod": "PUT",
+          "URI": "/host/rooms/:room_id/units/:id.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "integer",
+              "Description": "Unit identifier"
+            },
+            {
+              "Name": "room_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "integer",
+              "Description": "Property identifier"
+            },
+            {
+              "Name": "title",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Unit title"
+            },
+            {
+              "Name": "nightly_rate",
+              "Required": "Y",
+              "Default": "",
+              "Type": "integer",
+              "Description": "Default nightly rate"
+            },
+            {
+              "Name": "weekly_rate",
+              "Required": "Y",
+              "Default": "",
+              "Type": "integer",
+              "Description": "Default weekly rate"
+            },
+            {
+              "Name": "monthly_rate",
+              "Required": "Y",
+              "Default": "",
+              "Type": "integer",
+              "Description": "Default monthly rate"
+            },
+            {
+              "Name": "number_of_rooms",
+              "Required": "Y",
+              "Default": "",
+              "Type": "integer",
+              "Description": "Number of rooms in the unit"
+            },
+            {
+              "Name": "number_of_units",
+              "Required": "Y",
+              "Default": "",
+              "Type": "integer",
+              "Description": "Number of available units"
+            },
+            {
+              "Name": "type",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Unit type (eg. 'room', 'apartment' or 'house')"
+            },
+            {
+              "Name": "subtype",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Unit subtype"
+            },
+            {
+              "Name": "description",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Description text"
+            },
+            {
+              "Name": "number_of_bathrooms",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Number of bathrooms. Accepted values: \"0.5\", \"1\", \"1.5\",\"2\", \"2.5\", \"3\", \"3.5\", \"4\", \"4.5\", \"5\", \"5.5\", \"6\", \"6.5\", \"7\", \"7.5\", \"8\", \"8.5\", \"9\",\"9.5\", \"10\"."
+            },
+            {
+              "Name": "floor",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Floor on which the unit is located. Accepted values: \"-1\", \"0\", \"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\", \"8\", \"9\", \"10+\", \"20+\", \"30+\", \"40+\", \"50+\"."
+            },
+            {
+              "Name": "number_of_double_beds",
+              "Required": "N",
+              "Default": "",
+              "Type": "integer",
+              "Description": "Number of double beds"
+            },
+            {
+              "Name": "number_of_single_beds",
+              "Required": "N",
+              "Default": "",
+              "Type": "integer",
+              "Description": "Number of single beds"
+            },
+            {
+              "Name": "number_of_sofa_beds",
+              "Required": "N",
+              "Default": "",
+              "Type": "integer",
+              "Description": "Number of sofa beds"
+            },
+            {
+              "Name": "surface",
+              "Required": "N",
+              "Default": "",
+              "Type": "integer",
+              "Description": "Surface area of unit"
+            },
+            {
+              "Name": "amenities",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Comma-separated string of available amenities. Please check The list of available amenities for supported values."
+            },
+            {
+              "Name": "max_guests",
+              "Required": "N",
+              "Default": "",
+              "Type": "integer",
+              "Description": "Maximum number of guests"
+            },
+            {
+              "Name": "minimum_stay",
+              "Required": "N",
+              "Default": "",
+              "Type": "integer",
+              "Description": "Minimum length of stay in nights"
+            },
+            {
+              "Name": "smoking_allowed",
+              "Required": "N",
+              "Default": "",
+              "Type": "boolean",
+              "Description": "Smoking allowed?"
+            },
+            {
+              "Name": "pets_allowed",
+              "Required": "N",
+              "Default": "",
+              "Type": "boolean",
+              "Description": "Pets allowed?"
+            },
+            {
+              "Name": "tax_rate",
+              "Required": "N",
+              "Default": "",
+              "Type": "decimal",
+              "Description": "Tax rate in percent"
+            },
+            {
+              "Name": "extra_guest_surcharge",
+              "Required": "N",
+              "Default": "",
+              "Type": "integer",
+              "Description": "Nightly surcharge per guest over the rate_base_max_guests number"
+            },
+            {
+              "Name": "disabled",
+              "Required": "N",
+              "Default": "",
+              "Type": "boolean",
+              "Description": "If set to true this unit will be hidden from the search"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Delete",
+          "Synopsis": "Remove the unit under this host account specified by the id parameter.",
+          "HTTPMethod": "DELETE",
+          "URI": "/host/rooms/:room_id/units/:id.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "room_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Property identifier"
+            },
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "ID of the unit to remove"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Host/Rooms/Units/Availabilities",
+      "methods": [
+        {
+          "MethodName": "List",
+          "Synopsis": "Get the availability and rate data for a unit for a certain period of time as defined by the start_date and end_date parameters, or for the upcoming year by default",
+          "HTTPMethod": "GET",
+          "URI": "/host/rooms/:room_id/units/:unit_id/availabilities.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "room_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Room identifier"
+            },
+            {
+              "Name": "unit_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Unit identifier"
+            },
+            {
+              "Name": "start_date",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Start date of the period to query on (defaults to today if not specified)"
+            },
+            {
+              "Name": "end_date",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "End date of the period to query on (defaults to a year from yesterday if not specified)"
+            },
+            {
+              "Name": "since",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "ISO 8601 (YYYY-MM-DD) format date or Unix time in seconds. Adding this parameter will only return records updated after this time."
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Update",
+          "Synopsis": "Set availability and rate data for a certain unit for a range of dates",
+          "HTTPMethod": "PUT",
+          "URI": "/host/rooms/:room_id/:unit_id/availabilities.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "room_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Room identifier"
+            },
+            {
+              "Name": "unit_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Unit identifier"
+            },
+            {
+              "Name": "date",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Date of availability in ISO 8601 format (eg. 2011-10-24)"
+            },
+            {
+              "Name": "start_date",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Start date of availability in ISO 8601 format (eg. 2011-10-24)"
+            },
+            {
+              "Name": "end_date",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "End date of availability in ISO 8601 format (eg. 2011-10-24)"
+            },
+            {
+              "Name": "available",
+              "Required": "N",
+              "Default": "",
+              "Type": "boolean",
+              "Description": "Is the property available on this date (no change if not set)"
+            },
+            {
+              "Name": "nightly_rate",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Set the nightly rate for this date (no change if not set)"
+            },
+            {
+              "Name": "weekly_rate",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Set the weekly rate for this date (no change if not set)"
+            },
+            {
+              "Name": "monthly_rate",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Set the monthly rate for this date (no change if not set)"
+            },
+            {
+              "Name": "can_checkin",
+              "Required": "N",
+              "Default": "",
+              "Type": "boolean",
+              "Description": "Can check in on this date"
+            },
+            {
+              "Name": "can_checkout",
+              "Required": "N",
+              "Default": "",
+              "Type": "boolean",
+              "Description": "Can check out on this date"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Guest/Inquiries",
+      "methods": [
+        {
+          "MethodName": "List",
+          "Synopsis": "List of guest inquiries",
+          "HTTPMethod": "GET",
+          "URI": "/guest/inquiries.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "state",
+              "Required": "N",
+              "Default": "",
+              "Type": "enumerated",
+              "Description": "State of inquiries to query on",
+              "EnumeratedList": [
+                "host_to_confirm",
+                "guest_to_pay",
+                "booked",
+                "completed",
+                "cancelled",
+                "declined"
+              ]
+            },
+            {
+              "Name": "express_booking",
+              "Required": "N",
+              "Default": "null",
+              "Type": "enumerated",
+              "Description": "Passing in this parameter allows you to only display express bookings",
+              "EnumeratedList": [
+                null,
+                "true"
+              ]
+            },
+            {
+              "Name": "currency",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Currency code for conversion or the resulting pricing"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "New",
+          "Synopsis": "Price Check",
+          "HTTPMethod": "GET",
+          "URI": "/guest/inquiries/new.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "room_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Property Identifier"
+            },
+            {
+              "Name": "check_in",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Check-in date"
+            },
+            {
+              "Name": "check_out",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Check-out date"
+            },
+            {
+              "Name": "unit_id",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Unit Identifier"
+            },
+            {
+              "Name": "num_guests",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Number of guests"
+            },
+            {
+              "Name": "currency",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Currency code for conversion or the resulting pricing"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Create",
+          "Synopsis": "Create a new inquiry under this guest account.",
+          "HTTPMethod": "POST",
+          "URI": "/guest/inquiries.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "room_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Property Identifier"
+            },
+            {
+              "Name": "check_in",
+              "Required": "Y",
+              "Default": "",
+              "Type": "date",
+              "Description": "Check-in Date"
+            },
+            {
+              "Name": "check_out",
+              "Required": "Y",
+              "Default": "",
+              "Type": "date",
+              "Description": "Check-out Date"
+            },
+            {
+              "Name": "unit_id",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Unit Identifier"
+            },
+            {
+              "Name": "num_gests",
+              "Required": "N",
+              "Default": "",
+              "Type": "number",
+              "Description": "Number of Guests"
+            },
+            {
+              "Name": "express_booking",
+              "Required": "N",
+              "Default": "false",
+              "Type": "boolean",
+              "Description": "If set to true this will create an express or instant booking"
+            },
+            {
+              "Name": "discount_code",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Discount code for discount on the booking fee. "
+            },
+            {
+              "Name": "message",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Message to send to host"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Show",
+          "Synopsis": "Get the inquiry data for a inquiry under this guest account specified by the id parameter.",
+          "HTTPMethod": "GET",
+          "URI": "/guest/inquiries/:id.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Inquiry Identifier"
+            },
+            {
+              "Name": "currency",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Currency code for conversion or the resulting pricing"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Decline",
+          "Synopsis": "Get the inquiry data for a inquiry under this guest account specified by the id parameter.",
+          "HTTPMethod": "DELETE",
+          "URI": "/guest/inquiries/:id.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Inquiry Identifier"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Check-in",
+          "Synopsis": "Allows the guest to check-in and release the payment to the host. This can bypass the host having to enter the payment code. You can only check in on or after the inquiry start date.",
+          "HTTPMethod": "PUT",
+          "URI": "/guest/inquiries/:id/check_in.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Inquiry identifier"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Pay",
+          "Synopsis": "Make a payment for an inquiry by credit card over the API. PLEASE NOTE: CREDIT CARD NUMBER MUST BE ENCRYPTED. DO NOT SEND CLEARTEXT CREDIT CARD NUMBERS. Please see the Braintree client side encryption library of examples of how the data should be encrypted (https://github.com/braintree/braintree_client_side_encryption). The Roomorama public key is: MIIBCgKCAQEA9nBDv1dbrUIDnlOk+rpYuV8gmgoEx+55r61KvIIF5/VTE/VDxSJguoEjWiRhpHviT2qKhyc9TnGErFf2gHjVUN6vDw0ib+XT/VV5VibVmtF2CEYdPOvZOEltQsPNAosGSm7+zoGPhDpOVOu3qW154jJgJj+Xuy1rhvrFYuyAvk6+IzWLMp9CRKHi4SwXbiyTA0GUeO9YdnkF1KfRsqVh+eSYcVdVObB0Ioprppt86A2+Ti2phtxb+FK+6/qoahe5YEh0VCEyszSmixwFhDtJCDRS5rPT6dTUi6eWCxWn5Ph9IvZxwhfyvl6GhjnhgEVPTeEmnKiGKIrP6c8ACO1towIDAQAB",
+          "HTTPMethod": "PUT",
+          "URI": "/guest/inquiries/:id/pay.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Inquiry identifier"
+            },
+            {
+              "Name": "amount",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Amount of the payment to make. This must correspond to the amount to be paid or the call will return an error"
+            },
+            {
+              "Name": "currency",
+              "Required": "Y",
+              "Default": "USD",
+              "Type": "string",
+              "Description": "Currency of the payment. At the moment only USD payments are supported so please refer to the total_in_usd field of the inquiry for the amount to be paid"
+            },
+            {
+              "Name": "card[first_name]",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "First name on the credit card"
+            },
+            {
+              "Name": "card[last_name]",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Last name on the credit card"
+            },
+            {
+              "Name": "card[address]",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Billing address of the credit card"
+            },
+            {
+              "Name": "card[city]",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Billing address city"
+            },
+            {
+              "Name": "card[postal_code]",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Billing address postal code"
+            },
+            {
+              "Name": "card[state]",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Billing address state"
+            },
+            {
+              "Name": "card[country]",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Billing address country"
+            },
+            {
+              "Name": "card[phone_number]",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Billing address phone number"
+            },
+            {
+              "Name": "card[number]",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Encrypted credit card number. DO NOT PASS IN CLEAR CREDIT CARD NUMBERS"
+            },
+            {
+              "Name": "card[exp_month]",
+              "Required": "Y",
+              "Default": "",
+              "Type": "enumerated",
+              "Description": "Expiry month of the credit card",
+              "EnumeratedList": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6",
+                "7",
+                "8",
+                "9",
+                "10",
+                "11",
+                "12"
+              ]
+            },
+            {
+              "Name": "card[exp_year]",
+              "Required": "Y",
+              "Default": "",
+              "Type": "enumerated",
+              "Description": "Expiry year of the credit card",
+              "EnumeratedList": [
+                "2013",
+                "2014",
+                "2015",
+                "2016",
+                "2017",
+                "2018",
+                "2019",
+                "2020",
+                "2021",
+                "2022",
+                "2023"
+              ]
+            },
+            {
+              "Name": "card[ccv]",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Encrypted credit card CCV code. DO NOT PASS IN CLEAR CREDIT CARD CCV CODES"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Create Review",
+          "Synopsis": "Allows the guest to create a review to the host.",
+          "HTTPMethod": "PUT",
+          "URI": "/guest/inquiries/:id/review.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Inquiry identifier"
+            },
+            {
+              "Name": "rating",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Guest rating of the stay. 0 - negative review, 1 - positive review"
+            },
+            {
+              "Name": "comment",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Additional comments/feedbacks of the stay."
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Guest/Messages",
+      "methods": [
+        {
+          "MethodName": "Create",
+          "Synopsis": "Create a new inquiry message using the post data defined in the parameters below. The response for a successful create will be a 201, with the location header set to the inquiry URL.",
+          "HTTPMethod": "POST",
+          "URI": "/guest/inquiries/:inquiry_id/messages.:format",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "inquiry_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "number",
+              "Description": "Inquiry identifier"
+            },
+            {
+              "Name": "message",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Message string"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,631 @@
+{
+  "endpoints": [
+    {
+      "name": "Contacts",
+      "methods": [
+        {
+          "MethodName": "My contacts",
+          "Synopsis": "Get all the current member's contacts. An access token is required.",
+          "HTTPMethod": "GET",
+          "URI": "/me/contacts",
+          "parameters": [
+            {
+              "Name": "query",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Search query string"
+            },
+            {
+              "Name": "page",
+              "Required": "N",
+              "Default": 1,
+              "Type": "int",
+              "Description": "Page number"
+            },
+            {
+              "Name": "per_page",
+              "Required": "N",
+              "Default": 10,
+              "Type": "int",
+              "Description": "Results per page"
+            },
+            {
+              "Name": "order_direction",
+              "Required": "N",
+              "Default": "ASC",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "ASC",
+                "DESC"
+              ],
+              "EnumeratedDescription": {
+                "ASC": "Ascending",
+                "DESC": "Descending"
+              },
+              "Description": "How to order returned IDs"
+            }
+          ]
+        },
+        {
+          "MethodName": "Add contact by ID",
+          "Synopsis": "Add a Credly member to the current member's contacts. An access token is required.",
+          "HTTPMethod": "POST",
+          "URI": "/me/contacts",
+          "parameters": [
+            {
+              "Name": "member_id",
+              "Required": "Y",
+              "Type": "int",
+              "Description": "The ID of the member to add"
+            }
+          ]
+        },
+        {
+          "MethodName": "Add contact by email",
+          "Synopsis": "Add an email address to the current member's contacts. An access token is required.",
+          "HTTPMethod": "POST",
+          "URI": "/me/contacts",
+          "parameters": [
+            {
+              "Name": "email",
+              "Required": "Y",
+              "Type": "string",
+              "Description": "The email address of the member to add"
+            },
+            {
+              "Name": "first_name",
+              "Required": "Y",
+              "Type": "string",
+              "Description": "The first name of the member to add"
+            },
+            {
+              "Name": "last_name",
+              "Required": "Y",
+              "Type": "string",
+              "Description": "The last name of the member to add"
+            }
+          ]
+        },
+        {
+          "MethodName": "Get contact by member ID",
+          "Synopsis": "Get info for a contact given a member I. An access token is required.",
+          "HTTPMethod": "GET",
+          "URI": "/me/contacts/:id",
+          "parameters": [
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Type": "int",
+              "Description": "The member ID of the contact to look up"
+            }
+          ]
+        },
+        {
+          "MethodName": "Delete contact by contact ID",
+          "Synopsis": "Delete a contact given a contact ID (not a member ID. An access token is required.",
+          "HTTPMethod": "DELETE",
+          "URI": "/me/contacts",
+          "parameters": [
+            {
+              "Name": "Contact ID",
+              "Required": "Y",
+              "Type": "int",
+              "Description": "The ID of the contact to delete"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Contact lists",
+      "methods": [
+        {
+          "MethodName": "My contact lists",
+          "Synopsis": "Get the current member's contact lists. An access token is required.",
+          "HTTPMethod": "GET",
+          "URI": "/me/lists",
+          "parameters": [
+            {
+              "Name": "page",
+              "Required": "N",
+              "Default": 1,
+              "Type": "int",
+              "Description": "Page number"
+            },
+            {
+              "Name": "per_page",
+              "Required": "N",
+              "Default": 10,
+              "Type": "int",
+              "Description": "Results per page"
+            },
+            {
+              "Name": "order_direction",
+              "Required": "N",
+              "Default": "ASC",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "ASC",
+                "DESC"
+              ],
+              "EnumeratedDescription": {
+                "ASC": "Ascending",
+                "DESC": "Descending"
+              },
+              "Description": "How to order returned IDs"
+            }
+          ]
+        },
+        {
+          "MethodName": "Create a contact list",
+          "Synopsis": "Create a new list for organizing the current members' contacts. An access token is required.",
+          "HTTPMethod": "POST",
+          "URI": "/lists",
+          "parameters": [
+            {
+              "Name": "name",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "The desired name for the new member list"
+            }
+          ]
+        },
+        {
+          "MethodName": "Single contact list",
+          "Synopsis": "Get a single contact list. An access token is required.",
+          "HTTPMethod": "GET",
+          "URI": "/lists/:id",
+          "parameters": [
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "int",
+              "Description": "ID of the list"
+            }
+          ]
+        },
+        {
+          "MethodName": "Update a contact list's details",
+          "Synopsis": "Edit a single contact list. Only the name field is changeabl. An access token is required.",
+          "HTTPMethod": "POST",
+          "URI": "/lists/:id",
+          "parameters": [
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "int",
+              "Description": "ID of the list"
+            },
+            {
+              "Name": "name",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "New name for the list"
+            }
+          ]
+        },
+        {
+          "MethodName": "Delete single contact list",
+          "Synopsis": "Delete a single contact list. An access token is required.",
+          "HTTPMethod": "DELETE",
+          "URI": "/lists/:id",
+          "parameters": [
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "int",
+              "Description": "ID of the list"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Contact list members",
+      "methods": [
+        {
+          "MethodName": "List and search contact list members",
+          "Synopsis": "Search for and list members of a specified list. An access token is required.",
+          "HTTPMethod": "GET",
+          "URI": "/lists/:id/contacts",
+          "parameters": [
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "int",
+              "Description": "ID of the list"
+            },
+            {
+              "Name": "query",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Search query string"
+            },
+            {
+              "Name": "page",
+              "Required": "N",
+              "Default": 1,
+              "Type": "int",
+              "Description": "Page number"
+            },
+            {
+              "Name": "per_page",
+              "Required": "N",
+              "Default": 10,
+              "Type": "int",
+              "Description": "Results per page"
+            },
+            {
+              "Name": "order_direction",
+              "Required": "N",
+              "Default": "ASC",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "ASC",
+                "DESC"
+              ],
+              "EnumeratedDescription": {
+                "ASC": "Ascending",
+                "DESC": "Descending"
+              },
+              "Description": "How to order returned IDs"
+            }
+          ]
+        },
+        {
+          "MethodName": "Add contact to list by ID",
+          "Synopsis": "Add a specified contact to a specified contact list by member ID. An access token is required.",
+          "HTTPMethod": "POST",
+          "URI": "/lists/:id/contacts",
+          "parameters": [
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "int",
+              "Description": "ID of the list"
+            },
+            {
+              "Name": "member_id",
+              "Required": "N",
+              "Default": "",
+              "Type": "int",
+              "Description": "ID of the member to add."
+            }
+          ]
+        },
+        {
+          "MethodName": "Add contact to list by email",
+          "Synopsis": "Add a specified contact to a specified contact list by email address. An access token is required.",
+          "HTTPMethod": "POST",
+          "URI": "/lists/:id/contacts",
+          "parameters": [
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "int",
+              "Description": "ID of the list"
+            },
+            {
+              "Name": "email",
+              "Required": "Y",
+              "Type": "string",
+              "Description": "The email address of the member to add"
+            },
+            {
+              "Name": "first_name",
+              "Required": "Y",
+              "Type": "string",
+              "Description": "The first name of the member to add"
+            },
+            {
+              "Name": "last_name",
+              "Required": "Y",
+              "Type": "string",
+              "Description": "The last name of the member to add"
+            }
+          ]
+        },
+        {
+          "MethodName": "Delete contact from list by ID",
+          "Synopsis": "Delete a specified contact from a specified contact list by member ID. An access token is required.",
+          "HTTPMethod": "DELETE",
+          "URI": "/lists/:id/contacts/:contact_id",
+          "parameters": [
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "int",
+              "Description": "ID of the list"
+            },
+            {
+              "Name": "contact_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "int",
+              "Description": "ID of the member to remove from the list"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Trusted members",
+      "methods": [
+        {
+          "MethodName": "My trusted members",
+          "Synopsis": "List members who the current member \"trusts.\". An access token is required.",
+          "HTTPMethod": "GET",
+          "URI": "/me/trusted",
+          "parameters": [
+            {
+              "Name": "query",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Search query string"
+            },
+            {
+              "Name": "page",
+              "Required": "N",
+              "Default": 1,
+              "Type": "int",
+              "Description": "Page number"
+            },
+            {
+              "Name": "per_page",
+              "Required": "N",
+              "Default": 10,
+              "Type": "int",
+              "Description": "Results per page"
+            },
+            {
+              "Name": "order_direction",
+              "Required": "N",
+              "Default": "ASC",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "ASC",
+                "DESC"
+              ],
+              "EnumeratedDescription": {
+                "ASC": "Ascending",
+                "DESC": "Descending"
+              },
+              "Description": "How to order returned IDs"
+            }
+          ]
+        },
+        {
+          "MethodName": "Check trust",
+          "Synopsis": "Check if the current member trusts a given member. An access token is required.",
+          "HTTPMethod": "GET",
+          "URI": "/me/trusted/:member_id",
+          "parameters": [
+            {
+              "Name": "member_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "int",
+              "Description": "The ID of the specific member to check"
+            }
+          ]
+        },
+        {
+          "MethodName": "Add trust",
+          "Synopsis": "Trust a given member on behalf of the current member. An access token is required.",
+          "HTTPMethod": "PUT",
+          "URI": "/me/trusted/:member_id",
+          "parameters": [
+            {
+              "Name": "member_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "int",
+              "Description": "The ID of the specific member to trust"
+            },
+            {
+              "Name": "categories",
+              "Required": "N",
+              "Default": false,
+              "Type": "comma-separated",
+              "Description": "A comma-separated list of category IDs to categorize the \"trusted issuer\" relationship"
+            }
+          ]
+        },
+        {
+          "MethodName": "Update trust",
+          "Synopsis": "Update member's trust of another member. An access token is required.",
+          "HTTPMethod": "POST",
+          "URI": "/me/trusted/:member_id",
+          "parameters": [
+            {
+              "Name": "member_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "int",
+              "Description": "The ID of the specific member to trust"
+            },
+            {
+              "Name": "categories",
+              "Required": "N",
+              "Default": false,
+              "Type": "comma-separated",
+              "Description": "A comma-separated list of category IDs to categorize the \"trusted issuer\" relationship"
+            }
+          ]
+        },
+        {
+          "MethodName": "Remove trust",
+          "Synopsis": "Stop trusting a given member on behalf of the current member. An access token is required.",
+          "HTTPMethod": "DELETE",
+          "URI": "/me/trusted/:member_id",
+          "parameters": [
+            {
+              "Name": "member_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "int",
+              "Description": "The ID of the specific member to stop trusting"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Followers and following",
+      "methods": [
+        {
+          "MethodName": "Members following me",
+          "Synopsis": "List members who are following the current member. An access token is required.",
+          "HTTPMethod": "GET",
+          "URI": "/me/followers",
+          "parameters": [
+            {
+              "Name": "query",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Search query string"
+            },
+            {
+              "Name": "page",
+              "Required": "N",
+              "Default": 1,
+              "Type": "int",
+              "Description": "Page number"
+            },
+            {
+              "Name": "per_page",
+              "Required": "N",
+              "Default": 10,
+              "Type": "int",
+              "Description": "Results per page"
+            },
+            {
+              "Name": "order_direction",
+              "Required": "N",
+              "Default": "ASC",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "ASC",
+                "DESC"
+              ],
+              "EnumeratedDescription": {
+                "ASC": "Ascending",
+                "DESC": "Descending"
+              },
+              "Description": "How to order returned IDs"
+            }
+          ]
+        },
+        {
+          "MethodName": "Members I follow",
+          "Synopsis": "List members who are followed by the current member. An access token is required.",
+          "HTTPMethod": "GET",
+          "URI": "/me/following",
+          "parameters": [
+            {
+              "Name": "query",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Search query string"
+            },
+            {
+              "Name": "page",
+              "Required": "N",
+              "Default": 1,
+              "Type": "int",
+              "Description": "Page number"
+            },
+            {
+              "Name": "per_page",
+              "Required": "N",
+              "Default": 10,
+              "Type": "int",
+              "Description": "Results per page"
+            },
+            {
+              "Name": "order_direction",
+              "Required": "N",
+              "Default": "ASC",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "ASC",
+                "DESC"
+              ],
+              "EnumeratedDescription": {
+                "ASC": "Ascending",
+                "DESC": "Descending"
+              },
+              "Description": "How to order returned IDs"
+            }
+          ]
+        },
+        {
+          "MethodName": "Check if following",
+          "Synopsis": "Check if the current member is following the specified member. An access token is required.",
+          "HTTPMethod": "GET",
+          "URI": "/me/following/:member_id",
+          "parameters": [
+            {
+              "Name": "member_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "int",
+              "Description": "The ID of the specified member to check"
+            }
+          ]
+        },
+        {
+          "MethodName": "Follow a member",
+          "Synopsis": "Follow a specified member. An access token is required.",
+          "HTTPMethod": "POST",
+          "URI": "/me/following/:member_id",
+          "parameters": [
+            {
+              "Name": "member_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "int",
+              "Description": "The ID of the specified member to follow"
+            }
+          ]
+        },
+        {
+          "MethodName": "Unfollow a member",
+          "Synopsis": "Stop following a specified member. An access token is required.",
+          "HTTPMethod": "DELETE",
+          "URI": "/me/following/:member_id",
+          "parameters": [
+            {
+              "Name": "member_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "int",
+              "Description": "The ID of the specified member to unfollow"
+            }
+          ]
+        },
+        {
+          "MethodName": "My feed",
+          "Synopsis": "Get the current member's Credly Feed. An access token is required.",
+          "HTTPMethod": "GET",
+          "URI": "/me/feed",
+          "parameters": []
+        }
+      ]
+    }
+  ]
+}

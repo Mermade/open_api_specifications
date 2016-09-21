@@ -1,0 +1,370 @@
+{
+  "endpoints": [
+    {
+      "name": "API Status",
+      "methods": [
+        {
+          "MethodName": "Check Status",
+          "Synopsis": "This method returns the current status of the API.  If the status code is 200, we're good to go.",
+          "HTTPMethod": "GET",
+          "URI": "",
+          "RequiresOAuth": "N",
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "name": "Retrieve Locations",
+      "methods": [
+        {
+          "MethodName": "Show Location",
+          "Synopsis": "This method returns all information about a location.",
+          "HTTPMethod": "GET",
+          "URI": "/locations/:id",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "3",
+              "Type": "string",
+              "Description": "The unique identifier of the location"
+            }
+          ]
+        },
+        {
+          "MethodName": "Show Nearby Locations Around Coordinate",
+          "Synopsis": "This method returns locations near a coordinate.",
+          "HTTPMethod": "GET",
+          "URI": "/locations/nearby",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "latitude",
+              "Required": "Y",
+              "Default": "38.2",
+              "Type": "string",
+              "Description": "The latitude of the coordinate to search around."
+            },
+            {
+              "Name": "longitude",
+              "Required": "Y",
+              "Default": "-122.5",
+              "Type": "string",
+              "Description": "The longitude of the coordinate to search around."
+            },
+            {
+              "Name": "count",
+              "Required": "N",
+              "Default": "10",
+              "Type": "string",
+              "Description": "If specified, the closest [count] locations to the coordinate will be returned.  Either count or radius must be specified.  Count may not be accurate if page is not specified."
+            },
+            {
+              "Name": "radius",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "If specified, the all locations within [radius] meters of the coordinate will be returned.  Either count or radius must be specified."
+            },
+            {
+              "Name": "page",
+              "Required": "N",
+              "Default": "1",
+              "Type": "string",
+              "Description": "This method supports paging.  If page is specified, count must be specified as well."
+            },
+            {
+              "Name": "access",
+              "Required": "N",
+              "Default": "1,2,3",
+              "Type": "string",
+              "Description": "A comma separated list of location access types.  If specified, only locations with these access values will be returned.  1=Public, 2=Restricted, 3=Residential"
+            },
+            {
+              "Name": "cost",
+              "Required": "N",
+              "Default": "true",
+              "Type": "string",
+              "Description": "If 'false', locations that have an associated cost (such as $/kw or parking) will not be returned."
+            },
+            {
+              "Name": "networks",
+              "Required": "N",
+              "Default": "2,3,4",
+              "Type": "string",
+              "Description": "Only returns locations that are a member of one of these networks."
+            },
+            {
+              "Name": "outlets",
+              "Required": "N",
+              "Default": "[{\"connector\":2},{\"connector\":6,\"power\":1}]",
+              "Type": "string",
+              "Description": "A JSON formatted list of outlet descriptor objects.  Each outlet descriptor has two optional fields: connector and power.  An outlet is described by a descriptor if each specified field in the descriptor matches the corresponding field in the outlet.  Only locations that have an outlet that matches a listed descriptor will be returned."
+            }
+          ]
+        },
+        {
+          "MethodName": "Show Nearby Locations Around Address",
+          "Synopsis": "This method returns locations near an address.  Will return {code:1} if address cannot be geolocated, and {code:2} if address is ambiguous.  Otherwise returns list of locations.",
+          "HTTPMethod": "GET",
+          "URI": "/locations/nearby",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "address",
+              "Required": "Y",
+              "Default": "Portland, Or",
+              "Type": "string",
+              "Description": "The address to geolocate and search around."
+            },
+            {
+              "Name": "count",
+              "Required": "N",
+              "Default": "10",
+              "Type": "string",
+              "Description": "If specified, the closest [count] locations to the coordinate will be returned.  Either count or radius must be specified.  Count may not be accurate if page is not specified."
+            },
+            {
+              "Name": "radius",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "If specified, the all locations within [radius] meters of the coordinate will be returned.  Either count or radius must be specified."
+            },
+            {
+              "Name": "page",
+              "Required": "N",
+              "Default": "1",
+              "Type": "string",
+              "Description": "This method supports paging.  If page is specified, count must be specified as well."
+            },
+            {
+              "Name": "access",
+              "Required": "N",
+              "Default": "1,2,3",
+              "Type": "string",
+              "Description": "A comma separated list of location access types.  If specified, only locations with these access values will be returned.  1=Public, 2=Restricted, 3=Residential"
+            },
+            {
+              "Name": "cost",
+              "Required": "N",
+              "Default": "true",
+              "Type": "string",
+              "Description": "If 'false', locations that have an associated cost (such as $/kw or parking) will not be returned."
+            },
+            {
+              "Name": "networks",
+              "Required": "N",
+              "Default": "2,3,4",
+              "Type": "string",
+              "Description": "Only returns locations that are a member of one of these networks."
+            },
+            {
+              "Name": "outlets",
+              "Required": "N",
+              "Default": "[{\"connector\":2},{\"connector\":6,\"power\":1}]",
+              "Type": "string",
+              "Description": "A JSON formatted list of outlet descriptor objects.  Each outlet descriptor has two optional fields: connector and power.  An outlet is described by a descriptor if each specified field in the descriptor matches the corresponding field in the outlet.  Only locations that have an outlet that matches a listed descriptor will be returned."
+            }
+          ]
+        },
+        {
+          "MethodName": "Show Locations In Map Region",
+          "Synopsis": "This method returns locations in a rectangular coordinate region.  It is designed to be used by mapping applications.",
+          "HTTPMethod": "GET",
+          "URI": "/locations/region",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "latitude",
+              "Required": "Y",
+              "Default": "38.2",
+              "Type": "string",
+              "Description": "The latitude of the center coordinate of the map region."
+            },
+            {
+              "Name": "longitude",
+              "Required": "Y",
+              "Default": "-122.5",
+              "Type": "string",
+              "Description": "The longitude of the center coordinate of the map region."
+            },
+            {
+              "Name": "spanLat",
+              "Required": "Y",
+              "Default": "38.2",
+              "Type": "string",
+              "Description": "The (positive) difference in latitude between N and S."
+            },
+            {
+              "Name": "spanLng",
+              "Required": "Y",
+              "Default": "-122.5",
+              "Type": "string",
+              "Description": "The (positive) difference in longitude between E and W."
+            },
+            {
+              "Name": "count",
+              "Required": "Y",
+              "Default": "200",
+              "Type": "string",
+              "Description": "The maximum number of locations to return.  If you request a wide region, not all locations will be returned.  This field is an indicator to the API how much data it should attempt to return and how densely it should cluster the results - it is not exact. 200-500 is a recommended value for most applications."
+            },
+            {
+              "Name": "access",
+              "Required": "N",
+              "Default": "1,2,3",
+              "Type": "string",
+              "Description": "A comma separated list of location access types.  If specified, only locations with these access values will be returned.  1=Public, 2=Restricted, 3=Residential"
+            },
+            {
+              "Name": "cost",
+              "Required": "N",
+              "Default": "true",
+              "Type": "string",
+              "Description": "If 'false', locations that have an associated cost (such as $/kw or parking) will not be returned."
+            },
+            {
+              "Name": "networks",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Only returns locations that are a member of one of these networks."
+            },
+            {
+              "Name": "outlets",
+              "Required": "N",
+              "Default": "[{\"connector\":2},{\"connector\":6,\"power\":1}]",
+              "Type": "string",
+              "Description": "A JSON formatted list of outlet descriptor objects.  Each outlet descriptor has two optional fields: connector and power.  An outlet is described by a descriptor if each specified field in the descriptor matches the corresponding field in the outlet.  Only locations that have an outlet that matches a listed descriptor will be returned."
+            }
+          ]
+        },
+        {
+          "MethodName": "Show Locations Along Route",
+          "Synopsis": "This method returns locations near a route between a series of coordinates (a polyline).  Useful in conjunction with a directions service.",
+          "HTTPMethod": "POST",
+          "URI": "/locations/polyline",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "polyline",
+              "Required": "Y",
+              "Default": "38.2,-122.5,39.0,-121.0",
+              "Type": "string",
+              "Description": "A list of coordinates describing the route in the form of lat1,lng1,lat2,lng2 ..."
+            },
+            {
+              "Name": "distance",
+              "Required": "Y",
+              "Default": "-122.5",
+              "Type": "string",
+              "Description": "The search distance in meters around the route."
+            },
+            {
+              "Name": "count",
+              "Required": "N",
+              "Default": "10",
+              "Type": "string",
+              "Description": "The number of locations to return per page."
+            },
+            {
+              "Name": "page",
+              "Required": "N",
+              "Default": "1",
+              "Type": "string",
+              "Description": "This method supports paging.  If page is specified, count must be specified as well."
+            },
+            {
+              "Name": "access",
+              "Required": "N",
+              "Default": "1,2,3",
+              "Type": "string",
+              "Description": "A comma separated list of location access types.  If specified, only locations with these access values will be returned.  1=Public, 2=Restricted, 3=Residential"
+            },
+            {
+              "Name": "cost",
+              "Required": "N",
+              "Default": "true",
+              "Type": "string",
+              "Description": "If 'false', locations that have an associated cost (such as $/kw or parking) will not be returned."
+            },
+            {
+              "Name": "networks",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Only returns locations that are a member of one of these networks."
+            },
+            {
+              "Name": "outlets",
+              "Required": "N",
+              "Default": "[{\"connector\":2},{\"connector\":6,\"power\":1}]",
+              "Type": "string",
+              "Description": "A JSON formatted list of outlet descriptor objects.  Each outlet descriptor has two optional fields: connector and power.  An outlet is described by a descriptor if each specified field in the descriptor matches the corresponding field in the outlet.  Only locations that have an outlet that matches a listed descriptor will be returned."
+            }
+          ]
+        },
+        {
+          "MethodName": "Search for locations by name or address",
+          "Synopsis": "This method returns locations whose name or address contains a specified search query.",
+          "HTTPMethod": "GET",
+          "URI": "/locations/search",
+          "RequiresOAuth": "Y",
+          "parameters": [
+            {
+              "Name": "query",
+              "Required": "Y",
+              "Default": "Palo Alto",
+              "Type": "string",
+              "Description": "The search query."
+            },
+            {
+              "Name": "count",
+              "Required": "Y",
+              "Default": "10",
+              "Type": "string",
+              "Description": "The number of locations to return."
+            },
+            {
+              "Name": "page",
+              "Required": "N",
+              "Default": "1",
+              "Type": "string",
+              "Description": "This method supports paging.  If page is specified, count must be specified as well."
+            },
+            {
+              "Name": "access",
+              "Required": "N",
+              "Default": "1,2,3",
+              "Type": "string",
+              "Description": "A comma separated list of location access types.  If specified, only locations with these access values will be returned.  1=Public, 2=Restricted, 3=Residential"
+            },
+            {
+              "Name": "cost",
+              "Required": "N",
+              "Default": "true",
+              "Type": "string",
+              "Description": "If 'false', locations that have an associated cost (such as $/kw or parking) will not be returned."
+            },
+            {
+              "Name": "networks",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Only returns locations that are a member of one of these networks."
+            },
+            {
+              "Name": "outlets",
+              "Required": "N",
+              "Default": "[{\"connector\":2},{\"connector\":6,\"power\":1}]",
+              "Type": "string",
+              "Description": "A JSON formatted list of outlet descriptor objects.  Each outlet descriptor has two optional fields: connector and power.  An outlet is described by a descriptor if each specified field in the descriptor matches the corresponding field in the outlet.  Only locations that have an outlet that matches a listed descriptor will be returned."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

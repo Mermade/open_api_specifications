@@ -1,0 +1,1869 @@
+{
+  "name": "AristaMD",
+  "protocol": "rest",
+  "basePath": "https://api.training.aristamd.com",
+  "publicPath": "/",
+  "auth": {
+    "oauth": {
+      "version": "2.0",
+      "type": "implicit",
+      "base_uri": "https://app.training.aristamd.com",
+      "access_token_uri": "/#/access/signin/",
+      "authorize_uri": "/oauth/authorize"
+    }
+  },
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "schemas": {},
+  "resources": {
+    "Organizations": {
+      "methods": {
+        "ListallOrganizations": {
+          "name": "List all Organizations",
+          "description": "Returns all organizations within the current caller's scope",
+          "httpMethod": "GET",
+          "path": "/organizations",
+          "parameters": {}
+        },
+        "GetanOrganization": {
+          "name": "Get an Organization",
+          "description": "Get a single organization",
+          "httpMethod": "GET",
+          "path": "/organizations/{organization_id}",
+          "parameters": {
+            "organization_id": {
+              "title": "organization_id",
+              "description": "Organization ID (e.g. integer or UUID)",
+              "required": true,
+              "default": "",
+              "type": "string",
+              "location": "query"
+            }
+          }
+        },
+        "CreateOrganization": {
+          "name": "Create Organization",
+          "description": "Creates a new organization",
+          "httpMethod": "POST",
+          "path": "/organizations",
+          "parameters": {
+            "display_name": {
+              "title": "display_name",
+              "description": "Name of the organization to be used for display throughout the application (other than formal functions such as printed patient records)",
+              "required": true,
+              "type": "string",
+              "location": "body"
+            },
+            "site_name": {
+              "title": "site_name",
+              "description": "Shortened or abbreviated name of the organization",
+              "required": true,
+              "type": "string",
+              "location": "body"
+            },
+            "formal_name": {
+              "title": "formal_name",
+              "description": "Name of the organization to be used in formal settings such as a printed document or when being added to a patient record",
+              "required": true,
+              "type": "string",
+              "location": "body"
+            },
+            "domain": {
+              "title": "domain",
+              "description": "Determines the URL this organization runs under (e.g. a value of 'client1' would make this org available under client1.aristamd.com)",
+              "required": true,
+              "type": "string",
+              "location": "body"
+            },
+            "namespace": {
+              "title": "namespace",
+              "description": "Specifies a namespace for code customization",
+              "required": true,
+              "type": "string",
+              "location": "body"
+            },
+            "locations": {
+              "title": "locations",
+              "description": "",
+              "required": false,
+              "default": "",
+              "type": "array",
+              "location": "body",
+              "items": {
+                "required": false,
+                "type": "object",
+                "properties": {
+                  "street_address_1": {
+                    "title": "street_address_1",
+                    "description": "First line of the address",
+                    "required": false,
+                    "default": "",
+                    "type": "string"
+                  },
+                  "street_address_2": {
+                    "title": "street_address_2",
+                    "description": "Second line of the address. Optional, should contain suite, unit number, etc...",
+                    "required": false,
+                    "default": "",
+                    "type": "string"
+                  },
+                  "city": {
+                    "title": "city",
+                    "description": "city",
+                    "required": false,
+                    "default": "",
+                    "type": "string"
+                  },
+                  "postal_code": {
+                    "title": "postal_code",
+                    "description": "Mailing postal code. For US-based addresses both basic and zip+4 are accepted",
+                    "required": false,
+                    "default": "",
+                    "type": "string"
+                  },
+                  "county": {
+                    "title": "county",
+                    "description": "Administrative region in which the city sits.",
+                    "required": false,
+                    "default": "",
+                    "type": "string"
+                  },
+                  "state": {
+                    "title": "state",
+                    "description": "Two characer ANSI state code",
+                    "required": false,
+                    "default": "",
+                    "type": "string"
+                  },
+                  "country": {
+                    "title": "country",
+                    "description": "Two-character ANSI country code",
+                    "required": false,
+                    "default": "US",
+                    "type": "string"
+                  },
+                  "latitude": {
+                    "title": "latitude",
+                    "description": "Global position with respect to the equator. If not provided the value will be computed.",
+                    "required": false,
+                    "default": "",
+                    "type": "string"
+                  },
+                  "longitude": {
+                    "title": "longitude",
+                    "description": "Global position with respect to the prime meridian. If not provided the value will be computed.",
+                    "required": false,
+                    "default": "",
+                    "type": "string"
+                  },
+                  "time_zone": {
+                    "title": "time_zone",
+                    "description": "Textual time zone name such as America/Los_Angeles. For a full list of time zones please see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones",
+                    "required": false,
+                    "default": "",
+                    "type": "string"
+                  },
+                  "phone_number": {
+                    "title": "phone_number",
+                    "description": "Phone number",
+                    "required": false,
+                    "default": "",
+                    "type": "string"
+                  },
+                  "fax": {
+                    "title": "fax",
+                    "description": "Fax number",
+                    "required": false,
+                    "default": "",
+                    "type": "string"
+                  },
+                  "type": {
+                    "title": "type",
+                    "description": "Kind of address. Currently only physical and billing are supported",
+                    "required": true,
+                    "default": "physical",
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "UpdateOrganization": {
+          "name": "Update Organization",
+          "description": "Update an existing organization",
+          "httpMethod": "PUT",
+          "path": "/organizations/{organization_id}",
+          "parameters": {
+            "display_name": {
+              "title": "display_name",
+              "description": "Name of the site to be used for display throughout the site (other than formal functions such as printed patient records)",
+              "required": true,
+              "type": "string",
+              "location": "body"
+            },
+            "site_name": {
+              "title": "site_name",
+              "description": "Name of the organization to be used in formal settings such as a printed document or when being added to a patient record",
+              "required": true,
+              "type": "string",
+              "location": "body"
+            },
+            "formal_name": {
+              "title": "formal_name",
+              "description": "Name of the organization to be used in formal settings such as a printed document or when being added to a patient record",
+              "required": true,
+              "type": "string",
+              "location": "body"
+            },
+            "domain": {
+              "title": "domain",
+              "description": "Determines the URL this organization runs under (e.g. a value of 'client1' would make this org available under client1.aristamd.com)",
+              "required": true,
+              "type": "string",
+              "location": "body"
+            },
+            "namespace": {
+              "title": "namespace",
+              "description": "Specifies a namespace for code customization",
+              "required": true,
+              "type": "string",
+              "location": "body"
+            },
+            "locations": {
+              "title": "locations",
+              "description": "",
+              "required": true,
+              "default": "",
+              "type": "array",
+              "location": "body",
+              "items": {
+                "required": true,
+                "type": "object",
+                "properties": {
+                  "street_address_1": {
+                    "title": "street_address_1",
+                    "description": "First line of the address",
+                    "required": true,
+                    "default": "",
+                    "type": "string"
+                  },
+                  "street_address_2": {
+                    "title": "street_address_2",
+                    "description": "Second line of the address. Optional, should contain suite, unit number, etc...",
+                    "required": false,
+                    "default": "",
+                    "type": "string"
+                  },
+                  "city": {
+                    "title": "city",
+                    "description": "city",
+                    "required": true,
+                    "default": "",
+                    "type": "string"
+                  },
+                  "postal_code": {
+                    "title": "postal_code",
+                    "description": "Mailing postal code. For US-based addresses both basic and zip+4 are accepted",
+                    "required": true,
+                    "default": "",
+                    "type": "string"
+                  },
+                  "county": {
+                    "title": "county",
+                    "description": "Administrative region in which the city sits.",
+                    "required": true,
+                    "default": "",
+                    "type": "string"
+                  },
+                  "state": {
+                    "title": "state",
+                    "description": "Two characer ANSI state code",
+                    "required": true,
+                    "default": "",
+                    "type": "string"
+                  },
+                  "country": {
+                    "title": "country",
+                    "description": "Two-character ANSI country code",
+                    "required": true,
+                    "default": "US",
+                    "type": "string"
+                  },
+                  "latitude": {
+                    "title": "latitude",
+                    "description": "Global position with respect to the equator. If not provided the value will be computed.",
+                    "required": true,
+                    "default": "",
+                    "type": "string"
+                  },
+                  "longitude": {
+                    "title": "longitude",
+                    "description": "Global position with respect to the prime meridian. If not provided the value will be computed.",
+                    "required": true,
+                    "default": "",
+                    "type": "string"
+                  },
+                  "time_zone": {
+                    "title": "time_zone",
+                    "description": "Textual time zone name such as America/Los_Angeles. For a full list of time zones please see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones",
+                    "required": true,
+                    "default": "",
+                    "type": "string"
+                  },
+                  "phone_number": {
+                    "title": "phone_number",
+                    "description": "Phone number",
+                    "required": true,
+                    "default": "",
+                    "type": "string"
+                  },
+                  "fax": {
+                    "title": "fax",
+                    "description": "Fax number",
+                    "required": true,
+                    "default": "",
+                    "type": "string"
+                  },
+                  "type": {
+                    "title": "type",
+                    "description": "Kind of address. Currently only physical and billing are supported",
+                    "required": true,
+                    "default": "physical",
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "organization_id": {
+              "title": "organization_id",
+              "description": "Organization ID (e.g. integer or UUID)",
+              "required": true,
+              "default": "",
+              "type": "string",
+              "location": "query"
+            }
+          }
+        },
+        "GetOrganizationpopulationhistory": {
+          "name": "Get Organization population history",
+          "description": "Get the average daily population of an organization",
+          "httpMethod": "GET",
+          "path": "/organizations/{organization_id}/adp",
+          "parameters": {
+            "organization_id": {
+              "title": "organization_id",
+              "description": "Organization ID (e.g. integer or UUID)",
+              "required": true,
+              "default": "",
+              "type": "string",
+              "location": "query"
+            }
+          }
+        }
+      }
+    },
+    "Roles": {
+      "methods": {
+        "ListRoles": {
+          "name": "List Roles",
+          "description": "Get a list of all roles that have been created. Please note roles scoped and are organization dependent. This means that one set of roles may be entirely different that another set of roles based on the credentials of the caller.",
+          "httpMethod": "GET",
+          "path": "/roles",
+          "parameters": {}
+        }
+      }
+    },
+    "Users": {
+      "methods": {
+        "ListallUsers": {
+          "name": "List all Users",
+          "description": "List all users in an organization",
+          "httpMethod": "GET",
+          "path": "/users",
+          "parameters": {
+            "searchValue": {
+              "title": "searchValue",
+              "description": "Limit the result set to the term specified. The term will be matched against the following user attributes: last_name, first_name, site, role, and status",
+              "required": false,
+              "default": "",
+              "type": "string",
+              "location": "query"
+            },
+            "searchStatus": {
+              "title": "searchStatus",
+              "description": "Limit the result set to users with the given status",
+              "required": false,
+              "default": "",
+              "type": "string",
+              "location": "query"
+            },
+            "start": {
+              "title": "start",
+              "description": "Used when paging the results. This will start the results offset by this amount",
+              "required": false,
+              "default": "",
+              "type": "integer",
+              "location": "query"
+            },
+            "len": {
+              "title": "len",
+              "description": "Used when paging the results. This will limit the total results to the number specified",
+              "required": false,
+              "default": "",
+              "type": "string",
+              "location": "query"
+            },
+            "orderColumn": {
+              "title": "orderColumn",
+              "description": "Column to order the results by. Results are ordered by last_name by default. Valid options are last_name, first_name, site, role, and status.",
+              "required": false,
+              "default": "",
+              "type": "string",
+              "location": "query"
+            },
+            "orderDir": {
+              "title": "orderDir",
+              "description": "Direction to order the result set. Results are ordered in ascending order by default. Valid options are asc and desc.",
+              "required": false,
+              "default": "asc",
+              "type": "string",
+              "location": "query"
+            }
+          }
+        },
+        "GetUser": {
+          "name": "Get User",
+          "description": "Get the details of a single users",
+          "httpMethod": "GET",
+          "path": "/users/{user_id}",
+          "parameters": {
+            "user_id": {
+              "title": "user_id",
+              "description": "User Id in the form of an integer or UUID.",
+              "required": true,
+              "default": "",
+              "type": "string",
+              "location": "query"
+            }
+          }
+        },
+        "CreateUser": {
+          "name": "Create User",
+          "description": "Create a new user. By default when a new user is created their status is 'invited' and they are sent a welcome email which contains a one-time use password which expires in 24 hours. Once the user logs in with the provided credentials their status is changed to active.",
+          "httpMethod": "POST",
+          "path": "/users",
+          "parameters": {
+            "username": {
+              "title": "username",
+              "description": "Unique user identifier. This may be their email address or another unique string",
+              "required": true,
+              "default": "",
+              "type": "string",
+              "location": "body"
+            },
+            "email": {
+              "title": "email",
+              "description": "The user's email address. Please note that we do not send any ePHI over email.",
+              "required": true,
+              "default": "",
+              "type": "string",
+              "location": "body"
+            },
+            "first_name": {
+              "title": "first_name",
+              "description": "User's first name",
+              "required": true,
+              "default": "",
+              "type": "string",
+              "location": "query"
+            },
+            "last_name": {
+              "title": "last_name",
+              "description": "User's last name",
+              "required": true,
+              "default": "",
+              "type": "string",
+              "location": "query"
+            },
+            "phone": {
+              "title": "phone",
+              "description": "Phone number of the user",
+              "required": false,
+              "default": "",
+              "type": "string",
+              "location": "body"
+            },
+            "mobile": {
+              "title": "mobile",
+              "description": "Mobile phone number of the user",
+              "required": false,
+              "default": "",
+              "type": "string",
+              "location": "body"
+            },
+            "suffix": {
+              "title": "suffix",
+              "description": "Academic degree or credential abbreviation such as MD, RN, etc...",
+              "required": false,
+              "default": "",
+              "type": "string",
+              "location": "body"
+            },
+            "role": {
+              "title": "role",
+              "description": "The role (such as admin or approves, etc...) which this user is assigned. To get a list of roles please see the Roles resource",
+              "required": true,
+              "default": "",
+              "type": "string",
+              "location": "query"
+            },
+            "organizations": {
+              "title": "organizations",
+              "description": "Array of organizations to which this user should be assigned.",
+              "required": true,
+              "default": "",
+              "type": "array",
+              "location": "body",
+              "items": {
+                "title": "organization_id",
+                "description": "Organization ID (e.g. integer or UUID)",
+                "required": true,
+                "default": "",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "UpdateUser": {
+          "name": "Update User",
+          "description": "Modify an existing user record",
+          "httpMethod": "PUT",
+          "path": "/users/{user_id}",
+          "parameters": {
+            "user_id": {
+              "title": "user_id",
+              "description": "User Id in the form of an integer or UUID",
+              "required": true,
+              "default": "",
+              "type": "string",
+              "location": "query"
+            },
+            "username": {
+              "title": "username",
+              "description": "Unique user identifier. This may be their email address or another unique string",
+              "required": false,
+              "default": "",
+              "type": "string",
+              "location": "body"
+            },
+            "email": {
+              "title": "email",
+              "description": "The user's email address. Please note that we do not send any ePHI over email.",
+              "required": false,
+              "default": "",
+              "type": "string",
+              "location": "body"
+            },
+            "first_name": {
+              "title": "first_name",
+              "description": "User's first name",
+              "required": false,
+              "default": "",
+              "type": "string",
+              "location": "query"
+            },
+            "last_name": {
+              "title": "last_name",
+              "description": "User's last name",
+              "required": false,
+              "default": "",
+              "type": "string",
+              "location": "query"
+            },
+            "phone": {
+              "title": "phone",
+              "description": "Phone number of the user",
+              "required": false,
+              "default": "",
+              "type": "string",
+              "location": "body"
+            },
+            "mobile": {
+              "title": "mobile",
+              "description": "Mobile phone number of the user",
+              "required": false,
+              "default": "",
+              "type": "string",
+              "location": "body"
+            },
+            "status": {
+              "title": "status",
+              "description": "Update the status of a user. Valid statuses include active, inactive, suspended, reset_password",
+              "required": false,
+              "default": "",
+              "type": "string",
+              "location": "body"
+            },
+            "suffix": {
+              "title": "suffix",
+              "description": "Academic degree or credential abbreviation such as MD, RN, etc...",
+              "required": false,
+              "default": "",
+              "type": "string",
+              "location": "body"
+            },
+            "role": {
+              "title": "role",
+              "description": "The role (such as admin or approves, etc...) which this user is assigned. To get a list of roles please see the Roles resource",
+              "required": false,
+              "default": "",
+              "type": "string",
+              "location": "query"
+            },
+            "organizations": {
+              "title": "organizations",
+              "description": "Array of organizations to which this user should be assigned.",
+              "required": false,
+              "default": "",
+              "type": "array",
+              "location": "body",
+              "items": {
+                "title": "organization_id",
+                "description": "Organization ID (e.g. integer or UUID)",
+                "required": true,
+                "default": "",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "ListPermissions": {
+          "name": "List Permissions",
+          "description": "List all the permissions granted to the specified user",
+          "httpMethod": "GET",
+          "path": "users/{user_id}/permissions",
+          "parameters": {
+            "user_id": {
+              "title": "user_id",
+              "description": "",
+              "required": true,
+              "default": "",
+              "type": "string",
+              "location": "query"
+            }
+          }
+        },
+        "CheckPermission": {
+          "name": "Check Permission",
+          "description": "Check if a given user has a specific permission",
+          "httpMethod": "GET",
+          "path": "users/{user_id}/permissions/can",
+          "parameters": {
+            "user_id": {
+              "title": "user_id",
+              "description": "",
+              "required": true,
+              "default": "",
+              "type": "string",
+              "location": "query"
+            },
+            "permission": {
+              "title": "permission",
+              "description": "Permission code such as create_site or patient_update, etc... for a full list of permissions please see the List Permissions method",
+              "required": true,
+              "default": "",
+              "type": "string",
+              "location": "query"
+            }
+          }
+        }
+      }
+    },
+    "Clinical Issues": {
+      "methods": {
+        "ListallClinicalIssues": {
+          "name": "List all Clinical Issues",
+          "description": "Display a list of all the clinical issues matching given criteria",
+          "httpMethod": "GET",
+          "path": "/clinical_issues",
+          "parameters": {
+            "term": {
+              "title": "term",
+              "description": "Search term to limit the result set by. The term must be at least 3 characters in length",
+              "required": false,
+              "default": "",
+              "type": "string",
+              "location": "query"
+            },
+            "offset": {
+              "title": "offset",
+              "description": "Offset the results starting at the point specified. Used when paging results.",
+              "required": false,
+              "default": "",
+              "type": "string",
+              "location": "query"
+            },
+            "limit": {
+              "title": "limit",
+              "description": "Limits the total results. Used when paging results.",
+              "required": false,
+              "default": "",
+              "type": "string",
+              "location": "query"
+            },
+            "code": {
+              "title": "code",
+              "description": "Find the clinical issue matching the code specified",
+              "required": false,
+              "default": "",
+              "type": "string",
+              "location": "query"
+            },
+            "specialty_id": {
+              "title": "specialty_id",
+              "description": "Specialty Id, for a list of specialty IDs please see the Specialty resource",
+              "required": false,
+              "default": "",
+              "type": "string",
+              "location": "query"
+            }
+          }
+        }
+      }
+    },
+    "Specialties": {
+      "methods": {
+        "ListallSpecialties": {
+          "name": "List all Specialties",
+          "description": "Get a list of all known specialties. This will consistent across all organizations",
+          "httpMethod": "GET",
+          "path": "/specialties",
+          "parameters": {
+            "context": {
+              "title": "context",
+              "description": "Different sets of specialties show up for different kinds of requests. One set for referrals, another for eConsults, etc...",
+              "required": false,
+              "default": "",
+              "type": "string",
+              "location": "query"
+            }
+          }
+        },
+        "ListOrganizationSpecialties": {
+          "name": "List Organization Specialties",
+          "description": "Get a list of all specialties assigned to the current user's organization",
+          "httpMethod": "GET",
+          "path": "specialties/organization",
+          "parameters": {}
+        }
+      }
+    },
+    "Panelists": {
+      "methods": {
+        "GetaPanelist": {
+          "name": "Get a Panelist",
+          "description": "Returns panelist details including their availability, specialties, etc...",
+          "httpMethod": "GET",
+          "path": "/panelists",
+          "parameters": {}
+        },
+        "CreateaPanelist": {
+          "name": "Create a Panelist",
+          "description": "Use this method to create a new panelist. Please note that panelists are a sub-class of users so you must first create a user using the User API.",
+          "httpMethod": "POST",
+          "path": "/panelists",
+          "parameters": {
+            "user_id": {
+              "title": "user_id",
+              "description": "User Id in the form of an integer or UUID.",
+              "required": false,
+              "default": "",
+              "type": "string",
+              "location": "body"
+            },
+            "notes": {
+              "title": "notes",
+              "description": "A personal note that is presented to the primary care provider when he or she submits an eConsult to the panelist",
+              "required": false,
+              "default": "",
+              "type": "string",
+              "location": "body"
+            },
+            "profile_photo": {
+              "title": "profile_photo",
+              "description": "URL to a photo of the panelist that is displayed throughout the application. To upload a photo please see the Assets endpoint",
+              "required": false,
+              "default": "",
+              "type": "string",
+              "location": "body"
+            },
+            "cv": {
+              "title": "cv",
+              "description": "An overview of a the panelist's experience and other qualifications.",
+              "required": false,
+              "default": "",
+              "type": "object",
+              "location": "body",
+              "properties": {
+                "certifications": {
+                  "title": "certifications",
+                  "description": "Medical and board certifications",
+                  "required": false,
+                  "type": "array",
+                  "items": {
+                    "title": "certification",
+                    "description": "",
+                    "required": false,
+                    "default": "",
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "title": "name",
+                        "description": "",
+                        "required": false,
+                        "default": "",
+                        "type": "string"
+                      },
+                      "date": {
+                        "title": "date",
+                        "description": "Year the certification was granted, eg... 2001",
+                        "required": false,
+                        "default": "",
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "education": {
+                  "title": "education",
+                  "description": "Degrees awarded",
+                  "required": false,
+                  "default": "",
+                  "type": "object",
+                  "properties": {
+                    "degree": {
+                      "title": "degree",
+                      "description": "",
+                      "required": false,
+                      "default": "",
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "title": "name",
+                          "description": "Institution name which conferred the degree",
+                          "required": true,
+                          "default": "",
+                          "type": "string"
+                        },
+                        "degree": {
+                          "title": "degree",
+                          "description": "Class of degree such as MD, DO, PhD, etc...",
+                          "required": true,
+                          "default": "",
+                          "type": "string"
+                        },
+                        "date": {
+                          "title": "date",
+                          "description": "Year the degree was granted, eg... 2001",
+                          "required": false,
+                          "default": "",
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "fellowships": {
+                  "title": "fellowships",
+                  "description": "Where the panelist has trained after completing residency.",
+                  "required": false,
+                  "default": "",
+                  "type": "array",
+                  "items": {
+                    "title": "fellowship",
+                    "description": "",
+                    "required": false,
+                    "default": "",
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "title": "name",
+                        "description": "Location of the fellowship",
+                        "required": true,
+                        "default": "",
+                        "type": "string"
+                      },
+                      "date": {
+                        "title": "date",
+                        "description": "Year the fellowship was completed",
+                        "required": true,
+                        "default": "",
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "specialties": {
+              "title": "specialties",
+              "description": "",
+              "required": true,
+              "default": "",
+              "type": "array",
+              "location": "body",
+              "items": {
+                "title": "specialty_id",
+                "description": "Id of a specialty in integer or UUID format",
+                "required": true,
+                "default": "",
+                "type": "string"
+              }
+            },
+            "states": {
+              "title": "states",
+              "description": "States in which this panelist is licensed to practice",
+              "required": true,
+              "default": "",
+              "type": "array",
+              "location": "body",
+              "items": {
+                "title": "state_id",
+                "description": "ID of a state record in the AristaMD platform. For more details on states please see the States resource",
+                "required": false,
+                "default": "",
+                "type": "string"
+              }
+            },
+            "panels": {
+              "title": "panels",
+              "description": "",
+              "required": true,
+              "default": "",
+              "type": "array",
+              "location": "body",
+              "items": {
+                "title": "panel_id",
+                "description": "Id of a pre-defined panel",
+                "required": true,
+                "default": "",
+                "type": "string"
+              }
+            },
+            "main_practice_location": {
+              "title": "main_practice_location",
+              "description": "The medical institution(s) at which this panelist practices",
+              "required": false,
+              "default": "",
+              "type": "string",
+              "location": "body"
+            },
+            "availability": {
+              "title": "availability",
+              "description": "An array of dates which this panelist is available to take eConsults",
+              "required": true,
+              "default": "",
+              "type": "array",
+              "location": "body",
+              "items": {
+                "title": "date",
+                "description": "ISO 8601 date (e.g. 2001-01-01)",
+                "required": false,
+                "default": "",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "UpdateaPanelist": {
+          "name": "Update a Panelist",
+          "description": "Use this method to create a new panelist. Please note that panelists are a sub-class of users so you must first create a user using the User API.",
+          "httpMethod": "PUT",
+          "path": "/panelists",
+          "parameters": {
+            "notes": {
+              "title": "notes",
+              "description": "A personal note that is presented to the primary care provider when he or she submits an eConsult to the panelist",
+              "required": true,
+              "default": "",
+              "type": "string",
+              "location": "body"
+            },
+            "profile_photo": {
+              "title": "profile_photo",
+              "description": "URL to a photo of the panelist that is displayed throughout the application. To upload a photo please see the Assets endpoint",
+              "required": true,
+              "default": "",
+              "type": "string",
+              "location": "body"
+            },
+            "cv": {
+              "title": "cv",
+              "description": "An overview of a the panelist's experience and other qualifications.",
+              "required": true,
+              "default": "",
+              "type": "object",
+              "location": "body",
+              "properties": {
+                "certifications": {
+                  "title": "certifications",
+                  "description": "Medical and board certifications",
+                  "required": true,
+                  "type": "array",
+                  "items": {
+                    "title": "certification",
+                    "description": "",
+                    "required": true,
+                    "default": "",
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "title": "name",
+                        "description": "",
+                        "required": true,
+                        "default": "",
+                        "type": "string"
+                      },
+                      "date": {
+                        "title": "date",
+                        "description": "Year the certification was granted, eg... 2001",
+                        "required": true,
+                        "default": "",
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "education": {
+                  "title": "education",
+                  "description": "Degrees awarded",
+                  "required": true,
+                  "default": "",
+                  "type": "object",
+                  "properties": {
+                    "degree": {
+                      "title": "degree",
+                      "description": "",
+                      "required": true,
+                      "default": "",
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "title": "name",
+                          "description": "Institution name which conferred the degree",
+                          "required": true,
+                          "default": "",
+                          "type": "string"
+                        },
+                        "degree": {
+                          "title": "degree",
+                          "description": "Class of degree such as MD, DO, PhD, etc...",
+                          "required": true,
+                          "default": "",
+                          "type": "string"
+                        },
+                        "date": {
+                          "title": "date",
+                          "description": "Year the degree was granted, eg... 2001",
+                          "required": true,
+                          "default": "",
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "fellowships": {
+                  "title": "fellowships",
+                  "description": "Where the panelist has trained after completing residency.",
+                  "required": true,
+                  "default": "",
+                  "type": "array",
+                  "items": {
+                    "title": "fellowship",
+                    "description": "",
+                    "required": true,
+                    "default": "",
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "title": "name",
+                        "description": "Location of the fellowship",
+                        "required": true,
+                        "default": "",
+                        "type": "string"
+                      },
+                      "date": {
+                        "title": "date",
+                        "description": "Year the fellowship was completed",
+                        "required": true,
+                        "default": "",
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "specialties": {
+              "title": "specialties",
+              "description": "",
+              "required": true,
+              "default": "",
+              "type": "array",
+              "location": "body",
+              "items": {
+                "title": "specialty_id",
+                "description": "Id of a specialty in integer or UUID format",
+                "required": true,
+                "default": "",
+                "type": "string"
+              }
+            },
+            "states": {
+              "title": "states",
+              "description": "States in which this panelist is licensed to practice",
+              "required": true,
+              "default": "",
+              "type": "array",
+              "location": "body",
+              "items": {
+                "title": "state_id",
+                "description": "ID of a state record in the AristaMD platform. For more details on states please see the States resource",
+                "required": true,
+                "default": "",
+                "type": "string"
+              }
+            },
+            "panels": {
+              "title": "panels",
+              "description": "",
+              "required": true,
+              "default": "",
+              "type": "array",
+              "location": "body",
+              "items": {
+                "title": "panel_id",
+                "description": "Id of a pre-defined panel",
+                "required": true,
+                "default": "",
+                "type": "string"
+              }
+            },
+            "main_practice_location": {
+              "title": "main_practice_location",
+              "description": "The medical institution(s) at which this panelist practices",
+              "required": true,
+              "default": "",
+              "type": "string",
+              "location": "body"
+            },
+            "availability": {
+              "title": "availability",
+              "description": "An array of dates which this panelist is available to take eConsults",
+              "required": true,
+              "default": "",
+              "type": "array",
+              "location": "body",
+              "items": {
+                "title": "date",
+                "description": "ISO 8601 date (e.g. 2001-01-01)",
+                "required": true,
+                "default": "",
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "Patients": {
+      "methods": {
+        "GetPatient": {
+          "name": "Get Patient",
+          "description": "Get the resource of Patient based on the patients ID.",
+          "httpMethod": "GET",
+          "path": "/patients/{patient_id}",
+          "parameters": {
+            "patient_id": {
+              "title": "patient_id",
+              "description": "The id or UUID of the patient",
+              "required": true,
+              "default": "",
+              "type": "string",
+              "location": "query"
+            }
+          }
+        },
+        "CreatePatient": {
+          "name": "Create Patient",
+          "description": "Send this patient resource in order to create a new patient in the system.",
+          "httpMethod": "POST",
+          "path": "/patients",
+          "parameters": {
+            "reference_id": {
+              "title": "reference_id",
+              "description": "generic identifier for third-party.  Typically a patient ID from another system.",
+              "required": false,
+              "default": "",
+              "type": "string",
+              "location": "body"
+            },
+            "first_name": {
+              "title": "first_name",
+              "description": "First name of the patient",
+              "required": true,
+              "default": "",
+              "type": "string",
+              "location": "body"
+            },
+            "last_name": {
+              "title": "last_name",
+              "description": "Last name of patient",
+              "required": true,
+              "default": "",
+              "type": "string",
+              "location": "body"
+            },
+            "date_of_birth": {
+              "title": "date_of_birth",
+              "description": "Date of Birth of the patient. Format: 1954-05-09T06:00:00.000Z",
+              "required": true,
+              "default": "",
+              "type": "string",
+              "location": "body"
+            },
+            "booking_date": {
+              "title": "booking_date",
+              "description": "The date in which the patient was admitted. Format: 2015-11-09T06:00:00.000Z",
+              "required": true,
+              "default": "",
+              "type": "string",
+              "location": "body"
+            },
+            "gender": {
+              "title": "gender",
+              "description": "Patient Gender: M | F",
+              "required": true,
+              "default": "",
+              "type": "string",
+              "location": "body"
+            },
+            "ChronicConditions": {
+              "title": "Chronic Conditions",
+              "description": "List of patients chronic conditions",
+              "required": true,
+              "default": "",
+              "type": "array",
+              "location": "body",
+              "items": {
+                "title": "chronic_condition",
+                "description": "Add multiple chronic conditions to this array.",
+                "required": false,
+                "default": "",
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "Referral": {
+      "methods": {
+        "GetReferral": {
+          "name": "Get Referral",
+          "description": "Get the resource of a referral based on the referrals id.",
+          "httpMethod": "GET",
+          "path": "/referral/{referral_id}",
+          "parameters": {
+            "referral_id": {
+              "title": "referral_id",
+              "description": "The id of the referral",
+              "required": true,
+              "default": "",
+              "type": "string",
+              "location": "query"
+            }
+          }
+        },
+        "CreatenewReferral": {
+          "name": "Create new Referral",
+          "description": "Post action to create a new referral",
+          "httpMethod": "POST",
+          "path": "/referrals",
+          "parameters": {
+            "requesting_physician": {
+              "title": "requesting_physician",
+              "description": "The physician that is requesting this referral.  Must be their user_id.",
+              "required": false,
+              "default": "",
+              "type": "integer",
+              "location": "body"
+            },
+            "approver": {
+              "title": "approver",
+              "description": "The user onsite that approves this referral. Must be their user_id. Get a list of available users by role '' ",
+              "required": true,
+              "default": "",
+              "type": "integer",
+              "location": "body"
+            },
+            "request_date": {
+              "title": "request_date",
+              "description": "The date that this referral is requested.  Often this is todays date. Format: 2015-01-13T15:52:50.205Z",
+              "required": false,
+              "default": "2015-01-13T15:52:50.205Z",
+              "type": "string",
+              "location": "body"
+            },
+            "service": {
+              "title": "service",
+              "description": "The requested service for this referral.  Must use KEY: (IC=>Offsite Inpatient Care, ER=>Emergency, IO=>Offsite Imaging, OL=>Offsite Labs, OOD=>Offsite Other Diagnostics, OSV=>Offsite Specialist Visit, OS=>Outpatient Surgery, Other=>Other)",
+              "required": true,
+              "default": "IC",
+              "type": "string",
+              "location": "body"
+            },
+            "specialty": {
+              "title": "specialty",
+              "description": "Selected organization Specialty.\n(addiction_medicine=>Addiction or Rehab, allergy_and_immunology=>Allergy and Immunology, cardiology=>Cardiology, clinical_cardiac_electrophysiology=>Clinical Cardiac Electrophysiology) Contact aristaMD for full list of specialties.",
+              "required": true,
+              "default": "allergy_and_immunology",
+              "type": "string",
+              "location": "body"
+            },
+            "urgency": {
+              "title": "urgency",
+              "description": "The urgency rating for this referral.  (Routine,Expedited,Urgent,Emergent)",
+              "required": true,
+              "default": "Routine",
+              "type": "string",
+              "location": "body"
+            },
+            "transfer": {
+              "title": "transfer",
+              "description": "Transfer Method. How is the person being transported to the referred physician.  (Ambulance, Air Ambulance, Onsite Service. No Transport)",
+              "required": true,
+              "default": "Onsite Service. No Transport",
+              "type": "string",
+              "location": "body"
+            },
+            "category": {
+              "title": "category",
+              "description": "The category ID. Typically the IC9 category code",
+              "required": true,
+              "default": "A51",
+              "type": "string",
+              "location": "body"
+            },
+            "comment": {
+              "title": "comment",
+              "description": "A general comment about this referral.",
+              "required": false,
+              "default": "",
+              "type": "string",
+              "location": "body"
+            },
+            "diagnosis": {
+              "title": "diagnosis",
+              "description": "The diagnosis of the patient.  Is an object containing (code, display_name, parent_id)",
+              "required": true,
+              "default": "",
+              "type": "object",
+              "location": "body",
+              "properties": {
+                "code": {
+                  "title": "code",
+                  "description": "Code. Typically ICD-9",
+                  "required": true,
+                  "default": "A51.9",
+                  "type": "string"
+                },
+                "display_name": {
+                  "title": "display_name",
+                  "description": "The display name for the diagnosis sent over.",
+                  "required": true,
+                  "default": "Early syphilis, unspecified",
+                  "type": "string"
+                },
+                "parent_id": {
+                  "title": "parent_id",
+                  "description": "Parent ID references the Category ID.",
+                  "required": true,
+                  "default": "A51",
+                  "type": "string"
+                }
+              }
+            },
+            "inmate": {
+              "title": "inmate",
+              "description": "The corresponding patient that has been attached to this referral.",
+              "required": false,
+              "default": "",
+              "type": "object",
+              "location": "body",
+              "properties": {
+                "id": {
+                  "title": "id",
+                  "description": "The existing patient ID pulled from a previous request to create a patient",
+                  "required": true,
+                  "default": "",
+                  "type": "integer"
+                },
+                "booking_date": {
+                  "title": "booking_date",
+                  "description": "The date that the patient was entered into the system",
+                  "required": false,
+                  "default": "2015-11-13T15:52:50.205Z",
+                  "type": "string"
+                },
+                "estimated_release_date": {
+                  "title": "estimated_release_date",
+                  "description": "The estimate of when this patient will be released finished and released from the facility.  Typically same day.",
+                  "required": true,
+                  "default": "2016-01-13T15:52:50.205Z",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "DispositionReferral": {
+          "name": "Disposition Referral",
+          "description": "You can move the referral along the workflow by sending different status's. Status's include: info, approved_for_econsult, completed_scheduled,  approved, refused",
+          "httpMethod": "PUT",
+          "path": "/referrals/{referral_id}",
+          "parameters": {
+            "id": {
+              "title": "id",
+              "description": "Referral ID.",
+              "required": true,
+              "default": "",
+              "type": "integer",
+              "location": "body"
+            },
+            "status": {
+              "title": "status",
+              "description": "Setting the status to for the Referral. use: info, approved_for_econsult, completed_scheduled,  approved, refused",
+              "required": true,
+              "default": "approved",
+              "type": "string",
+              "location": "body"
+            },
+            "requester_comment": {
+              "title": "requester_comment",
+              "description": "Additional comment that will be attached to the referral.",
+              "required": false,
+              "default": "",
+              "type": "string",
+              "location": "body"
+            },
+            "referral_id": {
+              "title": "referral_id",
+              "description": "",
+              "required": false,
+              "default": "",
+              "type": "integer",
+              "location": "query"
+            }
+          }
+        },
+        "ScheduleReferral": {
+          "name": "Schedule Referral",
+          "description": "Move the referral along the workflow. This will set the status to completed and scheduled",
+          "httpMethod": "PUT",
+          "path": "/referrals/{referral_id}",
+          "parameters": {
+            "id": {
+              "title": "id",
+              "description": "Referral ID.",
+              "required": true,
+              "default": "",
+              "type": "integer",
+              "location": "body"
+            },
+            "referral_id": {
+              "title": "referral_id",
+              "description": "",
+              "required": false,
+              "default": "",
+              "type": "integer",
+              "location": "query"
+            },
+            "status": {
+              "title": "status",
+              "description": "Setting the status to for the Referral to approved.",
+              "required": true,
+              "default": "completed_scheduled",
+              "type": "string",
+              "location": "body"
+            },
+            "requester_comment": {
+              "title": "requester_comment",
+              "description": "Additional comment that will be attached to the referral.",
+              "required": false,
+              "default": "",
+              "type": "string",
+              "location": "body"
+            },
+            "scheduled": {
+              "title": "scheduled",
+              "description": "Bool set to true | false ",
+              "required": true,
+              "default": "true",
+              "type": "boolean",
+              "location": "body"
+            }
+          }
+        }
+      }
+    },
+    "EConsult": {
+      "methods": {
+        "GetEConsult": {
+          "name": "Get EConsult",
+          "description": "Get an EConsult by id.",
+          "httpMethod": "GET",
+          "path": "/econsults/{econsult_id}",
+          "parameters": {
+            "econsult_id": {
+              "title": "econsult_id",
+              "description": "The id of the econsult.",
+              "required": true,
+              "default": "",
+              "type": "integer",
+              "location": "query"
+            }
+          }
+        },
+        "CreateEConsult": {
+          "name": "Create EConsult",
+          "description": "If you want to create a new Electronic Consultation.",
+          "httpMethod": "POST",
+          "path": "/econsults",
+          "parameters": {
+            "requesting_physician": {
+              "title": "requesting_physician",
+              "description": "The physician that is requesting this referral.  Must be their user_id.",
+              "required": false,
+              "default": "",
+              "type": "integer",
+              "location": "body"
+            },
+            "request_date": {
+              "title": "request_date",
+              "description": "The date that this referral is requested.  Often this is todays date. Format: 2015-01-13T15:52:50.205Z",
+              "required": false,
+              "default": "2015-01-13T15:52:50.205Z",
+              "type": "string",
+              "location": "body"
+            },
+            "specialty": {
+              "title": "specialty",
+              "description": "Selected organization Specialty.\n(addiction_medicine=>Addiction or Rehab, allergy_and_immunology=>Allergy and Immunology, cardiology=>Cardiology, clinical_cardiac_electrophysiology=>Clinical Cardiac Electrophysiology) Contact aristaMD for full list of specialties.",
+              "required": true,
+              "default": "allergy_and_immunology",
+              "type": "string",
+              "location": "body"
+            },
+            "category": {
+              "title": "category",
+              "description": "The category ID. Typically the IC9 category code",
+              "required": true,
+              "default": "A51",
+              "type": "string",
+              "location": "body"
+            },
+            "main_question": {
+              "title": "main_question",
+              "description": "The question that should be asked to the doctor about this patient",
+              "required": true,
+              "default": "",
+              "type": "string",
+              "location": "body"
+            },
+            "supporting_details": {
+              "title": "supporting_details",
+              "description": "Details about the patient the are provided that support the question.",
+              "required": true,
+              "default": "",
+              "type": "string",
+              "location": "body"
+            },
+            "diagnosis": {
+              "title": "diagnosis",
+              "description": "The diagnosis of the patient.  Is an object containing (code, display_name, parent_id)",
+              "required": true,
+              "default": "",
+              "type": "object",
+              "location": "body",
+              "properties": {
+                "code": {
+                  "title": "code",
+                  "description": "Code. Typically ICD-9",
+                  "required": true,
+                  "default": "A51.9",
+                  "type": "string"
+                },
+                "display_name": {
+                  "title": "display_name",
+                  "description": "The display name for the diagnosis sent over.",
+                  "required": true,
+                  "default": "Early syphilis, unspecified",
+                  "type": "string"
+                },
+                "parent_id": {
+                  "title": "parent_id",
+                  "description": "Parent ID references the Category ID.",
+                  "required": true,
+                  "default": "A51",
+                  "type": "string"
+                }
+              }
+            },
+            "inmate": {
+              "title": "inmate",
+              "description": "The corresponding patient that has been attached to this referral.",
+              "required": false,
+              "default": "",
+              "type": "object",
+              "location": "body",
+              "properties": {
+                "id": {
+                  "title": "id",
+                  "description": "The existing patient ID pulled from a previous request to create a patient",
+                  "required": true,
+                  "default": "",
+                  "type": "integer"
+                },
+                "booking_date": {
+                  "title": "booking_date",
+                  "description": "The date that the patient was entered into the system",
+                  "required": false,
+                  "default": "2015-11-13T15:52:50.205Z",
+                  "type": "string"
+                },
+                "estimated_release_date": {
+                  "title": "estimated_release_date",
+                  "description": "The estimate of when this patient will be released finished and released from the facility.  Typically same day.",
+                  "required": true,
+                  "default": "2016-01-13T15:52:50.205Z",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "PanelistAnswerEconsult": {
+          "name": "Panelist Answer Econsult",
+          "description": "Our panelist can answer the question that was asked on the econsult with their action plans.  This method is that response acting as the panelist / specialist responding.",
+          "httpMethod": "PUT",
+          "path": "/econsults/{econsult_id}",
+          "parameters": {
+            "econsult_id": {
+              "title": "econsult_id",
+              "description": "the EConsult ID",
+              "required": true,
+              "default": "",
+              "type": "integer",
+              "location": "query"
+            },
+            "requesting_physician_id": {
+              "title": "requesting_physician_id",
+              "description": "The original requesting physician ID",
+              "required": true,
+              "default": "",
+              "type": "integer",
+              "location": "body"
+            },
+            "requesting_physician": {
+              "title": "requesting_physician",
+              "description": "The original requesting physician. Still need an ID.",
+              "required": true,
+              "default": "",
+              "type": "integer",
+              "location": "body"
+            },
+            "patient_id": {
+              "title": "patient_id",
+              "description": "The original requesting physician ID",
+              "required": true,
+              "default": "",
+              "type": "integer",
+              "location": "body"
+            },
+            "status": {
+              "title": "status",
+              "description": "The current status of the EConsult.  Status include (pending, saved, info, completed, follow_up)",
+              "required": true,
+              "default": "pending",
+              "type": "string",
+              "location": "body"
+            },
+            "supporting_details": {
+              "title": "supporting_details",
+              "description": "This is the original supporting details from the request.",
+              "required": false,
+              "default": "",
+              "type": "string",
+              "location": "body"
+            },
+            "response_date": {
+              "title": "response_date",
+              "description": "The date the panelist has responded to the EConsult.",
+              "required": true,
+              "default": "2016-02-11",
+              "type": "string",
+              "location": "body"
+            },
+            "request_date": {
+              "title": "request_date",
+              "description": "The original request date from the primary care physician",
+              "required": true,
+              "default": "2016-02-11",
+              "type": "string",
+              "location": "body"
+            },
+            "panelist_status": {
+              "title": "panelist_status",
+              "description": "The panelists response.  How the panelist fef  Follows: (consultation, info, switch, face_to_face, saved)",
+              "required": true,
+              "default": "switch",
+              "type": "string",
+              "location": "body"
+            },
+            "specialty": {
+              "title": "specialty",
+              "description": "The panelists specialty originally selected. (addiction_medicine)",
+              "required": true,
+              "default": "",
+              "type": "string",
+              "location": "body"
+            },
+            "main_question": {
+              "title": "main_question",
+              "description": "The main question that the panelist will respond to",
+              "required": true,
+              "default": "",
+              "type": "string",
+              "location": "body"
+            },
+            "diagnosis": {
+              "title": "diagnosis",
+              "description": "The diagnosis of the patient.  Is an object containing (code, display_name, parent_id)",
+              "required": true,
+              "default": "",
+              "type": "object",
+              "location": "body",
+              "properties": {
+                "scheme": {
+                  "title": "scheme",
+                  "description": "Icd10cm | icd9",
+                  "required": true,
+                  "default": "icd10cm",
+                  "type": "string"
+                },
+                "type": {
+                  "title": "type",
+                  "description": "The type of diagnosis",
+                  "required": true,
+                  "default": "symptom",
+                  "type": "string"
+                },
+                "code": {
+                  "title": "code",
+                  "description": "Code. Typically ICD-9",
+                  "required": true,
+                  "default": "A51.9",
+                  "type": "string"
+                },
+                "display_name": {
+                  "title": "display_name",
+                  "description": "The display name for the diagnosis sent over.",
+                  "required": true,
+                  "default": "Early syphilis, unspecified",
+                  "type": "string"
+                },
+                "parent_id": {
+                  "title": "parent_id",
+                  "description": "Parent ID references the Category ID.",
+                  "required": true,
+                  "default": "A51",
+                  "type": "string"
+                }
+              }
+            },
+            "answer": {
+              "title": "answer",
+              "description": "This is the answer that the panelist will return on the EConsult.",
+              "required": true,
+              "default": "",
+              "type": "object",
+              "location": "body",
+              "properties": {
+                "initials": {
+                  "title": "initials",
+                  "description": "The initials of the panelist who is attesting to this EConsult answer.",
+                  "required": true,
+                  "default": "",
+                  "type": "string"
+                },
+                "appropriateness": {
+                  "title": "appropriateness",
+                  "description": "The appropriateness is how the panelist feels about the econsult. They can set to follow: (info, consultation, switch, face_to_face)",
+                  "required": true,
+                  "default": "switch",
+                  "type": "string"
+                },
+                "recommendation_support": {
+                  "title": "recommendation_support",
+                  "description": "The recommendation from the panelist.",
+                  "required": true,
+                  "default": "",
+                  "type": "string"
+                },
+                "recommended_specialty": {
+                  "title": "recommended_specialty",
+                  "description": "If the panelist decides this request needs to be switched to a different specialty, this is their recommendation. Ex. endocrinology",
+                  "required": true,
+                  "default": "endocrinology",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Guidelines": {
+      "methods": {
+        "GetGuideline": {
+          "name": "Get Guideline",
+          "description": "Get a guideline",
+          "httpMethod": "GET",
+          "path": "/guidelines",
+          "parameters": {
+            "by": {
+              "title": "by",
+              "description": "Specify the dimension by which to locate a guideline. Valid values are id and clinical_issue",
+              "required": true,
+              "default": "id",
+              "type": "string",
+              "location": "query"
+            },
+            "id": {
+              "title": "id",
+              "description": "Specify the id of the record we are searching against. For example if you set by to clinical_issue and id to 10 then this call will result in the guideline associate with clinical_issue 10",
+              "required": true,
+              "default": "",
+              "type": "string",
+              "location": "body"
+            }
+          }
+        }
+      }
+    }
+  }
+}

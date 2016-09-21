@@ -1,0 +1,825 @@
+{
+  "endpoints": [
+    {
+      "name": "Models",
+      "methods": [
+        {
+          "MethodName": "Read model list",
+          "Synopsis": "Returns a list of all available app-models.",
+          "HTTPMethod": "GET",
+          "URI": "/models.:format",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "limit",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Limit the number of recordsets."
+            },
+            {
+              "Name": "offset",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Recordset offset"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Read model",
+          "Synopsis": "Returns all basic information of the requested app model.",
+          "HTTPMethod": "GET",
+          "URI": "/models/:m_id.:format",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "m_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Model ID you want to get the data of"
+            },
+            {
+              "Name": "cs_id",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "ID of the configset you want to read the basic data of"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Read config value list",
+          "Synopsis": "Returns a list of all config values of the requested model including their values and meta-data.",
+          "HTTPMethod": "GET",
+          "URI": "/models/:m_id/config.:format",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "m_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Model ID you want to get the data of"
+            },
+            {
+              "Name": "cs_id",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "ID of the configset you want to get the values for"
+            },
+            {
+              "Name": "locale",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Locale of the configset you want to get the values for"
+            },
+            {
+              "Name": "c_type",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Comma seperated list of config types you want to include in the response (checkbox, color, css, date, html, image, multiselect, select, text)"
+            },
+            {
+              "Name": "c_ids",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Comma seperated list of config value ids you want to include in the response"
+            },
+            {
+              "Name": "c_attr",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Comma seperated list of additional attributes you want to include in the response (created_at, cs_id, description, locale, name)"
+            },
+            {
+              "Name": "editable_mode",
+              "Required": "N",
+              "Default": "",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "true",
+                "false"
+              ],
+              "Description": "(Boolean) Return all values in editable mode?"
+            },
+            {
+              "Name": "limit",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Limit the number of recordsets."
+            },
+            {
+              "Name": "offset",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Recordset offset"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Read config value",
+          "Synopsis": "Get content of a config value",
+          "HTTPMethod": "GET",
+          "URI": "/models/:m_id/config/:c_id.:format",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "m_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Model ID you want to get the data of"
+            },
+            {
+              "Name": "c_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Config value identifier you want to get the content of"
+            },
+            {
+              "Name": "cs_id",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "ID of the configset you want to get the value for"
+            },
+            {
+              "Name": "locale",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Locale of the configset you want to get the value for"
+            },
+            {
+              "Name": "editable_mode",
+              "Required": "N",
+              "Default": "",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "true",
+                "false"
+              ],
+              "Description": "(Boolean) Return all values in editable mode?"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Read config value attribute",
+          "Synopsis": "Get one attribute of a config value",
+          "HTTPMethod": "GET",
+          "URI": "/models/:m_id/config/:c_id/:c_attr",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "m_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Model ID you want to get the data of"
+            },
+            {
+              "Name": "c_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Config value identifier you want to get the content of"
+            },
+            {
+              "Name": "c_attr",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Attribute you want to get returned from the config value"
+            },
+            {
+              "Name": "cs_id",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "ID of the configset you want to get the attribute for"
+            },
+            {
+              "Name": "locale",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Locale of the configset you want to get the attribute for"
+            }
+          ]
+        },
+        {
+          "MethodName": "Read string translation list",
+          "Synopsis": "Returns a list of all string translation values",
+          "HTTPMethod": "GET",
+          "URI": "/models/:m_id/locale.:format",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "m_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Model ID you want to get the data of"
+            },
+            {
+              "Name": "cs_id",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "ID of the configset you want to get the value for"
+            },
+            {
+              "Name": "locale",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Locale you want to get the data of. By default it will return all available locales."
+            },
+            {
+              "Name": "limit",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Limit the number of recordsets."
+            },
+            {
+              "Name": "offset",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Recordset offset"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Read access list",
+          "Synopsis": "Returns a list of all users, who have access to this model",
+          "HTTPMethod": "GET",
+          "URI": "/models/:m_id/access.:format",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "m_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Model ID you want to get the data of"
+            },
+            {
+              "Name": "type",
+              "Required": "N",
+              "Default": "",
+              "Type": "enumerated",
+              "Description": "Filter only groups or users",
+              "EnumeratedList": [
+                "group",
+                "user"
+              ]
+            },
+            {
+              "Name": "limit",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Limit the number of recordsets."
+            },
+            {
+              "Name": "offset",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Recordset offset"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Instances",
+      "methods": [
+        {
+          "MethodName": "Read instance list",
+          "Synopsis": "Returns a list of all available instances",
+          "HTTPMethod": "GET",
+          "URI": "/instances.:format",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "m_id",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Filter instances of one model."
+            },
+            {
+              "Name": "cs_id",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Configset-ID of the instances you want to retrieve."
+            },
+            {
+              "Name": "locale",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Locale settings of the instances you want to retrieve."
+            },
+            {
+              "Name": "i_attr",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Comma seperated list of additional attributes you want to include in the response (active, created_at, expiration_date, fb_app_id, fb_app_namespace, fb_app_secret, fb_canvas_url, fb_page_id, fb_page_name, fb_page_url, fb_tab_image, fb_tab_name, fb_tab_position, last_modified, last_modified_by, name, owner_u_id)"
+            },
+            {
+              "Name": "store_id",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "ID of the store you want to get the instances for."
+            },
+            {
+              "Name": "limit",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Limit the number of recordsets."
+            },
+            {
+              "Name": "offset",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Recordset offset"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Read instance",
+          "Synopsis": "Returns all basic information of the requested instance",
+          "HTTPMethod": "GET",
+          "URI": "/instances/:i_id.:format",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "i_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Instance ID you want to get the data of"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Read config value list",
+          "Synopsis": "Returns a list of all config values of an instance including the most important attributes",
+          "HTTPMethod": "GET",
+          "URI": "/instances/:i_id/config.:format",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "i_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Instance ID you want to get the data of"
+            },
+            {
+              "Name": "locale",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Locale you want to get the values for"
+            },
+            {
+              "Name": "c_type",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Comma seperated list of config types you want to include in the response (checkbox, color, css, date, html, image, multiselect, select, text)"
+            },
+            {
+              "Name": "c_ids",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Comma seperated list of config value ids you want to include in the response"
+            },
+            {
+              "Name": "c_attr",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Comma seperated list of additional attributes you want to include in the response (created_at, cs_id, description, locale, name)"
+            },
+            {
+              "Name": "editable_mode",
+              "Required": "N",
+              "Default": "",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "true",
+                "false"
+              ],
+              "Description": "(Boolean) Return all values in editable mode?"
+            },
+            {
+              "Name": "limit",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Limit the number of recordsets."
+            },
+            {
+              "Name": "offset",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Recordset offset"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Read config value",
+          "Synopsis": "Get content of a config value",
+          "HTTPMethod": "GET",
+          "URI": "/instances/:i_id/config/:c_id.:format",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "i_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Instance ID you want to get the data of"
+            },
+            {
+              "Name": "c_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Config value identifier you want to get the content of"
+            },
+            {
+              "Name": "locale",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Locale you want to get the values for"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Read config value attribute",
+          "Synopsis": "Get one attribute of a config value",
+          "HTTPMethod": "GET",
+          "URI": "/instances/:i_id/config/:c_id/:c_attr",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "i_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Instance ID you want to get the data of"
+            },
+            {
+              "Name": "c_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Config value identifier you want to get the content of"
+            },
+            {
+              "Name": "c_attr",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Attribute you want to get returned from the config value"
+            },
+            {
+              "Name": "locale",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Locale of the configset you want to get the attribute for"
+            }
+          ]
+        },
+        {
+          "MethodName": "Read string translation list",
+          "Synopsis": "Returns a list of all string translation values",
+          "HTTPMethod": "GET",
+          "URI": "/instances/:i_id/locale.:format",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "i_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Instance ID you want to get the data of"
+            },
+            {
+              "Name": "locale",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Locale you want to get the data of. By default it will return all available locales."
+            },
+            {
+              "Name": "limit",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Limit the number of recordsets."
+            },
+            {
+              "Name": "offset",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Recordset offset"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "MethodName": "Read access list",
+          "Synopsis": "Returns a list of all users, who have access to this instance",
+          "HTTPMethod": "GET",
+          "URI": "/instances/:i_id/access.:format",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "i_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Instance ID you want to get the data of"
+            },
+            {
+              "Name": "type",
+              "Required": "N",
+              "Default": "",
+              "Type": "enumerated",
+              "Description": "Filter only groups or users",
+              "EnumeratedList": [
+                "group",
+                "user"
+              ]
+            },
+            {
+              "Name": "limit",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Limit the number of recordsets."
+            },
+            {
+              "Name": "offset",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Recordset offset"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Environments",
+      "methods": [
+        {
+          "MethodName": "Read facebook page instance list",
+          "Synopsis": "Returns a list of all instances of a facebook fanpage",
+          "HTTPMethod": "GET",
+          "URI": "/env/fb/pages/:fb_page_id/instances.:format",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "fb_page_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Filter basic info for that facebook fan page."
+            },
+            {
+              "Name": "m_id",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Filter only instances of this model"
+            },
+            {
+              "Name": "cs_id",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Configset-ID of the instances you want to retrieve."
+            },
+            {
+              "Name": "locale",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Locale settings of the instances you want to retrieve."
+            },
+            {
+              "Name": "i_attr",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Comma seperated list of additional attributes you want to include in the response (active, created_at, expiration_date, fb_app_id, fb_app_namespace, fb_app_secret, fb_canvas_url, fb_page_id, fb_page_name, fb_page_url, fb_tab_image, fb_tab_name, fb_tab_position, last_modified, last_modified_by, name, owner_u_id)"
+            },
+            {
+              "Name": "store_id",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "ID of the store you want to get the instances for."
+            },
+            {
+              "Name": "active",
+              "Required": "N",
+              "Default": "",
+              "Type": "enumerated",
+              "Description": "Filter active instances",
+              "EnumeratedList": [
+                "true",
+                "false"
+              ]
+            },
+            {
+              "Name": "limit",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Limit the number of recordsets."
+            },
+            {
+              "Name": "offset",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Recordset offset"
+            },
+            {
+              "Name": "format",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "Output format as JSON or XML",
+              "EnumeratedList": [
+                "json",
+                "xml"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

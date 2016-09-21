@@ -1,0 +1,189 @@
+{
+  "auth": {
+    "key": {
+      "param": "key"
+    }
+  },
+  "basePath": "https://api.skyword.com",
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "name": "Skyword API v1",
+  "protocol": "rest",
+  "publicPath": "/v1",
+  "version": "1.0",
+  "resources": {
+    "Program Methods": {
+      "methods": {
+        "programs": {
+          "description": "The GET Programs method returns a list of programs that you are authorized to access with your API key. Most API keys are authorized to access only a single program, but an API key can be associated with multiple programs. Since other methods require the program ID, this should be one of the first methods you call.",
+          "httpMethod": "GET",
+          "name": "Programs",
+          "path": "/programs"
+        }
+      }
+    },
+    "Content Type Methods": {
+      "methods": {
+        "programsContentTypes": {
+          "description": "The GET Content Types method returns the content types for a program. The results include the name, description, and ID of each content type. You can optionally specify the program ID parameter—this is a good idea when an API key is associated with multiple programs. If the API key is associated with multiple programs and the program ID is not specified, this method will return the first program associated with the API key.",
+          "httpMethod": "GET",
+          "name": "Content Types",
+          "parameters": {
+            "program_id": {
+              "description": "The Program ID.",
+              "location": "query",
+              "default": " ",
+              "required": false,
+              "type": "integer"
+            }
+          },
+          "path": "/content_types"
+        },
+        "categories": {
+          "description": "The GET Categories method returns all of the categories for a content type. To obtain content type IDs, you can use the GET Content Types method.",
+          "httpMethod": "GET",
+          "name": "Categories",
+          "parameters": {
+            "id": {
+              "description": "The Content Type ID.",
+              "location": "path",
+              "required": true,
+              "type": "integer"
+            }
+          },
+          "path": "/content_types/{id}/categories"
+        }
+      }
+    },
+    "Content Methods": {
+      "methods": {
+        "content": {
+          "description": "The GET Content method returns the full content item, as well as the metadata for the content item. The results and the format of the results will vary depending on the content template.",
+          "httpMethod": "GET",
+          "name": "Content",
+          "parameters": {
+            "id": {
+              "description": "The Content ID.",
+              "location": "path",
+              "required": true,
+              "type": "integer"
+            }
+          },
+          "path": "/content/{id}"
+        },
+        "request": {
+          "description": "The POST Assignment method creates a new assignment in the Skyword Platform. This allows you to programmatically create assignments that can be viewed and claimed by your contributors in the Skyword Platform.",
+          "httpMethod": "POST",
+          "name": "Assignment",
+          "parameters": {
+            "content_type_id": {
+              "description": "The content type ID in Skyword.",
+              "required": true,
+              "type": "integer",
+              "location": "body"
+            },
+            "program_category_id": {
+              "description": "The program category ID in Skyword.",
+              "required": true,
+              "type": "integer",
+              "location": "body"
+            },
+            "summary": {
+              "description": "The assignment description.",
+              "required": true,
+              "type": "textarea",
+              "location": "body"
+            },
+            "keywords": {
+              "description": "Array of strings of keywords. Comma delimited. Limit of three keywords or strings.",
+              "required": false,
+              "type": "string",
+              "location": "body"
+            },
+            "submit_deadline_date": {
+              "description": "Deadline date for submission. Must be in ISO 8061 format. Ex: \"2015-04-02T14:04:42+04:00\"",
+              "required": false,
+              "type": "string",
+              "location": "body"
+            }
+          },
+          "path": "/content"
+        },
+        "seoScore": {
+          "description": "The GET SEO Score method returns the SEO grade and score for the content item according to the keywords assigned. A maximum of three keywords will be returned. Empty grades indicate that keywords have not been set.",
+          "httpMethod": "GET",
+          "name": "SEO Score",
+          "parameters": {
+            "id": {
+              "description": "The Content ID.",
+              "location": "path",
+              "required": true,
+              "type": "integer"
+            }
+          },
+          "path": "/content/{id}/seo_scores"
+        },
+        "status": {
+          "description": "The GET Status method returns the current status of a content item, as well as the content type, program, and contributor. A list of all possible statuses appear in the list below.",
+          "httpMethod": "GET",
+          "name": "Status",
+          "parameters": {
+            "id": {
+              "description": "The Content ID.",
+              "location": "path",
+              "required": true,
+              "type": "integer"
+            }
+          },
+          "path": "/content/{id}/status"
+        },
+        "open": {
+          "description": "The GET Open method returns a list of content items that are currently open. In this context, “open” encompasses content that is being working on, but has not yet been published.",
+          "httpMethod": "GET",
+          "name": "Open",
+          "path": "/content/open"
+        },
+        "markAsPublished": {
+          "description": "The POST Mark as Published method sets the URL of the content, and marks content as published or transmitted in the Skyword Platform. Once you’ve called this method, contributors will be notified that the content was published, the Skyword Platform will start counting paid views, and the tracking tag will collect all views.",
+          "httpMethod": "POST",
+          "name": "Mark As Published",
+          "parameters": {
+            "id": {
+              "description": "The Content ID.",
+              "location": "path",
+              "required": true,
+              "type": "integer"
+            },
+            "url": {
+              "description": "The URL of the published content item.",
+              "location": "query",
+              "required": true,
+              "type": "string"
+            }
+          },
+          "path": "/content/{id}/mark_as_published"
+        }
+      }
+    },
+    "File Methods": {
+      "methods": {
+        "file": {
+          "description": "The GET File method returns the requested file attachment. This is useful for programs that attach images or other files to their content. Note that you can obtain a list of the attachment URLs for a content item by using the GET Content method.",
+          "httpMethod": "GET",
+          "name": "File",
+          "parameters": {
+            "id": {
+              "description": "The File ID.",
+              "location": "path",
+              "required": true,
+              "type": "integer"
+            }
+          },
+          "path": "/files/{id}",
+          "read-only": true
+        }
+      }
+    }
+  }
+}

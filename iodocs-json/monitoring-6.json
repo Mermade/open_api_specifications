@@ -1,0 +1,805 @@
+{
+  "endpoints": [
+    {
+      "name": "Monitor Administration",
+      "methods": [
+        {
+          "MethodName": "Create a Monitor",
+          "Synopsis": "Creates a new monitor and returns the monitor id of the newly created monitor. Name, interval, testScript and locations are required. Use the Get Monitoring Locations api to retrieve a list of monitoring locations.",
+          "HTTPMethod": "POST",
+          "URI": "/monitor/1.0",
+          "parameters": [
+            {
+              "Name": "name",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "The name of the monitor"
+            },
+            {
+              "Name": "description",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "A description of what this monitor is for"
+            },
+            {
+              "Name": "interval",
+              "Required": "Y",
+              "Default": "5",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                10,
+                15,
+                20,
+                30,
+                60
+              ],
+              "Description": "How often the monitoring script will run for each of the locations"
+            },
+            {
+              "Name": "testScript",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "The id of the test script that this monitor should run. Ex: sanfrancisco,washingtondc or [\"San Francisco, CA\",\"Washington DC\"]"
+            },
+            {
+              "Name": "locations",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "A CSV list of locations that this monitor should run from"
+            },
+            {
+              "Name": "alertPolicy",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "The id of the alert policy that this monitor should run"
+            },
+            {
+              "Name": "browser",
+              "Required": "N",
+              "Default": "FF",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "CHROME",
+                "FF",
+                "IE",
+                ""
+              ],
+              "Description": "Specifies the browser type that this monitor should use.  Note:  IE is available for Enterprise customers only"
+            },
+            {
+              "Name": "active",
+              "Required": "N",
+              "Default": "false",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "true",
+                "false"
+              ],
+              "Description": "Enables or disables this monitor from taking samples"
+            },
+            {
+              "Name": "type",
+              "Required": "N",
+              "Default": "",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "dns",
+                "ping",
+                "pop",
+                "port",
+                "smtp"
+              ],
+              "Description": "Set to network monitor type such as 'dns'. See related settings below. Leave this blank for script-based monitors. Note: this interface will not allow you to test network monitor creation. Please use your API client."
+            },
+            {
+              "Name": "dnsSettings",
+              "Required": "N",
+              "Default": "",
+              "Type": "object",
+              "Description": "A JSON object containing all DNS-related settings: {\"timeout\": int, \"lookups\": array}. The \"lookups\" array contains JSON objects with this format: {\"lookupType\": string (\"A\" or \"AAAA\"), \"authoritative\": boolean, \"hostname\": string, \"dnsServer\": string, \"expectedIps\": string of comma-separated IP addresses}"
+            },
+            {
+              "Name": "pingSettings",
+              "Required": "N",
+              "Default": "",
+              "Type": "object",
+              "Description": "A JSON object containing all PING-related settings: {\"timeout\": int, \"host\": string}."
+            },
+            {
+              "Name": "popSettings",
+              "Required": "N",
+              "Default": "",
+              "Type": "object",
+              "Description": "A JSON object containing all POP-related settings: {\"timeout\": int, \"server\": string, \"username\": string, \"password\": string}."
+            },
+            {
+              "Name": "portSettings",
+              "Required": "N",
+              "Default": "",
+              "Type": "object",
+              "Description": "A JSON object containing all PORT-related settings: {\"timeout\": int, \"server\": string, \"port\": int, \"protocol\": string (\"tcp\" or \"udp\"), \"command\": string, \"expected_response\": string, \"data_format\": string (\"ascii\" or \"raw\")}."
+            },
+            {
+              "Name": "smtpSettings",
+              "Required": "N",
+              "Default": "",
+              "Type": "object",
+              "Description": "A JSON object containing all SMTP-related settings: {\"timeout\": int, \"server\": string, \"email\": string}."
+            },
+            {
+              "Name": "slaSettings",
+              "Required": "N",
+              "Default": "",
+              "Type": "object",
+              "Description": "A JSON object containing SLA settings: {\"uptime\": float, \"loadtime\": float, \"runningAvgDuration\": int}. Setting 'runningAvgDuration' accepts values 5, 10, 15, 20 (minutes)"
+            }
+          ]
+        },
+        {
+          "MethodName": "List Monitors",
+          "Synopsis": "Retrieves a list of all monitors associated with your account, along with information about each. The monitor id that is returned is used to make other api calls.",
+          "HTTPMethod": "GET",
+          "URI": "/monitor/1.0",
+          "outputVariables": [
+            {
+              "Name": "id",
+              "Description": "The ID of the monitor",
+              "Values": "string"
+            },
+            {
+              "Name": "alertPolicy",
+              "Description": "The ID of the alerting policy associated with this monitor",
+              "Values": "string"
+            },
+            {
+              "Name": "locations",
+              "Description": "A list of monitoring locations that this monitor is run from",
+              "Values": "array of strings"
+            },
+            {
+              "Name": "script",
+              "Description": "The version, id and name of the script associated with this monitor",
+              "Values": "object"
+            },
+            {
+              "Name": "description",
+              "Description": "The description of the monitor",
+              "Values": "string"
+            },
+            {
+              "Name": "interval",
+              "Description": "How often this monitor runs, in minutes",
+              "Values": "int"
+            },
+            {
+              "Name": "name",
+              "Description": "The name of this monitor",
+              "Values": "string"
+            },
+            {
+              "Name": "lastSampleAt",
+              "Description": "The time of the last monitoring sample for this monitor",
+              "Values": "ISO 8601 Date"
+            },
+            {
+              "Name": "active",
+              "Description": "Describes whether this monitor is actively monitoring or not",
+              "Values": "bool"
+            },
+            {
+              "Name": "inMaintenanceWindow",
+              "Description": "Whether this monitor is in a maintenance window or not",
+              "Values": "bool"
+            },
+            {
+              "Name": "browser",
+              "Description": "Describes the type of browser that monitor is using, 'FF' for Firefox or 'CHROME' for Chrome, or 'IE' for Internet Explorer",
+              "Values": "FF|CHROME|IE"
+            },
+            {
+              "Name": "type",
+              "Description": "The type of monitor ('RealBrowserUser', 'VirtualUser', 'dns')",
+              "Values": "string"
+            },
+            {
+              "Name": "dnsSettings",
+              "Description": "DNS Settings for this monitor (if a dns monitor)",
+              "Values": "object"
+            }
+          ],
+          "parameters": []
+        },
+        {
+          "MethodName": "Get a Monitor",
+          "Synopsis": "Retrieves information for a specific monitor associated with your account. The monitor id that is returned is used to make other api calls.",
+          "HTTPMethod": "GET",
+          "URI": "/monitor/1.0/:monitorID",
+          "URLVariables": [
+            "monitorID"
+          ],
+          "outputVariables": [
+            {
+              "Name": "id",
+              "Description": "The ID of the monitor",
+              "Values": "string"
+            },
+            {
+              "Name": "alertPolicy",
+              "Description": "The ID of the alerting policy associated with this monitor",
+              "Values": "string"
+            },
+            {
+              "Name": "locations",
+              "Description": "A list of monitoring locations that this monitor is run from",
+              "Values": "array of strings"
+            },
+            {
+              "Name": "script",
+              "Description": "The version, id and name of the script associated with this monitor",
+              "Values": "object"
+            },
+            {
+              "Name": "description",
+              "Description": "The description of the monitor",
+              "Values": "string"
+            },
+            {
+              "Name": "interval",
+              "Description": "How often this monitor runs, in minutes",
+              "Values": "int"
+            },
+            {
+              "Name": "name",
+              "Description": "The name of this monitor",
+              "Values": "string"
+            },
+            {
+              "Name": "lastSampleAt",
+              "Description": "The time of the last monitoring sample for this monitor",
+              "Values": "ISO 8601 Date"
+            },
+            {
+              "Name": "interval",
+              "Description": "How often this monitor runs",
+              "Values": "int"
+            },
+            {
+              "Name": "active",
+              "Description": "Describes whether this monitor is actively monitoring or not",
+              "Values": "bool"
+            },
+            {
+              "Name": "inMaintenanceWindow",
+              "Description": "Whether this monitor is in a maintenance window or not",
+              "Values": "bool"
+            },
+            {
+              "Name": "browser",
+              "Description": "Describes the type of browser that monitor is using, 'FF' for Firefox or 'CHROME' for Chrome, or 'IE' for Internet Explorer",
+              "Values": "FF|CHROME|IE"
+            },
+            {
+              "Name": "type",
+              "Description": "The type of monitor ('RealBrowserUser', 'VirtualUser', 'dns')",
+              "Values": "string"
+            },
+            {
+              "Name": "dnsSettings",
+              "Description": "DNS Settings for this monitor (if a dns monitor)",
+              "Values": "object"
+            }
+          ],
+          "parameters": []
+        },
+        {
+          "MethodName": "Update A Monitor",
+          "Synopsis": "Change some or all of the parameters of an existing monitor. Requires the monitor ID retrieved from the List Monitors api.",
+          "HTTPMethod": "PUT",
+          "URI": "/monitor/1.0/:monitorID",
+          "URLVariables": [
+            "monitorID"
+          ],
+          "parameters": [
+            {
+              "Name": "name",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "The name of the monitor"
+            },
+            {
+              "Name": "description",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "A description of what this monitor is for"
+            },
+            {
+              "Name": "interval",
+              "Required": "N",
+              "Default": "5",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                10,
+                15,
+                20,
+                30,
+                60
+              ],
+              "Description": "How often the monitoring script will run for each of the locations"
+            },
+            {
+              "Name": "testScript",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "The id of the test script that this monitor should run"
+            },
+            {
+              "Name": "locations",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "A CSV list of locations that this monitor should run from"
+            },
+            {
+              "Name": "alertPolicy",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "The id of the alert policy that this monitor should run"
+            },
+            {
+              "Name": "browser",
+              "Required": "N",
+              "Default": "FF",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "CHROME",
+                "FF",
+                "IE",
+                ""
+              ],
+              "Description": "Specifies the browser type that this monitor should use.  Note:  IE is available for Enterprise customers only"
+            },
+            {
+              "Name": "active",
+              "Required": "N",
+              "Default": "false",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "true",
+                "false"
+              ],
+              "Description": "Enables or disables this monitor from taking samples"
+            },
+            {
+              "Name": "slaSettings",
+              "Required": "N",
+              "Default": "",
+              "Type": "object",
+              "Description": "A JSON object containing SLA settings: {\"uptime\": float, \"loadtime\": float, \"runningAvgDuration\": int}. Setting 'runningAvgDuration' accepts values 5, 10, 15, 20 (minutes)"
+            }
+          ]
+        },
+        {
+          "MethodName": "Delete a Monitor",
+          "Synopsis": "Deletes the given monitor, stopping it from monitoring and removing all its monitoring data.",
+          "HTTPMethod": "DELETE",
+          "URI": "/monitor/1.0/:monitorID",
+          "URLVariables": [
+            "monitorID"
+          ],
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "name": "Sample Information",
+      "methods": [
+        {
+          "MethodName": "Get Samples",
+          "Synopsis": "Returns all samples associated to this monitor for a given time period. This data is returned at a high level, which timing for the overall sample. To get the details for the specific sample, call the get raw sample data api. At a maximum, this api will return 2000 samples. If there are more than 2000 results returned, the 'more' field will be set to true and you can make another api call specifying an offset which would be equal to the number of results returned in the first api call plus the offset of that call.",
+          "HTTPMethod": "GET",
+          "URI": "/monitor/1.0/:monitorID/sample",
+          "URLVariables": [
+            "monitorID"
+          ],
+          "outputVariables": [
+            {
+              "Name": "status",
+              "Description": "ERROR indicates the sample contained an error,",
+              "Values": "ERROR|WARNING|SUCCESS"
+            },
+            {
+              "Name": "bytesReceived",
+              "Description": "The number of bytes received during this sample",
+              "Values": "int"
+            },
+            {
+              "Name": "location",
+              "Description": "The locations that this monitor is running from",
+              "Values": "Possible values are returned from the 'Monitoring Agent Information' api"
+            },
+            {
+              "Name": "startTime",
+              "Description": "The ISO 8601 formatted time string representing the time this sample was taken in GMT",
+              "Values": "ISO 8601 Date and time"
+            },
+            {
+              "Name": "lineNumber",
+              "Description": "If this sample is an error, this is the line number that it errored on in the script",
+              "Values": "int"
+            },
+            {
+              "Name": "duration",
+              "Description": "The number of ms that this sample took to run",
+              "Values": "int"
+            },
+            {
+              "Name": "id",
+              "Description": "The id of this monitoring sample",
+              "Values": "string"
+            }
+          ],
+          "parameters": [
+            {
+              "Name": "startDate",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "An ISO 8601 formatted date string or datetime string representing the start date from which you wish to collect samples. Examples:  2012-03-02 or 2012-03-01T12:00"
+            },
+            {
+              "Name": "endDate",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "An ISO 8601 formatted date string or datetime string representing the end date from which you wish to collect samples. Examples:  2012-03-02 or 2012-03-01T12:00"
+            },
+            {
+              "Name": "offset",
+              "Required": "N",
+              "Default": "",
+              "Type": "int",
+              "Description": "From which position in the return list you wish to start.  At most, 2000 records will be returned."
+            }
+          ]
+        },
+        {
+          "MethodName": "Get Last Sample",
+          "Synopsis": "Returns last sample associated to this monitor. This data is returned at a high level, which timing for the overall sample. To get the details for the specific sample, call the get raw sample data api.",
+          "HTTPMethod": "GET",
+          "URI": "/monitor/1.0/:monitorID/lastsample",
+          "URLVariables": [
+            "monitorID"
+          ],
+          "outputVariables": [
+            {
+              "Name": "status",
+              "Description": "ERROR indicates the sample contained an error,",
+              "Values": "ERROR|WARNING|SUCCESS"
+            },
+            {
+              "Name": "bytesReceived",
+              "Description": "The number of bytes received during this sample",
+              "Values": "int"
+            },
+            {
+              "Name": "location",
+              "Description": "The locations that this monitor is running from",
+              "Values": "Possible values are returned from the 'Monitoring Agent Information' api"
+            },
+            {
+              "Name": "startTime",
+              "Description": "The ISO 8601 formatted time string representing the time this sample was taken in GMT",
+              "Values": "ISO 8601 Date and time"
+            },
+            {
+              "Name": "lineNumber",
+              "Description": "If this sample is an error, this is the line number that it errored on in the script",
+              "Values": "int"
+            },
+            {
+              "Name": "duration",
+              "Description": "The number of ms that this sample took to run",
+              "Values": "int"
+            },
+            {
+              "Name": "id",
+              "Description": "The id of this monitoring sample",
+              "Values": "string"
+            }
+          ],
+          "parameters": []
+        },
+        {
+          "MethodName": "Get Raw Sample Data",
+          "Synopsis": "Retrieve the raw, HTTP Archive (HAR) data for a particular sample",
+          "HTTPMethod": "GET",
+          "URI": "/monitor/1.0/:monitorID/sample/:sampleID",
+          "URLVariables": [
+            "monitorID",
+            "sampleID"
+          ],
+          "parameters": []
+        },
+        {
+          "MethodName": "Get Aggregate Sample Data",
+          "Synopsis": "Retrieves the aggregated sample information for a given period of time. You can choose to aggregate the data for each hour or each day. This is more effecient than getting all the individual samples for a period of time and performing the aggregation yourself.",
+          "HTTPMethod": "GET",
+          "URI": "/monitor/1.0/:monitorID/aggregate",
+          "URLVariables": [
+            "monitorID"
+          ],
+          "outputVariables": [
+            {
+              "Name": "count",
+              "Description": "The number of samples in this time period",
+              "Values": "int"
+            },
+            {
+              "Name": "uptime",
+              "Description": "The uptime percentage for this time period",
+              "Values": "float"
+            },
+            {
+              "Name": "min",
+              "Description": "The minimum value of the measurements for this time period",
+              "Values": "int"
+            },
+            {
+              "Name": "max",
+              "Description": "The maximum value of the measurements for this time period",
+              "Values": "int"
+            },
+            {
+              "Name": "date",
+              "Description": "The UTC hour or day of this aggregation period",
+              "Values": "ISO 8601 Date"
+            },
+            {
+              "Name": "avg",
+              "Description": "The average of the values for this time period",
+              "Values": "float"
+            },
+            {
+              "Name": "stdDev",
+              "Description": "The stdDev of values for this time period",
+              "Values": "float"
+            },
+            {
+              "Name": "location",
+              "Description": "if groupBy location is selected, the particular location for these samples",
+              "Values": "string"
+            },
+            {
+              "Name": "stepName",
+              "Description": "if groupBy step is selected, the step name for these samples",
+              "Values": "string"
+            },
+            {
+              "Name": "stepNumber",
+              "Description": "if groupBy step is selected, the step number for these samples",
+              "Values": "int"
+            },
+            {
+              "Name": "tp50",
+              "Description": "Load time 50th percentile, in milliseconds (available at a 'day' frequency)",
+              "Values": "float"
+            },
+            {
+              "Name": "tp90",
+              "Description": "Load time 90th percentile, in milliseconds (available at a 'day' frequency)",
+              "Values": "float"
+            }
+          ],
+          "parameters": [
+            {
+              "Name": "startDate",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "An ISO 8601 formatted date string or datetime string representing the start date from which you wish to collect samples. Examples:  2012-03-02 or 2012-03-01T12:00"
+            },
+            {
+              "Name": "endDate",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "An ISO 8601 formatted date string or datetime string representing the end date from which you wish to collect samples. Examples:  2012-03-02 or 2012-03-01T12:00"
+            },
+            {
+              "Name": "offset",
+              "Required": "N",
+              "Default": "",
+              "Type": "int",
+              "Description": "From which position in the return list you wish to start.  At most, 2000 records will be returned."
+            },
+            {
+              "Name": "frequency",
+              "Required": "Y",
+              "Default": "day",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "day",
+                "hour"
+              ],
+              "Description": "Aggregation period"
+            },
+            {
+              "Name": "groupBy",
+              "Required": "N",
+              "Default": "",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "location",
+                "step"
+              ],
+              "Description": "When selected, the data will be aggregated by the selected 'groupBy'"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Monitor Summary Information",
+      "methods": [
+        {
+          "MethodName": "Get Summary",
+          "Synopsis": "The monitor summary api returns all of the data that is found when looking at your list of monitors in the web portal. This includes things such as the average load time, sample count and uptime for the day, week, month or year, the last time an error occurred, and the last error message.",
+          "HTTPMethod": "GET",
+          "URI": "/monitor/1.0/:monitorID/summary",
+          "URLVariables": [
+            "monitorID"
+          ],
+          "parameters": [],
+          "outputVariables": [
+            {
+              "Name": "name",
+              "Description": "The name of this monitor",
+              "Values": "string"
+            },
+            {
+              "Name": "status",
+              "Description": "The monitor status: either 'Alerting', 'Warning', 'Scheduled', 'Active', 'Maintenance', 'Off'",
+              "Values": "string"
+            },
+            {
+              "Name": "generalStatus",
+              "Description": "The general status of the monitor, is the monitor erroing or in success state",
+              "Values": "string"
+            },
+            {
+              "Name": "lastSampleAt",
+              "Description": "When the last sample was taken",
+              "Values": "ISO 8601 Date"
+            },
+            {
+              "Name": "lastSampleId",
+              "Description": "The ID for the last sample taken.  This ID can be used with the sample or aggregate APIs",
+              "Values": "float"
+            },
+            {
+              "Name": "lastSampleDuration",
+              "Description": "The duration of the last sample, in milliseconds",
+              "Values": "float"
+            },
+            {
+              "Name": "lastSampleStatus",
+              "Description": "The last sample status of the monitor",
+              "Values": "string"
+            },
+            {
+              "Name": "lastErrorAt",
+              "Description": "When the last error occured",
+              "Values": "ISO 8601 Date"
+            },
+            {
+              "Name": "avgUptimeDay",
+              "Description": "The average uptime this day, as a percentage",
+              "Values": "float"
+            },
+            {
+              "Name": "avgUptimeWeek",
+              "Description": "The average uptime for the current week, as a percentage",
+              "Values": "float"
+            },
+            {
+              "Name": "avgUptimeMonth",
+              "Description": "The average uptime this month, as a percentage",
+              "Values": "float"
+            },
+            {
+              "Name": "avgUptimeQuarter",
+              "Description": "The average uptime this quarter, as a percentage",
+              "Values": "float"
+            },
+            {
+              "Name": "avgUptimeYear",
+              "Description": "The average uptime for the current year, as a percentage",
+              "Values": "float"
+            },
+            {
+              "Name": "avgLoadtimeDay",
+              "Description": "The average load time this day, in milliseconds",
+              "Values": "float"
+            },
+            {
+              "Name": "avgLoadtimeMonth",
+              "Description": "The average load time this month, in milliseconds",
+              "Values": "float"
+            },
+            {
+              "Name": "avgLoadtimeQuarter",
+              "Description": "The average load time this quarter, in milliseconds",
+              "Values": "float"
+            },
+            {
+              "Name": "avgLoadtimeYear",
+              "Description": "The average load time this year, in milliseconds",
+              "Values": "float"
+            },
+            {
+              "Name": "sampleCountDay",
+              "Description": "The number of samples this day",
+              "Values": "int"
+            },
+            {
+              "Name": "sampleCountWeek",
+              "Description": "The number of samples this week",
+              "Values": "int"
+            },
+            {
+              "Name": "sampleCountMonth",
+              "Description": "The number of samples this month",
+              "Values": "int"
+            },
+            {
+              "Name": "sampleCountYear",
+              "Description": "The number of samples this year",
+              "Values": "int"
+            },
+            {
+              "Name": "tp50",
+              "Description": "Load time 50th percentile for the previous UTC day, in milliseconds",
+              "Values": "float"
+            },
+            {
+              "Name": "tp90",
+              "Description": "Load time 90th percentile for the previous UTC day, in milliseconds",
+              "Values": "float"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Monitoring Agent Information",
+      "methods": [
+        {
+          "MethodName": "Get Monitoring Locations",
+          "Synopsis": "Get a list of all monitoring locations available",
+          "HTTPMethod": "GET",
+          "URI": "/monitor/1.0/locations",
+          "parameters": []
+        }
+      ]
+    }
+  ]
+}

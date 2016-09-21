@@ -1,0 +1,2075 @@
+{
+  "endpoints": [
+    {
+      "name": "Ideas <pre>/api/v1/ideas/</pre>",
+      "methods": [
+        {
+          "MethodName": "List Ideas",
+          "Synopsis": "Retrieve a filtered, paged list of idea resources",
+          "HTTPMethod": "GET",
+          "URI": "/ideas",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "detail",
+              "Required": "N",
+              "Default": "basic",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "basic",
+                "full"
+              ],
+              "EnumeratedDescription": {
+                "basic": "A short, summary response",
+                "full": "All idea details are returned"
+              },
+              "Description": "The level of detail in the response for each record"
+            },
+            {
+              "Name": "page",
+              "Required": "N",
+              "Default": "1",
+              "Type": "integer",
+              "Description": "The (1-indexed) page number to retrieve."
+            },
+            {
+              "Name": "per_page",
+              "Required": "N",
+              "Default": "25",
+              "Type": "integer",
+              "Description": "The number of entries to retrieve per page."
+            },
+            {
+              "Name": "state",
+              "Required": "N",
+              "Default": "",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "drafts",
+                "proposed",
+                "approved",
+                "rejected",
+                "archived"
+              ],
+              "Description": "Filter idea by its state"
+            },
+            {
+              "Name": "creator_id",
+              "Required": "N",
+              "Default": "",
+              "Type": "array",
+              "Description": "Filter ideas by creator (user) ids. Accepts both object ids and slugs, ex. '51f05bc04aaaae4ae800000d' or 'samantha-james-2'"
+            },
+            {
+              "Name": "campaign_ids",
+              "Required": "N",
+              "Default": "",
+              "Type": "array",
+              "Description": "Filter ideas for specified campaigns. Accepts both object ids and slugs, ex. '51f05bc04aaaae4ae80000d' or 'awesome-video-campaign-1'"
+            },
+            {
+              "Name": "persona_ids",
+              "Required": "N",
+              "Default": "",
+              "Type": "array",
+              "Description": "If using personas and buying stages, filter by personas object ids targeted by this idea."
+            },
+            {
+              "Name": "stage_ids",
+              "Required": "N",
+              "Default": "",
+              "Type": "array",
+              "Description": "If using personas and buying stages, filter by buying stage ids targeted by this idea."
+            },
+            {
+              "Name": "categories",
+              "Required": "N",
+              "Default": "",
+              "Type": "array",
+              "Description": "Filter ideas using the specified category name(s)"
+            },
+            {
+              "Name": "search",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Filter ideas by search phrase"
+            }
+          ]
+        },
+        {
+          "MethodName": "Show Idea",
+          "Synopsis": "Retrieve an idea resource",
+          "HTTPMethod": "GET",
+          "URI": "/ideas/:id",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Idea id or slug, ex 'welcome-to-kapost' or '51f05bc04aaaae4ae800000d'"
+            },
+            {
+              "Name": "detail",
+              "Required": "N",
+              "Default": "",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "basic",
+                "full"
+              ],
+              "EnumeratedDescription": {
+                "basic": "A short, summary response",
+                "full": "All idea details are returned"
+              },
+              "Description": "The level of detail in the response for each record"
+            }
+          ]
+        },
+        {
+          "MethodName": "Create Idea",
+          "Synopsis": "Create an idea resource",
+          "HTTPMethod": "POST",
+          "URI": "/ideas",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "title",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Title"
+            },
+            {
+              "Name": "body",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Content of idea (HTML OK)"
+            },
+            {
+              "Name": "is_draft",
+              "Required": "N",
+              "Default": "",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "true",
+                "false"
+              ],
+              "Description": "Whether or not this idea is in draft state"
+            },
+            {
+              "Name": "campaign_ids",
+              "Required": "N",
+              "Default": "",
+              "Type": "array",
+              "Description": "Array of campaign object ids or slugs associated with this idea"
+            },
+            {
+              "Name": "persona_ids",
+              "Required": "N",
+              "Default": "",
+              "Type": "array",
+              "Description": "If using personas and buying stages, an array of object id's of personas targeted by this idea."
+            },
+            {
+              "Name": "stage_ids",
+              "Required": "N",
+              "Default": "",
+              "Type": "array",
+              "Description": "If using personas and buying stages, an array of object id's of buying stages targeted by this idea."
+            },
+            {
+              "Name": "tags",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "A string containing a comma-separated list of tags"
+            }
+          ]
+        },
+        {
+          "MethodName": "Update Idea",
+          "Synopsis": "Create an idea resource",
+          "HTTPMethod": "PUT",
+          "URI": "/ideas/:id",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Idea id or slug, ex 'welcome-to-kapost' or '51f05bc04aaaae4ae800000d'"
+            },
+            {
+              "Name": "title",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Title"
+            },
+            {
+              "Name": "body",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Content of idea (HTML OK)"
+            },
+            {
+              "Name": "operation",
+              "Required": "N",
+              "Default": "",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "reject",
+                "submit",
+                "approve",
+                "archive",
+                "unarchive"
+              ],
+              "Description": "Perform action to change idea state"
+            },
+            {
+              "Name": "is_draft",
+              "Required": "N",
+              "Default": "",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "true",
+                "false"
+              ],
+              "Description": "Whether or not this idea is in draft state"
+            },
+            {
+              "Name": "campaign_ids",
+              "Required": "N",
+              "Default": "",
+              "Type": "array",
+              "Description": "Array of campaign object ids or slugs associated with this idea"
+            },
+            {
+              "Name": "persona_ids",
+              "Required": "N",
+              "Default": "",
+              "Type": "array",
+              "Description": "If using personas and buying stages, an array of object id's of personas targeted by this idea."
+            },
+            {
+              "Name": "stage_ids",
+              "Required": "N",
+              "Default": "",
+              "Type": "array",
+              "Description": "If using personas and buying stages, an array of object id's of buying stages targeted by this idea."
+            },
+            {
+              "Name": "tags",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "A string containing a comma-separated list of tags"
+            }
+          ]
+        },
+        {
+          "MethodName": "Delete Idea",
+          "Synopsis": "Destroys an idea",
+          "HTTPMethod": "DELETE",
+          "URI": "/ideas/:id",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "object_id",
+              "Description": "The idea id to delete"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Content <pre>/api/v1/content/</pre>",
+      "methods": [
+        {
+          "MethodName": "List Content",
+          "Synopsis": "Retrieve a filtered, paged list of content resources",
+          "HTTPMethod": "GET",
+          "URI": "/content",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "detail",
+              "Required": "N",
+              "Default": "basic",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "basic",
+                "full"
+              ],
+              "EnumeratedDescription": {
+                "basic": "A short, summary response",
+                "full": "All content details are returned"
+              },
+              "Description": "The level of detail in the response for each record"
+            },
+            {
+              "Name": "page",
+              "Required": "N",
+              "Default": "1",
+              "Type": "integer",
+              "Description": "The (1-indexed) page number to retrieve."
+            },
+            {
+              "Name": "per_page",
+              "Required": "N",
+              "Default": "25",
+              "Type": "integer",
+              "Description": "The number of entries to retrieve per page."
+            },
+            {
+              "Name": "user_id",
+              "Required": "N",
+              "Default": "",
+              "Type": "object id",
+              "Description": "Content filtered for a specified user. Accepts both object ids and slugs, ex. '51f05bc04aaaae4ae800000d' or 'john-6'"
+            },
+            {
+              "Name": "campaign_id",
+              "Required": "N",
+              "Default": "",
+              "Type": "object id",
+              "Description": "Content filtered for a specified campaign. Accepts both object ids and slugs, ex. '51f05bc04aaaae4ae80000d' or 'awesome-video-campaign-1'"
+            },
+            {
+              "Name": "category",
+              "Required": "N",
+              "Default": "",
+              "Type": "array",
+              "Description": "Filter content using the specified category name(s)"
+            },
+            {
+              "Name": "include_empty_categories",
+              "Required": "N",
+              "Default": "",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "true"
+              ],
+              "Description": "Relevant only if filtering by category"
+            },
+            {
+              "Name": "date_type",
+              "Required": "N",
+              "Default": "",
+              "Type": "enumerated",
+              "Description": "Filter content using the specified date field",
+              "EnumeratedList": [
+                "publish_deadline",
+                "submission_deadline",
+                "created_on",
+                "published_on"
+              ]
+            },
+            {
+              "Name": "start",
+              "Required": "N",
+              "Default": "",
+              "Type": "utc date",
+              "Description": "Relevant only if filtering by date. Content greater or equal to this timestamp will be returned."
+            },
+            {
+              "Name": "end",
+              "Required": "N",
+              "Default": "",
+              "Type": "utc date",
+              "Description": "Relevant only if filtering by date. Content less than or equal to this timestamp will be returned."
+            },
+            {
+              "Name": "creator_id",
+              "Required": "N",
+              "Default": "",
+              "Type": "array",
+              "Description": "Filter content by creator (user) ids. Accepts both object ids and slugs, ex. '51f05bc04aaaae4ae800000d' or 'samantha-james-2'"
+            },
+            {
+              "Name": "listener_id",
+              "Required": "N",
+              "Default": "",
+              "Type": "object id",
+              "Description": "Filter content by listener (user) id. Accepts both object ids and slugs, ex. '51f05bc04aaaae4ae800000d' or 'samantha-james-2'"
+            },
+            {
+              "Name": "content_type_id",
+              "Required": "N",
+              "Default": "",
+              "Type": "object id",
+              "Description": "Filter content by content type id. Accepts an object id only."
+            },
+            {
+              "Name": "destination_id",
+              "Required": "N",
+              "Default": "",
+              "Type": "object id",
+              "Description": "Filter content by destination id. Accepts an object id only."
+            },
+            {
+              "Name": "search",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Filter content by search phrase"
+            },
+            {
+              "Name": "content_number",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Filter content by content number"
+            },
+            {
+              "Name": "state",
+              "Required": "N",
+              "Default": "",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "open",
+                "archived",
+                "draft",
+                "idea",
+                "production",
+                "post-production",
+                "completed",
+                "active",
+                "mine"
+              ],
+              "Description": "Filter content by content state"
+            }
+          ]
+        },
+        {
+          "MethodName": "Show Content",
+          "Synopsis": "Retrieve a content resource",
+          "HTTPMethod": "GET",
+          "URI": "/content/:id",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Content id or slug, ex 'welcome-to-kapost' or '51f05bc04aaaae4ae800000d'"
+            },
+            {
+              "Name": "detail",
+              "Required": "N",
+              "Default": "",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "basic",
+                "full"
+              ],
+              "EnumeratedDescription": {
+                "basic": "A short, summary response",
+                "full": "All content details are returned"
+              },
+              "Description": "The level of detail in the response for each record"
+            }
+          ]
+        },
+        {
+          "MethodName": "Create Content",
+          "Synopsis": "Create a content resource",
+          "HTTPMethod": "POST",
+          "URI": "/content",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "title",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Title"
+            },
+            {
+              "Name": "body",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Content (HTML OK)"
+            },
+            {
+              "Name": "assignee_id",
+              "Required": "N",
+              "Default": "",
+              "Type": "object id",
+              "Description": "Assigned user id or username slug for this content, ex '51f05bc04aaaae4ae800000d' or 'reuben-dewitt'"
+            },
+            {
+              "Name": "privacy",
+              "Required": "N",
+              "Default": "",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "private",
+                "members"
+              ],
+              "EnumeratedDescription": {
+                "private": "Only invited users may see this content (See invitee_ids below)",
+                "members": "Any member of your instance may see this content"
+              },
+              "Description": "Select the privacy setting for this content"
+            },
+            {
+              "Name": "invitee_ids",
+              "Required": "N",
+              "Default": "",
+              "Type": "array",
+              "Description": "Array of invited user object ids or username slugs, relevant only if a content privacy is set to private and not yet in production"
+            },
+            {
+              "Name": "is_draft",
+              "Required": "N",
+              "Default": "",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "true",
+                "false"
+              ],
+              "Description": "Whether or not this content is in draft state"
+            },
+            {
+              "Name": "campaign_ids",
+              "Required": "N",
+              "Default": "",
+              "Type": "array",
+              "Description": "Array of campaign object ids or slugs associated with this content"
+            },
+            {
+              "Name": "submission_deadline",
+              "Required": "N",
+              "Default": "",
+              "Type": "utc date",
+              "Description": "Unix timestamp (in <a href='http://www.w3.org/TR/NOTE-datetime'>ISO 8601</a>)"
+            },
+            {
+              "Name": "publish_deadline",
+              "Required": "N",
+              "Default": "",
+              "Type": "utc date",
+              "Description": "Unix timestamp (in <a href='http://www.w3.org/TR/NOTE-datetime'>ISO 8601</a>)"
+            },
+            {
+              "Name": "payment_type",
+              "Required": "N",
+              "Default": "",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "user",
+                "fixed"
+              ],
+              "EnumeratedDescription": {
+                "user": "Uses the author's rate for the payment amount.",
+                "fixed": "Uses a fixed rate for the payment amount."
+              },
+              "Description": "Use a payment for this post, and select a payment strategy"
+            },
+            {
+              "Name": "payment_fixed_rate",
+              "Required": "N",
+              "Default": "",
+              "Type": "decimal",
+              "Description": "Relevent when using a fixed rate for the payment amount for this post."
+            },
+            {
+              "Name": "tags",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "A string containing a comma-separated list of tags"
+            },
+            {
+              "Name": "external_file_url",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Certain types of posts, such as google drive documents require an external URL reference"
+            },
+            {
+              "Name": "persona_ids",
+              "Required": "N",
+              "Default": "",
+              "Type": "array",
+              "Description": "If using personas and buying stages, an array of object id's of personas targeted by this content."
+            },
+            {
+              "Name": "stage_ids",
+              "Required": "N",
+              "Default": "",
+              "Type": "array",
+              "Description": "If using personas and buying stages, an array of object id's of buying stages targeted by this content."
+            },
+            {
+              "Name": "content_type_id",
+              "Required": "N",
+              "Default": "",
+              "Type": "object id",
+              "Description": "Change the content type"
+            }
+          ]
+        },
+        {
+          "MethodName": "Update Content",
+          "Synopsis": "Update a content resource",
+          "HTTPMethod": "PUT",
+          "URI": "/content/:id",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Content id or slug, ex 'welcome-to-kapost' or '51f05bc04aaaae4ae800000d'"
+            },
+            {
+              "Name": "operation",
+              "Required": "N",
+              "Default": "",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "submit",
+                "unsubmit",
+                "archive",
+                "unarchive",
+                "reject"
+              ],
+              "EnumeratedDescription": {
+                "submit": "Submit an idea to share with everyone",
+                "unsubmit": "Revert a submission back into an idea",
+                "archive": "Archive a submission",
+                "unarchive": "Unarchive a submission",
+                "reject": "Reject a submission (must supply reason text)"
+              },
+              "Description": "An optional action to perform on this content"
+            },
+            {
+              "Name": "reject_reason",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Relevent only if performing a reject operation. The reason for the rejection."
+            },
+            {
+              "Name": "title",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Content title"
+            },
+            {
+              "Name": "body",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Content (HTML OK)"
+            },
+            {
+              "Name": "assignee_id",
+              "Required": "N",
+              "Default": "",
+              "Type": "object id",
+              "Description": "Assigned user id or username slug for this content, ex '51f05bc04aaaae4ae800000d' or 'reuben-dewitt'"
+            },
+            {
+              "Name": "privacy",
+              "Required": "N",
+              "Default": "",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "private",
+                "members"
+              ],
+              "EnumeratedDescription": {
+                "private": "Only invited users may see this content (See invitee_ids below)",
+                "members": "Any member of your instance may see this content"
+              },
+              "Description": "Select the privacy setting for this content"
+            },
+            {
+              "Name": "invitee_ids",
+              "Required": "N",
+              "Default": "",
+              "Type": "array",
+              "Description": "Array of invited user object ids or username slugs, relevant only if a content privacy is set to private and not yet in production"
+            },
+            {
+              "Name": "is_draft",
+              "Required": "N",
+              "Default": "",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "true",
+                "false"
+              ],
+              "Description": "Whether or not this content is in draft state"
+            },
+            {
+              "Name": "campaign_ids",
+              "Required": "N",
+              "Default": "",
+              "Type": "array",
+              "Description": "Array of campaign object ids or slugs associated with this content"
+            },
+            {
+              "Name": "submission_deadline",
+              "Required": "N",
+              "Default": "",
+              "Type": "utc date",
+              "Description": "Unix timestamp (in <a href='http://www.w3.org/TR/NOTE-datetime'>ISO 8601</a>)"
+            },
+            {
+              "Name": "publish_deadline",
+              "Required": "N",
+              "Default": "",
+              "Type": "utc date",
+              "Description": "Unix timestamp (in <a href='http://www.w3.org/TR/NOTE-datetime'>ISO 8601</a>)"
+            },
+            {
+              "Name": "payment_type",
+              "Required": "N",
+              "Default": "",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "user",
+                "fixed"
+              ],
+              "EnumeratedDescription": {
+                "user": "Uses the author's rate for the payment amount.",
+                "fixed": "Uses a fixed rate for the payment amount."
+              },
+              "Description": "Use a payment for this post, and select a payment strategy"
+            },
+            {
+              "Name": "payment_fixed_rate",
+              "Required": "N",
+              "Default": "",
+              "Type": "decimal",
+              "Description": "Relevent when using a fixed rate for the payment amount for this post."
+            },
+            {
+              "Name": "tags",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "A string containing a comma-separated list of tags"
+            },
+            {
+              "Name": "external_file_url",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Certain types of posts, such as google drive documents require an external URL reference"
+            },
+            {
+              "Name": "persona_ids",
+              "Required": "N",
+              "Default": "",
+              "Type": "array",
+              "Description": "If using personas and buying stages, an array of object id's of personas targeted by this content."
+            },
+            {
+              "Name": "stage_ids",
+              "Required": "N",
+              "Default": "",
+              "Type": "array",
+              "Description": "If using personas and buying stages, an array of object id's of buying stages targeted by this content."
+            },
+            {
+              "Name": "content_type_id",
+              "Required": "N",
+              "Default": "",
+              "Type": "object id",
+              "Description": "Modify the content type."
+            }
+          ]
+        },
+        {
+          "MethodName": "Delete Content",
+          "Synopsis": "Permanently destroys a content resource",
+          "HTTPMethod": "DELETE",
+          "URI": "/content/:id",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Content id or slug, ex 'welcome-to-kapost' or '51f05bc04aaaae4ae800000d'"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Campaigns <pre>/api/v1/campaigns</pre>",
+      "methods": [
+        {
+          "MethodName": "Create Campaign",
+          "Synopsis": "Create a campaign",
+          "HTTPMethod": "POST",
+          "URI": "/campaigns",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "name",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "The name of the campaign"
+            },
+            {
+              "Name": "description",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "The description of the campaign"
+            },
+            {
+              "Name": "campaign_type_id",
+              "Required": "N",
+              "Default": "",
+              "Type": "object_id",
+              "Description": "If not supplied, will default to the first campaign type"
+            },
+            {
+              "Name": "start_date",
+              "Required": "N",
+              "Default": "",
+              "Type": "utc date",
+              "Description": "iso8601-formatted start date of the campaign"
+            },
+            {
+              "Name": "end_date",
+              "Required": "N",
+              "Default": "",
+              "Type": "utc date",
+              "Description": "iso8601-formatted end date of the campaign"
+            },
+            {
+              "Name": "owner_ids",
+              "Required": "N",
+              "Default": "",
+              "Type": "array",
+              "Description": "The ids of users that should own the campaign"
+            },
+            {
+              "Name": "custom_fields",
+              "Required": "N",
+              "Default": "",
+              "Type": "hash",
+              "Description": "A hash of custom fields ids to their values"
+            }
+          ]
+        },
+        {
+          "MethodName": "Update Campaign",
+          "Synopsis": "Update a campaign",
+          "HTTPMethod": "PUT",
+          "URI": "/campaigns/:id",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "object_id",
+              "Description": "The id of the campaign to update"
+            },
+            {
+              "Name": "name",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "The name of the campaign"
+            },
+            {
+              "Name": "description",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "The description of the campaign"
+            },
+            {
+              "Name": "campaign_type_id",
+              "Required": "N",
+              "Default": "",
+              "Type": "object_id",
+              "Description": "If not supplied, will default to the first campaign type"
+            },
+            {
+              "Name": "start_date",
+              "Required": "N",
+              "Default": "",
+              "Type": "utc date",
+              "Description": "iso8601-formatted start date of the campaign"
+            },
+            {
+              "Name": "end_date",
+              "Required": "N",
+              "Default": "",
+              "Type": "utc date",
+              "Description": "iso8601-formatted end date of the campaign"
+            },
+            {
+              "Name": "owner_ids",
+              "Required": "N",
+              "Default": "",
+              "Type": "array",
+              "Description": "The ids of users that should own the campaign"
+            },
+            {
+              "Name": "custom_fields",
+              "Required": "N",
+              "Default": "",
+              "Type": "hash",
+              "Description": "A hash of custom fields ids to their values"
+            }
+          ]
+        },
+        {
+          "MethodName": "Delete Campaign",
+          "Synopsis": "Destroys a campaign",
+          "HTTPMethod": "DELETE",
+          "URI": "/campaigns/:id",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "object_id",
+              "Description": "The campaign id to delete"
+            }
+          ]
+        },
+        {
+          "MethodName": "Show Campaign",
+          "Synopsis": "See details for a campaign",
+          "HTTPMethod": "GET",
+          "URI": "/campaigns/:id",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "object_id",
+              "Description": "The campaign id"
+            }
+          ]
+        },
+        {
+          "MethodName": "Index Campaigns",
+          "Synopsis": "Returns a paginated list of campaigns",
+          "HTTPMethod": "GET",
+          "URI": "/campaigns",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "page",
+              "Required": "N",
+              "Default": "",
+              "Type": "integer",
+              "Description": "Changes page of campaigns returned"
+            }
+          ]
+        },
+        {
+          "MethodName": "Bulk Archive/Delete Campaigns",
+          "Synopsis": "Archives or Deletes a group of campaigns",
+          "HTTPMethod": "POST",
+          "URI": "/campaigns",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "ids",
+              "Required": "Y",
+              "Default": "",
+              "Type": "array",
+              "Description": "The campaign ids that the action will be performed on"
+            },
+            {
+              "Name": "command",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "The action you want to perform. Options: ['archive', 'delete']"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Tasks <pre>/api/v1/content/:content_id/tasks/</pre> or <pre>/api/v1/campaign/:campaign_id/tasks/</pre>",
+      "methods": [
+        {
+          "MethodName": "List Tasks",
+          "Synopsis": "Retrieves a list of tasks for the specified content",
+          "HTTPMethod": "GET",
+          "URI": "/content/:content_id/tasks",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "content_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "object id",
+              "Description": "The content id or slug, ex 'welcome-to-kapost' or '51f05bc04aaaae4ae800000d'"
+            }
+          ]
+        },
+        {
+          "MethodName": "Create Task",
+          "Synopsis": "Create a task on the specified content/campaign",
+          "HTTPMethod": "POST",
+          "URI": "/content/:content_id/tasks",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "content_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "object id",
+              "Description": "The content id or slug, ex 'welcome-to-kapost' or '51f05bc04aaaae4ae800000d'"
+            },
+            {
+              "Name": "description",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "The title for the task"
+            },
+            {
+              "Name": "completion_action",
+              "Required": "Y",
+              "Default": "",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "manual",
+                "create_idea",
+                "assign",
+                "add_attachment",
+                "submit",
+                "publish",
+                "schedule_publish",
+                "add_webinar_recording",
+                "add_webinar",
+                "host_webinar",
+                "promote_to_facebook",
+                "promote_to_twitter",
+                "promote_to_linkedin"
+              ],
+              "EnumeratedDescription": {
+                "manual": "Must be checked off manually by the task owner or an admin/editor",
+                "create_idea": "Completed when the idea is submitted",
+                "assign": "Completed when the content is assigned",
+                "add_attachment": "Completed when an attachment is added",
+                "submit": "Completed when content is submitted",
+                "publish": "Completed when content is published",
+                "schedule_publish": "Completed when content is scheduled for publishing",
+                "add_webinar_recording": "Completed when a ReadyTalk Recording is added",
+                "add_webinar": "Completed when connected to ReadyTalk",
+                "host_webinar": "Completd when hosting a webinar",
+                "promote_to_facebook": "Completed when a promotional status is published to Facebook",
+                "promote_to_twitter": "Completed when a promotional status is published to Twitter",
+                "promote_to_linkedin": "Completed when a promotional status is published to LinkedIn"
+              },
+              "Description": "The action required for this task to be completed."
+            },
+            {
+              "Name": "deadline",
+              "Required": "N",
+              "Default": "",
+              "Type": "utc date",
+              "Description": "If using an absolute date, the iso8601-formatted deadline of the task"
+            },
+            {
+              "Name": "deadline_offset",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "EnumeratedList": [
+                "days",
+                "hours"
+              ],
+              "Description": "If using a relative deadline, the interval to use."
+            },
+            {
+              "Name": "deadline_offset_unit",
+              "Required": "N",
+              "Default": "",
+              "Type": "integer",
+              "Description": "If using a relative deadline, the number of units to offset the relative deadline by"
+            },
+            {
+              "Name": "deadline_offset_action",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "EnumeratedList": [
+                "submission_occurs",
+                "submission_deadline",
+                "publishing_occurs",
+                "publish_deadline"
+              ],
+              "Description": "If using a relative deadline, action to make the deadline relative to"
+            },
+            {
+              "Name": "deadline_offset_action",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "EnumeratedList": [
+                "submission_occurs",
+                "submission_deadline",
+                "publishing_occurs",
+                "publish_deadline"
+              ],
+              "EnumeratedDescription": {
+                "submission_occurs": "The deadline is relative to when the content was submitted.",
+                "submission_deadline": "The deadline is relative to the content submission deadline.",
+                "publishing_occurs": "The deadline is relative to when the content was published.",
+                "publish_deadline": "The deadline is relative to content publish deadline."
+              },
+              "Description": "If using a relative deadline, action to make the deadline relative to"
+            },
+            {
+              "Name": "user_ids",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "A string containing a comma-separated list of user ids to assign as the task owners."
+            },
+            {
+              "Name": "state",
+              "Required": "N",
+              "Default": "",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "0",
+                "1",
+                "2"
+              ],
+              "EnumeratedDescription": {
+                "0": "Idea State",
+                "1": "In Production State",
+                "2": "Post Production State"
+              },
+              "Description": "Not used for campaigns. The state group which the task appears in the workflow."
+            },
+            {
+              "Name": "position",
+              "Required": "Y",
+              "Default": "",
+              "Type": "integer",
+              "Description": "The numeric ordering of this task [within the same 'state' for content]. Be aware that other tasks will likely be repositioned based on this value."
+            }
+          ]
+        },
+        {
+          "MethodName": "Update Task",
+          "Synopsis": "Update a task on the specified content/campaign",
+          "HTTPMethod": "PUT",
+          "URI": "/content/:content_id/tasks/:id",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "content_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "object id",
+              "Description": "The content id or slug, ex 'welcome-to-kapost' or '51f05bc04aaaae4ae800000d'"
+            },
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "object id",
+              "Description": "The task id"
+            },
+            {
+              "Name": "description",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "The title for the task"
+            },
+            {
+              "Name": "completion_action",
+              "Required": "Y",
+              "Default": "",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "manual",
+                "create_idea",
+                "assign",
+                "add_attachment",
+                "submit",
+                "publish",
+                "schedule_publish",
+                "add_webinar_recording",
+                "add_webinar",
+                "host_webinar",
+                "promote_to_facebook",
+                "promote_to_twitter",
+                "promote_to_linkedin"
+              ],
+              "EnumeratedDescription": {
+                "manual": "Must be checked off manually by the task owner or an admin/editor",
+                "create_idea": "Completed when the idea is submitted",
+                "assign": "Completed when the content is assigned",
+                "add_attachment": "Completed when an attachment is added",
+                "submit": "Completed when content is submitted",
+                "publish": "Completed when content is published",
+                "schedule_publish": "Completed when content is scheduled for publishing",
+                "add_webinar_recording": "Completed when a ReadyTalk Recording is added",
+                "add_webinar": "Completed when connected to ReadyTalk",
+                "host_webinar": "Completd when hosting a webinar",
+                "promote_to_facebook": "Completed when a promotional status is published to Facebook",
+                "promote_to_twitter": "Completed when a promotional status is published to Twitter",
+                "promote_to_linkedin": "Completed when a promotional status is published to LinkedIn"
+              },
+              "Description": "The action required for this task to be completed."
+            },
+            {
+              "Name": "deadline",
+              "Required": "N",
+              "Default": "",
+              "Type": "utc date",
+              "Description": "If using an absolute date, the iso8601-formatted deadline of the task"
+            },
+            {
+              "Name": "deadline_offset",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "EnumeratedList": [
+                "days",
+                "hours"
+              ],
+              "Description": "If using a relative deadline, the interval to use."
+            },
+            {
+              "Name": "deadline_offset_unit",
+              "Required": "N",
+              "Default": "",
+              "Type": "integer",
+              "Description": "If using a relative deadline, the number of units to offset the relative deadline by"
+            },
+            {
+              "Name": "deadline_offset_action",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "EnumeratedList": [
+                "submission_occurs",
+                "submission_deadline",
+                "publishing_occurs",
+                "publish_deadline"
+              ],
+              "Description": "If using a relative deadline, action to make the deadline relative to"
+            },
+            {
+              "Name": "deadline_offset_action",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "EnumeratedList": [
+                "submission_occurs",
+                "submission_deadline",
+                "publishing_occurs",
+                "publish_deadline"
+              ],
+              "EnumeratedDescription": {
+                "submission_occurs": "The deadline is relative to when the content was submitted.",
+                "submission_deadline": "The deadline is relative to the content submission deadline.",
+                "publishing_occurs": "The deadline is relative to when the content was published.",
+                "publish_deadline": "The deadline is relative to content publish deadline."
+              },
+              "Description": "If using a relative deadline, action to make the deadline relative to"
+            },
+            {
+              "Name": "user_ids",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "A string containing a comma-separated list of user ids to assign as the task owners."
+            },
+            {
+              "Name": "state",
+              "Required": "N",
+              "Default": "",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "0",
+                "1",
+                "2"
+              ],
+              "EnumeratedDescription": {
+                "0": "Idea State",
+                "1": "In Production State",
+                "2": "Post Production State"
+              },
+              "Description": "Not used for campaigns. The state group which the task appears in the workflow."
+            },
+            {
+              "Name": "position",
+              "Required": "Y",
+              "Default": "",
+              "Type": "integer",
+              "Description": "The numeric ordering of this task [within the same 'state' for content]. Be aware that other tasks will likely be repositioned based on this value."
+            }
+          ]
+        },
+        {
+          "MethodName": "Delete Task",
+          "Synopsis": "Destroys a task on the specified workflow",
+          "HTTPMethod": "DELETE",
+          "URI": "/content/:content_id/tasks/:id",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "content_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "The content id or slug, ex 'welcome-to-kapost' or '51f05bc04aaaae4ae800000d'"
+            },
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "The id of the task to delete"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Activity (Comments) <pre>/api/v1/ideas/:idea_id/comments/</pre> or <pre>/api/v1/content/:content_id/comments/</pre> or <pre>/api/v1/campaign/:campaign_id/comments/</pre>",
+      "methods": [
+        {
+          "MethodName": "List Comments",
+          "Synopsis": "Retrieves the activity feed for the specified idea, content, or campaign.",
+          "HTTPMethod": "GET",
+          "URI": "/content/:content_id/comments",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "content_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "object id",
+              "Description": "The content id or slug, ex 'welcome-to-kapost' or '51f05bc04aaaae4ae800000d'"
+            }
+          ]
+        },
+        {
+          "MethodName": "Create Comment",
+          "Synopsis": "Creates a comment on the specified idea, content, or campaign.",
+          "HTTPMethod": "POST",
+          "URI": "/content/:content_id/comments",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "content_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "object id",
+              "Description": "The content id or slug, ex 'welcome-to-kapost' or '51f05bc04aaaae4ae800000d'"
+            },
+            {
+              "Name": "body",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "The body of the comment"
+            }
+          ]
+        },
+        {
+          "MethodName": "Delete Comment",
+          "Synopsis": "Destroys a comment on the specified idea, content, or campaign.",
+          "HTTPMethod": "DELETE",
+          "URI": "/content/:content_id/comments/:id",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "content_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "The idea/content/campaign id or slug, ex 'welcome-to-kapost' or '51f05bc04aaaae4ae800000d'"
+            },
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "The id of the comment to delete"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Content Visibility<pre>/api/v1/content/:content_id/visibility</pre>",
+      "methods": [
+        {
+          "MethodName": "List Visibility",
+          "Synopsis": "Retrieves a list of all instance members (and eligible groups) and their visibility and notification configuration for the specified content",
+          "HTTPMethod": "GET",
+          "URI": "/content/:content_id/visibility",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "content_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "The content id or slug, ex 'welcome-to-kapost' or '51f05bc04aaaae4ae800000d'"
+            }
+          ]
+        },
+        {
+          "MethodName": "Grant Visibility",
+          "Synopsis": "Grant access to the specified content to an individual contributor",
+          "HTTPMethod": "POST",
+          "URI": "/content/:content_id/visibility",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "content_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "The content id or slug, ex 'welcome-to-kapost' or '51f05bc04aaaae4ae800000d'"
+            },
+            {
+              "Name": "user_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "The id of the contributor that should be granted access to the specified content"
+            }
+          ]
+        },
+        {
+          "MethodName": "Update Notification Level",
+          "Synopsis": "Change a user's notification setting for the specified content",
+          "HTTPMethod": "PUT",
+          "URI": "/content/:content_id/visibility/:id",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "content_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "The content id or slug, ex 'welcome-to-kapost' or '51f05bc04aaaae4ae800000d'"
+            },
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "The id of the contributor to modify"
+            },
+            {
+              "Name": "notification_option",
+              "Required": "Y",
+              "Default": "",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "none",
+                "tasks",
+                "all"
+              ],
+              "EnumeratedDescription": {
+                "none": "'Muted'",
+                "tasks": "'Assigned Tasks'",
+                "all": "'Everything'"
+              },
+              "Description": "The notification strategy for the specified user"
+            }
+          ]
+        },
+        {
+          "MethodName": "Revoke Visibility",
+          "Synopsis": "Revoke access to this content for an individual contributor",
+          "HTTPMethod": "DELETE",
+          "URI": "/content/:content_id/visibility/:id",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "content_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "The content id or slug, ex 'welcome-to-kapost' or '51f05bc04aaaae4ae800000d'"
+            },
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "The id of the contributor that should have access revoked from the specified content"
+            }
+          ]
+        },
+        {
+          "MethodName": "Bulk Grant Visibility",
+          "Synopsis": "Grant access to this content for muliple contributors <strong>OR</strong> for a group containing contributors",
+          "HTTPMethod": "POST",
+          "URI": "/content/:content_id/visibility/bulkcreate",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "content_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "The content id or slug, ex 'welcome-to-kapost' or '51f05bc04aaaae4ae800000d'"
+            },
+            {
+              "Name": "ids",
+              "Required": "N",
+              "Default": "",
+              "Type": "array",
+              "Description": "The ids of contributors that should have access granted to the specified content"
+            }
+          ]
+        },
+        {
+          "MethodName": "Bulk Revoke Visibility",
+          "Synopsis": "Grant access to this content for muliple contributors",
+          "HTTPMethod": "DELETE",
+          "URI": "/content/:content_id/visibility/bulkdestroy",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "content_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "The content id or slug, ex 'welcome-to-kapost' or '51f05bc04aaaae4ae800000d'"
+            },
+            {
+              "Name": "ids",
+              "Required": "Y",
+              "Default": "",
+              "Type": "array",
+              "Description": "The ids of contributors that should have access revoked from the specified content"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Custom Fields <pre>/api/v1/custom_fields/</pre>",
+      "methods": [
+        {
+          "MethodName": "List Custom Fields",
+          "Synopsis": "Retrieve a paged list of custom fields for your current instance",
+          "HTTPMethod": "GET",
+          "URI": "/custom_fields",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "page",
+              "Required": "N",
+              "Default": "1",
+              "Type": "integer",
+              "Description": "The (1-indexed) page number to retrieve."
+            },
+            {
+              "Name": "per_page",
+              "Required": "N",
+              "Default": "25",
+              "Type": "integer",
+              "Description": "The number of entries to retrieve per page."
+            }
+          ]
+        },
+        {
+          "MethodName": "Show Custom Field",
+          "Synopsis": "Retrieve a custom field from your current instance",
+          "HTTPMethod": "GET",
+          "URI": "/custom_fields/:id",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Custom field id, ex '51f05bc04aaaae4ae800000d'"
+            }
+          ]
+        },
+        {
+          "MethodName": "Create Custom Field",
+          "Synopsis": "Create a custom field for your current instance",
+          "HTTPMethod": "POST",
+          "URI": "/custom_fields",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "field_type",
+              "Required": "Y",
+              "Default": "text",
+              "Description": "The type of field to create",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "text",
+                "select",
+                "date",
+                "image",
+                "rss",
+                "multiselect",
+                "file"
+              ]
+            },
+            {
+              "Name": "display_label",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Display name of the field to create"
+            },
+            {
+              "Name": "name",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Field name (Must be unique to your instance)"
+            },
+            {
+              "Name": "location",
+              "Required": "Y",
+              "Default": "primary",
+              "Type": "enumerated",
+              "Description": "Location of this field",
+              "EnumeratedList": [
+                "primary",
+                "gallery"
+              ]
+            },
+            {
+              "Name": "default_value",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Relevant only if field_type is 'text'"
+            },
+            {
+              "Name": "rss_field_type",
+              "Required": "N",
+              "Default": "",
+              "Type": "enumerated",
+              "Description": "Relevant only if field_type is 'rss'",
+              "EnumeratedList": [
+                "author",
+                "categories",
+                "summary",
+                "url",
+                "enclosure",
+                "source",
+                "subhead"
+              ]
+            },
+            {
+              "Name": "select_values",
+              "Required": "N",
+              "Default": "",
+              "Type": "array",
+              "Description": "Array of values to select from, relevant only if field_type is 'select' or 'multiselect'."
+            },
+            {
+              "Name": "editor_or_admin_only",
+              "Required": "N",
+              "Default": "false",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "true",
+                "false"
+              ],
+              "Description": "Field option: If true, this field is only viewable by Editors and Admins."
+            },
+            {
+              "Name": "display_as_column_selector",
+              "Required": "N",
+              "Default": "false",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "true",
+                "false"
+              ],
+              "Description": "Field option: If true, this field will be available as a column on content feeds. Relevant only if field_type is 'text', 'select', 'multiselect', 'date', or 'rss'"
+            },
+            {
+              "Name": "display_as_filter",
+              "Required": "N",
+              "Default": "false",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "true",
+                "false"
+              ],
+              "Description": "Field option: If true, this field will be available as a custom filter on content feeds. Relevant only if field_type is 'select' or 'multiselect'"
+            },
+            {
+              "Name": "required_field",
+              "Required": "N",
+              "Default": "false",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "true",
+                "false"
+              ],
+              "Description": "Field option: If true, this field will be required when creating a new post."
+            },
+            {
+              "Name": "html",
+              "Required": "N",
+              "Default": "false",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "true",
+                "false"
+              ],
+              "Description": "Field option: If true, this field will provide a rich editor and allow HTML. Relevant only if field_type is 'text'"
+            },
+            {
+              "Name": "multiline",
+              "Required": "N",
+              "Default": "false",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "true",
+                "false"
+              ],
+              "Description": "Field option: If true, this field will provide a multiline editor. Relevant only if field_type is 'text'"
+            }
+          ]
+        },
+        {
+          "MethodName": "Update Custom Field",
+          "Synopsis": "Update a custom field for your current instance",
+          "HTTPMethod": "PUT",
+          "URI": "/custom_fields/:id",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Custom field id, ex '51f05bc04aaaae4ae800000d'"
+            },
+            {
+              "Name": "display_label",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Display name of the field to create"
+            },
+            {
+              "Name": "name",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Field name (Must be unique to your instance)"
+            },
+            {
+              "Name": "location",
+              "Required": "Y",
+              "Default": "primary",
+              "Type": "enumerated",
+              "Description": "Location of this field",
+              "EnumeratedList": [
+                "primary",
+                "gallery"
+              ]
+            },
+            {
+              "Name": "default_value",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Relevant only if field_type is 'text'"
+            },
+            {
+              "Name": "rss_field_type",
+              "Required": "N",
+              "Default": "",
+              "Type": "enumerated",
+              "Description": "Relevant only if field_type is 'rss'",
+              "EnumeratedList": [
+                "author",
+                "categories",
+                "summary",
+                "url",
+                "enclosure",
+                "source",
+                "subhead"
+              ]
+            },
+            {
+              "Name": "select_values",
+              "Required": "N",
+              "Default": "",
+              "Type": "array",
+              "Description": "Array of values to select from, relevant only if field_type is 'select' or 'multiselect'."
+            },
+            {
+              "Name": "editor_or_admin_only",
+              "Required": "N",
+              "Default": "false",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "true",
+                "false"
+              ],
+              "Description": "Field option: If true, this field is only viewable by Editors and Admins."
+            },
+            {
+              "Name": "display_as_column_selector",
+              "Required": "N",
+              "Default": "false",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "true",
+                "false"
+              ],
+              "Description": "Field option: If true, this field will be available as a column on content feeds. Relevant only if field_type is 'text', 'select', 'date', or 'rss'"
+            },
+            {
+              "Name": "display_as_filter",
+              "Required": "N",
+              "Default": "false",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "true",
+                "false"
+              ],
+              "Description": "Field option: If true, this field will be available as a custom filter on content feeds. Relevant only if field_type is 'select' or 'multiselect'"
+            },
+            {
+              "Name": "required_field",
+              "Required": "N",
+              "Default": "false",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "true",
+                "false"
+              ],
+              "Description": "Field option: If true, this field will be required when creating a new post."
+            },
+            {
+              "Name": "html",
+              "Required": "N",
+              "Default": "false",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "true",
+                "false"
+              ],
+              "Description": "Field option: If true, this field will provide a rich editor and allow HTML. Relevant only if field_type is 'text'"
+            },
+            {
+              "Name": "multiline",
+              "Required": "N",
+              "Default": "false",
+              "Type": "enumerated",
+              "EnumeratedList": [
+                "true",
+                "false"
+              ],
+              "Description": "Field option: If true, this field will provide a multiline editor. Relevant only if field_type is 'text'"
+            }
+          ]
+        },
+        {
+          "MethodName": "Delete Custom Field",
+          "Synopsis": "Delete a custom field from your current instance",
+          "HTTPMethod": "DELETE",
+          "URI": "/custom_fields/:id",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "Custom field id, ex '51f05bc04aaaae4ae800000d'"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Reminders <pre>/api/v1/content/:content_id/reminders/</pre> or <pre>/api/v1/campaign/:campaign_id/reminders/</pre>",
+      "methods": [
+        {
+          "MethodName": "List Reminders",
+          "Synopsis": "Retrieves a list of your reminders for the specified content or campaign",
+          "HTTPMethod": "GET",
+          "URI": "/content/:content_id/reminders",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "content_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "object id",
+              "Description": "The content id or slug, ex 'welcome-to-kapost' or '51f05bc04aaaae4ae800000d'"
+            }
+          ]
+        },
+        {
+          "MethodName": "Create Reminder",
+          "Synopsis": "Create a reminder on the specified content/campaign and task",
+          "HTTPMethod": "POST",
+          "URI": "/content/:content_id/reminders",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "content_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "object id",
+              "Description": "The content id or slug, ex 'welcome-to-kapost' or '51f05bc04aaaae4ae800000d'"
+            },
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "object_id",
+              "Description": "The task id to create the reminder for"
+            },
+            {
+              "Name": "lead_time",
+              "Required": "Y",
+              "Default": "",
+              "Type": "integer",
+              "Description": "The time in minutes before the reminder should be sent"
+            }
+          ]
+        },
+        {
+          "MethodName": "Update Reminder",
+          "Synopsis": "Update your reminder on the specified content/campaign and task",
+          "HTTPMethod": "PUT",
+          "URI": "/content/:content_id/reminders/:id",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "content_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "object id",
+              "Description": "The content id or slug, ex 'welcome-to-kapost' or '51f05bc04aaaae4ae800000d'"
+            },
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "object_id",
+              "Description": "The task id to update the reminder for"
+            },
+            {
+              "Name": "lead_time",
+              "Required": "Y",
+              "Default": "",
+              "Type": "integer",
+              "Description": "The time in minutes before the reminder should be sent"
+            }
+          ]
+        },
+        {
+          "MethodName": "Delete Reminder",
+          "Synopsis": "Update your reminder on the specified content/campaign and task",
+          "HTTPMethod": "DELETE",
+          "URI": "/content/:content_id/reminders/:id",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "content_id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "object id",
+              "Description": "The content id or slug, ex 'welcome-to-kapost' or '51f05bc04aaaae4ae800000d'"
+            },
+            {
+              "Name": "id",
+              "Required": "Y",
+              "Default": "",
+              "Type": "object_id",
+              "Description": "The task id to update the reminder for"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Content Analytics <pre>/api/v1/insights/content</pre>",
+      "methods": [
+        {
+          "MethodName": "List Analytics",
+          "Synopsis": "Retrieve content analytics",
+          "HTTPMethod": "GET",
+          "URI": "/insights/content",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "content_ids",
+              "Required": "Y",
+              "Default": "",
+              "Type": "array",
+              "Description": "Specify the content you want to retrieve analytics for. Expects ids, ex '51f05bc04aaaae4ae80000d'"
+            },
+            {
+              "Name": "stats",
+              "Required": "N",
+              "Default": "page_views",
+              "Type": "array",
+              "Description": "Specify which stats you want to retrieve. Valid options: page_views facebook_likes facebook_shares facebook_comments downloads email_opens linkedin_shares twitter_mentions twitter_favorites twitter_retweets youtube_comments youtube_likes youtube_favorites youtube_views gallery_shares vidyard_views"
+            },
+            {
+              "Name": "start_date",
+              "Required": "N",
+              "Default": "",
+              "Type": "utc date",
+              "Description": "iso8601-formatted start of the range to retrieve analytics"
+            },
+            {
+              "Name": "end_date",
+              "Required": "N",
+              "Default": "",
+              "Type": "utc date",
+              "Description": "iso8601-formatted end of the range to retrieve analytics"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
