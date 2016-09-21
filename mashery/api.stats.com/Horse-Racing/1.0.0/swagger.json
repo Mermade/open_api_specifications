@@ -1,0 +1,358 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Horse Racing",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "The API calls below can be used to test the Input and Output of our API endpoints.  You'll need an API key and an assigned secret to access the live data and so if you haven't contacted us yet, now is the time!  Our sales staff would be happy to set you up with trial access so you can begin to evaluate the product. horseRacing",
+    "x-mashery-id": "3730"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.stats.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "After you've been given an API key and secret, enter it below and \"Get\" the method you'd like to try out.  Fill in the parameters with what you'd like to try, or use the built in defaults, and click \"Try It!\" to execute the call.  The JSON or XML response will be populated in the Response Body, the Response Body will provide you with any relevant codes, and the Request Header URI will show you how the call would be made within your application. Please note:Also, endpoints almost always require a final \"/\".  You will receive \"596 Service Not Found\" when it is missing.  An exception to this is for optional methods, such as eventId or teamId.",
+    "url": "http://developer.stats.com/io-docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "HRAC - Schedules and results"
+    },
+    {
+      "name": "HRAC - Leaders"
+    },
+    {
+      "name": "HRAC - Horses"
+    },
+    {
+      "name": "HRAC - Jockeys"
+    },
+    {
+      "name": "HRAC - Trainers"
+    },
+    {
+      "name": "HRAC - Stories"
+    }
+  ],
+  "paths": {
+    "/stats/horseRacing/hrac/events/": {
+      "get": {
+        "operationId": "HRAC-SchedulesandresultsHRAC-Schedulesandresults",
+        "summary": "Schedules and results",
+        "tags": [
+          "HRAC - Schedules and results"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Provide a specific eventID when you want information on a single event.  Must be populated to use the box request.\n Default - basic score data will be returned using date or season, if entered, else the current days events will be returned",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "description": "Will return all events from a specific date.\n Format: YYYYMMDD or YYYY-MM-DD.\n  Default - if a specific game isn't requested, all games from the current date will be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get events for a different season, enter the year as YYYY.\n Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/horseRacing/hrac/leaders/": {
+      "get": {
+        "operationId": "HRAC-LeadersHRAC-Leaders",
+        "summary": "HRAC - Leaders",
+        "tags": [
+          "HRAC - Leaders"
+        ],
+        "parameters": [
+          {
+            "name": "leaderCategoryId",
+            "type": "integer",
+            "description": "Only one category per query. \n Default - Top 10 Horses in earnings",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "topCount",
+            "type": "integer",
+            "description": "This is the number of leaders to be returned.\n  You can return all leaders with the word 'all' instead of a number.\n  Default - Top 10 (plus ties)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get data for a different season, enter the year as YYYY.\n  Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/horseRacing/hrac/horses/": {
+      "get": {
+        "operationId": "HRAC-HorsesHRAC-Horses",
+        "summary": "HRAC - Horses",
+        "tags": [
+          "HRAC - Horses"
+        ],
+        "parameters": [
+          {
+            "name": "horseId",
+            "type": "integer",
+            "description": "To get results for single horse, enter horse ID.\n  Default - If no ID is entered, all current HRAC horses will be returned.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/horseRacing/hrac/participants/": {
+      "get": {
+        "operationId": "HRAC-JockeysHRAC-Jockeys",
+        "summary": "HRAC - Jockeys",
+        "tags": [
+          "HRAC - Jockeys"
+        ],
+        "parameters": [
+          {
+            "name": "playerId",
+            "type": "integer",
+            "description": "To get results for single jockey, enter jockey ID.\n  Default - If no ID is entered, all current HRAC jockeys will be returned.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/horseRacing/hrac/trainers/": {
+      "get": {
+        "operationId": "HRAC-TrainersHRAC-Trainers",
+        "summary": "HRAC - Trainers",
+        "tags": [
+          "HRAC - Trainers"
+        ],
+        "parameters": [
+          {
+            "name": "trainerId",
+            "type": "integer",
+            "description": "To get results for single trainer, enter trainer ID.\n  Default - If no ID is entered, all current HRAC trainers will be returned.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/horseRacing/hrac/stories/recent/": {
+      "get": {
+        "operationId": "HRAC-RecentstoriesHRAC-Stories",
+        "summary": "Recent stories for the selected league.",
+        "tags": [
+          "HRAC - Stories"
+        ],
+        "parameters": [
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/horseRacing/hrac/articles/recent/": {
+      "get": {
+        "operationId": "HRAC-RecentArticlesHRAC-Stories",
+        "summary": "Recent stories for the selected league.",
+        "tags": [
+          "HRAC - Stories"
+        ],
+        "parameters": [
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

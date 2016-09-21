@@ -1,0 +1,1558 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "WoW Community APIs - KR",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test our game APIs and check out real results below! ",
+    "x-mashery-id": "2218"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "dev.battle.net",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "Note: Before you can use the APIs you need to register to get an API key.",
+    "url": "https://dev.battle.net/member/register"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Achievement API"
+    },
+    {
+      "name": "Auction API"
+    },
+    {
+      "name": "Boss API"
+    },
+    {
+      "name": "Challenge Mode API"
+    },
+    {
+      "name": "Character Profile API"
+    },
+    {
+      "name": "Guild Profile API"
+    },
+    {
+      "name": "Item API"
+    },
+    {
+      "name": "Mount API"
+    },
+    {
+      "name": "Pet API"
+    },
+    {
+      "name": "PVP API"
+    },
+    {
+      "name": "Quest API"
+    },
+    {
+      "name": "Realm Status API"
+    },
+    {
+      "name": "Recipe API"
+    },
+    {
+      "name": "Spell API"
+    },
+    {
+      "name": "Zone API"
+    },
+    {
+      "name": "Data Resources"
+    }
+  ],
+  "paths": {
+    "/wow/achievement/{id}": {
+      "get": {
+        "operationId": "AchievementAchievementAPI",
+        "summary": "This provides data about an individual achievement...",
+        "description": "This provides data about an individual achievement.",
+        "tags": [
+          "Achievement API"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "The ID of the achievement to retrieve.",
+            "in": "path",
+            "required": true,
+            "default": "2144"
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "What locale to use in the response",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "ko_KR"
+            ]
+          },
+          {
+            "name": "jsonp",
+            "type": "string",
+            "description": "Request data to be returned as a JsonP callback",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/wow/auction/data/{realm}": {
+      "get": {
+        "operationId": "AuctionDataStatusAuctionAPI",
+        "summary": "Auction APIs currently provide rolling batches of ...",
+        "description": "Auction APIs currently provide rolling batches of data about current auctions. Fetching auction dumps is a two step process that involves checking a per-realm index file to determine if a recent dump has been generated and then fetching the most recently generated dump file if necessary.",
+        "tags": [
+          "Auction API"
+        ],
+        "parameters": [
+          {
+            "name": "realm",
+            "type": "string",
+            "description": "The realm being requested.",
+            "in": "path",
+            "required": true,
+            "default": "medivh"
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "What locale to use in the response",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "ko_KR"
+            ]
+          },
+          {
+            "name": "jsonp",
+            "type": "string",
+            "description": "Request data to be returned as a JsonP callback",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/wow/boss/": {
+      "get": {
+        "operationId": "MasterListBossAPI",
+        "summary": "A list of all supported bosses. A 'boss' in this c...",
+        "description": "A list of all supported bosses. A 'boss' in this context should be considered a boss encounter, which may include more than one NPC.",
+        "tags": [
+          "Boss API"
+        ],
+        "parameters": [
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "What locale to use in the response",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "ko_KR"
+            ]
+          },
+          {
+            "name": "jsonp",
+            "type": "string",
+            "description": "Request data to be returned as a JsonP callback",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/wow/boss/{bossid}": {
+      "get": {
+        "operationId": "BossBossAPI",
+        "summary": "The boss API provides information about bosses. A ...",
+        "description": "The boss API provides information about bosses. A 'boss' in this context should be considered a boss encounter, which may include more than one NPC.",
+        "tags": [
+          "Boss API"
+        ],
+        "parameters": [
+          {
+            "name": "bossid",
+            "type": "string",
+            "description": "The ID of the boss you want to retrieve.",
+            "in": "path",
+            "required": true,
+            "default": "24723"
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "What locale to use in the response",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "ko_KR"
+            ]
+          },
+          {
+            "name": "jsonp",
+            "type": "string",
+            "description": "Request data to be returned as a JsonP callback",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/wow/challenge/{realm}": {
+      "get": {
+        "operationId": "RealmLeaderboardChallengeModeAPI",
+        "summary": "The data in this request has data for all 9 challe...",
+        "description": "The data in this request has data for all 9 challenge mode maps (currently). The map field includes the current medal times for each dungeon. Inside each ladder we provide data about each character that was part of each run. The character data includes the current cached spec of the character while the member field includes the spec of the character during the challenge mode run.",
+        "tags": [
+          "Challenge Mode API"
+        ],
+        "parameters": [
+          {
+            "name": "realm",
+            "type": "string",
+            "description": "The realm being requested.",
+            "in": "path",
+            "required": true,
+            "default": "medivh"
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "What locale to use in the response",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "ko_KR"
+            ]
+          },
+          {
+            "name": "jsonp",
+            "type": "string",
+            "description": "Request data to be returned as a JsonP callback",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/wow/challenge/region": {
+      "get": {
+        "operationId": "RegionLeaderboardChallengeModeAPI",
+        "summary": "The region leaderboard has the exact same data for...",
+        "description": "The region leaderboard has the exact same data format as the realm leaderboards except there is no realm field. It is simply the top 100 results gathered for each map for all of the available realm leaderboards in a region.",
+        "tags": [
+          "Challenge Mode API"
+        ],
+        "parameters": [
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "What locale to use in the response",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "ko_KR"
+            ]
+          },
+          {
+            "name": "jsonp",
+            "type": "string",
+            "description": "Request data to be returned as a JsonP callback",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/wow/character/{realm}/{characterName}": {
+      "get": {
+        "operationId": "AuditCharacterProfileAPI",
+        "summary": "Raw character audit data that powers the character...",
+        "description": "Raw character audit data that powers the character audit on the game site",
+        "tags": [
+          "Character Profile API"
+        ],
+        "parameters": [
+          {
+            "name": "realm",
+            "type": "string",
+            "description": "The character's realm. Can be provided as the proper realm name or the normalized realm name.",
+            "in": "path",
+            "required": true,
+            "default": "test-realm"
+          },
+          {
+            "name": "characterName",
+            "type": "string",
+            "description": "The name of the character you want to retrieve.",
+            "in": "path",
+            "required": true,
+            "default": "Peratryn"
+          },
+          {
+            "name": "fields",
+            "type": "string",
+            "description": "Specifies what data you want to retrieve.",
+            "in": "query",
+            "required": true,
+            "default": "audit"
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "What locale to use in the response",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "ko_KR"
+            ]
+          },
+          {
+            "name": "jsonp",
+            "type": "string",
+            "description": "Request data to be returned as a JsonP callback",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/wow/guild/{realm}/{guildName}": {
+      "get": {
+        "operationId": "ChallengeGuildProfileAPI",
+        "summary": "The top 3 challenge mode guild run times for each ...",
+        "description": "The top 3 challenge mode guild run times for each challenge mode map.",
+        "tags": [
+          "Guild Profile API"
+        ],
+        "parameters": [
+          {
+            "name": "realm",
+            "type": "string",
+            "description": "The realm the guild lives on.",
+            "in": "path",
+            "required": true,
+            "default": "Medivh"
+          },
+          {
+            "name": "guildName",
+            "type": "string",
+            "description": "Name of the guild being queried",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "fields",
+            "type": "string",
+            "description": "A value of challenge tells the API to include the guild's Challenge Mode data in the response.",
+            "in": "query",
+            "required": true,
+            "default": "challenge"
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "What locale to use in the response",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "ko_KR"
+            ]
+          },
+          {
+            "name": "jsonp",
+            "type": "string",
+            "description": "Request data to be returned as a JsonP callback",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/wow/item/{itemId}": {
+      "get": {
+        "operationId": "ItemItemAPI",
+        "summary": "The item API provides detailed item information. T...",
+        "description": "The item API provides detailed item information. This includes item set information if this item is part of a set.",
+        "tags": [
+          "Item API"
+        ],
+        "parameters": [
+          {
+            "name": "itemId",
+            "type": "number",
+            "description": "Unique ID of the item being requested.",
+            "in": "path",
+            "required": true,
+            "default": "18803"
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "What locale to use in the response",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "ko_KR"
+            ]
+          },
+          {
+            "name": "jsonp",
+            "type": "string",
+            "description": "Request data to be returned as a JsonP callback",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/wow/item/set/{setId}": {
+      "get": {
+        "operationId": "ItemSetItemAPI",
+        "summary": "The item API provides detailed item information. T...",
+        "description": "The item API provides detailed item information. This includes item set information if this item is part of a set.",
+        "tags": [
+          "Item API"
+        ],
+        "parameters": [
+          {
+            "name": "setId",
+            "type": "string",
+            "description": "Unique ID of the set being requested.",
+            "in": "path",
+            "required": true,
+            "default": "1060"
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "What locale to use in the response",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "ko_KR"
+            ]
+          },
+          {
+            "name": "jsonp",
+            "type": "string",
+            "description": "Request data to be returned as a JsonP callback",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/wow/mount/": {
+      "get": {
+        "operationId": "MasterListMountAPI",
+        "summary": "A list of all supported mounts.",
+        "tags": [
+          "Mount API"
+        ],
+        "parameters": [
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "What locale to use in the response",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "ko_KR"
+            ]
+          },
+          {
+            "name": "jsonp",
+            "type": "string",
+            "description": "Request data to be returned as a JsonP callback",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/wow/pet/": {
+      "get": {
+        "operationId": "MasterListPetAPI",
+        "summary": "A list of all supported battle and vanity pets.",
+        "tags": [
+          "Pet API"
+        ],
+        "parameters": [
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "What locale to use in the response",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "ko_KR"
+            ]
+          },
+          {
+            "name": "jsonp",
+            "type": "string",
+            "description": "Request data to be returned as a JsonP callback",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/wow/pet/ability/{abilityID}": {
+      "get": {
+        "operationId": "AbilitiesPetAPI",
+        "summary": "This provides data about a individual battle pet a...",
+        "description": "This provides data about a individual battle pet ability ID. We do not provide the tooltip for the ability yet. We are working on a better way to provide this since it depends on your pet's species, level and quality rolls.",
+        "tags": [
+          "Pet API"
+        ],
+        "parameters": [
+          {
+            "name": "abilityID",
+            "type": "string",
+            "description": "The ID of the ability you want to retrieve.",
+            "in": "path",
+            "required": true,
+            "default": "640"
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "What locale to use in the response",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "ko_KR"
+            ]
+          },
+          {
+            "name": "jsonp",
+            "type": "string",
+            "description": "Request data to be returned as a JsonP callback",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/wow/pet/species/{speciesID}": {
+      "get": {
+        "operationId": "SpeciesPetAPI",
+        "summary": "This provides the data about an individual pet spe...",
+        "description": "This provides the data about an individual pet species. The species IDs can be found your character profile using the options pets field. Each species also has data about what it's 6 abilities are.",
+        "tags": [
+          "Pet API"
+        ],
+        "parameters": [
+          {
+            "name": "speciesID",
+            "type": "string",
+            "description": "The species you want to retrieve data on.",
+            "in": "path",
+            "required": true,
+            "default": "258"
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "What locale to use in the response",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "ko_KR"
+            ]
+          },
+          {
+            "name": "jsonp",
+            "type": "string",
+            "description": "Request data to be returned as a JsonP callback",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/wow/pet/stats/{speciesID}": {
+      "get": {
+        "operationId": "StatsPetAPI",
+        "summary": "Retrieve detailed information about a given specie...",
+        "description": "Retrieve detailed information about a given species of pet.",
+        "tags": [
+          "Pet API"
+        ],
+        "parameters": [
+          {
+            "name": "speciesID",
+            "type": "string",
+            "description": "The pet's species ID. This can be found by querying a users' list of pets via the Character Profile API.",
+            "in": "path",
+            "required": true,
+            "default": "258"
+          },
+          {
+            "name": "level",
+            "type": "number",
+            "description": "The pet's level. Pet levels max out at 25. If omitted the API assumes a default value of 1.",
+            "in": "query",
+            "required": false,
+            "default": "25"
+          },
+          {
+            "name": "breedId",
+            "type": "number",
+            "description": "The pet's breed. Retrievable via the Character Profile API. If omitted the API assumes a default value of 3.",
+            "in": "query",
+            "required": false,
+            "default": "5"
+          },
+          {
+            "name": "qualityId",
+            "type": "number",
+            "description": "The pet's quality. Retrievable via the Character Profile API. Pet quality can range from 0 to 5 (0 is poor quality and 5 is legendary). If omitted the API will assume a default value of 1.",
+            "in": "query",
+            "required": false,
+            "default": "4"
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "What locale to use in the response",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "ko_KR"
+            ]
+          },
+          {
+            "name": "jsonp",
+            "type": "string",
+            "description": "Request data to be returned as a JsonP callback",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/wow/leaderboard/{bracket}": {
+      "get": {
+        "operationId": "LeaderboardsPVPAPI",
+        "summary": "The Leaderboard API endpoint provides leaderboard ...",
+        "description": "The Leaderboard API endpoint provides leaderboard information for the 2v2, 3v3, 5v5 and Rated Battleground leaderboards.",
+        "tags": [
+          "PVP API"
+        ],
+        "parameters": [
+          {
+            "name": "bracket",
+            "type": "string",
+            "description": "The type of leaderboard you want to retrieve. Valid entries are 2v2, 3v3, 5v5, and rbg.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "2v2",
+              "3v3",
+              "5v5",
+              "rbg"
+            ]
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "What locale to use in the response",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "ko_KR"
+            ]
+          },
+          {
+            "name": "jsonp",
+            "type": "string",
+            "description": "Request data to be returned as a JsonP callback",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/wow/quest/{questId}": {
+      "get": {
+        "operationId": "QuestQuestAPI",
+        "summary": "Retrieve metadata for a given quest.",
+        "tags": [
+          "Quest API"
+        ],
+        "parameters": [
+          {
+            "name": "questId",
+            "type": "string",
+            "description": "The ID of the desired quest.",
+            "in": "path",
+            "required": true,
+            "default": "13146"
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "What locale to use in the response",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "ko_KR"
+            ]
+          },
+          {
+            "name": "jsonp",
+            "type": "string",
+            "description": "Request data to be returned as a JsonP callback",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/wow/realm/status": {
+      "get": {
+        "operationId": "RealmStatusRealmStatusAPI",
+        "summary": "The realm status API allows developers to retrieve...",
+        "description": "The realm status API allows developers to retrieve realm status information. This information is limited to whether or not the realm is up, the type and state of the realm, the current population, and the status of the two world PvP zones.",
+        "tags": [
+          "Realm Status API"
+        ],
+        "parameters": [
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "What locale to use in the response",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "ko_KR"
+            ]
+          },
+          {
+            "name": "jsonp",
+            "type": "string",
+            "description": "Request data to be returned as a JsonP callback",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/wow/recipe/{recipeId}": {
+      "get": {
+        "operationId": "RecipeRecipeAPI",
+        "summary": "The recipe API provides basic recipe information.",
+        "tags": [
+          "Recipe API"
+        ],
+        "parameters": [
+          {
+            "name": "recipeId",
+            "type": "string",
+            "description": "Unique ID for the desired recipe.",
+            "in": "path",
+            "required": true,
+            "default": "33994"
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "What locale to use in the response",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "ko_KR"
+            ]
+          },
+          {
+            "name": "jsonp",
+            "type": "string",
+            "description": "Request data to be returned as a JsonP callback",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/wow/spell/{spellId}": {
+      "get": {
+        "operationId": "SpellSpellAPI",
+        "summary": "The spell API provides some information about spel...",
+        "description": "The spell API provides some information about spells.",
+        "tags": [
+          "Spell API"
+        ],
+        "parameters": [
+          {
+            "name": "spellId",
+            "type": "string",
+            "description": "The ID of the spell you want to retrieve.",
+            "in": "path",
+            "required": true,
+            "default": "8056"
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "What locale to use in the response",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "ko_KR"
+            ]
+          },
+          {
+            "name": "jsonp",
+            "type": "string",
+            "description": "Request data to be returned as a JsonP callback",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/wow/zone/": {
+      "get": {
+        "operationId": "MasterListZoneAPI",
+        "summary": "A list of all supported zones and their bosses. A ...",
+        "description": "A list of all supported zones and their bosses. A 'zone' in this context should be considered a dungeon, or a raid, not a zone as in a world zone. A 'boss' in this context should be considered a boss encounter, which may include more than one NPC.",
+        "tags": [
+          "Zone API"
+        ],
+        "parameters": [
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "What locale to use in the response",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "ko_KR"
+            ]
+          },
+          {
+            "name": "jsonp",
+            "type": "string",
+            "description": "Request data to be returned as a JsonP callback",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/wow/zone/{zoneid}": {
+      "get": {
+        "operationId": "ZoneZoneAPI",
+        "summary": "The Zone API provides some information about zones...",
+        "description": "The Zone API provides some information about zones.",
+        "tags": [
+          "Zone API"
+        ],
+        "parameters": [
+          {
+            "name": "zoneid",
+            "type": "string",
+            "description": "The ID of the zone you want to retrieve.",
+            "in": "path",
+            "required": true,
+            "default": "4131"
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "What locale to use in the response",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "ko_KR"
+            ]
+          },
+          {
+            "name": "jsonp",
+            "type": "string",
+            "description": "Request data to be returned as a JsonP callback",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/wow/data/battlegroups/": {
+      "get": {
+        "operationId": "BattlegroupsDataResources",
+        "summary": "The battlegroups data API provides the list of bat...",
+        "description": "The battlegroups data API provides the list of battlegroups for this region. Please note the trailing / on this URL.",
+        "tags": [
+          "Data Resources"
+        ],
+        "parameters": [
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "What locale to use in the response",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "ko_KR"
+            ]
+          },
+          {
+            "name": "jsonp",
+            "type": "string",
+            "description": "Request data to be returned as a JsonP callback",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/wow/data/character/races": {
+      "get": {
+        "operationId": "CharacterRacesDataResources",
+        "summary": "The character races data API provides a list of ea...",
+        "description": "The character races data API provides a list of each race and their associated faction, name, unique ID, and skin.",
+        "tags": [
+          "Data Resources"
+        ],
+        "parameters": [
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "What locale to use in the response",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "ko_KR"
+            ]
+          },
+          {
+            "name": "jsonp",
+            "type": "string",
+            "description": "Request data to be returned as a JsonP callback",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/wow/data/character/classes": {
+      "get": {
+        "operationId": "CharacterClassesDataResources",
+        "summary": "The character classes data API provides a list of ...",
+        "description": "The character classes data API provides a list of character classes.",
+        "tags": [
+          "Data Resources"
+        ],
+        "parameters": [
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "What locale to use in the response",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "ko_KR"
+            ]
+          },
+          {
+            "name": "jsonp",
+            "type": "string",
+            "description": "Request data to be returned as a JsonP callback",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/wow/data/character/achievements": {
+      "get": {
+        "operationId": "CharacterAchievementsDataResources",
+        "summary": "The character achievements data API provides a lis...",
+        "description": "The character achievements data API provides a list of all of the achievements that characters can earn as well as the category structure and hierarchy.",
+        "tags": [
+          "Data Resources"
+        ],
+        "parameters": [
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "What locale to use in the response",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "ko_KR"
+            ]
+          },
+          {
+            "name": "jsonp",
+            "type": "string",
+            "description": "Request data to be returned as a JsonP callback",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/wow/data/guild/rewards": {
+      "get": {
+        "operationId": "GuildRewardsDataResources",
+        "summary": "The guild rewards data API provides a list of all ...",
+        "description": "The guild rewards data API provides a list of all guild rewards.",
+        "tags": [
+          "Data Resources"
+        ],
+        "parameters": [
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "What locale to use in the response",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "ko_KR"
+            ]
+          },
+          {
+            "name": "jsonp",
+            "type": "string",
+            "description": "Request data to be returned as a JsonP callback",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/wow/data/guild/perks": {
+      "get": {
+        "operationId": "GuildPerksDataResources",
+        "summary": "The guild perks data API provides a list of all gu...",
+        "description": "The guild perks data API provides a list of all guild perks.",
+        "tags": [
+          "Data Resources"
+        ],
+        "parameters": [
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "What locale to use in the response",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "ko_KR"
+            ]
+          },
+          {
+            "name": "jsonp",
+            "type": "string",
+            "description": "Request data to be returned as a JsonP callback",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/wow/data/guild/achievements": {
+      "get": {
+        "operationId": "GuildAchievementsDataResources",
+        "summary": "The guild achievements data API provides a list of...",
+        "description": "The guild achievements data API provides a list of all of the achievements that guilds can earn as well as the category structure and hierarchy.",
+        "tags": [
+          "Data Resources"
+        ],
+        "parameters": [
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "What locale to use in the response",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "ko_KR"
+            ]
+          },
+          {
+            "name": "jsonp",
+            "type": "string",
+            "description": "Request data to be returned as a JsonP callback",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/wow/data/item/classes": {
+      "get": {
+        "operationId": "ItemClassesDataResources",
+        "summary": "The item classes data API provides a list of item ...",
+        "description": "The item classes data API provides a list of item classes",
+        "tags": [
+          "Data Resources"
+        ],
+        "parameters": [
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "What locale to use in the response",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "ko_KR"
+            ]
+          },
+          {
+            "name": "jsonp",
+            "type": "string",
+            "description": "Request data to be returned as a JsonP callback",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/wow/data/talents": {
+      "get": {
+        "operationId": "TalentsDataResources",
+        "summary": "The talents data API provides a list of talents, s...",
+        "description": "The talents data API provides a list of talents, specs and glyphs for each class.",
+        "tags": [
+          "Data Resources"
+        ],
+        "parameters": [
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "What locale to use in the response",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "ko_KR"
+            ]
+          },
+          {
+            "name": "jsonp",
+            "type": "string",
+            "description": "Request data to be returned as a JsonP callback",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/wow/data/pet/types": {
+      "get": {
+        "operationId": "PetTypesDataResources",
+        "summary": "The different bat pet types (including what they a...",
+        "description": "The different bat pet types (including what they are strong and weak against)",
+        "tags": [
+          "Data Resources"
+        ],
+        "parameters": [
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "What locale to use in the response",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "ko_KR"
+            ]
+          },
+          {
+            "name": "jsonp",
+            "type": "string",
+            "description": "Request data to be returned as a JsonP callback",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

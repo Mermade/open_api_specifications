@@ -1,0 +1,247 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Active.com Search API v2",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test our API services using I/O Docs. This API supports keyword search against Active.com assets, result restriction to a particular location, and result filtering based on asset metadata. For additional query attribute, check out: http://developer.active.com/docs/v2_activity_api_search.",
+    "x-mashery-id": "1011"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.active.com",
+  "basePath": "/search",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "http://developer.active.com/io-docs/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Assets"
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "operationId": "SearchAssetsAssets",
+        "summary": "Search our database of events and activities using...",
+        "description": "Search our database of events and activities using the parameters below.",
+        "tags": [
+          "Assets"
+        ],
+        "parameters": [
+          {
+            "name": "near",
+            "type": "string",
+            "description": "A string naming a place that can be geocoded. If the near string is not geocodable, returns a failed geocoded error. Example: near=San%20Diego,CA,US",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "lat_lon",
+            "type": "string",
+            "description": "A location specified as a latitude and longitude separated by a comma. Example: lat_lon=43.2,-118",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "bbox",
+            "type": "string",
+            "description": "A bounding box specified by the lat/lng of the northwest and southeast corners separated by a semi-colon. Example: bbox=40.73,-74.1;40.717,-73.-99",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "geo_points",
+            "type": "string",
+            "description": "A list of lat/long pairs separated by a url encoded semi-colon. This limits the result list to assets that fall within the polygon of points. Example: geo_points=40,-70%3B30,-80%3B20,-90",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "radius",
+            "type": "number",
+            "description": "The search radius as specified in miles. Example: radius=50",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "city",
+            "type": "string",
+            "description": "Matches assets by city name. Example: city=san+diego",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "state",
+            "type": "string",
+            "description": "Matches assets by state or province code. Example: state=CA",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "zip",
+            "type": "string",
+            "description": "Matches assets by zip or postal code. Example: zip=92101",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "country",
+            "type": "string",
+            "description": "Matches assets by country name. Example: country=United%20States",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "query",
+            "type": "string",
+            "description": "Search by keywords. The free-form query to search (equivalent to what a user types in the search box on search.active.com). Example: query=marathon",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "kids",
+            "type": "string",
+            "description": "Returns only results for kids events. Setting to 'true' returns kids events with ACTIVEkids.com URLs.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "current_page",
+            "type": "number",
+            "description": "The current page of results. Defaults to 1. Example: current_page=1",
+            "in": "query",
+            "required": false,
+            "default": "1"
+          },
+          {
+            "name": "per_page",
+            "type": "number",
+            "description": "The number of results to return. Defaults to 10. Example: per_page=50",
+            "in": "query",
+            "required": false,
+            "default": "10"
+          },
+          {
+            "name": "sort",
+            "type": "string",
+            "description": "The sort order of the results. The possible values are date_asc, date_desc, and distance. If sort is not specified, results are sort by relevance to the query param. Distance can only be used when either the near or lat_lon parameters are specified and sorts the results according to distance from the specified location smallest to largest. Example: sort=date_asc",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "distance",
+              "date_asc",
+              "date_desc"
+            ]
+          },
+          {
+            "name": "facets",
+            "type": "string",
+            "description": "A comma delimited string containing the facet counts to return. It will bring all values for a particular field that show up in your result set.  In the example below, you will get a break down of all the category names present in your search for tinker bell half marathon. Example: query=tinker%20bell%20half%20marathon&facets=categoryName",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "facet_values",
+            "type": "string",
+            "description": "Returns facet counts for the specified field values. The value of the param is the field name followed by a comma delimited list of values. The field name and values are separated by a pipe It will bring back the facet count for a specific field and its value.  In the example below, you will get the total count of assets that have a category name of event for your search of tinker bell half marathon. Example: query=tinker%20bell%20half%20marathon&facet_values=categoryName:event",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "category",
+            "type": "string",
+            "description": "Matches assets by category name. List of categories can be found here: http://api.amp.active.com/v2/assets/categories",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "topic",
+            "type": "string",
+            "description": "Matches assets by topic name. List of topics can be found here: http://api.amp.active.com/v2/assets/topics",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "start_date",
+            "type": "string",
+            "description": "Limits results to assets with a start date in the given range. See http://developer.active.com/docs/v2_activity_api_search#ranges for accepted formats",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "end_date",
+            "type": "string",
+            "description": "Limits results to assets with an end date in the given range. See http://developer.active.com/docs/v2_activity_api_search#ranges for accepted formats",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "cb",
+            "type": "string",
+            "description": "JSONP callback parameter. This defines the delegated method to execute when the call is returned.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "exclude_children",
+            "type": "boolean",
+            "description": "Removes children assets from the results list. Valid values are true or false. If the parameter is not present, all assets will be returned in the results list.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "exists",
+            "type": "string",
+            "description": "Filters results to assets that have a value for the specified field(s). The value of the param is a comma-delimited of fields. Example: exists=asset.authorName",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "not_exists",
+            "type": "string",
+            "description": "Filters results to assets that do not have a value for the specified field(s). The value of the param is a comma-delimited of fields. Example: not_exists=asset.authorName",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

@@ -1,0 +1,711 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Channel 4 API",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test our API services using I/O Docs. ",
+    "x-mashery-id": "910"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.channel4.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "http://developer.channel4.com/io-docs/docs"
+  },
+  "consumes": [
+    "application/xml+atom"
+  ],
+  "produces": [
+    "application/xml+atom"
+  ],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Discovery Methods"
+    },
+    {
+      "name": "Metadata Methods"
+    }
+  ],
+  "paths": {
+    "/atoz.atom": {
+      "get": {
+        "operationId": "AtoZDiscoveryMethods",
+        "summary": "List of letters available.",
+        "tags": [
+          "Discovery Methods"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/atoz/{letter}{filter}.atom": {
+      "get": {
+        "operationId": "AtoZLetterDiscoveryMethods",
+        "summary": "List of Brands for a particular letter.",
+        "tags": [
+          "Discovery Methods"
+        ],
+        "parameters": [
+          {
+            "name": "letter",
+            "type": "string",
+            "description": "Letter to define list.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "a",
+              "b",
+              "c",
+              "d",
+              "e",
+              "z"
+            ]
+          },
+          {
+            "name": "filter",
+            "type": "string",
+            "description": "Filter list to only include Brands with 4oD.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "/4od"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/categories/{category}{filter}{sort}.atom": {
+      "get": {
+        "operationId": "CategoryDiscoveryMethods",
+        "summary": "All Channel 4 programmes associated with the speci...",
+        "description": "All Channel 4 programmes associated with the specified category",
+        "tags": [
+          "Discovery Methods"
+        ],
+        "parameters": [
+          {
+            "name": "category",
+            "type": "string",
+            "description": "All Channel 4 programmes associated with the specified category",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "comedy",
+              "documentaries",
+              "drama",
+              "entertainment"
+            ]
+          },
+          {
+            "name": "filter",
+            "type": "string",
+            "description": "Filter list to only include Brands with 4oD.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "/4od"
+            ]
+          },
+          {
+            "name": "sort",
+            "type": "string",
+            "description": "Sort by date (default), title or popular (only with 4oD filter)",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "/title",
+              "/popular"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/tv-listings/daily/{year}/{month}/{day}/{channel}.atom": {
+      "get": {
+        "operationId": "TVListingsDiscoveryMethods",
+        "summary": "EPG Information of daily broadcast content aired p...",
+        "description": "EPG Information of daily broadcast content aired per channels, according to broadcast date. Note EPG data is only available for 30 days behind and 14 days ahead of the current date.",
+        "tags": [
+          "Discovery Methods"
+        ],
+        "parameters": [
+          {
+            "name": "year",
+            "type": "number",
+            "description": "Year",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "2012",
+              "2013",
+              "2014"
+            ]
+          },
+          {
+            "name": "month",
+            "type": "number",
+            "description": "Month",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "01",
+              "02",
+              "03",
+              "04",
+              "05",
+              "06",
+              "07",
+              "08",
+              "09",
+              "10",
+              "11",
+              "12"
+            ]
+          },
+          {
+            "name": "day",
+            "type": "number",
+            "description": "Day",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "01",
+              "02",
+              "03",
+              "04",
+              "05",
+              "06",
+              "07",
+              "08",
+              "09",
+              "10",
+              "11",
+              "12",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "channel",
+            "type": "string",
+            "description": "Year",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "c4",
+              "e4",
+              "m4",
+              "f4",
+              "4m",
+              "4s"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/coming-soon{category}.atom": {
+      "get": {
+        "operationId": "ComingSoonDiscoveryMethods",
+        "summary": "Coming Soon feed display a list of episodes coming...",
+        "description": "Coming Soon feed display a list of episodes coming soon to linear TV so that I can promote new Channel 4 content.",
+        "tags": [
+          "Discovery Methods"
+        ],
+        "parameters": [
+          {
+            "name": "category",
+            "type": "string",
+            "description": "To filter coming soon to selected categroy",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "/comedy",
+              "/documentaries",
+              "/drama",
+              "/entertainment"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/search.atom": {
+      "get": {
+        "operationId": "SearchDiscoveryMethods",
+        "summary": "List of letters available.",
+        "tags": [
+          "Discovery Methods"
+        ],
+        "parameters": [
+          {
+            "name": "q",
+            "type": "string",
+            "description": "Query term, must be at least 2 chars",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/4od/episode-list/date/{year}/{month}/{day}.atom": {
+      "get": {
+        "operationId": "4oDbyDateDiscoveryMethods",
+        "summary": "Information of daily broadcast content available o...",
+        "description": "Information of daily broadcast content available on 4oD, according to broadcast date",
+        "tags": [
+          "Discovery Methods"
+        ],
+        "parameters": [
+          {
+            "name": "year",
+            "type": "number",
+            "description": "Year",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "2012",
+              "2013",
+              "2014"
+            ]
+          },
+          {
+            "name": "month",
+            "type": "number",
+            "description": "Month",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "01",
+              "02",
+              "03",
+              "04",
+              "05",
+              "06",
+              "07",
+              "08",
+              "09",
+              "10",
+              "11",
+              "12"
+            ]
+          },
+          {
+            "name": "day",
+            "type": "number",
+            "description": "Day",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "01",
+              "02",
+              "03",
+              "04",
+              "05",
+              "06",
+              "07",
+              "08",
+              "09",
+              "10",
+              "11",
+              "12",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/{brand}.atom": {
+      "get": {
+        "operationId": "BrandHubFeedMetadataMethods",
+        "summary": "Brand Information",
+        "tags": [
+          "Metadata Methods"
+        ],
+        "parameters": [
+          {
+            "name": "brand",
+            "type": "string",
+            "description": "The Brand Web Safe Title, that can be found in the discovery methods",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "shameless",
+              "countdown",
+              "peep-show",
+              "grand-designs"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/{brand}/4od.atom": {
+      "get": {
+        "operationId": "4oDFeedMetadataMethods",
+        "summary": "A feed containing all available on-demand long-for...",
+        "description": "A feed containing all available on-demand long-form content for a specified brand.",
+        "tags": [
+          "Metadata Methods"
+        ],
+        "parameters": [
+          {
+            "name": "brand",
+            "type": "string",
+            "description": "The Brand Web Safe Title, that can be found in the discovery methods",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "shameless",
+              "countdown",
+              "peep-show",
+              "grand-designs"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/{brand}/episode-guide{series}{episode}.atom": {
+      "get": {
+        "operationId": "EpisodeGuideFeedMetadataMethods",
+        "summary": "A feed containing all available on-demand long-for...",
+        "description": "A feed containing all available on-demand long-form content for a specified brand.",
+        "tags": [
+          "Metadata Methods"
+        ],
+        "parameters": [
+          {
+            "name": "brand",
+            "type": "string",
+            "description": "The Brand Web Safe Title, that can be found in the discovery methods",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "shameless",
+              "countdown",
+              "peep-show",
+              "grand-designs"
+            ]
+          },
+          {
+            "name": "series",
+            "type": "string",
+            "description": "Drill down into the series NOTE not all Brands have multiple series",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "/series-1",
+              "/series-2",
+              "/series-3"
+            ]
+          },
+          {
+            "name": "episode",
+            "type": "string",
+            "description": "Drill down into the episodes NOTE not all Brands have multiple series",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "/episode-1",
+              "/episode-2",
+              "/episode-3"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/{brand}/epg.atom": {
+      "get": {
+        "operationId": "BrandEPGMetadataMethods",
+        "summary": "This feed contains metadata about upcoming electro...",
+        "description": "This feed contains metadata about upcoming electronic programme guide (EPG) information for a brand.",
+        "tags": [
+          "Metadata Methods"
+        ],
+        "parameters": [
+          {
+            "name": "brand",
+            "type": "string",
+            "description": "The Brand Web Safe Title, that can be found in the discovery methods",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "shameless",
+              "countdown",
+              "peep-show",
+              "grand-designs"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/{brand}/video{series}{episode}.atom": {
+      "get": {
+        "operationId": "ClipFeedsMetadataMethods",
+        "summary": "A feed containing metadata about all the short-for...",
+        "description": "A feed containing metadata about all the short-form (clip) videos. The clips feed can be accessed at different levels: the content is then filtered depending on the level, but the structure is identical",
+        "tags": [
+          "Metadata Methods"
+        ],
+        "parameters": [
+          {
+            "name": "brand",
+            "type": "string",
+            "description": "The Brand Web Safe Title, that can be found in the discovery methods",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "shameless",
+              "countdown",
+              "peep-show",
+              "grand-designs"
+            ]
+          },
+          {
+            "name": "series",
+            "type": "string",
+            "description": "Drill down into the series NOTE not all Brands have multiple series",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "/series-1",
+              "/series-2",
+              "/series-3"
+            ]
+          },
+          {
+            "name": "episode",
+            "type": "string",
+            "description": "Drill down into the episodes NOTE not all Brands have multiple series",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "/episode-1",
+              "/episode-2",
+              "/episode-3"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/programme/{programmeID}.atom": {
+      "get": {
+        "operationId": "ProgrammeMetadataMethods",
+        "summary": "A feed containing all long-form content currently ...",
+        "description": "A feed containing all long-form content currently or previously available for a specified Programme Id. \nThe entries for the Programme feed contain references to long-form assets for each platform.",
+        "tags": [
+          "Metadata Methods"
+        ],
+        "parameters": [
+          {
+            "name": "programmeID",
+            "type": "string",
+            "description": "The websafe programme identifier for the episode for which you seek on-demand content",
+            "in": "path",
+            "required": true,
+            "default": "33881-001"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

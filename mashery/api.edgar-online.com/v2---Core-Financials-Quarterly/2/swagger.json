@@ -1,0 +1,220 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "v2 - Core Financials Quarterly",
+    "version": "2",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test our API services using I/O Docs. The core financial API contains finacial data for the core dataset.",
+    "x-mashery-id": "3153"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.edgar-online.com",
+  "basePath": "/v2/corefinancials",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "http://developer.edgar-online.com/iodocs/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Core Financial - Quaterly Calls"
+    }
+  ],
+  "paths": {
+    "/qtr": {
+      "get": {
+        "operationId": "GetFundamentalDataCoreFinancial-QuaterlyCalls",
+        "summary": "Call the Core Financials function for Balance Shee...",
+        "description": "Call the Core Financials function for Balance Sheet, Income Statement, Cash Flow ...",
+        "tags": [
+          "Core Financial - Quaterly Calls"
+        ],
+        "parameters": [
+          {
+            "name": "fields",
+            "type": "string",
+            "description": "Concept groups reflect the logical grouping of the fields in the dataset into smaller categories to formulate calls for financial statements or company descriptive information.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "BalanceSheetConsolidated",
+              "IncomeStatementConsolidated",
+              "CashFlowStatementConsolidated",
+              "BalanceSheetConsolidated,IncomeStatementConsolidated"
+            ]
+          },
+          {
+            "name": "filter",
+            "type": "string",
+            "description": "Filter expression for custom filtering",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "entityids",
+            "type": "integer",
+            "description": "Enter entityid or list of entityids separated by comma. For example: 8528,8530",
+            "in": "query",
+            "required": false,
+            "default": "8528,8530"
+          },
+          {
+            "name": "primarysymbols",
+            "type": "string",
+            "description": "Enter primarysymbol or list of primarysymbols separated by comma. For example: AAPL,MSFT",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "primaryexchanges",
+            "type": "string",
+            "description": "Enter primaryexchange or list of primaryexchanges separated by comma.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "companynames",
+            "type": "string",
+            "description": "Enter companyname or list of companynames separated by comma.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "numPeriods",
+            "type": "integer",
+            "description": "Numperiod defines the timeperiod for which the financial information is to be retrieved for specified fields or conceptgroups. If none of these are specified then the default numperiods is used. For example to retrieve 3 years history  of quarterly data specify numperiods=12.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "periodoffset",
+            "type": "integer",
+            "description": "PeriodOffset is used with 'Numperiods' parameter and defines the shift of NumPeriods for which the financial information is to be retrieved for specified fields or conceptgroups. If none of these are specified then the default 'numPeriods' is used. For example to retrieve previous 2 quarters of history specify numperiods=3 and periodoffset=1.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "fiscalPeriod",
+            "type": "string",
+            "description": "Retrieve financial information for specified fields or conceptgroups based on fiscal year and it's quarter defined by FYQ1,FYQ2..., if none of these are specified then the default 'numPeriods' is used. For example to retrieve data between fiscal period of 2010 Q1 and 2012 Q4, specify fiscalperiod=2010q1~2012q4.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "periodenddate",
+            "type": "string",
+            "format": "date",
+            "description": "Retrieve financial information for specified fields or conceptgroups based on the financial year end defined by yyyyMMdd. If none of these are specified then the default 'numPeriods' is used. For example to retrieve data for the period end date 7/1/2012, specify periodenddate=20120701.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "modifiedsince",
+            "type": "string",
+            "description": "Search financial information based on modified since date range. For example: range - 20151001~20151101 or start date - 20151001.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "activecompanies",
+            "type": "boolean",
+            "description": "Retrieve financial information for active companies.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "deleted",
+            "type": "boolean",
+            "description": "Search financial information based on flag 'deleted'.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "false",
+              "true",
+              "any"
+            ]
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Limit is used with paging. Limit defines the number of rows to return in a single call. Enter a number between 1 - 9999.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "integer",
+            "description": "Offset is used with paging. Offset defines which page number to retrieve based on total numbers of rows and limit.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "sortby",
+            "type": "string",
+            "description": "Sort Parameter can be used to sort the data in ASC or DESC. For example to sort by primarysymbols enter primarysymbols in this field followed by ASC for ascending order and DESC for descending order (primarysymbols DESC).",
+            "in": "query",
+            "required": false,
+            "default": "primarysymbol asc"
+          },
+          {
+            "name": "debug",
+            "type": "boolean",
+            "description": "Debug parameter helps developers investigate what happened during the call and what items were substituted if any during the call. Select true to invoke debug parameter.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Get the response in XML or JSON.",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

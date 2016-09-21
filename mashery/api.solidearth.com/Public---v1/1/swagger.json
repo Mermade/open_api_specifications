@@ -1,0 +1,935 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Public - v1",
+    "version": "1",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test our API services using I/O Docs. You can also view our documentation here. The Public API is made up of three datasets: Agent (contact info and photos), Office (name, location, and contact info), Listing (property search and detail info).  Results are returned using RESO data dictionary standards.",
+    "x-mashery-id": "1584"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.solidearth.com",
+  "basePath": "/v1",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "https://developer.solidearth.com/io-docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Sites"
+    },
+    {
+      "name": "Agent"
+    },
+    {
+      "name": "Office"
+    },
+    {
+      "name": "Search"
+    },
+    {
+      "name": "Listing Detail"
+    },
+    {
+      "name": "Events"
+    },
+    {
+      "name": "Authenticate"
+    }
+  ],
+  "paths": {
+    "/sites": {
+      "get": {
+        "operationId": "SiteInformationSites",
+        "summary": "Get List of sites with api turned on.",
+        "tags": [
+          "Sites"
+        ],
+        "parameters": [
+          {
+            "name": "format",
+            "type": "string",
+            "description": "content type",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/agent/{site}/{agent_key}": {
+      "get": {
+        "operationId": "ViewActiveAgentByIdAgent",
+        "summary": "Get agent info",
+        "tags": [
+          "Agent"
+        ],
+        "parameters": [
+          {
+            "name": "site",
+            "type": "string",
+            "description": "Board or Association of REALTORS",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "gbrar",
+              "tuscar",
+              "mibor",
+              "baarmls",
+              "sandicor",
+              "rafgc",
+              "lafmls",
+              "metrotex",
+              "nwms",
+              "mobmls",
+              "baymls",
+              "neren"
+            ]
+          },
+          {
+            "name": "agent_key",
+            "type": "string",
+            "description": "Get agent information by agent ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "content type",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/agent/{site}/n/{name}": {
+      "get": {
+        "operationId": "ViewActiveAgentByNameAgent",
+        "summary": "Get agent info.",
+        "tags": [
+          "Agent"
+        ],
+        "parameters": [
+          {
+            "name": "site",
+            "type": "string",
+            "description": "Board or Association of REALTORS",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "gbrar",
+              "tuscar",
+              "mibor",
+              "baarmls",
+              "sandicor",
+              "rafgc",
+              "lafmls",
+              "metrotex",
+              "nwms",
+              "mobmls",
+              "baymls",
+              "neren"
+            ]
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "description": "Search agents by name",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "content type",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/office/{site}/{officeId}": {
+      "get": {
+        "operationId": "OfficeinfobyIdOffice",
+        "summary": "View office public info",
+        "tags": [
+          "Office"
+        ],
+        "parameters": [
+          {
+            "name": "site",
+            "type": "string",
+            "description": "Board or Association of REALTORS",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "gbrar",
+              "tuscar",
+              "mibor",
+              "baarmls",
+              "sandicor",
+              "rafgc",
+              "lafmls",
+              "metrotex",
+              "nwms",
+              "mobmls",
+              "baymls",
+              "neren"
+            ]
+          },
+          {
+            "name": "officeId",
+            "type": "string",
+            "description": "Office Id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "content type",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/office/{site}": {
+      "get": {
+        "operationId": "OfficeinfobysiteOffice",
+        "summary": "View list of active offices for an MLS board.",
+        "tags": [
+          "Office"
+        ],
+        "parameters": [
+          {
+            "name": "site",
+            "type": "string",
+            "description": "Board or Association of REALTORS",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "gbrar",
+              "tuscar",
+              "mibor",
+              "baarmls",
+              "sandicor",
+              "rafgc",
+              "lafmls",
+              "metrotex",
+              "nwms",
+              "mobmls",
+              "baymls",
+              "neren"
+            ]
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "content type",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/office/{site}/a/{agent_key}": {
+      "get": {
+        "operationId": "OfficeinfobyagentkeyOffice",
+        "summary": "View office public info",
+        "tags": [
+          "Office"
+        ],
+        "parameters": [
+          {
+            "name": "site",
+            "type": "string",
+            "description": "Board or Association of REALTORS",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "gbrar",
+              "tuscar",
+              "mibor",
+              "baarmls",
+              "sandicor",
+              "rafgc",
+              "lafmls",
+              "metrotex",
+              "nwms",
+              "mobmls",
+              "baymls",
+              "neren"
+            ]
+          },
+          {
+            "name": "agent_key",
+            "type": "string",
+            "description": "Agent key",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "content type",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/search/{site}/propertyType": {
+      "get": {
+        "operationId": "PropertyTypeListSearch",
+        "summary": "Get List of Property Types by site.",
+        "tags": [
+          "Search"
+        ],
+        "parameters": [
+          {
+            "name": "site",
+            "type": "string",
+            "description": "Board or Association of REALTORS",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "gbrar",
+              "tuscar",
+              "mibor",
+              "baarmls",
+              "sandicor",
+              "rafgc",
+              "lafmls",
+              "metrotex",
+              "nwms",
+              "mobmls",
+              "baymls",
+              "neren"
+            ]
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "content type",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/search/{site}": {
+      "get": {
+        "operationId": "SearchSearch",
+        "summary": "Search lisitngs with access to all paramters.",
+        "tags": [
+          "Search"
+        ],
+        "parameters": [
+          {
+            "name": "site",
+            "type": "string",
+            "description": "site",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "gbrar",
+              "tuscar",
+              "mibor",
+              "baarmls",
+              "sandicor",
+              "rafgc",
+              "lafmls",
+              "metrotex",
+              "nwms",
+              "mobmls",
+              "baymls",
+              "neren"
+            ]
+          },
+          {
+            "name": "ListPriceMin",
+            "type": "string",
+            "description": "Min Price",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "ListPriceMax",
+            "type": "string",
+            "description": "Max Price",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "BathsTotalMin",
+            "type": "string",
+            "description": "min total baths",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "BedsTotalMin",
+            "type": "string",
+            "description": "min total beds",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "MlsStatusin",
+            "type": "string",
+            "description": "Comma separated list of property status",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Active"
+            ]
+          },
+          {
+            "name": "sortOption",
+            "type": "string",
+            "description": "Determines the order of the data set",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "ListPrice",
+              "ListPrice desc",
+              "created",
+              "created desc",
+              "BedsTotal",
+              "BedsTotal desc",
+              "BathsTotal",
+              "BathsTotal desc",
+              "LivingArea",
+              "LivingArea desc"
+            ]
+          },
+          {
+            "name": "class",
+            "type": "string",
+            "description": "Comma separated list of property status",
+            "in": "query",
+            "required": false,
+            "default": "Residential"
+          },
+          {
+            "name": "_keywordsAll",
+            "type": "string",
+            "description": "Comma separated list of keywords (neighborhood,zip,city,address)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "_featuresIn",
+            "type": "string",
+            "description": "Comma separated list of features(pool,deck,patio)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "PropertyTypeIn",
+            "type": "string",
+            "description": "Comma separated list of type",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Condominium",
+              "Single Family Residence",
+              "Manufactured Home",
+              "Townhouse"
+            ]
+          },
+          {
+            "name": "expand",
+            "type": "boolean",
+            "description": "The response payload",
+            "in": "query",
+            "required": false,
+            "default": "true"
+          },
+          {
+            "name": "page",
+            "type": "string",
+            "description": "page",
+            "in": "query",
+            "required": true,
+            "default": "0"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "content type",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/listing/{site}/{listingKey}": {
+      "get": {
+        "operationId": "ListingExpandListingDetail",
+        "summary": "Get expanded fields using a listing key",
+        "tags": [
+          "Listing Detail"
+        ],
+        "parameters": [
+          {
+            "name": "site",
+            "type": "string",
+            "description": "Board or Association of REALTORS for this listing.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "gbrar",
+              "tuscar",
+              "mibor",
+              "baarmls",
+              "sandicor",
+              "rafgc",
+              "lafmls",
+              "metrotex",
+              "nwms",
+              "mobmls",
+              "baymls",
+              "neren"
+            ]
+          },
+          {
+            "name": "listingKey",
+            "type": "string",
+            "description": "A unique identifier for this record from the source.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "expand",
+            "type": "boolean",
+            "description": "Returns an expanded result set.",
+            "in": "query",
+            "required": false,
+            "default": "true"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "content type",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/event/{site}/{type}": {
+      "get": {
+        "operationId": "ViewEventsEvents",
+        "summary": "view latest events.",
+        "tags": [
+          "Events"
+        ],
+        "parameters": [
+          {
+            "name": "site",
+            "type": "string",
+            "description": "site",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "gbrar",
+              "tuscar",
+              "mibor",
+              "baarmls",
+              "sandicor",
+              "rafgc",
+              "lafmls",
+              "metrotex",
+              "nwms",
+              "mobmls",
+              "baymls",
+              "neren"
+            ]
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "description": "Event Type",
+            "in": "path",
+            "required": true,
+            "default": "view"
+          },
+          {
+            "name": "page",
+            "type": "string",
+            "description": "page",
+            "in": "query",
+            "required": true,
+            "default": "1"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "content type",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/event/{site}/l/{listingId}": {
+      "get": {
+        "operationId": "ViewEventsforListingEvents",
+        "summary": "view latest events.",
+        "tags": [
+          "Events"
+        ],
+        "parameters": [
+          {
+            "name": "site",
+            "type": "string",
+            "description": "Board or Association of REALTORS",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "gbrar",
+              "tuscar",
+              "mibor",
+              "baarmls",
+              "sandicor",
+              "rafgc",
+              "lafmls",
+              "metrotex",
+              "nwms",
+              "mobmls",
+              "baymls",
+              "neren"
+            ]
+          },
+          {
+            "name": "listingId",
+            "type": "string",
+            "description": "MLS ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "page",
+            "type": "string",
+            "description": "Option to start the results at a specific page.  Each page has 100 events.",
+            "in": "query",
+            "required": false,
+            "default": "1"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "content type",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/oauth/authenticate": {
+      "get": {
+        "operationId": "AuthenticateAuthenticate",
+        "summary": "",
+        "tags": [
+          "Authenticate"
+        ],
+        "parameters": [
+          {
+            "name": "scope",
+            "type": "string",
+            "description": "Scope",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "redirect_uri",
+            "type": "string",
+            "description": "URI redirect after user authenticates",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

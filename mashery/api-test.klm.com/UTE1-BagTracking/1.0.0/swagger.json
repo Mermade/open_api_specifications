@@ -1,0 +1,1416 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "UTE1 BagTracking API",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test our API services using I/O Docs. You can also view our [written documentation]. To track the baggage of a Customer",
+    "x-mashery-id": "5016"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api-test.klm.com",
+  "basePath": "/bag",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "https://developer-test.klm.com/io-docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "oauth2": {
+      "type": "oauth2",
+      "flow": "application",
+      "tokenUrl": "",
+      "scopes": {}
+    }
+  },
+  "security": [
+    {
+      "oauth2": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "User Resources"
+    }
+  ],
+  "paths": {
+    "/tracking/{bagId}": {
+      "get": {
+        "operationId": "getBaggageUserResources",
+        "summary": "Get a specific baggage",
+        "tags": [
+          "User Resources"
+        ],
+        "parameters": [
+          {
+            "name": "bagId",
+            "type": "string",
+            "description": "The bagId that is in the URI",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "bagId",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/tracking": {
+      "get": {
+        "operationId": "searchBaggageUserResources",
+        "summary": "Search baggages that match criteria",
+        "tags": [
+          "User Resources"
+        ],
+        "parameters": [
+          {
+            "name": "pnr",
+            "type": "string",
+            "description": "The PNR of the travel",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "flightAirline",
+            "type": "string",
+            "description": "The flight airline: [A-Z]{2}\n            [A-Z][0-9]\n            [0-9][A-Z]",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "flightNumber",
+            "type": "string",
+            "description": "The flight number: [0-9]{3,4}",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "flightSuffix",
+            "type": "string",
+            "description": "The flight suffix: [A-Z]?",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "flightDate",
+            "type": "string",
+            "format": "date",
+            "description": "The flight date: format is yyyy-MM-dd",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "flightOrigin",
+            "type": "string",
+            "description": "The departure airport code: [A-Z]{3}",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "tag",
+            "type": "string",
+            "description": "The tag of the baggage (can be multiple, comma separated): ([0-9])?([0-9]{3}\n            [A-Z]{2}\n            [A-Z][0-9]\n            [0-9][A-Z])([0-9]{6})",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "ahl",
+            "type": "string",
+            "description": "AHL reference<br/>[A-Z]{3}[A-Z0-9]{2}[0-9]{5}",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/tracking/claim/{claimId}": {
+      "get": {
+        "operationId": "getClaimUserResources",
+        "summary": "Get a specific claim file from Worldtracer",
+        "tags": [
+          "User Resources"
+        ],
+        "parameters": [
+          {
+            "name": "claimId",
+            "type": "string",
+            "description": "The claimId that is in the URI<br/>[A-Z]{3}[A-Z0-9]{2}[0-9]{5}",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "claimId",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "SearchBaggages": {
+      "type": "object",
+      "properties": {}
+    },
+    "ErrorType": {
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "docURL": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string"
+        },
+        "nodeList": {
+          "type": "string"
+        },
+        "recordID": {
+          "type": "string"
+        },
+        "shortText": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "tag": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "Emails": {
+      "properties": {
+        "email": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ContactInfoType": {
+      "properties": {
+        "state": {
+          "type": "string"
+        },
+        "zipCode": {
+          "type": "string"
+        }
+      }
+    },
+    "PassengerPaymentType": {
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "A",
+            "D",
+            "F",
+            "I",
+            "X"
+          ]
+        }
+      }
+    },
+    "DelayedBagGroupType": {
+      "properties": {
+        "bagLastSeen": {
+          "type": "string"
+        },
+        "baggageWeight": {
+          "type": "string"
+        },
+        "contentsGender": {
+          "type": "string",
+          "enum": [
+            "M",
+            "F"
+          ]
+        },
+        "excessBaggage": {
+          "type": "string"
+        },
+        "matchWindow": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "missingWeight": {
+          "type": "string"
+        }
+      }
+    },
+    "WarningsType": {
+      "properties": {
+        "warning": {
+          "type": "array"
+        }
+      }
+    },
+    "LiabilityTag": {
+      "properties": {
+        "value": {
+          "type": "string",
+          "enum": [
+            "YES",
+            "NO"
+          ]
+        }
+      }
+    },
+    "PassengerItineraryType": {
+      "properties": {
+        "autoMsgOption": {
+          "type": "string",
+          "enum": [
+            "SMS",
+            "EMAIL",
+            "SMS_AND_EMAIL",
+            "NO_MESSAGE"
+          ]
+        },
+        "fareBasis": {
+          "type": "string"
+        },
+        "frequentFlyerID": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string"
+        },
+        "noOfPassengers": {
+          "type": "string"
+        },
+        "passportInfo": {
+          "type": "string"
+        },
+        "pooledTktNumber": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "ticketNumber": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      }
+    },
+    "LicenseNumberType": {
+      "properties": {
+        "issuerCode": {
+          "type": "string"
+        },
+        "tagType": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "CrossReferenceRecords": {
+      "properties": {
+        "crossReferenceRecord": {
+          "type": "array"
+        }
+      }
+    },
+    "PaxFlight": {
+      "properties": {
+        "sequenceNumber": {
+          "type": "string"
+        }
+      }
+    },
+    "JsonSchema": {
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "disallow": {
+          "type": "array"
+        },
+        "extends": {
+          "type": "array"
+        },
+        "id": {
+          "type": "string"
+        },
+        "readonly": {
+          "type": "boolean"
+        },
+        "required": {
+          "type": "boolean"
+        }
+      }
+    },
+    "TempPhones": {
+      "properties": {
+        "phone": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "StateProvType": {
+      "properties": {
+        "stateCode": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "DelayedBags": {
+      "properties": {
+        "delayedBag": {
+          "type": "array"
+        }
+      }
+    },
+    "AdditionalRoutes": {
+      "properties": {
+        "route": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ErrorsType": {
+      "properties": {
+        "error": {
+          "type": "array"
+        }
+      }
+    },
+    "Flight": {
+      "properties": {
+        "airline": {
+          "type": "string"
+        },
+        "destination": {
+          "type": "string"
+        },
+        "ltDateScheduledDeparture": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "milestone": {
+          "type": "array"
+        },
+        "number": {
+          "type": "string"
+        },
+        "origin": {
+          "type": "string"
+        },
+        "originatingStationDateGmt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "status": {
+          "type": "array"
+        },
+        "suffix": {
+          "type": "string"
+        }
+      }
+    },
+    "MiscInfo": {
+      "properties": {
+        "textLine": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "DiaryInfoType": {
+      "properties": {
+        "claimInvestigationDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "closeDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "controllingStation": {
+          "type": "string"
+        },
+        "createDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "dateInventoryReceived": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "disposalDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "reinstateDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "rematchDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "retiredDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "suspendDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "tracingDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "tracingFinalized": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "Milestone": {
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "utcDateTime": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "ToiletKits": {
+      "properties": {
+        "female": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "male": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "FlightSegments": {
+      "properties": {
+        "flightSegmentOrARNK": {
+          "type": "array"
+        }
+      }
+    },
+    "SuccessType": {},
+    "Tag": {
+      "properties": {
+        "bagId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "tagNumber": {
+          "type": "string"
+        }
+      }
+    },
+    "FlightDateType": {
+      "properties": {
+        "airlineCode": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "flightNumber": {
+          "type": "string"
+        }
+      }
+    },
+    "About": {
+      "properties": {
+        "buildDate": {
+          "type": "string"
+        },
+        "buildNumber": {
+          "type": "string"
+        },
+        "timezone": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "PassengerPayments": {
+      "properties": {
+        "passengerPayment": {
+          "type": "array"
+        }
+      }
+    },
+    "Amount": {
+      "properties": {
+        "amount": {
+          "type": "number",
+          "format": "double"
+        },
+        "currencyCode": {
+          "type": "string"
+        },
+        "decimalPlaces": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "WTRAddressType": {
+      "properties": {
+        "addressLine": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "apartment": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "houseNumber": {
+          "type": "string"
+        },
+        "streetName": {
+          "type": "string"
+        }
+      }
+    },
+    "InitialType": {
+      "properties": {
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "TempAddress": {
+      "properties": {
+        "validityDate": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "InternetInfo": {
+      "properties": {
+        "text": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "BagDescType": {
+      "properties": {
+        "mtrlElement": {
+          "type": "string",
+          "enum": [
+            "D",
+            "L",
+            "M",
+            "R",
+            "T",
+            "X"
+          ]
+        },
+        "otherElement": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "B",
+              "K",
+              "C",
+              "H",
+              "S",
+              "W",
+              "X"
+            ]
+          }
+        }
+      }
+    },
+    "WTRDelayedBagRecReadRS": {
+      "properties": {
+        "altLangID": {
+          "type": "string"
+        },
+        "designatedLocator": {
+          "type": "string"
+        },
+        "echoToken": {
+          "type": "string"
+        },
+        "handledAirlineCopyInd": {
+          "type": "string",
+          "enum": [
+            "YES",
+            "NO",
+            "REPEAT",
+            "FULL"
+          ]
+        },
+        "primaryLangID": {
+          "type": "string"
+        },
+        "sequenceNmbr": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "target": {
+          "type": "string"
+        },
+        "timeStamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "transactionIdentifier": {
+          "type": "string"
+        },
+        "transactionStatusCode": {
+          "type": "string"
+        },
+        "version": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "PartnerCode": {
+      "properties": {
+        "carrierCode": {
+          "type": "string"
+        }
+      }
+    },
+    "Profile": {
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "family": {
+          "type": "string"
+        }
+      }
+    },
+    "LocalDlvInfo": {
+      "properties": {
+        "dlvInfo": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "FlightDateOrARNKType": {
+      "properties": {}
+    },
+    "BagReceivedType": {
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "station": {
+          "type": "string"
+        }
+      }
+    },
+    "Country": {
+      "properties": {
+        "countryCode": {
+          "type": "string"
+        },
+        "countryName": {
+          "type": "string"
+        }
+      }
+    },
+    "Names": {
+      "properties": {
+        "name": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "AdditionalInfoType": {
+      "properties": {
+        "customsInfo": {
+          "type": "string"
+        },
+        "furtherInfo": {
+          "type": "string"
+        }
+      }
+    },
+    "OriginDestinationType": {
+      "properties": {
+        "destination": {
+          "type": "string"
+        },
+        "origin": {
+          "type": "string"
+        }
+      }
+    },
+    "FlightSegmentType": {
+      "properties": {}
+    },
+    "BrandInfo": {
+      "properties": {
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "DelayedClaimType": {
+      "properties": {
+        "claimDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "dateNotified": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "faultStationCode": {
+          "type": "string"
+        },
+        "faultTerminal": {
+          "type": "string"
+        },
+        "lossComments": {
+          "type": "string"
+        },
+        "lossReasonCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "missingBags": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "questionnaireDate": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "PermPhones": {
+      "properties": {
+        "phone": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "EmptyType": {},
+    "ContentType": {
+      "properties": {
+        "category": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "CostRemarks": {
+      "properties": {
+        "textLine": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "DelayedBagType": {
+      "properties": {
+        "bagDetails": {
+          "type": "string"
+        },
+        "contentsDesc": {
+          "type": "string"
+        },
+        "lockCode": {
+          "type": "string"
+        },
+        "uniqueID": {
+          "type": "string"
+        }
+      }
+    },
+    "WTFile": {
+      "properties": {
+        "colorType": {
+          "type": "string"
+        },
+        "reference": {
+          "type": "string"
+        },
+        "utcDateTimeCreation": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "Bag": {
+      "properties": {
+        "links": {
+          "type": "array"
+        },
+        "milestone": {
+          "type": "array"
+        },
+        "originalFlight": {
+          "type": "array"
+        },
+        "profile": {
+          "type": "array"
+        },
+        "rushFlight": {
+          "type": "array"
+        },
+        "rushTag": {
+          "type": "array"
+        },
+        "status": {
+          "type": "array"
+        },
+        "utcDateTimeActivation": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "utcDateTimeCreation": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "weight": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "weightUnit": {
+          "type": "string"
+        }
+      }
+    },
+    "BagPhones": {
+      "properties": {
+        "phone": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ContentsType": {
+      "properties": {
+        "content": {
+          "type": "array"
+        }
+      }
+    },
+    "ClaimAmout": {
+      "properties": {}
+    },
+    "RecordReferenceType": {
+      "properties": {
+        "airlineCode": {
+          "type": "string"
+        },
+        "referenceNumber": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "stationCode": {
+          "type": "string"
+        }
+      }
+    },
+    "Remarks": {
+      "properties": {
+        "remark": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "RecordIdentifierType": {
+      "properties": {
+        "recordType": {
+          "type": "string",
+          "enum": [
+            "DELAYED",
+            "ON_HAND",
+            "RUSH",
+            "DAMAGED",
+            "RUSH_DELAYED",
+            "RUSH_ONHAND",
+            "RUSH_LZ",
+            "QUICK_ONHAND"
+          ]
+        }
+      }
+    },
+    "Faxes": {
+      "properties": {
+        "fax": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "RecordHistoryType": {
+      "properties": {
+        "history": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "matchHistory": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "AmountType": {
+      "properties": {
+        "amount": {
+          "type": "number",
+          "format": "double"
+        },
+        "currencyCode": {
+          "type": "string"
+        },
+        "decimalPlaces": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "FlightSegmentOrARNKType": {
+      "properties": {}
+    },
+    "EmailInfo": {
+      "properties": {
+        "text": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "BagDeliveryType": {
+      "properties": {
+        "bagReceivedDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "deliveredTime": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "MessageInfo": {
+      "properties": {
+        "text": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "SupplimentalInfo": {
+      "properties": {
+        "textLine": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "FlightHours": {
+      "properties": {
+        "ltActual": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "ltEstimated": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "Itinerary": {
+      "properties": {}
+    },
+    "Claim": {
+      "properties": {
+        "ahl": {
+          "type": "array"
+        },
+        "ohd": {
+          "type": "array"
+        }
+      }
+    },
+    "CellPhones": {
+      "properties": {
+        "phone": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "MatchInfo": {
+      "properties": {
+        "text": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "WarningType": {
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "docURL": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string"
+        },
+        "recordID": {
+          "type": "string"
+        },
+        "shortText": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "tag": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "Pax": {
+      "properties": {
+        "paxFirstName": {
+          "type": "string"
+        },
+        "paxFrequentfTravelNumber": {
+          "type": "string"
+        },
+        "paxLastName": {
+          "type": "string"
+        },
+        "pnr": {
+          "type": "string"
+        },
+        "profile": {
+          "type": "array"
+        }
+      }
+    },
+    "Insurance": {
+      "properties": {
+        "value": {
+          "type": "string",
+          "enum": [
+            "YES",
+            "NO"
+          ]
+        }
+      }
+    },
+    "ExcessValue": {
+      "properties": {
+        "amount": {
+          "type": "number",
+          "format": "double"
+        },
+        "currencyCode": {
+          "type": "string"
+        },
+        "decimalPlaces": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "BaggageItinerary": {
+      "properties": {
+        "flightDateOrARNK": {
+          "type": "array"
+        }
+      }
+    },
+    "BagTagDestinations": {
+      "properties": {
+        "station": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Status": {
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "delivered": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "family": {
+          "type": "string"
+        },
+        "outForDelivery": {
+          "type": "string"
+        },
+        "trackingUpdate": {
+          "type": "string"
+        },
+        "unableToDeliver": {
+          "type": "string"
+        },
+        "utcDateTime": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "DeliveryType": {
+      "properties": {
+        "deliveryInfo": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "deliveryService": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "deliveryWeight": {
+          "type": "string"
+        }
+      }
+    },
+    "PostalCode": {
+      "properties": {
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "Link": {
+      "properties": {
+        "href": {
+          "type": "string"
+        },
+        "rel": {
+          "type": "string"
+        },
+        "templated": {
+          "type": "boolean"
+        }
+      }
+    },
+    "UserComments": {
+      "properties": {
+        "textLine": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Initials": {
+      "properties": {
+        "intial": {
+          "type": "array"
+        }
+      }
+    },
+    "ColorTypeDescType": {
+      "properties": {
+        "colorCode": {
+          "type": "string",
+          "enum": [
+            "WT",
+            "BK",
+            "GY",
+            "BU",
+            "RD",
+            "YW",
+            "BE",
+            "BN",
+            "GN",
+            "MC",
+            "PU",
+            "PR"
+          ]
+        },
+        "typeCode": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "BagTagType": {
+      "properties": {
+        "airlineCode": {
+          "type": "string"
+        },
+        "tagSequence": {
+          "type": "string"
+        }
+      }
+    },
+    "LastTracking": {
+      "properties": {
+        "infra": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "ltDateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "station": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "utcDateTime": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}

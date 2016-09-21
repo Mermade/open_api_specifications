@@ -1,0 +1,196 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "v2 - Insider-Summary",
+    "version": "2",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test our API services using I/O Docs. ",
+    "x-mashery-id": "3159"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.edgar-online.com",
+  "basePath": "/v2/insiders",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "http://developer.edgar-online.com/iodocs/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Insider-Summary"
+    }
+  ],
+  "paths": {
+    "/summary": {
+      "get": {
+        "operationId": "SearchInsider-SummaryresourceInsider-Summary",
+        "summary": "",
+        "tags": [
+          "Insider-Summary"
+        ],
+        "parameters": [
+          {
+            "name": "transactiontypes",
+            "type": "string",
+            "description": "Specify the type of transaction for specified filer; possible values include: Acquisition (Non Open Market), Automatic Buy, Automatic Sell, Buy, Disposition (Non Open Market),Dividend Reinvestment, Option Execute, Sell; use comma to separate types",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "transactiontypeids",
+            "type": "integer",
+            "description": "Select transaction type ID; example: 1 - 'Buy', 2 - 'Sell', 3 - 'Acquisition (Non Open Market)' etc.; use comma as separator",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "ownershiptypes",
+            "type": "string",
+            "description": "Specify the type of ownership for the specified transaction",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "direct",
+              "indirect",
+              "direct,indirect"
+            ]
+          },
+          {
+            "name": "ownershiptypeids",
+            "type": "integer",
+            "description": "Specify the typeid of ownership for the specified transaction",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "transactiondates",
+            "type": "string",
+            "description": "Specify the date on which a transaction occurred; in rare instances, transactions are reported having occurred during a range of dates (a \"from\" date through a \"to\" date)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "insiderformtypes",
+            "type": "string",
+            "description": "Specify the form type of a filing that was filed for the specified transaction; examples: \"Form 4\", \"Form 4 Option\"",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Form 4",
+              "Form 4 Option",
+              "Form 4,Form 4 Option"
+            ]
+          },
+          {
+            "name": "insiderformtypeids",
+            "type": "integer",
+            "description": "Select the insider form type Id, use comma as separator; example: '4' = 'Form 4', and '5' = 'Form 4 Option'",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "issueids",
+            "type": "integer",
+            "description": "Search Insider filers based on issueid's separated by comma; examples: 1234567 or 1234567,34567",
+            "in": "query",
+            "required": false,
+            "default": "467297"
+          },
+          {
+            "name": "filter",
+            "type": "string",
+            "description": "Filter parameter that supports expression based search; example: insiderformtypeid eq \"Form 4\"",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "fields",
+            "type": "string",
+            "description": "Use to add or suppress the fields in the response. To include fields, type a field name seperated by comma; to exclude a field use !; example to exclude fields: !issueids",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Limit is used with paging to define the number of rows to return in a single call; use a number between 1 - 9999",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "integer",
+            "description": "Offset is used with paging to define which page number to retrieve based on total numbers of rows and limit",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "debug",
+            "type": "boolean",
+            "description": "Debug parameter helps developers investigate what happened during the call and what items were substituted if any during the call; select true to invoke debug parameter",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "sortby",
+            "type": "string",
+            "description": "Sort can be used to sort the data as ASC or DESC; for example to sort by issueid enter issueid in this field followed by ASC for ascending order (issueid asc) and DESC for descending order (issueid desc).",
+            "in": "query",
+            "required": false,
+            "default": "issueid asc"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Get the response in XML or JSON",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

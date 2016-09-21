@@ -1,0 +1,1981 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Hockey - Other",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "The API calls below can be used to test the Input and Output of our API endpoints.  You'll need an API key and an assigned secret to access the live data and so if you haven't contacted us yet, now is the time!  Our sales staff would be happy to set you up with trial access so you can begin to evaluate the product. Hockey - Other",
+    "x-mashery-id": "1969"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.stats.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "After you've been given an API key and secret, enter it below and \"Get\" the method you'd like to try out.  Fill in the parameters with what you'd like to try, or use the built in defaults, and click \"Try It!\" to execute the call.  The JSON or XML response will be populated in the Response Body, the Response Body will provide you with any relevant codes, and the Request Header URI will show you how the call would be made within your application. Please note:Also, endpoints almost always require a final \"/\".  You will receive \"596 Service Not Found\" when it is missing.  An exception to this is for optional methods, such as eventId or teamId.",
+    "url": "http://developer.stats.com/io-docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Hockey - Leagues"
+    },
+    {
+      "name": "Hockey - Teams"
+    },
+    {
+      "name": "Hockey -  Schedules, scores, box scores, play-by-play"
+    },
+    {
+      "name": "Hockey -  Standings"
+    },
+    {
+      "name": "Hockey - Participants"
+    },
+    {
+      "name": "Hockey - Statistics"
+    },
+    {
+      "name": "Hockey - Daily Leaders"
+    },
+    {
+      "name": "Hockey - Decodes"
+    }
+  ],
+  "paths": {
+    "/stats/hockey/leagues/": {
+      "get": {
+        "operationId": "Hockey-LeaguesHockey-Leagues",
+        "summary": "The hockey leagues endpoint serves as a decode for...",
+        "description": "The hockey leagues endpoint serves as a decode for the available leagues names, abbreviations, and URI paths.",
+        "tags": [
+          "Hockey - Leagues"
+        ],
+        "parameters": [
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/hockey/{leaguePath}/teams/{teamId}": {
+      "get": {
+        "operationId": "Hockey-TeamsHockey-Teams",
+        "summary": "The teams endpoint will be your source for team na...",
+        "description": "The teams endpoint will be your source for team names, locations, abbreviations, and IDs.",
+        "tags": [
+          "Hockey - Teams"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the hockey/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "ahl",
+              "olymhk",
+              "olywhk"
+            ]
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "Provide team ID to return information for one team.\n Default - Blank (returns all teams).",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get team lists for a different season, enter the year as YYYY.\n   Note: Seasons that span years like NHL 2013-2014 would be entered as 2013. \n  Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of team & venue names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/hockey/{leaguePath}/events/{eventId}": {
+      "get": {
+        "operationId": "Hockey-IfpermissionedforalleventinformationHockey-Schedules,scores,boxscores,play-by-play",
+        "summary": "If you are permissioned for the /events resource, ...",
+        "description": "If you are permissioned for the /events resource, you have access to the highest level of game data including live scores, box scores, and play-by-play.",
+        "tags": [
+          "Hockey -  Schedules, scores, box scores, play-by-play"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the hockey/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "ahl",
+              "olymhk",
+              "olywhk"
+            ]
+          },
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Provide a specific eventID when you want information on a single game.  Must be populated to use the box or pbp requests.\n   Default - basic score data will be returned using date or season, if entered, else the current days events will be returned",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "box",
+            "type": "string",
+            "description": "Returns the box score for a specific in-progress or concluded event.  An eventId must also be entered in conjunction with box.\n  Default - box score data will not be returned",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "True",
+              "false"
+            ]
+          },
+          {
+            "name": "pbp",
+            "type": "boolean",
+            "description": "Returns the play-by-play for a specific in-progress or concluded event.  An eventId must also be entered in conjunction with pbp.\n  Default - pbp data will not be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "linescore",
+            "type": "boolean",
+            "description": "Linescores are only returned when requested and will be returned for all events in the results.\n  Default - false, line score data will not be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "description": "If used, startDate and endDate must both be entered.  All items between the two dates (inclusive) will be returned.\n  Format: YYYYMMDD or YYYY-MM-DD.\n  Default - If not used, the last 7 days items will be returned.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "description": "If used, startDate and endDate must both be entered.  All items between the two dates (inclusive) will be returned.\n  Format: YYYYMMDD or YYYY-MM-DD.\n  Default - If not used, the last 7 days items will be returned.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "description": "Will return all games from a specific date.\n Format: YYYYMMDD or YYYY-MM-DD.\n  Default - if a specific game isn't requested, games from the current date will be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get scores for a full season, enter the year as YYYY.\n Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Result will return only games for the specific eventType.\n  Ignored if eventId is used.\n Default - all event types",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "4",
+              "6",
+              "7"
+            ]
+          },
+          {
+            "name": "eventRoundId",
+            "type": "integer",
+            "description": "Result will return only games for the specific eventType.\n Default - Regular Season",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9"
+            ]
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player names, team names, and venues. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/hockey/{leaguePath}/events/teams/{teamId}": {
+      "get": {
+        "operationId": "Hockey-Ifpermissionedforalleventinformation-scheduleforoneteamonlyHockey-Schedules,scores,boxscores,play-by-play",
+        "summary": "This endpoint allows you to select schedule and sc...",
+        "description": "This endpoint allows you to select schedule and score information for just one team.  Getting information for a single team returns only schedule and score information.  If you want detailed event information, you use the example about with the eventId.",
+        "tags": [
+          "Hockey -  Schedules, scores, box scores, play-by-play"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the hockey/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "ahl",
+              "olymhk",
+              "olywhk"
+            ]
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "Provide a teamId when you want information for just that team.  'box' and 'pbp' parameters are not allowed because you are requesting schedule information for a team, not an individual event.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "linescore",
+            "type": "boolean",
+            "description": "Linescores are only returned when requested and will be returned for all events in the results.\n  Default - false, line score data will not be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "description": "If used, startDate and endDate must both be entered.  All items between the two dates (inclusive) will be returned.\n  Format: YYYYMMDD or YYYY-MM-DD.\n  Default - If not used, the last 7 days items will be returned.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "description": "If used, startDate and endDate must both be entered.  All items between the two dates (inclusive) will be returned.\n  Format: YYYYMMDD or YYYY-MM-DD.\n  Default - If not used, the last 7 days items will be returned.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "description": "Will return all games from a specific date.\n Format: YYYYMMDD or YYYY-MM-DD.\n  Default - if a specific game isn't requested, games from the current date will be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get scores for a full season, enter the year as YYYY.\n Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Result will return only games for the specific eventType.\n  Ignored if eventId is used.\n Default - all event types",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "4",
+              "6",
+              "7"
+            ]
+          },
+          {
+            "name": "eventRoundId",
+            "type": "integer",
+            "description": "Result will return only games for the specific eventType.\n Default - Regular Season",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9"
+            ]
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player names, team names, and venues. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/hockey/{leaguePath}/box/{eventId}": {
+      "get": {
+        "operationId": "Hockey-Ifpermissionedforjustschedules,scoresandboxscoresHockey-Schedules,scores,boxscores,play-by-play",
+        "summary": "The box/ resource provides scores/schedules and bo...",
+        "description": "The box/ resource provides scores/schedules and box score information for hockey events. (Play-by-play is not an option.)",
+        "tags": [
+          "Hockey -  Schedules, scores, box scores, play-by-play"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the hockey/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "ahl",
+              "olymhk",
+              "olywhk"
+            ]
+          },
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Provide a specific eventID when you want information on a single game.  Must be populated to use the box or pbp requests.\n   Default - basic score data will be returned using date or season, if entered, else the current days events will be returned",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "box",
+            "type": "string",
+            "description": "Returns the box score for a specific in-progress or concluded event.  An eventId must also be entered in conjunction with box.\n  Default - box score data will not be returned",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "True",
+              "false"
+            ]
+          },
+          {
+            "name": "linescore",
+            "type": "boolean",
+            "description": "Linescores are only returned when requested and will be returned for all events in the results.\n  Default - false, line score data will not be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "description": "Will return all games from a specific date.\n Format: YYYYMMDD or YYYY-MM-DD.\n  Default - if a specific game isn't requested, games from the current date will be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get scores for a full season, enter the year as YYYY.\n Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Result will return only games for the specific eventType.\n  Ignored if eventId is used.\n Default - all event types",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "4",
+              "6",
+              "7"
+            ]
+          },
+          {
+            "name": "eventRoundId",
+            "type": "integer",
+            "description": "Result will return only games for the specific eventType.\n Default - Regular Season",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9"
+            ]
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player names, team names, and venues. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/hockey/{leaguePath}/box/teams/{teamId}": {
+      "get": {
+        "operationId": "Hockey-Ifpermissionedforjustschedules,scoresandboxscores-scheduleforoneteamonlyHockey-Schedules,scores,boxscores,play-by-play",
+        "summary": "The box/ resource provides scores/schedules and bo...",
+        "description": "The box/ resource provides scores/schedules and box score information for hockey events.",
+        "tags": [
+          "Hockey -  Schedules, scores, box scores, play-by-play"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the hockey/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "ahl",
+              "olymhk",
+              "olywhk"
+            ]
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "Provide a teamId when you want information for just that team.  'box' and 'pbp' parameters are not allowed because you are requesting schedule information for a team, not an individual event.\n   Default - basic score data will be returned using date or season, if entered, else the current days events will be returned",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "linescore",
+            "type": "boolean",
+            "description": "Linescores are only returned when requested and will be returned for all events in the results.\n  Default - false, line score data will not be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "description": "Will return all games from a specific date.\n Format: YYYYMMDD or YYYY-MM-DD.\n  Default - if a specific game isn't requested, games from the current date will be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get scores for a full season, enter the year as YYYY.\n Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Result will return only games for the specific eventType.\n  Ignored if eventId is used.\n Default - all event types",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "4",
+              "6",
+              "7"
+            ]
+          },
+          {
+            "name": "eventRoundId",
+            "type": "integer",
+            "description": "Result will return only games for the specific eventType.\n Default - Regular Season",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9"
+            ]
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player names, team names, and venues. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/hockey/{leaguePath}/scores/{eventId}": {
+      "get": {
+        "operationId": "Hockey-IfpermissionedforjustschedulesandscoresHockey-Schedules,scores,boxscores,play-by-play",
+        "summary": "The scores/ resource provides score and schedule i...",
+        "description": "The scores/ resource provides score and schedule information for Hockey events.",
+        "tags": [
+          "Hockey -  Schedules, scores, box scores, play-by-play"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the hockey/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "ahl",
+              "olymhk",
+              "olywhk"
+            ]
+          },
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "OPTIONAL - Use the eventId when you want a single game.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "linescore",
+            "type": "boolean",
+            "description": "Linescores are only returned when requested and will be returned for all events in the results.\n  Default - false, line score data will not be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "description": "OPTIONAL - If entered, the events for that date will be returned. If not entered, the default is to return the events for the current date.  Format: YYYYMMDD or YYYY-MM-DD.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get scores for a different season, enter the year as YYYY.\n Note: Seasons that span years like NHL 2013-2014 would be entered as 2013.\n Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Result will return only games for the specific eventType.\n  Ignored if eventId is used.\n Default - All event types",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "0",
+              "1",
+              "2",
+              "3"
+            ]
+          },
+          {
+            "name": "eventRoundId",
+            "type": "integer",
+            "description": "Returns games in the specified eventRound only. Rounds are only relevant when eventTypeId = 2 (Postseason) is selected\n  Default - all rounds combined",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player names, team names, and venues. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/hockey/{leaguePath}/scores/teams/{teamId}": {
+      "get": {
+        "operationId": "Hockey-Ifpermissionedforjustschedulesandscores-foroneteamonlyHockey-Schedules,scores,boxscores,play-by-play",
+        "summary": "The scores/ resource provides score and schedule i...",
+        "description": "The scores/ resource provides score and schedule information for Hockey events.",
+        "tags": [
+          "Hockey -  Schedules, scores, box scores, play-by-play"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the hockey/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "ahl",
+              "olymhk",
+              "olywhk"
+            ]
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "Provide a teamId when you want information for just that team.\n   Default - basic score data will be returned using date or season, if entered, else the current days events will be returned",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "linescore",
+            "type": "boolean",
+            "description": "Linescores are only returned when requested and will be returned for all events in the results.\n  Default - false, line score data will not be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "description": "OPTIONAL - If entered, the events for that date will be returned. If not entered, the default is to return the events for the current date.  Format: YYYYMMDD or YYYY-MM-DD.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get scores for a different season, enter the year as YYYY.\n Note: Seasons that span years like NHL 2013-2014 would be entered as 2013.\n Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Result will return only games for the specific eventType.\n  Ignored if eventId is used.\n Default - All event types",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "0",
+              "1",
+              "2",
+              "3"
+            ]
+          },
+          {
+            "name": "eventRoundId",
+            "type": "integer",
+            "description": "Returns games in the specified eventRound only. Rounds are only relevant when eventTypeId = 2 (Postseason) is selected\n  Default - all rounds combined",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player names, team names, and venues. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/hockey/{leaguePath}/standings/": {
+      "get": {
+        "operationId": "Hockey-StandingsHockey-Standings",
+        "summary": "The standings endpoint will provide the group stan...",
+        "description": "The standings endpoint will provide the group standings, including all team data relevant to standings.",
+        "tags": [
+          "Hockey -  Standings"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the hockey/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "ahl",
+              "olymhk",
+              "olywhk"
+            ]
+          },
+          {
+            "name": "expanded",
+            "type": "boolean",
+            "description": "Expanded includes additional data points for each team.\n Default - false",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get standings for a different season, enter the year as YYYY.\n Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/hockey/{leaguePath}/standings/teams/{teamId}": {
+      "get": {
+        "operationId": "Hockey-StandingsforasingleteamHockey-Standings",
+        "summary": "The standings endpoint will provide the group stan...",
+        "description": "The standings endpoint will provide the group standings, including all team data relevant to standings.",
+        "tags": [
+          "Hockey -  Standings"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the hockey/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "ahl",
+              "olymhk",
+              "olywhk"
+            ]
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "If used, data for that team will be returned.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "expanded",
+            "type": "boolean",
+            "description": "Expanded includes additional data points for each team.\n Default - false",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get standings for a different season, enter the year as YYYY.\n Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/hockey/{leaguePath}/participants/": {
+      "get": {
+        "operationId": "Hockey-PlayersHockey-Participants",
+        "summary": "The participants endpoint provides biographical in...",
+        "description": "The participants endpoint provides biographical information for players and can be used to return information on a single player, a single teams roster, or all teams rosters within the league.",
+        "tags": [
+          "Hockey - Participants"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the hockey/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "ahl",
+              "olymhk",
+              "olywhk"
+            ]
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player & team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/hockey/{leaguePath}/participants/teams/{teamId}": {
+      "get": {
+        "operationId": "Hockey-AllplayersonasingleteamHockey-Participants",
+        "summary": "This will return only those players on the selecte...",
+        "description": "This will return only those players on the selected team",
+        "tags": [
+          "Hockey - Participants"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the hockey/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "ahl",
+              "olymhk",
+              "olywhk"
+            ]
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "Provide team ID to return roster for one team.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player & team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/hockey/{leaguePath}/participants/{playerId}": {
+      "get": {
+        "operationId": "Hockey-SingleplayerHockey-Participants",
+        "summary": "This returns only the selected player.",
+        "tags": [
+          "Hockey - Participants"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the hockey/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "ahl",
+              "olymhk",
+              "olywhk"
+            ]
+          },
+          {
+            "name": "playerId",
+            "type": "integer",
+            "description": "To get information on a specific player, enter their ID.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player & team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/hockey/{leaguePath}/stats/players/{playerId}": {
+      "get": {
+        "operationId": "Hockey-PlayerstatsHockey-Statistics",
+        "summary": "Hockey - Stats for a single player",
+        "tags": [
+          "Hockey - Statistics"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the hockey/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "ahl",
+              "olymhk",
+              "olywhk"
+            ]
+          },
+          {
+            "name": "playerId",
+            "type": "integer",
+            "description": "Player Id.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "eventType",
+            "type": "integer",
+            "description": "To get stats for only one event type, enter the eventTypeId.\n  Default - all event types combined.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "4",
+              "6",
+              "7"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/hockey/{leaguePath}/stats/players/": {
+      "get": {
+        "operationId": "Hockey-AllplayersonasingleteamHockey-Statistics",
+        "summary": "Hockey - Stats for all players on a single team",
+        "tags": [
+          "Hockey - Statistics"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the hockey/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "ahl",
+              "olymhk",
+              "olywhk"
+            ]
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "To get stats for all players on a single team, enter the teamID.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "eventType",
+            "type": "integer",
+            "description": "To get stats for only one event type, enter the eventTypeId.\n  Default - all event types combined.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "4",
+              "6",
+              "7"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/hockey/{leaguePath}/dailyLeaders/": {
+      "get": {
+        "operationId": "Hockey-DailyLeadersHockey-DailyLeaders",
+        "summary": "Hockey - Daily Leaders",
+        "tags": [
+          "Hockey - Daily Leaders"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the hockey/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "olymhk",
+              "olywhk"
+            ]
+          },
+          {
+            "name": "leaderCategoryId",
+            "type": "integer",
+            "description": "Only one category per query.\n  Default - Blank (returns goals).",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2",
+              "6",
+              "7",
+              "15",
+              "16",
+              "17",
+              "24"
+            ]
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "description": "Leaders in games played on specific date.\n Format: YYYYMMDD or YYYY-MM-DD.\n  Default - if a specific game isn't requested, games from the current date will be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "topCount",
+            "type": "integer",
+            "description": "This is the number of leaders to be returned.\n  You can return all leaders with the word 'all' instead of a number.\n  Default - Top 10 (plus ties).",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "conferenceId",
+            "type": "integer",
+            "description": "Leaders among specified conference only. See conferences decode endpoint for full list.\n  Default - all",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Leaders among games in the specified eventType only. See eventTypes decode endpoint for full list.\n  Default - all",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventRoundId",
+            "type": "integer",
+            "description": "Leaders among games in the specified eventRound only. See eventRounds decode endpoint for full list.\n  Default - all",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "To get data for players on one team only, enter the teamId.\n  Default - all players",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player & team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/decode/hockey/{leaguePath}/{decodeType}": {
+      "get": {
+        "operationId": "Hockey-DecodesHockey-Decodes",
+        "summary": "Hockey -  Decodes",
+        "tags": [
+          "Hockey - Decodes"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the hockey/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "ahl",
+              "olymhk",
+              "olywhk"
+            ]
+          },
+          {
+            "name": "decodeType",
+            "type": "integer",
+            "description": "The data type to be decoded.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "clinchStatuses",
+              "conferences",
+              "coverageLevels",
+              "divisions",
+              "eventRounds",
+              "eventStatuses",
+              "eventTypes",
+              "injuryStatuses",
+              "leaderCategories",
+              "playDetails",
+              "playEvents",
+              "positions",
+              "rosterTypes",
+              "seasonStructure",
+              "specialShots, ",
+              "splits",
+              "strengthIds",
+              "strengthTypes",
+              "transactionTypes",
+              "tvstations",
+              "venues"
+            ]
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "For venues only. Select ID to change language of venue names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - (blank) - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

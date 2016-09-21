@@ -1,0 +1,143 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "v2 - Description",
+    "version": "2",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test our API services using I/O Docs. Provides a lookup functionality to search field or parameter values",
+    "x-mashery-id": "3757"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.edgar-online.com",
+  "basePath": "/v2/descriptions",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "http://developer.edgar-online.com/iodocs/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Lookup Calls"
+    }
+  ],
+  "paths": {
+    "/{resourcename}/{fieldname}": {
+      "get": {
+        "operationId": "PerformLookupforfieldorparametervaluesLookupCalls",
+        "summary": "Call the description resource for lookup",
+        "tags": [
+          "Lookup Calls"
+        ],
+        "parameters": [
+          {
+            "name": "resourcename",
+            "type": "string",
+            "description": "The name of resource",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "corefinancials-qtr",
+              "corefinancials-ytd",
+              "corefinancials-ttm",
+              "corefinancials-ann",
+              "companies",
+              "insider-filers",
+              "insider-issues",
+              "insider-summary",
+              "insider-transactions",
+              "ownership-issues",
+              "ownership-owners",
+              "ownership-currentissueholders",
+              "ownership-currentownerholdings"
+            ]
+          },
+          {
+            "name": "fieldname",
+            "type": "string",
+            "description": "The name of field or parameter",
+            "in": "path",
+            "required": true,
+            "default": "primarysymbol"
+          },
+          {
+            "name": "limit",
+            "type": "string",
+            "description": "Limit is used with paging. Limit defines the number of rows to return in a single call. Enter a number between 1 - 999",
+            "in": "query",
+            "required": false,
+            "default": "100"
+          },
+          {
+            "name": "offset",
+            "type": "string",
+            "description": "Offset is used with paging. Offset defines which page number to retreive based on total numbers of rows and limit.",
+            "in": "query",
+            "required": false,
+            "default": "0"
+          },
+          {
+            "name": "sortDirection",
+            "type": "string",
+            "description": "Sort Parameter can be used to sort the data in ASC or DESC.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "asc",
+              "desc"
+            ]
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Get the response in XML or JSON",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

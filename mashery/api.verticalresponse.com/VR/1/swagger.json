@@ -1,0 +1,1404 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "VR API",
+    "version": "1",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test VR's API using our interactive console. Refer to our API reference documentation for details on each API. Service used in live for OAuth 2.0",
+    "x-mashery-id": "1673"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.verticalresponse.com",
+  "basePath": "/api/v1",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "http://developer.verticalresponse.com/io-docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "oauth2": {
+      "type": "oauth2",
+      "flow": "accessCode",
+      "authorizationUrl": "",
+      "tokenUrl": "",
+      "scopes": {}
+    }
+  },
+  "security": [
+    {
+      "oauth2": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Contacts"
+    },
+    {
+      "name": "Lists"
+    },
+    {
+      "name": "Messages"
+    },
+    {
+      "name": "Emails"
+    },
+    {
+      "name": "Custom Fields"
+    },
+    {
+      "name": "Social Posts"
+    }
+  ],
+  "paths": {
+    "/contacts": {
+      "post": {
+        "operationId": "CreateANewContactContacts",
+        "summary": "This API creates a contact in VerticalResponse. 'e...",
+        "description": "This API creates a contact in VerticalResponse. 'email' is a required field. If the contact does not exist already, a new contact is created in the master list in VerticalResponse.",
+        "tags": [
+          "Contacts"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "type": "string",
+            "description": "email address of the contact to be created",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "first_name",
+            "type": "string",
+            "description": "First Name of the contact to be created",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "last_name",
+            "type": "string",
+            "description": "Last Name of the contact to be created",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "get": {
+        "operationId": "ListInactiveContactsContacts",
+        "summary": "This API returns contacts that are non mailable. T...",
+        "description": "This API returns contacts that are non mailable. This includes contacts that are on hold, bounced or unsubscribed.",
+        "tags": [
+          "Contacts"
+        ],
+        "parameters": [
+          {
+            "name": "type",
+            "type": "string",
+            "description": "type parameter determines the results returned.type can be basic,standard or all",
+            "in": "query",
+            "required": false,
+            "default": "basic"
+          },
+          {
+            "name": "status",
+            "type": "string",
+            "description": "status of the contacts to filter by. status can be inactive,bounced or unsubscribed.",
+            "in": "query",
+            "required": true,
+            "default": "inactive"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/contacts/{contact_id}": {
+      "put": {
+        "operationId": "UpdateContactContacts",
+        "summary": "Update a contact in VerticalResponse.Cannot update...",
+        "description": "Update a contact in VerticalResponse.Cannot update the contact's email.Other attributes including custom fields values can be updated.No fields are required but atleast one is required for the update to work.",
+        "tags": [
+          "Contacts"
+        ],
+        "parameters": [
+          {
+            "name": "contact_id",
+            "type": "string",
+            "description": "id of the contact to be updated",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "first_name",
+            "type": "string",
+            "description": "First name of the contact",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "last_name",
+            "type": "string",
+            "description": "Last name of the contact",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DeleteContactContacts",
+        "summary": "This API deletes the given contact.",
+        "tags": [
+          "Contacts"
+        ],
+        "parameters": [
+          {
+            "name": "contact_id",
+            "type": "string",
+            "description": "id of contact to be deleted",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/contacts/{contact_id}/stats": {
+      "get": {
+        "operationId": "Contacts:SummaryStatsContacts",
+        "summary": "This API returns summary stats of a particular con...",
+        "description": "This API returns summary stats of a particular contact.Details about the number of emails sent, number of opens, clicks etc will be returned.",
+        "tags": [
+          "Contacts"
+        ],
+        "parameters": [
+          {
+            "name": "contact_id",
+            "type": "string",
+            "description": "id of the contact. Required to retrieve stats for the given contact",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "description": "type parameter determines the results returned.type can be basic,standard or all",
+            "in": "query",
+            "required": false,
+            "default": "basic"
+          },
+          {
+            "name": "contact_id",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/contacts/fields": {
+      "get": {
+        "operationId": "ListAllContactAttributesContacts",
+        "summary": "This API returns all the attributes a VR contact h...",
+        "description": "This API returns all the attributes a VR contact has. This includes all of VR's standard fields as well as custom fields set up by user.",
+        "tags": [
+          "Contacts"
+        ],
+        "parameters": [
+          {
+            "name": "type",
+            "type": "string",
+            "description": "type parameter determines the results returned.type can be basic,standard or all",
+            "in": "query",
+            "required": false,
+            "default": "basic"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/contacts/{id}": {
+      "get": {
+        "operationId": "ReadContactContacts",
+        "summary": "This API prodvides details about an individual con...",
+        "description": "This API prodvides details about an individual contact.",
+        "tags": [
+          "Contacts"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "id of contact to get more details.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "description": "type parameter determines the results returned.type can be basic,standard or all",
+            "in": "query",
+            "required": false,
+            "default": "basic"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/contacts/{id}/lists": {
+      "get": {
+        "operationId": "Contact:MemberListsContacts",
+        "summary": "This API returns all the lists that a particular c...",
+        "description": "This API returns all the lists that a particular contact is a member of. Attributes of the list are returned",
+        "tags": [
+          "Contacts"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "id of the contact.Required to retrieve the lists the contact is a member of.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "description": "type parameter determines the results returned.type can be basic,standard or all",
+            "in": "query",
+            "required": false,
+            "default": "basic"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/contacts/{id}/messages": {
+      "get": {
+        "operationId": "Contact:TargetedMessagesContacts",
+        "summary": "This API returns all the messages (emails and soci...",
+        "description": "This API returns all the messages (emails and social posts) sent to a particular contact. Attributes of message are returned as per the type parameter.",
+        "tags": [
+          "Contacts"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "id of the contact . Required to retrieve the messages sent to the contact.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/lists": {
+      "post": {
+        "operationId": "CreateListLists",
+        "summary": "This API creates a list in VerticalResponse.A list...",
+        "description": "This API creates a list in VerticalResponse.A list is a collection of contacts.Name is a required field to create a list.",
+        "tags": [
+          "Lists"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "type": "string",
+            "description": "name of the list to be created",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "is_public",
+            "type": "string",
+            "description": "Privacy status of the list. Contacts cannot see private lists in unsubscribe preferences.",
+            "in": "query",
+            "required": false,
+            "default": "false"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "get": {
+        "operationId": "GetAllListsLists",
+        "summary": "This API returns all lists a VR user has.",
+        "tags": [
+          "Lists"
+        ],
+        "parameters": [
+          {
+            "name": "type",
+            "type": "string",
+            "description": "type parameter determines the results returned.type can be basic,standard or all",
+            "in": "query",
+            "required": false,
+            "default": "basic"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/lists/{list_id}": {
+      "put": {
+        "operationId": "UpdateListLists",
+        "summary": "This API upates the attributes of a list. Accepted...",
+        "description": "This API upates the attributes of a list. Accepted parameters are name and is_public.",
+        "tags": [
+          "Lists"
+        ],
+        "parameters": [
+          {
+            "name": "list_id",
+            "type": "string",
+            "description": "list id to add the contact to",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "description": "name of the list to be created",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "is_public",
+            "type": "string",
+            "description": "Privacy status of the list. Contacts cannot see private lists in unsubscribe preferences.",
+            "in": "query",
+            "required": false,
+            "default": "false"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "get": {
+        "operationId": "ReadListLists",
+        "summary": "This API retrieve details about a given list.The a...",
+        "description": "This API retrieve details about a given list.The attributes returned depend on the type parameter.",
+        "tags": [
+          "Lists"
+        ],
+        "parameters": [
+          {
+            "name": "list_id",
+            "type": "string",
+            "description": "id of the list to get more details.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "description": "type parameter determines the results returned.type can be basic,standard or all",
+            "in": "query",
+            "required": false,
+            "default": "basic"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DeleteListsLists",
+        "summary": "This API deletes a given list. The contacts in thi...",
+        "description": "This API deletes a given list. The contacts in this list are not deleted and are part of the master list.",
+        "tags": [
+          "Lists"
+        ],
+        "parameters": [
+          {
+            "name": "list_id",
+            "type": "string",
+            "description": "id of the list to be deleted",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/lists/{list_id}/contacts": {
+      "post": {
+        "operationId": "AddContacttoaListLists",
+        "summary": "This API adds an existing contact to the given lis...",
+        "description": "This API adds an existing contact to the given list.If the contact does not exist, then a new contact is created and added to the given list.",
+        "tags": [
+          "Lists"
+        ],
+        "parameters": [
+          {
+            "name": "list_id",
+            "type": "string",
+            "description": "list id to add the contact to",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "email",
+            "type": "string",
+            "description": "email address of the contact to be added to list. If contact does not exist in VR, a new contact will be created and added to list",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "get": {
+        "operationId": "Lists:MemberContactsLists",
+        "summary": "The API returns all the contacts that are members ...",
+        "description": "The API returns all the contacts that are members of the given list.",
+        "tags": [
+          "Lists"
+        ],
+        "parameters": [
+          {
+            "name": "list_id",
+            "type": "string",
+            "description": "id of the list. Required to retreive contacts that are a part of this list.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "description": "type parameter determines the results returned.type can be basic,standard or all",
+            "in": "query",
+            "required": false,
+            "default": "basic"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/lists/{list_id}/stats": {
+      "get": {
+        "operationId": "List:SummaryStatsLists",
+        "summary": "This API returns summary stats for a given list.Su...",
+        "description": "This API returns summary stats for a given list.Summary stats include size and reach of lists and number of contacts that bounced, unsubscribed or are on hold.",
+        "tags": [
+          "Lists"
+        ],
+        "parameters": [
+          {
+            "name": "list_id",
+            "type": "string",
+            "description": "id of the list. Required to retrieve the summary stats for the list.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "list_id",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/lists/{list_id}/messages": {
+      "get": {
+        "operationId": "TargetedMessagesLists",
+        "summary": "This API retrieves all the messages that were sent...",
+        "description": "This API retrieves all the messages that were sent to the given list.",
+        "tags": [
+          "Lists"
+        ],
+        "parameters": [
+          {
+            "name": "list_id",
+            "type": "string",
+            "description": "id of the list. Required to retrieve messages sent to this list.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "description": "type parameter determines the results returned.type can be basic,standard or all",
+            "in": "query",
+            "required": false,
+            "default": "basic"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/lists/{list_id}/contacts/{contact_id}": {
+      "delete": {
+        "operationId": "RemoveContactfromListLists",
+        "summary": "This API removes a Contact from a List.The contact...",
+        "description": "This API removes a Contact from a List.The contact will not be deleted from VR",
+        "tags": [
+          "Lists"
+        ],
+        "parameters": [
+          {
+            "name": "list_id",
+            "type": "string",
+            "description": "id of the list from which the contact will be removed.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "contact_id",
+            "type": "string",
+            "description": "id of the contact to be removed from the list",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/messages": {
+      "get": {
+        "operationId": "ListSocialPostsSocialPosts",
+        "summary": "This API returns all social posts sent by a VR use...",
+        "description": "This API returns all social posts sent by a VR user.",
+        "tags": [
+          "Social Posts"
+        ],
+        "parameters": [
+          {
+            "name": "type",
+            "type": "string",
+            "description": "type parameter determines the results returned.type can be basic,standard or all",
+            "in": "query",
+            "required": false,
+            "default": "basic"
+          },
+          {
+            "name": "message_type",
+            "type": "string",
+            "description": "message_type parameter is used to filter messages by emails or social posts.Accepted values are 'email' or 'social_post'",
+            "in": "query",
+            "required": true,
+            "default": "social_post"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/messages/emails": {
+      "post": {
+        "operationId": "CreateEmailEmails",
+        "summary": "This API is used to create an email. Both HTML and...",
+        "description": "This API is used to create an email. Both HTML and text emails can be created.",
+        "tags": [
+          "Emails"
+        ],
+        "parameters": [
+          {
+            "name": "from_address",
+            "type": "string",
+            "description": "from address from which to send the email campaign from",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "from_label",
+            "type": "string",
+            "description": "from label for the email campaign.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "reply_to",
+            "type": "string",
+            "description": "reply to address for the email campaign",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "subject",
+            "type": "string",
+            "description": "subject of the email campaign",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "message",
+            "type": "string",
+            "description": "content of the email campaign",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "company",
+            "type": "string",
+            "description": "Company name of the business. Required for compliance purposes.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "street_address",
+            "type": "string",
+            "description": "street address of the sender. Required for compliance purposes.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "locality",
+            "type": "string",
+            "description": "City of the sender. Part of the sender's postal address.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "region",
+            "type": "string",
+            "description": "State of the sender.Part of the sender's postal address.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "postal_code",
+            "type": "string",
+            "description": "postal code of the sender. Part of the sender's postal address.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "unsubscribe_message",
+            "type": "string",
+            "description": "unsubscribe message, required for compliance purposes",
+            "in": "query",
+            "required": true,
+            "default": "{UNSUBSCRIBE_LINK}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/messages/emails/{email_id}": {
+      "put": {
+        "operationId": "UpdateEmailEmails",
+        "summary": "This API updates a given email.All attributes of a...",
+        "description": "This API updates a given email.All attributes of an email can be updated.The unsubscribe_message cannot be null and should include the unsusbcribe link.",
+        "tags": [
+          "Emails"
+        ],
+        "parameters": [
+          {
+            "name": "from_address",
+            "type": "string",
+            "description": "from address from which to send the email campaign from",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "from_label",
+            "type": "string",
+            "description": "from label of the email campaign.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "reply_to",
+            "type": "string",
+            "description": "reply to address for the email campaign",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "subject",
+            "type": "string",
+            "description": "subject of the email campaign",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "message",
+            "type": "string",
+            "description": "content of the email campaign",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "street_address",
+            "type": "string",
+            "description": "street address of the sender. Required for compliance purposes.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "locality",
+            "type": "string",
+            "description": "City of the sender. Part of the sender's postal address.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "region",
+            "type": "string",
+            "description": "State of the sender.Part of the sender's postal address.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "postal_code",
+            "type": "string",
+            "description": "postal code of the sender. Part of the sender's postal address.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "unsubscribe_message",
+            "type": "string",
+            "description": "unsubscribe message, required for compliance purposes",
+            "in": "query",
+            "required": false,
+            "default": "{UNSUBSCRIBE_LINK}"
+          },
+          {
+            "name": "email_id",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "operationId": "LaunchEmailEmails",
+        "summary": "This API is used to send or schedule an email camp...",
+        "description": "This API is used to send or schedule an email campaign",
+        "tags": [
+          "Emails"
+        ],
+        "parameters": [
+          {
+            "name": "email_id",
+            "type": "string",
+            "description": "id of the email. Required to launch the given email.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "lists",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Array of list ids to send the email to. Maximum of 50 list ids allowed",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "scheduled_at",
+            "type": "string",
+            "description": "Optional date flag to schedule the email campaign to be sent on a specific day",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "get": {
+        "operationId": "ReadEmailEmails",
+        "summary": "This API is used to retrieve details about a given...",
+        "description": "This API is used to retrieve details about a given email",
+        "tags": [
+          "Emails"
+        ],
+        "parameters": [
+          {
+            "name": "email_id",
+            "type": "string",
+            "description": "id of the email to get more details",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "description": "type parameter determines the results returned.type can be basic,standard or all",
+            "in": "query",
+            "required": false,
+            "default": "basic"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DeleteEmailEmails",
+        "summary": "The API is used to delete an email",
+        "tags": [
+          "Emails"
+        ],
+        "parameters": [
+          {
+            "name": "email_id",
+            "type": "string",
+            "description": "id of the email to be deleted",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/messages/emails/{email_id}/test": {
+      "post": {
+        "operationId": "LaunchTestEmailEmails",
+        "summary": "This API is used to send a test email campaign.If ...",
+        "description": "This API is used to send a test email campaign.If default_test_recipient_emails is checked, then email addresses stored in the VR web application for sending test emails will be used.",
+        "tags": [
+          "Emails"
+        ],
+        "parameters": [
+          {
+            "name": "email_id",
+            "type": "string",
+            "description": "id of the email. Required to launch a test.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "default_test_recipient_emails",
+            "type": "boolean",
+            "description": "boolean flag to indicate if the test email should use saved email addresses or not",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "0"
+            ]
+          },
+          {
+            "name": "recipients",
+            "type": "string",
+            "description": "Array of email address. Maximum of 8 allowed.",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/messages/emails/{email_id}/unschedule": {
+      "post": {
+        "operationId": "UnscheduleEmailEmails",
+        "summary": "The API is used to unschedule an email campaign. O...",
+        "description": "The API is used to unschedule an email campaign. Only emails in scheduled status can be unscheduled.",
+        "tags": [
+          "Emails"
+        ],
+        "parameters": [
+          {
+            "name": "email_id",
+            "type": "string",
+            "description": "id of the email. Required to unschedule the email.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/messages/emails/{email_id}/stats": {
+      "get": {
+        "operationId": "Email:GetSummaryStatsEmails",
+        "summary": "This API returns summary stats for a given email.T...",
+        "description": "This API returns summary stats for a given email.This includes opens, open_rate,clicks,click_rate, bounces, unsubscribes, unqiue clicks etc.",
+        "tags": [
+          "Emails"
+        ],
+        "parameters": [
+          {
+            "name": "email_id",
+            "type": "string",
+            "description": "id of the email. Required to retrieve summary stats.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "description": "type parameter determines the results returned.type can be basic,standard or all",
+            "in": "query",
+            "required": false,
+            "default": "basic"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/messages/emails/{email_id}/lists": {
+      "get": {
+        "operationId": "Email:TargetedListsEmails",
+        "summary": "This API returns all lists to which the given emai...",
+        "description": "This API returns all lists to which the given email was sent",
+        "tags": [
+          "Emails"
+        ],
+        "parameters": [
+          {
+            "name": "email_id",
+            "type": "string",
+            "description": "id of the email. This is required to retrieve lists to which the email was sent to.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "description": "type parameter determines the results returned.type can be basic,standard or all",
+            "in": "query",
+            "required": false,
+            "default": "basic"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/custom_fields": {
+      "post": {
+        "operationId": "CreateCustomFieldCustomFields",
+        "summary": "VR allows 20 custom fields per account. This API i...",
+        "description": "VR allows 20 custom fields per account. This API is used to create a Custom Field",
+        "tags": [
+          "Custom Fields"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "type": "string",
+            "description": "name of the custom field to be created",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "get": {
+        "operationId": "ListallCustomFieldsCustomFields",
+        "summary": "This API lists all the custom fields for the user",
+        "tags": [
+          "Custom Fields"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/custom_fields/{custom_field_name}": {
+      "put": {
+        "operationId": "UpdateCustomFieldCustomFields",
+        "summary": "This API is used to update the name of the given c...",
+        "description": "This API is used to update the name of the given custom field",
+        "tags": [
+          "Custom Fields"
+        ],
+        "parameters": [
+          {
+            "name": "custom_field_name",
+            "type": "string",
+            "description": "custom field to be updated",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "description": "name of the new custom field to be updated",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DeleteCustomFieldCustomFields",
+        "summary": "This API is used to delete a particular custom fie...",
+        "description": "This API is used to delete a particular custom field. Doing so will also remove this as an attibute for a contact.",
+        "tags": [
+          "Custom Fields"
+        ],
+        "parameters": [
+          {
+            "name": "custom_field_name",
+            "type": "string",
+            "description": "custom field name to be deleted",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/messages/social_posts/{socialpost_id}/stats": {
+      "get": {
+        "operationId": "SocialPosts:GetSummaryStatsSocialPosts",
+        "summary": "This API returns all stats for the given social po...",
+        "description": "This API returns all stats for the given social post",
+        "tags": [
+          "Social Posts"
+        ],
+        "parameters": [
+          {
+            "name": "socialpost_id",
+            "type": "string",
+            "description": "id of the social post. This is required to retrieve summary stats for the social post.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

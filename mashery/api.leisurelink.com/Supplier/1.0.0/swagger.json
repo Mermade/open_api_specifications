@@ -1,0 +1,501 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Supplier API",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test our API services using I/O Docs. ",
+    "x-mashery-id": "3965"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.leisurelink.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "https://developer.leisurelink.com/io-docs?api=3965/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "General"
+    },
+    {
+      "name": "Rental Units"
+    }
+  ],
+  "paths": {
+    "/ping": {
+      "get": {
+        "operationId": "PingGeneral",
+        "summary": "Provides a connectivity and authentication check",
+        "tags": [
+          "General"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/rentalUnits/{rentalUnitId}/availability": {
+      "post": {
+        "operationId": "SetAvailabilityRentalUnits",
+        "summary": "Sets the availability for a given rental unit and ...",
+        "description": "Sets the availability for a given rental unit and a date range",
+        "tags": [
+          "Rental Units"
+        ],
+        "parameters": [
+          {
+            "name": "rentalUnitId",
+            "type": "string",
+            "description": "Id of the desired rental unit",
+            "in": "path",
+            "required": true,
+            "default": "114392"
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "",
+            "in": "header",
+            "required": true,
+            "default": "application/json"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Response format",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/SetAvail"
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "get": {
+        "operationId": "AvailabilityRentalUnits",
+        "summary": "Returns a calendar of availability for a given ren...",
+        "description": "Returns a calendar of availability for a given rental unit",
+        "tags": [
+          "Rental Units"
+        ],
+        "parameters": [
+          {
+            "name": "rentalUnitId",
+            "type": "string",
+            "description": "Id of the desired rental unit",
+            "in": "path",
+            "required": true,
+            "default": "114392"
+          },
+          {
+            "name": "days",
+            "type": "integer",
+            "description": "Number of days to return availability for",
+            "in": "query",
+            "required": false,
+            "default": "180"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Response format",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/rentalUnits/{rentalUnitId}/baseRates": {
+      "post": {
+        "operationId": "SetRatesRentalUnits",
+        "summary": "Sets the base rates for a given rental unit and a ...",
+        "description": "Sets the base rates for a given rental unit and a date range",
+        "tags": [
+          "Rental Units"
+        ],
+        "parameters": [
+          {
+            "name": "rentalUnitId",
+            "type": "string",
+            "description": "Id of the desired rental unit",
+            "in": "path",
+            "required": true,
+            "default": "114396"
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "",
+            "in": "header",
+            "required": true,
+            "default": "application/json"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Response format",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/SetRates"
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "get": {
+        "operationId": "BaseRatesRentalUnits",
+        "summary": "Retrieve a calendar of base rates for a given rent...",
+        "description": "Retrieve a calendar of base rates for a given rental unit",
+        "tags": [
+          "Rental Units"
+        ],
+        "parameters": [
+          {
+            "name": "rentalUnitId",
+            "type": "string",
+            "description": "Id of the desired rental unit",
+            "in": "path",
+            "required": true,
+            "default": "114396"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Response format",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/rentalUnits/{rentalUnitId}/stayRestrictions": {
+      "post": {
+        "operationId": "SetStayRestrictionsRentalUnits",
+        "summary": "Sets the base rates for a given rental unit and a ...",
+        "description": "Sets the base rates for a given rental unit and a date range",
+        "tags": [
+          "Rental Units"
+        ],
+        "parameters": [
+          {
+            "name": "rentalUnitId",
+            "type": "string",
+            "description": "Id of the desired rental unit",
+            "in": "path",
+            "required": true,
+            "default": "114400"
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "",
+            "in": "header",
+            "required": true,
+            "default": "application/json"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Response format",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/SetRestrictions"
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "get": {
+        "operationId": "StayRestrictionsRentalUnits",
+        "summary": "Retrieve a calendar of stay restrictions for a giv...",
+        "description": "Retrieve a calendar of stay restrictions for a given rental unit",
+        "tags": [
+          "Rental Units"
+        ],
+        "parameters": [
+          {
+            "name": "rentalUnitId",
+            "type": "string",
+            "description": "Id of the desired rental unit",
+            "in": "path",
+            "required": true,
+            "default": "114400"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Response format",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "SetAvail": {
+      "type": "object",
+      "properties": {
+        "availRangeBeginDate": {
+          "type": "string",
+          "default": "2015-12-05"
+        },
+        "availRangeEndDate": {
+          "type": "string",
+          "default": "2015-12-17"
+        },
+        "dateRanges": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "beginDate": {
+                "type": "string",
+                "default": "2015-12-15"
+              },
+              "endDate": {
+                "type": "string",
+                "default": "2015-12-17"
+              },
+              "roomsAvailable": {
+                "type": "integer",
+                "default": 0
+              }
+            }
+          }
+        }
+      }
+    },
+    "SetRates": {
+      "type": "object",
+      "properties": {
+        "dailyRates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "date": {
+                "type": "string",
+                "default": "2015-12-12"
+              },
+              "rate": {
+                "type": "integer",
+                "default": 140
+              }
+            }
+          }
+        }
+      }
+    },
+    "SetRestrictions": {
+      "type": "object",
+      "properties": {
+        "stayRestrictions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "minimumStayArrival": {
+                "type": "integer",
+                "default": 2
+              },
+              "minimumStayThrough": {
+                "type": "integer",
+                "default": 4
+              },
+              "maximumStayArrival": {
+                "type": "integer",
+                "default": 8
+              },
+              "closedToArrival": {
+                "type": "boolean",
+                "default": true
+              },
+              "closedToDeparture": {
+                "type": "boolean",
+                "default": true
+              },
+              "minimumAdvanceBookingDays": {
+                "type": "integer",
+                "default": 10
+              },
+              "dateRange": {
+                "type": "object",
+                "properties": {
+                  "beginDate": {
+                    "type": "string",
+                    "default": "2015-12-09"
+                  },
+                  "endDate": {
+                    "type": "string",
+                    "default": "2015-12-17"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

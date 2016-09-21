@@ -1,0 +1,805 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Resources API v1",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test our API services using I/O Docs. ",
+    "x-mashery-id": "2566"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.penguinrandomhouse.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "https://developer.penguinrandomhouse.com/io-docs/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Resources"
+    }
+  ],
+  "paths": {
+    "/authors": {
+      "get": {
+        "operationId": "authorsResources",
+        "summary": "Search for authors by first and/or last name. In t...",
+        "description": "Search for authors by first and/or last name. In this context author is considered to be any one of book's contributors, including roles such as illustrator or narrator. Either first or last name parameter must be provided.",
+        "tags": [
+          "Resources"
+        ],
+        "parameters": [
+          {
+            "name": "lastName",
+            "type": "string",
+            "description": "Case insensitive. Matched against complete last name. Examples: 'Bro' returns no matches; 'brOwN' matches 'Dan Brown'.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "firstName",
+            "type": "string",
+            "description": "Case insensitive. Matched against complete first name. Examples: 'Da' matches 'Da Chen' but not 'Dan Brown'; 'dAN' matches 'Dan Brown'",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "start",
+            "type": "integer",
+            "description": "Position of the first record in the result set to be included in the response. Starts with 0",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "max",
+            "type": "integer",
+            "description": "Position of the last record in the result set to be included in the response. Passing zero will include all found entities.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "expandLevel",
+            "type": "integer",
+            "description": "Level of detail. 0 = links only; 1 = limited details; 2 = full details.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "2",
+              "1",
+              "0"
+            ]
+          },
+          {
+            "name": "Accepts",
+            "type": "string",
+            "description": "Content types of application/xml and application/json are accepted. Response consists of a single authors element having one or more nested author elements.",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/authors/{authorid}": {
+      "get": {
+        "operationId": "authoridResources",
+        "summary": "Get details for a specific author. In this context...",
+        "description": "Get details for a specific author. In this context author is considered to be any one of book's contributors, including roles such as illustrator or narrator.",
+        "tags": [
+          "Resources"
+        ],
+        "parameters": [
+          {
+            "name": "authorid",
+            "type": "string",
+            "description": "An integer value, identifying a specific author. If you don't know the authorid, you should first do a author search and extract the authorid. Example: 3446",
+            "in": "path",
+            "required": true,
+            "default": "3446"
+          },
+          {
+            "name": "expandLevel",
+            "type": "integer",
+            "description": "Level of detail. 0 = links only; 1 = limited details; 2 = full details.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "2",
+              "1",
+              "0"
+            ]
+          },
+          {
+            "name": "Accepts",
+            "type": "string",
+            "description": "Content types of application/xml and application/json are accepted. Response consists of a single authors element having one or more nested author elements.",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/works": {
+      "get": {
+        "operationId": "worksResources",
+        "summary": "Search for works by title or author. Work in this ...",
+        "description": "Search for works by title or author. Work in this context is a collection of titles that share the same content identified by a Random House-specific Work ID. Different formats of a title are collected under the same Work ID.",
+        "tags": [
+          "Resources"
+        ],
+        "parameters": [
+          {
+            "name": "search",
+            "type": "string",
+            "description": "",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "start",
+            "type": "integer",
+            "description": "Position of the first record in the result set to be included in the response. Starts with 0",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "max",
+            "type": "integer",
+            "description": "Position of the last record in the result set to be included in the response. Passing zero will include all found entities.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "expandLevel",
+            "type": "integer",
+            "description": "Level of detail. 0 = links only; 1 = limited details; 2 = full details.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "2",
+              "1",
+              "0"
+            ]
+          },
+          {
+            "name": "bisac",
+            "type": "string",
+            "description": "Book Industry Standards and Communications code.  Multiple bisac's can be called by repeating the parameter as &bisac=FIC027220&bisac=FIC005000",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "catid",
+            "type": "string",
+            "description": "Category Identifier",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "webdomain",
+            "type": "string",
+            "description": "Web Domain.  Multiple web domains can be called by repeating the parameter as &webdomain=PRH.US&webdomain=PRH.CA&key",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Accepts",
+            "type": "string",
+            "description": "Content types of application/xml and application/json are accepted. Response consists of a single authors element having one or more nested author elements.",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/works/{workid}": {
+      "get": {
+        "operationId": "workResources",
+        "summary": "Get details of a specific work. Work in this conte...",
+        "description": "Get details of a specific work. Work in this context is a collection of titles that share the same content identified by a Random House-specific Work ID. Different formats of a title are collected under the same Work ID.",
+        "tags": [
+          "Resources"
+        ],
+        "parameters": [
+          {
+            "name": "workid",
+            "type": "integer",
+            "description": "Random House work identifier. Example: 72148",
+            "in": "path",
+            "required": true,
+            "default": "72148"
+          },
+          {
+            "name": "expandLevel",
+            "type": "integer",
+            "description": "Level of detail. 0 = links only; 1 = full details.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "0"
+            ]
+          },
+          {
+            "name": "webdomain",
+            "type": "string",
+            "description": "Web Domain.  Multiple web domains can be called by repeating the parameter as &webdomain=PRH.US&webdomain=PRH.CA&key",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Accepts",
+            "type": "string",
+            "description": "Content types of application/xml and application/json are accepted. Response consists of a single authors element having one or more nested author elements.",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/titles": {
+      "get": {
+        "operationId": "titlesResources",
+        "summary": "Search for titles by a variety of criteria. Title ...",
+        "description": "Search for titles by a variety of criteria. Title in this context is reference to a specific version of a book identified by an ISBN. For example the hardcover and paperback versions of a book are considered separate titles.",
+        "tags": [
+          "Resources"
+        ],
+        "parameters": [
+          {
+            "name": "onsaleStart",
+            "type": "string",
+            "description": "Limit results to just those titles that went on sale on or after this date. On-sale dates are always Tuesdays. Date should be provided in mm/dd/yyyy format. Example: 01/18/2011.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "onsaleEnd",
+            "type": "string",
+            "description": "Limit results to just those titles that went on sale on or before this date. On-sale dates are always Tuesdays. Date should be provided in mm/dd/yyyy format. Example: 01/18/2011.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "ageRangeCodes",
+            "type": "string",
+            "description": "One or more age range codes separated by commas. Each code is 4 or 5 position alpha-numeric. Examples: 0512 - ages five to twelve; 10UP,0812 - ages 10 and up or eight to twelve.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "division",
+            "type": "string",
+            "description": "One or more division codes separated by commas. Each code is a 2 position alpha-numeric. Examples: 70 - Random House Group 72 - RH Childrens Books.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "imprint",
+            "type": "string",
+            "description": "One or more imprint codes separated by commas. Each code is a 2 position alpha-numeric. Examples: 1A - Bantam; K1 - Knopf Books for Young Readers.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "One or more format codes separated by commas. Each code is a 2 position alpha-numeric. Examples: HC - Hardcover; MM - Paperback; EL - eBook.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "authorid",
+            "type": "integer",
+            "description": "Limit the results to just those titles for whom the specified author is listed as a contributor. If you don't know this number, you should first do a author search and extract the authorid. Example: 3446.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "workid",
+            "type": "integer",
+            "description": "Limit the results to just those titles with the same work ID. This can be used to pull up all the different formats of a previously found title. Example: 19309.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "workfamily",
+            "type": "string",
+            "description": "A list of single position alpha-numeric codes used to modify a 'workid' search to limit the types of results that are returned. If you don't know what this means, then you probably want 'P' which should represent ISBNs with the same content in different formats. Examples: P (default), R or P,R.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "search",
+            "type": "string",
+            "description": "Exact match of a word in the keyword field, a concatenation of the basic metadata plus some blurb text. Examples: Grisham finds 'The Confession by John Grisham'; DaVinci finds both 'The DaVinci Code' and 'Laughing Matters: Learning to Laugh when Life Stinks', because DaVinci is mentioned in the flap copy.:",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "theme",
+            "type": "string",
+            "description": "Case insensitive match of all or a portion of one of the theme categories assigned to a title. Examples: friend finds titles tagged with the theme 'Friendship'; roma finds titles tagged with the theme 'Love & Romance'.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "start",
+            "type": "integer",
+            "description": "Position of the first record in the result set to be included in the response. Starts with 0.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "max",
+            "type": "integer",
+            "description": "Position of the last record in the result set to be included in the response. Passing zero will include all found entities.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "expandLevel",
+            "type": "integer",
+            "description": "Level of detail. 0 = links only; 1 = basic details; 2 = full details.",
+            "in": "query",
+            "required": true,
+            "enum": [
+              "1",
+              "0"
+            ]
+          },
+          {
+            "name": "award",
+            "type": "string",
+            "description": "Search by award name.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "bisac",
+            "type": "string",
+            "description": "Book Industry Standards and Communications code.  Multiple bisac's can be called by repeating the parameter as &bisac=FIC027220&bisac=FIC005000",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "catid",
+            "type": "integer",
+            "description": "Category Identifier",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eghi",
+            "type": "integer",
+            "description": "eghi",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eglo",
+            "type": "integer",
+            "description": "eglo",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "egtheme",
+            "type": "string",
+            "description": "egtheme.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "rggtheme",
+            "type": "string",
+            "description": "reading guide theme.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "rggtitle",
+            "type": "string",
+            "description": "reading guide title.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "webdomain",
+            "type": "string",
+            "description": "Web Domain.  Multiple web domains can be called by repeating the parameter as &webdomain=PRH.US&webdomain=PRH.CA&key",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "ean",
+            "type": "string",
+            "description": "Request multiple titles add &ean= after every request (ex. 9780385504225&ean=9780307594082)",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/titles/{isbn}": {
+      "get": {
+        "operationId": "titleResources",
+        "summary": "Search for details of a specific title by its ISBN...",
+        "description": "Search for details of a specific title by its ISBN number. Title in this context is reference to a specific version of a book identified by an ISBN. For example the hardcover and paperback versions of a book are considered separate titles.",
+        "tags": [
+          "Resources"
+        ],
+        "parameters": [
+          {
+            "name": "isbn",
+            "type": "integer",
+            "description": "The 13-digit integer identifying a specific title. May not contain hyphens and does not accept the old 10-digit variety. This is the same as the 'ean' value returned in the title detail. If you don't know the ISBN, you should first do a title search and extract it. Example: 9781400079148",
+            "in": "path",
+            "required": true,
+            "default": "9781400079148"
+          },
+          {
+            "name": "expandLevel",
+            "type": "integer",
+            "description": "Level of detail. 0 = links only; 1 = basic details; 2 = full details.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "0"
+            ]
+          },
+          {
+            "name": "Accepts",
+            "type": "string",
+            "description": "Content types of application/xml and application/json are accepted. Response consists of a single authors element having one or more nested author elements.",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml",
+              "image/*"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/authorevents": {
+      "get": {
+        "operationId": "authoreventsResources",
+        "summary": "Search for author events, e.g. book signing, by IS...",
+        "description": "Search for author events, e.g. book signing, by ISBN or author. Event records reference an author and possibly a title as well as specifications of the time and place of the event.",
+        "tags": [
+          "Resources"
+        ],
+        "parameters": [
+          {
+            "name": "isbn",
+            "type": "integer",
+            "description": "The 13-digit integer identifying a specific title. May not contain hyphens and does not accept the old 10-digit variety. This is the same as the 'ean' value returned in the title detail. If you don't know the ISBN, you should first do a title search and extract it. Example: 9781400079148",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "authorid",
+            "type": "integer",
+            "description": "Limit the results to just those titles for whom the specified author is listed as a contributor. If you don't know this number, you should first do a author search and extract the authorid. Example: 3446.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "start",
+            "type": "integer",
+            "description": "Position of the first record in the result set to be included in the response. Starts with 0.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "max",
+            "type": "integer",
+            "description": "Position of the last record in the result set to be included in the response. Passing zero will include all found entities.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "expandLevel",
+            "type": "integer",
+            "description": "Level of detail. 0 = links only; 1 = full details.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "0"
+            ]
+          },
+          {
+            "name": "Accepts",
+            "type": "string",
+            "description": "Content types of application/xml and application/json are accepted. Response consists of a single authors element having one or more nested author elements.",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml",
+              "image/*"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "operationId": "authoreventResources",
+        "summary": "",
+        "tags": [
+          "Resources"
+        ],
+        "parameters": [
+          {
+            "name": "eventid *",
+            "type": "string",
+            "description": "The integer identifying a specific author event. If you don't know this number, you should first do a author event search and extract the eventid. Example: 86694.",
+            "in": "query",
+            "required": true,
+            "default": "86694"
+          },
+          {
+            "name": "expandLevel",
+            "type": "integer",
+            "description": "Level of detail. 0 = links only; 1 = full details.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "0"
+            ]
+          },
+          {
+            "name": "Accepts",
+            "type": "string",
+            "description": "Content types of application/xml and application/json are accepted. Response consists of a single authors element having one or more nested author elements.",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/images/{isbn}": {
+      "get": {
+        "operationId": "imagesResources",
+        "summary": "Search for the cover page image of a specific titl...",
+        "description": "Search for the cover page image of a specific title by its ISBN number. Title in this context is reference to a specific version of a book identified by an ISBN. For example the hardcover and paperback versions of a book are considered separate titles.",
+        "tags": [
+          "Resources"
+        ],
+        "parameters": [
+          {
+            "name": "isbn",
+            "type": "string",
+            "description": "The 13-digit integer identifying a specific title. May not contain hyphens and does not accept the old 10-digit variety. This is the same as the 'ean' value returned in the title detail. If you don't know the ISBN, you should first do a title search and extract the ean. Example: 9780345500205",
+            "in": "path",
+            "required": true,
+            "default": "9780385537148.jpg"
+          },
+          {
+            "name": "Accepts",
+            "type": "string",
+            "description": "Content types of application/xml and application/json are accepted. Response consists of a single authors element having one or more nested author elements.",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "image/*"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/images/isbnx{y}{.jpg}": {
+      "get": {
+        "operationId": "imagesatresolutionResources",
+        "summary": "",
+        "tags": [
+          "Resources"
+        ],
+        "parameters": [
+          {
+            "name": "isbn",
+            "type": "integer",
+            "description": "The 13-digit integer identifying a specific title. May not contain hyphens and does not accept the old 10-digit variety. This is the same as the 'ean' value returned in the title detail. If you don't know the ISBN, you should first do a title search and extract the ean. Example: 9780345500205",
+            "in": "query",
+            "required": true,
+            "default": "9780385537148"
+          },
+          {
+            "name": "x",
+            "type": "string",
+            "description": "Pixel resolution an integer number for the x column Example: (width = 299)",
+            "in": "query",
+            "required": true,
+            "default": "-299"
+          },
+          {
+            "name": "y",
+            "type": "integer",
+            "description": "Pixel resolution an integer number for the y column Example: (height = 450)",
+            "in": "path",
+            "required": true,
+            "default": "x450"
+          },
+          {
+            "name": ".jpg",
+            "type": "string",
+            "description": "Image type - JPG only",
+            "in": "path",
+            "required": true,
+            "default": ".jpg"
+          },
+          {
+            "name": "Accepts",
+            "type": "string",
+            "description": "Content types of application/xml and application/json are accepted. Response consists of a single authors element having one or more nested author elements.",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "image/*"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

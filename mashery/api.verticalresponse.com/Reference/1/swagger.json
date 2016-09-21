@@ -1,0 +1,856 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Reference API",
+    "version": "1",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test VR's API using our interactive console. Refer to our API reference documentation for details on each API. Service used in stage for OAuth 2.0",
+    "x-mashery-id": "1637"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.verticalresponse.com",
+  "basePath": "/api/v1",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "http://developer.verticalresponse.com/io-docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "oauth2": {
+      "type": "oauth2",
+      "flow": "implicit",
+      "authorizationUrl": "",
+      "scopes": {}
+    }
+  },
+  "security": [
+    {
+      "oauth2": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Contacts"
+    },
+    {
+      "name": "Lists"
+    },
+    {
+      "name": "Emails"
+    },
+    {
+      "name": "Social Posts"
+    }
+  ],
+  "paths": {
+    "/contacts": {
+      "get": {
+        "operationId": "SearchContactsContacts",
+        "summary": "Read A Contact",
+        "tags": [
+          "Contacts"
+        ],
+        "parameters": [
+          {
+            "name": "type",
+            "type": "string",
+            "description": "type parameter determines the results returned.type can be basic,standard or all",
+            "in": "query",
+            "required": false,
+            "default": "basic"
+          },
+          {
+            "name": "email",
+            "type": "string",
+            "description": "email address to search contacts by",
+            "in": "query",
+            "required": false,
+            "default": "basic"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "operationId": "CreateANewContactContacts",
+        "summary": "Create a contact in VR",
+        "tags": [
+          "Contacts"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "type": "string",
+            "description": "email address of the contact to be created",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "First Name",
+            "type": "string",
+            "description": "First Name of the contact to be created",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Last Name",
+            "type": "string",
+            "description": "Last Name of the contact to be created",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/contacts/{contact_id}": {
+      "put": {
+        "operationId": "UpdateContactContacts",
+        "summary": "Update List",
+        "tags": [
+          "Contacts"
+        ],
+        "parameters": [
+          {
+            "name": "contact_id",
+            "type": "string",
+            "description": "id of contact to be updated",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "first_name",
+            "type": "string",
+            "description": "First name of the contact",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "last_name",
+            "type": "string",
+            "description": "Last name of the contact",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DeleteContactContacts",
+        "summary": "Delete Contact",
+        "tags": [
+          "Contacts"
+        ],
+        "parameters": [
+          {
+            "name": "contact_id",
+            "type": "string",
+            "description": "id of contact to be delete",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/contacts/{id}": {
+      "get": {
+        "operationId": "ReadContactContacts",
+        "summary": "Read Contact",
+        "tags": [
+          "Contacts"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "id of contact to be delete",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/contacts/{id}/lists": {
+      "get": {
+        "operationId": "Contact:MemberListsContacts",
+        "summary": "Lists the contact is a part of",
+        "tags": [
+          "Contacts"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "id of contact",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/contacts/{id}/messages": {
+      "get": {
+        "operationId": "Contact:TargetedMessagesContacts",
+        "summary": "Lists the messages sent to the contact",
+        "tags": [
+          "Contacts"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "id of contact",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/lists": {
+      "post": {
+        "operationId": "CreateListsLists",
+        "summary": "Create List",
+        "tags": [
+          "Lists"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "type": "string",
+            "description": "name of the list to be created",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "is_public",
+            "type": "string",
+            "description": "creating public vs private lists",
+            "in": "query",
+            "required": false,
+            "default": "false"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "get": {
+        "operationId": "GetAllListsLists",
+        "summary": "Return all lists for a given user",
+        "tags": [
+          "Lists"
+        ],
+        "parameters": [
+          {
+            "name": "type",
+            "type": "string",
+            "description": "type parameter determines the results returned.type can be basic,standard or all",
+            "in": "query",
+            "required": false,
+            "default": "basic"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/lists/{list_id}": {
+      "delete": {
+        "operationId": "DeleteListsLists",
+        "summary": "Delete List",
+        "tags": [
+          "Lists"
+        ],
+        "parameters": [
+          {
+            "name": "list_id",
+            "type": "string",
+            "description": "list id to be deleted",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "get": {
+        "operationId": "ReadListLists",
+        "summary": "Retrieve details about a list",
+        "tags": [
+          "Lists"
+        ],
+        "parameters": [
+          {
+            "name": "list_id",
+            "type": "string",
+            "description": "list id to be deleted",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/lists/{list_id}/messages": {
+      "get": {
+        "operationId": "TargetedMessagesLists",
+        "summary": "Get all messages that was sent to the given list",
+        "tags": [
+          "Lists"
+        ],
+        "parameters": [
+          {
+            "name": "list_id",
+            "type": "string",
+            "description": "list id to be deleted",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "description": "type parameter determines the results returned.type can be basic,standard or all",
+            "in": "query",
+            "required": false,
+            "default": "basic"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/lists/{list_id}/contacts": {
+      "get": {
+        "operationId": "Lists:MemberContactsLists",
+        "summary": "Get the contacts that are a part of the given list...",
+        "description": "Get the contacts that are a part of the given list",
+        "tags": [
+          "Lists"
+        ],
+        "parameters": [
+          {
+            "name": "list_id",
+            "type": "string",
+            "description": "list id to be deleted",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "description": "type parameter determines the results returned.type can be basic,standard or all",
+            "in": "query",
+            "required": false,
+            "default": "basic"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/messages/emails": {
+      "post": {
+        "operationId": "CreateEmailEmails",
+        "summary": "Create Email",
+        "tags": [
+          "Emails"
+        ],
+        "parameters": [
+          {
+            "name": "from_address",
+            "type": "string",
+            "description": "from address to send the campaign from",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "from_label",
+            "type": "string",
+            "description": "from label to send the campaign from",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "reply_to",
+            "type": "string",
+            "description": "reply to address for the email campaign",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "subject",
+            "type": "string",
+            "description": "subject of the email campaign",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "message",
+            "type": "string",
+            "description": "message content of the email campaign",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "unsubscribe_message",
+            "type": "string",
+            "description": "unsubscribe message, required for compliance purposes",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/messages/emails/{email_id}": {
+      "delete": {
+        "operationId": "DeleteEmailEmails",
+        "summary": "Delete Email",
+        "tags": [
+          "Emails"
+        ],
+        "parameters": [
+          {
+            "name": "email_id",
+            "type": "string",
+            "description": "email id to be deleted",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "from_label",
+            "type": "string",
+            "description": "from label to send the campaign from",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "reply_to",
+            "type": "string",
+            "description": "reply to address for the email campaign",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "subject",
+            "type": "string",
+            "description": "subject of the email campaign",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "message",
+            "type": "string",
+            "description": "message content of the email campaign",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "unsubscribe_message",
+            "type": "string",
+            "description": "unsubscribe message, required for compliance purposes",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "get": {
+        "operationId": "ReadEmailEmails",
+        "summary": "Retrieve details about an email",
+        "tags": [
+          "Emails"
+        ],
+        "parameters": [
+          {
+            "name": "email_id",
+            "type": "string",
+            "description": "email id to be deleted",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "operationId": "LaunchEmailEmails",
+        "summary": "Send or schedule an email campaign",
+        "tags": [
+          "Emails"
+        ],
+        "parameters": [
+          {
+            "name": "email_id",
+            "type": "string",
+            "description": "email id to be deleted",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "lists",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Array of list ids to send the email to. Maximum of 50 list ids allowed",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "scheduled_at",
+            "type": "string",
+            "description": "Optional date flag to schedule the email campaign to be sent on a specific day",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/messages": {
+      "get": {
+        "operationId": "ListAllEmailsEmails",
+        "summary": "Retrieve details about an email",
+        "tags": [
+          "Emails"
+        ],
+        "parameters": [
+          {
+            "name": "type",
+            "type": "string",
+            "description": "controls the details about lists that are returned",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/messages/emails/{email_id}/test": {
+      "post": {
+        "operationId": "LaunchTestEmailEmails",
+        "summary": "Send a test email campaign",
+        "tags": [
+          "Emails"
+        ],
+        "parameters": [
+          {
+            "name": "email_id",
+            "type": "string",
+            "description": "email id to be deleted",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "default_test_recipient_emails",
+            "type": "boolean",
+            "description": "boolean flag to indicate if the test email should use saved email addresses or not",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "0"
+            ]
+          },
+          {
+            "name": "recipients",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Array of email address. Maximum of 8 allowed.",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/messages/emails/{email_id}/stats": {
+      "post": {
+        "operationId": "Email:GetSummaryStatsEmails",
+        "summary": "Send a test email campaign",
+        "tags": [
+          "Emails"
+        ],
+        "parameters": [
+          {
+            "name": "email_id",
+            "type": "string",
+            "description": "email id to be deleted",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/messages/emails/{email_id}/lists": {
+      "get": {
+        "operationId": "Email:TargetedListsEmails",
+        "summary": "Retrieve lists to which the given email was sent",
+        "tags": [
+          "Emails"
+        ],
+        "parameters": [
+          {
+            "name": "email_id",
+            "type": "string",
+            "description": "email id to be deleted",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/messages/social_posts/{socialpost_id}/lists": {
+      "get": {
+        "operationId": "SocialPosts:GetSummaryStatsSocialPosts",
+        "summary": "Retrieve lists to which the given email was sent",
+        "tags": [
+          "Social Posts"
+        ],
+        "parameters": [
+          {
+            "name": "socialpost_id",
+            "type": "string",
+            "description": "socialpost id to be get stats on",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

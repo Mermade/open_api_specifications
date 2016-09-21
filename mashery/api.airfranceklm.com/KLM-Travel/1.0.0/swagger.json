@@ -1,0 +1,1333 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "KLM Travel API",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "A great place to start playing with the APIs. KLM Travel API",
+    "x-mashery-id": "5373"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.airfranceklm.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "https://developer.airfranceklm.com/io-docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "oauth2": {
+      "type": "oauth2",
+      "flow": "application",
+      "tokenUrl": "",
+      "scopes": {}
+    }
+  },
+  "security": [
+    {
+      "oauth2": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Contact Informations"
+    },
+    {
+      "name": "Locations"
+    },
+    {
+      "name": "Flight Offers"
+    }
+  ],
+  "paths": {
+    "/contactinformation/{id}": {
+      "get": {
+        "operationId": "GetlistofcontactinformationContactInformations",
+        "summary": "",
+        "tags": [
+          "Contact Informations"
+        ],
+        "parameters": [
+          {
+            "name": "country.code",
+            "type": "string",
+            "description": "CountryCode",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "expand",
+            "type": "string",
+            "description": "provide expand=subCategories when applicable",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "city.code",
+            "type": "string",
+            "description": "City code",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "id",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/locations/cities": {
+      "get": {
+        "operationId": "citiesLocations",
+        "summary": "",
+        "tags": [
+          "Locations"
+        ],
+        "parameters": [
+          {
+            "name": "country",
+            "type": "string",
+            "description": "optional country of origin",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "minDuration",
+            "type": "string",
+            "description": "optional minimum duration - default 3 days",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "maxBudget",
+            "type": "string",
+            "description": "optional minimum budget - default 100000",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "pageSize",
+            "type": "integer",
+            "description": "optional - select the size of the resultset, no restriction, when the complete result set is required set this value to 2147483647 for example",
+            "in": "query",
+            "required": false,
+            "default": "20"
+          },
+          {
+            "name": "minDepartureDate",
+            "type": "string",
+            "format": "date",
+            "description": "optional minimum departure date",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "maxDepartureDate",
+            "type": "string",
+            "format": "date",
+            "description": "optional maximum departure date",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "q",
+            "type": "string",
+            "description": "optional magical q parameter! Support for a custom filter DSL which is a the moment quite limited in functionality and supports only a single field, but its functionality will be expanded in future versions. For now it can be used as a filter to search for partial strings. Sample: /some/api/url?q=name.contains(dam) This will search the response for a field called name (nested fields can be selected by point navigation, for example airport.name). If no such field can be found the service will respond with a HTTP 400 Bad Request instead of ignoring the invalid filter. When it locates the field it will restrict the retrieved result set based on the provided query, so .contains(dam) does exactly what it suggests, it will filter the result set and return only elements that have a name field that contain dam.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "themes",
+            "type": "string",
+            "description": "optional list of comma separated theme codes",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "expand",
+            "type": "string",
+            "description": "optional comma separated expansions (currently supports only lowest-fare)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "sortOrder",
+            "type": "string",
+            "description": "optional - select the ordering, possible values are 'DESC' or 'ASC'",
+            "in": "query",
+            "required": false,
+            "default": "DESC"
+          },
+          {
+            "name": "sortField",
+            "type": "string",
+            "description": "optional field to be sorted, can only be string or numeric numeric",
+            "in": "query",
+            "required": false,
+            "default": "code"
+          },
+          {
+            "name": "origins",
+            "type": "string",
+            "description": "optional comma separated list of origin airport codes",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "currentPage",
+            "type": "integer",
+            "description": "optional - select an available page",
+            "in": "query",
+            "required": false,
+            "default": "0"
+          },
+          {
+            "name": "lang",
+            "type": "string",
+            "description": "optional language parameter for i18n",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "minBudget",
+            "type": "string",
+            "description": "optional minimum budget - default 0",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "maxDuration",
+            "type": "string",
+            "description": "optional maximum duration - default 20 days",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/locations/v2/cities/{code}/weather": {
+      "get": {
+        "operationId": "weatherLocations",
+        "summary": "",
+        "tags": [
+          "Locations"
+        ],
+        "parameters": [
+          {
+            "name": "code",
+            "type": "string",
+            "description": "ISO city code",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/locations/countries/{code}/currencies": {
+      "get": {
+        "operationId": "currencyLocations",
+        "summary": "",
+        "tags": [
+          "Locations"
+        ],
+        "parameters": [
+          {
+            "name": "code",
+            "type": "string",
+            "description": "Country code",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/locations/countries": {
+      "get": {
+        "operationId": "countriesLocations",
+        "summary": "",
+        "tags": [
+          "Locations"
+        ],
+        "parameters": [
+          {
+            "name": "q",
+            "type": "string",
+            "description": "optional magical q parameter! Support for a custom filter DSL which is a the moment quite limited in functionality and supports only a single field, but its functionality will be expanded in future versions. For now it can be used as a filter to search for partial strings. Sample: /some/api/url?q=name.contains(dam) This will search the response for a field called name (nested fields can be selected by point navigation, for example airport.name). If no such field can be found the service will respond with a HTTP 400 Bad Request instead of ignoring the invalid filter. When it locates the field it will restrict the retrieved result set based on the provided query, so .contains(dam) does exactly what it suggests, it will filter the result set and return only elements that have a name field that contain dam.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "sortOrder",
+            "type": "string",
+            "description": "optional - select the ordering, possible values are 'DESC' or 'ASC'",
+            "in": "query",
+            "required": false,
+            "default": "DESC"
+          },
+          {
+            "name": "sortField",
+            "type": "string",
+            "description": "optional field to be sorted, can only be string or numeric numeric",
+            "in": "query",
+            "required": false,
+            "default": "code"
+          },
+          {
+            "name": "pageSize",
+            "type": "integer",
+            "description": "optional - select the size of the resultset, no restriction, when the complete result set is required set this value to 2147483647 for example",
+            "in": "query",
+            "required": false,
+            "default": "20"
+          },
+          {
+            "name": "currentPage",
+            "type": "integer",
+            "description": "optional - select an available page",
+            "in": "query",
+            "required": false,
+            "default": "0"
+          },
+          {
+            "name": "lang",
+            "type": "string",
+            "description": "optional language parameter for i18n",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/flightoffers/available-offers": {
+      "get": {
+        "operationId": "AvailableOffersFlightOffers",
+        "summary": "",
+        "tags": [
+          "Flight Offers"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "d",
+            "type": "string",
+            "description": "Base64 encoded, zipped JSON request body. Except for dateInterval.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "AFKL-TRAVEL-Host",
+            "type": "string",
+            "description": "Indicates the host that is to be used to create the response. e.g. 'AF' (AirFrance) or 'KL' (KLM)",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Accept-Language",
+            "type": "string",
+            "description": "",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "minimumAccuracy",
+            "type": "string",
+            "description": "Specifies the minimum requested accuracy. Will override the default minimum accuracy. Low minimum accuracy will enforce TripPlanner GetDayData to be used instead of FareFlexPricerUpsell",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "operationId": "CreateAvailableOffersFlightOffers",
+        "summary": "",
+        "tags": [
+          "Flight Offers"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Indicates the response type expected.",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "AFKL-TRAVEL-Host",
+            "type": "string",
+            "description": "Indicates the host that is to be used to create the response. e.g. 'AF' (AirFrance) or 'KL' (KLM)",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Accept-Language",
+            "type": "string",
+            "description": "Indicates the response country and language expected. e.g. nl-NL indicates language=nl (Ducth) &amp; country=NL (Netherlands)",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/AvailableOffers"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/flightoffers/flight-products/{id}/shopping-carts": {
+      "post": {
+        "operationId": "ShoppingCartsFlightOffers",
+        "summary": "",
+        "tags": [
+          "Flight Offers"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Indicates the response type expected.",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "AFKL-TRAVEL-Host",
+            "type": "string",
+            "description": "Indicates the host that is to be used to create the response. e.g. 'AF' (AirFrance) or 'KL' (KLM)",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Accept-Language",
+            "type": "string",
+            "description": "Indicates the response country and language expected. e.g. nl-NL indicates language=nl (Ducth) &amp; country=NL (Netherlands)",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "id",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/flightoffers/reference-data": {
+      "get": {
+        "operationId": "ReferenceDataFlightOffers",
+        "summary": "",
+        "tags": [
+          "Flight Offers"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "AFKL-TRAVEL-Host",
+            "type": "string",
+            "description": "Indicates the host that is to be used to create the response. e.g. 'AF' (AirFrance) or 'KL' (KLM)",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Accept-Language",
+            "type": "string",
+            "description": "",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/flightoffers/lowest-fare-offers": {
+      "post": {
+        "operationId": "CreateLowestFareOffersFlightOffers",
+        "summary": "",
+        "tags": [
+          "Flight Offers"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Indicates the response type expected.",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "AFKL-TRAVEL-Host",
+            "type": "string",
+            "description": "Indicates the host that is to be used to create the response. e.g. 'AF' (AirFrance) or 'KL' (KLM)",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Accept-Language",
+            "type": "string",
+            "description": "Indicates the response country and language expected. e.g. nl-NL indicates language=nl (Ducth) &amp; country=NL (Netherlands)",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/LowestFareOffers"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "get": {
+        "operationId": "LowestFareOffersFlightOffers",
+        "summary": "",
+        "tags": [
+          "Flight Offers"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "d",
+            "type": "string",
+            "description": "Base64 encoded, zipped JSON request body. Except for dateInterval.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "AFKL-TRAVEL-Host",
+            "type": "string",
+            "description": "Indicates the host that is to be used to create the response. e.g. 'AF' (AirFrance) or 'KL' (KLM)",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Accept-Language",
+            "type": "string",
+            "description": "",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "dateInterval",
+            "type": "string",
+            "description": "Date interval to be used for the connection of interest.  Format: YYYY-MM-DD/YYYY-MM-DD NB Currently only support for one dateInterval, so for RETURN offers only.",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/flightoffers/flight-products/{id}/tax-breakdown": {
+      "get": {
+        "operationId": "TaxBreakdownFlightOffers",
+        "summary": "",
+        "tags": [
+          "Flight Offers"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "AFKL-TRAVEL-Host",
+            "type": "string",
+            "description": "Indicates the host that is to be used to create the response. e.g. 'AF' (AirFrance) or 'KL' (KLM)",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Accept-Language",
+            "type": "string",
+            "description": "",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "id",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/flightoffers/flight-products/{id}/upsell-offers": {
+      "get": {
+        "operationId": "UpsellOffersFlightOffers",
+        "summary": "",
+        "tags": [
+          "Flight Offers"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "AFKL-TRAVEL-Host",
+            "type": "string",
+            "description": "Indicates the host that is to be used to create the response. e.g. 'AF' (AirFrance) or 'KL' (KLM)",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Accept-Language",
+            "type": "string",
+            "description": "",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "id",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/flightoffers/flight-products/{id}/ticket-conditions": {
+      "get": {
+        "operationId": "TicketConditionsFlightOffers",
+        "summary": "",
+        "tags": [
+          "Flight Offers"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "AFKL-TRAVEL-Host",
+            "type": "string",
+            "description": "Indicates the host that is to be used to create the response. e.g. 'AF' (AirFrance) or 'KL' (KLM)",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Accept-Language",
+            "type": "string",
+            "description": "",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "id",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "cities": {
+      "type": "object",
+      "properties": {}
+    },
+    "countries": {
+      "type": "object",
+      "properties": {}
+    },
+    "ShoppingCarts": {
+      "type": "object",
+      "properties": {}
+    },
+    "ReferenceData": {
+      "type": "object",
+      "properties": {}
+    },
+    "TaxBreakdown": {
+      "type": "object",
+      "properties": {}
+    },
+    "UpsellOffers": {
+      "type": "object",
+      "properties": {}
+    },
+    "TicketConditions": {
+      "type": "object",
+      "properties": {}
+    },
+    "LowestFareOffers": {
+      "description": "Lowest-fare-offers request the lowest available fare offers.  HTTP method is POST and request parameters are specified in the message body. Request contains number of passengers per type, type of request, cabin class, currency (optional) and a list of connections.",
+      "type": "object",
+      "properties": {
+        "type": {
+          "description": "Indicates the type of FlightOffer request being fired.",
+          "type": "string",
+          "enum": [
+            "OVERALL",
+            "MONTH",
+            "DAY"
+          ]
+        },
+        "cabinClass": {
+          "description": "Code for cabin class. Either ECONOMY or BUSINESS for now.",
+          "type": "string"
+        },
+        "shortest": {
+          "description": "Indicates whether shortest route should be found.",
+          "type": "boolean"
+        },
+        "currency": {
+          "description": "Indicates the currency to be used for prices in response.  Three letter currency code according to ISO 4217. If not specified the default currency is taken from POS.",
+          "type": "string"
+        },
+        "includeCarriers": {
+          "description": "List of marketing carriers to include in the request.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "displayType": {
+          "description": "Indicates the rules to use for determining the display price. This can be used to override the POS default setting.",
+          "type": "string",
+          "enum": [
+            "FARE",
+            "FEE",
+            "TAX"
+          ]
+        },
+        "discountCode": {
+          "description": "code for IDC discount.",
+          "type": "string"
+        },
+        "minimumAccuracy": {
+          "description": "Threshold for accuracy. Overrides default threshold. When accuracy is below supplied threshold, backend will switch to more accurate source. NB Currently TripPlanner GetBudgetSearch is fast, less accurate source and TripPlanner GetData is more accurate source..",
+          "type": "integer"
+        },
+        "passengerCount": {
+          "description": "Describes the number of passengers. Total number of passengers must be 1-9.",
+          "type": "object",
+          "properties": {
+            "INFANT": {
+              "description": "Number of infants. Under 2 years.",
+              "type": "integer"
+            },
+            "CHILD": {
+              "description": "Number of children. 2-11 years.",
+              "type": "integer"
+            },
+            "ADULT": {
+              "description": "Number of adults. 12 years and older.",
+              "type": "integer"
+            },
+            "YOUNG_ADULT": {
+              "description": "Number of young adults. 12-15 years.",
+              "type": "integer"
+            }
+          }
+        },
+        "requestedConnections": {
+          "maxItems": 6,
+          "type": "array",
+          "items": {
+            "description": "Specification of a connection as part of request. Connection is specified by EITHER origin and destination (any flight) OR ordered list of segments (selected flight).",
+            "type": "object",
+            "properties": {
+              "maxDaysOfStay": {
+                "description": "Maximum days of stay at the destination of the Connection.",
+                "type": "integer"
+              },
+              "minDaysOfStay": {
+                "description": "Minimum days of stay at the destination of the Connection.",
+                "type": "integer"
+              },
+              "dateInterval": {
+                "description": "String representing a date interval according to RFC3339, period-explicit. Format is: 'YYYY-MM[-DD]/YYYY-MM[-DD]'.  Date interval describes the range of dates that should be used to find lowest fares/flights for the Connection",
+                "type": "string"
+              },
+              "origin": {
+                "description": "StationView is helper object. StationView is specified by EITHER City OR Airport.",
+                "type": "object",
+                "properties": {
+                  "city": {
+                    "description": "City is an IATA defined location where an Airport is located.",
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "description": "IATA location code",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "code"
+                    ]
+                  },
+                  "airport": {
+                    "description": "Airport is an IATA defined location. Airport can actually be a location of type: 1 - Off-Line Point 2 - Metropolitan Area 3 - Airport 4 - Bus Station 5 - Railway Station 6 - Heliport 7 - Ferry Port ",
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "description": "IATA location code",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "code"
+                    ]
+                  }
+                }
+              },
+              "destination": {
+                "description": "StationView is helper object. StationView is specified by EITHER City OR Airport.",
+                "type": "object",
+                "properties": {
+                  "city": {
+                    "description": "City is an IATA defined location where an Airport is located.",
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "description": "IATA location code",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "code"
+                    ]
+                  },
+                  "airport": {
+                    "description": "Airport is an IATA defined location. Airport can actually be a location of type: 1 - Off-Line Point 2 - Metropolitan Area 3 - Airport 4 - Bus Station 5 - Railway Station 6 - Heliport 7 - Ferry Port ",
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "description": "IATA location code",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "code"
+                    ]
+                  }
+                }
+              },
+              "segments": {
+                "type": "array",
+                "items": {
+                  "description": "Segment is a direct flight from its origin to its destination.",
+                  "type": "object",
+                  "properties": {
+                    "farebase": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "description": "Farebase code for the segment.",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "code"
+                      ]
+                    },
+                    "origin": {
+                      "description": "Airport is an IATA defined location. Airport can actually be a location of type: 1 - Off-Line Point 2 - Metropolitan Area 3 - Airport 4 - Bus Station 5 - Railway Station 6 - Heliport 7 - Ferry Port ",
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "description": "IATA location code",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "code"
+                      ]
+                    },
+                    "destination": {
+                      "description": "Airport is an IATA defined location. Airport can actually be a location of type: 1 - Off-Line Point 2 - Metropolitan Area 3 - Airport 4 - Bus Station 5 - Railway Station 6 - Heliport 7 - Ferry Port ",
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "description": "IATA location code",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "code"
+                      ]
+                    },
+                    "departureDateTime": {
+                      "format": "date-time",
+                      "description": "DateTime of departure of the segment flight. It is specified as local time at origin of the segment.",
+                      "type": "string"
+                    },
+                    "marketingFlight": {
+                      "description": "Marketing representation of the flight.",
+                      "type": "object",
+                      "properties": {
+                        "number": {
+                          "description": "Max of four digits, when less than 3 then prefix with zeroes up till 3 digits. For example: 006, 022, 1001.",
+                          "type": "string"
+                        },
+                        "carrier": {
+                          "description": "Carrier that is connected to the flight. Can be different for MarketingFlight and OperatingFlight.",
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "description": "IATA airline code",
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "code"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "number",
+                        "carrier"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "farebase",
+                    "origin",
+                    "destination",
+                    "departureDateTime",
+                    "marketingFlight"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "type",
+        "cabinClass",
+        "passengerCount",
+        "requestedConnections"
+      ]
+    },
+    "AvailableOffers": {
+      "description": "Available-offers request the lowest available flight offers.  HTTP method is POST and request parameters are specified in the message body. Request contains number of passengers per type, cabin class, currency (optional) and a list of connections.",
+      "type": "object",
+      "properties": {
+        "cabinClass": {
+          "description": "Code for cabin class. Either ECONOMY or BUSINESS for now.",
+          "type": "string"
+        },
+        "shortest": {
+          "description": "Indicates whether shortest route should be found.",
+          "type": "boolean"
+        },
+        "currency": {
+          "description": "Indicates the currency to be used for prices in response.  Three letter currency code according to ISO 4217. If not specified the default currency is taken from POS.",
+          "type": "string"
+        },
+        "includeCarriers": {
+          "description": "List of marketing carriers to include in the request.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "displayType": {
+          "description": "Indicates the rules to use for determining the display price. This can be used to override the POS default setting.",
+          "type": "string",
+          "enum": [
+            "FARE",
+            "FEE",
+            "TAX"
+          ]
+        },
+        "discountCode": {
+          "description": "code for IDC discount.",
+          "type": "string"
+        },
+        "minimumAccuracy": {
+          "description": "Threshold for accuracy. Overrides default threshold. When accuracy is below supplied threshold, backend will switch to more accurate source. NB Currently TripPlanner GetBudgetSearch is fast, less accurate source and TripPlanner GetData is more accurate source..",
+          "type": "integer"
+        },
+        "passengerCount": {
+          "description": "Describes the number of passengers. Total number of passengers must be 1-9.",
+          "type": "object",
+          "properties": {
+            "INFANT": {
+              "description": "Number of infants. Under 2 years.",
+              "type": "integer"
+            },
+            "CHILD": {
+              "description": "Number of children. 2-11 years.",
+              "type": "integer"
+            },
+            "ADULT": {
+              "description": "Number of adults. 12 years and older.",
+              "type": "integer"
+            },
+            "YOUNG_ADULT": {
+              "description": "Number of young adults. 12-15 years.",
+              "type": "integer"
+            }
+          }
+        },
+        "requestedConnections": {
+          "maxItems": 6,
+          "type": "array",
+          "items": {
+            "description": "Specification of a connection as part of request. Connection is specified by EITHER origin and destination (any flight) OR ordered list of segments (selected flight).",
+            "type": "object",
+            "properties": {
+              "origin": {
+                "description": "StationView is helper object. StationView is specified by EITHER City OR Airport.",
+                "type": "object",
+                "properties": {
+                  "city": {
+                    "description": "City is an IATA defined location where an Airport is located.",
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "description": "IATA location code",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "code"
+                    ]
+                  },
+                  "airport": {
+                    "description": "Airport is an IATA defined location. Airport can actually be a location of type: 1 - Off-Line Point 2 - Metropolitan Area 3 - Airport 4 - Bus Station 5 - Railway Station 6 - Heliport 7 - Ferry Port ",
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "description": "IATA location code",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "code"
+                    ]
+                  }
+                }
+              },
+              "destination": {
+                "description": "StationView is helper object. StationView is specified by EITHER City OR Airport.",
+                "type": "object",
+                "properties": {
+                  "city": {
+                    "description": "City is an IATA defined location where an Airport is located.",
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "description": "IATA location code",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "code"
+                    ]
+                  },
+                  "airport": {
+                    "description": "Airport is an IATA defined location. Airport can actually be a location of type: 1 - Off-Line Point 2 - Metropolitan Area 3 - Airport 4 - Bus Station 5 - Railway Station 6 - Heliport 7 - Ferry Port ",
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "description": "IATA location code",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "code"
+                    ]
+                  }
+                }
+              },
+              "departureDate": {
+                "description": "String representing a date according to RFC3339. Format is: 'YYYY-MM-DD'.",
+                "type": "string"
+              },
+              "segments": {
+                "type": "array",
+                "items": {
+                  "description": "Segment is a direct flight from its origin to its destination.",
+                  "type": "object",
+                  "properties": {
+                    "farebase": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "description": "Farebase code for the segment.",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "code"
+                      ]
+                    },
+                    "origin": {
+                      "description": "Airport is an IATA defined location. Airport can actually be a location of type: 1 - Off-Line Point 2 - Metropolitan Area 3 - Airport 4 - Bus Station 5 - Railway Station 6 - Heliport 7 - Ferry Port ",
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "description": "IATA location code",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "code"
+                      ]
+                    },
+                    "destination": {
+                      "description": "Airport is an IATA defined location. Airport can actually be a location of type: 1 - Off-Line Point 2 - Metropolitan Area 3 - Airport 4 - Bus Station 5 - Railway Station 6 - Heliport 7 - Ferry Port ",
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "description": "IATA location code",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "code"
+                      ]
+                    },
+                    "departureDateTime": {
+                      "format": "date-time",
+                      "description": "DateTime of departure of the segment flight. It is specified as local time at origin of the segment.",
+                      "type": "string"
+                    },
+                    "marketingFlight": {
+                      "description": "Marketing representation of the flight.",
+                      "type": "object",
+                      "properties": {
+                        "number": {
+                          "description": "Max of four digits, when less than 3 then prefix with zeroes up till 3 digits. For example: 006, 022, 1001.",
+                          "type": "string"
+                        },
+                        "carrier": {
+                          "description": "Carrier that is connected to the flight. Can be different for MarketingFlight and OperatingFlight.",
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "description": "IATA airline code",
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "code"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "number",
+                        "carrier"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "farebase",
+                    "origin",
+                    "destination",
+                    "departureDateTime",
+                    "marketingFlight"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "cabinClass",
+        "passengerCount",
+        "requestedConnections"
+      ]
+    }
+  }
+}

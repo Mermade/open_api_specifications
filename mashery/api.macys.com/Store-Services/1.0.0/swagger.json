@@ -1,0 +1,303 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Store Services",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test Macy's API using our easy to use Interactive Console! You can also view more detailed  written documentation. (Note: You must attain approval for an API key for one of the services in the drop-down menu below before being able to use the Macy's API Console.) Store Services give you access to the Macy's store information including in store availability of products:",
+    "x-mashery-id": "2804"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.macys.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "Please contact us if you are having trouble getting access to keys: Click Here",
+    "url": "http://developer.macys.com/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Store Services"
+    }
+  ],
+  "paths": {
+    "/store/v1/events": {
+      "get": {
+        "operationId": "EventsStoreServices",
+        "summary": "GetStoreEvents Provides a list of events in store ...",
+        "description": "GetStoreEvents Provides a list of events in store for a given Store and date range.  The search can be made by the storeId, locationNumber, or storeNumber. Please click here for the additional documentation.",
+        "tags": [
+          "Store Services"
+        ],
+        "parameters": [
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Output format as JSON or XML (Required) Ex. JSON",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
+          },
+          {
+            "name": "storeId",
+            "type": "integer",
+            "description": "Store ID. You can return events for multiple stores by separating them by a comma. (Required if  NOT searching by storeNumber) Ex. 212, 70",
+            "in": "query",
+            "required": false,
+            "default": "70"
+          },
+          {
+            "name": "storeNumber",
+            "type": "integer",
+            "description": "MST Store Number. You can return events for multiple stores by separating them by a comma. (Required if  NOT searching by storeId) Ex. 428,49",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "locationNumber",
+            "type": "integer",
+            "description": "Location Number for the Store. You can return events for multiple stores by separating them by a comma. (Required if  NOT searching by storeId) Ex. 73,63",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "description": "Start Search Date (Optional) Ex. 2014-01-01",
+            "in": "query",
+            "required": false,
+            "default": "2014-01-01"
+          },
+          {
+            "name": "finishDate",
+            "type": "string",
+            "description": "End Search Date (Optional) Ex. 2014-12-31",
+            "in": "query",
+            "required": false,
+            "default": "2015-12-31"
+          },
+          {
+            "name": "_fields",
+            "type": "string",
+            "description": "Filter parameter that allows you to return the exact fields you would like in the response. Multiple fields and subfields can be returnd by separating them by a comma and including subfields in parentheses.  (Optional) Ex. name,locationNumber,attributes(attribute(name))",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/store/v2/stores/{locationNumber}": {
+      "get": {
+        "operationId": "Location(UsingLocationNumber)StoreServices",
+        "summary": "This service allows users to find store informatio...",
+        "description": "This service allows users to find store information based on Location Number.  You can also request store availability information for products and upc's.  Please click here for the additional documentation.",
+        "tags": [
+          "Store Services"
+        ],
+        "parameters": [
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Output format as JSON or XML (Required) Ex. JSON",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
+          },
+          {
+            "name": "locationNumber",
+            "type": "integer",
+            "description": "Product ID of the product you would like to return recommendations for (Required) Ex. 73,63.",
+            "in": "path",
+            "required": true,
+            "default": "73"
+          },
+          {
+            "name": "feature",
+            "type": "string",
+            "description": "Response will be filtered by support of specific features in store. You can return by multiple features by comma separating. Supported values: BOPS, BRIDAL, HAS_EVENTS, MATTRESS, FURNITURE_GALLERY,VISITOR_CENTER, PERSONAL_SHOPPER, RESTAURANT (Optional) Ex. BOPS,BRIDAL",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "_fields",
+            "type": "string",
+            "description": "Filter Parameter that allows you to return just the fields you would like in the response (Optional) Ex. features,address,inventories,mapUrl,phoneNumber",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "upcNumber",
+            "type": "integer",
+            "description": "Provides instore availability of a specific UPC at the store(s) you query. (Optional) Ex. 50946872827",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "productId",
+            "type": "integer",
+            "description": "Provides instore availability of a specific product at the store(s) you query (Optional) Ex. 77589",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/store/v2/stores": {
+      "get": {
+        "operationId": "LocationStoreServices",
+        "summary": "This service allows users to find store informatio...",
+        "description": "This service allows users to find store information based on store number.  You can also return store information base on location specified in a variety of ways.  In addition you can request store availability information for products and upc's. If no location query parameters are provided you will return all store information.  Please click here for the additional documentation.",
+        "tags": [
+          "Store Services"
+        ],
+        "parameters": [
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Output format as JSON or XML (Required) Ex. JSON",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
+          },
+          {
+            "name": "storeNumber",
+            "type": "integer",
+            "description": "This is the MST Store Number ZL_STORE_NBR. You can return multiple store information by comma separating. (Optional) Ex. 428,49",
+            "in": "query",
+            "required": false,
+            "default": "428"
+          },
+          {
+            "name": "searchAddress",
+            "type": "string",
+            "description": "Input a string for this query parameter.  This can be a city state combo, a full address, a general area, or even a zip code (Optional) Ex.  680 Folsom St San Francisco CA",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "latitude",
+            "type": "integer",
+            "description": "Stores look up by global coordinates. (Optional) Ex. 37.355965",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "longitude",
+            "type": "integer",
+            "description": "Stores look up by global coordinates. (Optional) Ex. -122.01318",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "radius",
+            "type": "string",
+            "description": "Radius (in miles) in which store should be located. Specified as Mnn e.g. M50, if not specified is set to M200 by default.  Maximum radius is M200 (Optional)) Ex. M100",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "feature",
+            "type": "string",
+            "description": "Response will be filtered by support of specific features in store. You can return by multiple features by comma separating. Supported values: BOPS, BRIDAL, HAS_EVENTS, MATTRESS, FURNITURE_GALLERY,VISITOR_CENTER, PERSONAL_SHOPPER, RESTAURANT (Optional) Ex. BOPS,BRIDAL",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "_limit",
+            "type": "integer",
+            "description": "Filter the number of stores being returned. By default we return all the stores in a 200 mile radius unless the radius is defined to be less. (Optional) Ex. 5",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "_fields",
+            "type": "string",
+            "description": "Filter Parameter that allows you to return just the fields you would like in the response (Optional) Ex. features,address,inventories,mapUrl,phoneNumber",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "upcNumber",
+            "type": "integer",
+            "description": "Provides instore availability of a specific UPC at the store(s) you query. (Optional) Ex. 50946872827",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "productId",
+            "type": "integer",
+            "description": "Provides instore availability of a specific product at the store(s) you query (Optional) Ex. 77589",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

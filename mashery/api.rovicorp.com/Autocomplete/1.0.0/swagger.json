@@ -1,0 +1,156 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Autocomplete API",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test our API services using these I/O Docs. For detailed information about any call or parameter, please see our complete documentation.  Note: For I/O Docs to work properly, you need to be logged into your developer account. You can sign in by clicking the link on the top right of this page. Predicts search words or phrases for select areas of Rovi Cloud Services and returns results in order of popularity.",
+    "x-mashery-id": "116"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.rovicorp.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "http://developer.rovicorp.com/io-docs/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Autocomplete API"
+    }
+  ],
+  "paths": {
+    "/{endpoint}/autocomplete": {
+      "get": {
+        "operationId": "AutocompleteAutocompleteAPI",
+        "summary": "Predicts search words or phrases for select areas ...",
+        "description": "Predicts search words or phrases for select areas of Rovi Cloud Services and returns results in order of popularity. Fields in bold are required.",
+        "tags": [
+          "Autocomplete API"
+        ],
+        "parameters": [
+          {
+            "name": "endpoint",
+            "type": "string",
+            "description": "Database to search.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "music",
+              "amgvideo",
+              "video"
+            ]
+          },
+          {
+            "name": "entitytype",
+            "type": "string",
+            "description": "Type of content to search for in the database selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "song",
+              "album",
+              "artist",
+              "onetimeonly",
+              "movie",
+              "credit",
+              "tvseries"
+            ]
+          },
+          {
+            "name": "query",
+            "type": "string",
+            "description": "The search characters.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "clu",
+            "type": "string",
+            "description": "For an endpoint of video, the service ID of a television service that has upcoming movies or TV series you want to match against. For example 360861. You can get service IDs from the TV Listings API with a Services request.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "filter",
+            "type": "string",
+            "description": "If you specify the clu parameter, this parameter filters out content that is not found on the television service channel lineup. Specified with a value of availability, like this: filter=availability.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "country",
+            "type": "string",
+            "description": "Country of the language of the response. The current release of the API only supports US.",
+            "in": "query",
+            "required": false,
+            "default": "US"
+          },
+          {
+            "name": "language",
+            "type": "string",
+            "description": "Language of the response data. This request only supports en (English).",
+            "in": "query",
+            "required": false,
+            "default": "en"
+          },
+          {
+            "name": "size",
+            "type": "integer",
+            "description": "The number of items you want to be returned.",
+            "in": "query",
+            "required": false,
+            "default": "20"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Format of the returned data.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

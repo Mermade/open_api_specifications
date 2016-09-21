@@ -1,0 +1,1679 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Travel Insurance API",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test our API services using I/O Docs. ",
+    "x-mashery-id": "4505"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.tugo.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "http://developer.tugo.com/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {},
+  "security": [],
+  "tags": [
+    {
+      "name": "OAuth Authentication"
+    },
+    {
+      "name": "Accounts"
+    },
+    {
+      "name": "Partners"
+    },
+    {
+      "name": "Questionnaires"
+    },
+    {
+      "name": "Policies"
+    },
+    {
+      "name": "Quotes"
+    },
+    {
+      "name": "Reporting"
+    }
+  ],
+  "paths": {
+    "/accessToken": {
+      "post": {
+        "operationId": "accessTokenOAuthAuthentication",
+        "summary": "The Access Token service provides authorization fo...",
+        "description": "The Access Token service provides authorization for users and client applications. Once authorized, an access token is granted for accessing resources and services via other API calls. Remember to pass in the API key you received using the HTTP header X-Auth-API-Key.",
+        "tags": [
+          "OAuth Authentication"
+        ],
+        "parameters": [
+          {
+            "name": "client_id",
+            "type": "string",
+            "description": "The identifier for the client application. This is the API key assigned to you when you applied to use this product. Even though this key is passed in all Travel Insurance API calls in the X-Auth-API-Key header, it is included here to stay consistent with OAuth 2 guidelines.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "client_secret",
+            "type": "string",
+            "description": "The secret 'password' provided to you along with your API key to access the Travel Insurance API. Note: Unlike the API key, this secret should be kept confidential and not shared with others.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "grant_type",
+            "type": "string",
+            "description": "The OAuth 2 grant type. Must be one of the currently supported grant types, 'client_credentials', 'password', or 'refresh_token'",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "password",
+              "refresh_token"
+            ]
+          },
+          {
+            "name": "user_name",
+            "type": "string",
+            "description": "Required if grant_type=password. If using the Resource Owner Password grant flow, this is the username of the user to be authenticated",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "password",
+            "type": "string",
+            "description": "Required if grant_type=password. If using the Resource Owner Password grant flow, this is the password of the user to be authenticated",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "refresh_token",
+            "type": "string",
+            "description": "Required if grant_type=refresh_token. The refresh token provided during the initial 'client_credentials' or 'password' flow",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/accounts/password": {
+      "put": {
+        "operationId": "changePasswordAccounts",
+        "summary": "Change Password",
+        "tags": [
+          "Accounts"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "The API key (generate above)",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/x-www-form-urlencoded"
+            ]
+          },
+          {
+            "name": "oldPassword",
+            "type": "string",
+            "description": "Old password",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "newPassword",
+            "type": "string",
+            "description": "New password",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/partners/{partnerCode}": {
+      "get": {
+        "operationId": "partnerInformationPartners",
+        "summary": "Get Partner Information",
+        "tags": [
+          "Partners"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "The API key (generate above)",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "partnerCode",
+            "type": "string",
+            "description": "Partner Code",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/partners/{partnerCode}/products": {
+      "get": {
+        "operationId": "productInformationPartners",
+        "summary": "Get Product Information",
+        "tags": [
+          "Partners"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "The API key (generate above)",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "partnerCode",
+            "type": "string",
+            "description": "Partner Code",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/questionnaires": {
+      "get": {
+        "operationId": "allQuestionnairesQuestionnaires",
+        "summary": "Get all Questionnaires",
+        "tags": [
+          "Questionnaires"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "The API key (generate above)",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "lang",
+            "type": "string",
+            "description": "Questionnaire Language",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "en",
+              "fr"
+            ]
+          },
+          {
+            "name": "application_date",
+            "type": "string",
+            "description": "Questionnaire Application Date",
+            "in": "query",
+            "required": false,
+            "default": "?"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/questionnaires/{id}": {
+      "get": {
+        "operationId": "getQuestionnaireQuestionnaires",
+        "summary": "Get Questionnaire by ID",
+        "tags": [
+          "Questionnaires"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "The API key (generate above)",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "id",
+            "type": "string",
+            "description": "Questionnaire ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "lang",
+            "type": "string",
+            "description": "Questionnaire Language",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "en",
+              "fr"
+            ]
+          },
+          {
+            "name": "application_date",
+            "type": "string",
+            "description": "Questionnaire Application Date",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/policies": {
+      "get": {
+        "operationId": "policySearchPolicies",
+        "summary": "Search for Policies",
+        "tags": [
+          "Policies"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "The API key (generate above)",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "policyNumber",
+            "type": "string",
+            "description": "A policy Number",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "applicationDateLower",
+            "type": "string",
+            "description": "After or equal to this Application Date",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "applicationDateUpper",
+            "type": "string",
+            "description": "Before or equal to this Application Date",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "effectiveDateLower",
+            "type": "string",
+            "description": "After or equal to this Effective Date",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "effectiveDateUpper",
+            "type": "string",
+            "description": "Before or equal to this Effective Date",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "expiryDateLower",
+            "type": "string",
+            "description": "After or equal to this Application Date",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "expiryDateUpper",
+            "type": "string",
+            "description": "Before or equal to this Expiry Date",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "partnerCode",
+            "type": "string",
+            "description": "Partner code to search, if user context is set set the users partner code as default",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "travellerFirstName",
+            "type": "string",
+            "description": "The traveller's First Name",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "travellerLastName",
+            "type": "string",
+            "description": "The traveller's Last Name",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "travellerPhoneNumber",
+            "type": "string",
+            "description": "The traveller's Phone Number",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "travellerEmailAddress",
+            "type": "string",
+            "description": "The traveller's Email Address",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "travellerBirthDate",
+            "type": "string",
+            "description": "The traveller's birth date.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "number",
+            "description": "Search starting index",
+            "in": "query",
+            "required": false,
+            "default": "0"
+          },
+          {
+            "name": "limit",
+            "type": "number",
+            "description": "Max search results",
+            "in": "query",
+            "required": false,
+            "default": "50"
+          },
+          {
+            "name": "fullPolicyOption",
+            "type": "boolean",
+            "description": "a flag to either return the full policy profile or a stripped down version for performance reasons",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "0"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "operationId": "createPolicyPolicies",
+        "summary": "Create a policy",
+        "tags": [
+          "Policies"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "The API key (generate above)",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          },
+          {
+            "name": "actor",
+            "type": "string",
+            "description": "Partner / Agent Code",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Policy"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/policies/{policyNumber}": {
+      "get": {
+        "operationId": "getPolicyPolicies",
+        "summary": "Get a Policy",
+        "tags": [
+          "Policies"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "The API key (generate above)",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "policyNumber",
+            "type": "string",
+            "description": "Policy Number",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/policies/amend": {
+      "post": {
+        "operationId": "amendPolicies",
+        "summary": "Amend a Policy",
+        "tags": [
+          "Policies"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "The API key (generate above)",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          },
+          {
+            "name": "policyNumber",
+            "type": "string",
+            "description": "A policy Number",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Policy"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/policies/renew": {
+      "post": {
+        "operationId": "renewPolicies",
+        "summary": "Renew a Policy",
+        "tags": [
+          "Policies"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "The API key (generate above)",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          },
+          {
+            "name": "policyNumber",
+            "type": "string",
+            "description": "A policy Number",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Policy"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/policies/cancel": {
+      "post": {
+        "operationId": "cancelPolicies",
+        "summary": "Cancel a Policy",
+        "tags": [
+          "Policies"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "The API key (generate above)",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          },
+          {
+            "name": "policyNumber",
+            "type": "string",
+            "description": "A policy Number",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Questionnaire"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/policies/{policyNumber}/email": {
+      "get": {
+        "operationId": "sendFulfillmentPolicies",
+        "summary": "Send a fulfillment",
+        "tags": [
+          "Policies"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "The API key (generate above)",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "policyNumber",
+            "type": "string",
+            "description": "Policy Number",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "lang",
+            "type": "string",
+            "description": "",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "en",
+              "fr"
+            ]
+          },
+          {
+            "name": "email",
+            "type": "string",
+            "description": "",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/quotes/price": {
+      "post": {
+        "operationId": "priceQuotes",
+        "summary": "Get a Price",
+        "tags": [
+          "Quotes"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "The API key (generate above)",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          },
+          {
+            "name": "actor",
+            "type": "string",
+            "description": "Partner / Agent Code",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/quotePrice"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/reports": {
+      "get": {
+        "operationId": "reportsReporting",
+        "summary": "Generate sales reports",
+        "tags": [
+          "Reporting"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "The API key (generate above)",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "partnerCode",
+            "type": "string",
+            "description": "Partner code for reports",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "reportType",
+            "type": "string",
+            "description": "The type of report to be generated",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "sales",
+              "sales_smi",
+              "sales_smi_agent",
+              "sales_smi_school",
+              "sales_mga",
+              "renewal",
+              "comm",
+              "comm_sched",
+              "student"
+            ]
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "description": "Start Date of report. Format: YYYY-MM-DD.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "reportFormat",
+            "type": "string",
+            "description": "The format of the report to be generated",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "pdf",
+              "html"
+            ]
+          },
+          {
+            "name": "lang",
+            "type": "string",
+            "description": "Language of report",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "quotePrice": {
+      "type": "object",
+      "properties": {
+        "productLineCode": {
+          "default": "PR-FDM-1",
+          "type": "string",
+          "description": "The product line code of a product whose plans are to be priced as part of the request. Maximum 16 characters."
+        },
+        "tripType": {
+          "type": "string",
+          "enum": [
+            "SINGLE",
+            "MULTI"
+          ],
+          "description": "Plan filter option."
+        },
+        "insuredType": {
+          "type": "string",
+          "default": "CANADIAN",
+          "enum": [
+            "VISITOR",
+            "CANADIAN",
+            "STUDENT"
+          ],
+          "description": "Plan filter option that will filter plans based on the insured type."
+        },
+        "destinationType": {
+          "type": "string",
+          "enum": [
+            "DESTWW",
+            "DESTWWUSA",
+            "DESTWWCAN"
+          ],
+          "description": "A filter option that will filter plans based on the destionation type."
+        },
+        "coverageType": {
+          "type": "string",
+          "default": "MED",
+          "enum": [
+            "ACC",
+            "AIR",
+            "MED",
+            "TRIPCAN",
+            "TRIPINT",
+            "CAR",
+            "BAG",
+            "PKG"
+          ],
+          "description": "A filter option that will filter plans based on the coverage type."
+        },
+        "travelDirectionType": {
+          "type": "string",
+          "enum": [
+            "INBOUND",
+            "OUTBOUND"
+          ],
+          "description": "A filter option that will filter plans based of the travel direction type."
+        },
+        "insuredPersons": {
+          "type": "array",
+          "description": "A collection of Person objects that contain plans to be priced."
+        }
+      },
+      "required": [
+        "productLineCode",
+        "trip",
+        "insuredPersons"
+      ]
+    },
+    "trip": {
+      "type": "object",
+      "properties": {
+        "startDate": {
+          "type": "string",
+          "default": "2016-10-1",
+          "description": "The date the trip starts. Format: YYYY-MM-DD. Dates/Times are required in the PST timezone"
+        },
+        "endDate": {
+          "type": "string",
+          "default": "2016-10-8",
+          "description": "The date the trip ends. Format: YYYY-MM-DD. Dates/Times are required in the PST timezone"
+        },
+        "departureProvince": {
+          "type": "string",
+          "default": "BC",
+          "description": "The province where the trip will start. 2 letter province or state code, as defined by ISO 3166. For example, British Columbia is BC."
+        },
+        "reservation": {
+          "type": "string",
+          "description": "The reservation number of the Trip.Maximum 255 characters."
+        },
+        "destination": {
+          "type": "string",
+          "description": "The travel destination. The country code of the destination of the trip, as defined by ISO 3166."
+        },
+        "cost": {
+          "type": "number",
+          "default": 200,
+          "description": "The cost of the trip, which is related to trip cancellation and trip interruption coverage."
+        },
+        "bookingDate": {
+          "type": "string",
+          "description": "The date the booking was made, which is applicable to trip cancellation coverage. Format: YYYY-MM-DD. Dates/Times are required in the PST timezone"
+        },
+        "arrivalDate": {
+          "type": "string",
+          "description": "The date of arrival to the trip destination. Format: YYYY-MM-DD. Dates/Times are required in the PST timezone"
+        }
+      },
+      "required": [
+        "startDate",
+        "endDate"
+      ]
+    },
+    "Person": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string",
+          "description": "The first name of the person. Maximum 255 characters."
+        },
+        "middleName": {
+          "type": "string",
+          "description": "The middle name of the person. Maximum 255 characters."
+        },
+        "lastName": {
+          "type": "string",
+          "description": "The last name of the person. Maximum 255 characters."
+        },
+        "prefixName": {
+          "type": "string",
+          "description": "A person's honorific or title name. Maximum 255 characters."
+        },
+        "gender": {
+          "type": "string",
+          "enum": [
+            "MALE",
+            "FEMALE"
+          ],
+          "description": "Either MALE or FEMALE"
+        },
+        "birthDate": {
+          "type": "string",
+          "description": "The person's date of birth. Format: YYYY-MM-DD."
+        },
+        "age": {
+          "type": "integer",
+          "default": 20,
+          "description": "The age of the person. Not required if the birthDate field is set."
+        },
+        "language": {
+          "type": "string",
+          "description": "The language preference of this person. Based on ISO 639-1. Maximum 10 characters."
+        },
+        "phoneNumbers": {
+          "type": "array",
+          "description": "The phone numbers for this person."
+        },
+        "addresses": {
+          "type": "array",
+          "description": "The addresses of this person."
+        },
+        "emails": {
+          "type": "array",
+          "description": "The email addresses of this person."
+        }
+      },
+      "required": [
+        "age",
+        "phoneNumbers",
+        "addresses",
+        "emails"
+      ]
+    },
+    "InsuredPerson": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "default": "First name",
+          "type": "string",
+          "description": "The first name of the person. Maximum 255 characters."
+        },
+        "middleName": {
+          "default": "Middle name",
+          "type": "string",
+          "description": "The middle name of the person. Maximum 255 characters."
+        },
+        "lastName": {
+          "default": "Last name",
+          "type": "string",
+          "description": "The last name of the person. Maximum 255 characters."
+        },
+        "prefixName": {
+          "type": "string",
+          "description": "A person's honorific or title name. Maximum 255 characters."
+        },
+        "gender": {
+          "type": "string",
+          "default": "FEMALE",
+          "enum": [
+            "MALE",
+            "FEMALE"
+          ],
+          "description": "Either MALE or FEMALE"
+        },
+        "birthDate": {
+          "type": "string",
+          "default": "1990-01-01",
+          "description": "The person's date of birth. Format: YYYY-MM-DD."
+        },
+        "age": {
+          "type": "integer",
+          "description": "The age of the person. Not required if the birthDate field is set."
+        },
+        "language": {
+          "type": "string",
+          "description": "The language preference of this person. Based on ISO 639-1. Maximum 10 characters."
+        },
+        "phoneNumbers": {
+          "type": "array",
+          "description": "The phone numbers for this person."
+        },
+        "addresses": {
+          "type": "array",
+          "description": "The addresses of this person."
+        },
+        "emails": {
+          "type": "array",
+          "description": "The email addresses of this person."
+        },
+        "insuredType": {
+          "type": "string",
+          "default": "CANADIAN",
+          "enum": [
+            "VISITOR",
+            "CANADIAN",
+            "STUDENT"
+          ]
+        },
+        "insuredGroupType": {
+          "type": "string",
+          "default": "INDIVIDUAL",
+          "enum": [
+            "FAMILY",
+            "GROUP",
+            "INDIVIDUAL"
+          ],
+          "description": "The type of consumer group."
+        },
+        "travelDirectionType": {
+          "type": "string",
+          "enum": [
+            "TRAVTYPINB",
+            "TRAVTYPOUTB"
+          ]
+        },
+        "inHomeProvince": {
+          "type": "boolean",
+          "description": "Flag indicating whether insured in home province at time of purchase."
+        },
+        "homeProvince": {
+          "type": "string",
+          "description": "The home province of the insured person."
+        },
+        "beneficiaryFullName": {
+          "type": "string",
+          "description": "An optional reference to a beneficiary person for the insured, pertinent when a claim is issued against the policy. Maximum 45 characters."
+        },
+        "selectedPlans": {
+          "type": "array",
+          "description": ""
+        },
+        "questionnaires": {
+          "type": "array",
+          "description": ""
+        }
+      },
+      "required": [
+        "age",
+        "phoneNumbers",
+        "addresses",
+        "emails",
+        "insuredType",
+        "selectedPlans",
+        "questionnaires"
+      ]
+    },
+    "PersonToPrice": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string",
+          "description": "The first name of the person. Maximum 255 characters."
+        },
+        "middleName": {
+          "type": "string",
+          "description": "The middle name of the person. Maximum 255 characters."
+        },
+        "lastName": {
+          "type": "string",
+          "description": "The last name of the person. Maximum 255 characters."
+        },
+        "prefixName": {
+          "type": "string",
+          "description": "A person's honorific or title name. Maximum 255 characters."
+        },
+        "gender": {
+          "type": "string",
+          "enum": [
+            "MALE",
+            "FEMALE"
+          ],
+          "description": "Either MALE or FEMALE"
+        },
+        "birthDate": {
+          "type": "string",
+          "description": "The person's date of birth. Format: YYYY-MM-DD."
+        },
+        "age": {
+          "type": "integer",
+          "default": 20,
+          "description": "The age of the person. Not required if the birthDate field is set."
+        },
+        "language": {
+          "type": "string",
+          "description": "The language preference of this person. Based on ISO 639-1. Maximum 10 characters."
+        },
+        "phoneNumbers": {
+          "type": "array",
+          "description": "The phone numbers for this person."
+        },
+        "addresses": {
+          "type": "array",
+          "description": "The addresses of this person."
+        },
+        "emails": {
+          "type": "array",
+          "description": "The email addresses of this person."
+        },
+        "insuredType": {
+          "type": "string",
+          "default": "CANADIAN",
+          "enum": [
+            "VISITOR",
+            "CANADIAN",
+            "STUDENT"
+          ]
+        },
+        "insuredGroupType": {
+          "type": "string",
+          "default": "INDIVIDUAL",
+          "enum": [
+            "FAMILY",
+            "GROUP",
+            "INDIVIDUAL"
+          ],
+          "description": "The type of consumer group."
+        },
+        "travelDirectionType": {
+          "type": "string",
+          "enum": [
+            "TRAVTYPINB",
+            "TRAVTYPOUTB"
+          ]
+        },
+        "inHomeProvince": {
+          "type": "boolean",
+          "description": "Flag indicating whether insured in home province at time of purchase."
+        },
+        "homeProvince": {
+          "type": "string",
+          "description": "The home province of the insured person."
+        },
+        "beneficiaryFullName": {
+          "type": "string",
+          "description": "An optional reference to a beneficiary person for the insured, pertinent when a claim is issued against the policy. Maximum 45 characters."
+        },
+        "selectedPlans": {
+          "type": "array",
+          "description": ""
+        },
+        "questionnaires": {
+          "type": "array",
+          "description": ""
+        },
+        "plansToPrice": {
+          "type": "array",
+          "description": ""
+        }
+      },
+      "required": [
+        "age",
+        "phoneNumbers",
+        "addresses",
+        "emails",
+        "insuredType",
+        "selectedPlans",
+        "questionnaires",
+        "plansToPrice"
+      ]
+    },
+    "Phone": {
+      "type": "object",
+      "properties": {
+        "countryCode": {
+          "type": "string",
+          "description": "The phone number country code. Maximum 5 characters."
+        },
+        "areaCode": {
+          "type": "string",
+          "description": "The area code. Maximum 5 characters."
+        },
+        "number": {
+          "type": "string",
+          "description": "The main phone number. Maximum 30 characters."
+        },
+        "extension": {
+          "type": "string",
+          "description": "The extension. Maximum 7 characters."
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "HOME",
+            "WORK",
+            "MOBILE"
+          ],
+          "description": "Type of number"
+        }
+      },
+      "required": [
+        "countryCode",
+        "areaCode",
+        "number"
+      ]
+    },
+    "Address": {
+      "type": "object",
+      "properties": {
+        "addressLine1": {
+          "type": "string",
+          "description": "The first line of the address. Maximum 30 characters."
+        },
+        "addressLine2": {
+          "type": "string",
+          "description": "The second line of the address. Maximum 30 characters."
+        },
+        "city": {
+          "type": "string",
+          "description": "The name of the city. Maximum 30 characters."
+        },
+        "country": {
+          "type": "string",
+          "description": "2 letter country code, as defined by ISO 3166. For example, Canada is CA, USA is US."
+        },
+        "province": {
+          "type": "string",
+          "description": "2 letter province or state code, as defined by ISO 3166. For example, British Columbia is BC."
+        },
+        "postalCode": {
+          "type": "string",
+          "description": "Postal or zip code. Maximum 10 characters. Must validate against '^[\\w\\s]{0,10}$'."
+        },
+        "primary": {
+          "type": "boolean",
+          "default": false,
+          "description": "Set to true to indicate that this is the primary address if this address is part of a collection of addresses. Defaults to false."
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "MAIL",
+            "ADDR_PAYMENT"
+          ],
+          "description": "The type of address. One of MAIL or ADDR_PAYMENT. Defaults to MAIL. Use ADDR_PAYMENT if the payment address is different from the MAIL address (e.g. address to send commission payments to)."
+        }
+      },
+      "required": [
+        "addressLine1",
+        "addressLine2",
+        "city",
+        "country",
+        "province",
+        "postalCode",
+        "type"
+      ]
+    },
+    "Email": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "description": "The email address. Minimum 6 characters. Maximum 100 characters. Must validate against the following regular expression: '^[A-Za-z0-9\\._%+-]+@[a-zA-Z0-9\\.-]+\\.[a-zA-Z]{2,4}$|^$'"
+        },
+        "primary": {
+          "type": "boolean",
+          "default": false,
+          "description": "Set to true to indicate this is the primary email address if this email address is part of a collection of email addresses. Defaults to false."
+        }
+      },
+      "required": [
+        "email"
+      ]
+    },
+    "PriceInputParameter": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "The price input to be applied to this plan. Maximum 16 characters."
+        },
+        "value": {
+          "type": "number",
+          "description": "The value of the price input to be applied."
+        }
+      },
+      "required": [
+        "code",
+        "value"
+      ]
+    },
+    "InsuredPlan": {
+      "type": "object",
+      "properties": {
+        "planCode": {
+          "type": "string",
+          "description": "The base plan code. Maximum 255 characters."
+        },
+        "priceInputParameters": {
+          "type": "array",
+          "description": "The set of price input parameters which affect the cost of this plan."
+        }
+      },
+      "required": [
+        "planCode"
+      ]
+    },
+    "Answer": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "The code that identifies this answer and is unique to all other answer codes for this question. Maximum 12 characters."
+        },
+        "value": {
+          "type": "number",
+          "description": "The value for the answer variable, can be -1.0 Not Answered, 0.0 Deselected, 1.0 Selected. Default value is -1.0",
+          "default": -1
+        }
+      },
+      "required": [
+        "code",
+        "value"
+      ]
+    },
+    "Question": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": ""
+        },
+        "answers": {
+          "type": "array",
+          "description": ""
+        }
+      },
+      "required": [
+        "code",
+        "answers"
+      ]
+    },
+    "Questionnaire": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": ""
+        },
+        "questions": {
+          "type": "array",
+          "description": ""
+        }
+      },
+      "required": [
+        "code",
+        "questions"
+      ]
+    },
+    "Supply": {
+      "type": "object",
+      "properties": {
+        "productId": {
+          "type": "string",
+          "description": "ID of the requested supply"
+        },
+        "amount": {
+          "type": "number",
+          "description": "Amount of Supply"
+        }
+      },
+      "required": [
+        "productId",
+        "amount"
+      ]
+    },
+    "OrderSupplies": {
+      "type": "object",
+      "properties": {
+        "contactName": {
+          "description": "Contact name of the person ordering the supplies",
+          "default": ""
+        },
+        "contactEmail": {
+          "description": "Return email address of person ordering the supplies",
+          "default": ""
+        },
+        "comments": {
+          "description": "Comments to be included in the email",
+          "default": ""
+        },
+        "supplies": {
+          "type": "array"
+        }
+      },
+      "required": [
+        "contactName",
+        "contactEmail",
+        "supplies"
+      ]
+    },
+    "Payment": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "number",
+          "description": ""
+        },
+        "transactionType": {
+          "type": "string",
+          "default": "PURCHASE",
+          "enum": [
+            "PURCHASE",
+            "REFUND",
+            "VOID"
+          ],
+          "description": "The transaction type."
+        },
+        "paymentType": {
+          "type": "string",
+          "default": "CREDITCARD",
+          "enum": [
+            "CASH",
+            "CREDITCARD",
+            "DEBITCARD",
+            "CHEQUE",
+            "COLLECTED"
+          ],
+          "description": "The payment type."
+        },
+        "paymentMethod": {
+          "type": "string",
+          "default": "SINGLE",
+          "enum": [
+            "SINGLE",
+            "SCHEDULED"
+          ],
+          "description": "The payment method."
+        },
+        "currencyCode": {
+          "type": "string",
+          "default": "CAD",
+          "enum": [
+            "CAD",
+            "USD",
+            "EUR",
+            "GBP",
+            "MXN"
+          ],
+          "description": "The currency code."
+        }
+      },
+      "required": [
+        "amount",
+        "transactionType",
+        "paymentType",
+        "paymentMethod",
+        "currencyCode"
+      ]
+    },
+    "PolicyInfo": {
+      "type": "object",
+      "properties": {
+        "partnerCode": {
+          "type": "string",
+          "description": "Your partner code"
+        },
+        "productLineCode": {
+          "type": "string",
+          "default": "PR-FDM-1",
+          "description": "The product line code for the product purchased in the policy"
+        },
+        "sourceSystemCode": {
+          "type": "string",
+          "default": "WEBSERVICE",
+          "description": "The system code from the request origin"
+        }
+      },
+      "required": [
+        "partnerCode",
+        "productLineCode",
+        "sourceSystemCode"
+      ]
+    },
+    "Quote": {
+      "type": "object",
+      "properties": {
+        "insuredPersons": {
+          "type": "array",
+          "description": "A collection of Person objects that contain plans to be priced."
+        }
+      },
+      "required": [
+        "policyInfo",
+        "trip",
+        "insuredPersons"
+      ]
+    },
+    "Policy": {
+      "type": "object",
+      "properties": {
+        "insuredPersons": {
+          "type": "array",
+          "description": "A collection of Person objects that contain plans to be priced."
+        },
+        "payments": {
+          "type": "array"
+        }
+      },
+      "required": [
+        "policyInfo",
+        "trip",
+        "insuredPersons",
+        "payments"
+      ]
+    }
+  }
+}

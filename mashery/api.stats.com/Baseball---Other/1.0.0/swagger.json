@@ -1,0 +1,3662 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Baseball - Other",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "The API calls below can be used to test the Input and Output of our API endpoints.  You'll need an API key and an assigned secret to access the live data and so if you haven't contacted us yet, now is the time!  Our sales staff would be happy to set you up with trial access so you can begin to evaluate the product. Baseball - Other",
+    "x-mashery-id": "1947"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.stats.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "After you've been given an API key and secret, enter it below and \"Get\" the method you'd like to try out.  Fill in the parameters with what you'd like to try, or use the built in defaults, and click \"Try It!\" to execute the call.  The JSON or XML response will be populated in the Response Body, the Response Body will provide you with any relevant codes, and the Request Header URI will show you how the call would be made within your application. Please note:Also, endpoints almost always require a final \"/\".  You will receive \"596 Service Not Found\" when it is missing.  An exception to this is for optional methods, such as eventId or teamId.",
+    "url": "http://developer.stats.com/io-docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Baseball - Leagues"
+    },
+    {
+      "name": "Baseball - Teams"
+    },
+    {
+      "name": "Baseball - Schedules, scores, box scores, play-by-play, tvl"
+    },
+    {
+      "name": "Baseball - Standings"
+    },
+    {
+      "name": "Baseball - Participants"
+    },
+    {
+      "name": "Baseball - Statistics"
+    },
+    {
+      "name": "Baseball - Leaders"
+    },
+    {
+      "name": "Baseball - Daily Leaders"
+    },
+    {
+      "name": "Baseball - Probable Pitchers"
+    },
+    {
+      "name": "Baseball - Batter Vs. Pitcher"
+    },
+    {
+      "name": "Baseball - Decodes"
+    }
+  ],
+  "paths": {
+    "/stats/baseball/leagues/": {
+      "get": {
+        "operationId": "Baseball-LeaguesBaseball-Leagues",
+        "summary": "The baseball leagues endpoint serves as a decode f...",
+        "description": "The baseball leagues endpoint serves as a decode for the available leagues names, abbreviations, and URI paths.",
+        "tags": [
+          "Baseball - Leagues"
+        ],
+        "parameters": [
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/baseball/{leaguePath}/teams/{teamId}": {
+      "get": {
+        "operationId": "Baseball-TeamsBaseball-Teams",
+        "summary": "The teams endpoint will be your source for team na...",
+        "description": "The teams endpoint will be your source for team names, locations, abbreviations, and IDs.  You can get information about a single team by including the teamId.  If you do not include a teamId, you will get all the teams for the league",
+        "tags": [
+          "Baseball - Teams"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the baseball/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "abc",
+              "as",
+              "claxton",
+              "cws",
+              "cpbl",
+              "cbb",
+              "dl",
+              "fwl",
+              "intbb",
+              "kbo",
+              "lmp",
+              "minbb",
+              "npb",
+              "pr",
+              "vl",
+              "wbc_qf",
+              "wbc"
+            ]
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "Provide team ID to return information for one team.\n Default - Blank (returns all teams).",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get team lists for a different season, enter the year as YYYY.\n Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of team & venue names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/baseball/{leaguePath}/events/{eventId}": {
+      "get": {
+        "operationId": "Baseball-IfpermissionedforalleventinformationBaseball-Schedules,scores,boxscores,play-by-play,tvl",
+        "summary": "Access to this events endpoint will provide you wi...",
+        "description": "Access to this events endpoint will provide you with the highest level of game data including live scores, box scores, play-by-play, and pitch type/velocity/location (tvl) information, where available.  The first 4 parameters (eventId, box, pbp, and tvl) are only applicable for a specific game.\n Events will also provide you with schedule data.",
+        "tags": [
+          "Baseball - Schedules, scores, box scores, play-by-play, tvl"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the baseball/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "abc",
+              "as",
+              "claxton",
+              "cws",
+              "cpbl",
+              "cbb",
+              "dl",
+              "fwl",
+              "intbb",
+              "kbo",
+              "lmp",
+              "minbb",
+              "npb",
+              "pr",
+              "vl",
+              "wbc_qf",
+              "wbc"
+            ]
+          },
+          {
+            "name": "conferenceId",
+            "type": "integer",
+            "description": "MinBB Conferences: This is only for MinBB.  If you select MinBB in leaguePath dropdown above, you must select a conference unless you enter eventId or Date.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "20",
+              "34",
+              "35",
+              "36",
+              "37",
+              "40",
+              "42",
+              "45",
+              "46"
+            ]
+          },
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Provide a specific eventID when you want information on a single game.  Must be populated to use the box, pbp (play-by-play) and tvl parameters.\n Default - Basic score & schedule data for the data will be returned using date or season, if entered, else the current days events will be returned",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "box",
+            "type": "boolean",
+            "description": "Returns the box score for a specific in-progress or concluded event.  An eventId must also be entered in conjunction with 'box=true'.\n  Default - box score data will not be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "pbp",
+            "type": "boolean",
+            "description": "Returns the play-by-play for a specific in-progress or concluded event.  An eventId must also be entered in conjunction with 'pbp=true'.\n  Default - pbp data will not be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "tvl",
+            "type": "boolean",
+            "description": "Returns the play-by-play along with pitch type, velocity, & location for a specific in-progress or concluded event.  An eventId must also be entered in conjunction with 'tvl=true'.\n Default - tvl data will not be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "linescore",
+            "type": "boolean",
+            "description": "Linescores are only returned when requested and will be returned for all events in the results.\n  Default - false, line score data will not be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "description": "If used, startDate and endDate must both be entered.  All items between the two dates (inclusive) will be returned.\n  Format: YYYYMMDD or YYYY-MM-DD.\n  Default - If not used, the last 7 days items will be returned.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "description": "If used, startDate and endDate must both be entered.  All items between the two dates (inclusive) will be returned.\n  Format: YYYYMMDD or YYYY-MM-DD.\n  Default - If not used, the last 7 days items will be returned.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "description": "Will return all games from a specific date.\n This parameter is ignored if an eventId is used.\n Format: YYYYMMDD or YYYY-MM-DD.\n  Default - Blank - All the games for the current week.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get scores for a different season, enter the year as YYYY.\n Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Schedule will be returned for games included in the specified eventType. See eventTypes decode endpoint for event types specific to the selected league.\n  Default - All game types",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player names, team names, and venues. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/baseball/{leaguePath}/events/teams/{teamId}": {
+      "get": {
+        "operationId": "Baseball-Ifpermissionedforalleventinformation-foroneteamonlyBaseball-Schedules,scores,boxscores,play-by-play,tvl",
+        "summary": "This endpoint allows you to select schedule and sc...",
+        "description": "This endpoint allows you to select schedule and score information for just one team.  Getting information for a single team returns only schedule and score information.  If you want detailed event information (box, pbp, tvl), refer to the endpoint example with the eventId.",
+        "tags": [
+          "Baseball - Schedules, scores, box scores, play-by-play, tvl"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the baseball/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "abc",
+              "as",
+              "claxton",
+              "cws",
+              "cpbl",
+              "cbb",
+              "dl",
+              "fwl",
+              "intbb",
+              "kbo",
+              "lmp",
+              "minbb",
+              "npb",
+              "pr",
+              "vl",
+              "wbc_qf",
+              "wbc"
+            ]
+          },
+          {
+            "name": "conferenceId",
+            "type": "integer",
+            "description": "MinBB Conferences: This is only for MinBB.  If you select MinBB in leaguePath dropdown above, you must select a conference unless you enter eventId or Date.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "20",
+              "34",
+              "35",
+              "36",
+              "37",
+              "40",
+              "42",
+              "45",
+              "46"
+            ]
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "Provide a teamId when you want information for just that team.  'box', 'pbp', and 'tvl' parameters are not allowed because you are requesting schedule information for a team, not an individual event.\n Default - basic score data will be returned using date or season, if entered, else the current days events will be returned",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "linescore",
+            "type": "boolean",
+            "description": "Linescores are only returned when requested and will be returned for all events in the results.\n  Default - false, line score data will not be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "description": "If used, startDate and endDate must both be entered.  All items between the two dates (inclusive) will be returned.\n  Format: YYYYMMDD or YYYY-MM-DD.\n  Default - If not used, the last 7 days items will be returned.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "description": "If used, startDate and endDate must both be entered.  All items between the two dates (inclusive) will be returned.\n  Format: YYYYMMDD or YYYY-MM-DD.\n  Default - If not used, the last 7 days items will be returned.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "description": "Will return all games from a specific date.\n This parameter is ignored if an eventId is used.\n Format: YYYYMMDD or YYYY-MM-DD.\n  Default - Blank - All the games for the current week.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get scores for a different season, enter the year as YYYY.\n Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Schedule will be returned for games included in the specified eventType. See eventTypes decode endpoint for event types specific to the selected league.\n  Default - All game types",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player names, team names, and venues. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/baseball/{leaguePath}/box/{eventId}": {
+      "get": {
+        "operationId": "Baseball-Ifpermissionedforjustschedules,scoresandboxscoresBaseball-Schedules,scores,boxscores,play-by-play,tvl",
+        "summary": "The box/ resource provides scores/schedules and bo...",
+        "description": "The box/ resource provides scores/schedules and box score information for baseball events.  (Play-by-play is not an option.)",
+        "tags": [
+          "Baseball - Schedules, scores, box scores, play-by-play, tvl"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the baseball/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "abc",
+              "as",
+              "claxton",
+              "cws",
+              "cpbl",
+              "cbb",
+              "dl",
+              "fwl",
+              "intbb",
+              "kbo",
+              "lmp",
+              "minbb",
+              "npb",
+              "pr",
+              "vl",
+              "wbc_qf",
+              "wbc"
+            ]
+          },
+          {
+            "name": "conferenceId",
+            "type": "integer",
+            "description": "MinBB Conferences: This is only for MinBB.  If you select MinBB in leaguePath dropdown above, you must select a conference unless you enter eventId or Date.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "20",
+              "34",
+              "35",
+              "36",
+              "37",
+              "40",
+              "42",
+              "45",
+              "46"
+            ]
+          },
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Provide a specific eventID when you want information on a single game.  Must be populated to use the box request.\n Default - basic score data will be returned using date or season, if entered, else the current days events will be returned",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "box",
+            "type": "boolean",
+            "description": "Returns the box score for a specific in-progress or concluded event.  An eventId must also be entered in conjunction with 'box=true'.\n  Default - box score data will not be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "linescore",
+            "type": "boolean",
+            "description": "Linescores are only returned when requested and will be returned for all events in the results.\n  Default - false, line score data will not be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "description": "Will return all games from a specific date.\n This parameter is ignored if an eventId is used.\n Format: YYYYMMDD or YYYY-MM-DD.\n  Default - Blank - All the games for the current week.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get scores for a different season, enter the year as YYYY.\n Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Schedule will be returned for games included in the specified eventType. See eventTypes decode endpoint for event types specific to the selected league.\n  Default - All game types",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player names, team names, and venues. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/baseball/{leaguePath}/box/teams/{teamId}": {
+      "get": {
+        "operationId": "Baseball-Ifpermissionedforjustschedules,scoresandboxscores-foroneteamonlyBaseball-Schedules,scores,boxscores,play-by-play,tvl",
+        "summary": "This gets the event (schedule) information for jus...",
+        "description": "This gets the event (schedule) information for just one team.",
+        "tags": [
+          "Baseball - Schedules, scores, box scores, play-by-play, tvl"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the baseball/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "abc",
+              "as",
+              "claxton",
+              "cws",
+              "cpbl",
+              "cbb",
+              "dl",
+              "fwl",
+              "intbb",
+              "kbo",
+              "lmp",
+              "minbb",
+              "npb",
+              "pr",
+              "vl",
+              "wbc_qf",
+              "wbc"
+            ]
+          },
+          {
+            "name": "conferenceId",
+            "type": "integer",
+            "description": "MinBB Conferences: This is only for MinBB.  If you select MinBB in leaguePath dropdown above, you must select a conference unless you enter eventId or Date.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "20",
+              "34",
+              "35",
+              "36",
+              "37",
+              "40",
+              "42",
+              "45",
+              "46"
+            ]
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "Provide a teamId when you want information for just that team.\n The 'box' parameter is not allowed because you are requesting schedule information for a team, not an individual event.\n Default - basic score data will be returned using date or season, if entered, else the current days events will be returned",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "linescore",
+            "type": "boolean",
+            "description": "Linescores are only returned when requested and will be returned for all events in the results.\n  Default - false, line score data will not be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "description": "Will return games from a specific date.\n Format: YYYYMMDD or YYYY-MM-DD.\n  Default - if a specific game isn't requested, games from the current date will be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get scores for a different season, enter the year as YYYY.\n Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Schedule will be returned for games included in the specified eventType. See eventTypes decode endpoint for event types specific to the selected league.\n  Default - All game types",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player names, team names, and venues. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/baseball/{leaguePath}/scores/{eventId}": {
+      "get": {
+        "operationId": "Baseball-IfpermissionedforjustschedulesandscoresBaseball-Schedules,scores,boxscores,play-by-play,tvl",
+        "summary": "The scores/ resource provides score and schedule i...",
+        "description": "The scores/ resource provides score and schedule information for baseball events. (Box and Play-by-play are not options.)",
+        "tags": [
+          "Baseball - Schedules, scores, box scores, play-by-play, tvl"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the baseball/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "abc",
+              "as",
+              "claxton",
+              "cws",
+              "cpbl",
+              "cbb",
+              "dl",
+              "fwl",
+              "intbb",
+              "kbo",
+              "lmp",
+              "minbb",
+              "npb",
+              "pr",
+              "vl",
+              "wbc_qf",
+              "wbc"
+            ]
+          },
+          {
+            "name": "conferenceId",
+            "type": "integer",
+            "description": "MinBB Conferences: This is only for MinBB.  If you select MinBB in leaguePath dropdown above, you must select a conference unless you enter eventId or Date.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "20",
+              "34",
+              "35",
+              "36",
+              "37",
+              "40",
+              "42",
+              "45",
+              "46"
+            ]
+          },
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Provide a specific eventID when you want information on a single game.  Must be populated to use the box request.\n Default - basic score data will be returned using date or season, if entered, else the current days events will be returned",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "linescore",
+            "type": "boolean",
+            "description": "Linescores are only returned when requested and will be returned for all events in the results.\n  Default - false, line score data will not be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "description": "Will return all games from a specific date.\n This parameter is ignored if an eventId is used.\n Format: YYYYMMDD or YYYY-MM-DD.\n  Default - Blank - All the games for the current week.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get scores for a different season, enter the year as YYYY.\n Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Schedule will be returned for games included in the specified eventType. See eventTypes decode endpoint for event types specific to the selected league.\n  Default - All game types",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player names, team names, and venues. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/baseball/{leaguePath}/scores/teams/{teamId}": {
+      "get": {
+        "operationId": "Baseball-Ifpermissionedforjustschedulesandscores-foroneteamonlyBaseball-Schedules,scores,boxscores,play-by-play,tvl",
+        "summary": "The scores/ resource provides score and schedule i...",
+        "description": "The scores/ resource provides score and schedule information for baseball events.",
+        "tags": [
+          "Baseball - Schedules, scores, box scores, play-by-play, tvl"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the baseball/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "abc",
+              "as",
+              "claxton",
+              "cws",
+              "cpbl",
+              "cbb",
+              "dl",
+              "fwl",
+              "intbb",
+              "kbo",
+              "lmp",
+              "minbb",
+              "npb",
+              "pr",
+              "vl",
+              "wbc_qf",
+              "wbc"
+            ]
+          },
+          {
+            "name": "conferenceId",
+            "type": "integer",
+            "description": "MinBB Conferences: This is only for MinBB.  If you select MinBB in leaguePath dropdown above, you must select a conference unless you enter eventId or Date.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "20",
+              "34",
+              "35",
+              "36",
+              "37",
+              "40",
+              "42",
+              "45",
+              "46"
+            ]
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "Provide a teamId when you want information for just that team.\n The 'box' parameter is not allowed because you are requesting schedule information for a team, not an individual event.\n Default - basic score data will be returned using date or season, if entered, else the current days events will be returned",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "linescore",
+            "type": "boolean",
+            "description": "Linescores are only returned when requested and will be returned for all events in the results.\n  Default - false, line score data will not be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "description": "Will return games from a specific date.\n Format: YYYYMMDD or YYYY-MM-DD.\n  Default - if a specific game isn't requested, games from the current date will be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get scores for a different season, enter the year as YYYY.\n Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Schedule will be returned for games included in the specified eventType. See eventTypes decode endpoint for event types specific to the selected league.\n  Default - All game types",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player names, team names, and venues. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/baseball/{leaguePath}/standings/": {
+      "get": {
+        "operationId": "Baseball-StandingsBaseball-Standings",
+        "summary": "The standings endpoint will provide the league sta...",
+        "description": "The standings endpoint will provide the league standings, including all team data relevant to standings.",
+        "tags": [
+          "Baseball - Standings"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the baseball/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "abc",
+              "as",
+              "claxton",
+              "cws",
+              "cpbl",
+              "cbb",
+              "dl",
+              "fwl",
+              "intbb",
+              "kbo",
+              "lmp",
+              "minbb",
+              "npb",
+              "pr",
+              "vl",
+              "wbc_qf",
+              "wbc"
+            ]
+          },
+          {
+            "name": "expanded",
+            "type": "boolean",
+            "description": "Expanded includes additional data points for each team.\n Default - false",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Standings for games included in the specified eventType. See eventTypes decode endpoint for event types specific to the selected league.\n  Default - Regular Season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get standings for a different season, enter the year as YYYY.\n Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/baseball/{leaguePath}/standings/teams/{teamId}": {
+      "get": {
+        "operationId": "Baseball-StandingsforasingleteamBaseball-Standings",
+        "summary": "The standings endpoint will provide the league sta...",
+        "description": "The standings endpoint will provide the league standings, including all team data relevant to standings.",
+        "tags": [
+          "Baseball - Standings"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the baseball/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "abc",
+              "as",
+              "claxton",
+              "cws",
+              "cpbl",
+              "cbb",
+              "dl",
+              "fwl",
+              "intbb",
+              "kbo",
+              "lmp",
+              "minbb",
+              "npb",
+              "pr",
+              "vl",
+              "wbc_qf",
+              "wbc"
+            ]
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "Provide team ID to return information for one team.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "expanded",
+            "type": "boolean",
+            "description": "Expanded includes additional data points for each team.\n Default - false",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Standings for games included in the specified eventType. See eventTypes decode endpoint for event types specific to the selected league.\n  Default - Regular Season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get standings for a different season, enter the year as YYYY.\n Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/baseball/{leaguePath}/participants/": {
+      "get": {
+        "operationId": "Baseball-AllplayerssinceseasonYYYYBaseball-Participants",
+        "summary": "This will return anyone who has played since the b...",
+        "description": "This will return anyone who has played since the beginning of the entered year.",
+        "tags": [
+          "Baseball - Participants"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the baseball/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "abc",
+              "as",
+              "claxton",
+              "cws",
+              "cpbl",
+              "cbb",
+              "dl",
+              "fwl",
+              "intbb",
+              "kbo",
+              "lmp",
+              "minbb",
+              "npb",
+              "pr",
+              "vl",
+              "wbc_qf",
+              "wbc"
+            ]
+          },
+          {
+            "name": "conferenceId",
+            "type": "string",
+            "description": "For Minor League Baseball (minbb) only.\n  Default - All conferences returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "20",
+              "34",
+              "35",
+              "36",
+              "37",
+              "40",
+              "41",
+              "42",
+              "45",
+              "46"
+            ]
+          },
+          {
+            "name": "sinceYearLast",
+            "type": "integer",
+            "description": "Anyone who last played since the requested year.  Enter year as YYYY.\n  Default - Active players",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player & team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/baseball/{leaguePath}/participants/teams/{teamId}": {
+      "get": {
+        "operationId": "Baseball-AllplayersonasingleteamBaseball-Participants",
+        "summary": "This will return a single team's current roster.",
+        "tags": [
+          "Baseball - Participants"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the baseball/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "abc",
+              "as",
+              "claxton",
+              "cws",
+              "cpbl",
+              "cbb",
+              "dl",
+              "fwl",
+              "intbb",
+              "kbo",
+              "lmp",
+              "minbb",
+              "npb",
+              "pr",
+              "vl",
+              "wbc_qf",
+              "wbc"
+            ]
+          },
+          {
+            "name": "conferenceId",
+            "type": "string",
+            "description": "For Minor League Baseball (minbb) only.\n  Default - All conferences returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "20",
+              "34",
+              "35",
+              "36",
+              "37",
+              "40",
+              "41",
+              "42",
+              "45",
+              "46"
+            ]
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "Provide team ID to return roster for one team.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player & team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/baseball/{leaguePath}/participants/{playerId}": {
+      "get": {
+        "operationId": "Baseball-SingleplayerBaseball-Participants",
+        "summary": "This will return biographical information for a si...",
+        "description": "This will return biographical information for a single player.",
+        "tags": [
+          "Baseball - Participants"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the baseball/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "abc",
+              "as",
+              "claxton",
+              "cws",
+              "cpbl",
+              "cbb",
+              "dl",
+              "fwl",
+              "intbb",
+              "kbo",
+              "lmp",
+              "minbb",
+              "npb",
+              "pr",
+              "vl",
+              "wbc_qf",
+              "wbc"
+            ]
+          },
+          {
+            "name": "conferenceId",
+            "type": "string",
+            "description": "For Minor League Baseball (minbb) only.\n  Default - All conferences returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "20",
+              "34",
+              "35",
+              "36",
+              "37",
+              "40",
+              "41",
+              "42",
+              "45",
+              "46"
+            ]
+          },
+          {
+            "name": "playerId",
+            "type": "integer",
+            "description": "To get information on a specific player, enter their ID.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player & team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/baseball/{leaguePath}/stats/players/{playerId}": {
+      "get": {
+        "operationId": "Baseball-Playerstats-CareerBaseball-Statistics",
+        "summary": "Baseball - Career stats for a single player",
+        "tags": [
+          "Baseball - Statistics"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the baseball/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "abc",
+              "as",
+              "claxton",
+              "cws",
+              "cpbl",
+              "cbb",
+              "dl",
+              "fwl",
+              "intbb",
+              "kbo",
+              "lmp",
+              "minbb",
+              "npb",
+              "pr",
+              "vl",
+              "wbc_qf",
+              "wbc"
+            ]
+          },
+          {
+            "name": "playerId",
+            "type": "integer",
+            "description": "Player Id.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Statistics for games included in the specified eventType only. See eventTypes decode endpoint for event types specific to the selected league.\n  Default - Regular Season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventRoundId",
+            "type": "integer",
+            "description": "Statistics among games in the specified eventRound only. Rounds are only valid in conjunction with postseason event types. See eventRounds decode endpoint for rounds specific to the selected league.\n  Default - all rounds combined",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "enc",
+            "type": "boolean",
+            "description": "The encyclopedia returns full career and season-by-season totals.\n Notes: The encyclopedia is valid for a single player only.  If playerId is omitted, 'enc=true' will be ignored.\n  If 'enc=true', the seasonId will be ignored if included.\n  Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "careerOnly",
+            "type": "boolean",
+            "description": "For a single player's career stats, only to be used in conjunction with 'enc=true'",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player & team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/baseball/{leaguePath}/stats/players/{playerId}/events/{eventId}": {
+      "get": {
+        "operationId": "Baseball-PlayersinglegamestatsBaseball-Statistics",
+        "summary": "Baseball - Single game stats for a single player",
+        "tags": [
+          "Baseball - Statistics"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the baseball/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "abc",
+              "as",
+              "claxton",
+              "cws",
+              "cpbl",
+              "cbb",
+              "dl",
+              "fwl",
+              "intbb",
+              "kbo",
+              "lmp",
+              "minbb",
+              "npb",
+              "pr",
+              "vl",
+              "wbc_qf",
+              "wbc"
+            ]
+          },
+          {
+            "name": "playerId",
+            "type": "integer",
+            "description": "Player Id.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Statistics for a single game.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player & team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/baseball/{leaguePath}/stats/players/{playerId}/events/": {
+      "get": {
+        "operationId": "Baseball-Playergame-by-gamestatsBaseball-Statistics",
+        "summary": "Baseball - Player game logs.",
+        "tags": [
+          "Baseball - Statistics"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the baseball/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "abc",
+              "as",
+              "claxton",
+              "cws",
+              "cpbl",
+              "cbb",
+              "dl",
+              "fwl",
+              "intbb",
+              "kbo",
+              "lmp",
+              "minbb",
+              "npb",
+              "pr",
+              "vl",
+              "wbc_qf",
+              "wbc"
+            ]
+          },
+          {
+            "name": "playerId",
+            "type": "integer",
+            "description": "Player Id.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Statistics for games included in the specified eventType only. See eventTypes decode endpoint for event types specific to the selected league.\n  Default - Regular Season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventRoundId",
+            "type": "integer",
+            "description": "Statistics among games in the specified eventRound only. Rounds are only valid in conjunction with postseason event types. See eventRounds decode endpoint for rounds specific to the selected league.\n  Default - all rounds combined",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get data for a different season, enter the year as YYYY.\n  Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player & team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/baseball/{leaguePath}/stats/players/{playerId}/teams/{teamId}": {
+      "get": {
+        "operationId": "Baseball-Playerstatswhileononeteam.Baseball-Statistics",
+        "summary": "This is used when a player is on more than one tea...",
+        "description": "This is used when a player is on more than one team in a season and you want only stats for one specific team.",
+        "tags": [
+          "Baseball - Statistics"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the baseball/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "abc",
+              "as",
+              "claxton",
+              "cws",
+              "cpbl",
+              "cbb",
+              "dl",
+              "fwl",
+              "intbb",
+              "kbo",
+              "lmp",
+              "minbb",
+              "npb",
+              "pr",
+              "vl",
+              "wbc_qf",
+              "wbc"
+            ]
+          },
+          {
+            "name": "playerId",
+            "type": "integer",
+            "description": "Player Id.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "To get statistics for the specified player on one team only, enter team ID.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Statistics for games included in the specified eventType only. See eventTypes decode endpoint for event types specific to the selected league.\n  Default - Regular Season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventRoundId",
+            "type": "integer",
+            "description": "Statistics among games in the specified eventRound only. Rounds are only valid in conjunction with postseason event types. See eventRounds decode endpoint for rounds specific to the selected league.\n  Default - all rounds combined",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get data for a different season, enter the year as YYYY.\n  Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player & team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/baseball/{leaguePath}/stats/players/{playerId}/": {
+      "get": {
+        "operationId": "Baseball-PlayersplitsBaseball-Statistics",
+        "summary": "Baseball - Player splits (breakdowns).",
+        "tags": [
+          "Baseball - Statistics"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the baseball/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "abc",
+              "as",
+              "claxton",
+              "cws",
+              "cpbl",
+              "cbb",
+              "dl",
+              "fwl",
+              "intbb",
+              "kbo",
+              "lmp",
+              "minbb",
+              "npb",
+              "pr",
+              "vl",
+              "wbc_qf",
+              "wbc"
+            ]
+          },
+          {
+            "name": "playerId",
+            "type": "integer",
+            "description": "Player Id.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "splitId",
+            "type": "string",
+            "description": "Enter the stat split to be returned. (The decodes resource provides a list of available codes.)\n  1. If omitted, only official total stats (splitId = -1) will be returned.\n  2. If 'all', all the splits are returned.\n  3. Otherwise, the entered split is returned.",
+            "in": "query",
+            "required": true,
+            "default": "-1"
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Statistics for games included in the specified eventType only. See eventTypes decode endpoint for event types specific to the selected league.\n  Default - Regular Season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventRoundId",
+            "type": "integer",
+            "description": "Statistics among games in the specified eventRound only. Rounds are only valid in conjunction with postseason event types. See eventRounds decode endpoint for rounds specific to the selected league.\n  Default - all rounds combined",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get data for a different season, enter the year as YYYY.\n  Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player & team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/baseball/{leaguePath}/stats/teams/{teamId}/": {
+      "get": {
+        "operationId": "Baseball-TeamsplitsBaseball-Statistics",
+        "summary": "Baseball - Team splits (breakdowns).",
+        "tags": [
+          "Baseball - Statistics"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the baseball/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "abc",
+              "as",
+              "claxton",
+              "cws",
+              "cpbl",
+              "cbb",
+              "dl",
+              "fwl",
+              "intbb",
+              "kbo",
+              "lmp",
+              "minbb",
+              "npb",
+              "pr",
+              "vl",
+              "wbc_qf",
+              "wbc"
+            ]
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "Team ID.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "splitId",
+            "type": "string",
+            "description": "Enter the stat split to be returned. (The decodes resource provides a list of available codes.)\n  1. If omitted, only official total stats (splitId = -1) will be returned.\n  2. If 'all', all the splits are returned.\n  3. Otherwise, the entered split is returned.",
+            "in": "query",
+            "required": true,
+            "default": "-1"
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get data for a different season, enter the year as YYYY.\n  Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Statistics for games included in the specified eventType only. See eventTypes decode endpoint for event types specific to the selected league.\n  Default - Regular Season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventRoundId",
+            "type": "integer",
+            "description": "Statistics among games in the specified eventRound only. Rounds are only valid in conjunction with postseason event types. See eventRounds decode endpoint for rounds specific to the selected league.\n  Default - all rounds combined",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player & team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/baseball/{leaguePath}/stats/teams/{teamId}/events/{eventId}": {
+      "get": {
+        "operationId": "Baseball-TeamsinglegamestatsBaseball-Statistics",
+        "summary": "Baseball - Single game stats for a team",
+        "tags": [
+          "Baseball - Statistics"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the baseball/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "abc",
+              "as",
+              "claxton",
+              "cws",
+              "cpbl",
+              "cbb",
+              "dl",
+              "fwl",
+              "intbb",
+              "kbo",
+              "lmp",
+              "minbb",
+              "npb",
+              "pr",
+              "vl",
+              "wbc_qf",
+              "wbc"
+            ]
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "Team ID.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Game ID.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player & team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/baseball/{leaguePath}/stats/teams/{teamId}/events/": {
+      "get": {
+        "operationId": "Baseball-Teamgame-by-gamestatsBaseball-Statistics",
+        "summary": "Baseball - Team game logs.",
+        "tags": [
+          "Baseball - Statistics"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the baseball/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "abc",
+              "as",
+              "claxton",
+              "cws",
+              "cpbl",
+              "cbb",
+              "dl",
+              "fwl",
+              "intbb",
+              "kbo",
+              "lmp",
+              "minbb",
+              "npb",
+              "pr",
+              "vl",
+              "wbc_qf",
+              "wbc"
+            ]
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "Team ID.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Statistics for games included in the specified eventType only. See eventTypes decode endpoint for event types specific to the selected league.\n  Default - Regular Season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventRoundId",
+            "type": "integer",
+            "description": "Statistics among games in the specified eventRound only. Rounds are only valid in conjunction with postseason event types. See eventRounds decode endpoint for rounds specific to the selected league.\n  Default - all rounds combined",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get data for a different season, enter the year as YYYY.\n  Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player & team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/baseball/{leaguePath}/leaders/": {
+      "get": {
+        "operationId": "Baseball-LeadersBaseball-Leaders",
+        "summary": "Baseball - Leaders",
+        "tags": [
+          "Baseball - Leaders"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the baseball/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "abc",
+              "as",
+              "claxton",
+              "cws",
+              "cpbl",
+              "cbb",
+              "dl",
+              "fwl",
+              "intbb",
+              "kbo",
+              "lmp",
+              "minbb",
+              "npb",
+              "pr",
+              "vl",
+              "wbc_qf",
+              "wbc"
+            ]
+          },
+          {
+            "name": "leaderCategoryId",
+            "type": "integer",
+            "description": "Only one category per query.  The decodes resource provides a list of available codes. \n  Default - returns batting average (1).",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "topCount",
+            "type": "integer",
+            "description": "This is the number of leaders to be returned.\n  You can return all leaders with the word 'all' instead of a number.\n  Default - Top 10 (plus ties), utilizing ranked players only if nonQualifiers is false/null; else will utilize ordered players.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "nonQualifiers",
+            "type": "boolean",
+            "description": "Should non-qualifiers be returned?\n  Default - false",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "sortType",
+            "type": "string",
+            "description": "To return 'worst' players (trailers) rather than 'best' players (leaders) in a category, select sortType = worst. Trailers are not available for every leaderCategoryId.\n  Default - If the sortType parameter is not used, leaders will be returned.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "worst"
+            ]
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Leaders among games included in the specified eventType only. See eventTypes decode endpoint for event types specific to the selected league.\n  Default - Regular Season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventRoundId",
+            "type": "integer",
+            "description": "Leaders among games in the specified eventRound only. Rounds are only valid in conjunction with postseason event types. See eventRounds decode endpoint for rounds specific to the selected league.\n  Default - all rounds combined",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get data for a different season, enter the year as YYYY.\n  Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "To get data for players on one team only, enter the teamId.\n  Default - all players",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player & team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/baseball/{leaguePath}/dailyLeaders/": {
+      "get": {
+        "operationId": "Baseball-DailyLeadersBaseball-DailyLeaders",
+        "summary": "Baseball - Daily Leaders",
+        "tags": [
+          "Baseball - Daily Leaders"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the baseball/leagues endpoint. Currently, daily leaders is only available for WBC & NPB.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "abc",
+              "as",
+              "claxton",
+              "cws",
+              "cpbl",
+              "cbb",
+              "dl",
+              "fwl",
+              "intbb",
+              "kbo",
+              "lmp",
+              "minbb",
+              "npb",
+              "pr",
+              "vl",
+              "wbc_qf",
+              "wbc"
+            ]
+          },
+          {
+            "name": "leaderCategoryId",
+            "type": "integer",
+            "description": "Only one category per query.\n  Default - Blank (returns hits).",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "3",
+              "5",
+              "6",
+              "7",
+              "20",
+              "73",
+              "78",
+              "92"
+            ]
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "description": "Leaders in games played on specific date.\n Format: YYYYMMDD or YYYY-MM-DD.\n  Default - if a specific game isn't requested, games from the current date will be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "topCount",
+            "type": "integer",
+            "description": "This is the number of leaders to be returned.\n  You can return all leaders with the word 'all' instead of a number.\n  Default - Top 10 (plus ties), utilizing ranked players only if nonQualifiers is false/null; else will utilize ordered players.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "conferenceId",
+            "type": "integer",
+            "description": "Leaders among specified conference only. See conferences decode endpoint.\n  Default - all conferences",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Leaders among games in the specified eventType only. See eventTypes decode endpoint.\n  Default - regular season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventRoundId",
+            "type": "integer",
+            "description": "Leaders among games in the specified eventRound only. See eventRounds decode endpoint.\n  Default - all rounds combined",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "To get data for players on one team only, enter the teamId.\n  Default - all players",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player & team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/baseball/{leaguePath}/probables/{eventId}/": {
+      "get": {
+        "operationId": "Baseball-ProbablePitchersBaseball-ProbablePitchers",
+        "summary": "Baseball - Probable Pitchers",
+        "tags": [
+          "Baseball - Probable Pitchers"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the baseball/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "abc",
+              "as",
+              "claxton",
+              "cws",
+              "cpbl",
+              "cbb",
+              "dl",
+              "fwl",
+              "intbb",
+              "kbo",
+              "lmp",
+              "minbb",
+              "npb",
+              "pr",
+              "vl",
+              "wbc_qf",
+              "wbc"
+            ]
+          },
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Provide a specific eventID when you want information on a single game.\n Default - probable pitchers for current day's events",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "description": "Will return probable pitchers for all games with status of Pre-Game on a specific date.\n Format: YYYYMMDD or YYYY-MM-DD.\n  Default - probable pitchers for current day's events",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Probable pitchers for games in the specified eventType only. See eventTypes decode endpoint for event types specific to the selected league.\n  Default - Regular Season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventRoundId",
+            "type": "integer",
+            "description": "Probable pitchers for games in the specified eventRound only. Rounds are only valid in conjunction with postseason event types. See eventRounds decode endpoint for rounds specific to the selected league.\n  Default - all rounds combined",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "Enter the current season (YYYY) to get all events with known probable pitchers (usually the next 4 days).\n  Default - probable pitchers for current day's events",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player names, team names, and venues. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/baseball/{leaguePath}/BvsP/": {
+      "get": {
+        "operationId": "Baseball-BvsP:OneTeam'sPitchersVs.OneTeam'sBattersBaseball-BatterVs.Pitcher",
+        "summary": "Baseball - BvsP: All of one team's current pitcher...",
+        "description": "Baseball - BvsP: All of one team's current pitchers Vs. all of another team's current batters",
+        "tags": [
+          "Baseball - Batter Vs. Pitcher"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the baseball/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "abc",
+              "as",
+              "claxton",
+              "cws",
+              "cpbl",
+              "cbb",
+              "dl",
+              "fwl",
+              "intbb",
+              "kbo",
+              "lmp",
+              "minbb",
+              "npb",
+              "pr",
+              "vl",
+              "wbc_qf",
+              "wbc"
+            ]
+          },
+          {
+            "name": "pitchingTeamId",
+            "type": "integer",
+            "description": "For selected batting player versus all current pitchers one team, enter TeamId.\n  Default - Vs. all pitchers",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "battingTeamId",
+            "type": "integer",
+            "description": "For selected pitching player versus all current batters one team, enter TeamId.\n  Default - Vs. all batters",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "BvsP for games included in the specified eventType only. See eventTypes decode endpoint for event types specific to the selected league.\n  Default - Regular Season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventRoundId",
+            "type": "integer",
+            "description": "BvsP among games in the specified eventRound only. Rounds are only valid in conjunction with postseason event types. See eventRounds decode endpoint for rounds specific to the selected league.\n  Default - all rounds combined",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get data for a different season, enter the year as YYYY.\n Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "career",
+            "type": "boolean",
+            "description": "To get career stats, choose true.\n  Default - false",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player & team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/decode/baseball/{leaguePath}/{decodeType}": {
+      "get": {
+        "operationId": "Baseball-DecodesBaseball-Decodes",
+        "summary": "Baseball - Decodes",
+        "tags": [
+          "Baseball - Decodes"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the baseball/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "abc",
+              "as",
+              "claxton",
+              "cws",
+              "cpbl",
+              "cbb",
+              "dl",
+              "fwl",
+              "intbb",
+              "kbo",
+              "lmp",
+              "minbb",
+              "npb",
+              "pr",
+              "vl",
+              "wbc_qf",
+              "wbc"
+            ]
+          },
+          {
+            "name": "decodeType",
+            "type": "integer",
+            "description": "The data type to be decoded.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "baseSituations",
+              "battedBallDirections",
+              "battedBallTypes",
+              "battingHands",
+              "clinchStatus",
+              "conferences",
+              "coverageLevels",
+              "divisions",
+              "draftRoundNames",
+              "errorTypes",
+              "eventRounds",
+              "eventStatuses",
+              "eventTypes",
+              "horizontalLocations",
+              "injuryStatuses",
+              "leaderCategories",
+              "pbpDetails",
+              "pitchDetailResults",
+              "pitchTypes",
+              "pitcherTypes",
+              "positions",
+              "recordDetails",
+              "seasonStructure",
+              "splits",
+              "transactionTypes",
+              "tvStations",
+              "umpirePositions",
+              "venues",
+              "verticalLocations"
+            ]
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "For seasonStructure only. To get structure for a single season, enter the year as YYYY.\n Note: Seasons that span years like NBA 2013-2014 would be entered as 2013.\n  Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "allSeasons",
+            "type": "boolean",
+            "description": "For seasonStructure only. To get complete history of league, select allSeasons=TRUE. Only those permissioned for all historic data will be able to utilize the 'allSeasons' option.\n  Default - false",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "For venues only. Select ID to change language of venue names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

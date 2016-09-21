@@ -1,0 +1,795 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "FleetSeek API",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test our API services using I/O Docs. FleetSeek API for Sales",
+    "x-mashery-id": "4990"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.penton.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "https://api.penton.com/io-docs/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Fleets"
+    },
+    {
+      "name": "Taxonomy"
+    }
+  ],
+  "paths": {
+    "/allFleets": {
+      "get": {
+        "operationId": "GETAllFleetsFleets",
+        "summary": "",
+        "tags": [
+          "Fleets"
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "type": "number",
+            "description": "Parameter is used to limit the number of results in the response",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "25",
+              "50"
+            ]
+          },
+          {
+            "name": "offset",
+            "type": "number",
+            "description": "Offset is used to skip some number of items before beginning to return results",
+            "in": "query",
+            "required": false,
+            "default": "0"
+          },
+          {
+            "name": "sort",
+            "type": "string",
+            "description": "Possible values: date, name, location, trailers, vehicles, category",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "date",
+              "name",
+              "location",
+              "trailers",
+              "vehicles",
+              "category"
+            ]
+          },
+          {
+            "name": "direction",
+            "type": "string",
+            "description": "Possible values: desc - descending sort order, asc - ascending sort order",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "asc",
+              "desc"
+            ]
+          },
+          {
+            "name": "keyword",
+            "type": "string",
+            "description": "Company name, USDOT or MCN",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "fleetType",
+            "type": "string",
+            "description": "Example: \"H,O\"(without quotes). Possible fleet types: P - Private, H - For Hire, O - Owner Operator",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "vehicleClass",
+            "type": "string",
+            "description": "Example: \"L,M\"(without quotes). Possible vehicle classes: L - Light, M - Medium, H - Heavy",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "trailers",
+            "type": "string",
+            "description": "Example: \"111,112,133\"(without quotes). Possible trailer types: Use \"GET All Trailer Types\" endpoint to get all possible values",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "categories",
+            "type": "string",
+            "description": "Example: \"1,2,3\"(without quotes). Possible categories: Use \"GET All Operating types\" endpoint to get all possible values",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "commodities",
+            "type": "string",
+            "description": "Example: \"1,2\"(without quotes). Possible trailer types: Use \"GET All Commodities\" endpoint to get all possible values",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "totalVehicles",
+            "type": "string",
+            "description": "Syntax: min:max:type. Examples: 1:2:L, or 1::O, or ::B, etc. Possible types: L - Leased, O - Owned, B - Both",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "totalTrucks",
+            "type": "string",
+            "description": "Syntax: min:max:type. Examples: 1:2:L, or 1::O, or ::B, etc. Possible types: L - Leased, O - Owned, B - Both",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "totalTractors",
+            "type": "string",
+            "description": "Syntax: min:max:type. Examples: 1:2:L, or 1::O, or ::B, etc. Possible types: L - Leased, O - Owned, B - Both",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "totalTrailers",
+            "type": "string",
+            "description": "Syntax: min:max:type. Examples: 1:2:L, or 1::O, or ::B, etc. Possible types: L - Leased, O - Owned, B - Both",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "drivers",
+            "type": "string",
+            "description": "Syntax: min:max. Example: 1:10",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "mileage",
+            "type": "string",
+            "description": "Syntax: min:max. Example: 1:10",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "safety",
+            "type": "string",
+            "description": "Syntax: 5 groups with min:max. Example: 1:2!3:4!5:6!7:8!9:10",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "jobs",
+            "type": "string",
+            "description": "Example: 1,2,3. Possible values: 1 - Owner/Executive, 2 - Operating Executive, 3 - General Manager, 4 - Manager of Transportation,  5 - Supervisor, 6 -  Owner-Operator, 7 - Principal",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "hazmat",
+            "type": "number",
+            "description": "Possible values: 1 - Trucks, 2 - Trailers",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "insurances",
+            "type": "string",
+            "description": "Syntax: insurance_types:from_date,to_date. Example: 2,3,4:05/04/2016,05/20/2016. Possible insurance types: 0 - ALL, 1 - BIPD, 2 - BOND, 3- CARGO, 4 - TRUST.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "sicCodes",
+            "type": "string",
+            "description": "Example: 1111,2222. Possible sic codes: Use \"GET Get Sic Codes\" endpoint to get all possible values",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "countries",
+            "type": "string",
+            "description": "Possible values: us, ca, mx and combinations thereof. Examples: \"us\", or \"ca\", or \"ca,mx\", etc.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "cities",
+            "type": "string",
+            "description": "Example: Lewiston:ME,Orlando:NC",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "counties",
+            "type": "string",
+            "description": "Example: Oklahoma:OK,Aransas:TX. This filter will be applied if cities parameter is not specified",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "states",
+            "type": "string",
+            "description": "Example: TX,NY. This filter will be applied if cities and counties parameters are not specified",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "zipCodes",
+            "type": "string",
+            "description": "Example: P7A0A2:CA,10001:US. This filter will be applied if cities, counties and states parameters are not specified",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "location",
+            "type": "string",
+            "description": "Example: city:Aa Westside Mobile Estates, MT:AA Westside Mobile Estates:US:46.0021485:-112.5425228:0",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "updateDate",
+            "type": "string",
+            "description": "Example: 05/24/2016",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "crashFromDate",
+            "type": "string",
+            "description": "Example: 05/24/2016",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "crashToDate",
+            "type": "string",
+            "description": "Example: 05/24/2016",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "crashCities",
+            "type": "string",
+            "description": "Example: Lewiston:ME,Orlando:NC",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "crashCounties",
+            "type": "string",
+            "description": "Example: Oklahoma:OK,Aransas:TX. This filter will be applied if crashCities parameter is not specified",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "crashStateCodes",
+            "type": "string",
+            "description": "Example: TX,NY. This filter will be applied if crashCities and crashCounties parameters are not specified",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "crashFatalities",
+            "type": "boolean",
+            "description": "",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "crashInjuries",
+            "type": "boolean",
+            "description": "",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "crashTowAway",
+            "type": "boolean",
+            "description": "",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "inspectionFromDate",
+            "type": "string",
+            "description": "Example: 05/24/2016",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "inspectionToDate",
+            "type": "string",
+            "description": "Example: 05/24/2016",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "inspectionTypes",
+            "type": "string",
+            "description": "Example: \"1,2\" (without quotes). Possible type ids: Use \"GET All Violation Categories\" endpoint to get all possible values",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "inspectionCounties",
+            "type": "string",
+            "description": "Example: Oklahoma:OK,Aransas:TX",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "inspectionStateCodes",
+            "type": "string",
+            "description": "Example: TX,NY. This filter will be applied if inspectionCounties parameter is not specified",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "manufacturers",
+            "type": "string",
+            "description": "Example: Volvo,Dodge. Possible values: Use \"GET All Manufacturer\" endpoint to get all possible values",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "engines",
+            "type": "string",
+            "description": "Example: Caterpillar,Volvo. Possible values: Use \"GET All Engines\" endpoint to get all possible values",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "years",
+            "type": "number",
+            "description": "Example: 2015,2016",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/allUpdatedFleets": {
+      "get": {
+        "operationId": "GetFleetUpdatesFleets",
+        "summary": "",
+        "tags": [
+          "Fleets"
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "type": "number",
+            "description": "Parameter is used to limit the number of results in the response",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "25",
+              "50"
+            ]
+          },
+          {
+            "name": "offset",
+            "type": "number",
+            "description": "Offset is used to skip some number of items before beginning to return results",
+            "in": "query",
+            "required": false,
+            "default": "0"
+          },
+          {
+            "name": "sort",
+            "type": "string",
+            "description": "Possible values: date, name, location,trailers, vehicles, category",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "date",
+              "name",
+              "location",
+              "trailers",
+              "vehicles",
+              "category"
+            ]
+          },
+          {
+            "name": "direction",
+            "type": "string",
+            "description": "Possible values: desc - descending sort order, asc - ascending sort order",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "asc",
+              "desc"
+            ]
+          },
+          {
+            "name": "updateDate",
+            "type": "string",
+            "description": "Example: 05/24/2016",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/fleetDetails/{fleet_id}": {
+      "get": {
+        "operationId": "GetFleetDetailsFleets",
+        "summary": "",
+        "tags": [
+          "Fleets"
+        ],
+        "parameters": [
+          {
+            "name": "fleet_id",
+            "type": "string",
+            "description": "",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/contacts/{contact_id}": {
+      "get": {
+        "operationId": "GetContactDetailsFleets",
+        "summary": "",
+        "tags": [
+          "Fleets"
+        ],
+        "parameters": [
+          {
+            "name": "contact_id",
+            "type": "string",
+            "description": "",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/crashReports/{fleet_id}": {
+      "get": {
+        "operationId": "GetCrashReportsFleets",
+        "summary": "",
+        "tags": [
+          "Fleets"
+        ],
+        "parameters": [
+          {
+            "name": "fleet_id",
+            "type": "string",
+            "description": "",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "limit",
+            "type": "number",
+            "description": "Parameter is used to limit the number of results in the response",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "25",
+              "50"
+            ]
+          },
+          {
+            "name": "offset",
+            "type": "number",
+            "description": "Offset is used to skip some number of items before beginning to return results",
+            "in": "query",
+            "required": false,
+            "default": "0"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/inspections/{fleet_id}": {
+      "get": {
+        "operationId": "GetInspectionsFleets",
+        "summary": "",
+        "tags": [
+          "Fleets"
+        ],
+        "parameters": [
+          {
+            "name": "fleet_id",
+            "type": "string",
+            "description": "",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "limit",
+            "type": "number",
+            "description": "Parameter is used to limit the number of results in the response",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "25",
+              "50"
+            ]
+          },
+          {
+            "name": "offset",
+            "type": "number",
+            "description": "Offset is used to skip some number of items before beginning to return results",
+            "in": "query",
+            "required": false,
+            "default": "0"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/allOperatingTypes": {
+      "get": {
+        "operationId": "GetOperatingTypesTaxonomy",
+        "summary": "",
+        "tags": [
+          "Taxonomy"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/allTrailerTypes": {
+      "get": {
+        "operationId": "GetTrailerTypesTaxonomy",
+        "summary": "",
+        "tags": [
+          "Taxonomy"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/allCommodities": {
+      "get": {
+        "operationId": "GetCommoditiesTaxonomy",
+        "summary": "",
+        "tags": [
+          "Taxonomy"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/allSicCodes": {
+      "get": {
+        "operationId": "GetSicCodesTaxonomy",
+        "summary": "",
+        "tags": [
+          "Taxonomy"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/allSicGroups": {
+      "get": {
+        "operationId": "GetSicGroupsTaxonomy",
+        "summary": "",
+        "tags": [
+          "Taxonomy"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/allViolationCategories": {
+      "get": {
+        "operationId": "GetViolationCategoriesTaxonomy",
+        "summary": "",
+        "tags": [
+          "Taxonomy"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/allManufacturers": {
+      "get": {
+        "operationId": "GetManufacturersTaxonomy",
+        "summary": "",
+        "tags": [
+          "Taxonomy"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/allEngineManufacturers": {
+      "get": {
+        "operationId": "GetEnginesTaxonomy",
+        "summary": "",
+        "tags": [
+          "Taxonomy"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

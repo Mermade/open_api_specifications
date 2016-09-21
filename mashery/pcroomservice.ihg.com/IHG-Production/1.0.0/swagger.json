@@ -1,0 +1,680 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "IHG Production API",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test our services using the API elements below. Select your API and your Key from the drop down menus, then use the methods listed to return sample API information within each available category. ",
+    "x-mashery-id": "149"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "pcroomservice.ihg.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "View our Written Documentation to begin the process of integrating our APIs with your site(s).",
+    "url": "https://pcroomservice.ihg.com/io-docs/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Hotel Search"
+    },
+    {
+      "name": "Rate Range"
+    },
+    {
+      "name": "Hotel Descriptive Content Info"
+    },
+    {
+      "name": "Hotel Availability Request"
+    },
+    {
+      "name": "Hotel Availability Request with Rate Rules"
+    }
+  ],
+  "paths": {
+    "/hotelsearch": {
+      "get": {
+        "operationId": "Brandand/orRegionSearchRequestHotelSearch",
+        "summary": "The Hotel Search Request can be used to perform ho...",
+        "description": "The Hotel Search Request can be used to perform hotel searches by specific Brand code(s) and/or Region",
+        "tags": [
+          "Hotel Search"
+        ],
+        "parameters": [
+          {
+            "name": "LastModifyTime",
+            "type": "string",
+            "description": "Timestamp of last modified time of database.",
+            "in": "query",
+            "required": false,
+            "default": "2013-01-01T09:30:00.0Z"
+          },
+          {
+            "name": "brandcodes",
+            "type": "string",
+            "description": "Two character code that identifies what hotel brand group property belongs to. Up to 8 codes, separated by comma",
+            "in": "query",
+            "required": false,
+            "default": "HI"
+          },
+          {
+            "name": "regioncodes",
+            "type": "string",
+            "description": "The ISO Code for the Region",
+            "in": "query",
+            "required": false,
+            "default": "05388"
+          },
+          {
+            "name": "Format",
+            "type": "string",
+            "description": "The output format",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/hotelsearch/airport": {
+      "get": {
+        "operationId": "AirportSearchRequestHotelSearch",
+        "summary": "The Hotel Search Request should be used to perform...",
+        "description": "The Hotel Search Request should be used to perform hotel searches around airports.",
+        "tags": [
+          "Hotel Search"
+        ],
+        "parameters": [
+          {
+            "name": "AirportCode",
+            "type": "string",
+            "description": "The airport code.",
+            "in": "query",
+            "required": true,
+            "default": "SFO"
+          },
+          {
+            "name": "Distance",
+            "type": "number",
+            "description": "Length of the radius from the target location.",
+            "in": "query",
+            "required": true,
+            "default": "10"
+          },
+          {
+            "name": "HotelAmenityCode",
+            "type": "string",
+            "description": "Refers to the OTA Code List Hotel Amenity Code (provide 0 to 10 values, comma delimited with no spaces - 68,22,12).",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "RoomAmenityCode",
+            "type": "string",
+            "description": "Identifies the time of room amenities offered (provide 0 to 5 values, comma delimited with no spaces - 13,7.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Format",
+            "type": "string",
+            "description": "The output format",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/hotelsearch/city": {
+      "get": {
+        "operationId": "CitySearchRequestHotelSearch",
+        "summary": "The Hotel Search Request can be used to perform ho...",
+        "description": "The Hotel Search Request can be used to perform hotel searches around cities.",
+        "tags": [
+          "Hotel Search"
+        ],
+        "parameters": [
+          {
+            "name": "CityName",
+            "type": "string",
+            "description": "The name of the city.",
+            "in": "query",
+            "required": true,
+            "default": "San Francisco"
+          },
+          {
+            "name": "StateCode",
+            "type": "string",
+            "description": "The standard code or abbreviation for the state, province, or region.",
+            "in": "query",
+            "required": true,
+            "default": "CA"
+          },
+          {
+            "name": "CountryCode",
+            "type": "number",
+            "description": "The ISO Region code for this region.",
+            "in": "query",
+            "required": true,
+            "default": "US"
+          },
+          {
+            "name": "HotelAmenityCode",
+            "type": "string",
+            "description": "Refers to the OTA Code List Hotel Amenity Code (provide 0 to 10 values, comma delimited with no spaces - 68,22,12).",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "RoomAmenityCode",
+            "type": "string",
+            "description": "Identifies the time of room amenities offered (provide 0 to 5 values, comma delimited with no spaces - 13,7.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Format",
+            "type": "string",
+            "description": "The output format",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/hotelsearch/geocode": {
+      "get": {
+        "operationId": "GeoCodeSearchRequestHotelSearch",
+        "summary": "The Hotel Search Request can be used to perform ho...",
+        "description": "The Hotel Search Request can be used to perform hotel searches within longitude and latitude coordinates",
+        "tags": [
+          "Hotel Search"
+        ],
+        "parameters": [
+          {
+            "name": "Longitude",
+            "type": "string",
+            "description": "The positional coordinates for longitude.",
+            "in": "query",
+            "required": true,
+            "default": "-82.533250"
+          },
+          {
+            "name": "Latitude",
+            "type": "string",
+            "description": "The positional coordinates for latitude.",
+            "in": "query",
+            "required": true,
+            "default": "27.975472"
+          },
+          {
+            "name": "Distance",
+            "type": "number",
+            "description": "The radius in miles from the geographical coordinates.",
+            "in": "query",
+            "required": true,
+            "default": "10"
+          },
+          {
+            "name": "HotelAmenityCode",
+            "type": "string",
+            "description": "Refers to the OTA Code List Hotel Amenity Code (provide 0 to 10 values, comma delimited with no spaces - 68,22,12).",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "RoomAmenityCode",
+            "type": "string",
+            "description": "Identifies the time of room amenities offered (provide 0 to 5 values, comma delimited with no spaces - 13,7.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Format",
+            "type": "string",
+            "description": "The output format",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/raterange": {
+      "get": {
+        "operationId": "GetRatesbyAddressRateRange",
+        "summary": "Rate Range provides the requested rate or rate ran...",
+        "description": "Rate Range provides the requested rate or rate range.",
+        "tags": [
+          "Rate Range"
+        ],
+        "parameters": [
+          {
+            "name": "Start",
+            "type": "string",
+            "description": "The start date of the desired stay.  The format is year-month-day (2013-12-01)",
+            "in": "query",
+            "required": true,
+            "default": "2013-12-01"
+          },
+          {
+            "name": "End",
+            "type": "string",
+            "description": "The end date of the desired stay.  The format is year-month-day (2013-12-05)",
+            "in": "query",
+            "required": true,
+            "default": "2013-12-05"
+          },
+          {
+            "name": "NonSmoking",
+            "type": "string",
+            "description": "The value of true would mean non-smoking rooms only.  The value of false would mean no preference.",
+            "in": "query",
+            "required": false,
+            "default": "false"
+          },
+          {
+            "name": "AdultCount",
+            "type": "string",
+            "description": "The number of adults in the room.",
+            "in": "query",
+            "required": true,
+            "default": "2"
+          },
+          {
+            "name": "ChildCount",
+            "type": "string",
+            "description": "The number of children in the room.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Quantity",
+            "type": "string",
+            "description": "The number of rooms.",
+            "in": "query",
+            "required": true,
+            "default": "1"
+          },
+          {
+            "name": "CityName",
+            "type": "string",
+            "description": "The city you want rates for.",
+            "in": "query",
+            "required": true,
+            "default": "San Francisco"
+          },
+          {
+            "name": "StateCode",
+            "type": "string",
+            "description": "The 2-character state you want rates for.",
+            "in": "query",
+            "required": false,
+            "default": "CA"
+          },
+          {
+            "name": "CountryCode",
+            "type": "string",
+            "description": "The 2-character country you want rates for.",
+            "in": "query",
+            "required": false,
+            "default": "US"
+          },
+          {
+            "name": "PCRNumber",
+            "type": "string",
+            "description": "The 9-character PCR Number, if applicable.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Format",
+            "type": "string",
+            "description": "The output format",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/hoteldescinfo": {
+      "get": {
+        "operationId": "GetHotelInformationHotelDescriptiveContentInfo",
+        "summary": "Hotel Descriptive Info provides detailed informati...",
+        "description": "Hotel Descriptive Info provides detailed information about a specific hotel.",
+        "tags": [
+          "Hotel Descriptive Content Info"
+        ],
+        "parameters": [
+          {
+            "name": "HotelCode",
+            "type": "string",
+            "description": "The specific property ID that you're requesting more information from.",
+            "in": "query",
+            "required": true,
+            "default": "ATLCP"
+          },
+          {
+            "name": "PrimaryLangID",
+            "type": "string",
+            "description": "Requesting the Hotel Descriptive Content Info in various languages.",
+            "in": "query",
+            "required": false,
+            "default": "en-US"
+          },
+          {
+            "name": "Format",
+            "type": "string",
+            "description": "The output format",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/hotelavail": {
+      "get": {
+        "operationId": "GetAvailabilityHotelAvailabilityRequest",
+        "summary": "Hotel Availability will return the rules associate...",
+        "description": "Hotel Availability will return the rules associated to the rates returned. These rules may include tax, cancellation policy, commission policy, guarantee requirements, etc.",
+        "tags": [
+          "Hotel Availability Request"
+        ],
+        "parameters": [
+          {
+            "name": "HotelCode",
+            "type": "string",
+            "description": "This element is used to specify the property id for which the hotel availability request. The code uniquely identifies a single hotel property. Up to 8 hotel codes are supported within a single call. When providing multiple hotels, provide a comma-delimited list. Ex: BELCA,ATLCP,RWCCA",
+            "in": "query",
+            "required": true,
+            "default": "ATLCP"
+          },
+          {
+            "name": "Start",
+            "type": "string",
+            "description": "The start date of the desired stay.  The format is year-month-day (2013-12-01).",
+            "in": "query",
+            "required": true,
+            "default": "2013-12-01"
+          },
+          {
+            "name": "End",
+            "type": "string",
+            "description": "The end date of the desired stay.  The format is year-month-day (2013-12-05).",
+            "in": "query",
+            "required": true,
+            "default": "2013-12-05"
+          },
+          {
+            "name": "RatePlanCode",
+            "type": "string",
+            "description": "Alphanumeric value for the rate plan being searched. (provide 0 to 3 values, comma delimited with no spaces - IGCOR,IGBBB).",
+            "in": "query",
+            "required": true,
+            "default": "IGCOR"
+          },
+          {
+            "name": "NonSmoking",
+            "type": "string",
+            "description": "The value of true would mean non-smoking rooms only.  The value of false would mean no preference.  Defaults to false.",
+            "in": "query",
+            "required": false,
+            "default": "false"
+          },
+          {
+            "name": "AdultCount",
+            "type": "string",
+            "description": "The number of adults in the room.",
+            "in": "query",
+            "required": true,
+            "default": "2"
+          },
+          {
+            "name": "ChildCount",
+            "type": "string",
+            "description": "The number of children in the room.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Quantity",
+            "type": "string",
+            "description": "The number of rooms.",
+            "in": "query",
+            "required": true,
+            "default": "1"
+          },
+          {
+            "name": "Format",
+            "type": "string",
+            "description": "The output format",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/sprravail": {
+      "get": {
+        "operationId": "GetAvailabilityHotelAvailabilityRequestwithRateRules",
+        "summary": "Hotel Availability will return the rules associate...",
+        "description": "Hotel Availability will return the rules associated to the rates returned. These rules include tax, cancellation policy, commission policy, guarantee requirements, etc.",
+        "tags": [
+          "Hotel Availability Request with Rate Rules"
+        ],
+        "parameters": [
+          {
+            "name": "HotelCode",
+            "type": "string",
+            "description": "This element is used to specify the property id for which the hotel availability request. The code uniquely identifies a single hotel property. Up to 8 hotel codes are supported within a single call. When providing multiple hotels, provide a comma-delimited list. Ex: BELCA,ATLCP,RWCCA",
+            "in": "query",
+            "required": true,
+            "default": "ATLCP"
+          },
+          {
+            "name": "Start",
+            "type": "string",
+            "description": "The start date of the desired stay.  The format is year-month-day (2013-12-01).",
+            "in": "query",
+            "required": true,
+            "default": "2013-12-01"
+          },
+          {
+            "name": "End",
+            "type": "string",
+            "description": "The end date of the desired stay.  The format is year-month-day (2013-12-05).",
+            "in": "query",
+            "required": true,
+            "default": "2013-12-05"
+          },
+          {
+            "name": "NonSmoking",
+            "type": "string",
+            "description": "The value of true would mean non-smoking rooms only.  The value of false would mean no preference.  Defaults to false.",
+            "in": "query",
+            "required": false,
+            "default": "false"
+          },
+          {
+            "name": "AdultCount",
+            "type": "string",
+            "description": "The number of adults in the room.",
+            "in": "query",
+            "required": true,
+            "default": "2"
+          },
+          {
+            "name": "ChildCount",
+            "type": "string",
+            "description": "The number of children in the room.",
+            "in": "query",
+            "required": false,
+            "default": "1"
+          },
+          {
+            "name": "Quantity",
+            "type": "string",
+            "description": "The number of rooms.",
+            "in": "query",
+            "required": true,
+            "default": "1"
+          },
+          {
+            "name": "PCRNumber",
+            "type": "string",
+            "description": "The 9-character PCR Number, if applicable.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "LanguageLink",
+            "type": "string",
+            "description": "The requested language code.",
+            "in": "query",
+            "required": false,
+            "default": "en-US"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

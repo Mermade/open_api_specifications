@@ -1,0 +1,498 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Online Maps",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test our API services using our API Explorer below. Simply enter the parameters and click “Try It”. You must have a valid API key for this to work (go to My Account to request a key if you do not already have one). You can also view our written documentation for Online Maps, Online Routing, Online Traffic Flow, Online Traffic Incidents and MySports Cloud. Online Maps is a REST-like API that provides map images of the TomTom high quality world map in Navigation Data Standard (NDS) runtime format.",
+    "x-mashery-id": "3122"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.tomtom.com",
+  "basePath": "/map/1",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "http://developer.tomtom.com/io-docs/member"
+  },
+  "consumes": [
+    "application/xml"
+  ],
+  "produces": [
+    "application/xml"
+  ],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Tile"
+    },
+    {
+      "name": "WMTS"
+    },
+    {
+      "name": "WMS"
+    },
+    {
+      "name": "Copyrights"
+    }
+  ],
+  "paths": {
+    "/tile/{layer}/{style}/{zoom}/{x}/{y}.{format}": {
+      "get": {
+        "operationId": "OnlineMapsTile",
+        "summary": "Returns one tile containing the requested map data...",
+        "description": "Returns one tile containing the requested map data.  The tile is determined by the zoom level and the x and y coordinates which define to the tile's position on the grid for that zoom level. Refer to the written documentation for an explanation of the zoom grid.",
+        "tags": [
+          "Tile"
+        ],
+        "parameters": [
+          {
+            "name": "layer",
+            "type": "string",
+            "description": "Layer of tile to be returned",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "basic",
+              "labels",
+              "hybrid"
+            ]
+          },
+          {
+            "name": "style",
+            "type": "string",
+            "description": "Style of tile to be returned",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "main",
+              "night"
+            ]
+          },
+          {
+            "name": "zoom",
+            "type": "integer",
+            "description": "Map zoom level (0-18). Which zoom level should I use?",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "x",
+            "type": "integer",
+            "description": "X coordinate of tile on zoom grid.\n\nThe top left tile in each zoom grid is x=0, y=0; the bottom-right tile is at x=2^zoom-1, y=2^zoom-1.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "y",
+            "type": "integer",
+            "description": "Y coordinate of tile on zoom grid.\n\nThe top left tile in each zoom grid is x=0, y=0; the bottom-right tile is at x=2^zoom-1, y=2^zoom-1.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Image format to be returned.\n\nYou can use 'jpg' only for zoom < 7.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "png",
+              "jpg"
+            ]
+          },
+          {
+            "name": "tileSize",
+            "type": "string",
+            "description": "Requested tile size. Default: 256x256 pixels. 512 size is only available for basic layer and main style.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "256",
+              "512"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/wmts/{apikey}/1.0.0/WMTSCapabilities.xml": {
+      "get": {
+        "operationId": "GetCapabilitiesWMTS",
+        "summary": "Returns a list of WMST based on Online Maps calls ...",
+        "description": "Returns a list of WMST based on Online Maps calls supported by the TomTom Developers Portal.",
+        "tags": [
+          "WMTS"
+        ],
+        "parameters": [
+          {
+            "name": "apikey",
+            "type": "string",
+            "description": "your authorization key",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/wms/": {
+      "get": {
+        "operationId": "GetMapWMS",
+        "summary": "Returns map tiles for the requested bounding box i...",
+        "description": "Returns map tiles for the requested bounding box in the requested size.",
+        "tags": [
+          "WMS"
+        ],
+        "parameters": [
+          {
+            "name": "request",
+            "type": "string",
+            "description": "Request type",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "GetMap"
+            ]
+          },
+          {
+            "name": "version",
+            "type": "string",
+            "description": "WMS service version",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1.1.1"
+            ]
+          },
+          {
+            "name": "srs",
+            "type": "string",
+            "description": "Projection used in describing the bbox",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "EPSG:3857",
+              "EPSG:4326"
+            ]
+          },
+          {
+            "name": "bbox",
+            "type": "string",
+            "description": "Comma-separated coordinates for the bounding box, in the projection stated in srs. Sample: -80,-80,0,0",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "width",
+            "type": "integer",
+            "description": "Width of the resulting image (in pixels, max 2048)",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "height",
+            "type": "integer",
+            "description": "Height of the resulting image (in pixels, max 2048)",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Image format to be returned",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "image/jpeg",
+              "image/png"
+            ]
+          },
+          {
+            "name": "layers",
+            "type": "string",
+            "description": "Map layers requested",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "basic"
+            ]
+          },
+          {
+            "name": "styles",
+            "type": "string",
+            "description": "Map styles to be returned: leave blank",
+            "in": "query",
+            "required": false,
+            "enum": [
+              " "
+            ]
+          },
+          {
+            "name": "service",
+            "type": "string",
+            "description": "Service type. Default: WMS.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "WMS"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/copyrights.{format}": {
+      "get": {
+        "operationId": "GetTheWholeWorldCopyrights",
+        "summary": "Returns JSON or XML file containing copyright info...",
+        "description": "Returns JSON or XML file containing copyright information for the whole world",
+        "tags": [
+          "Copyrights"
+        ],
+        "parameters": [
+          {
+            "name": "format",
+            "type": "string",
+            "description": "File format to be returned. Default: XML",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "json",
+              "jsonp",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/copyrights/{zoom}/{X}/{Y}.{format}": {
+      "get": {
+        "operationId": "GetAreaTileCopyrights",
+        "summary": "Returns JSON or XML file with copyrights for the c...",
+        "description": "Returns JSON or XML file with copyrights for the chosen area specified by zoom level, and tile coordinates",
+        "tags": [
+          "Copyrights"
+        ],
+        "parameters": [
+          {
+            "name": "zoom",
+            "type": "integer",
+            "description": "Map zoom level (0-18). Which zoom level should I use?",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "X",
+            "type": "integer",
+            "description": "X coordinate of tile on zoom grid.\n\nThe top left tile in each zoom grid is x=0, y=0; the bottom-right tile is at x=2^zoom-1, y=2^zoom-1.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Y",
+            "type": "integer",
+            "description": "Y coordinate of tile on zoom grid.\n\nThe top left tile in each zoom grid is x=0, y=0; the bottom-right tile is at x=2^zoom-1, y=2^zoom-1.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "File format to be returned. Default: XML",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "json",
+              "jsonp",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/copyrights/{minLon}/{minLat}/{maxLon}/{maxLat}.{format}": {
+      "get": {
+        "operationId": "GetTextOnlyCopyrights",
+        "summary": "Returns JSON or XML file with copyrights for the c...",
+        "description": "Returns JSON or XML file with copyrights for the chosen area specified by latitude and longitude.",
+        "tags": [
+          "Copyrights"
+        ],
+        "parameters": [
+          {
+            "name": "minLon",
+            "type": "integer",
+            "description": "Minimum longitude coordinate of bounding box in latitude longitude coordinate system.\n\nValues from -180 to 180",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "minLat",
+            "type": "integer",
+            "description": "Minimum latitude coordinate of bounding box in latitude longitude coordinate system.\n\nValues from -90 to 90",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "maxLon",
+            "type": "integer",
+            "description": "Maximum lognitude coordinate of bounding box in latitude longitude coordinate system.\n\nValues from -180 to 180",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "maxLat",
+            "type": "integer",
+            "description": "Maximum latitude coordinate of bounding box in latitude longitude coordinate system.\n\nValues from -90 to 90",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "File format to be returned. Default: XML",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "json",
+              "jsonp",
+              "xml"
+            ]
+          },
+          {
+            "name": "text",
+            "type": "string",
+            "description": "Should the copyright text (yes) or only countries (no) be sent in response. Default: yes",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "yes",
+              "no"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/copyrights/caption.{format}": {
+      "get": {
+        "operationId": "GetCaptionCopyrights",
+        "summary": "Return JSON or XML file containing copyright capti...",
+        "description": "Return JSON or XML file containing copyright caption to show under map.",
+        "tags": [
+          "Copyrights"
+        ],
+        "parameters": [
+          {
+            "name": "format",
+            "type": "string",
+            "description": "File format to be returned. Default: XML",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "json",
+              "jsonp",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/copyrights/minLon/minLat/maxLon/maxLat.format": {}
+  },
+  "definitions": {}
+}

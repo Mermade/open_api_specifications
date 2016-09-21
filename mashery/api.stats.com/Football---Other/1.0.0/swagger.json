@@ -1,0 +1,2954 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Football - Other",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "The API calls below can be used to test the Input and Output of our API endpoints.  You'll need an API key and an assigned secret to access the live data and so if you haven't contacted us yet, now is the time!  Our sales staff would be happy to set you up with trial access so you can begin to evaluate the product. Football - Other",
+    "x-mashery-id": "1986"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.stats.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "After you've been given an API key and secret, enter it below and \"Get\" the method you'd like to try out.  Fill in the parameters with what you'd like to try, or use the built in defaults, and click \"Try It!\" to execute the call.  The JSON or XML response will be populated in the Response Body, the Response Body will provide you with any relevant codes, and the Request Header URI will show you how the call would be made within your application. Please note:Also, endpoints almost always require a final \"/\".  You will receive \"596 Service Not Found\" when it is missing.  An exception to this is for optional methods, such as eventId or teamId.",
+    "url": "http://developer.stats.com/io-docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Football - Leagues"
+    },
+    {
+      "name": "Football - Teams"
+    },
+    {
+      "name": "Football - Schedules, scores, box scores, play-by-play, drive charts"
+    },
+    {
+      "name": "Football - Standings"
+    },
+    {
+      "name": "Football - Participants"
+    },
+    {
+      "name": "Football - Statistics"
+    },
+    {
+      "name": "Football - Leaders"
+    },
+    {
+      "name": "Football - Odds"
+    },
+    {
+      "name": "Football - Decodes"
+    }
+  ],
+  "paths": {
+    "/stats/football/leagues/": {
+      "get": {
+        "operationId": "Football-LeaguesFootball-Leagues",
+        "summary": "The football leagues endpoint serves as a decode f...",
+        "description": "The football leagues endpoint serves as a decode for the available leagues names, abbreviations, and URI paths.",
+        "tags": [
+          "Football - Leagues"
+        ],
+        "parameters": [
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/{leaguePath}/teams/{teamId}": {
+      "get": {
+        "operationId": "Football-TeamsFootball-Teams",
+        "summary": "The teams endpoint will be your source for team na...",
+        "description": "The teams endpoint will be your source for team names, locations, abbreviations, and IDs.  You can get information about a single team by including the teamId.  If you do not include a teamId, you will get all the teams for the league.",
+        "tags": [
+          "Football - Teams"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the football/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "cfl"
+            ]
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "Provide team ID to return information for one team.\n Default - Blank (returns all teams).",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get team lists for a different season, enter the year as YYYY.\n Note: Seasons that span years like NFL 2013-2014 would be entered as 2013.\n  Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of team & venue names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/{leaguePath}/events/{eventId}": {
+      "get": {
+        "operationId": "Football-IfpermissionedforalleventinformationFootball-Schedules,scores,boxscores,play-by-play,drivecharts",
+        "summary": "Access to this events endpoint will provide you wi...",
+        "description": "Access to this events endpoint will provide you with the highest level of game data including live scores, box scores, play-by-plays, and drive charts. The box, pbp, & driveCharts parameters are only available when a single game is selected.\n Simple schedules are also available via the events endpoint.",
+        "tags": [
+          "Football - Schedules, scores, box scores, play-by-play, drive charts"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the football/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "cfl"
+            ]
+          },
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Provide a specific eventID when you want information on a single game.  Must be populated to use the box, pbp or driveCharts parameters.\n Default - basic schedule and score information is returned.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "box",
+            "type": "boolean",
+            "description": "Returns the box score for a specific in-progress or concluded event.  An eventId must also be entered in conjunction with 'box=true'.\n  Default - box score data will not be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "pbp",
+            "type": "boolean",
+            "description": "Returns the play-by-play for a specific in-progress or concluded event.  An eventId must also be entered in conjunction with 'pbp=true'.\n  Default - pbp data will not be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "driveCharts",
+            "type": "boolean",
+            "description": "Returns the drive charts for a specific in-progress or concluded event.  An eventId must also be entered in conjunction with 'driveCharts=true'.\n  Default - drive chart data will not be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "linescore",
+            "type": "boolean",
+            "description": "A full line score can be requested with any combination of parameters.\n  Default - line score data will not be returned.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "description": "If used, startDate and endDate must both be entered.  All items between the two dates (inclusive) will be returned.\n  Format: YYYYMMDD or YYYY-MM-DD.\n  Default - If not used, the last 7 days items will be returned.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "description": "If used, startDate and endDate must both be entered.  All items between the two dates (inclusive) will be returned.\n  Format: YYYYMMDD or YYYY-MM-DD.\n  Default - If not used, the last 7 days items will be returned.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "description": "Will return all games from a specific date.\n Format: YYYYMMDD or YYYY-MM-DD.\n  Default - if a specific date isn't requested, all games from the current week will be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "week",
+            "type": "integer",
+            "description": "To get all the games for the selected week.\n Default - the current week",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get scores for a different season, enter the year as YYYY.\n Note: Seasons that span years like NFL 2013-2014 would be entered as 2013.\n Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Schedule will be returned for games included in the specified eventType.\n  Default - All event types",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player names, team names, and venues. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/{leaguePath}/events/teams/{teamId}": {
+      "get": {
+        "operationId": "Football-Ifpermissionedforalleventinformation-foroneteamonlyFootball-Schedules,scores,boxscores,play-by-play,drivecharts",
+        "summary": "Access to this events endpoint will provide you wi...",
+        "description": "Access to this events endpoint will provide you with the highest level of game data including live scores, box scores, play-by-plays, and drive charts. However box scores, play-by-play, and drive charts are available for a single game only, and so acnnot be accessed here when all events for a single team are returned. This endpoint should be used for team schedules & scores only.",
+        "tags": [
+          "Football - Schedules, scores, box scores, play-by-play, drive charts"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the football/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "cfl"
+            ]
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "Provide team ID to return information for one team.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "linescore",
+            "type": "boolean",
+            "description": "A full line score can be requested with any combination of parameters.\n  Default - line score data will not be returned.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "description": "If used, startDate and endDate must both be entered.  All items between the two dates (inclusive) will be returned.\n  Format: YYYYMMDD or YYYY-MM-DD.\n  Default - If not used, the last 7 days items will be returned.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "description": "If used, startDate and endDate must both be entered.  All items between the two dates (inclusive) will be returned.\n  Format: YYYYMMDD or YYYY-MM-DD.\n  Default - If not used, the last 7 days items will be returned.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "description": "Will return all games from a specific date.\n Format: YYYYMMDD or YYYY-MM-DD.\n  Default - if a specific date isn't requested, all games from the current week will be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "week",
+            "type": "integer",
+            "description": "To get all the games for the selected week.\n Default - the current week",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get scores for a different season, enter the year as YYYY.\n Note: Seasons that span years like NFL 2013-2014 would be entered as 2013.\n Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Schedule will be returned for games included in the specified eventType.\n  Default - All event types",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player names, team names, and venues. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/{leaguePath}/box/{eventId}": {
+      "get": {
+        "operationId": "Football-Ifpermissionedforjustschedules,scoresandboxscoresFootball-Schedules,scores,boxscores,play-by-play,drivecharts",
+        "summary": "The box/ resource provides scores/schedules and bo...",
+        "description": "The box/ resource provides scores/schedules and box score information for football events. (Play-by-play and Drive Charts are not available in the box endpoint.)",
+        "tags": [
+          "Football - Schedules, scores, box scores, play-by-play, drive charts"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the football/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "cfl"
+            ]
+          },
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Provide a specific eventID when you want information on a single game.  Must be populated to use the box, pbp or driveCharts parameters.\n Default - basic schedule and score information is returned.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "box",
+            "type": "boolean",
+            "description": "Returns the box score for a specific in-progress or concluded event.  An eventId must also be entered in conjunction with 'box=true'.\n  Default - box score data will not be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "linescore",
+            "type": "boolean",
+            "description": "A full line score can be requested with any combination of parameters.\n  Default - line score data will not be returned.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "description": "Will return all games from a specific date.\n Format: YYYYMMDD or YYYY-MM-DD.\n  Default - if a specific date isn't requested, all games from the current week will be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "week",
+            "type": "integer",
+            "description": "To get all the games for the selected week.\n Default - the current week",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get scores for a different season, enter the year as YYYY.\n Note: Seasons that span years like NFL 2013-2014 would be entered as 2013.\n Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Schedule will be returned for games included in the specified eventType.\n  Default - All event types",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player names, team names, and venues. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/{leaguePath}/box/teams/{teamId}": {
+      "get": {
+        "operationId": "Football-Ifpermissionedforjustschedules,scoresandboxscores-foroneteamonlyFootball-Schedules,scores,boxscores,play-by-play,drivecharts",
+        "summary": "The box/ resource provides scores/schedules and bo...",
+        "description": "The box/ resource provides scores/schedules and box score information for football events. However, box scores are available for a single game only, and so cannot be accessed here when all events for a single team are returned. This endpoint should be used for team schedules & scores only.",
+        "tags": [
+          "Football - Schedules, scores, box scores, play-by-play, drive charts"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the football/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "cfl"
+            ]
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "Provide team ID to return information for one team.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "linescore",
+            "type": "boolean",
+            "description": "A full line score can be requested with any combination of parameters.\n  Default - line score data will not be returned.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "description": "Will return all games from a specific date.\n Format: YYYYMMDD or YYYY-MM-DD.\n  Default - if a specific date isn't requested, all games from the current week will be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "week",
+            "type": "integer",
+            "description": "To get all the games for the selected week.\n Default - the current week",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get scores for a different season, enter the year as YYYY.\n Note: Seasons that span years like NFL 2013-2014 would be entered as 2013.\n Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Schedule will be returned for games included in the specified eventType.\n  Default - All event types",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player names, team names, and venues. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/{leaguePath}/scores/{eventId}": {
+      "get": {
+        "operationId": "Football-IfpermissionedforjustschedulesandscoresFootball-Schedules,scores,boxscores,play-by-play,drivecharts",
+        "summary": "The scores/ resource provides score and schedule i...",
+        "description": "The scores/ resource provides score and schedule information for football events. (Boxscores, Play-by-play, and Drive Charts are not available in the scores endpoint.)",
+        "tags": [
+          "Football - Schedules, scores, box scores, play-by-play, drive charts"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the football/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "cfl"
+            ]
+          },
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Provide a specific eventID when you want information on a single game.  Must be populated to use the box, pbp or driveCharts parameters.\n Default - basic schedule and score information is returned.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "linescore",
+            "type": "boolean",
+            "description": "A full line score can be requested with any combination of parameters.\n  Default - line score data will not be returned.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "description": "Will return all games from a specific date.\n Format: YYYYMMDD or YYYY-MM-DD.\n  Default - if a specific date isn't requested, all games from the current week will be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "week",
+            "type": "integer",
+            "description": "To get all the games for the selected week.\n Default - the current week",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get scores for a different season, enter the year as YYYY.\n Note: Seasons that span years like NFL 2013-2014 would be entered as 2013.\n Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Schedule will be returned for games included in the specified eventType.\n  Default - All event types",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player names, team names, and venues. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/{leaguePath}/scores/teams/{teamId}": {
+      "get": {
+        "operationId": "Football-Ifpermissionedforjustschedulesandscores-foroneteamonlyFootball-Schedules,scores,boxscores,play-by-play,drivecharts",
+        "summary": "The scores/ resource provides score and schedule i...",
+        "description": "The scores/ resource provides score and schedule information for football events.",
+        "tags": [
+          "Football - Schedules, scores, box scores, play-by-play, drive charts"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the football/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "cfl"
+            ]
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "Provide team ID to return information for one team.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "linescore",
+            "type": "boolean",
+            "description": "A full line score can be requested with any combination of parameters.\n  Default - line score data will not be returned.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "description": "Will return all games from a specific date.\n Format: YYYYMMDD or YYYY-MM-DD.\n  Default - if a specific date isn't requested, all games from the current week will be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "week",
+            "type": "integer",
+            "description": "To get all the games for the selected week.\n Default - the current week",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get scores for a different season, enter the year as YYYY.\n Note: Seasons that span years like NFL 2013-2014 would be entered as 2013.\n Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Schedule will be returned for games included in the specified eventType.\n  Default - All event types",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player names, team names, and venues. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/{leaguePath}/standings/": {
+      "get": {
+        "operationId": "Football-StandingsFootball-Standings",
+        "summary": "The standings endpoint will provide the league sta...",
+        "description": "The standings endpoint will provide the league standings, including all team data relevant to standings.",
+        "tags": [
+          "Football - Standings"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the football/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "cfl"
+            ]
+          },
+          {
+            "name": "expanded",
+            "type": "boolean",
+            "description": "Expanded includes additional data points for each team.\n Default - false",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get standings for a different season, enter the year as YYYY.\n Note: Seasons that span years like NFL 2013-2014 would be entered as 2013.\n Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/{leaguePath}/standings/teams/{teamId}": {
+      "get": {
+        "operationId": "Football-StandingsforasingleteamFootball-Standings",
+        "summary": "The standings endpoint will provide the league sta...",
+        "description": "The standings endpoint will provide the league standings, including all team data relevant to standings.",
+        "tags": [
+          "Football - Standings"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the football/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "cfl"
+            ]
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "Provide team ID to return information for one team.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "expanded",
+            "type": "boolean",
+            "description": "Expanded includes additional data points for each team.\n Default - false",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get standings for a different season, enter the year as YYYY.\n Note: Seasons that span years like NFL 2013-2014 would be entered as 2013.\n Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/{leaguePath}/participants/teams/{teamId}": {
+      "get": {
+        "operationId": "Football-PlayersonasingleteamFootball-Participants",
+        "summary": "The participants endpoint provides biographical in...",
+        "description": "The participants endpoint provides biographical information for players and can be used to return information on a single player, a single teams roster, or all teams rosters within the league.",
+        "tags": [
+          "Football - Participants"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the football/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "cfl"
+            ]
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "Provide team ID to return roster for one team.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player & team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/{leaguePath}/participants/{playerId}": {
+      "get": {
+        "operationId": "Football-SingleplayerFootball-Participants",
+        "summary": "The participants endpoint provides biographical in...",
+        "description": "The participants endpoint provides biographical information for players and can be used to return information on a single player, a single teams roster, or all teams rosters within the league.",
+        "tags": [
+          "Football - Participants"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the football/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "cfl"
+            ]
+          },
+          {
+            "name": "playerId",
+            "type": "integer",
+            "description": "To get information on a specific player, enter their ID.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player & team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/{leaguePath}/stats/players/{playerId}": {
+      "get": {
+        "operationId": "Football-Playerstats-CareerFootball-Statistics",
+        "summary": "Football - Season & Career stats for a single play...",
+        "description": "Football - Season & Career stats for a single player",
+        "tags": [
+          "Football - Statistics"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the football/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "cfl"
+            ]
+          },
+          {
+            "name": "playerId",
+            "type": "integer",
+            "description": "To get information on a specific player, enter their ID.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "enc",
+            "type": "boolean",
+            "description": "The 'enc'yclopedia returns full career and season-by-season totals.\n Notes:\n  The encyclopedia is valid for a single player only.  If playerId is omitted, 'enc=true' will be ignored.\n  If 'enc=true', the seasonId will be ignored if included.\n  Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "careerOnly",
+            "type": "boolean",
+            "description": "For a single player's career stats, only to be used in conjunction with 'enc=true'",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Statistics for games in the specified eventType only.\n  Default - All games (reg/post combined)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player & team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/{leaguePath}/stats/players/{playerId}/events/{eventId}": {
+      "get": {
+        "operationId": "Football-PlayersinglegamestatsFootball-Statistics",
+        "summary": "Football - Single game stats for a single player",
+        "tags": [
+          "Football - Statistics"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the football/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "cfl"
+            ]
+          },
+          {
+            "name": "playerId",
+            "type": "integer",
+            "description": "To get information on a specific player, enter their ID.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Statistics for a single game.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player & team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/{leaguePath}/stats/players/{playerId}/events/": {
+      "get": {
+        "operationId": "Football-Playergame-by-gamestatsFootball-Statistics",
+        "summary": "Football - Game logs for a single player.",
+        "tags": [
+          "Football - Statistics"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the football/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "cfl"
+            ]
+          },
+          {
+            "name": "playerId",
+            "type": "integer",
+            "description": "To get information on a specific player, enter their ID.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Statistics for games in the specified eventType only.\n  Default - All games (reg/post combined)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get data for a different season, enter the year as YYYY.\n Note: Seasons that span years like NFL 2013-2014 would be entered as 2013.\n  Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player & team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/{leaguePath}/stats/players/{playerId}/": {
+      "get": {
+        "operationId": "Football-PlayersplitsFootball-Statistics",
+        "summary": "Football - Player splits (breakdowns).",
+        "tags": [
+          "Football - Statistics"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the football/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "cfl"
+            ]
+          },
+          {
+            "name": "playerId",
+            "type": "integer",
+            "description": "To get information on a specific player, enter their ID.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "splitId",
+            "type": "string",
+            "description": "Enter the stat split to be returned.\n * If 'all' is used, then all the splits are returned.\n * If not used, only the official totals will be returned (default = -1).\n * Otherwise, the entered split is returned.\n -- A full list of the available splitId codes can be found using the ‘decodes’ resource.",
+            "in": "query",
+            "required": true,
+            "default": "-1"
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Statistics for games in the specified eventType only.\n  Default - All games (reg/post combined)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get data for a different season, enter the year as YYYY.\n Note: Seasons that span years like NFL 2013-2014 would be entered as 2013.\n  Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player & team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/{leaguePath}/stats/teams/{teamId}/": {
+      "get": {
+        "operationId": "Football-TeamsplitsFootball-Statistics",
+        "summary": "Football - Team splits (breakdowns).",
+        "tags": [
+          "Football - Statistics"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the football/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "cfl"
+            ]
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "A teamId returns information for that team only.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "splitId",
+            "type": "string",
+            "description": "Enter the stat split to be returned. (The decodes resource provides a list of available codes.)\n  * If omitted, only official total stats (splitId = -1) will be returned.\n  * If 'all', all the splits are returned.\n  * Otherwise, the entered split is returned.\n  Default - Official totals (splitId = -1)",
+            "in": "query",
+            "required": true,
+            "default": "-1"
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Statistics for games in the specified eventType only.\n  Default - All games (reg/post combined)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get data for a different season, enter the year as YYYY.\n Note: Seasons that span years like NFL 2013-2014 would be entered as 2013.\n  Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/{leaguePath}/stats/teams/{teamId}/events/{eventId}": {
+      "get": {
+        "operationId": "Football-TeamsinglegamestatsFootball-Statistics",
+        "summary": "Football - A team's stats for one game.",
+        "tags": [
+          "Football - Statistics"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the football/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "cfl"
+            ]
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "A teamId returns information for that team only.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Statistics for a single game.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/{leaguePath}/stats/teams/{teamId}/events/": {
+      "get": {
+        "operationId": "Football-Teamgame-by-gamestatsFootball-Statistics",
+        "summary": "Football - Game logs for a single team.",
+        "tags": [
+          "Football - Statistics"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the football/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "cfl"
+            ]
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "A teamId returns information for that team only.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Statistics for games in the specified eventType only.\n  Default - All games (reg/post combined)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get data for a different season, enter the year as YYYY.\n Note: Seasons that span years like NFL 2013-2014 would be entered as 2013.\n  Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/{leaguePath}/leaders/": {
+      "get": {
+        "operationId": "Football-LeadersFootball-Leaders",
+        "summary": "Football - Leaders",
+        "tags": [
+          "Football - Leaders"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the football/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "cfl"
+            ]
+          },
+          {
+            "name": "leaderCategoryId",
+            "type": "integer",
+            "description": "Only one category per query.  The decodes resource provides a list of available codes. \n  Default - Blank (returns Passing Yards).",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "topCount",
+            "type": "integer",
+            "description": "This is the number of leaders to be returned.\n  You can return all leaders with the word 'all' instead of a number.\n  Default - Top 10 (plus ties), utilizing ranked players only if nonQualifiers is false/null; else will utilize ordered players.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "nonQualifiers",
+            "type": "boolean",
+            "description": "Should non-qualifiers be returned?\n  Default - false",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "sortType",
+            "type": "string",
+            "description": "To return 'worst' players (trailers) rather than 'best' players (leaders) in a category, select sortType = worst. Trailers are not available for every leaderCategoryId.\n  Default - If the sortType parameter is not used, leaders will be returned.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "worst"
+            ]
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Leaders among games in the specified eventType only.\n  Default - All games (reg/post combined)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get data for a different season, enter the year as YYYY.\n Note: Seasons that span years like NFL 2013-2014 would be entered as 2013.\n  Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "To get data for players on one team only, enter the teamId.\n  Default - all players",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/{leaguePath}/teamLeaders/": {
+      "get": {
+        "operationId": "Football-TeamLeadersFootball-Leaders",
+        "summary": "Football - Team Leaders",
+        "tags": [
+          "Football - Leaders"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the football/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "arfl",
+              "cfl"
+            ]
+          },
+          {
+            "name": "leaderCategoryId",
+            "type": "integer",
+            "description": "Only one category per query.  The decodes resource provides a list of available codes. \n  Default - Blank (returns Passing Yards).",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "topCount",
+            "type": "integer",
+            "description": "This is the number of leaders to be returned.\n  You can return all leaders with the word 'all' instead of a number.\n  Default - Top 10 (plus ties).",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "sortType",
+            "type": "string",
+            "description": "To return 'worst' teams (trailers) rather than 'best' teams (leaders) in a category, select sortType = worst. Trailers are not available for every leaderCategoryId.\n  Default - If the sortType parameter is not used, leaders will be returned.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "worst"
+            ]
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Leaders among games in the specified eventType only.\n  Default - All games (reg/post combined)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get data for a different season, enter the year as YYYY.\n Note: Seasons that span years like NFL 2013-2014 would be entered as 2013.\n  Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/{leaguePath}/weeklyLeaders/": {
+      "get": {
+        "operationId": "Football-LeadersbyWeekFootball-Leaders",
+        "summary": "Football - Leaders by Week",
+        "tags": [
+          "Football - Leaders"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the football/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "cfl"
+            ]
+          },
+          {
+            "name": "week",
+            "type": "integer",
+            "description": "Leaders returned for the selected week only. If no week is selected, leaders for the most recent week will be returned.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "leaderCategoryId",
+            "type": "integer",
+            "description": "Only one category per query.\n  Default - Blank (returns Passing Yards).",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "53",
+              "81",
+              "115",
+              "118",
+              "127",
+              "133",
+              "137",
+              "142",
+              "145",
+              "156",
+              "163",
+              "191"
+            ]
+          },
+          {
+            "name": "topCount",
+            "type": "integer",
+            "description": "This is the number of leaders to be returned.\n  You can return all leaders with the word 'all' instead of a number.\n  Default - Top 10 (plus ties).",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get data for a different season, enter the year as YYYY.\n Note: Seasons that span years like NFL 2013-2014 would be entered as 2013.\n  Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "To get data for players on one team only, enter the teamId.\n  Default - all players",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player & team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/{leaguePath}/odds/": {
+      "get": {
+        "operationId": "Football-OddsFootball-Odds",
+        "summary": "Football - Odds",
+        "tags": [
+          "Football - Odds"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the football/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "cfl"
+            ]
+          },
+          {
+            "name": "week",
+            "type": "integer",
+            "description": "To get all the games for the selected week.\n Default - the current week",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get data for a different season, enter the year as YYYY.\n Note: Seasons that span years like 2013-2014 would be entered as 2013.\n Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Odds for games in the specified eventType only.\n  Default - All event types",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "0",
+              "1",
+              "2"
+            ]
+          },
+          {
+            "name": "eventRoundId",
+            "type": "integer",
+            "description": "Valid only when event type is Postseason.\n Default - All rounds combined",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2",
+              "3"
+            ]
+          },
+          {
+            "name": "languageId",
+            "type": "integer",
+            "description": "For team names/nicknames/abbreviations only. Select ID to change language of team names. Not all languages available for every name/nickname/abbreviation.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/{leaguePath}/odds/{eventId}": {
+      "get": {
+        "operationId": "Football-OddsforonegameonlyFootball-Odds",
+        "summary": "Football - Odds",
+        "tags": [
+          "Football - Odds"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the football/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "cfl"
+            ]
+          },
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "ID of event you want returned.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "languageId",
+            "type": "integer",
+            "description": "For team names/nicknames/abbreviations only. Select ID to change language of team names. Not all languages available for every name/nickname/abbreviation.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/{leaguePath}/odds/teams/{teamId}": {
+      "get": {
+        "operationId": "Football-OddsforoneteamonlyFootball-Odds",
+        "summary": "Football - Odds",
+        "tags": [
+          "Football - Odds"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the football/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "cfl"
+            ]
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "ID of team you want returned.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "week",
+            "type": "integer",
+            "description": "To get all the games for the selected week.\n Default - the current week",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get data for a different season, enter the year as YYYY.\n Note: Seasons that span years like 2013-2014 would be entered as 2013.\n Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Odds for games in the specified eventType only.\n  Default - All event types",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "0",
+              "1",
+              "2"
+            ]
+          },
+          {
+            "name": "eventRoundId",
+            "type": "integer",
+            "description": "Valid only when event type is Postseason.\n Default - All rounds combined",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2",
+              "3"
+            ]
+          },
+          {
+            "name": "languageId",
+            "type": "integer",
+            "description": "For team names/nicknames/abbreviations only. Select ID to change language of team names. Not all languages available for every name/nickname/abbreviation.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/decode/football/{leaguePath}/{decodeType}": {
+      "get": {
+        "operationId": "Football-DecodesFootball-Decodes",
+        "summary": "Football - Decodes",
+        "tags": [
+          "Football - Decodes"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the football/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "cfl"
+            ]
+          },
+          {
+            "name": "decodeType",
+            "type": "integer",
+            "description": "The data type to be decoded.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "bowls",
+              "collegeSubDivisions",
+              "conferences",
+              "divisions",
+              "driveChartPlayNames",
+              "eventRounds",
+              "eventStatuses",
+              "eventTypes",
+              "kickTypes",
+              "leaderCategories",
+              "missReasons",
+              "penaltyTypes",
+              "playTypes",
+              "polls",
+              "positions",
+              "rushTypes",
+              "scoreTypes",
+              "seasonStructure",
+              "splits",
+              "tvStations",
+              "venues"
+            ]
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "For venues only. Select ID to change language of venue names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

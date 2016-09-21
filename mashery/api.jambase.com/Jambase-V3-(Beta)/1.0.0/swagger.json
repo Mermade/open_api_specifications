@@ -1,0 +1,168 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Jambase V3 API (Beta)",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test our API services using I/O Docs. Jambase API V3",
+    "x-mashery-id": "795"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.jambase.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "http://developer.jambase.com/io-docs/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Events"
+    },
+    {
+      "name": "Artists"
+    },
+    {
+      "name": "Venues"
+    }
+  ],
+  "paths": {
+    "/events": {
+      "get": {
+        "operationId": "EventListbyvenueId,startDate,endDateEvents",
+        "summary": "Get Events by venueId and between startDate & endD...",
+        "description": "Get Events by venueId and between startDate & endDate",
+        "tags": [
+          "Events"
+        ],
+        "parameters": [
+          {
+            "name": "artistId",
+            "type": "integer",
+            "description": "VenueId eg: 19808 (for HP Pavillion)",
+            "in": "query",
+            "required": true,
+            "default": "19808"
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date-time",
+            "description": "Event Start Date time for eg: 2013-05-01T20:00:00 in local time zone.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date-time",
+            "description": "Event Search between startDate and endDate time for eg: 2013-05-01T20:00:00 in local time zone.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "page",
+            "type": "integer",
+            "description": "Page number. If omitted, default first page(0) is assumed.",
+            "in": "query",
+            "required": true,
+            "default": "0"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/artists": {
+      "get": {
+        "operationId": "ArtistbyidArtists",
+        "summary": "Get Artist by Id",
+        "tags": [
+          "Artists"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "integer",
+            "description": "artist Id",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/venues": {
+      "get": {
+        "operationId": "VenuebyidVenues",
+        "summary": "Get Venue by Name",
+        "tags": [
+          "Venues"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "integer",
+            "description": "Venue Id",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

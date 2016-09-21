@@ -1,0 +1,1205 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Press Association News API v1.5",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test our API services using I/O Docs. Welcome to the IO Docs page for the Press Association News API v1.5",
+    "x-mashery-id": "3537"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.press.net",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "http://developer.press.net/io-docs/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Assets"
+    },
+    {
+      "name": "Stories"
+    },
+    {
+      "name": "Feeds"
+    },
+    {
+      "name": "Packages"
+    },
+    {
+      "name": "Schedules"
+    },
+    {
+      "name": "Galleries"
+    }
+  ],
+  "paths": {
+    "/assets/{assetId}": {
+      "get": {
+        "operationId": "GetaspecificAssetAssets",
+        "summary": "Return a specific asset",
+        "tags": [
+          "Assets"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "HTTP header for selecting preferred output format: JSON, ATOM, or RSS",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/atom+xml",
+              "application/rss+xml"
+            ]
+          },
+          {
+            "name": "assetId",
+            "type": "string",
+            "description": "The UUID of the required asset",
+            "in": "path",
+            "required": true,
+            "default": "1fe4fa40-4329-4c28-924c-4f04e13c1c22"
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "JSON-P callback/wrapper function name. Has no effect if the requested response format is not JSON.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "crop",
+            "type": "string",
+            "description": "An optional comma-separated list of media crops. This provides details of PA's recommended crop co-ordinates for the specified crop shapes (note that it does not crop the image). Available shapes are:  POI, SQUARE, THREE_TO_TWO, FOUR_TO_THREE, SIXTEEN_TO_NINE, FIVE_TO_FOUR, TWO_TO_ONE, SEVEN_TO_TWO. POI means point-of-interest and is just a co-ordinate, not a rectangle.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/atom+xml",
+          "application/rss+xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/assets": {
+      "get": {
+        "operationId": "SearchforAssetsAssets",
+        "summary": "Search within a specific feed",
+        "tags": [
+          "Assets"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "HTTP header for selecting preferred output format: JSON, ATOM, or RSS",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/atom+xml",
+              "application/rss+xml"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "JSON-P callback/wrapper function name. Has no effect if the requested response format is not JSON.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "format": "date",
+            "description": "Include only assets last updated on the specified date, in ISO-8601 format. If no timezone is specified, Europe/London is assumed.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "from",
+            "type": "string",
+            "format": "date",
+            "description": "Return only assets last modified at or more recently than the specified ISO-8601 date-time. For example: 2013-01-01T00:00:00Z",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "type": "number",
+            "description": "The number of results to return per page (defaults to 10, maximum 100)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "number",
+            "description": "The search result to start from, indexed from 1 (defaults to 1, maximum 500)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "query",
+            "type": "string",
+            "description": "Text search terms to look for. Phrases should be quoted. Terms are space-separated and all must match in the document, unless they are ORed together. For example: \"David Cameron\" (Conservatives OR Tories)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "sortby",
+            "type": "string",
+            "description": "The sort order for the results. If no value is provided, modified:desc (newest first) is assumed",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "relevance",
+              "modified:desc",
+              "modified:asc"
+            ]
+          },
+          {
+            "name": "tag",
+            "type": "string",
+            "description": "Filter the results to include only assets with the specified tag",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "to",
+            "type": "string",
+            "format": "date",
+            "description": "Return only assets last modified prior to the specified ISO-8601 date-time. For example: 2013-01-01T00:00:00Z",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "when",
+            "type": "string",
+            "description": "Return only assets last modified within the specified time-frame",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "today",
+              "yesterday",
+              "7-days",
+              "30-days",
+              "older"
+            ]
+          },
+          {
+            "name": "facets",
+            "type": "string",
+            "description": "An optional comma separated list of facets, to be included in the response. Valid values are when and tag.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/atom+xml",
+          "application/rss+xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stories/{storyId}": {
+      "get": {
+        "operationId": "GetaspecificStoryStories",
+        "summary": "Return a specific story",
+        "tags": [
+          "Stories"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "HTTP header for selecting preferred output format: JSON, ATOM, or RSS",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/atom+xml",
+              "application/rss+xml"
+            ]
+          },
+          {
+            "name": "storyId",
+            "type": "string",
+            "description": "The UUID of the required story",
+            "in": "path",
+            "required": true,
+            "default": "479dc90c-63c5-4076-9fc3-7b1d4e1f2c6a"
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "JSON-P callback/wrapper function name. Has no effect if the requested response format is not JSON.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "crop",
+            "type": "string",
+            "description": "An optional comma-separated list of media crops. This provides details of PA's recommended crop co-ordinates for the specified crop shapes (note that it does not crop the image). Available shapes are:  POI, SQUARE, THREE_TO_TWO, FOUR_TO_THREE, SIXTEEN_TO_NINE, FIVE_TO_FOUR, TWO_TO_ONE, SEVEN_TO_TWO. POI means point-of-interest and is just a co-ordinate, not a rectangle.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/atom+xml",
+          "application/rss+xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stories/{storyId}/leads": {
+      "get": {
+        "operationId": "GettheleadsforaStoryStories",
+        "summary": "Return the list of leads that belong to a specific...",
+        "description": "Return the list of leads that belong to a specific Story.",
+        "tags": [
+          "Stories"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "HTTP header for selecting preferred output format: JSON, ATOM, or RSS",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/atom+xml",
+              "application/rss+xml"
+            ]
+          },
+          {
+            "name": "storyId",
+            "type": "string",
+            "description": "The UUID of the required story",
+            "in": "path",
+            "required": true,
+            "default": "479dc90c-63c5-4076-9fc3-7b1d4e1f2c6a"
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "JSON-P callback/wrapper function name. Has no effect if the requested response format is not JSON.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "type": "number",
+            "description": "The number of results to return per page (defaults to 10, maximum 100)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "number",
+            "description": "The result to start from, indexed from 1",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "crop",
+            "type": "string",
+            "description": "An optional comma-separated list of media crops. This provides details of PA's recommended crop co-ordinates for the specified crop shapes (note that it does not crop the image). Available shapes are:  POI, SQUARE, THREE_TO_TWO, FOUR_TO_THREE, SIXTEEN_TO_NINE, FIVE_TO_FOUR, TWO_TO_ONE, SEVEN_TO_TWO. POI means point-of-interest and is just a co-ordinate, not a rectangle.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/atom+xml",
+          "application/rss+xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stories/{storyId}/leads/latest": {
+      "get": {
+        "operationId": "GetthelatestleadforaStoryStories",
+        "summary": "Return the latest lead that belongs to a specific ...",
+        "description": "Return the latest lead that belongs to a specific Story.",
+        "tags": [
+          "Stories"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "HTTP header for selecting preferred output format: JSON, ATOM, or RSS",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/atom+xml",
+              "application/rss+xml"
+            ]
+          },
+          {
+            "name": "storyId",
+            "type": "string",
+            "description": "The UUID of the required story",
+            "in": "path",
+            "required": true,
+            "default": "479dc90c-63c5-4076-9fc3-7b1d4e1f2c6a"
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "JSON-P callback/wrapper function name. Has no effect if the requested response format is not JSON.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "crop",
+            "type": "string",
+            "description": "An optional comma-separated list of media crops. This provides details of PA's recommended crop co-ordinates for the specified crop shapes (note that it does not crop the image). Available shapes are:  POI, SQUARE, THREE_TO_TWO, FOUR_TO_THREE, SIXTEEN_TO_NINE, FIVE_TO_FOUR, TWO_TO_ONE, SEVEN_TO_TWO. POI means point-of-interest and is just a co-ordinate, not a rectangle.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/atom+xml",
+          "application/rss+xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stories/{storyId}/sidebars": {
+      "get": {
+        "operationId": "GetthesidebarsforaStoryStories",
+        "summary": "Return the list of sidebars that belong to a speci...",
+        "description": "Return the list of sidebars that belong to a specific Story.",
+        "tags": [
+          "Stories"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "HTTP header for selecting preferred output format: JSON, ATOM, or RSS",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/atom+xml",
+              "application/rss+xml"
+            ]
+          },
+          {
+            "name": "storyId",
+            "type": "string",
+            "description": "The UUID of the required story",
+            "in": "path",
+            "required": true,
+            "default": "479dc90c-63c5-4076-9fc3-7b1d4e1f2c6a"
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "JSON-P callback/wrapper function name. Has no effect if the requested response format is not JSON.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "type": "number",
+            "description": "The number of results to return per page (defaults to 10, maximum 100)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "number",
+            "description": "The result to start from, indexed from 1",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "crop",
+            "type": "string",
+            "description": "An optional comma-separated list of media crops. This provides details of PA's recommended crop co-ordinates for the specified crop shapes (note that it does not crop the image). Available shapes are:  POI, SQUARE, THREE_TO_TWO, FOUR_TO_THREE, SIXTEEN_TO_NINE, FIVE_TO_FOUR, TWO_TO_ONE, SEVEN_TO_TWO. POI means point-of-interest and is just a co-ordinate, not a rectangle.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/atom+xml",
+          "application/rss+xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stories/{storyId}/snaps": {
+      "get": {
+        "operationId": "GetthesnapsforaStoryStories",
+        "summary": "Return the list of snaps associated with a specifi...",
+        "description": "Return the list of snaps associated with a specific Story.",
+        "tags": [
+          "Stories"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "HTTP header for selecting preferred output format: JSON, ATOM, or RSS",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/atom+xml",
+              "application/rss+xml"
+            ]
+          },
+          {
+            "name": "storyId",
+            "type": "string",
+            "description": "The UUID of the required story",
+            "in": "path",
+            "required": true,
+            "default": "479dc90c-63c5-4076-9fc3-7b1d4e1f2c6a"
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "JSON-P callback/wrapper function name. Has no effect if the requested response format is not JSON.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "type": "number",
+            "description": "The number of results to return per page (defaults to 10, maximum 100)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "number",
+            "description": "The result to start from, indexed from 1",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "crop",
+            "type": "string",
+            "description": "An optional comma-separated list of media crops. This provides details of PA's recommended crop co-ordinates for the specified crop shapes (note that it does not crop the image). Available shapes are:  POI, SQUARE, THREE_TO_TWO, FOUR_TO_THREE, SIXTEEN_TO_NINE, FIVE_TO_FOUR, TWO_TO_ONE, SEVEN_TO_TWO. POI means point-of-interest and is just a co-ordinate, not a rectangle.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/atom+xml",
+          "application/rss+xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/feeds": {
+      "get": {
+        "operationId": "ListallFeedsFeeds",
+        "summary": "Provides a list of all available feeds",
+        "tags": [
+          "Feeds"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "HTTP header for selecting preferred output format: JSON, ATOM, or RSS",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/atom+xml",
+              "application/rss+xml"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "JSON-P callback/wrapper function name. Has no effect if the requested response format is not JSON.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "type": "number",
+            "description": "The number of results to return per page (defaults to 10, maximum 100)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "number",
+            "description": "The result to start from, indexed from 1 (defaults to 1, maximum 500)",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/atom+xml",
+          "application/rss+xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/feeds/{feedId}": {
+      "get": {
+        "operationId": "GetaspecificFeedFeeds",
+        "summary": "Return the contents of a specific Feed, including ...",
+        "description": "Return the contents of a specific Feed, including optional search parameters to filter the results",
+        "tags": [
+          "Feeds"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "HTTP header for selecting preferred output format: JSON, ATOM, or RSSa",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/atom+xml",
+              "application/rss+xml"
+            ]
+          },
+          {
+            "name": "feedId",
+            "type": "string",
+            "description": "The ID of the required feed, e.g. ukNewswire",
+            "in": "path",
+            "required": true,
+            "default": "ukNewswire"
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "JSON-P callback/wrapper function name. Has no effect if the requested response format is not JSON.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "format": "date",
+            "description": "Include only assets last updated on the specified date, in ISO-8601 format. If no timezone is specified, Europe/London is assumed.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "from",
+            "type": "string",
+            "format": "date",
+            "description": "Return only assets last modified at or more recently than the specified ISO-8601 date-time. For example: 2013-01-01T00:00:00Z",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "type": "number",
+            "description": "The number of results to return per page (defaults to 10, maximum 100)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "number",
+            "description": "The search result to start from, indexed from 1 (defaults to 1, maximum 500)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "query",
+            "type": "string",
+            "description": "Text search terms to look for. Phrases should be quoted. Terms are space-separated and all must match in the document, unless they are ORed together. For example: \"David Cameron\" (Conservatives OR Tories)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "sortby",
+            "type": "string",
+            "description": "The sort order for the results. If no value is provided, modified:desc (newest first) is assumed",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "relevance",
+              "modified:desc",
+              "modified:asc"
+            ]
+          },
+          {
+            "name": "tag",
+            "type": "string",
+            "description": "Filter the results to include only assets with the specified tag",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "to",
+            "type": "string",
+            "format": "date",
+            "description": "Return only assets last modified prior to the specified ISO-8601 date-time. For example: 2013-01-01T00:00:00Z",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "when",
+            "type": "string",
+            "description": "Return only assets last modified within the specified time-frame",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "today",
+              "yesterday",
+              "7-days",
+              "30-days",
+              "older"
+            ]
+          },
+          {
+            "name": "facets",
+            "type": "string",
+            "description": "An optional comma separated list of facets, to be included in the response. Valid values are when and tag.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/atom+xml",
+          "application/rss+xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/packages": {
+      "get": {
+        "operationId": "ListallpackagesPackages",
+        "summary": "Provides a list of all available packages",
+        "tags": [
+          "Packages"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "HTTP header for selecting preferred output format: JSON, ATOM, or RSS",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/atom+xml",
+              "application/rss+xml"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "JSON-P callback/wrapper function name. Has no effect if the requested response format is not JSON.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "type": "number",
+            "description": "The number of results to return per page (defaults to 10, maximum 100)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "number",
+            "description": "The result to start from, indexed from 1 (defaults to 1, maximum 500)",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/atom+xml",
+          "application/rss+xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/packages/{packageId}": {
+      "get": {
+        "operationId": "GetaspecificPackagePackages",
+        "summary": "Return the contents of a specific package",
+        "tags": [
+          "Packages"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "HTTP header for selecting preferred output format: JSON, ATOM, or RSS",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/atom+xml",
+              "application/rss+xml"
+            ]
+          },
+          {
+            "name": "packageId",
+            "type": "string",
+            "description": "The ID of the required package, e.g. news-main",
+            "in": "path",
+            "required": true,
+            "default": "news-main"
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "JSON-P callback/wrapper function name. Has no effect if the requested response format is not JSON.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "type": "number",
+            "description": "The number of results to return per page (defaults dynamically to number in package, maximum 100)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "number",
+            "description": "The result to start from, indexed from 1 (defaults to 1, maximum 500)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "crop",
+            "type": "string",
+            "description": "An optional comma-separated list of media crops. This provides details of PA's recommended crop co-ordinates for the specified crop shapes (note that it does not crop the image). Available shapes are:  POI, SQUARE, THREE_TO_TWO, FOUR_TO_THREE, SIXTEEN_TO_NINE, FIVE_TO_FOUR, TWO_TO_ONE, SEVEN_TO_TWO. POI means point-of-interest and is just a co-ordinate, not a rectangle.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/atom+xml",
+          "application/rss+xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/schedules": {
+      "get": {
+        "operationId": "ListallSchedulesSchedules",
+        "summary": "Provides a list of all available schedules",
+        "tags": [
+          "Schedules"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "HTTP header for selecting preferred output format: JSON, ATOM, or RSS",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/atom+xml",
+              "application/rss+xml"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "JSON-P callback/wrapper function name. Has no effect if the requested response format is not JSON.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "type": "number",
+            "description": "The number of results to return per page (defaults to 10, maximum 100)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "number",
+            "description": "The result to start from, indexed from 1 (defaults to 1, maximum 500)",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/atom+xml",
+          "application/rss+xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/schedules/{scheduleId}": {
+      "get": {
+        "operationId": "GetaspecificScheduleSchedules",
+        "summary": "Return the contents of a specific schedule",
+        "tags": [
+          "Schedules"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "HTTP header for selecting preferred output format: JSON, ATOM, or RSS",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/atom+xml",
+              "application/rss+xml"
+            ]
+          },
+          {
+            "name": "scheduleId",
+            "type": "string",
+            "description": "The ID of the required schedule, e.g. news",
+            "in": "path",
+            "required": true,
+            "default": "news"
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "JSON-P callback/wrapper function name. Has no effect if the requested response format is not JSON.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "type": "number",
+            "description": "The number of results to return per page (defaults dynamically to number in schedule, maximum 100)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "number",
+            "description": "The result to start from, indexed from 1 (defaults to 1, maximum 500)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "tag",
+            "type": "string",
+            "description": "Filter the results to include only assets with the specified tag.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "crop",
+            "type": "string",
+            "description": "An optional comma-separated list of media crops. This provides details of PA's recommended crop co-ordinates for the specified crop shapes (note that it does not crop the image). Available shapes are:  POI, SQUARE, THREE_TO_TWO, FOUR_TO_THREE, SIXTEEN_TO_NINE, FIVE_TO_FOUR, TWO_TO_ONE, SEVEN_TO_TWO. POI means point-of-interest and is just a co-ordinate, not a rectangle.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/atom+xml",
+          "application/rss+xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/galleries": {
+      "get": {
+        "operationId": "ListallGalleriesGalleries",
+        "summary": "Provides a list of all available galleries",
+        "tags": [
+          "Galleries"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "HTTP header for selecting preferred output format: JSON, ATOM, or RSS",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/atom+xml",
+              "application/rss+xml"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "JSON-P callback/wrapper function name. Has no effect if the requested response format is not JSON.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "type": "number",
+            "description": "The number of results to return per page (defaults to 10, maximum 100)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "number",
+            "description": "The result to start from, indexed from 1 (defaults to 1, maximum 500)",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/atom+xml",
+          "application/rss+xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/galleries/{galleryId}": {
+      "get": {
+        "operationId": "GetaspecificgalleryGalleries",
+        "summary": "Return the contents of a specific gallery",
+        "tags": [
+          "Galleries"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "HTTP header for selecting preferred output format: JSON, ATOM, or RSS",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/atom+xml",
+              "application/rss+xml"
+            ]
+          },
+          {
+            "name": "galleryId",
+            "type": "string",
+            "description": "The ID of the required gallery, e.g. week-in-photos",
+            "in": "path",
+            "required": true,
+            "default": "week-in-photos"
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "JSON-P callback/wrapper function name. Has no effect if the requested response format is not JSON.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "crop",
+            "type": "string",
+            "description": "An optional comma-separated list of media crops. This provides details of PA's recommended crop co-ordinates for the specified crop shapes (note that it does not crop the image). Available shapes are:  POI, SQUARE, THREE_TO_TWO, FOUR_TO_THREE, SIXTEEN_TO_NINE, FIVE_TO_FOUR, TWO_TO_ONE, SEVEN_TO_TWO. POI means point-of-interest and is just a co-ordinate, not a rectangle.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/atom+xml",
+          "application/rss+xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

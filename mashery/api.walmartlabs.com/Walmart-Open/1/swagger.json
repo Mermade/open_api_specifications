@@ -1,0 +1,443 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Walmart Open API ",
+    "version": "1",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test our API services using I/O Docs.  Note that you will need your key to make the calls. ",
+    "x-mashery-id": "582"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.walmartlabs.com",
+  "basePath": "/v1",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "https://developer.walmartlabs.com/io-docs/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Lookup API"
+    },
+    {
+      "name": "Reviews API"
+    },
+    {
+      "name": "Search API"
+    },
+    {
+      "name": "Value of the Day"
+    },
+    {
+      "name": "Taxonomy API"
+    },
+    {
+      "name": "Store Locator API"
+    },
+    {
+      "name": "Trending API"
+    },
+    {
+      "name": "Paginated API"
+    }
+  ],
+  "paths": {
+    "/items/{id}": {
+      "get": {
+        "operationId": "ItemsLookupAPI",
+        "summary": "Provides price, availability etc of the item",
+        "tags": [
+          "Lookup API"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "Insert the item id to lookup",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Format of the output in either JSON or XML",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/reviews/{id}": {
+      "get": {
+        "operationId": "ReviewsReviewsAPI",
+        "summary": "Provides reviews of the item",
+        "tags": [
+          "Reviews API"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "Insert the item id to lookup",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Format of the output in either JSON or XML",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/search": {
+      "get": {
+        "operationId": "SearchSearchAPI",
+        "summary": "Allows text search on the Walmart.com catalogue an...",
+        "description": "Allows text search on the Walmart.com catalogue and returns matching items available for sale online",
+        "tags": [
+          "Search API"
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "type": "string",
+            "description": "Search text - whitespace separated sequence of keywords to search for",
+            "in": "query",
+            "required": true,
+            "default": "ipod"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Format of the output in either JSON or XML",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "categoryId",
+            "type": "integer",
+            "description": "Category id of the category for search within a category. This should match the id field from Taxonomy API",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "facet",
+            "type": "string",
+            "description": "Parameter to enable facets.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "on"
+            ]
+          },
+          {
+            "name": "facet.filter",
+            "type": "string",
+            "description": "Filter to apply on the facet attribute values to narrow down the search.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "facet.range",
+            "type": "string",
+            "description": "Range filter for facets which take range values, like price.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/vod": {
+      "get": {
+        "operationId": "VODValueoftheDay",
+        "summary": "Provides Value of the Day on walmart",
+        "tags": [
+          "Value of the Day"
+        ],
+        "parameters": [
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Format of the output in either JSON or XML",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/taxonomy": {
+      "get": {
+        "operationId": "TaxonomyTaxonomyAPI",
+        "summary": "Exposes the category taxonomy used by walmart.com ...",
+        "description": "Exposes the category taxonomy used by walmart.com to categorize items",
+        "tags": [
+          "Taxonomy API"
+        ],
+        "parameters": [
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Format of the output in either JSON or XML",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stores": {
+      "get": {
+        "operationId": "StoreLocatorAPIStoreLocatorAPI",
+        "summary": "Store Locator API",
+        "tags": [
+          "Store Locator API"
+        ],
+        "parameters": [
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Format of the output in either JSON or XML",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "lat",
+            "type": "string",
+            "description": "Latitude",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "lon",
+            "type": "string",
+            "description": "Longitude",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "zip",
+            "type": "string",
+            "description": "Zip",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "city",
+            "type": "string",
+            "description": "City",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/trends": {
+      "get": {
+        "operationId": "TrendingAPITrendingAPI",
+        "summary": "Returns trending items on walmart.com",
+        "tags": [
+          "Trending API"
+        ],
+        "parameters": [
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Format of the output in either JSON or XML",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/paginated/items": {
+      "get": {
+        "operationId": "PaginatedAPIPaginatedAPI",
+        "summary": "New paginated API to fetch items",
+        "tags": [
+          "Paginated API"
+        ],
+        "parameters": [
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Format of the output in either JSON or XML",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "category",
+            "type": "string",
+            "description": "Category ID",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "brand",
+            "type": "string",
+            "description": "Brand",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "specialOffer",
+            "type": "string",
+            "description": "Special offer like rollback, clearance etc",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "rollback",
+              "clearance",
+              "specialbuy"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

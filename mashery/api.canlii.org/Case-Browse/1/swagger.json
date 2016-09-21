@@ -1,0 +1,220 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Case Browse",
+    "version": "1",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test our API services using I/O Docs. The Case Browse API allow access to the judgements",
+    "x-mashery-id": "586"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.canlii.org",
+  "basePath": "/v1/caseBrowse",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "http://developer.canlii.org/io-docs/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "caseBrowse"
+    }
+  ],
+  "paths": {
+    "/{language}/": {
+      "get": {
+        "operationId": "GetDatabasesListcaseBrowse",
+        "summary": "List all the databases supported by the API",
+        "tags": [
+          "caseBrowse"
+        ],
+        "parameters": [
+          {
+            "name": "language",
+            "type": "string",
+            "description": "Language selection.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "en",
+              "fr"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/{language}/{databaseId}/": {
+      "get": {
+        "operationId": "GetCaseListcaseBrowse",
+        "summary": "List all the cases within a database",
+        "tags": [
+          "caseBrowse"
+        ],
+        "parameters": [
+          {
+            "name": "language",
+            "type": "string",
+            "description": "Language selection.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "en",
+              "fr"
+            ]
+          },
+          {
+            "name": "databaseId",
+            "type": "string",
+            "description": "Unique identifier of a database as provided in the database list.",
+            "in": "path",
+            "required": true,
+            "default": "abwcac"
+          },
+          {
+            "name": "offset",
+            "type": "integer",
+            "description": "Starting record number for the list. First value is 0.",
+            "in": "query",
+            "required": true,
+            "default": "0"
+          },
+          {
+            "name": "resultCount",
+            "type": "integer",
+            "description": "Number of cases listed in each response. Maximum value is 10 000.",
+            "in": "query",
+            "required": true,
+            "default": "10"
+          },
+          {
+            "name": "publishedBefore",
+            "type": "string",
+            "format": "date",
+            "description": "Cases published before a given date. The publication date is the first publication on CanLII. The date is inclusive. Format: YYYY-MM-DD",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "publishedAfter",
+            "type": "string",
+            "format": "date",
+            "description": "Cases published after a given date. The publication date is the first publication on CanLII. The date is inclusive. Format: YYYY-MM-DD",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "decisionBefore",
+            "type": "string",
+            "format": "date",
+            "description": "Cases with a decision date before a given date. The decision date is usually the date of the registraction by the docket.  Format: YYYY-MM-DD",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "decisionAfter",
+            "type": "string",
+            "format": "date",
+            "description": "Cases with a decision date after a given date. The decision date is usually the date of the registraction by the docket. Format: YYYY-MM-DD.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/{language}/{databaseId}/{caseId}/": {
+      "get": {
+        "operationId": "GetCaseMetadatacaseBrowse",
+        "summary": "Get the metadata for a given case",
+        "tags": [
+          "caseBrowse"
+        ],
+        "parameters": [
+          {
+            "name": "language",
+            "type": "string",
+            "description": "Language selection.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "en",
+              "fr"
+            ]
+          },
+          {
+            "name": "databaseId",
+            "type": "string",
+            "description": "Unique identifier of a database as provided in the database list.",
+            "in": "path",
+            "required": true,
+            "default": "abwcac"
+          },
+          {
+            "name": "caseId",
+            "type": "string",
+            "description": "Unique identifier of a case as provided in the case list.",
+            "in": "path",
+            "required": true,
+            "default": "2013canlii10946"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

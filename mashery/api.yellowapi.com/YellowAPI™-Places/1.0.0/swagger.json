@@ -1,0 +1,467 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "YellowAPI™ Places API",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test our API services using I/O Docs. YellowAPI™ Places API provides a easy to use interface to find Canadian businesses with a keyword (name or category) and location (geocode, landmark or city/province). Results include address, web URLs, videos, thumbnails, hours of operation, and much more. Some attributes for a business are not immediately available, and must be requested via developer@yellowapi.com.\n\nThe io-docs defined below are for our Sandbox API key for use in development.\n\nSee the full documentation here at [http://www.yellowapi.com/docs/places/].",
+    "x-mashery-id": "1528"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.yellowapi.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "http://developer.yellowapi.com/io-docs/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Search"
+    },
+    {
+      "name": "Details"
+    },
+    {
+      "name": "Others"
+    }
+  ],
+  "paths": {
+    "/FindBusiness/": {
+      "get": {
+        "operationId": "FindBusinessSearch",
+        "summary": "Find business with a keyword / location",
+        "tags": [
+          "Search"
+        ],
+        "parameters": [
+          {
+            "name": "what",
+            "type": "string",
+            "description": "Keyword search term. This may be keywords, business names, or category",
+            "in": "query",
+            "required": true,
+            "default": "Restaurants"
+          },
+          {
+            "name": "where",
+            "type": "string",
+            "description": "Location search term. This may be a city, province, landmark, postal code or geocode specified in format cZ<longitude>,<latitude>. If a location is not specified, the requester's IP address will be used to populate this field.",
+            "in": "query",
+            "required": true,
+            "default": "Toronto"
+          },
+          {
+            "name": "pgLen",
+            "type": "integer",
+            "description": "Number of results to return in each page. Default value is 40.",
+            "in": "query",
+            "required": true,
+            "default": "5"
+          },
+          {
+            "name": "pg",
+            "type": "integer",
+            "description": "Which page of the result set to return.",
+            "in": "query",
+            "required": false,
+            "default": "1"
+          },
+          {
+            "name": "sflag",
+            "type": "string",
+            "description": "Flags to modify or filter the search result. These may be combined as logical \"AND\" filters.\n\nTo combine more than one filter, use the \"dash\" to separate each value. Eg. bn (business name), fto (with photos), vdo (with video)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "dist",
+            "type": "integer",
+            "description": "Positive integer representing radius in kilometer",
+            "in": "query",
+            "required": false,
+            "default": "1"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "JSON",
+              "XML"
+            ]
+          },
+          {
+            "name": "lang",
+            "type": "string",
+            "description": "Set the language for the response. Permitted values are en or fr",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "en",
+              "fr"
+            ]
+          },
+          {
+            "name": "UID",
+            "type": "string",
+            "description": "A string of characters which uniquely identifies a user of the application (such as their IP address, session ID, or phone ID)",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/FindDealer/": {
+      "get": {
+        "operationId": "FindDealerSearch",
+        "summary": "Returns a list of all dealers/franchises/branches ...",
+        "description": "Returns a list of all dealers/franchises/branches for that business. A business with several locations may have a \"parent\" listing (primary) and one or more \"children\" listings.",
+        "tags": [
+          "Search"
+        ],
+        "parameters": [
+          {
+            "name": "pid",
+            "type": "integer",
+            "description": "The parent listing ID",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "pgLen",
+            "type": "integer",
+            "description": "Number of results to return in each page. Default value is 40.",
+            "in": "query",
+            "required": true,
+            "default": "5"
+          },
+          {
+            "name": "pg",
+            "type": "integer",
+            "description": "Which page of the result set to return.",
+            "in": "query",
+            "required": false,
+            "default": "1"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "JSON",
+              "XML"
+            ]
+          },
+          {
+            "name": "lang",
+            "type": "string",
+            "description": "Set the language for the response. Permitted values are en or fr",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "en",
+              "fr"
+            ]
+          },
+          {
+            "name": "UID",
+            "type": "string",
+            "description": "A string of characters which uniquely identifies a user of the application (such as their IP address, session ID, or phone ID)",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/Sponsored/": {
+      "get": {
+        "operationId": "SponsoredSearch",
+        "summary": "Find sponsored business with a keyword / location....",
+        "description": "Find sponsored business with a keyword / location. This call should only be used under guidance of the YellowAPI™ team for monetization purposes.",
+        "tags": [
+          "Search"
+        ],
+        "parameters": [
+          {
+            "name": "what",
+            "type": "string",
+            "description": "Keyword search term. This may be keywords, business names, or category",
+            "in": "query",
+            "required": true,
+            "default": "Restaurants"
+          },
+          {
+            "name": "where",
+            "type": "string",
+            "description": "Location search term. This may be a city, province, landmark, postal code or geocode specified in format cZ<longitude>,<latitude>. If a location is not specified, the requester's IP address will be used to populate this field.",
+            "in": "query",
+            "required": true,
+            "default": "Toronto"
+          },
+          {
+            "name": "pgLen",
+            "type": "integer",
+            "description": "Number of results to return in each page. Default value is 40.",
+            "in": "query",
+            "required": true,
+            "default": "5"
+          },
+          {
+            "name": "pg",
+            "type": "integer",
+            "description": "Which page of the result set to return.",
+            "in": "query",
+            "required": false,
+            "default": "1"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "JSON",
+              "XML"
+            ]
+          },
+          {
+            "name": "lang",
+            "type": "string",
+            "description": "Set the language for the response. Permitted values are en or fr",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "en",
+              "fr"
+            ]
+          },
+          {
+            "name": "UID",
+            "type": "string",
+            "description": "A string of characters which uniquely identifies a user of the application (such as their IP address, session ID, or phone ID)",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/GetBusinessDetails/": {
+      "get": {
+        "operationId": "GetBusinessDetailsDetails",
+        "summary": "Get business details given a listing ID. This call...",
+        "description": "Get business details given a listing ID. This call is usually made after a FindBusiness or FindDealer call.",
+        "tags": [
+          "Details"
+        ],
+        "parameters": [
+          {
+            "name": "listingId",
+            "type": "integer",
+            "description": "Listing ID to see details",
+            "in": "query",
+            "required": true,
+            "default": "8225706"
+          },
+          {
+            "name": "bus-name",
+            "type": "string",
+            "description": "Business name of the listing. This name must be SEO-normalized: accents removed, non-alphanumeric characters (including spaces) replaced with dashes, and multiple dashes replaced to single.",
+            "in": "query",
+            "required": true,
+            "default": "Yellow-Pages-Group"
+          },
+          {
+            "name": "city",
+            "type": "string",
+            "description": "City for the listing. This name must be SEO-normalized: accents removed, non-alphanumeric characters (including spaces) replaced with dashes, and multiple dashes replaced to single.",
+            "in": "query",
+            "required": true,
+            "default": "Toronto"
+          },
+          {
+            "name": "prov",
+            "type": "string",
+            "description": "Province for the listing. This name must be SEO-normalized: accents removed, non-alphanumeric characters (including spaces) replaced with dashes, and multiple dashes replaced to single.",
+            "in": "query",
+            "required": true,
+            "default": "Ontario"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "JSON",
+              "XML"
+            ]
+          },
+          {
+            "name": "lang",
+            "type": "string",
+            "description": "Set the language for the response. Permitted values are en or fr",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "en",
+              "fr"
+            ]
+          },
+          {
+            "name": "UID",
+            "type": "string",
+            "description": "A string of characters which uniquely identifies a user of the application (such as their IP address, session ID, or phone ID)",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/GetTypeAhead/": {
+      "get": {
+        "operationId": "GetTypeAheadOthers",
+        "summary": "The GetTypeAhead method provides auto-completion a...",
+        "description": "The GetTypeAhead method provides auto-completion as user types in their search term or location field. The suggestions returned are ranked by relevance (number of results and popularity).",
+        "tags": [
+          "Others"
+        ],
+        "parameters": [
+          {
+            "name": "text",
+            "type": "string",
+            "description": "Characters typed by a user",
+            "in": "query",
+            "required": true,
+            "default": "res"
+          },
+          {
+            "name": "field",
+            "type": "string",
+            "description": "Which field to provide suggestion: what (keyword) or where (location)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "WHAT",
+              "WHERE"
+            ]
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "JSON",
+              "XML"
+            ]
+          },
+          {
+            "name": "lang",
+            "type": "string",
+            "description": "Set the language for the response. Permitted values are en or fr",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "en",
+              "fr"
+            ]
+          },
+          {
+            "name": "UID",
+            "type": "string",
+            "description": "A string of characters which uniquely identifies a user of the application (such as their IP address, session ID, or phone ID)",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

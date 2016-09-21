@@ -1,0 +1,1925 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Motor",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "The API calls below can be used to test the Input and Output of our API endpoints.  You'll need an API key and an assigned secret to access the live data and so if you haven't contacted us yet, now is the time!  Our sales staff would be happy to set you up with trial access so you can begin to evaluate the product. Motor",
+    "x-mashery-id": "2276"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.stats.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "After you've been given an API key and secret, enter it below and \"Get\" the method you'd like to try out.  Fill in the parameters with what you'd like to try, or use the built in defaults, and click \"Try It!\" to execute the call.  The JSON or XML response will be populated in the Response Body, the Response Body will provide you with any relevant codes, and the Request Header URI will show you how the call would be made within your application. Please note:Also, endpoints almost always require a final \"/\".  You will receive \"596 Service Not Found\" when it is missing.  An exception to this is for optional methods, such as eventId or teamId.",
+    "url": "http://developer.stats.com/io-docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Motor - Leagues"
+    },
+    {
+      "name": "Motor - Schedules, live results, entrants, and boxscores"
+    },
+    {
+      "name": "Motor - Standings"
+    },
+    {
+      "name": "Motor - Participants"
+    },
+    {
+      "name": "Motor - Statistics"
+    },
+    {
+      "name": "Motor - Teams"
+    },
+    {
+      "name": "Motor - Owners"
+    },
+    {
+      "name": "Motor - Decodes"
+    },
+    {
+      "name": "Motor - Stories, Headlines, Images"
+    }
+  ],
+  "paths": {
+    "/stats/motor/leagues/": {
+      "get": {
+        "operationId": "Motor-LeaguesMotor-Leagues",
+        "summary": "The motor leagues endpoint serves as a decode for ...",
+        "description": "The motor leagues endpoint serves as a decode for the available sub leagues (NASCAR, F1, etc.).",
+        "tags": [
+          "Motor - Leagues"
+        ],
+        "parameters": [
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/motor/{subLeagueAbbreviation}/events/{eventId}": {
+      "get": {
+        "operationId": "Motor-Schedules,liveresults,entrants,andboxscoresMotor-Schedules,liveresults,entrants,andboxscores",
+        "summary": "The events endpoint provides schedules, live resul...",
+        "description": "The events endpoint provides schedules, live results, entrants, and boxscores.  Results & boxscores are not available by full season.",
+        "tags": [
+          "Motor - Schedules, live results, entrants, and boxscores"
+        ],
+        "parameters": [
+          {
+            "name": "subLeagueAbbreviation",
+            "type": "string",
+            "description": "Select sub league",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "elitserien",
+              "f1",
+              "funnycar",
+              "indycar",
+              "moto2",
+              "moto3",
+              "motogp",
+              "nascar",
+              "nationwide",
+              "rally",
+              "superbike",
+              "supercars",
+              "topfuel",
+              "truck",
+              "xfinity"
+            ]
+          },
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Provide a specific eventID when you want information on a single event.\n Default - When no eventId entered, current event(s) will be returned",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "box",
+            "type": "boolean",
+            "description": "Returns box score infomation.  Will be ignored if all events for a full season are returned.\n  Default - false: box scores will not be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "qualifyingRuns",
+            "type": "boolean",
+            "description": "Returns qualifying runs where available. Must be used conjunction with 'box=true'.\n  Default - false: qualifying runs will not be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "description": "Will return event(s) from a specific date. This parameter is ignored if an eventId is used.\n Format: YYYYMMDD or YYYY-MM-DD.\n  Default - current event(s)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get events for a full season, enter the year as YYYY. Boxscores cannot be returned when the season parameter is used, unless it is in conjunction with a specific raceId.\n Default - current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "raceId",
+            "type": "integer",
+            "description": "To get events for a particular race, enter the raceId. See races decode endpoint for full list of race IDs.\n Default - all races",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of driver, team, and venues names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/motor/{subLeagueAbbreviation}/standings/": {
+      "get": {
+        "operationId": "Motor-StandingsMotor-Standings",
+        "summary": "The standings endpoint will provide the league sta...",
+        "description": "The standings endpoint will provide the league standings, including all team data relevant to standings.",
+        "tags": [
+          "Motor - Standings"
+        ],
+        "parameters": [
+          {
+            "name": "subLeagueAbbreviation",
+            "type": "string",
+            "description": "Select sub league",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "elitserien",
+              "f1",
+              "funnycar",
+              "indycar",
+              "moto2",
+              "moto3",
+              "motogp",
+              "nascar",
+              "nationwide",
+              "rally",
+              "superbike",
+              "supercars",
+              "topfuel",
+              "truck",
+              "xfinity"
+            ]
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get standings for a different season, enter the year as YYYY.\n Note: Seasons that span years like NBA 2013-2014 would be entered as 2013.\n Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of driver, team, and venues names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/motor/{subLeagueAbbreviation}/participants/{playerId}": {
+      "get": {
+        "operationId": "Motor-ParticipantsMotor-Participants",
+        "summary": "The participants endpoint provides biographical in...",
+        "description": "The participants endpoint provides biographical information for drivers and can be used to return information on a single driver, or all drivers within the subLeague. When no specific playerId is selected, all drivers that have participated in a race for the given subLeague within the last two years are returned.",
+        "tags": [
+          "Motor - Participants"
+        ],
+        "parameters": [
+          {
+            "name": "subLeagueAbbreviation",
+            "type": "string",
+            "description": "Select sub league",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "elitserien",
+              "f1",
+              "funnycar",
+              "indycar",
+              "moto2",
+              "moto3",
+              "motogp",
+              "nascar",
+              "nationwide",
+              "rally",
+              "superbike",
+              "supercars",
+              "topfuel",
+              "truck",
+              "xfinity"
+            ]
+          },
+          {
+            "name": "playerId",
+            "type": "integer",
+            "description": "To get information on a specific driver, enter his/her ID.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player & team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/motor/{subLeagueAbbreviation}/stats/players/{playerId}": {
+      "get": {
+        "operationId": "Motor-DriverstatisticsMotor-Statistics",
+        "summary": "Motor - Single season or career stats for one driv...",
+        "description": "Motor - Single season or career stats for one driver",
+        "tags": [
+          "Motor - Statistics"
+        ],
+        "parameters": [
+          {
+            "name": "subLeagueAbbreviation",
+            "type": "string",
+            "description": "Select sub league",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "elitserien",
+              "f1",
+              "funnycar",
+              "indycar",
+              "moto2",
+              "moto3",
+              "motogp",
+              "nascar",
+              "nationwide",
+              "rally",
+              "superbike",
+              "supercars",
+              "topfuel",
+              "truck",
+              "xfinity"
+            ]
+          },
+          {
+            "name": "playerId",
+            "type": "integer",
+            "description": "Player Id. You must enter either a single playerId, or set allPlayers (below) to true.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "allPlayers",
+            "type": "boolean",
+            "description": "When true, all players with stats in the given season are returned.\n  Default - false, all players not returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get data for a different season, enter the year as YYYY.\n Note: Seasons that span years like NBA 2013-2014 would be entered as 2013.\n  Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "enc",
+            "type": "boolean",
+            "description": "The encyclopedia returns full career and season-by-season totals.\n Notes:\n  The encyclopedia is valid for a single player only.\n  Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of driver, team, and venues names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/motor/{subLeagueAbbreviation}/stats/players/{playerId}/events/{eventId}": {
+      "get": {
+        "operationId": "Motor-DriversingleracestatsMotor-Statistics",
+        "summary": "Motor - Single race stats for a specific driver",
+        "tags": [
+          "Motor - Statistics"
+        ],
+        "parameters": [
+          {
+            "name": "subLeagueAbbreviation",
+            "type": "string",
+            "description": "Select sub league",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "elitserien",
+              "f1",
+              "funnycar",
+              "indycar",
+              "moto2",
+              "moto3",
+              "motogp",
+              "nascar",
+              "nationwide",
+              "rally",
+              "superbike",
+              "supercars",
+              "topfuel",
+              "truck",
+              "xfinity"
+            ]
+          },
+          {
+            "name": "playerId",
+            "type": "integer",
+            "description": "Player ID.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Statistics for a single race.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of driver, team, and venues names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/motor/{subLeagueAbbreviation}/stats/players/{playerId}/events/": {
+      "get": {
+        "operationId": "Motor-DriverlogsMotor-Statistics",
+        "summary": "Motor - Race-by-Race statistics for a single drive...",
+        "description": "Motor - Race-by-Race statistics for a single driver.",
+        "tags": [
+          "Motor - Statistics"
+        ],
+        "parameters": [
+          {
+            "name": "subLeagueAbbreviation",
+            "type": "string",
+            "description": "Select sub league",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "elitserien",
+              "f1",
+              "funnycar",
+              "indycar",
+              "moto2",
+              "moto3",
+              "motogp",
+              "nascar",
+              "nationwide",
+              "rally",
+              "superbike",
+              "supercars",
+              "topfuel",
+              "truck",
+              "xfinity"
+            ]
+          },
+          {
+            "name": "playerId",
+            "type": "integer",
+            "description": "Player ID.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get data for a different season, enter the year as YYYY.\n Note: Seasons that span years like NBA 2013-2014 would be entered as 2013.\n  Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of driver, team, and venues names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/motor/{subLeagueAbbreviation}/teams/{teamId}": {
+      "get": {
+        "operationId": "Motor-TeamsMotor-Teams",
+        "summary": "You can get information about a single team by inc...",
+        "description": "You can get information about a single team by including the teamId.  If you do not include a teamId, you will get all the teams for the sub league.",
+        "tags": [
+          "Motor - Teams"
+        ],
+        "parameters": [
+          {
+            "name": "subLeagueAbbreviation",
+            "type": "string",
+            "description": "Select sub league",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "elitserien",
+              "f1",
+              "funnycar",
+              "indycar",
+              "moto2",
+              "moto3",
+              "motogp",
+              "nascar",
+              "nationwide",
+              "rally",
+              "superbike",
+              "supercars",
+              "topfuel",
+              "truck",
+              "xfinity"
+            ]
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "Provide team ID to return information for one team.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get team lists for a different season, enter the year as YYYY.\n Note: Seasons that span years like NBA 2013-2014 would be entered as 2013.\n  Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/motor/{subLeagueAbbreviation}/owners/{ownerId}": {
+      "get": {
+        "operationId": "Motor-OwnersMotor-Owners",
+        "summary": "You can get information about a single owner by in...",
+        "description": "You can get information about a single owner by including the ownerId.  If you do not include a ownerId, you will get all the owners for the sub league.",
+        "tags": [
+          "Motor - Owners"
+        ],
+        "parameters": [
+          {
+            "name": "subLeagueAbbreviation",
+            "type": "string",
+            "description": "Select sub league",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "elitserien",
+              "f1",
+              "funnycar",
+              "indycar",
+              "moto2",
+              "moto3",
+              "motogp",
+              "nascar",
+              "nationwide",
+              "rally",
+              "superbike",
+              "supercars",
+              "topfuel",
+              "truck",
+              "xfinity"
+            ]
+          },
+          {
+            "name": "ownerId",
+            "type": "integer",
+            "description": "Provide owner ID to return information for one owner.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/decode/motor/{subLeagueAbbreviation}/{decodeType}/": {
+      "get": {
+        "operationId": "Motor-DecodesMotor-Decodes",
+        "summary": "Motor - Decodes",
+        "tags": [
+          "Motor - Decodes"
+        ],
+        "parameters": [
+          {
+            "name": "subLeagueAbbreviation",
+            "type": "string",
+            "description": "Select sub league",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "elitserien",
+              "f1",
+              "funnycar",
+              "indycar",
+              "moto2",
+              "moto3",
+              "motogp",
+              "nascar",
+              "nationwide",
+              "rally",
+              "superbike",
+              "supercars",
+              "topfuel",
+              "truck",
+              "xfinity"
+            ]
+          },
+          {
+            "name": "decodeType",
+            "type": "integer",
+            "description": "The data type to be decoded.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "carStatuses",
+              "cautionReasons",
+              "cautionTypes",
+              "chassisTypes",
+              "coverageLevels",
+              "engineTypes",
+              "eventStatuses",
+              "eventTypes",
+              "exemptionTypes",
+              "flagTypes",
+              "loopStats",
+              "makeTypes",
+              "outReasons",
+              "races",
+              "raceTypes",
+              "seasonStructure",
+              "tireTypes",
+              "tracks",
+              "trackShapes",
+              "trackTypes",
+              "tvStations"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/motor/{subLeagueAbbreviation}/stories/headlines/": {
+      "get": {
+        "operationId": "Motor-HeadlinesMotor-Stories,Headlines,Images",
+        "summary": "List of headlines.",
+        "tags": [
+          "Motor - Stories, Headlines, Images"
+        ],
+        "parameters": [
+          {
+            "name": "subLeagueAbbreviation",
+            "type": "string",
+            "description": "Select sub league",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "elitserien",
+              "f1",
+              "funnycar",
+              "indycar",
+              "moto2",
+              "moto3",
+              "motogp",
+              "nascar",
+              "nationwide",
+              "rally",
+              "superbike",
+              "supercars",
+              "topfuel",
+              "truck",
+              "xfinity"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/motor/{subLeagueAbbreviation}/articles/headlines/": {
+      "get": {
+        "operationId": "Motor-HeadlinesArticlesMotor-Stories,Headlines,Images",
+        "summary": "List of headlines.",
+        "tags": [
+          "Motor - Stories, Headlines, Images"
+        ],
+        "parameters": [
+          {
+            "name": "subLeagueAbbreviation",
+            "type": "string",
+            "description": "Select sub league",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "elitserien",
+              "f1",
+              "funnycar",
+              "indycar",
+              "moto2",
+              "moto3",
+              "motogp",
+              "nascar",
+              "nationwide",
+              "rally",
+              "superbike",
+              "supercars",
+              "topfuel",
+              "truck",
+              "xfinity"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/motor/{subLeagueAbbreviation}/stories/recent/": {
+      "get": {
+        "operationId": "Motor-RecentStoriesMotor-Stories,Headlines,Images",
+        "summary": "Recent stories for motorsports.",
+        "tags": [
+          "Motor - Stories, Headlines, Images"
+        ],
+        "parameters": [
+          {
+            "name": "subLeagueAbbreviation",
+            "type": "string",
+            "description": "Select sub league",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "elitserien",
+              "f1",
+              "funnycar",
+              "indycar",
+              "moto2",
+              "moto3",
+              "motogp",
+              "nascar",
+              "nationwide",
+              "rally",
+              "superbike",
+              "supercars",
+              "topfuel",
+              "truck",
+              "xfinity"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/motor/{subLeagueAbbreviation}/articles/recent/": {
+      "get": {
+        "operationId": "Motor-RecentArticlesMotor-Stories,Headlines,Images",
+        "summary": "Recent articles for motorsports.",
+        "tags": [
+          "Motor - Stories, Headlines, Images"
+        ],
+        "parameters": [
+          {
+            "name": "subLeagueAbbreviation",
+            "type": "string",
+            "description": "Select sub league",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "elitserien",
+              "f1",
+              "funnycar",
+              "indycar",
+              "moto2",
+              "moto3",
+              "motogp",
+              "nascar",
+              "nationwide",
+              "rally",
+              "superbike",
+              "supercars",
+              "topfuel",
+              "truck",
+              "xfinity"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/motor/{subLeagueAbbreviation}/stories/{storyId}/": {
+      "get": {
+        "operationId": "Motor-FullstoryMotor-Stories,Headlines,Images",
+        "summary": "Get the full story for a storyId found in headline...",
+        "description": "Get the full story for a storyId found in headlines or stories.",
+        "tags": [
+          "Motor - Stories, Headlines, Images"
+        ],
+        "parameters": [
+          {
+            "name": "subLeagueAbbreviation",
+            "type": "string",
+            "description": "Select sub league",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "elitserien",
+              "f1",
+              "funnycar",
+              "indycar",
+              "moto2",
+              "moto3",
+              "motogp",
+              "nascar",
+              "nationwide",
+              "rally",
+              "superbike",
+              "supercars",
+              "topfuel",
+              "truck",
+              "xfinity"
+            ]
+          },
+          {
+            "name": "storyId",
+            "type": "integer",
+            "description": "storyId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/motor/{subLeagueAbbreviation}/articles/{storyId}/": {
+      "get": {
+        "operationId": "Motor-FullArticleMotor-Stories,Headlines,Images",
+        "summary": "Get the full article for a storyId found in headli...",
+        "description": "Get the full article for a storyId found in headlines or articles.",
+        "tags": [
+          "Motor - Stories, Headlines, Images"
+        ],
+        "parameters": [
+          {
+            "name": "subLeagueAbbreviation",
+            "type": "string",
+            "description": "Select sub league",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "elitserien",
+              "f1",
+              "funnycar",
+              "indycar",
+              "moto2",
+              "moto3",
+              "motogp",
+              "nascar",
+              "nationwide",
+              "rally",
+              "superbike",
+              "supercars",
+              "topfuel",
+              "truck",
+              "xfinity"
+            ]
+          },
+          {
+            "name": "storyId",
+            "type": "integer",
+            "description": "storyId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/motor/{subLeagueAbbreviation}/images/list/": {
+      "get": {
+        "operationId": "Motor-ListofavailableimagesMotor-Stories,Headlines,Images",
+        "summary": "Recent stories for motorsports.",
+        "tags": [
+          "Motor - Stories, Headlines, Images"
+        ],
+        "parameters": [
+          {
+            "name": "subLeagueAbbreviation",
+            "type": "string",
+            "description": "Select sub league",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "elitserien",
+              "f1",
+              "funnycar",
+              "indycar",
+              "moto2",
+              "moto3",
+              "motogp",
+              "nascar",
+              "nationwide",
+              "rally",
+              "superbike",
+              "supercars",
+              "topfuel",
+              "truck",
+              "xfinity"
+            ]
+          },
+          {
+            "name": "originId",
+            "type": "integer",
+            "description": "Origin of given images.\n  Default - All origins are returned when nothing is selected",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/motor/{subLeagueAbbreviation}/photos/list/": {
+      "get": {
+        "operationId": "Motor-ListofavailablephotosMotor-Stories,Headlines,Images",
+        "summary": "List of photos for motorsports.",
+        "tags": [
+          "Motor - Stories, Headlines, Images"
+        ],
+        "parameters": [
+          {
+            "name": "subLeagueAbbreviation",
+            "type": "string",
+            "description": "Select sub league",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "elitserien",
+              "f1",
+              "funnycar",
+              "indycar",
+              "moto2",
+              "moto3",
+              "motogp",
+              "nascar",
+              "nationwide",
+              "rally",
+              "superbike",
+              "supercars",
+              "topfuel",
+              "truck",
+              "xfinity"
+            ]
+          },
+          {
+            "name": "originId",
+            "type": "integer",
+            "description": "Origin of given images.\n  Default - All origins are returned when nothing is selected",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/motor/{subLeagueAbbreviation}/stories/previews/events/{eventId}/": {
+      "get": {
+        "operationId": "Motor-Previews-AvailableforoneeventMotor-Stories,Headlines,Images",
+        "summary": "Preview for one specific event, must identify sub-...",
+        "description": "Preview for one specific event, must identify sub-league and eventId",
+        "tags": [
+          "Motor - Stories, Headlines, Images"
+        ],
+        "parameters": [
+          {
+            "name": "subLeagueAbbreviation",
+            "type": "string",
+            "description": "Select sub league",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "elitserien",
+              "f1",
+              "funnycar",
+              "indycar",
+              "moto2",
+              "moto3",
+              "motogp",
+              "nascar",
+              "nationwide",
+              "rally",
+              "superbike",
+              "supercars",
+              "topfuel",
+              "truck",
+              "xfinity"
+            ]
+          },
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Enter event ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/motor/{subLeagueAbbreviation}/stories/recaps/events/{eventId}/": {
+      "get": {
+        "operationId": "Motor-Recaps-AvailableforoneeventMotor-Stories,Headlines,Images",
+        "summary": "Recap for one specific event, must identify sub-le...",
+        "description": "Recap for one specific event, must identify sub-league and eventId",
+        "tags": [
+          "Motor - Stories, Headlines, Images"
+        ],
+        "parameters": [
+          {
+            "name": "subLeagueAbbreviation",
+            "type": "string",
+            "description": "Select sub league",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "elitserien",
+              "f1",
+              "funnycar",
+              "indycar",
+              "moto2",
+              "moto3",
+              "motogp",
+              "nascar",
+              "nationwide",
+              "rally",
+              "superbike",
+              "supercars",
+              "topfuel",
+              "truck",
+              "xfinity"
+            ]
+          },
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Enter event ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/motor/{subLeagueAbbreviation}/articles/recaps/events/{eventId}/": {
+      "get": {
+        "operationId": "Motor-RecapsArticles-AvailableforoneeventMotor-Stories,Headlines,Images",
+        "summary": "Recap for one specific event, must identify sub-le...",
+        "description": "Recap for one specific event, must identify sub-league and eventId",
+        "tags": [
+          "Motor - Stories, Headlines, Images"
+        ],
+        "parameters": [
+          {
+            "name": "subLeagueAbbreviation",
+            "type": "string",
+            "description": "Select sub league",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "elitserien",
+              "f1",
+              "funnycar",
+              "indycar",
+              "moto2",
+              "moto3",
+              "motogp",
+              "nascar",
+              "nationwide",
+              "rally",
+              "superbike",
+              "supercars",
+              "topfuel",
+              "truck",
+              "xfinity"
+            ]
+          },
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Enter event ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/motor/{subLeagueAbbreviation}/images/{imageSize}/{imageId}/": {
+      "get": {
+        "operationId": "Motor-RetrieveimageMotor-Stories,Headlines,Images",
+        "summary": "",
+        "tags": [
+          "Motor - Stories, Headlines, Images"
+        ],
+        "parameters": [
+          {
+            "name": "subLeagueAbbreviation",
+            "type": "string",
+            "description": "Select sub league",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "elitserien",
+              "f1",
+              "funnycar",
+              "indycar",
+              "moto2",
+              "moto3",
+              "motogp",
+              "nascar",
+              "nationwide",
+              "rally",
+              "superbike",
+              "supercars",
+              "topfuel",
+              "truck",
+              "xfinity"
+            ]
+          },
+          {
+            "name": "imageSize",
+            "type": "string",
+            "description": "Options are:\n  'p128', 'p256', 'p512', 'pMax'",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "p128",
+              "p256",
+              "p512",
+              "pMax"
+            ]
+          },
+          {
+            "name": "imageId",
+            "type": "integer",
+            "description": "Photo ID",
+            "in": "path",
+            "required": true,
+            "default": "abcdefg"
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/motor/{subLeagueAbbreviation}/photos/{imageSize}/{imageId}/": {
+      "get": {
+        "operationId": "Motor-RetrievePhotoMotor-Stories,Headlines,Images",
+        "summary": "",
+        "tags": [
+          "Motor - Stories, Headlines, Images"
+        ],
+        "parameters": [
+          {
+            "name": "subLeagueAbbreviation",
+            "type": "string",
+            "description": "Select sub league",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "elitserien",
+              "f1",
+              "funnycar",
+              "indycar",
+              "moto2",
+              "moto3",
+              "motogp",
+              "nascar",
+              "nationwide",
+              "rally",
+              "superbike",
+              "supercars",
+              "topfuel",
+              "truck",
+              "xfinity"
+            ]
+          },
+          {
+            "name": "imageSize",
+            "type": "string",
+            "description": "Options are:\n  'p128', 'p256', 'p512', 'pMax'",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "p128",
+              "p256",
+              "p512",
+              "pMax"
+            ]
+          },
+          {
+            "name": "imageId",
+            "type": "integer",
+            "description": "Photo ID",
+            "in": "path",
+            "required": true,
+            "default": "abcdefg"
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

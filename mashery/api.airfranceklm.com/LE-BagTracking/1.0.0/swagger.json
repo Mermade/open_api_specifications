@@ -1,0 +1,134 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "LE BagTracking API",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "A great place to start playing with the APIs. To track the baggage of a Customer",
+    "x-mashery-id": "5549"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.airfranceklm.com",
+  "basePath": "/bag",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "https://developer.airfranceklm.com/io-docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "oauth2": {
+      "type": "oauth2",
+      "flow": "application",
+      "tokenUrl": "",
+      "scopes": {}
+    }
+  },
+  "security": [
+    {
+      "oauth2": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "User Resources"
+    }
+  ],
+  "paths": {
+    "/tracking": {
+      "get": {
+        "operationId": "searchBaggageUserResources",
+        "summary": "Search baggages that match criteria",
+        "tags": [
+          "User Resources"
+        ],
+        "parameters": [
+          {
+            "name": "pnr",
+            "type": "string",
+            "description": "The PNR of the travel",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "flightAirline",
+            "type": "string",
+            "description": "The flight airline: [A-Z]{2}\n            [A-Z][0-9]\n            [0-9][A-Z]",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "flightNumber",
+            "type": "string",
+            "description": "The flight number: [0-9]{3,4}",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "flightSuffix",
+            "type": "string",
+            "description": "The flight suffix: [A-Z]?",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "flightDate",
+            "type": "string",
+            "format": "date",
+            "description": "The flight date: format is yyyy-MM-dd",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "flightOrigin",
+            "type": "string",
+            "description": "The departure airport code: [A-Z]{3}",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "tag",
+            "type": "string",
+            "description": "The tag of the baggage (can be multiple, comma separated): ([0-9])?([0-9]{3}\n            [A-Z]{2}\n            [A-Z][0-9]\n            [0-9][A-Z])([0-9]{6})",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "ahl",
+            "type": "string",
+            "description": "AHL reference<br/>[A-Z]{3}[A-Z0-9]{2}[0-9]{5}",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "SearchBaggages": {
+      "type": "object",
+      "properties": {}
+    }
+  }
+}

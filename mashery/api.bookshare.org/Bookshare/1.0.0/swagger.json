@@ -1,0 +1,932 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Bookshare API",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test our API services using I/O Docs.",
+    "x-mashery-id": "326"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.bookshare.org",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "http://developer.bookshare.org/io-docs/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Book Requests"
+    },
+    {
+      "name": "Newspaper / Magazine Requests"
+    }
+  ],
+  "paths": {
+    "/book/isbn/{isbn}/format/{format}": {
+      "get": {
+        "operationId": "ISBNLookupBookRequests",
+        "summary": "",
+        "tags": [
+          "Book Requests"
+        ],
+        "parameters": [
+          {
+            "name": "isbn",
+            "type": "string",
+            "description": "13 or 10 digit ISBN",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Response format (defaults to xml)",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/book/id/{id}/format/{format}": {
+      "get": {
+        "operationId": "BookIdLookupBookRequests",
+        "summary": "",
+        "tags": [
+          "Book Requests"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "Bookshare Id that is part of the Book List Response",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Response format (defaults to xml)",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/book/searchFTS/{text}/page/{page}/limit/{limit}/format/{format}": {
+      "get": {
+        "operationId": "FullTextSearchBookRequests",
+        "summary": "",
+        "tags": [
+          "Book Requests"
+        ],
+        "parameters": [
+          {
+            "name": "text",
+            "type": "string",
+            "description": "String to search matching author, title or content in the book.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "page",
+            "type": "number",
+            "description": "Which page of results to show (default 1)",
+            "in": "path",
+            "required": true,
+            "default": "1"
+          },
+          {
+            "name": "limit",
+            "type": "number",
+            "description": "How many results to show in a List Response (default 100, maximum limit is 250 results; any specified limit over this will be rounded down to 250).",
+            "in": "path",
+            "required": true,
+            "default": "100"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Response format (defaults to xml)",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/book/search/title/{text}/page/{page}/limit/{limit}/format/{format}": {
+      "get": {
+        "operationId": "TitleSearchBookRequests",
+        "summary": "",
+        "tags": [
+          "Book Requests"
+        ],
+        "parameters": [
+          {
+            "name": "text",
+            "type": "string",
+            "description": "String to search matching the title",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "page",
+            "type": "number",
+            "description": "Which page of results to show (default 1)",
+            "in": "path",
+            "required": true,
+            "default": "1"
+          },
+          {
+            "name": "limit",
+            "type": "number",
+            "description": "How many results to show in a List Response (default 100, maximum limit is 250 results; any specified limit over this will be rounded down to 250).",
+            "in": "path",
+            "required": true,
+            "default": "100"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Response format (defaults to xml)",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/book/search/author/{text}/page/{page}/limit/{limit}/format/{format}": {
+      "get": {
+        "operationId": "AuthorSearchBookRequests",
+        "summary": "",
+        "tags": [
+          "Book Requests"
+        ],
+        "parameters": [
+          {
+            "name": "text",
+            "type": "string",
+            "description": "String to search matching the author",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "page",
+            "type": "number",
+            "description": "Which page of results to show (default 1)",
+            "in": "path",
+            "required": true,
+            "default": "1"
+          },
+          {
+            "name": "limit",
+            "type": "number",
+            "description": "How many results to show in a List Response (default 100, maximum limit is 250 results; any specified limit over this will be rounded down to 250).",
+            "in": "path",
+            "required": true,
+            "default": "100"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Response format (defaults to xml)",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/book/search/{text}/page/{page}/limit/{limit}/format/{format}": {
+      "get": {
+        "operationId": "Title/AuthorSearchBookRequests",
+        "summary": "",
+        "tags": [
+          "Book Requests"
+        ],
+        "parameters": [
+          {
+            "name": "text",
+            "type": "string",
+            "description": "String to search matching the title or author",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "page",
+            "type": "number",
+            "description": "Which page of results to show (default 1)",
+            "in": "path",
+            "required": true,
+            "default": "1"
+          },
+          {
+            "name": "limit",
+            "type": "number",
+            "description": "How many results to show in a List Response (default 100, maximum limit is 250 results; any specified limit over this will be rounded down to 250).",
+            "in": "path",
+            "required": true,
+            "default": "100"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Response format (defaults to xml)",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/book/search/since/{date}/page/{page}/limit/{limit}/format/{format}": {
+      "get": {
+        "operationId": "DatePublishedSearchBookRequests",
+        "summary": "",
+        "tags": [
+          "Book Requests"
+        ],
+        "parameters": [
+          {
+            "name": "date",
+            "type": "string",
+            "description": "Date in MMDDYYYY format",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "page",
+            "type": "number",
+            "description": "Which page of results to show (default 1)",
+            "in": "path",
+            "required": true,
+            "default": "1"
+          },
+          {
+            "name": "limit",
+            "type": "number",
+            "description": "How many results to show in a List Response (default 100, maximum limit is 250 results; any specified limit over this will be rounded down to 250).",
+            "in": "path",
+            "required": true,
+            "default": "100"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Response format (defaults to xml)",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/book/latest/page/{page}/limit/{limit}/format/{format}": {
+      "get": {
+        "operationId": "BrowseLatestBookRequests",
+        "summary": "",
+        "tags": [
+          "Book Requests"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "type": "number",
+            "description": "Which page of results to show (default 1)",
+            "in": "path",
+            "required": true,
+            "default": "1"
+          },
+          {
+            "name": "limit",
+            "type": "number",
+            "description": "How many results to show in a List Response (default 100, maximum limit is 250 results; any specified limit over this will be rounded down to 250).",
+            "in": "path",
+            "required": true,
+            "default": "100"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Response format (defaults to xml)",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/book/popular/page/{page}/limit/{limit}/format/{format}": {
+      "get": {
+        "operationId": "BrowsePopularBookRequests",
+        "summary": "",
+        "tags": [
+          "Book Requests"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "type": "number",
+            "description": "Which page of results to show (default 1)",
+            "in": "path",
+            "required": true,
+            "default": "1"
+          },
+          {
+            "name": "limit",
+            "type": "number",
+            "description": "How many results to show in a List Response (default 100, maximum limit is 250 results; any specified limit over this will be rounded down to 250).",
+            "in": "path",
+            "required": true,
+            "default": "100"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Response format (defaults to xml)",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/reference/category/list/format/{format}": {
+      "get": {
+        "operationId": "CategoryListBookRequests",
+        "summary": "",
+        "tags": [
+          "Book Requests"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "type": "number",
+            "description": "Which page of results to show (default 1)",
+            "in": "query",
+            "required": false,
+            "default": "1"
+          },
+          {
+            "name": "limit",
+            "type": "number",
+            "description": "How many results to show in a List Response (default 100, maximum limit is 250 results; any specified limit over this will be rounded down to 250).",
+            "in": "query",
+            "required": false,
+            "default": "100"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Response format (defaults to xml)",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/book/search/category/{category}/page/{page}/limit/{limit}/format/{format}": {
+      "get": {
+        "operationId": "CategorySearchBookRequests",
+        "summary": "",
+        "tags": [
+          "Book Requests"
+        ],
+        "parameters": [
+          {
+            "name": "category",
+            "type": "string",
+            "description": "Valid category value from Category List",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "page",
+            "type": "number",
+            "description": "Which page of results to show (default 1)",
+            "in": "path",
+            "required": true,
+            "default": "1"
+          },
+          {
+            "name": "limit",
+            "type": "number",
+            "description": "How many results to show in a List Response (default 100, maximum limit is 250 results; any specified limit over this will be rounded down to 250).",
+            "in": "path",
+            "required": true,
+            "default": "100"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Response format (defaults to xml)",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/reference/grade/list/page/{page}/limit/{limit}/format/{format}": {
+      "get": {
+        "operationId": "GradeListBookRequests",
+        "summary": "",
+        "tags": [
+          "Book Requests"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "type": "number",
+            "description": "Which page of results to show (default 1)",
+            "in": "path",
+            "required": true,
+            "default": "1"
+          },
+          {
+            "name": "limit",
+            "type": "number",
+            "description": "How many results to show in a List Response (default 100, maximum limit is 250 results; any specified limit over this will be rounded down to 250).",
+            "in": "path",
+            "required": true,
+            "default": "100"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Response format (defaults to xml)",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/book/search/grade/{grade}/page/{page}/limit/{limit}/format/{format}": {
+      "get": {
+        "operationId": "GradeSearchBookRequests",
+        "summary": "",
+        "tags": [
+          "Book Requests"
+        ],
+        "parameters": [
+          {
+            "name": "grade",
+            "type": "string",
+            "description": "Valid grade value from Grade List",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "page",
+            "type": "number",
+            "description": "Which page of results to show (default 1)",
+            "in": "path",
+            "required": true,
+            "default": "1"
+          },
+          {
+            "name": "limit",
+            "type": "number",
+            "description": "How many results to show in a List Response (default 100, maximum limit is 250 results; any specified limit over this will be rounded down to 250).",
+            "in": "path",
+            "required": true,
+            "default": "100"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Response format (defaults to xml)",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/book/search/grade/{grade}/category/{category}/page/{page}/limit/{limit}/format/{format}": {
+      "get": {
+        "operationId": "CombiningMultipleSearchCriteriaBookRequests",
+        "summary": "",
+        "tags": [
+          "Book Requests"
+        ],
+        "parameters": [
+          {
+            "name": "grade",
+            "type": "string",
+            "description": "Valid grade value from Grade List",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "category",
+            "type": "string",
+            "description": "Valid category value from Category List",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "page",
+            "type": "number",
+            "description": "Which page of results to show (default 1)",
+            "in": "path",
+            "required": true,
+            "default": "1"
+          },
+          {
+            "name": "limit",
+            "type": "number",
+            "description": "How many results to show in a List Response (default 100, maximum limit is 250 results; any specified limit over this will be rounded down to 250).",
+            "in": "path",
+            "required": true,
+            "default": "100"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Response format (defaults to xml)",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/periodical/list/page/{page}/limit/{limit}/format/{format}": {
+      "get": {
+        "operationId": "PeriodicalListSearchNewspaper/MagazineRequests",
+        "summary": "",
+        "tags": [
+          "Newspaper / Magazine Requests"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "type": "number",
+            "description": "Which page of results to show (default 1)",
+            "in": "path",
+            "required": true,
+            "default": "1"
+          },
+          {
+            "name": "limit",
+            "type": "number",
+            "description": "How many results to show in a List Response (default 100, maximum limit is 250 results; any specified limit over this will be rounded down to 250).",
+            "in": "path",
+            "required": true,
+            "default": "100"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Response format (defaults to xml)",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/periodical/id/{id}/page/{page}/limit/{limit}/format/{format}": {
+      "get": {
+        "operationId": "PeriodicalEditionSearchNewspaper/MagazineRequests",
+        "summary": "",
+        "tags": [
+          "Newspaper / Magazine Requests"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "Bookshare Id that is part of the Periodical List Response",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "page",
+            "type": "number",
+            "description": "Which page of results to show (default 1)",
+            "in": "path",
+            "required": true,
+            "default": "1"
+          },
+          {
+            "name": "limit",
+            "type": "number",
+            "description": "How many results to show in a List Response (default 100, maximum limit is 250 results; any specified limit over this will be rounded down to 250).",
+            "in": "path",
+            "required": true,
+            "default": "100"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Response format (defaults to xml)",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/periodical/id/{id}/edition/{date}/revision/{revision}": {
+      "get": {
+        "operationId": "PeriodicalEditionLookupNewspaper/MagazineRequests",
+        "summary": "",
+        "tags": [
+          "Newspaper / Magazine Requests"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "Bookshare Id that is part of the Periodical List Response",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "description": "Date in MMDDYYYY format",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "revision",
+            "type": "number",
+            "description": "Revision number",
+            "in": "path",
+            "required": true,
+            "default": "1"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

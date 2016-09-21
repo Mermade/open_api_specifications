@@ -1,0 +1,2867 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Press Association Olympics API v2",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test our API services using I/O Docs. The Press Association Olympics API provides information about events, venues, disciplines, results and athletes.",
+    "x-mashery-id": "1521"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.press.net",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "http://developer.press.net/io-docs/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Olympic Games"
+    },
+    {
+      "name": "Venue"
+    },
+    {
+      "name": "Country"
+    },
+    {
+      "name": "Competitor"
+    },
+    {
+      "name": "Discipline"
+    },
+    {
+      "name": "Event"
+    },
+    {
+      "name": "Event Phase"
+    },
+    {
+      "name": "Event Unit"
+    }
+  ],
+  "paths": {
+    "/olympics": {
+      "get": {
+        "operationId": "ListGamesOlympicGames",
+        "summary": "Return a list of all available Olympic Games.",
+        "tags": [
+          "Olympic Games"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}": {
+      "get": {
+        "operationId": "GetGamesOlympicGames",
+        "summary": "Return the details of a selected Olympic Games.",
+        "tags": [
+          "Olympic Games"
+        ],
+        "parameters": [
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012­-summer‐olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/schedule": {
+      "get": {
+        "operationId": "GetGamesScheduleOlympicGames",
+        "summary": "Return a list of dates with events scheduled in a ...",
+        "description": "Return a list of dates with events scheduled in a selected Olympic Games.",
+        "tags": [
+          "Olympic Games"
+        ],
+        "parameters": [
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012-­summer‐olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/schedule/{date}": {
+      "get": {
+        "operationId": "GetGamesDateScheduleOlympicGames",
+        "summary": "Return a list events scheduled in a selected Olymp...",
+        "description": "Return a list events scheduled in a selected Olympic Games on a particular date.",
+        "tags": [
+          "Olympic Games"
+        ],
+        "parameters": [
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012-­summer‐olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "format": "date",
+            "description": "The selected date. For example 2012-08-03.",
+            "in": "path",
+            "required": true,
+            "default": "2012-08-03"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/medal-table/{date}": {
+      "get": {
+        "operationId": "GetGamesMedalTableOlympicGames",
+        "summary": "Return an overall medal table for the selected Oly...",
+        "description": "Return an overall medal table for the selected Olympic Games.",
+        "tags": [
+          "Olympic Games"
+        ],
+        "parameters": [
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012-­summer‐olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "format": "date",
+            "description": "The selected date. For example 2012-08-03.",
+            "in": "path",
+            "required": true,
+            "default": "2012-08-03"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/medal-cast": {
+      "get": {
+        "operationId": "GetGamesMedal-CastOlympicGames",
+        "summary": "Return a list of recently awarded medals ordered b...",
+        "description": "Return a list of recently awarded medals ordered by date and time descending. The medals have key information such as the winning country and team/competitor (including any records set in the event unit).",
+        "tags": [
+          "Olympic Games"
+        ],
+        "parameters": [
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012-­summer‐olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "limit",
+            "type": "string",
+            "description": "Limit the number of results.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "25",
+              "50",
+              "100"
+            ]
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/status": {
+      "get": {
+        "operationId": "GetGamesActivityStatusOlympicGames",
+        "summary": "Return the Feed Activity Status for the selected O...",
+        "description": "Return the Feed Activity Status for the selected Olympic Games.",
+        "tags": [
+          "Olympic Games"
+        ],
+        "parameters": [
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012-­summer‐olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/upcoming-timeline": {
+      "get": {
+        "operationId": "GetGamesUpcomingTimelineOlympicGames",
+        "summary": "Return a list of upcoming event units at a selecte...",
+        "description": "Return a list of upcoming event units at a selected Olympic Games. An “upcoming status” includes the following status types: “Planned”, “Scheduled”, “Delayed”, “Cancelled”, “Postponed” and “Rescheduled”.",
+        "tags": [
+          "Olympic Games"
+        ],
+        "parameters": [
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012-­summer‐olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "limit",
+            "type": "string",
+            "description": "Limit the number of results.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "25",
+              "50",
+              "100"
+            ]
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/live-timeline": {
+      "get": {
+        "operationId": "GetGamesLiveTimelineOlympicGames",
+        "summary": "Return a list of event units that are currently li...",
+        "description": "Return a list of event units that are currently live at a selected Olympic Games. A “live status” includes the following status types: “Running” and “Unofficial”.",
+        "tags": [
+          "Olympic Games"
+        ],
+        "parameters": [
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012-­summer‐olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "limit",
+            "type": "string",
+            "description": "Limit the number of results.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "25",
+              "50",
+              "100"
+            ]
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/result-timeline": {
+      "get": {
+        "operationId": "GetGamesResultTimelineOlympicGames",
+        "summary": "Return a list of event units that have recently be...",
+        "description": "Return a list of event units that have recently been set to a result status at a selected Olympic Games. A “result status” includes the following status types: “Official” and “Protested”.",
+        "tags": [
+          "Olympic Games"
+        ],
+        "parameters": [
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012­-summer‐olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "limit",
+            "type": "string",
+            "description": "Limit the number of results.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "25",
+              "50",
+              "100"
+            ]
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/venue": {
+      "get": {
+        "operationId": "ListVenuesVenue",
+        "summary": "Return a list of all available Venues at a selecte...",
+        "description": "Return a list of all available Venues at a selected Olympic Games.",
+        "tags": [
+          "Venue"
+        ],
+        "parameters": [
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012-­summer‐olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/venue/{venueID}": {
+      "get": {
+        "operationId": "GetVenueVenue",
+        "summary": "Return the details of a venue at a selected Olympi...",
+        "description": "Return the details of a venue at a selected Olympic Games.",
+        "tags": [
+          "Venue"
+        ],
+        "parameters": [
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012-­summer‐olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "venueID",
+            "type": "string",
+            "description": "The identifier for the selected venue. For example olympic-stadium.",
+            "in": "path",
+            "required": true,
+            "default": "olympic-stadium"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/venue/{venueID}/upcoming-timeline": {
+      "get": {
+        "operationId": "GetVenueUpcomingTimelineVenue",
+        "summary": "Return the Upcoming Timeline selected Venue and Ol...",
+        "description": "Return the Upcoming Timeline selected Venue and Olympic Games.",
+        "tags": [
+          "Venue"
+        ],
+        "parameters": [
+          {
+            "name": "venueID",
+            "type": "string",
+            "description": "The identifier for the selected Venue. For example eton-dorney.",
+            "in": "path",
+            "required": true,
+            "default": "eton-dorney"
+          },
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012­summer‐olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "limit",
+            "type": "string",
+            "description": "Limit the number of results.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "25",
+              "50",
+              "100"
+            ]
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/venue/{venueID}/live-timeline": {
+      "get": {
+        "operationId": "GetVenueLiveTimelineVenue",
+        "summary": "Return the Live Timeline selected Venue and Olympi...",
+        "description": "Return the Live Timeline selected Venue and Olympic Games.",
+        "tags": [
+          "Venue"
+        ],
+        "parameters": [
+          {
+            "name": "venueID",
+            "type": "string",
+            "description": "The identifier for the selected Venue. For example eton-dorney.",
+            "in": "path",
+            "required": true,
+            "default": "eton-dorney"
+          },
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012-summer-olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "limit",
+            "type": "string",
+            "description": "Limit the number of results.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "25",
+              "50",
+              "100"
+            ]
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/venue/{venueID}/result-timeline": {
+      "get": {
+        "operationId": "GetVenueResultTimelineVenue",
+        "summary": "Return the Result Timeline selected Venue and Olym...",
+        "description": "Return the Result Timeline selected Venue and Olympic Games.",
+        "tags": [
+          "Venue"
+        ],
+        "parameters": [
+          {
+            "name": "venueID",
+            "type": "string",
+            "description": "The identifier for the selected Venue. For example eton-dorney.",
+            "in": "path",
+            "required": true,
+            "default": "eton-dorney"
+          },
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012-summer-olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "limit",
+            "type": "string",
+            "description": "Limit the number of results.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "25",
+              "50",
+              "100"
+            ]
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/venue/{venueID}/status": {
+      "get": {
+        "operationId": "GetVenueActivityStatusVenue",
+        "summary": "Return the Feed Activity Status Timeline selected ...",
+        "description": "Return the Feed Activity Status Timeline selected Venue and Olympic Games.",
+        "tags": [
+          "Venue"
+        ],
+        "parameters": [
+          {
+            "name": "venueID",
+            "type": "string",
+            "description": "The identifier for the selected Venue. For example eton-dorney.",
+            "in": "path",
+            "required": true,
+            "default": "eton-dorney"
+          },
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012-summer-olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "limit",
+            "type": "string",
+            "description": "Limit the number of results.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "25",
+              "50",
+              "100"
+            ]
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/venue/{venueID}/schedule/{date}": {
+      "get": {
+        "operationId": "GetVenueScheduleVenue",
+        "summary": "Return a list of events scheduled at a specific ve...",
+        "description": "Return a list of events scheduled at a specific venue at a selected Olympic Games.",
+        "tags": [
+          "Venue"
+        ],
+        "parameters": [
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012-summer‐olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "venueID",
+            "type": "string",
+            "description": "The identifier for the selected venue. For example olympic-stadium.",
+            "in": "path",
+            "required": true,
+            "default": "olympic-stadium"
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "format": "date",
+            "description": "The selected date. For example 2012-08-03.",
+            "in": "path",
+            "required": true,
+            "default": "2012-08-03"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/country": {
+      "get": {
+        "operationId": "ListCountriesCountry",
+        "summary": "Return a list of all participating Countries at a ...",
+        "description": "Return a list of all participating Countries at a selected Olympic Games.",
+        "tags": [
+          "Country"
+        ],
+        "parameters": [
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012-­summer‐olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/country/{countryID}": {
+      "get": {
+        "operationId": "GetCountryCountry",
+        "summary": "Return the details of a Country at a selected Olym...",
+        "description": "Return the details of a Country at a selected Olympic Games. The detail includes a full competitor list.",
+        "tags": [
+          "Country"
+        ],
+        "parameters": [
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012-­summer‐olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "countryID",
+            "type": "string",
+            "description": "The identifier for the selected country. For example GBR.",
+            "in": "path",
+            "required": true,
+            "default": "GBR"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/country/{countryID}/schedule/{date}": {
+      "get": {
+        "operationId": "GetCountryScheduleCountry",
+        "summary": "Return a list of events for all disciplines a spec...",
+        "description": "Return a list of events for all disciplines a specific Country is registered in at a selected Olympic Games.",
+        "tags": [
+          "Country"
+        ],
+        "parameters": [
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012­-summer‐olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "countryID",
+            "type": "string",
+            "description": "The identifier for the selected country. For example GBR.",
+            "in": "path",
+            "required": true,
+            "default": "GBR"
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "format": "date",
+            "description": "The selected date. For example 2012-08-03.",
+            "in": "path",
+            "required": true,
+            "default": "2012-08-03"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/country/{countryID}/medal-table/{date}": {
+      "get": {
+        "operationId": "GetCountryMedalTableCountry",
+        "summary": "Return a detailed medal table for a Country at the...",
+        "description": "Return a detailed medal table for a Country at the selected Olympic Games. A detailed medal table contains the event units in which the medals were awarded.",
+        "tags": [
+          "Country"
+        ],
+        "parameters": [
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012­-summer‐olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "countryID",
+            "type": "string",
+            "description": "The identifier for the selected country. For example GBR.",
+            "in": "path",
+            "required": true,
+            "default": "GBR"
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "format": "date",
+            "description": "The selected date. For example 2012-08-03.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/country/{countryID}/medal-cast": {
+      "get": {
+        "operationId": "GetCountryMedal-CastCountry",
+        "summary": "Return a list of recently awarded medals for a cou...",
+        "description": "Return a list of recently awarded medals for a country ordered by date and time descending. The medals have key information such as the winning country and team/competitor (including any records set in the event unit).",
+        "tags": [
+          "Country"
+        ],
+        "parameters": [
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012-­summer‐olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "countryID",
+            "type": "string",
+            "description": "The identifier for the selected country. For example GBR.",
+            "in": "path",
+            "required": true,
+            "default": "GBR"
+          },
+          {
+            "name": "limit",
+            "type": "string",
+            "description": "Limit the number of results.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "25",
+              "50",
+              "100"
+            ]
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/country/{countryCode}/result-timeline": {
+      "get": {
+        "operationId": "GetCountryResultTimelineCountry",
+        "summary": "Return the Result Timeline for selected Country an...",
+        "description": "Return the Result Timeline for selected Country and Olympic Games.",
+        "tags": [
+          "Country"
+        ],
+        "parameters": [
+          {
+            "name": "countryCode",
+            "type": "string",
+            "description": "The identifier for the selected Country. For example GBR.",
+            "in": "path",
+            "required": true,
+            "default": "GBR"
+          },
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012­summer‐olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "limit",
+            "type": "string",
+            "description": "Limit the number of results.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "25",
+              "50",
+              "100"
+            ]
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/competitor/{competitorID}": {
+      "get": {
+        "operationId": "GetCompetitorCompetitor",
+        "summary": "Return the details of a Competitor at a selected O...",
+        "description": "Return the details of a Competitor at a selected Olympic Games. The detail includes a full list of all involved disciplines and events.",
+        "tags": [
+          "Competitor"
+        ],
+        "parameters": [
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012-­summer‐olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "competitorID",
+            "type": "integer",
+            "description": "The identifier for the selected competitor. For example 7230602.",
+            "in": "path",
+            "required": true,
+            "default": "7230602"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/competitor/{competitorID}/records": {
+      "get": {
+        "operationId": "GetCompetitorRecordsCompetitor",
+        "summary": "Return the records held by a Competitor.",
+        "tags": [
+          "Competitor"
+        ],
+        "parameters": [
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012-­summer‐olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "competitorID",
+            "type": "integer",
+            "description": "The identifier for the selected competitor. For example A485385.",
+            "in": "path",
+            "required": true,
+            "default": "A485385"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/competitor/{competitorID}/medal-table/{date}": {
+      "get": {
+        "operationId": "GetCompetitorMedalTableCompetitor",
+        "summary": "Return the Medal Table for a participating Competi...",
+        "description": "Return the Medal Table for a participating Competitor at a selected Olympic Games.",
+        "tags": [
+          "Competitor"
+        ],
+        "parameters": [
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012­-summer‐olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "competitorID",
+            "type": "integer",
+            "description": "The identifier for the selected competitor. For example 360222147.",
+            "in": "path",
+            "required": true,
+            "default": "360222147"
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "format": "date",
+            "description": "The selected date. For example 2012-08-03.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/discipline/{disciplineID}": {
+      "get": {
+        "operationId": "GetDisciplineDiscipline",
+        "summary": "Return the details of a Discipline at a selected O...",
+        "description": "Return the details of a Discipline at a selected Olympic Games.",
+        "tags": [
+          "Discipline"
+        ],
+        "parameters": [
+          {
+            "name": "disciplineID",
+            "type": "string",
+            "description": "The identifier for the selected Discipline. For example athletics.",
+            "in": "path",
+            "required": true,
+            "default": "archery"
+          },
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012­summer‐olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/discipline/{disciplineID}/medal-table/{date}": {
+      "get": {
+        "operationId": "GetDisciplineMedalTableDiscipline",
+        "summary": "Return the Medal Table for a Discipline at a selec...",
+        "description": "Return the Medal Table for a Discipline at a selected Olympic Games.",
+        "tags": [
+          "Discipline"
+        ],
+        "parameters": [
+          {
+            "name": "date",
+            "type": "string",
+            "format": "date",
+            "description": "The selected date. For example 2012-08-03.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "disciplineID",
+            "type": "string",
+            "description": "The identifier for the selected Discipline. For example athletics.",
+            "in": "path",
+            "required": true,
+            "default": "archery"
+          },
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012­summer‐olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/discipline/{disciplineID}/status": {
+      "get": {
+        "operationId": "GetDisciplineActivityStatusDiscipline",
+        "summary": "Return the Feed Activity Status for the selected D...",
+        "description": "Return the Feed Activity Status for the selected Discipline and Olympic Games.",
+        "tags": [
+          "Discipline"
+        ],
+        "parameters": [
+          {
+            "name": "disciplineID",
+            "type": "string",
+            "description": "The identifier for the selected Discipline. For example athletics.",
+            "in": "path",
+            "required": true,
+            "default": "swimming"
+          },
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012-summer-olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/discipline/{disciplineID}/medal-cast": {
+      "get": {
+        "operationId": "GetDisciplineMedal-CastDiscipline",
+        "summary": "Return the Medal-Cast for a Discipline at a select...",
+        "description": "Return the Medal-Cast for a Discipline at a selected Discipline and Olympic Games.",
+        "tags": [
+          "Discipline"
+        ],
+        "parameters": [
+          {
+            "name": "disciplineID",
+            "type": "string",
+            "description": "The identifier for the selected Discipline. For example athletics.",
+            "in": "path",
+            "required": true,
+            "default": "swimming"
+          },
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012­summer‐olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "limit",
+            "type": "string",
+            "description": "Limit the number of results.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "25",
+              "50",
+              "100"
+            ]
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/discipline/{disciplineID}/result-timeline": {
+      "get": {
+        "operationId": "GetDisciplineResultTimelineDiscipline",
+        "summary": "Return the Result Timeline selected Discipline and...",
+        "description": "Return the Result Timeline selected Discipline and Olympic Games.",
+        "tags": [
+          "Discipline"
+        ],
+        "parameters": [
+          {
+            "name": "disciplineID",
+            "type": "string",
+            "description": "The identifier for the selected Discipline. For example athletics.",
+            "in": "path",
+            "required": true,
+            "default": "swimming"
+          },
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012­summer‐olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "limit",
+            "type": "string",
+            "description": "Limit the number of results.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "25",
+              "50",
+              "100"
+            ]
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/discipline/{disciplineID}/schedule/{date}": {
+      "get": {
+        "operationId": "GetDisciplineScheduleDiscipline",
+        "summary": "Return the schedule selected Discipline and Olympi...",
+        "description": "Return the schedule selected Discipline and Olympic Games.",
+        "tags": [
+          "Discipline"
+        ],
+        "parameters": [
+          {
+            "name": "date",
+            "type": "string",
+            "format": "date",
+            "description": "The selected date. For example 2012-08-03.",
+            "in": "path",
+            "required": true,
+            "default": "2012-08-03"
+          },
+          {
+            "name": "disciplineID",
+            "type": "string",
+            "description": "The identifier for the selected Discipline. For example athletics.",
+            "in": "path",
+            "required": true,
+            "default": "swimming"
+          },
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012­summer‐olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "limit",
+            "type": "string",
+            "description": "Limit the number of results.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "25",
+              "50",
+              "100"
+            ]
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/discipline/{disciplineID}/upcoming-timeline": {
+      "get": {
+        "operationId": "GetDisciplineUpcomingTimelineDiscipline",
+        "summary": "Return the Upcoming Timeline selected Discipline a...",
+        "description": "Return the Upcoming Timeline selected Discipline and Olympic Games.",
+        "tags": [
+          "Discipline"
+        ],
+        "parameters": [
+          {
+            "name": "disciplineID",
+            "type": "string",
+            "description": "The identifier for the selected Discipline. For example athletics.",
+            "in": "path",
+            "required": true,
+            "default": "swimming"
+          },
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012­summer‐olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "limit",
+            "type": "string",
+            "description": "Limit the number of results.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "25",
+              "50",
+              "100"
+            ]
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/discipline": {
+      "get": {
+        "operationId": "ListDisciplinesDiscipline",
+        "summary": "Return a list of all Disciplines at a selected Oly...",
+        "description": "Return a list of all Disciplines at a selected Olympic Games.",
+        "tags": [
+          "Discipline"
+        ],
+        "parameters": [
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012­summer‐olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "limit",
+            "type": "string",
+            "description": "Limit the number of results.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "25",
+              "50",
+              "100"
+            ]
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/event/{eventID}": {
+      "get": {
+        "operationId": "GetEventEvent",
+        "summary": "Return the details for an Event at a selected Olym...",
+        "description": "Return the details for an Event at a selected Olympic Games.",
+        "tags": [
+          "Event"
+        ],
+        "parameters": [
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012-­summer‐olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "eventID",
+            "type": "string",
+            "description": "The identifier for the selected Event. For example CSM210.",
+            "in": "path",
+            "required": true,
+            "default": "CSM210"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/event/{eventID}/phase": {
+      "get": {
+        "operationId": "GetEventPhaseEvent",
+        "summary": "Return the details for the Phases in an Event at a...",
+        "description": "Return the details for the Phases in an Event at a selected Olympic Games.",
+        "tags": [
+          "Event"
+        ],
+        "parameters": [
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012-­summer‐olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "eventID",
+            "type": "string",
+            "description": "The identifier for the selected Event. For example CSM210.",
+            "in": "path",
+            "required": true,
+            "default": "CSM210"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/event/{eventID}/records": {
+      "get": {
+        "operationId": "GetEventRecordsEvent",
+        "summary": "Return the details for current Records in an Event...",
+        "description": "Return the details for current Records in an Event at a selected Olympic Games.",
+        "tags": [
+          "Event"
+        ],
+        "parameters": [
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012­-summer‐olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "eventID",
+            "type": "string",
+            "description": "The identifier for the selected Event. For example MPM001.",
+            "in": "path",
+            "required": true,
+            "default": "MPM001"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/event/{eventID}/cumulative-result": {
+      "get": {
+        "operationId": "GetEventCumulativeResultEvent",
+        "summary": "Return the Cumulative Result details for an Event ...",
+        "description": "Return the Cumulative Result details for an Event at a selected Olympic Games.",
+        "tags": [
+          "Event"
+        ],
+        "parameters": [
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012­-summer‐olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "eventID",
+            "type": "string",
+            "description": "The identifier for the selected Event. For example MPM001.",
+            "in": "path",
+            "required": true,
+            "default": "MPM001"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/event/{eventID}/schedule/{date}": {
+      "get": {
+        "operationId": "GetEventScheduleEvent",
+        "summary": "Return the schedule selected Event and Olympic Gam...",
+        "description": "Return the schedule selected Event and Olympic Games.",
+        "tags": [
+          "Event"
+        ],
+        "parameters": [
+          {
+            "name": "date",
+            "type": "string",
+            "format": "date",
+            "description": "The selected date. For example 2012-08-03.",
+            "in": "path",
+            "required": true,
+            "default": "2012-08-03"
+          },
+          {
+            "name": "eventID",
+            "type": "string",
+            "description": "The identifier for the selected Event. For example CSM210.",
+            "in": "path",
+            "required": true,
+            "default": "CSM210"
+          },
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012­summer‐olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/event/{eventID}/medal-table/{date}": {
+      "get": {
+        "operationId": "GetEventMedalTableEvent",
+        "summary": "Return the Medal Table for an Event at a selected ...",
+        "description": "Return the Medal Table for an Event at a selected Olympic Games.",
+        "tags": [
+          "Event"
+        ],
+        "parameters": [
+          {
+            "name": "date",
+            "type": "string",
+            "format": "date",
+            "description": "The selected date. For example 2012-08-03.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "eventID",
+            "type": "string",
+            "description": "The identifier for the selected Event. For example MPM001.",
+            "in": "path",
+            "required": true,
+            "default": "MPM001"
+          },
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012­summer‐olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/event/{eventID}/standings": {
+      "get": {
+        "operationId": "GetEventStandingsEvent",
+        "summary": "Return the Standings for an Event at a selected Ol...",
+        "description": "Return the Standings for an Event at a selected Olympic Games.",
+        "tags": [
+          "Event"
+        ],
+        "parameters": [
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012­-summer‐olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "eventID",
+            "type": "string",
+            "description": "The identifier for the selected Event. For example MPM001.",
+            "in": "path",
+            "required": true,
+            "default": "MPM001"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/event/{eventID}/brackets": {
+      "get": {
+        "operationId": "GetEventBracketsEvent",
+        "summary": "Return the Brackets for an Event at a selected Oly...",
+        "description": "Return the Brackets for an Event at a selected Olympic Games.",
+        "tags": [
+          "Event"
+        ],
+        "parameters": [
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2016-summer-olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2016-summer-olympics"
+          },
+          {
+            "name": "eventID",
+            "type": "string",
+            "description": "The identifier for the selected Event. For example TTW001.",
+            "in": "path",
+            "required": true,
+            "default": "TTW001"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/event-phase/{eventPhaseID}": {
+      "get": {
+        "operationId": "GetEventPhaseEventPhase",
+        "summary": "Return the details of a selected Event Phase at a ...",
+        "description": "Return the details of a selected Event Phase at a selected Olympic Games.",
+        "tags": [
+          "Event Phase"
+        ],
+        "parameters": [
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012-­summer‐olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "eventPhaseID",
+            "type": "string",
+            "description": "The identifier for the selected Event Phase. For example BVW400C.",
+            "in": "path",
+            "required": true,
+            "default": "BVW400C"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/event-phase/{eventPhaseID}/summary": {
+      "get": {
+        "operationId": "GetEventPhaseSummaryEventPhase",
+        "summary": "Return the summary of a selected Event Phase at a ...",
+        "description": "Return the summary of a selected Event Phase at a selected Olympic Games.",
+        "tags": [
+          "Event Phase"
+        ],
+        "parameters": [
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012-­summer‐olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "eventPhaseID",
+            "type": "string",
+            "description": "The identifier for the selected Event Phase. For example BVW400C.",
+            "in": "path",
+            "required": true,
+            "default": "BVW400C"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/event-phase/{eventPhaseID}/result": {
+      "get": {
+        "operationId": "GetEventPhaseResultEventPhase",
+        "summary": "Return the result of a selected Event Phase at a s...",
+        "description": "Return the result of a selected Event Phase at a selected Olympic Games.",
+        "tags": [
+          "Event Phase"
+        ],
+        "parameters": [
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012-­summer‐olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "eventPhaseID",
+            "type": "string",
+            "description": "The identifier for the selected Event Phase. For example BVW400C.",
+            "in": "path",
+            "required": true,
+            "default": "SHW4039"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/event-phase/{eventPhaseID}/standings": {
+      "get": {
+        "operationId": "GetEventPhaseStandingsEventPhase",
+        "summary": "Return the standings of a selected Event Phase at ...",
+        "description": "Return the standings of a selected Event Phase at a selected Olympic Games.",
+        "tags": [
+          "Event Phase"
+        ],
+        "parameters": [
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012-­summer‐olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "eventPhaseID",
+            "type": "string",
+            "description": "The identifier for the selected Event Phase. For example BVW400C.",
+            "in": "path",
+            "required": true,
+            "default": "BVW400C"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/event-unit/{eventUnitID}": {
+      "get": {
+        "operationId": "GetEventUnitEventUnit",
+        "summary": "Return the details for an Event Unit at a selected...",
+        "description": "Return the details for an Event Unit at a selected Olympic Games.",
+        "tags": [
+          "Event Unit"
+        ],
+        "parameters": [
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012­-summer‐olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "eventUnitID",
+            "type": "string",
+            "description": "The identifier for the selected Event. For example CSM210101.",
+            "in": "path",
+            "required": true,
+            "default": "CSM210101"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/event-unit/{eventUnitID}/start-list": {
+      "get": {
+        "operationId": "GetEventUnitStartListEventUnit",
+        "summary": "Return the start list for an Event Unit at a selec...",
+        "description": "Return the start list for an Event Unit at a selected Olympic Games.",
+        "tags": [
+          "Event Unit"
+        ],
+        "parameters": [
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012­-summer‐olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "eventUnitID",
+            "type": "string",
+            "description": "The identifier for the selected Event. For example BVW400C02.",
+            "in": "path",
+            "required": true,
+            "default": "BVW400C02"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/olympics/{gamesID}/event-unit/{eventUnitID}/result": {
+      "get": {
+        "operationId": "GetEventUnitResultEventUnit",
+        "summary": "Return the result for an Event Unit at a selected ...",
+        "description": "Return the result for an Event Unit at a selected Olympic Games.",
+        "tags": [
+          "Event Unit"
+        ],
+        "parameters": [
+          {
+            "name": "gamesID",
+            "type": "string",
+            "description": "The identifier for the selected Olympic Games. For example 2012-­summer‐olympics.",
+            "in": "path",
+            "required": true,
+            "default": "2012-summer-olympics"
+          },
+          {
+            "name": "eventUnitID",
+            "type": "string",
+            "description": "The identifier for the selected Event. For example BVW400C02.",
+            "in": "path",
+            "required": true,
+            "default": "BVW400C02"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

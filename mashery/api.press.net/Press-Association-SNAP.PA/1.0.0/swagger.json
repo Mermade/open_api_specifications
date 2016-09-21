@@ -1,0 +1,517 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Press Association SNAP.PA API",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test our API services using I/O Docs. Welcome to the IO Docs page for the Press Association SNAP.PA API.",
+    "x-mashery-id": "1880"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.press.net",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "http://developer.press.net/io-docs/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Feeds"
+    },
+    {
+      "name": "Assets"
+    },
+    {
+      "name": "Tags"
+    }
+  ],
+  "paths": {
+    "/feeds": {
+      "get": {
+        "operationId": "FeedCollectionFeeds",
+        "summary": "Return a list of available feeds. Feeds are channe...",
+        "description": "Return a list of available feeds. Feeds are channels of content grouped around a particular concept or subject.",
+        "tags": [
+          "Feeds"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The response format.",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/rss+xml",
+              "application/atom+xml"
+            ]
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/rss+xml",
+          "application/atom+xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/feeds/{feedId}": {
+      "get": {
+        "operationId": "FeedDetailFeeds",
+        "summary": "Return the content of the selected feed. A feed co...",
+        "description": "Return the content of the selected feed. A feed contains a collection of related content items or assets.",
+        "tags": [
+          "Feeds"
+        ],
+        "parameters": [
+          {
+            "name": "feedId",
+            "type": "string",
+            "description": "The identifier for the selected feed.",
+            "in": "path",
+            "required": true,
+            "default": "firehose"
+          },
+          {
+            "name": "tag",
+            "type": "string",
+            "description": "Limit the feed to items tagged with the provided tags. For example: tag:david-cameron.\n\nThe parameter can be passed multiple times for the fine tuning of the feed items returned.\n\nFor example: ?tag=tag:david-cameron&tag=tag:selfie.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "excludeTag",
+            "type": "string",
+            "description": "Limit the asset collection to items not tagged with the provided tags. For example: tag:content-warning.\n\nThe parameter can be passed multiple times for the fine tuning of the feed items returned.\n\nFor example: ?excludeTag=tag:samsung&excludeTag=subject:technology.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "kind",
+            "type": "string",
+            "description": "Limit the feed to items with the provided kind.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "story",
+              "gallery",
+              "video"
+            ]
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "format": "date",
+            "description": "Limit the feed to items to ones published on the selected date provided. For example 2014-04-16.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "from",
+            "type": "string",
+            "format": "date",
+            "description": "Limit the feed to items to ones published from the selected date provided. For example 2014-04-14.\n\nThe 'from' parameter is typically used in combination with the 'to' param to form a date range.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "to",
+            "type": "string",
+            "format": "date",
+            "description": "Limit the feed to items to ones published to the selected date provided. For example: 2014-04-17.\n\nThe 'to' parameter is typically used in combination with the 'from' param to form a date range.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Limit the the number of items to be returned per page. For example: 5.\n\nThe 'limit' parameter is typically used with the 'offset' parameter to facilitate pagination.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "integer",
+            "description": "The page offset of the first item to be returned. For example: 2.\n\nThe 'offset' parameter is typically used with the 'limit' parameter to facilitate pagination.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The response format to return.\n\nIn addition to supporting the Accept header you can also use the accept query parameter or add a file extension to the end of the url (e.g. .atom, .rss or .json to return Atom, RSS or JSON respectively).",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/rss+xml",
+              "application/atom+xml"
+            ]
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/rss+xml",
+          "application/atom+xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/assets": {
+      "get": {
+        "operationId": "AssetCollectionAssets",
+        "summary": "Return a collection of assets. Assets are also kno...",
+        "description": "Return a collection of assets. Assets are also known as articles or stories.",
+        "tags": [
+          "Assets"
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "type": "string",
+            "description": "Limit the asset collection to items containing the provided string. For example: space.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "tag",
+            "type": "string",
+            "description": "Limit the asset collection to items tagged with the provided tags. For example: subject:technology.\n\nThe parameter can be passed multiple times for the fine tuning of the feed items returned.\n\nFor example: ?tag=tag:samsung&tag=subject:technology.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "excludeTag",
+            "type": "string",
+            "description": "Limit the asset collection to items not tagged with the provided tags. For example: tag:content-warning.\n\nThe parameter can be passed multiple times for the fine tuning of the feed items returned.\n\nFor example: ?excludeTag=tag:samsung&excludeTag=subject:technology.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "kind",
+            "type": "string",
+            "description": "Limit the asset collection to items with the provided kind.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "story",
+              "gallery",
+              "video"
+            ]
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "format": "date",
+            "description": "Limit the asset collection to items to ones published on the selected date provided. For example 2014-04-16.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "from",
+            "type": "string",
+            "format": "date",
+            "description": "Limit the asset collection to items to ones published from the selected date provided. For example 2014-04-14.\n\nThe 'from' parameter is typically used in combination with the 'to' param to form a date range.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "to",
+            "type": "string",
+            "format": "date",
+            "description": "Limit the asset collection to items to ones published to the selected date provided. For example: 2014-04-17.\n\nThe 'to' parameter is typically used in combination with the 'from' param to form a date range.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Limit the the number of items to be returned per page. For example: 5.\n\nThe 'limit' parameter is typically used with the 'offset' parameter to facilitate pagination.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "integer",
+            "description": "The page offset of the first item to be returned. For example: 2.\n\nThe 'offset' parameter is typically used with the 'limit' parameter to facilitate pagination.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The response format to return.\n\nIn addition to supporting the Accept header you can also use the accept query parameter or add a file extension to the end of the url (e.g. .atom, .rss or .json to return Atom, RSS or JSON respectively).",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/rss+xml",
+              "application/atom+xml"
+            ]
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/rss+xml",
+          "application/atom+xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/assets/{assetId}": {
+      "get": {
+        "operationId": "AssetDetailAssets",
+        "summary": "Return the content of the selected asset.",
+        "tags": [
+          "Assets"
+        ],
+        "parameters": [
+          {
+            "name": "assetId",
+            "type": "string",
+            "description": "The identifier for the selected asset.",
+            "in": "path",
+            "required": true,
+            "default": "9840e119-a8cc-3434-95d2-93bbf636cadb"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The response format to return.\n\nIn addition to supporting the Accept header you can also use the accept query parameter or add a file extension to the end of the url (e.g. .atom, .rss or .json to return Atom, RSS or JSON respectively).",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/rss+xml",
+              "application/atom+xml"
+            ]
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/rss+xml",
+          "application/atom+xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/assets/{assetId}/related": {
+      "get": {
+        "operationId": "RelatedAssetCollectionAssets",
+        "summary": "Return a collection of assets related to the selec...",
+        "description": "Return a collection of assets related to the selected asset. Assets are also known as articles or stories.",
+        "tags": [
+          "Assets"
+        ],
+        "parameters": [
+          {
+            "name": "assetId",
+            "type": "string",
+            "description": "The identifier for the selected asset.",
+            "in": "path",
+            "required": true,
+            "default": "9840e119-a8cc-3434-95d2-93bbf636cadb"
+          },
+          {
+            "name": "excludeTag",
+            "type": "string",
+            "description": "Limit the asset collection to items not tagged with the provided tags. For example: tag:content-warning.\n\nThe parameter can be passed multiple times for the fine tuning of the feed items returned.\n\nFor example: ?excludeTag=tag:samsung&excludeTag=subject:technology.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "kind",
+            "type": "string",
+            "description": "Limit the asset collection to items with the provided kind.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "story",
+              "gallery",
+              "video"
+            ]
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "format": "date",
+            "description": "Limit the asset collection to items to ones published on the selected date provided. For example 2014-04-16.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "from",
+            "type": "string",
+            "format": "date",
+            "description": "Limit the asset collection to items to ones published from the selected date provided. For example 2014-04-14.\n\nThe 'from' parameter is typically used in combination with the 'to' param to form a date range.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "to",
+            "type": "string",
+            "format": "date",
+            "description": "Limit the asset collection to items to ones published to the selected date provided. For example: 2014-04-17.\n\nThe 'to' parameter is typically used in combination with the 'from' param to form a date range.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Limit the the number of items to be returned per page. For example: 5.\n\nThe 'limit' parameter is typically used with the 'offset' parameter to facilitate pagination.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "integer",
+            "description": "The page offset of the first item to be returned. For example: 2.\n\nThe 'offset' parameter is typically used with the 'limit' parameter to facilitate pagination.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The response format to return.\n\nIn addition to supporting the Accept header you can also use the accept query parameter or add a file extension to the end of the url (e.g. .atom, .rss or .json to return Atom, RSS or JSON respectively).",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/rss+xml",
+              "application/atom+xml"
+            ]
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/rss+xml",
+          "application/atom+xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/tags": {
+      "get": {
+        "operationId": "TagCollectionTags",
+        "summary": "Return a collection of available tags.",
+        "tags": [
+          "Tags"
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "type": "string",
+            "description": "Limit the tag collection to items containing the provided string. For example: space.",
+            "in": "query",
+            "required": true,
+            "default": "space"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The response format to return.\n\nIn addition to supporting the Accept header you can also use the accept query parameter or add a file extension to the end of the url (e.g. .atom, .rss or .json to return Atom, RSS or JSON respectively).",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/rss+xml",
+              "application/atom+xml"
+            ]
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/rss+xml",
+          "application/atom+xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

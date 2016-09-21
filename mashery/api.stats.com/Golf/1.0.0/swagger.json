@@ -1,0 +1,1645 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Golf",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "The API calls below can be used to test the Input and Output of our API endpoints.  You'll need an API key and an assigned secret to access the live data and so if you haven't contacted us yet, now is the time!  Our sales staff would be happy to set you up with trial access so you can begin to evaluate the product. Golf",
+    "x-mashery-id": "1827"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.stats.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "After you've been given an API key and secret, enter it below and \"Get\" the method you'd like to try out.  Fill in the parameters with what you'd like to try, or use the built in defaults, and click \"Try It!\" to execute the call.  The JSON or XML response will be populated in the Response Body, the Response Body will provide you with any relevant codes, and the Request Header URI will show you how the call would be made within your application. Please note:Also, endpoints almost always require a final \"/\".  You will receive \"596 Service Not Found\" when it is missing.  An exception to this is for optional methods, such as eventId or teamId.",
+    "url": "http://developer.stats.com/io-docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "GOLF - Schedules, results, and hole-by-hole information"
+    },
+    {
+      "name": "GOLF - Participants"
+    },
+    {
+      "name": "GOLF - Statistics"
+    },
+    {
+      "name": "GOLF - Leaders"
+    },
+    {
+      "name": "GOLF - Teams"
+    },
+    {
+      "name": "GOLF - Stories, Headlines, Images"
+    },
+    {
+      "name": "GOLF - Decodes"
+    }
+  ],
+  "paths": {
+    "/stats/golf/{association}/events/{eventId}": {
+      "get": {
+        "operationId": "GOLF-IfpermissionedforalleventinformationGOLF-Schedules,results,andhole-by-holeinformation",
+        "summary": "Access to this events endpoint will provide you wi...",
+        "description": "Access to this events endpoint will provide you with the highest level of event data including live scores, and hole-by-hole information.  Results & hole-by-hole information are only applicable for a single event.\n Simple schedules are also availalbe via the events endpoint.",
+        "tags": [
+          "GOLF - Schedules, results, and hole-by-hole information"
+        ],
+        "parameters": [
+          {
+            "name": "association",
+            "type": "string",
+            "description": "Select association",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "pga",
+              "euro",
+              "web",
+              "lpga",
+              "chmp"
+            ]
+          },
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Provide a specific eventID when you want information on a single event.  Must be populated to use the results & hole-by-hole parameters.\n Default - Basic schedule data for the data will be returned using date or season, if entered, else the current event(s) will be returned",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "results",
+            "type": "boolean",
+            "description": "Returns the scores & tee-times for a specific event.  An eventId must also be entered in conjunction with 'results=true'.\n  Default - results will not be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "holeByHole",
+            "type": "boolean",
+            "description": "Returns the hole-by-hole scores for a specific event.  An eventId must also be entered in conjunction with 'holeByHole=true'.\n  Default - hole-by-hole data will not be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "description": "Will return events from a specific date.\n This parameter is ignored in an eventId is used.\n Format: YYYYMMDD or YYYY-MM-DD.\n  Default - current event(s)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get events for a different season, enter the year as YYYY.\n Default - current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Schedule will be returned for games included in the specified eventType.\n  Default - all event types",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          {
+            "name": "tournamentId",
+            "type": "integer",
+            "description": "To get events for a particular tournament, enter the tournamentId. See tournaments decode endpoint for full list of tournament IDs.\n Default - all tournaments",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player, team, and tournament names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/golf/{association}/results/{eventId}": {
+      "get": {
+        "operationId": "GOLF-IfpermissionedforjustresultsGOLF-Schedules,results,andhole-by-holeinformation",
+        "summary": "The results/ resource provides schedules & results...",
+        "description": "The results/ resource provides schedules & results for golf events. (hole-by-hole is not available in the results endpoint.)",
+        "tags": [
+          "GOLF - Schedules, results, and hole-by-hole information"
+        ],
+        "parameters": [
+          {
+            "name": "association",
+            "type": "string",
+            "description": "Select association",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "pga",
+              "euro",
+              "web",
+              "lpga",
+              "chmp"
+            ]
+          },
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Provide a specific eventID when you want information on a single event.  Must be populated to use the results & hole-by-hole parameters.\n Default - Basic schedule data for the data will be returned using date or season, if entered, else the current event(s) will be returned",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "results",
+            "type": "boolean",
+            "description": "Returns the scores & tee-times for a specific event.  An eventId must also be entered in conjunction with 'results=true'.\n  Default - results will not be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "description": "Will return events from a specific date.\n This parameter is ignored in an eventId is used.\n Format: YYYYMMDD or YYYY-MM-DD.\n  Default - current event(s)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get events for a different season, enter the year as YYYY.\n Default - current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Schedule will be returned for games included in the specified eventType.\n  Default - all event types",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          {
+            "name": "tournamentId",
+            "type": "integer",
+            "description": "To get events for a particular tournament, enter the tournamentId. See tournaments decode endpoint for full list of tournament IDs.\n Default - all tournaments",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player, team, and tournament names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/golf/{association}/participants/": {
+      "get": {
+        "operationId": "GOLF-PlayersGOLF-Participants",
+        "summary": "The participants endpoint provides biographical in...",
+        "description": "The participants endpoint provides biographical information for players and can be used to return information on a single player, or all players within the association.",
+        "tags": [
+          "GOLF - Participants"
+        ],
+        "parameters": [
+          {
+            "name": "association",
+            "type": "string",
+            "description": "Select association",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "pga",
+              "euro",
+              "web",
+              "lpga",
+              "chmp"
+            ]
+          },
+          {
+            "name": "sinceYearLast",
+            "type": "integer",
+            "description": "Anyone who last played since the requested year.  Enter year as YYYY.\n  Default - current golfers",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/golf/{association}/participants/{playerId}": {
+      "get": {
+        "operationId": "GOLF-SingleplayerGOLF-Participants",
+        "summary": "This returns only the selected player.",
+        "tags": [
+          "GOLF - Participants"
+        ],
+        "parameters": [
+          {
+            "name": "association",
+            "type": "string",
+            "description": "Select association",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "pga",
+              "euro",
+              "web",
+              "lpga",
+              "chmp"
+            ]
+          },
+          {
+            "name": "playerId",
+            "type": "integer",
+            "description": "To get information on a specific player, enter their ID.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/golf/{association}/stats/players/{playerId}": {
+      "get": {
+        "operationId": "GOLF-Playerstats-Year-to-dateorCareerGOLF-Statistics",
+        "summary": "GOLF - Single season or career stats for a single ...",
+        "description": "GOLF - Single season or career stats for a single player",
+        "tags": [
+          "GOLF - Statistics"
+        ],
+        "parameters": [
+          {
+            "name": "association",
+            "type": "string",
+            "description": "Select association",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "pga",
+              "euro",
+              "web",
+              "lpga",
+              "chmp"
+            ]
+          },
+          {
+            "name": "playerId",
+            "type": "integer",
+            "description": "Player Id. You must enter either a single playerId, or set allPlayers (below) to true.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "allPlayers",
+            "type": "boolean",
+            "description": "When true, all players with stats in the given season are returned.\n  Default - false, all players not returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get data for a different single season, enter the year as YYYY.\n  Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "enc",
+            "type": "boolean",
+            "description": "The encyclopedia returns full career and season-by-season totals.\n Notes:\n  Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/golf/{association}/stats/players/{playerId}/events/{eventId}": {
+      "get": {
+        "operationId": "GOLF-Playerevent-by-eventstatsGOLF-Statistics",
+        "summary": "GOLF - Player's individual event logs.",
+        "tags": [
+          "GOLF - Statistics"
+        ],
+        "parameters": [
+          {
+            "name": "association",
+            "type": "string",
+            "description": "Select association",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "pga",
+              "euro",
+              "web",
+              "lpga",
+              "chmp"
+            ]
+          },
+          {
+            "name": "playerId",
+            "type": "integer",
+            "description": "To get information on a specific player, enter their ID.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Enter event ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get data for a different season, enter the year as YYYY.\n  Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "holeByHole",
+            "type": "boolean",
+            "description": "Returns the hole-by-hole scores for a specific event. \n  Default - hole-by-hole data will not be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/golf/{association}/leaders/": {
+      "get": {
+        "operationId": "GOLF-LeadersGOLF-Leaders",
+        "summary": "GOLF - Leaders",
+        "tags": [
+          "GOLF - Leaders"
+        ],
+        "parameters": [
+          {
+            "name": "association",
+            "type": "string",
+            "description": "Select association",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "pga",
+              "euro",
+              "web",
+              "lpga",
+              "chmp"
+            ]
+          },
+          {
+            "name": "leaderCategoryId",
+            "type": "integer",
+            "description": "Only one category per query. The leaderCategories decode resource provides a full list of available codes.\n  Default -\n PGA 1961 - 2006: top 3 finishes\n PGA 2007 - now  : FedEx Cup Points\n LPGA: top 3 finishes\n CHMP 1999 - 2009: top 3 finishes\n CHMP 2010 - now : FedEx Cup Points\n WEB: top 3 finishes\n EURO: top 3 finishes",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "topCount",
+            "type": "integer",
+            "description": "This is the number of leaders to be returned.\n  You can return all leaders with the word 'all' instead of a number.\n  Default - Top 10 (plus ties)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "sortType",
+            "type": "string",
+            "description": "To return 'worst' players (trailers) rather than 'best' players (leaders) in a category, select sortType = worst. Traliers are not available for every leaderCategoryId.\n  Default - If the sortType parameter is not used, leaders will be returned.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "worst"
+            ]
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get data for a different season, enter the year as YYYY.\n Note: Seasons that span years like NBA 2013-2014 would be entered as 2013.\n  Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/golf/{association}/teams/{teamId}": {
+      "get": {
+        "operationId": "GOLF-TeamsGOLF-Teams",
+        "summary": "For Cup play events that utilize teams, this endpo...",
+        "description": "For Cup play events that utilize teams, this endpoint will be your source for team names and IDs.  You can get information about a single team by including the teamId.  If you do not include a teamId, you will get all the teams.",
+        "tags": [
+          "GOLF - Teams"
+        ],
+        "parameters": [
+          {
+            "name": "association",
+            "type": "string",
+            "description": "Select association",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "pga",
+              "euro",
+              "web",
+              "lpga",
+              "chmp"
+            ]
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "Provide team ID to return information for one team.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/golf/{association}/stories/headlines/": {
+      "get": {
+        "operationId": "GOLF-HeadlinesGOLF-Stories,Headlines,Images",
+        "summary": "List of headlines.",
+        "tags": [
+          "GOLF - Stories, Headlines, Images"
+        ],
+        "parameters": [
+          {
+            "name": "association",
+            "type": "string",
+            "description": "Select association",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "general"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/golf/{association}/articles/headlines/": {
+      "get": {
+        "operationId": "GOLF-HeadlinesArticlesGOLF-Stories,Headlines,Images",
+        "summary": "List of headlines.",
+        "tags": [
+          "GOLF - Stories, Headlines, Images"
+        ],
+        "parameters": [
+          {
+            "name": "association",
+            "type": "string",
+            "description": "Select association",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "general"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/golf/{association}/stories/recent/": {
+      "get": {
+        "operationId": "GOLF-RecentstoriesGOLF-Stories,Headlines,Images",
+        "summary": "Recent stories for the selected league.",
+        "tags": [
+          "GOLF - Stories, Headlines, Images"
+        ],
+        "parameters": [
+          {
+            "name": "association",
+            "type": "string",
+            "description": "Select association",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "pga",
+              "euro",
+              "web",
+              "lpga",
+              "chmp",
+              "general"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/golf/{association}/articles/recent/": {
+      "get": {
+        "operationId": "GOLF-RecentArticlesGOLF-Stories,Headlines,Images",
+        "summary": "Recent stories for the selected league.",
+        "tags": [
+          "GOLF - Stories, Headlines, Images"
+        ],
+        "parameters": [
+          {
+            "name": "association",
+            "type": "string",
+            "description": "Select association",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "pga",
+              "euro",
+              "web",
+              "lpga",
+              "chmp",
+              "general"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/golf/{association}/stories/{storyId}/": {
+      "get": {
+        "operationId": "GOLF-FullstoryGOLF-Stories,Headlines,Images",
+        "summary": "Get the full story for a storyId found in headline...",
+        "description": "Get the full story for a storyId found in headlines or stories.",
+        "tags": [
+          "GOLF - Stories, Headlines, Images"
+        ],
+        "parameters": [
+          {
+            "name": "association",
+            "type": "string",
+            "description": "Select association",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "pga",
+              "euro",
+              "web",
+              "lpga",
+              "chmp",
+              "general"
+            ]
+          },
+          {
+            "name": "storyId",
+            "type": "integer",
+            "description": "storyId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/golf/{association}/articles/{storyId}/": {
+      "get": {
+        "operationId": "GOLF-FullArticleGOLF-Stories,Headlines,Images",
+        "summary": "Get the full article for a storyId found in headli...",
+        "description": "Get the full article for a storyId found in headlines or articles.",
+        "tags": [
+          "GOLF - Stories, Headlines, Images"
+        ],
+        "parameters": [
+          {
+            "name": "association",
+            "type": "string",
+            "description": "Select association",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "pga",
+              "euro",
+              "web",
+              "lpga",
+              "chmp",
+              "general"
+            ]
+          },
+          {
+            "name": "storyId",
+            "type": "integer",
+            "description": "storyId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/golf/{association}/stories/previews/events/{eventId}/": {
+      "get": {
+        "operationId": "GOLF-Previews-AvailableforoneeventGOLF-Stories,Headlines,Images",
+        "summary": "Preview for one specific event, must identify leag...",
+        "description": "Preview for one specific event, must identify league, and eventId",
+        "tags": [
+          "GOLF - Stories, Headlines, Images"
+        ],
+        "parameters": [
+          {
+            "name": "association",
+            "type": "string",
+            "description": "Select association",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "pga",
+              "euro",
+              "web",
+              "lpga",
+              "chmp"
+            ]
+          },
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Enter event ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/golf/{association}/stories/recaps/events/{eventId}/": {
+      "get": {
+        "operationId": "GOLF-Recaps-AvailableforoneeventGOLF-Stories,Headlines,Images",
+        "summary": "Recap for one specific event, must identify sport,...",
+        "description": "Recap for one specific event, must identify sport, league, and eventId",
+        "tags": [
+          "GOLF - Stories, Headlines, Images"
+        ],
+        "parameters": [
+          {
+            "name": "association",
+            "type": "string",
+            "description": "Select association",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "pga",
+              "euro",
+              "web",
+              "lpga",
+              "chmp"
+            ]
+          },
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Enter event ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/golf/{association}/articles/recaps/events/{eventId}/": {
+      "get": {
+        "operationId": "GOLF-RecapsArticles-AvailableforoneeventGOLF-Stories,Headlines,Images",
+        "summary": "Recap for one specific event, must identify sport,...",
+        "description": "Recap for one specific event, must identify sport, league, and eventId",
+        "tags": [
+          "GOLF - Stories, Headlines, Images"
+        ],
+        "parameters": [
+          {
+            "name": "association",
+            "type": "string",
+            "description": "Select association",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "pga",
+              "euro",
+              "web",
+              "lpga",
+              "chmp"
+            ]
+          },
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Enter event ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/golf/{association}/images/list/": {
+      "get": {
+        "operationId": "GOLF-ListofavailableimagesGOLF-Stories,Headlines,Images",
+        "summary": "List of available images.",
+        "tags": [
+          "GOLF - Stories, Headlines, Images"
+        ],
+        "parameters": [
+          {
+            "name": "association",
+            "type": "string",
+            "description": "Select association",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "pga",
+              "euro",
+              "web",
+              "lpga",
+              "chmp",
+              "general"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "originId",
+            "type": "integer",
+            "description": "Origin of given images.\n  Default - All origins are returned when nothing is selected",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/golf/{association}/photos/list/": {
+      "get": {
+        "operationId": "GOLF-ListofavailablephotosGOLF-Stories,Headlines,Images",
+        "summary": "List of available photos.",
+        "tags": [
+          "GOLF - Stories, Headlines, Images"
+        ],
+        "parameters": [
+          {
+            "name": "association",
+            "type": "string",
+            "description": "Select association",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "pga",
+              "euro",
+              "web",
+              "lpga",
+              "chmp",
+              "general"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "originId",
+            "type": "integer",
+            "description": "Origin of given images.\n  Default - All origins are returned when nothing is selected",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/golf/{association}/images/{imageSize}/{imageId}/": {
+      "get": {
+        "operationId": "RetrieveimageGOLF-Stories,Headlines,Images",
+        "summary": "",
+        "tags": [
+          "GOLF - Stories, Headlines, Images"
+        ],
+        "parameters": [
+          {
+            "name": "association",
+            "type": "string",
+            "description": "Select association",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "pga",
+              "euro",
+              "web",
+              "lpga",
+              "chmp"
+            ]
+          },
+          {
+            "name": "imageSize",
+            "type": "string",
+            "description": "Options are:\n  'p128', 'p256', 'p512', 'pMax'",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "p128",
+              "p256",
+              "p512",
+              "pMax"
+            ]
+          },
+          {
+            "name": "imageId",
+            "type": "integer",
+            "description": "Photo ID",
+            "in": "path",
+            "required": true,
+            "default": "abcdefg"
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/golf/{association}/photos/{imageSize}/{imageId}/": {
+      "get": {
+        "operationId": "RetrievePhotoGOLF-Stories,Headlines,Images",
+        "summary": "",
+        "tags": [
+          "GOLF - Stories, Headlines, Images"
+        ],
+        "parameters": [
+          {
+            "name": "association",
+            "type": "string",
+            "description": "Select association",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "pga",
+              "euro",
+              "web",
+              "lpga",
+              "chmp"
+            ]
+          },
+          {
+            "name": "imageSize",
+            "type": "string",
+            "description": "Options are:\n  'p128', 'p256', 'p512', 'pMax'",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "p128",
+              "p256",
+              "p512",
+              "pMax"
+            ]
+          },
+          {
+            "name": "imageId",
+            "type": "integer",
+            "description": "Photo ID",
+            "in": "path",
+            "required": true,
+            "default": "abcdefg"
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/decode/golf/{association}/{decodeType}/": {
+      "get": {
+        "operationId": "GOLF-DecodesGOLF-Decodes",
+        "summary": "GOLF - Decodes",
+        "tags": [
+          "GOLF - Decodes"
+        ],
+        "parameters": [
+          {
+            "name": "association",
+            "type": "string",
+            "description": "Select association",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "pga",
+              "euro",
+              "web",
+              "lpga",
+              "chmp"
+            ]
+          },
+          {
+            "name": "decodeType",
+            "type": "integer",
+            "description": "The data type to be decoded.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "clubs",
+              "courses",
+              "coverageLevels",
+              "cuts",
+              "eventStatuses",
+              "eventTypes",
+              "leaderCategories",
+              "resultStatuses",
+              "scoringSystems",
+              "seasonStructure",
+              "tournaments"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

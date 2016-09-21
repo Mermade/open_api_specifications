@@ -1,0 +1,1502 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "ReviewPro Lodging API",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "IMPORTANT: The IO-DOCS cosole currently does not support UTF-8 encoding - this an issue reported to Mashery.  However, if you call our endpoints directly the output will be correctly encoded. All calls require you to log in or provide an API key.",
+    "x-mashery-id": "469"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.reviewpro.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "You can also browse our written documentation.",
+    "url": "http://developer.reviewpro.com/io-docs/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Lodging GRI and Source Rating Indexes"
+    },
+    {
+      "name": "Average scores"
+    },
+    {
+      "name": "GRS  Rating Indexes"
+    },
+    {
+      "name": "Group Rating Indexes"
+    },
+    {
+      "name": "Lodging Rating Distribution"
+    },
+    {
+      "name": "Lodging CQI"
+    },
+    {
+      "name": "Semantic"
+    },
+    {
+      "name": "Sources"
+    },
+    {
+      "name": "Reviews"
+    },
+    {
+      "name": "Account"
+    },
+    {
+      "name": "Surveys"
+    }
+  ],
+  "paths": {
+    "/lodging/index/daily": {
+      "get": {
+        "operationId": "DailyIndexforRatinginPeriod(PMS)LodgingGRIandSourceRatingIndexes",
+        "summary": "Returns the daily time series index data for selec...",
+        "description": "Returns the daily time series index data for selected the lodging and rating type in the given date range.",
+        "tags": [
+          "Lodging GRI and Source Rating Indexes"
+        ],
+        "parameters": [
+          {
+            "name": "pmsId",
+            "type": "string",
+            "description": "The lodging's external PMS id",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "rt",
+            "type": "string",
+            "description": "The rating type",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "OVERALL",
+              "SERVICE",
+              "CLEANLINESS",
+              "LOCATION",
+              "VALUE",
+              "GASTRONOMY",
+              "ROOM",
+              "DECORATION",
+              "BUSINESS",
+              "RECEPTION",
+              "ENTERTAINMENT"
+            ]
+          },
+          {
+            "name": "fd",
+            "type": "string",
+            "format": "date",
+            "description": "The from date in the format yyyy-mm-dd e.g 2012-02-07",
+            "in": "query",
+            "required": true,
+            "default": "2012-08-01"
+          },
+          {
+            "name": "td",
+            "type": "string",
+            "format": "date",
+            "description": "The to date in the format yyyy-mm-dd e.g 2013-02-07",
+            "in": "query",
+            "required": true,
+            "default": "2013-02-01"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/lodging/index/avg": {
+      "get": {
+        "operationId": "CompetitorsAverageIndexforRatinginPeriodLodgingGRIandSourceRatingIndexes",
+        "summary": "Returns the average value for selected the lodging...",
+        "description": "Returns the average value for selected the lodging and rating type in the given date range.",
+        "tags": [
+          "Lodging GRI and Source Rating Indexes"
+        ],
+        "parameters": [
+          {
+            "name": "cid",
+            "type": "integer",
+            "description": "The competitors lodging's product id",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "rt",
+            "type": "string",
+            "description": "The rating type",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "OVERALL",
+              "SERVICE",
+              "CLEANLINESS",
+              "LOCATION",
+              "VALUE",
+              "GASTRONOMY",
+              "ROOM",
+              "DECORATION",
+              "BUSINESS",
+              "RECEPTION",
+              "ENTERTAINMENT"
+            ]
+          },
+          {
+            "name": "fd",
+            "type": "string",
+            "format": "date",
+            "description": "The from date in the format yyyy-mm-dd e.g 2012-02-07",
+            "in": "query",
+            "required": true,
+            "default": "2012-08-01"
+          },
+          {
+            "name": "td",
+            "type": "string",
+            "format": "date",
+            "description": "The to date in the format yyyy-mm-dd e.g 2013-02-07",
+            "in": "query",
+            "required": true,
+            "default": "2013-02-01"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/lodging/avg/daily": {
+      "get": {
+        "operationId": "DailyAverageforindextype(Product)Averagescores",
+        "summary": "Returns the daily time series index data for selec...",
+        "description": "Returns the daily time series index data for selected the lodging and rating type in the given date range.",
+        "tags": [
+          "Average scores"
+        ],
+        "parameters": [
+          {
+            "name": "pid",
+            "type": "integer",
+            "description": "The lodging's product id",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "rt",
+            "type": "string",
+            "description": "The rating type",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "OVERALL",
+              "SERVICE",
+              "CLEANLINESS",
+              "LOCATION",
+              "VALUE",
+              "GASTRONOMY",
+              "ROOM",
+              "DECORATION",
+              "BUSINESS",
+              "RECEPTION",
+              "ENTERTAINMENT"
+            ]
+          },
+          {
+            "name": "fd",
+            "type": "string",
+            "format": "date",
+            "description": "The from date in the format yyyy-mm-dd e.g 2012-02-07",
+            "in": "query",
+            "required": true,
+            "default": "2012-08-01"
+          },
+          {
+            "name": "td",
+            "type": "string",
+            "format": "date",
+            "description": "The to date in the format yyyy-mm-dd e.g 2013-02-07",
+            "in": "query",
+            "required": true,
+            "default": "2013-02-01"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/group/avg/daily": {
+      "get": {
+        "operationId": "DailyAverageforindextype(Group)Averagescores",
+        "summary": "Returns the average value for selected the lodging...",
+        "description": "Returns the average value for selected the lodging and rating type in the given date range.",
+        "tags": [
+          "Average scores"
+        ],
+        "parameters": [
+          {
+            "name": "pid",
+            "type": "integer",
+            "description": "The lodging's product id",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "rt",
+            "type": "string",
+            "description": "The rating type",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "OVERALL",
+              "SERVICE",
+              "CLEANLINESS",
+              "LOCATION",
+              "VALUE",
+              "GASTRONOMY",
+              "ROOM",
+              "DECORATION",
+              "BUSINESS",
+              "RECEPTION",
+              "ENTERTAINMENT"
+            ]
+          },
+          {
+            "name": "fd",
+            "type": "string",
+            "format": "date",
+            "description": "The from date in the format yyyy-mm-dd e.g 2012-02-07",
+            "in": "query",
+            "required": true,
+            "default": "2012-08-01"
+          },
+          {
+            "name": "td",
+            "type": "string",
+            "format": "date",
+            "description": "The to date in the format yyyy-mm-dd e.g 2013-02-07",
+            "in": "query",
+            "required": true,
+            "default": "2013-02-01"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/lodging/grs/daily": {
+      "get": {
+        "operationId": "DailyIndexforRatinginPeriodGRSRatingIndexes",
+        "summary": "Returns the daily time series index data for selec...",
+        "description": "Returns the daily time series index data for selected the lodging and rating type in the given date range.",
+        "tags": [
+          "GRS  Rating Indexes"
+        ],
+        "parameters": [
+          {
+            "name": "pid",
+            "type": "integer",
+            "description": "The lodging's product id",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "rt",
+            "type": "string",
+            "description": "The rating type",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "OVERALL",
+              "SERVICE",
+              "CLEANLINESS",
+              "LOCATION",
+              "VALUE",
+              "GASTRONOMY",
+              "ROOM",
+              "DECORATION",
+              "BUSINESS",
+              "RECEPTION",
+              "ENTERTAINMENT"
+            ]
+          },
+          {
+            "name": "fd",
+            "type": "string",
+            "format": "date",
+            "description": "The from date in the format yyyy-mm-dd e.g 2012-02-07",
+            "in": "query",
+            "required": true,
+            "default": "2014-01-01"
+          },
+          {
+            "name": "td",
+            "type": "string",
+            "format": "date",
+            "description": "The to date in the format yyyy-mm-dd e.g 2013-02-07",
+            "in": "query",
+            "required": true,
+            "default": "2014-04-01"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/lodging/grs/avg": {
+      "get": {
+        "operationId": "AverageIndexforRatinginPeriodGRSRatingIndexes",
+        "summary": "Returns the average value for selected the lodging...",
+        "description": "Returns the average value for selected the lodging and rating type in the given date range.",
+        "tags": [
+          "GRS  Rating Indexes"
+        ],
+        "parameters": [
+          {
+            "name": "pid",
+            "type": "integer",
+            "description": "The lodging's product id",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "rt",
+            "type": "string",
+            "description": "The rating type",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "OVERALL",
+              "SERVICE",
+              "CLEANLINESS",
+              "LOCATION",
+              "VALUE",
+              "GASTRONOMY",
+              "ROOM",
+              "DECORATION",
+              "BUSINESS",
+              "RECEPTION",
+              "ENTERTAINMENT"
+            ]
+          },
+          {
+            "name": "fd",
+            "type": "string",
+            "format": "date",
+            "description": "The from date in the format yyyy-mm-dd e.g 2012-02-07",
+            "in": "query",
+            "required": true,
+            "default": "2012-08-01"
+          },
+          {
+            "name": "td",
+            "type": "string",
+            "format": "date",
+            "description": "The to date in the format yyyy-mm-dd e.g 2013-02-07",
+            "in": "query",
+            "required": true,
+            "default": "2013-02-01"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/lodging/grs/distribution": {
+      "get": {
+        "operationId": "GRSdistributionfordaterangeGRSRatingIndexes",
+        "summary": "Returns the average value for selected the lodging...",
+        "description": "Returns the average value for selected the lodging and rating type in the given date range.",
+        "tags": [
+          "GRS  Rating Indexes"
+        ],
+        "parameters": [
+          {
+            "name": "pid",
+            "type": "integer",
+            "description": "The lodging's product id",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "fd",
+            "type": "string",
+            "format": "date",
+            "description": "The from date in the format yyyy-mm-dd e.g 2012-02-07",
+            "in": "query",
+            "required": true,
+            "default": "2012-08-01"
+          },
+          {
+            "name": "td",
+            "type": "string",
+            "format": "date",
+            "description": "The to date in the format yyyy-mm-dd e.g 2013-02-07",
+            "in": "query",
+            "required": true,
+            "default": "2013-02-01"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/group/index/daily": {
+      "get": {
+        "operationId": "DailyIndexforRatinginPeriodGroupRatingIndexes",
+        "summary": "Return index data for a given group and index type...",
+        "description": "Return index data for a given group and index type",
+        "tags": [
+          "Group Rating Indexes"
+        ],
+        "parameters": [
+          {
+            "name": "gid",
+            "type": "integer",
+            "description": "The group's product id",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "rt",
+            "type": "string",
+            "description": "The rating type",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "OVERALL",
+              "SERVICE",
+              "CLEANLINESS",
+              "LOCATION",
+              "VALUE",
+              "GASTRONOMY",
+              "ROOM",
+              "DECORATION",
+              "BUSINESS",
+              "RECEPTION",
+              "ENTERTAINMENT"
+            ]
+          },
+          {
+            "name": "fd",
+            "type": "string",
+            "format": "date",
+            "description": "The from date in the format yyyy-mm-dd e.g 2012-02-07",
+            "in": "query",
+            "required": true,
+            "default": "2012-08-01"
+          },
+          {
+            "name": "td",
+            "type": "string",
+            "format": "date",
+            "description": "The to date in the format yyyy-mm-dd e.g 2013-02-07",
+            "in": "query",
+            "required": true,
+            "default": "2013-02-01"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/group/index/avg": {
+      "get": {
+        "operationId": "AverageIndexforRatinginPeriodGroupRatingIndexes",
+        "summary": "Return index data for a given group and index type...",
+        "description": "Return index data for a given group and index type",
+        "tags": [
+          "Group Rating Indexes"
+        ],
+        "parameters": [
+          {
+            "name": "gid",
+            "type": "integer",
+            "description": "The group's product id",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "rt",
+            "type": "string",
+            "description": "The rating type",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "OVERALL",
+              "SERVICE",
+              "CLEANLINESS",
+              "LOCATION",
+              "VALUE",
+              "GASTRONOMY",
+              "ROOM",
+              "DECORATION",
+              "BUSINESS",
+              "RECEPTION",
+              "ENTERTAINMENT"
+            ]
+          },
+          {
+            "name": "fd",
+            "type": "string",
+            "format": "date",
+            "description": "The from date in the format yyyy-mm-dd e.g 2012-02-07",
+            "in": "query",
+            "required": true,
+            "default": "2012-08-01"
+          },
+          {
+            "name": "td",
+            "type": "string",
+            "format": "date",
+            "description": "The to date in the format yyyy-mm-dd e.g 2013-02-07",
+            "in": "query",
+            "required": true,
+            "default": "2013-02-01"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/lodging/review/rating/distribution": {
+      "get": {
+        "operationId": "CompetitorsRatingDistributionLodgingRatingDistribution",
+        "summary": "Fetch the distribution of positive, neutral and ne...",
+        "description": "Fetch the distribution of positive, neutral and negative reviews for the lodging in the date range for a specified rating type.",
+        "tags": [
+          "Lodging Rating Distribution"
+        ],
+        "parameters": [
+          {
+            "name": "cid",
+            "type": "integer",
+            "description": "The competitors lodging's product id",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "rt",
+            "type": "string",
+            "description": "The rating type",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "OVERALL",
+              "SERVICE",
+              "CLEANLINESS",
+              "LOCATION",
+              "VALUE",
+              "GASTRONOMY",
+              "ROOM",
+              "DECORATION",
+              "BUSINESS",
+              "RECEPTION",
+              "ENTERTAINMENT"
+            ]
+          },
+          {
+            "name": "fd",
+            "type": "string",
+            "format": "date",
+            "description": "The from date in the format yyyy-mm-dd e.g 2012-02-07",
+            "in": "query",
+            "required": true,
+            "default": "2012-08-01"
+          },
+          {
+            "name": "td",
+            "type": "string",
+            "format": "date",
+            "description": "The to date in the format yyyy-mm-dd e.g 2013-02-07",
+            "in": "query",
+            "required": true,
+            "default": "2013-02-01"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/lodging/review/language/distribution": {
+      "get": {
+        "operationId": "CompetitorsLanguageDistributionLodgingRatingDistribution",
+        "summary": "Fetch the distribution of positive, neutral and ne...",
+        "description": "Fetch the distribution of positive, neutral and negative reviews for the lodging in the date range for a specified language.",
+        "tags": [
+          "Lodging Rating Distribution"
+        ],
+        "parameters": [
+          {
+            "name": "cid",
+            "type": "integer",
+            "description": "The competitors lodging's product id",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "lang",
+            "type": "string",
+            "description": "2-letter ISO code",
+            "in": "query",
+            "required": true,
+            "default": "en"
+          },
+          {
+            "name": "fd",
+            "type": "string",
+            "format": "date",
+            "description": "The from date in the format yyyy-mm-dd e.g 2012-02-07",
+            "in": "query",
+            "required": true,
+            "default": "2012-08-01"
+          },
+          {
+            "name": "td",
+            "type": "string",
+            "format": "date",
+            "description": "The to date in the format yyyy-mm-dd e.g 2013-02-07",
+            "in": "query",
+            "required": true,
+            "default": "2013-02-01"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/lodging/review/country/distribution": {
+      "get": {
+        "operationId": "CountryDistribution-LodgingLodgingRatingDistribution",
+        "summary": "Fetch the distribution by country of positive, neu...",
+        "description": "Fetch the distribution by country of positive, neutral and negative reviews for the lodging in the date range for a specified language.",
+        "tags": [
+          "Lodging Rating Distribution"
+        ],
+        "parameters": [
+          {
+            "name": "pid",
+            "type": "integer",
+            "description": "The lodging's product id",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "countries",
+            "type": "string",
+            "description": "2-letter ISO code such as US,GB,ES,FR,IT...",
+            "in": "query",
+            "required": true,
+            "default": "US,GB,ES,FR,DE"
+          },
+          {
+            "name": "fd",
+            "type": "string",
+            "format": "date",
+            "description": "The from date in the format yyyy-mm-dd e.g 2012-02-07",
+            "in": "query",
+            "required": true,
+            "default": "2012-08-01"
+          },
+          {
+            "name": "td",
+            "type": "string",
+            "format": "date",
+            "description": "The to date in the format yyyy-mm-dd e.g 2013-02-07",
+            "in": "query",
+            "required": true,
+            "default": "2013-02-01"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/group/review/country/distribution": {
+      "get": {
+        "operationId": "CountryDistribution-GroupLodgingRatingDistribution",
+        "summary": "Fetch the distribution of country  positive, neutr...",
+        "description": "Fetch the distribution of country  positive, neutral and negative reviews for the group in the date range for a specified language.",
+        "tags": [
+          "Lodging Rating Distribution"
+        ],
+        "parameters": [
+          {
+            "name": "gid",
+            "type": "integer",
+            "description": "The group id",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "countries",
+            "type": "string",
+            "description": "2-letter ISO code such as US,GB,ES,FR,IT...",
+            "in": "query",
+            "required": true,
+            "default": "US,GB,ES,FR,DE"
+          },
+          {
+            "name": "fd",
+            "type": "string",
+            "format": "date",
+            "description": "The from date in the format yyyy-mm-dd e.g 2012-02-07",
+            "in": "query",
+            "required": true,
+            "default": "2012-08-01"
+          },
+          {
+            "name": "td",
+            "type": "string",
+            "format": "date",
+            "description": "The to date in the format yyyy-mm-dd e.g 2013-02-07",
+            "in": "query",
+            "required": true,
+            "default": "2013-02-01"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/lodging/index/cqi": {
+      "get": {
+        "operationId": "CQIinPeriodLodgingCQI",
+        "summary": "Returns the average CQI for a period and the evolu...",
+        "description": "Returns the average CQI for a period and the evolution from the previous period",
+        "tags": [
+          "Lodging CQI"
+        ],
+        "parameters": [
+          {
+            "name": "pid",
+            "type": "integer",
+            "description": "The lodging's product id",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "fd",
+            "type": "string",
+            "format": "date",
+            "description": "Start date of the period in the format yyyy-mm-dd e.g 2012-02-07",
+            "in": "query",
+            "required": true,
+            "default": "2012-08-01"
+          },
+          {
+            "name": "td",
+            "type": "string",
+            "format": "date",
+            "description": "End date of the period in the format yyyy-mm-dd e.g 2013-02-07",
+            "in": "query",
+            "required": true,
+            "default": "2013-02-01"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/lodging/semantic/concepts": {
+      "get": {
+        "operationId": "SemanticConceptsSemantic",
+        "summary": "Fetch id to semantic concept in the desired langua...",
+        "description": "Fetch id to semantic concept in the desired languages.  Available languages are en, de, es, fr, it,nl and pt",
+        "tags": [
+          "Semantic"
+        ],
+        "parameters": [
+          {
+            "name": "pid",
+            "type": "integer",
+            "description": "The lodging's product id",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "lang",
+            "type": "string",
+            "description": "2-letter ISO code",
+            "in": "query",
+            "required": true,
+            "default": "en"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/lodging/semantic/mentions": {
+      "get": {
+        "operationId": "SemanticMentionsSemantic",
+        "summary": "Fetch id to semantic concept in the desired langua...",
+        "description": "Fetch id to semantic concept in the desired languages.  Available languages are en, es, fr and de",
+        "tags": [
+          "Semantic"
+        ],
+        "parameters": [
+          {
+            "name": "pid",
+            "type": "integer",
+            "description": "The lodging's product id",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "fd",
+            "type": "string",
+            "format": "date",
+            "description": "The from date in the format yyyy-mm-dd e.g 2012-02-07",
+            "in": "query",
+            "required": true,
+            "default": "2012-08-01"
+          },
+          {
+            "name": "td",
+            "type": "string",
+            "format": "date",
+            "description": "The to date in the format yyyy-mm-dd e.g 2013-02-07",
+            "in": "query",
+            "required": true,
+            "default": "2013-02-01"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/lodging/source/detail/product": {
+      "get": {
+        "operationId": "SourceswithDataforProductSources",
+        "summary": "Fetch all source detail information for a given pr...",
+        "description": "Fetch all source detail information for a given product (pid)",
+        "tags": [
+          "Sources"
+        ],
+        "parameters": [
+          {
+            "name": "pid",
+            "type": "integer",
+            "description": "The lodging's product id",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "fd",
+            "type": "string",
+            "format": "date",
+            "description": "The from date in the format yyyy-mm-dd e.g 2012-02-07",
+            "in": "query",
+            "required": true,
+            "default": "2012-08-01"
+          },
+          {
+            "name": "td",
+            "type": "string",
+            "format": "date",
+            "description": "The to date in the format yyyy-mm-dd e.g 2013-02-07",
+            "in": "query",
+            "required": true,
+            "default": "2013-02-01"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/lodging/review/published": {
+      "get": {
+        "operationId": "PublishedReviewsReviews",
+        "summary": "Fetch published reviews for given pid (lodging id)...",
+        "description": "Fetch published reviews for given pid (lodging id)",
+        "tags": [
+          "Reviews"
+        ],
+        "parameters": [
+          {
+            "name": "pid",
+            "type": "integer",
+            "description": "The lodging's product id",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/lodging/review/responses": {
+      "get": {
+        "operationId": "ReviewManagementResponsesReviews",
+        "summary": "Fetch review summaries for given pid (lodging id)",
+        "tags": [
+          "Reviews"
+        ],
+        "parameters": [
+          {
+            "name": "pid",
+            "type": "integer",
+            "description": "The lodging's product id -- this can be a comma seperated list if you want grouped data",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "fd",
+            "type": "string",
+            "format": "date",
+            "description": "The from date in the format yyyy-mm-dd e.g 2016-01-01",
+            "in": "query",
+            "required": true,
+            "default": "2016-01-01"
+          },
+          {
+            "name": "td",
+            "type": "string",
+            "format": "date",
+            "description": "The to date in the format yyyy-mm-dd e.g 2016-07-01",
+            "in": "query",
+            "required": true,
+            "default": "2016-07-01"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/lodging/review/summaries": {
+      "get": {
+        "operationId": "ReviewSummariesReviews",
+        "summary": "Fetch review summaries for given pid (lodging id)",
+        "tags": [
+          "Reviews"
+        ],
+        "parameters": [
+          {
+            "name": "pid",
+            "type": "integer",
+            "description": "The lodging's product id",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "fd",
+            "type": "string",
+            "format": "date",
+            "description": "The from date in the format yyyy-mm-dd e.g 2012-02-07",
+            "in": "query",
+            "required": true,
+            "default": "2012-08-01"
+          },
+          {
+            "name": "td",
+            "type": "string",
+            "format": "date",
+            "description": "The to date in the format yyyy-mm-dd e.g 2013-02-07",
+            "in": "query",
+            "required": true,
+            "default": "2013-02-01"
+          },
+          {
+            "name": "rw",
+            "type": "integer",
+            "description": "The max number of values to return in this query (100 max per request)",
+            "in": "query",
+            "required": true,
+            "default": "10"
+          },
+          {
+            "name": "st",
+            "type": "integer",
+            "description": "The offset of values to return, used for paging over results",
+            "in": "query",
+            "required": true,
+            "default": "0"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/lodging/review/private": {
+      "get": {
+        "operationId": "PrivateReviewsReviews",
+        "summary": "Fetch private  (CSQ not RP GSS)   reviews for give...",
+        "description": "Fetch private  (CSQ not RP GSS)   reviews for given pid (lodging id)",
+        "tags": [
+          "Reviews"
+        ],
+        "parameters": [
+          {
+            "name": "pid",
+            "type": "integer",
+            "description": "The lodging's product id",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "fd",
+            "type": "string",
+            "format": "date",
+            "description": "The from date in the format yyyy-mm-dd e.g 2012-02-07",
+            "in": "query",
+            "required": true,
+            "default": "2012-08-01"
+          },
+          {
+            "name": "td",
+            "type": "string",
+            "format": "date",
+            "description": "The to date in the format yyyy-mm-dd e.g 2013-02-07",
+            "in": "query",
+            "required": true,
+            "default": "2013-02-01"
+          },
+          {
+            "name": "rw",
+            "type": "integer",
+            "description": "The max number of values to return in this query (100 max per request)",
+            "in": "query",
+            "required": true,
+            "default": "10"
+          },
+          {
+            "name": "st",
+            "type": "integer",
+            "description": "The offset of values to return, used for paging over results",
+            "in": "query",
+            "required": true,
+            "default": "0"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/account/lodgings": {
+      "get": {
+        "operationId": "Lodgings(pid)ForAccountLookupAccount",
+        "summary": "Look up all available pids (hotel or restaurants i...",
+        "description": "Look up all available pids (hotel or restaurants ids) for your account",
+        "tags": [
+          "Account"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/account/lodgings/competitors": {
+      "get": {
+        "operationId": "CompetitorsforAccountAccount",
+        "summary": "Lookup competitors (id and name) for one or severa...",
+        "description": "Lookup competitors (id and name) for one or several pids of your account",
+        "tags": [
+          "Account"
+        ],
+        "parameters": [
+          {
+            "name": "pid",
+            "type": "integer",
+            "description": "The lodging's product id (maximum of 10 per request)",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/surveys": {
+      "get": {
+        "operationId": "LookupavailablesurveysSurveys",
+        "summary": "Look up active surveys defined for your account.",
+        "tags": [
+          "Surveys"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/surveys/{surveyId}/scores/days/{scoreType}": {
+      "get": {
+        "operationId": "LookupDailySurveyScoresForGroupSurveys",
+        "summary": "Lookup Daily Survey Scores For Product",
+        "tags": [
+          "Surveys"
+        ],
+        "parameters": [
+          {
+            "name": "surveyId",
+            "type": "string",
+            "description": "Survey id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "scoreType",
+            "type": "string",
+            "description": "The score type",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "rating",
+              "customscore",
+              "nps"
+            ]
+          },
+          {
+            "name": "gid",
+            "type": "string",
+            "format": "date",
+            "description": "The product group id",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "fd",
+            "type": "string",
+            "format": "date",
+            "description": "The from date-time in the format yyyy-MM-dd 2012-08-01",
+            "in": "query",
+            "required": true,
+            "default": "2015-01-01"
+          },
+          {
+            "name": "td",
+            "type": "string",
+            "format": "date",
+            "description": "The to date-time in the format yyyy-mm-dd e.g 2013-02-01",
+            "in": "query",
+            "required": true,
+            "default": "2015-05-01"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/surveys/{surveyId}/responses": {
+      "get": {
+        "operationId": "LookupresponsesbysurveyidSurveys",
+        "summary": "Look up survey responses for the survey id. Respon...",
+        "description": "Look up survey responses for the survey id. Responses are in ascending response time order.",
+        "tags": [
+          "Surveys"
+        ],
+        "parameters": [
+          {
+            "name": "surveyId",
+            "type": "string",
+            "description": "Survey id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "pid",
+            "type": "integer",
+            "description": "The product id you to filter results by",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "fd",
+            "type": "string",
+            "format": "date",
+            "description": "The from date-time in the format yyyy-MM-dd 2012-08-01",
+            "in": "query",
+            "required": true,
+            "default": "2015-01-01"
+          },
+          {
+            "name": "td",
+            "type": "string",
+            "format": "date",
+            "description": "The to date-time in the format yyyy-mm-dd e.g 2013-02-01",
+            "in": "query",
+            "required": true,
+            "default": "2015-05-01"
+          },
+          {
+            "name": "offset",
+            "type": "integer",
+            "description": "Index of the first response to be returned. Indexes start at 0. If not provided, the default is 0",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Number of responses to return. Must be greater than 0 and lesser than 100. If not provided, the default is 100",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

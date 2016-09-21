@@ -1,0 +1,431 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "British Airways Flight Info",
+    "version": "1",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test our API services using I/O Docs. real time arrivals and departure information",
+    "x-mashery-id": "979"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.ba.com",
+  "basePath": "/v1",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "https://developer.ba.com/io-docs/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "flights"
+    }
+  ],
+  "paths": {
+    "/flights;departureLocation={departureLocation;arrivalLocation=}{arrivalLocation;scheduledDepartureDate=}{scheduledDepartureDate}{format}": {
+      "get": {
+        "operationId": "Searchdeparturesbyrouteflights",
+        "summary": "Submit a query and the list of fields required",
+        "tags": [
+          "flights"
+        ],
+        "parameters": [
+          {
+            "name": "departureLocation",
+            "type": "string",
+            "description": "An IATA 3 character airport or city code",
+            "in": "query",
+            "required": true,
+            "default": "LHR"
+          },
+          {
+            "name": "arrivalLocation",
+            "type": "string",
+            "description": "An IATA 3 character airport or city code",
+            "in": "query",
+            "required": true,
+            "default": "ZRH"
+          },
+          {
+            "name": "scheduledDepartureDate",
+            "type": "string",
+            "description": "A date in the format YYYY-MM-DD",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "mime type",
+            "in": "path",
+            "required": true,
+            "enum": [
+              ".json",
+              ".xml"
+            ]
+          },
+          {
+            "name": "departureLocation;arrivalLocation=",
+            "type": "string",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "arrivalLocation;scheduledDepartureDate=",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/flights;departureLocation={departureLocation;arrivalLocation=}{arrivalLocation;scheduledArrivalDate=}{scheduledArrivalDate}{format}": {
+      "get": {
+        "operationId": "Searcharrivalsbyrouteflights",
+        "summary": "Submit a query and the list of fields required",
+        "tags": [
+          "flights"
+        ],
+        "parameters": [
+          {
+            "name": "departureLocation",
+            "type": "string",
+            "description": "An IATA 3 character airport or city code",
+            "in": "query",
+            "required": true,
+            "default": "LHR"
+          },
+          {
+            "name": "arrivalLocation",
+            "type": "string",
+            "description": "An IATA 3 character airport or city code",
+            "in": "query",
+            "required": true,
+            "default": "ZRH"
+          },
+          {
+            "name": "scheduledArrivalDate",
+            "type": "string",
+            "description": "A date in the format YYYY-MM-DD",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "mime type",
+            "in": "path",
+            "required": true,
+            "enum": [
+              ".json",
+              ".xml"
+            ]
+          },
+          {
+            "name": "departureLocation;arrivalLocation=",
+            "type": "string",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "arrivalLocation;scheduledArrivalDate=",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/flights;flightNumber={flightNumber;scheduledDepartureDate=}{scheduledDepartureDate}{format}": {
+      "get": {
+        "operationId": "Searchdeparturesbyflightflights",
+        "summary": "Submit a query and the list of fields required",
+        "tags": [
+          "flights"
+        ],
+        "parameters": [
+          {
+            "name": "flightNumber",
+            "type": "string",
+            "description": "A valid flight number excluding the carrier code",
+            "in": "query",
+            "required": true,
+            "default": "011"
+          },
+          {
+            "name": "scheduledDepartureDate",
+            "type": "string",
+            "description": "A date in the format YYYY-MM-DD",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "mime type",
+            "in": "path",
+            "required": true,
+            "enum": [
+              ".json",
+              ".xml"
+            ]
+          },
+          {
+            "name": "flightNumber;scheduledDepartureDate=",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/flights;flightNumber={flightNumber;scheduledArrivalDate=}{scheduledArrivalDate}{format}": {
+      "get": {
+        "operationId": "Searcharrivalsbyflightflights",
+        "summary": "Submit a query and the list of fields required",
+        "tags": [
+          "flights"
+        ],
+        "parameters": [
+          {
+            "name": "flightNumber",
+            "type": "string",
+            "description": "A valid flight number excluding the carrier code",
+            "in": "query",
+            "required": true,
+            "default": "011"
+          },
+          {
+            "name": "scheduledArrivalDate",
+            "type": "string",
+            "description": "A date in the format YYYY-MM-DD",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "mime type",
+            "in": "path",
+            "required": true,
+            "enum": [
+              ".json",
+              ".xml"
+            ]
+          },
+          {
+            "name": "flightNumber;scheduledArrivalDate=",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/flights;departureLocation={departureLocation;startTime=}{startTime;endTime=}{endTime}{format}": {
+      "get": {
+        "operationId": "Searchtoday'sdeparturesbytimeflights",
+        "summary": "Submit a query and the list of fields required",
+        "tags": [
+          "flights"
+        ],
+        "parameters": [
+          {
+            "name": "departureLocation",
+            "type": "string",
+            "description": "An IATA 3 character airport or city code",
+            "in": "query",
+            "required": true,
+            "default": "LHR"
+          },
+          {
+            "name": "startTime",
+            "type": "string",
+            "description": "A valid time between 00:00 and 23:59 which is less than the endTime. Note: if the departureLocation is LON then only a maximum12hr difference between the startTime and endTime is allowed",
+            "in": "query",
+            "required": true,
+            "default": "06:00"
+          },
+          {
+            "name": "endTime",
+            "type": "string",
+            "description": "A valid time between 00:00 and 23:59 which is less than the endTime. Note: if the departureLocation is LON then only a maximum12hr difference between the startTime and endTime is allowed",
+            "in": "path",
+            "required": true,
+            "default": "11:00"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "mime type",
+            "in": "path",
+            "required": true,
+            "enum": [
+              ".json",
+              ".xml"
+            ]
+          },
+          {
+            "name": "departureLocation;startTime=",
+            "type": "string",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "startTime;endTime=",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/flights;arrivalLocation={arrivalLocation;startTime=}{startTime;endTime=}{endTime}{format}": {
+      "get": {
+        "operationId": "Searchtoday'sarrivalsbytimeflights",
+        "summary": "Submit a query and the list of fields required",
+        "tags": [
+          "flights"
+        ],
+        "parameters": [
+          {
+            "name": "arrivalLocation",
+            "type": "string",
+            "description": "An IATA 3 character airport or city code",
+            "in": "query",
+            "required": true,
+            "default": "LHR"
+          },
+          {
+            "name": "startTime",
+            "type": "string",
+            "description": "A valid time between 00:00 and 23:59 which is less than the endTime. Note: if the departureLocation is LON then only a maximum12hr difference between the startTime and endTime is allowed",
+            "in": "query",
+            "required": true,
+            "default": "06:00"
+          },
+          {
+            "name": "endTime",
+            "type": "string",
+            "description": "A valid time between 00:00 and 23:59 which is less than the endTime. Note: if the departureLocation is LON then only a maximum12hr difference between the startTime and endTime is allowed",
+            "in": "path",
+            "required": true,
+            "default": "11:00"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "mime type",
+            "in": "path",
+            "required": true,
+            "enum": [
+              ".json",
+              ".xml"
+            ]
+          },
+          {
+            "name": "arrivalLocation;startTime=",
+            "type": "string",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "startTime;endTime=",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

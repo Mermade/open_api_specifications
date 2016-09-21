@@ -1,0 +1,488 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Online Traffic Incidents",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test our API services using our API Explorer below. Simply enter the parameters and click “Try It”. You must have a valid API key for this to work (go to My Account to request a key if you do not already have one). You can also view our written documentation for Online Maps, Online Routing, Online Traffic Flow, Online Traffic Incidents and MySports Cloud. Online Traffic Incidents is a suite of web services designed for developers to create web and mobile applications around real-time traffic. These web services can be used via RESTful API",
+    "x-mashery-id": "4077"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.tomtom.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "http://developer.tomtom.com/io-docs/member"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Incident Details"
+    },
+    {
+      "name": "Incidents Regions"
+    },
+    {
+      "name": "Incident Tiles"
+    },
+    {
+      "name": "Incident Viewport"
+    }
+  ],
+  "paths": {
+    "/traffic/services/4/incidentDetails/{style}/{minY},{minX},{maxY},{maxX}/{zoom}/{trafficModelID}/{contentType}": {
+      "get": {
+        "operationId": "IncidentDetailsIncidentDetails",
+        "summary": "Returns traffic information for a specified geogra...",
+        "description": "Returns traffic information for a specified geographic extent.",
+        "tags": [
+          "Incident Details"
+        ],
+        "parameters": [
+          {
+            "name": "style",
+            "type": "string",
+            "description": "Style to be used in subsequent traffic tile calls.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "s2",
+              "s3",
+              "s1",
+              "night"
+            ]
+          },
+          {
+            "name": "minY",
+            "type": "string",
+            "description": "Minimum Y value/latitude for the bounding box.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "minX",
+            "type": "string",
+            "description": "Minimum X value/longitude for the bounding box.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "maxY",
+            "type": "string",
+            "description": "Maximum Y value/latitude for the bounding box.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "maxX",
+            "type": "string",
+            "description": "Maximum X value/longitude for the bounding box.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "zoom",
+            "type": "integer",
+            "description": "Zoom level (0..18).",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "trafficModelID",
+            "type": "string",
+            "description": "Reference value for the state of traffic at a particular time, obtained from the Viewport API call. It is updated every minute, and is valid for two minutes before it times out. Use -1 to get the most recent traffic information.",
+            "in": "path",
+            "required": true,
+            "default": "-1"
+          },
+          {
+            "name": "contentType",
+            "type": "string",
+            "description": "Response content type.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "xml",
+              "json",
+              "jsonp"
+            ]
+          },
+          {
+            "name": "language",
+            "type": "string",
+            "description": "Language of cause and description fields for traffic incidents returned. Default: English.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "en",
+              "cs",
+              "da",
+              "nl",
+              "de",
+              "fi",
+              "fr",
+              "hu",
+              "it",
+              "no",
+              "pl",
+              "pt",
+              "es",
+              "sv",
+              "tr"
+            ]
+          },
+          {
+            "name": "projection",
+            "type": "string",
+            "description": "Projection for input and output coordinates. Default: EPSG900913.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "EPSG900913",
+              "EPSG4326"
+            ]
+          },
+          {
+            "name": "geometries",
+            "type": "string",
+            "description": "Vector geometry type returned in the **** response element, if desired.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "original",
+              "shifted"
+            ]
+          },
+          {
+            "name": "expandCluster",
+            "type": "boolean",
+            "description": "List individual incidents in incident clusters separately? Default: false.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "originalPosition",
+            "type": "boolean",
+            "description": "Return the original position as well as the one at the head of the traffic tube? Default: false.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "jsonp",
+            "type": "string",
+            "description": "Callback method for jsonp responses.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/traffic/services/4/incidentRegions/{contentType}": {
+      "get": {
+        "operationId": "IncidentsRegionsIncidentsRegions",
+        "summary": "Provides a traffic summary for all of the countrie...",
+        "description": "Provides a traffic summary for all of the countries where TomTom has traffic information.",
+        "tags": [
+          "Incidents Regions"
+        ],
+        "parameters": [
+          {
+            "name": "contentType",
+            "type": "string",
+            "description": "Response content type.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "xml",
+              "json",
+              "jsonp"
+            ]
+          },
+          {
+            "name": "projection",
+            "type": "string",
+            "description": "Projection used in geographic coordinates returned. Default: EPSG4326.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "EPSG900913",
+              "EPSG4326"
+            ]
+          },
+          {
+            "name": "language",
+            "type": "string",
+            "description": "Language of region and country names returned. Default: English.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "en",
+              "af",
+              "cs",
+              "da",
+              "nl",
+              "de",
+              "fi",
+              "fr",
+              "hu",
+              "it",
+              "no",
+              "pl",
+              "pt",
+              "es",
+              "sv",
+              "tr"
+            ]
+          },
+          {
+            "name": "jsonp",
+            "type": "string",
+            "description": "Callback method for jsonp responses.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/traffic/map/4/tile/incidents/{style}/{zoom}/{x}/{y}.{mimeType}": {
+      "get": {
+        "operationId": "IncidentTilesIncidentTiles",
+        "summary": "Returns 256 x 256 pixel tiles containing the reque...",
+        "description": "Returns 256 x 256 pixel tiles containing the requested traffic data.  Refer to the written documentation for an explanation of the zoom grid.",
+        "tags": [
+          "Incident Tiles"
+        ],
+        "parameters": [
+          {
+            "name": "style",
+            "type": "string",
+            "description": "Style of traffic to be rendered.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "s2",
+              "s3",
+              "s1",
+              "night"
+            ]
+          },
+          {
+            "name": "zoom",
+            "type": "integer",
+            "description": "Zoom level (0..18).",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "x",
+            "type": "integer",
+            "description": "X position on zoom grid.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "y",
+            "type": "integer",
+            "description": "Y position on zoom grid.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "mimeType",
+            "type": "string",
+            "description": "Image format to be returned.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "png",
+              "gif"
+            ]
+          },
+          {
+            "name": "t",
+            "type": "string",
+            "description": "Reference value for the state of traffic at a particular time, obtained from the Viewport API call. It is updated every minute, and is valid for two minutes before it times out. Use -1 to get the most recent traffic information. Default: most recent traffic information.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/traffic/services/4/incidentViewport/{minY},{minX},{maxY},{maxX}/{zoom}/{oMinY},{oMinX},{oMaxY},{oMaxX}/{oZoom}/{copyright}/{contentType}": {
+      "get": {
+        "operationId": "IncidentViewportIncidentViewport",
+        "summary": "Returns legal and technical information about the ...",
+        "description": "Returns legal and technical information about the area inside a requested bounding box.  If the map display will include an overview map, that bounding box is also used in the calculation. (If no overview map is used, set the overview coordinates to match the main coordinates). All coordinates must be in EPSG900913 format.",
+        "tags": [
+          "Incident Viewport"
+        ],
+        "parameters": [
+          {
+            "name": "minY",
+            "type": "string",
+            "description": "Minimum Y value for the bounding box.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "minX",
+            "type": "string",
+            "description": "Minimum X value for the bounding box.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "maxY",
+            "type": "string",
+            "description": "Maximum Y value for the bounding box.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "maxX",
+            "type": "string",
+            "description": "Maximum X value for the bounding box.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "zoom",
+            "type": "integer",
+            "description": "Zoom level for the bounding box (0..18).",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "oMinY",
+            "type": "string",
+            "description": "Minimum Y value for the overview box.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "oMinX",
+            "type": "string",
+            "description": "Minimum X value for the overview box.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "oMaxY",
+            "type": "string",
+            "description": "Maximum Y value for the overview box.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "oMaxX",
+            "type": "string",
+            "description": "Maximum X value for the overview box.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "oZoom",
+            "type": "integer",
+            "description": "Zoom level for the overview box (0..18).",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "copyright",
+            "type": "boolean",
+            "description": "Determines what copyright information to return.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "contentType",
+            "type": "string",
+            "description": "Response content type.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "xml",
+              "json",
+              "jsonp"
+            ]
+          },
+          {
+            "name": "jsonp",
+            "type": "string",
+            "description": "Callback method for jsonp responses.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

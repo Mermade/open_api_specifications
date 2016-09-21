@@ -1,0 +1,842 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "BiblioCommons API",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test our API services using I/O Docs. This API is used by libraries to access BiblioCommons services programmatically.",
+    "x-mashery-id": "599"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.bibliocommons.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "http://developer.bibliocommons.com/io-docs/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Libraries"
+    },
+    {
+      "name": "Lists"
+    },
+    {
+      "name": "Titles"
+    },
+    {
+      "name": "Users"
+    },
+    {
+      "name": "User Content"
+    }
+  ],
+  "paths": {
+    "/libraries/{id}": {
+      "get": {
+        "operationId": "ShowLibraryLibraries",
+        "summary": "Returns basic information about a given library, s...",
+        "description": "Returns basic information about a given library, specified by library ID.",
+        "tags": [
+          "Libraries"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "The library ID.  Each library's BiblioCommons catalog will have a hostname of the form {id}.bibliocommons.com.  The {id} portion of the hostname is the library's ID.",
+            "in": "path",
+            "required": true,
+            "default": "ottawa"
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "(Optional) Instructs the API to localize strings using the given locale. All strings coming from the BiblioCommons system are localizable to all supported locales. Some library-specific data, for example names of locations or collections, may be localizable depending on the library and the locale. Strings coming from bibliographic metadata or user-contributed content are not localized. Locale codes are defined as IETF language tags.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "en-CA",
+              "en-US",
+              "es-ES",
+              "fr-CA",
+              "ru-RU",
+              "zh-CN"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/libraries/{id}/locations": {
+      "get": {
+        "operationId": "ShowLocationsLibraries",
+        "summary": "Returns the list of locations for a given library,...",
+        "description": "Returns the list of locations for a given library, specified by library ID, with basic information about each location.",
+        "tags": [
+          "Libraries"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "The library ID.  Each library's BiblioCommons catalog will have a hostname of the form {id}.bibliocommons.com.  The {id} portion of the hostname is the library's ID.",
+            "in": "path",
+            "required": true,
+            "default": "ottawa"
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "(Optional) Instructs the API to localize strings using the given locale. All strings coming from the BiblioCommons system are localizable to all supported locales. Some library-specific data, for example names of locations or collections, may be localizable depending on the library and the locale. Strings coming from bibliographic metadata or user-contributed content are not localized. Locale codes are defined as IETF language tags.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "en-CA",
+              "en-US",
+              "es-ES",
+              "fr-CA",
+              "ru-RU",
+              "zh-CN"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/lists": {
+      "get": {
+        "operationId": "RecentListsLists",
+        "summary": "Returns a list of user lists, for a given set of c...",
+        "description": "Returns a list of user lists, for a given set of criteria, with basic information about each user list. Currently the only supported criteria is most recently created.",
+        "tags": [
+          "Lists"
+        ],
+        "parameters": [
+          {
+            "name": "library",
+            "type": "string",
+            "description": "The ID of the library catalog to search. Each library's BiblioCommons catalog will have a hostname of the form {id}.bibliocommons.com. The {id} portion of the hostname is the library's ID.",
+            "in": "query",
+            "required": true,
+            "default": "nypl"
+          },
+          {
+            "name": "date_format",
+            "type": "string",
+            "description": "(Optional; default iso8601) Sets the format of date and time values. All date and time values are returned in the UTC time zone.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "iso8601",
+              "rfc2822"
+            ]
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "(Optional) Instructs the API to localize strings using the given locale. All strings coming from the BiblioCommons system are localizable to all supported locales. Some library-specific data, for example names of locations or collections, may be localizable depending on the library and the locale. Strings coming from bibliographic metadata or user-contributed content are not localized. Locale codes are defined as IETF language tags.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "en-CA",
+              "en-US",
+              "es-ES",
+              "fr-CA",
+              "ru-RU",
+              "zh-CN"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/lists/{id}": {
+      "get": {
+        "operationId": "ShowListLists",
+        "summary": "Returns information about a given list, specified ...",
+        "description": "Returns information about a given list, specified by list ID.",
+        "tags": [
+          "Lists"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "The list ID.",
+            "in": "path",
+            "required": true,
+            "default": "159583601"
+          },
+          {
+            "name": "library",
+            "type": "string",
+            "description": "(Optional; default any) Library ID. Each list URL will have a hostname of the form {id}.bibliocommons.com. The {id} portion of the hostname is the library's ID.",
+            "in": "query",
+            "required": false,
+            "default": "nypl"
+          },
+          {
+            "name": "date_format",
+            "type": "string",
+            "description": "(Optional; default iso8601) Sets the format of date and time values. All date and time values are returned in the UTC time zone.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "iso8601",
+              "rfc2822"
+            ]
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "(Optional) Instructs the API to localize strings using the given locale. All strings coming from the BiblioCommons system are localizable to all supported locales. Some library-specific data, for example names of locations or collections, may be localizable depending on the library and the locale. Strings coming from bibliographic metadata or user-contributed content are not localized. Locale codes are defined as IETF language tags.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "en-CA",
+              "en-US",
+              "es-ES",
+              "fr-CA",
+              "ru-RU",
+              "zh-CN"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/titles": {
+      "get": {
+        "operationId": "SearchTitlesTitles",
+        "summary": "Returns a list of titles from a given library cata...",
+        "description": "Returns a list of titles from a given library catalog and matching a given set of search criteria, with basic information about each title.",
+        "tags": [
+          "Titles"
+        ],
+        "parameters": [
+          {
+            "name": "q",
+            "type": "string",
+            "description": "The query string to search for.",
+            "in": "query",
+            "required": true,
+            "default": "language:\"chi\" audience:\"adult\" contentclass:\"FICTION\" formatcode:PAPERBACK"
+          },
+          {
+            "name": "library",
+            "type": "string",
+            "description": "The ID of the library catalog to search. Each library's BiblioCommons catalog will have a hostname of the form {id}.bibliocommons.com. The {id} portion of the hostname is the library's ID.",
+            "in": "query",
+            "required": true,
+            "default": "nypl"
+          },
+          {
+            "name": "search_type",
+            "type": "string",
+            "description": "(Optional; default keyword) The type of search to perform.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "keyword",
+              "title",
+              "author",
+              "subject",
+              "tag",
+              "series",
+              "custom"
+            ]
+          },
+          {
+            "name": "limit",
+            "type": "string",
+            "description": "(Optional; default 10) Sets the limit on the number of results to be returned. If the limit exceeds the maximum limit for a particular request, the maximum limit will be used.",
+            "in": "query",
+            "required": false,
+            "default": "10"
+          },
+          {
+            "name": "page",
+            "type": "string",
+            "description": "(Optional; default 1) Sets the current page within the result set to be returned. The index of the first page is 1. If the page exceeds the total number of pages, the last page will be returned.",
+            "in": "query",
+            "required": false,
+            "default": "1"
+          },
+          {
+            "name": "metadata",
+            "type": "string",
+            "description": "(Optional; default 0) Passing metadata=1 instructs the API to return metadata about the list of results, including sorting and narrowing options. See \"Common Response Fields\" for more information.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "0",
+              "1"
+            ]
+          },
+          {
+            "name": "date_format",
+            "type": "string",
+            "description": "(Optional; default iso8601) Sets the format of date and time values. All date and time values are returned in the UTC time zone.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "iso8601",
+              "rfc2822"
+            ]
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "(Optional) Instructs the API to localize strings using the given locale. All strings coming from the BiblioCommons system are localizable to all supported locales. Some library-specific data, for example names of locations or collections, may be localizable depending on the library and the locale. Strings coming from bibliographic metadata or user-contributed content are not localized. Locale codes are defined as IETF language tags.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "en-CA",
+              "en-US",
+              "es-ES",
+              "fr-CA",
+              "ru-RU",
+              "zh-CN"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/titles/{id}": {
+      "get": {
+        "operationId": "ShowTitleTitles",
+        "summary": "Returns detailed information about a given title f...",
+        "description": "Returns detailed information about a given title from a library catalog, specified by title ID.",
+        "tags": [
+          "Titles"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "The ID of the title to return.",
+            "in": "path",
+            "required": true,
+            "default": "19704221052"
+          },
+          {
+            "name": "date_format",
+            "type": "string",
+            "description": "(Optional; default iso8601) Sets the format of date and time values. All date and time values are returned in the UTC time zone.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "iso8601",
+              "rfc2822"
+            ]
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "(Optional) Instructs the API to localize strings using the given locale. All strings coming from the BiblioCommons system are localizable to all supported locales. Some library-specific data, for example names of locations or collections, may be localizable depending on the library and the locale. Strings coming from bibliographic metadata or user-contributed content are not localized. Locale codes are defined as IETF language tags.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "en-CA",
+              "en-US",
+              "es-ES",
+              "fr-CA",
+              "ru-RU",
+              "zh-CN"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/titles/{id}/copies": {
+      "get": {
+        "operationId": "ShowCopiesTitles",
+        "summary": "Returns the list of copies for a given title, spec...",
+        "description": "Returns the list of copies for a given title, specified by title ID, with basic information about each copy.",
+        "tags": [
+          "Titles"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "The title ID.",
+            "in": "path",
+            "required": true,
+            "default": "19704221052"
+          },
+          {
+            "name": "date_format",
+            "type": "string",
+            "description": "(Optional; default iso8601) Sets the format of date and time values. All date and time values are returned in the UTC time zone.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "iso8601",
+              "rfc2822"
+            ]
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "(Optional) Instructs the API to localize strings using the given locale. All strings coming from the BiblioCommons system are localizable to all supported locales. Some library-specific data, for example names of locations or collections, may be localizable depending on the library and the locale. Strings coming from bibliographic metadata or user-contributed content are not localized. Locale codes are defined as IETF language tags.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "en-CA",
+              "en-US",
+              "es-ES",
+              "fr-CA",
+              "ru-RU",
+              "zh-CN"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "operationId": "SearchUsers(Lookupuserbyusername)Users",
+        "summary": "Returns a list of users matching a given set of se...",
+        "description": "Returns a list of users matching a given set of search criteria, with basic public information about each user. Currently only username search is supported.",
+        "tags": [
+          "Users"
+        ],
+        "parameters": [
+          {
+            "name": "q",
+            "type": "string",
+            "description": "The query string to search for. Currently only username search is supported.",
+            "in": "query",
+            "required": true,
+            "default": "lsta"
+          },
+          {
+            "name": "library",
+            "type": "string",
+            "description": "(Optional) The ID of the library catalog to use for profile URLs. Each library's BiblioCommons catalog will have a hostname of the form {id}.bibliocommons.com. The {id} portion of the hostname is the library's ID.",
+            "in": "query",
+            "required": false,
+            "default": "nypl"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "operationId": "ShowaUser(LookupuserbyID)Users",
+        "summary": "Returns basic information about a given user, spec...",
+        "description": "Returns basic information about a given user, specified by user ID.",
+        "tags": [
+          "Users"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "The user ID.",
+            "in": "path",
+            "required": true,
+            "default": "141097321"
+          },
+          {
+            "name": "library",
+            "type": "string",
+            "description": "(Optional) The ID of the library catalog to use for profile URLs. Each library's BiblioCommons catalog will have a hostname of the form {id}.bibliocommons.com. The {id} portion of the hostname is the library's ID.",
+            "in": "query",
+            "required": false,
+            "default": "nypl"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/users/{id}/lists": {
+      "get": {
+        "operationId": "ShowaUser'sListsUsers",
+        "summary": "Returns the list of user lists for a given user, s...",
+        "description": "Returns the list of user lists for a given user, specified by user ID, with basic information about each user list.",
+        "tags": [
+          "Users"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "The user ID.",
+            "in": "path",
+            "required": true,
+            "default": "87524369"
+          },
+          {
+            "name": "library",
+            "type": "string",
+            "description": "(Optional) The ID of the library catalog to use for profile URLs. Each library's BiblioCommons catalog will have a hostname of the form {id}.bibliocommons.com. The {id} portion of the hostname is the library's ID.",
+            "in": "query",
+            "required": false,
+            "default": "nypl"
+          },
+          {
+            "name": "limit",
+            "type": "string",
+            "description": "(Optional; default 10) Sets the limit on the number of results to be returned. If the limit exceeds the maximum limit for a particular request, the maximum limit will be used.",
+            "in": "query",
+            "required": false,
+            "default": "10"
+          },
+          {
+            "name": "page",
+            "type": "string",
+            "description": "(Optional; default 1) Sets the current page within the result set to be returned. The index of the first page is 1. If the page exceeds the total number of pages, the last page will be returned.",
+            "in": "query",
+            "required": false,
+            "default": "1"
+          },
+          {
+            "name": "date_format",
+            "type": "string",
+            "description": "(Optional; default iso8601) Sets the format of date and time values. All date and time values are returned in the UTC time zone.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "iso8601",
+              "rfc2822"
+            ]
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "(Optional) Instructs the API to localize strings using the given locale. All strings coming from the BiblioCommons system are localizable to all supported locales. Some library-specific data, for example names of locations or collections, may be localizable depending on the library and the locale. Strings coming from bibliographic metadata or user-contributed content are not localized. Locale codes are defined as IETF language tags.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "en-CA",
+              "en-US",
+              "es-ES",
+              "fr-CA",
+              "ru-RU",
+              "zh-CN"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/users/{id}/user_content": {
+      "get": {
+        "operationId": "ShowaUser'sContentUsers",
+        "summary": "Returns the list of user contributed content for a...",
+        "description": "Returns the list of user contributed content for a given user, specified by user ID.",
+        "tags": [
+          "Users"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "The user ID.",
+            "in": "path",
+            "required": true,
+            "default": "141097321"
+          },
+          {
+            "name": "library",
+            "type": "string",
+            "description": "(Optional) The ID of the library catalog to use for profile URLs. Each library's BiblioCommons catalog will have a hostname of the form {id}.bibliocommons.com. The {id} portion of the hostname is the library's ID.",
+            "in": "query",
+            "required": false,
+            "default": "nypl"
+          },
+          {
+            "name": "limit",
+            "type": "string",
+            "description": "(Optional; default 10) Sets the limit on the number of results to be returned. If the limit exceeds the maximum limit for a particular request, the maximum limit will be used.",
+            "in": "query",
+            "required": false,
+            "default": "10"
+          },
+          {
+            "name": "page",
+            "type": "string",
+            "description": "(Optional; default 1) Sets the current page within the result set to be returned. The index of the first page is 1. If the page exceeds the total number of pages, the last page will be returned.",
+            "in": "query",
+            "required": false,
+            "default": "1"
+          },
+          {
+            "name": "metadata",
+            "type": "string",
+            "description": "(Optional; default 0) Passing metadata=1 instructs the API to return metadata about the list of results, including sorting and narrowing options. See \"Common Response Fields\" for more information.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "0",
+              "1"
+            ]
+          },
+          {
+            "name": "date_format",
+            "type": "string",
+            "description": "(Optional; default iso8601) Sets the format of date and time values. All date and time values are returned in the UTC time zone.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "iso8601",
+              "rfc2822"
+            ]
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "(Optional) Instructs the API to localize strings using the given locale. All strings coming from the BiblioCommons system are localizable to all supported locales. Some library-specific data, for example names of locations or collections, may be localizable depending on the library and the locale. Strings coming from bibliographic metadata or user-contributed content are not localized. Locale codes are defined as IETF language tags.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "en-CA",
+              "en-US",
+              "es-ES",
+              "fr-CA",
+              "ru-RU",
+              "zh-CN"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/user_content": {
+      "get": {
+        "operationId": "UserContentforTitleUserContent",
+        "summary": "Returns a list of user contributed content, includ...",
+        "description": "Returns a list of user contributed content, including comments, ratings, tags and more, for a given set of search criteria.  User content can be searched by title, or by most recent.",
+        "tags": [
+          "User Content"
+        ],
+        "parameters": [
+          {
+            "name": "title",
+            "type": "string",
+            "description": "The ID of a title to return user content about.  If title is not specified, the most recent content will be returned.",
+            "in": "query",
+            "required": true,
+            "default": "19223423052"
+          },
+          {
+            "name": "content_type",
+            "type": "string",
+            "description": "(Optional) The type of user content, for example comment, rating, tag, etc.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "age_suitability",
+              "quotation",
+              "summary",
+              "content_advisory",
+              "rating",
+              "tag",
+              "video",
+              "comment",
+              "similar_title"
+            ]
+          },
+          {
+            "name": "page",
+            "type": "string",
+            "description": "(Optional; default 1) Sets the current page within the result set to be returned. The index of the first page is 1. If the page exceeds the total number of pages, the last page will be returned.",
+            "in": "query",
+            "required": false,
+            "default": "1"
+          },
+          {
+            "name": "metadata",
+            "type": "string",
+            "description": "(Optional; default 0) Passing metadata=1 instructs the API to return metadata about the list of results, including sorting and narrowing options. See \"Common Response Fields\" for more information.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "0",
+              "1"
+            ]
+          },
+          {
+            "name": "date_format",
+            "type": "string",
+            "description": "(Optional; default iso8601) Sets the format of date and time values. All date and time values are returned in the UTC time zone.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "iso8601",
+              "rfc2822"
+            ]
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "(Optional) Instructs the API to localize strings using the given locale. All strings coming from the BiblioCommons system are localizable to all supported locales. Some library-specific data, for example names of locations or collections, may be localizable depending on the library and the locale. Strings coming from bibliographic metadata or user-contributed content are not localized. Locale codes are defined as IETF language tags.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "en-CA",
+              "en-US",
+              "es-ES",
+              "fr-CA",
+              "ru-RU",
+              "zh-CN"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

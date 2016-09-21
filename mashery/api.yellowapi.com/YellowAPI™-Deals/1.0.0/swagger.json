@@ -1,0 +1,520 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "YellowAPI™ Deals API",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test our API services using I/O Docs. YellowAPI™ Deals API lets you find deals near you or for a business listing from the Places API. Note that the IO Docs require the use of sandbox keys* and using deals.sandbox.yellowapi.com domain.\n\nAll Deals API response are only available in JSON format.",
+    "x-mashery-id": "409"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.yellowapi.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "http://developer.yellowapi.com/io-docs/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Search"
+    },
+    {
+      "name": "Details"
+    },
+    {
+      "name": "Look-up tables"
+    }
+  ],
+  "paths": {
+    "/search/geo/{longitude}/{latitude}": {
+      "get": {
+        "operationId": "search/geoSearch",
+        "summary": "Find deals with a keyword given a geocode. Formerl...",
+        "description": "Find deals with a keyword given a geocode. Formerly known as FindDeals",
+        "tags": [
+          "Search"
+        ],
+        "parameters": [
+          {
+            "name": "keyword",
+            "type": "string",
+            "description": "Keyword search term. This may be keywords, business names, or products",
+            "in": "query",
+            "required": false,
+            "default": "Electronics"
+          },
+          {
+            "name": "categories_list[]",
+            "type": "string",
+            "description": "Category to include in the search. This list can be retried from categories API call. Multiple categories can be specified by repeating this parameter for each value.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "content_types_list[]",
+            "type": "string",
+            "description": "Content types to include in the search. This list can be retried from content-types API call. Multiple content types can be specified by repeating this parameter for each value.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "latitude",
+            "type": "number",
+            "description": "The latitude coordinate. This value must be in WGS84 degress decimal notation.",
+            "in": "path",
+            "required": true,
+            "default": "43.64684"
+          },
+          {
+            "name": "longitude",
+            "type": "number",
+            "description": "The longitude coordinate. This value must be in WGS84 degress decimal notation.",
+            "in": "path",
+            "required": true,
+            "default": "-79.40099"
+          },
+          {
+            "name": "radius",
+            "type": "integer",
+            "description": "Return results from witin the radius (in KM) from centroid.",
+            "in": "query",
+            "required": false,
+            "default": "1"
+          },
+          {
+            "name": "pg",
+            "type": "integer",
+            "description": "The requested page",
+            "in": "query",
+            "required": false,
+            "default": "1"
+          },
+          {
+            "name": "pgLen",
+            "type": "integer",
+            "description": "Number of results to return per page",
+            "in": "query",
+            "required": false,
+            "default": "10"
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "description": "Type of deal (Values: deal, coupon, deal coupon)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "deal",
+              "coupon",
+              "deal coupon"
+            ]
+          },
+          {
+            "name": "sflag",
+            "type": "string",
+            "description": "Limit results to elements with certain content types such as pictures (Values: fto for pictures)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "lang",
+            "type": "string",
+            "description": "Set the language for the response. Permitted values are en or fr",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "en",
+              "fr"
+            ]
+          },
+          {
+            "name": "UID",
+            "type": "string",
+            "description": "A string of characters which uniquely identifies a user of the application (such as their IP address, session ID, or phone ID)",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/search/national": {
+      "get": {
+        "operationId": "search/nationalSearch",
+        "summary": "Find national deals with a keyword/category. Forme...",
+        "description": "Find national deals with a keyword/category. Formerly known as FindNationalDeals",
+        "tags": [
+          "Search"
+        ],
+        "parameters": [
+          {
+            "name": "keyword",
+            "type": "string",
+            "description": "Keyword search term. This may be keywords, business names, or products.",
+            "in": "query",
+            "required": false,
+            "default": "Electronics"
+          },
+          {
+            "name": "categories_list[]",
+            "type": "string",
+            "description": "Category to include in the search. This list can be retried from categories API call. Multiple categories can be specified by repeating this parameter for each value.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "content_types_list[]",
+            "type": "string",
+            "description": "Content types to include in the search. This list can be retried from content-types API call. Multiple content types can be specified by repeating this parameter for each value.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "pg",
+            "type": "integer",
+            "description": "The requested page",
+            "in": "query",
+            "required": false,
+            "default": "1"
+          },
+          {
+            "name": "pgLen",
+            "type": "integer",
+            "description": "Number of results to return per page",
+            "in": "query",
+            "required": false,
+            "default": "10"
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "description": "Type of deal (Values: deal, coupon, deal coupon)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "deal",
+              "coupon",
+              "deal coupon"
+            ]
+          },
+          {
+            "name": "sflag",
+            "type": "string",
+            "description": "Limit results to elements with certain content types such as pictures (Values: fto for pictures)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "lang",
+            "type": "string",
+            "description": "Set the language for the response. Permitted values are en or fr",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "en",
+              "fr"
+            ]
+          },
+          {
+            "name": "UID",
+            "type": "string",
+            "description": "A string of characters which uniquely identifies a user of the application (such as their IP address, session ID, or phone ID)",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/search/merchant/{listingId}": {
+      "get": {
+        "operationId": "search/merchantSearch",
+        "summary": "Find deals given a YellowPages.ca listing ID. Form...",
+        "description": "Find deals given a YellowPages.ca listing ID. Formerly known as GetMerchantDeals",
+        "tags": [
+          "Search"
+        ],
+        "parameters": [
+          {
+            "name": "listingId",
+            "type": "integer",
+            "description": "The unique ID of the Places API merchant listing (listingId in Places API)",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "pg",
+            "type": "integer",
+            "description": "The requested page",
+            "in": "query",
+            "required": false,
+            "default": "1"
+          },
+          {
+            "name": "pgLen",
+            "type": "integer",
+            "description": "Number of results to return per page",
+            "in": "query",
+            "required": false,
+            "default": "10"
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "description": "Type of deal (Values: deal, coupon, deal coupon)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "deal",
+              "coupon",
+              "deal coupon"
+            ]
+          },
+          {
+            "name": "sflag",
+            "type": "string",
+            "description": "Limit results to elements with certain content types such as pictures (Values: fto for pictures)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "lang",
+            "type": "string",
+            "description": "Set the language for the response. Permitted values are en or fr",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "en",
+              "fr"
+            ]
+          },
+          {
+            "name": "UID",
+            "type": "string",
+            "description": "A string of characters which uniquely identifies a user of the application (such as their IP address, session ID, or phone ID)",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/deal/{deal_id}": {
+      "get": {
+        "operationId": "dealDetails",
+        "summary": "Get details for a specific deal. Formerly GetDealD...",
+        "description": "Get details for a specific deal. Formerly GetDealDetails",
+        "tags": [
+          "Details"
+        ],
+        "parameters": [
+          {
+            "name": "deal_id",
+            "type": "integer",
+            "description": "Deal ID returned from Places or Deals API",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "lang",
+            "type": "string",
+            "description": "Deal language filter (Values: EN or FR)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "en",
+              "fr"
+            ]
+          },
+          {
+            "name": "UID",
+            "type": "string",
+            "description": "A string of characters which uniquely identifies a user of the application (such as their IP address, session ID, or phone ID)",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/coupon/{coupon_id}": {
+      "get": {
+        "operationId": "couponDetails",
+        "summary": "Get details for a specific coupon. Formerly GetDea...",
+        "description": "Get details for a specific coupon. Formerly GetDealDetails",
+        "tags": [
+          "Details"
+        ],
+        "parameters": [
+          {
+            "name": "deal_id",
+            "type": "integer",
+            "description": "Coupon ID returned from Places or Deals API",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "lang",
+            "type": "string",
+            "description": "Coupon language filter (Values: EN or FR)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "en",
+              "fr"
+            ]
+          },
+          {
+            "name": "UID",
+            "type": "string",
+            "description": "A string of characters which uniquely identifies a user of the application (such as their IP address, session ID, or phone ID)",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "coupon_id",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/categories": {
+      "get": {
+        "operationId": "categoriesLook-uptables",
+        "summary": "Get the list of category ID and their English/Fren...",
+        "description": "Get the list of category ID and their English/French names. These IDs correspond to the main_cateogry_id element in the search responses. Note that this call may be cached for up to 1 hour.",
+        "tags": [
+          "Look-up tables"
+        ],
+        "parameters": [
+          {
+            "name": "UID",
+            "type": "string",
+            "description": "A string of characters which uniquely identifies a user of the application (such as their IP address, session ID, or phone ID)",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/content-types": {
+      "get": {
+        "operationId": "content-typesLook-uptables",
+        "summary": "Get the list of content types and their English/Fr...",
+        "description": "Get the list of content types and their English/French names. These IDs correspond to the content_type_id element in the deal responses. Note that this call may be cached for up to 1 hour.",
+        "tags": [
+          "Look-up tables"
+        ],
+        "parameters": [
+          {
+            "name": "UID",
+            "type": "string",
+            "description": "A string of characters which uniquely identifies a user of the application (such as their IP address, session ID, or phone ID)",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

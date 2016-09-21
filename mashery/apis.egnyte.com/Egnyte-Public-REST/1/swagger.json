@@ -1,0 +1,681 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Egnyte Public REST API",
+    "version": "1",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Take our API for an interactive test drive using our developer console below. You can also view our comprehensive documentation. ",
+    "x-mashery-id": "410"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "apis.egnyte.com",
+  "basePath": "/pubapi/v1",
+  "externalDocs": {
+    "description": "Follow the steps below to start using the console. Note that this console uses a shared demo account. Outside of the console, you'll want to use your own API key and Egnyte account.\nIf logged into the portal, choose \"Manual Input\" for the \"Existing Client Credentials\" dropdown (only necessary if you are logged into this portal).\nPaste one of the following demo keys into the \"Client ID\" field -  \n\nx2g35g8gynb5cedas649m4h4 (for \"Implicit/ Javascript Client\" OAuth flow)\ncba97f3apst9eqzdr5hskggx (for \"Password Credentials\" OAuth flow)\nFor the \"Implicit/ Javascript Client\" OAuth flow, click \"Get Access Token\" to proceed. You'll need to enter user credentials after this.    \n\nFor the \"Password Credentials\" flow, you will need to enter user credentials before clicking \"Get Access Token\".    \n\nYou must use the following credentials for our Egnyte test account:    \n\nusername:  test\npassword:  password\nThat's it — you can proceed to test our API methods below!\n\nThe Permissions API and Audit Reporting API are currently unavailable on the console.\nCurrently only files with fixed placeholder text contents can be created using the Create File endpoint on this console. \nThe Update Single User endpoint in the User Management API is not available in this console. Refer to the written documentation for more details on this method.\n",
+    "url": "https://developers.egnyte.com/io-docs/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "oauth2": {
+      "type": "oauth2",
+      "flow": "implicit",
+      "authorizationUrl": "",
+      "scopes": {}
+    }
+  },
+  "security": [
+    {
+      "oauth2": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Egnyte Filesystem API"
+    },
+    {
+      "name": "Egnyte Link API"
+    }
+  ],
+  "paths": {
+    "/fs/{Path}": {
+      "get": {
+        "operationId": "ListFileorFolderEgnyteFilesystemAPI",
+        "summary": "Obtains file metadata or folder listing",
+        "tags": [
+          "Egnyte Filesystem API"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "OAuth2 access token",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Path",
+            "type": "string",
+            "description": "The full absolute path of the file or folder.",
+            "in": "path",
+            "required": true,
+            "default": "Shared/Documents"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "operationId": "MoveFileorFolderEgnyteFilesystemAPI",
+        "summary": "Moves a file or folder",
+        "tags": [
+          "Egnyte Filesystem API"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "OAuth2 access token",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Path",
+            "type": "string",
+            "description": "The full absolute path of the file or folder.",
+            "in": "path",
+            "required": true,
+            "default": "/Shared/Documents/example.txt"
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content type of the payload",
+            "in": "header",
+            "required": true,
+            "default": "application/json"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/MoveFileOrFolder"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/fs-content/{Path}": {
+      "get": {
+        "operationId": "DownloadFileEgnyteFilesystemAPI",
+        "summary": "Downloads a file",
+        "tags": [
+          "Egnyte Filesystem API"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "OAuth2 access token",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Path",
+            "type": "string",
+            "description": "The full absolute path of the file.",
+            "in": "path",
+            "required": true,
+            "default": "Shared/Documents/example.txt"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/fs{Path}": {
+      "post": {
+        "operationId": "CopyFileorFolderEgnyteFilesystemAPI",
+        "summary": "Copies a file or folder",
+        "tags": [
+          "Egnyte Filesystem API"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "OAuth2 access token",
+            "in": "header",
+            "required": true,
+            "default": "/Shared/Documents/example.txt"
+          },
+          {
+            "name": "Path",
+            "type": "string",
+            "description": "The full absolute path of the file or folder.",
+            "in": "path",
+            "required": true,
+            "default": "/Shared/Documents/example.txt"
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content type of the payload",
+            "in": "header",
+            "required": true,
+            "default": "application/json"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/CopyFileorFolder"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DeleteFileorFolderEgnyteFilesystemAPI",
+        "summary": "Deletes a file or folder",
+        "tags": [
+          "Egnyte Filesystem API"
+        ],
+        "parameters": [
+          {
+            "name": "Path",
+            "type": "string",
+            "description": "The full absolute path of the file or folder.",
+            "in": "path",
+            "required": true,
+            "default": "/Shared/Documents/example.txt"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/fs-content{Path}": {
+      "post": {
+        "operationId": "CreateFileEgnyteFilesystemAPI",
+        "summary": "Creates or updates a file",
+        "tags": [
+          "Egnyte Filesystem API"
+        ],
+        "parameters": [
+          {
+            "name": "Path",
+            "type": "string",
+            "description": "The full absolute path of the file.",
+            "in": "path",
+            "required": true,
+            "default": "Shared/Documents/example.txt"
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content type of the payload",
+            "in": "header",
+            "required": true,
+            "default": "text/plain"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/fs/Path": {},
+    "/fsPath": {},
+    "/links": {
+      "post": {
+        "operationId": "CreateLinkEgnyteLinkAPI",
+        "summary": "Generates a file or folder link",
+        "tags": [
+          "Egnyte Link API"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "OAuth2 access token",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content type of the payload",
+            "in": "header",
+            "required": true,
+            "default": "application/json"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/CreateLink"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "get": {
+        "operationId": "ListLinksEgnyteLinkAPI",
+        "summary": "Lists all links. If the user executing this is not...",
+        "description": "Lists all links. If the user executing this is not an admin, then only links created by the user will be listed.",
+        "tags": [
+          "Egnyte Link API"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "OAuth2 access token",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "path",
+            "type": "string",
+            "description": "Lists links for the absolute path of the destination file or folder",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "username",
+            "type": "string",
+            "description": "List links created by this user.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "created_before",
+            "type": "string",
+            "description": "List links created before this date.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "created_after",
+            "type": "string",
+            "description": "List links created after this date.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "description": "Choose 'file' or 'folder'. Links of selected type will be shown.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "accessibility",
+            "type": "string",
+            "description": "Choose 'anyone', 'password', 'domain', or 'recipients'. Links of selected type will be shown.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "integer",
+            "description": "Start at this link. '0' = first link.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "count",
+            "type": "integer",
+            "description": "Send this number of links. If not specified, all links will be sent.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/links/{LinkID}": {
+      "get": {
+        "operationId": "ListLinkEgnyteLinkAPI",
+        "summary": "Lists the details for a link. Details will not be ...",
+        "description": "Lists the details for a link. Details will not be listed if the user executing this is not an admin and also not the creator of the link.",
+        "tags": [
+          "Egnyte Link API"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "OAuth2 access token",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "LinkID",
+            "type": "string",
+            "description": "Link identifier",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DeleteLinkEgnyteLinkAPI",
+        "summary": "Deletes a link. The link will not be deleted if th...",
+        "description": "Deletes a link. The link will not be deleted if the user executing this is not an admin and also not the creator of the link.",
+        "tags": [
+          "Egnyte Link API"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "OAuth2 access token",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "LinkID",
+            "type": "string",
+            "description": "Link identifier",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/links/LinkID": {}
+  },
+  "definitions": {
+    "MoveFileOrFolder": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "Must be 'move'.",
+          "default": "move"
+        },
+        "destination": {
+          "type": "string",
+          "description": "The full path where the file should go (including filename).",
+          "default": "/Shared/Documents/Engineering/example.txt"
+        }
+      },
+      "required": [
+        "action",
+        "destination"
+      ]
+    },
+    "CreateFolder": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "Must be 'add_folder'.",
+          "default": "add_folder"
+        }
+      }
+    },
+    "CopyFileorFolder": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "Must be 'copy'.",
+          "default": "copy"
+        },
+        "destination": {
+          "type": "string",
+          "description": "The absolute path of the destination folder.",
+          "default": "/Shared/Documents/Engineering/example.txt"
+        }
+      }
+    },
+    "CreateLink": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "The absolute path of the destination file or folder. A target file must include the filename.",
+          "default": "/Shared/Documents/Links/links.txt"
+        },
+        "type": {
+          "type": "string",
+          "description": "Choose 'file' or 'folder'.",
+          "default": "file"
+        },
+        "accessibility": {
+          "type": "string",
+          "description": "Determines who a link is accessible by. Choose from 'anyone', 'password', 'domain', or 'recipients'.",
+          "default": "anyone"
+        },
+        "send_email": {
+          "type": "boolean",
+          "description": "If 'true' is set, link will be sent via email.",
+          "default": false
+        },
+        "recipients": {
+          "type": "string",
+          "description": "List email addresses of recipients of the link. Only required if the link will be sent via email by Egnyte.",
+          "default": ""
+        },
+        "message": {
+          "type": "string",
+          "description": "Personal message to be sent in link email.",
+          "default": "Please review this file."
+        },
+        "copy_me": {
+          "type": "boolean",
+          "description": "If 'true' is set, send a copy of the link message to the link creator. Only applies if 'send_email' is 'true'.",
+          "default": false
+        },
+        "notify": {
+          "type": "boolean",
+          "description": "If 'true' is set, link creator will be notified via email when link is accessed.",
+          "default": false
+        },
+        "link_to_current": {
+          "type": "boolean",
+          "description": "If 'true' is set, link will always refer to current version of file. Only applicable for file links.",
+          "default": false
+        },
+        "expiry_date": {
+          "type": "string",
+          "format": "date",
+          "description": "The expiry date for the link. Date must be in the future. If 'expiry_date' is specified, 'expiry_clicks' cannot be set.",
+          "default": ""
+        },
+        "expiry_clicks": {
+          "type": "integer",
+          "description": "The number of clicks the link is valid for. Value must be between 1 and 10.",
+          "default": "3"
+        }
+      },
+      "required": [
+        "path",
+        "type",
+        "accessibility"
+      ]
+    },
+    "CreateSingleUser": {
+      "type": "object",
+      "properties": {
+        "userName": {
+          "type": "string",
+          "description": "The Egnyte username for the user.",
+          "default": ""
+        },
+        "externalId": {
+          "type": "string",
+          "description": "This is an immutable unique identifier provided by the API consumer.",
+          "default": ""
+        },
+        "email": {
+          "type": "string",
+          "description": "The email address of the user.",
+          "default": ""
+        },
+        "familyName": {
+          "type": "string",
+          "description": "The last name of the user.",
+          "default": ""
+        },
+        "givenName": {
+          "type": "string",
+          "description": "The first name of the user.",
+          "default": ""
+        },
+        "active": {
+          "type": "boolean",
+          "description": "Determines whether the user is active or inactive.",
+          "default": "true"
+        },
+        "sendInvite": {
+          "type": "boolean",
+          "description": "If set to true when creating a user, an invitation email will be sent (if the user is created as 'active').",
+          "default": "true"
+        },
+        "authType": {
+          "type": "string",
+          "description": "The authentication type for the user. Possible values are 'ad' (Active Directory), 'sso' (SAML SSO), and 'egnyte' (Internal Egnyte).",
+          "default": "egnyte"
+        },
+        "userType": {
+          "type": "string",
+          "description": "The Egnyte role for the user. Possible values are 'admin' (Administrator), 'power' (Power User), and 'standard' (Standard User).",
+          "default": "power"
+        },
+        "idpUserId": {
+          "type": "string",
+          "description": "This is how the user is identified within the SAML Response from an SSO Identity Provider, i.e. the SAML Subject. Only required if the user is SSO authenticated and not using default user mapping. Do not specify if user is not SSO authenticated.",
+          "default": ""
+        },
+        "userPrincipalName": {
+          "type": "string",
+          "description": "Used to bind child authentication policies to a user when using Active Directory authentication in a multi-domain setup. Do not specify if user is not AD authenticated.",
+          "default": ""
+        }
+      },
+      "required": [
+        "userName",
+        "externalId",
+        "email",
+        "familyName",
+        "givenName",
+        "active",
+        "sendInvite",
+        "authType",
+        "userType"
+      ]
+    }
+  }
+}

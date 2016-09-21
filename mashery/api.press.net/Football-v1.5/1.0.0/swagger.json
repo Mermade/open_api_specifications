@@ -1,0 +1,4441 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Football API v1.5",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test our API services using I/O Docs. Football API",
+    "x-mashery-id": "5021"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.press.net",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "http://developer.press.net/io-docs/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Competition"
+    },
+    {
+      "name": "CompetitionStats"
+    },
+    {
+      "name": "Competitions"
+    },
+    {
+      "name": "CompetitionsStats"
+    },
+    {
+      "name": "Match"
+    },
+    {
+      "name": "PerformanceData"
+    },
+    {
+      "name": "Player"
+    },
+    {
+      "name": "PlayerStats"
+    },
+    {
+      "name": "Stats"
+    },
+    {
+      "name": "Team"
+    },
+    {
+      "name": "TeamStats"
+    }
+  ],
+  "paths": {
+    "/competition/aliases/{competitionId}": {
+      "get": {
+        "operationId": "AliasesCompetition",
+        "summary": "Returns a list of recognised aliases, which can be...",
+        "description": "Returns a list of recognised aliases, which can be used in the API method calls, for the competition in question.",
+        "tags": [
+          "Competition"
+        ],
+        "parameters": [
+          {
+            "name": "competitionId",
+            "type": "integer",
+            "description": "The PA competition ID for the competition in question.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/competition/attendances/{competitionId}/{startDate}/{endDate}": {
+      "get": {
+        "operationId": "AttendancesCompetition",
+        "summary": "Returns a list of venues and matches with their at...",
+        "description": "Returns a list of venues and matches with their attendances sorted in order of highest first.",
+        "tags": [
+          "Competition"
+        ],
+        "parameters": [
+          {
+            "name": "competitionId",
+            "type": "string",
+            "description": "The unique ID or recognised alias for the competition in question.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "description": "The start date for the period in question in yyyy-MM-dd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "description": "The end date for the period in question in yyyy-MM-dd format.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/competition": {
+      "get": {
+        "operationId": "CompetitionCompetition",
+        "summary": "Returns a list of available competitions along wit...",
+        "description": "Returns a list of available competitions along with the most recent associated season",
+        "tags": [
+          "Competition"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/competition/events/{competitionId}/{startDate}/{endDate}": {
+      "get": {
+        "operationId": "EventsCompetition",
+        "summary": "Returns all of the matches and their events for th...",
+        "description": "Returns all of the matches and their events for the competition and dates in question or for the particular season.",
+        "tags": [
+          "Competition"
+        ],
+        "parameters": [
+          {
+            "name": "competitionId",
+            "type": "integer",
+            "description": "The unique ID or recognised alias for the competition in question.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "The start date for the period in question in yyyy-MM-dd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "The end date for the period in question in yyyy-MM-dd format.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/competition/fixtures/{competitionId}": {
+      "get": {
+        "operationId": "FixturesCompetition",
+        "summary": "Returns a list of fixtures (games that have not ye...",
+        "description": "Returns a list of fixtures (games that have not yet been played) for a competition.",
+        "tags": [
+          "Competition"
+        ],
+        "parameters": [
+          {
+            "name": "competitionId",
+            "type": "integer",
+            "description": "The PA competition ID or a recognised alias for the competition in question.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/competition/fixturesEnhanced/{competitionId}/{endDate}": {
+      "get": {
+        "operationId": "FixturesEnhancedCompetition",
+        "summary": "Returns a list of fixtures between 2 dates, includ...",
+        "description": "Returns a list of fixtures between 2 dates, including all postponements",
+        "tags": [
+          "Competition"
+        ],
+        "parameters": [
+          {
+            "name": "competitionId",
+            "type": "integer",
+            "description": "The ID of the competition in question",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "The required start date in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/competition/leagueTable/{competitionId}/{date}": {
+      "get": {
+        "operationId": "LeagueTableCompetition",
+        "summary": "Returns the latest live league table for a competi...",
+        "description": "Returns the latest live league table for a competition.",
+        "tags": [
+          "Competition"
+        ],
+        "parameters": [
+          {
+            "name": "competitionId",
+            "type": "integer",
+            "description": "The PA competition ID or a recognised alias for the competition in question.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "format": "date",
+            "description": "The date you would like the table for (see notes).",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/competition/leagueTableEnhanced/{competitionId}/{date}": {
+      "get": {
+        "operationId": "LeagueTableEnhancedCompetition",
+        "summary": "Returns a structure representation of a competitio...",
+        "description": "Returns a structure representation of a competition's league table",
+        "tags": [
+          "Competition"
+        ],
+        "parameters": [
+          {
+            "name": "competitionId",
+            "type": "integer",
+            "description": "The PA competition Identifier",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "format": "date",
+            "description": "The date of the league table (defaults to the most recent)",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/competition/liveGames/{competitionId}": {
+      "get": {
+        "operationId": "LiveGamesCompetition",
+        "summary": "Returns the details of all live games that are bei...",
+        "description": "Returns the details of all live games that are being played on the day the method is called and for a competition.",
+        "tags": [
+          "Competition"
+        ],
+        "parameters": [
+          {
+            "name": "competitionId",
+            "type": "integer",
+            "description": "The PA competition ID or a recognised alias for the competition in question.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/competition/matchDates/{competitionId}/{startDate}/{endDate}": {
+      "get": {
+        "operationId": "MatchDatesCompetition",
+        "summary": "Returns a list of dates (between a start and end d...",
+        "description": "Returns a list of dates (between a start and end date) on which matches are being played, in the competition in question.",
+        "tags": [
+          "Competition"
+        ],
+        "parameters": [
+          {
+            "name": "competitionId",
+            "type": "string",
+            "description": "The PA competition ID or a recognised alias for the competition in question.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "The start date of the period in question in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "The end date of the period in question in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/competition/matchDatesEnhanced/{competitionId}/{startDate}/{endDate}": {
+      "get": {
+        "operationId": "MatchDatesEnhancedCompetition",
+        "summary": "Returns a list of fixture dates for a competition,...",
+        "description": "Returns a list of fixture dates for a competition, including those dates where postponements occurred.",
+        "tags": [
+          "Competition"
+        ],
+        "parameters": [
+          {
+            "name": "competitionId",
+            "type": "integer",
+            "description": "The Competition ID of interest.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "The required start date in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "The required start date in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/competition/matchDay/{competitionId}/{matchDay}": {
+      "get": {
+        "operationId": "MatchDayCompetition",
+        "summary": "Returns a combination of fixtures, live games and ...",
+        "description": "Returns a combination of fixtures, live games and results on the day the method is called and for a competition.",
+        "tags": [
+          "Competition"
+        ],
+        "parameters": [
+          {
+            "name": "competitionId",
+            "type": "integer",
+            "description": "The PA competition ID or a recognised alias for the competition in question.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "matchDay",
+            "type": "string",
+            "format": "date",
+            "description": "The required date in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/competition/matchDayEnhanced/{competitionId}/{date}": {
+      "get": {
+        "operationId": "MatchDayEnhancedCompetition",
+        "summary": "Returns a list of matches being played on a day.  ...",
+        "description": "Returns a list of matches being played on a day.  Includes enhanced data and schema",
+        "tags": [
+          "Competition"
+        ],
+        "parameters": [
+          {
+            "name": "competitionId",
+            "type": "integer",
+            "description": "The CompetitionID in question.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "format": "date",
+            "description": "The Match Day of interest",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/competition/matchDays/{competitionId}/{startDate}/{endDate}/{teamId}": {
+      "get": {
+        "operationId": "MatchDaysCompetition",
+        "summary": "Returns a combination of fixtures, live games and ...",
+        "description": "Returns a combination of fixtures, live games and results for a date range and competition.",
+        "tags": [
+          "Competition"
+        ],
+        "parameters": [
+          {
+            "name": "competitionId",
+            "type": "integer",
+            "description": "The Competition ID of interest",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "The required start date in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "The required start date in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "The Team ID of interest",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/competition/matchDaysEnhanced/{competitionId}/{startDate}/{endDate}": {
+      "get": {
+        "operationId": "MatchDaysEnhancedCompetition",
+        "summary": "Returns a list of matches in a date range (include...",
+        "description": "Returns a list of matches in a date range (includes Postponed games).  Includes enhanced data and schema",
+        "tags": [
+          "Competition"
+        ],
+        "parameters": [
+          {
+            "name": "competitionId",
+            "type": "integer",
+            "description": "The Competition ID in question",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "The required start date in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "The required start date in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/competition/news/{competitionId}": {
+      "get": {
+        "operationId": "NewsCompetition",
+        "summary": "Returns the latest 10 news articles related to the...",
+        "description": "Returns the latest 10 news articles related to the competition chosen.",
+        "tags": [
+          "Competition"
+        ],
+        "parameters": [
+          {
+            "name": "competitionId",
+            "type": "integer",
+            "description": "The PA competition ID or a recognised alias for the competition in question.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/competition/newsImage/{articleId}/{width}/{height}": {
+      "get": {
+        "operationId": "NewsImageCompetition",
+        "summary": "Returns an image corresponding to a news article. ...",
+        "description": "Returns an image corresponding to a news article.  The option parameters of width and height will provide a scaled image at the size requested.",
+        "tags": [
+          "Competition"
+        ],
+        "parameters": [
+          {
+            "name": "articleId",
+            "type": "integer",
+            "description": "The news article ID in question.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "width",
+            "type": "integer",
+            "description": "The required width in pixels.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "height",
+            "type": "integer",
+            "description": "The required height in pixels.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/competition/postponements/{competitionId}/{startDate}/{endDate}": {
+      "get": {
+        "operationId": "PostponementsCompetition",
+        "summary": "Returns a list of fixtures that have been postpone...",
+        "description": "Returns a list of fixtures that have been postponed in a competition between two dates.",
+        "tags": [
+          "Competition"
+        ],
+        "parameters": [
+          {
+            "name": "competitionId",
+            "type": "integer",
+            "description": "The Competition ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "The required start date in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "The required start date in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/competition/results/{competitionId}/{startDate}/{endDate}": {
+      "get": {
+        "operationId": "ResultsCompetition",
+        "summary": "Returns a list of results from the start of the cu...",
+        "description": "Returns a list of results from the start of the current season to now, unless the optional start date and end date parameters are specified.",
+        "tags": [
+          "Competition"
+        ],
+        "parameters": [
+          {
+            "name": "competitionId",
+            "type": "integer",
+            "description": "The PA competition ID or a recognised alias for the competition in question.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "The start date of the period in question in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "The optional end date of the perion in question in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/competition/{competitionId}": {
+      "get": {
+        "operationId": "SeasonsCompetition",
+        "summary": "Returns a list of available seasons for a competit...",
+        "description": "Returns a list of available seasons for a competition if the client is entitled to them",
+        "tags": [
+          "Competition"
+        ],
+        "parameters": [
+          {
+            "name": "competitionId",
+            "type": "integer",
+            "description": "The Competition ID",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/competition/teams/{competitionId}/{startDate}/{endDate}": {
+      "get": {
+        "operationId": "TeamsCompetition",
+        "summary": "Returns a list of teams that are playing, or have ...",
+        "description": "Returns a list of teams that are playing, or have played, in a competition for the dates requested.",
+        "tags": [
+          "Competition"
+        ],
+        "parameters": [
+          {
+            "name": "competitionId",
+            "type": "integer",
+            "description": "The PA competition ID or a recognised alias for the competition in question.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "The start date for the period in question in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "The end date for the period in question in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/competition/venue/{competitionId}/{venueId}/{startDate}/{endDate}": {
+      "get": {
+        "operationId": "VenueCompetition",
+        "summary": "Returns a list of matches and their attendances at...",
+        "description": "Returns a list of matches and their attendances at the venue in question for the competition in question.",
+        "tags": [
+          "Competition"
+        ],
+        "parameters": [
+          {
+            "name": "competitionId",
+            "type": "string",
+            "description": "The PA competition ID or a recognised alias for the competition in question.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "venueId",
+            "type": "integer",
+            "description": "The unique ID of the venue in question.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "Start date",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "End date",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/competition/venues/{competitionId}/{startDate}/{endDate}": {
+      "get": {
+        "operationId": "VenuesCompetition",
+        "summary": "Returns all venues and their matches for the compe...",
+        "description": "Returns all venues and their matches for the competition in question.",
+        "tags": [
+          "Competition"
+        ],
+        "parameters": [
+          {
+            "name": "competitionId",
+            "type": "string",
+            "description": "The PA competition ID or a recognised alias for the competition in question.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "Start date",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "End date",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/competition/vidiprinter/{events}/{comps}/{notMatches}": {
+      "get": {
+        "operationId": "VidiprinterCompetition",
+        "summary": "Returns latest X number of major events across cho...",
+        "description": "Returns latest X number of major events across chosen competitions.",
+        "tags": [
+          "Competition"
+        ],
+        "parameters": [
+          {
+            "name": "events",
+            "type": "integer",
+            "description": "The number of events to return",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "comps",
+            "type": "string",
+            "description": "The pipe-delimited string of interested competition IDs",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "notMatches",
+            "type": "string",
+            "description": "The pipe-delimited string of interested match IDs",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/competition/eaIndex/{competitionId}/{startDate}/{endDate}": {
+      "get": {
+        "operationId": "EAIndexCompetitionStats",
+        "summary": "Returns match and player data based on the EA Inde...",
+        "description": "Returns match and player data based on the EA Index for the competition in question and date range.",
+        "tags": [
+          "CompetitionStats"
+        ],
+        "parameters": [
+          {
+            "name": "competitionId",
+            "type": "string",
+            "description": "The ID or recognised alias of the competition in question.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "The start date of the period in question in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "The start date of the period in question in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/competition/eaIndexFull/{competitionId}/{startDate}/{endDate}": {
+      "get": {
+        "operationId": "EAIndexFullCompetitionStats",
+        "summary": "Provides the full EA Index for the parameters in q...",
+        "description": "Provides the full EA Index for the parameters in question.",
+        "tags": [
+          "CompetitionStats"
+        ],
+        "parameters": [
+          {
+            "name": "competitionId",
+            "type": "string",
+            "description": "The ID or recognised alias of the competition in question.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "The start date of the period in question in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "The end date of the period in question in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/competition/eaIndexTop/{competitionId}/{date}/{type}": {
+      "get": {
+        "operationId": "EAIndexTopCompetitionStats",
+        "summary": "Provides the top players in the EA Index based on ...",
+        "description": "Provides the top players in the EA Index based on the parameters passed.",
+        "tags": [
+          "CompetitionStats"
+        ],
+        "parameters": [
+          {
+            "name": "competitionId",
+            "type": "integer",
+            "description": "The unique ID or recognised alias of the competition in question.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "format": "date",
+            "description": "The end date of the period in question in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "description": "The type of report required (see notes).",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/competition/metrics/{competitionId}/{startDate}/{endDate}": {
+      "get": {
+        "operationId": "MetricsCompetitionStats",
+        "summary": "Returns key values on the number of elements recor...",
+        "description": "Returns key values on the number of elements recorded for the competition in question, for the date period in question.",
+        "tags": [
+          "CompetitionStats"
+        ],
+        "parameters": [
+          {
+            "name": "competitionId",
+            "type": "string",
+            "description": "The PA competition ID or a recognised alias for the competition in question.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "The start date of the period in question in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "The end date of the period in question in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/competition/stats/{stat}/{competitionId}/{startDate}/{endDate}": {
+      "get": {
+        "operationId": "StatsCompetitionStats",
+        "summary": "Returns details of a chosen statistic type in a co...",
+        "description": "Returns details of a chosen statistic type in a competition between two dates.",
+        "tags": [
+          "CompetitionStats"
+        ],
+        "parameters": [
+          {
+            "name": "stat",
+            "type": "string",
+            "description": "Stat type",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "competitionId",
+            "type": "integer",
+            "description": "Competition ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "The required start date in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "The required start date in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/competition/stats/summary/{competitionId}/{startDate}/{endDate}": {
+      "get": {
+        "operationId": "SummaryCompetitionStats",
+        "summary": "Returns top level total stats for all event types ...",
+        "description": "Returns top level total stats for all event types for a competition for the dates requested.",
+        "tags": [
+          "CompetitionStats"
+        ],
+        "parameters": [
+          {
+            "name": "competitionId",
+            "type": "integer",
+            "description": "The PA competition ID or a recognised alias for the competition in question.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "The start date of the period in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "The end date of the period in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/competitions/competitions": {
+      "get": {
+        "operationId": "CompetitionsCompetitions",
+        "summary": "Returns a list of competitions and seasons you are...",
+        "description": "Returns a list of competitions and seasons you are entitled to, along with their start and end dates.",
+        "tags": [
+          "Competitions"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/competitions/fixtures": {
+      "get": {
+        "operationId": "FixturesCompetitions",
+        "summary": "Returns a list of fixtures (games that have not ye...",
+        "description": "Returns a list of fixtures (games that have not yet been played) for all competitions you are entitled to.",
+        "tags": [
+          "Competitions"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/competitions/matchDates/{startDate}/{endDate}": {
+      "get": {
+        "operationId": "MatchDatesCompetitions",
+        "summary": "Returns a list of dates (between a start and end d...",
+        "description": "Returns a list of dates (between a start and end date) on which matches are being played.",
+        "tags": [
+          "Competitions"
+        ],
+        "parameters": [
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "The start date of the period in question in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "The end date of the period in question in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/competitions/matchDay/{matchDay}": {
+      "get": {
+        "operationId": "MatchDayCompetitions",
+        "summary": "Returns a combination of fixtures, live games and ...",
+        "description": "Returns a combination of fixtures, live games and results on the day the method is called and for all competitions you're entitled to.",
+        "tags": [
+          "Competitions"
+        ],
+        "parameters": [
+          {
+            "name": "matchDay",
+            "type": "string",
+            "format": "date",
+            "description": "The required date in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/competitions/results/{startDate}/{endDate}": {
+      "get": {
+        "operationId": "ResultsCompetitions",
+        "summary": "Returns a list of results from the start of the cu...",
+        "description": "Returns a list of results from the start of the current season to now, unless the optional start date and end date parameters are specified.",
+        "tags": [
+          "Competitions"
+        ],
+        "parameters": [
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "The start date of the period in question in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "description": "The optional end date of the period in question in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/competitions/metrics/{startDate}/{endDate}": {
+      "get": {
+        "operationId": "MetricsCompetitionsStats",
+        "summary": "Returns key metrics on the number of elements reco...",
+        "description": "Returns key metrics on the number of elements recorded in the competitions you are entitled to, for the date range in question.",
+        "tags": [
+          "CompetitionsStats"
+        ],
+        "parameters": [
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "The start date of the period in question in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "The end date of the period in question in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/match/actions/{matchId}": {
+      "get": {
+        "operationId": "ActionsMatch",
+        "summary": "Returns events (actions) in a match one by one as ...",
+        "description": "Returns events (actions) in a match one by one as the game progresses.",
+        "tags": [
+          "Match"
+        ],
+        "parameters": [
+          {
+            "name": "matchId",
+            "type": "integer",
+            "description": "The match ID in question.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/match/combinedCommentary/{matchId}": {
+      "get": {
+        "operationId": "CombinedCommentaryMatch",
+        "summary": "Returns either enhanced or manual commentary for t...",
+        "description": "Returns either enhanced or manual commentary for the match in question.",
+        "tags": [
+          "Match"
+        ],
+        "parameters": [
+          {
+            "name": "matchId",
+            "type": "integer",
+            "description": "The unique ID of the match in question.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/match/commentary/{matchId}": {
+      "get": {
+        "operationId": "CommentaryMatch",
+        "summary": "Returns the text commentary for the match in quest...",
+        "description": "Returns the text commentary for the match in question.",
+        "tags": [
+          "Match"
+        ],
+        "parameters": [
+          {
+            "name": "matchId",
+            "type": "integer",
+            "description": "The match ID in question.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/match/commentaryDataSource/{matchId}": {
+      "get": {
+        "operationId": "CommentaryDataSourceMatch",
+        "summary": "Commentary Data Source",
+        "tags": [
+          "Match"
+        ],
+        "parameters": [
+          {
+            "name": "matchId",
+            "type": "integer",
+            "description": "PA match Id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/match/commentaryPreview/{matchId}": {
+      "get": {
+        "operationId": "CommentaryPreviewMatch",
+        "summary": "Commentary Preview",
+        "tags": [
+          "Match"
+        ],
+        "parameters": [
+          {
+            "name": "matchId",
+            "type": "integer",
+            "description": "PA match Id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/match/eaIndex/{matchId}": {
+      "get": {
+        "operationId": "EAIndexMatch",
+        "summary": "Returns the players that took player in the match ...",
+        "description": "Returns the players that took player in the match along with their EA index data.",
+        "tags": [
+          "Match"
+        ],
+        "parameters": [
+          {
+            "name": "matchId",
+            "type": "integer",
+            "description": "The match ID in question.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/match/enhancedCommentary/{matchId}": {
+      "get": {
+        "operationId": "EnhancedCommentaryMatch",
+        "summary": "Returns an enhanced version of the match commentar...",
+        "description": "Returns an enhanced version of the match commentary.",
+        "tags": [
+          "Match"
+        ],
+        "parameters": [
+          {
+            "name": "matchId",
+            "type": "integer",
+            "description": "The match ID in question.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/match/events/{matchId}": {
+      "get": {
+        "operationId": "EventsMatch",
+        "summary": "Returns top level events and status changes for th...",
+        "description": "Returns top level events and status changes for the match in question.",
+        "tags": [
+          "Match"
+        ],
+        "parameters": [
+          {
+            "name": "matchId",
+            "type": "integer",
+            "description": "The match ID in question.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/match/fastEvents/{matchId}": {
+      "get": {
+        "operationId": "FastEventsMatch",
+        "summary": "Provides a fast simple event notifications for all...",
+        "description": "Provides a fast simple event notifications for all matches covered with manual commentary.",
+        "tags": [
+          "Match"
+        ],
+        "parameters": [
+          {
+            "name": "matchId",
+            "type": "integer",
+            "description": "The match ID in question.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/match/formlive/{matchId}/{action|status|stats}/{id}": {
+      "get": {
+        "operationId": "FormLiveMatch",
+        "summary": "Gets big collection of statistical data for a give...",
+        "description": "Gets big collection of statistical data for a given match/action/event.",
+        "tags": [
+          "Match"
+        ],
+        "parameters": [
+          {
+            "name": "matchId",
+            "type": "string",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "action|status|stats",
+            "type": "string",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "id",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/match/formlivePhrases/{matchId}/{action|status|stats}/{id}": {
+      "get": {
+        "operationId": "FormLivePhrasesMatch",
+        "summary": "Gets all suitable phrases for a given match event/...",
+        "description": "Gets all suitable phrases for a given match event/status/stats bucket.",
+        "tags": [
+          "Match"
+        ],
+        "parameters": [
+          {
+            "name": "matchId",
+            "type": "string",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "action|status|stats",
+            "type": "string",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "id",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/match/formliveTemplates": {
+      "get": {
+        "operationId": "FormLiveTemplatesMatch",
+        "summary": "Retrieves all Form Live templates",
+        "tags": [
+          "Match"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/match/headToHead/{matchId}/{startDate}/{sameany}": {
+      "get": {
+        "operationId": "HeadToHeadMatch",
+        "summary": "Returns head to head data for a match, including s...",
+        "description": "Returns head to head data for a match, including summaries of official when known, previous meetings and team squads",
+        "tags": [
+          "Match"
+        ],
+        "parameters": [
+          {
+            "name": "matchId",
+            "type": "integer",
+            "description": "A Match ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "sameany",
+            "type": "string",
+            "description": "Competition Limit (see notes)",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "Start date",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/match/image/{matchId}/{imageURL}/{width}/{height}": {
+      "get": {
+        "operationId": "ImageMatch",
+        "summary": "Returns an image.",
+        "tags": [
+          "Match"
+        ],
+        "parameters": [
+          {
+            "name": "imageURL",
+            "type": "string",
+            "description": "The URL (filename) of the image in question.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "width",
+            "type": "integer",
+            "description": "The required width in pixels.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "height",
+            "type": "integer",
+            "description": "The required height in pixels.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "matchId",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/match/images/{matchId}": {
+      "get": {
+        "operationId": "ImagesMatch",
+        "summary": "Returns a list of images post match for the match ...",
+        "description": "Returns a list of images post match for the match in question.",
+        "tags": [
+          "Match"
+        ],
+        "parameters": [
+          {
+            "name": "matchId",
+            "type": "integer",
+            "description": "The match ID in question.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/match/info/{matchId}": {
+      "get": {
+        "operationId": "InfoMatch",
+        "summary": "Returns a match day summary for the match in quest...",
+        "description": "Returns a match day summary for the match in question.",
+        "tags": [
+          "Match"
+        ],
+        "parameters": [
+          {
+            "name": "matchId",
+            "type": "integer",
+            "description": "The unique ID of the match in question.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/match/infoEnhanced/{matchId}": {
+      "get": {
+        "operationId": "InfoEnhancedMatch",
+        "summary": "Returns an enhanced version of the Match Info endp...",
+        "description": "Returns an enhanced version of the Match Info endpoint, including bookings and dismissal details",
+        "tags": [
+          "Match"
+        ],
+        "parameters": [
+          {
+            "name": "matchId",
+            "type": "integer",
+            "description": "A Match ID",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/match/lineUps/{matchId}": {
+      "get": {
+        "operationId": "LineUpsMatch",
+        "summary": "Returns team line-ups for a match, along with mana...",
+        "description": "Returns team line-ups for a match, along with manager names, player events summaries and team formations.",
+        "tags": [
+          "Match"
+        ],
+        "parameters": [
+          {
+            "name": "matchId",
+            "type": "integer",
+            "description": "The match ID in question.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/match/lineUpsEnhanced/{matchId}": {
+      "get": {
+        "operationId": "LineUpsEnhancedMatch",
+        "summary": "Returns team line-ups for a match, along with mana...",
+        "description": "Returns team line-ups for a match, along with manager names, player events summaries and team formations.",
+        "tags": [
+          "Match"
+        ],
+        "parameters": [
+          {
+            "name": "matchId",
+            "type": "integer",
+            "description": "A Match ID",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/match/mobileCommentary/{matchId}": {
+      "get": {
+        "operationId": "MobileCommentaryMatch",
+        "summary": "Returns the mobile version of the text commentary ...",
+        "description": "Returns the mobile version of the text commentary for the match in question.  This is designed to be less wordy and more factual and includes miniForm for important events.",
+        "tags": [
+          "Match"
+        ],
+        "parameters": [
+          {
+            "name": "matchId",
+            "type": "integer",
+            "description": "The match ID in question.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/match/performanceLineups/{matchId}": {
+      "get": {
+        "operationId": "PerformanceLineupsMatch",
+        "summary": "Returns Lineups for a match for the Performance AP...",
+        "description": "Returns Lineups for a match for the Performance API",
+        "tags": [
+          "Match"
+        ],
+        "parameters": [
+          {
+            "name": "matchId",
+            "type": "integer",
+            "description": "A Match ID",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/match/postMatchStats/{matchId}": {
+      "get": {
+        "operationId": "Post-MatchStatsMatch",
+        "summary": "Returns additional match stats based on a video re...",
+        "description": "Returns additional match stats based on a video review of the game post match.",
+        "tags": [
+          "Match"
+        ],
+        "parameters": [
+          {
+            "name": "matchId",
+            "type": "string",
+            "description": "The unique identifier of the match in question.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/match/preMatchPreview/{matchId}": {
+      "get": {
+        "operationId": "Pre-MatchPreviewMatch",
+        "summary": "Preovides an analysis of form and (where possible)...",
+        "description": "Preovides an analysis of form and (where possible) a prediction for the winner, based on that form.",
+        "tags": [
+          "Match"
+        ],
+        "parameters": [
+          {
+            "name": "matchId",
+            "type": "integer",
+            "description": "The unique ID of the match in question.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/match/preview/{matchId}": {
+      "get": {
+        "operationId": "PreviewMatch",
+        "summary": "Returns an editorial preview for a match.",
+        "tags": [
+          "Match"
+        ],
+        "parameters": [
+          {
+            "name": "matchId",
+            "type": "integer",
+            "description": "The match ID in question.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/match/previewEnhanced/{matchId}": {
+      "get": {
+        "operationId": "PreviewEnhancedMatch",
+        "summary": "Returns an editorial preview for a match.",
+        "tags": [
+          "Match"
+        ],
+        "parameters": [
+          {
+            "name": "matchId",
+            "type": "integer",
+            "description": "A Match ID",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/match/report/{matchId}": {
+      "get": {
+        "operationId": "ReportMatch",
+        "summary": "Returns an editorial post match report for a match...",
+        "description": "Returns an editorial post match report for a match.",
+        "tags": [
+          "Match"
+        ],
+        "parameters": [
+          {
+            "name": "matchId",
+            "type": "integer",
+            "description": "The match ID in question.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/match/shootout/{matchId}": {
+      "get": {
+        "operationId": "ShootoutMatch",
+        "summary": "Returns penalty shootout detailed breakdown.",
+        "tags": [
+          "Match"
+        ],
+        "parameters": [
+          {
+            "name": "matchId",
+            "type": "integer",
+            "description": "A Match ID",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/match/stats/{matchId}": {
+      "get": {
+        "operationId": "StatsMatch",
+        "summary": "Returns top level stats for major events in a matc...",
+        "description": "Returns top level stats for major events in a match.",
+        "tags": [
+          "Match"
+        ],
+        "parameters": [
+          {
+            "name": "matchId",
+            "type": "integer",
+            "description": "The match ID in question.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/match/statsEnhanced/{matchId}": {
+      "get": {
+        "operationId": "StatsEnhancedMatch",
+        "summary": "Returns top level stats for major events in a matc...",
+        "description": "Returns top level stats for major events in a match.",
+        "tags": [
+          "Match"
+        ],
+        "parameters": [
+          {
+            "name": "matchId",
+            "type": "integer",
+            "description": "The match ID in question.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/matches/top/{stat}/{limit}/{startDate}/{endDate}/{competitionId}/{teamId}/{playerId}": {
+      "get": {
+        "operationId": "TopXMatch",
+        "summary": "Rank matches by occurrences of events",
+        "tags": [
+          "Match"
+        ],
+        "parameters": [
+          {
+            "name": "stat",
+            "type": "string",
+            "description": "A Stat Type (e.g. goals)",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "The number of items to return (see notes)",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "The required start date in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "The required start date in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "competitionId",
+            "type": "integer",
+            "description": "A Competition ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "A Team ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "playerId",
+            "type": "integer",
+            "description": "A Player ID",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/match/venue/{matchId}": {
+      "get": {
+        "operationId": "VenueMatch",
+        "summary": "Returns the venue name, longitude and latitude flo...",
+        "description": "Returns the venue name, longitude and latitude floats for a match venue.",
+        "tags": [
+          "Match"
+        ],
+        "parameters": [
+          {
+            "name": "matchId",
+            "type": "integer",
+            "description": "The match ID in question.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/match/widgetCommentary/{matchId}": {
+      "get": {
+        "operationId": "WidgetCommentaryMatch",
+        "summary": "Returns commentary for a match in form suitable fo...",
+        "description": "Returns commentary for a match in form suitable for a widget",
+        "tags": [
+          "Match"
+        ],
+        "parameters": [
+          {
+            "name": "matchId",
+            "type": "integer",
+            "description": "A Match ID",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/performance/enhancedMatch/{matchId}": {
+      "get": {
+        "operationId": "EnhancedMatchPerformanceData",
+        "summary": "Returns player performance data for a particular m...",
+        "description": "Returns player performance data for a particular match.",
+        "tags": [
+          "PerformanceData"
+        ],
+        "parameters": [
+          {
+            "name": "matchId",
+            "type": "integer",
+            "description": "The unique identifier of the match in question.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/performance/match/{matchId}": {
+      "get": {
+        "operationId": "MatchPerformanceData",
+        "summary": "Returns player performance data for a particular m...",
+        "description": "Returns player performance data for a particular match.",
+        "tags": [
+          "PerformanceData"
+        ],
+        "parameters": [
+          {
+            "name": "matchId",
+            "type": "integer",
+            "description": "The unique identifier of the match in question.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/performanceData/seasonal": {
+      "get": {
+        "operationId": "SeasonalPerformanceData",
+        "summary": "Returns player by player seasonal performance data...",
+        "description": "Returns player by player seasonal performance data.",
+        "tags": [
+          "PerformanceData"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/player/aliases/{playerId}": {
+      "get": {
+        "operationId": "AliasesPlayer",
+        "summary": "Returns a list of recognised aliases, which can be...",
+        "description": "Returns a list of recognised aliases, which can be used in the API method calls, for a player.",
+        "tags": [
+          "Player"
+        ],
+        "parameters": [
+          {
+            "name": "playerId",
+            "type": "integer",
+            "description": "The PA player ID for the player in question.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/player/events/{playerId}/{startDate}/{endDate}": {
+      "get": {
+        "operationId": "EventsPlayer",
+        "summary": "Returns all matches and their events for a particu...",
+        "description": "Returns all matches and their events for a particular player in a specific competition season or for all competitions between two dates.",
+        "tags": [
+          "Player"
+        ],
+        "parameters": [
+          {
+            "name": "playerId",
+            "type": "string",
+            "description": "The ID or recognised alias of the player in question.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "The start date for the period in question in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "The end date for the period in question in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/player/headToHeads/{player1Id}/{player2Id}/{startDate}/{endDate}/{competitionId}": {
+      "get": {
+        "operationId": "HeadToHeadsPlayer",
+        "summary": "Compares top level stats for two players between t...",
+        "description": "Compares top level stats for two players between two dates.",
+        "tags": [
+          "Player"
+        ],
+        "parameters": [
+          {
+            "name": "player1Id",
+            "type": "string",
+            "description": "The unique identifier or recognised alias for the first player to be compared.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "player2Id",
+            "type": "string",
+            "description": "The unique identifier or recognised alias for the second player to be compared.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "description": "The start date for the period in question in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "description": "The end date for the period in question in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "competitionId",
+            "type": "string",
+            "description": "The optional unique identifier or recognised alias for the competition in question.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/player/image/{playerId}/{width}/{height}": {
+      "get": {
+        "operationId": "ImagePlayer",
+        "summary": "Returns an image of a player.",
+        "tags": [
+          "Player"
+        ],
+        "parameters": [
+          {
+            "name": "playerId",
+            "type": "integer",
+            "description": "The PA player ID or a recognised alias for the player in question.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "width",
+            "type": "integer",
+            "description": "The required width in pixels.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "height",
+            "type": "integer",
+            "description": "The required height in pixels.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/player/profile/{playerId}": {
+      "get": {
+        "operationId": "ProfilePlayer",
+        "summary": "Returns top level personal information about a pla...",
+        "description": "Returns top level personal information about a player.",
+        "tags": [
+          "Player"
+        ],
+        "parameters": [
+          {
+            "name": "playerId",
+            "type": "integer",
+            "description": "The PA player ID or a recognised alias for the player in question.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/player/profileEnhanced/{playerId}": {
+      "get": {
+        "operationId": "ProfileEnhancedPlayer",
+        "summary": "Returns top level personal information about a pla...",
+        "description": "Returns top level personal information about a player.",
+        "tags": [
+          "Player"
+        ],
+        "parameters": [
+          {
+            "name": "playerId",
+            "type": "integer",
+            "description": "A Player ID",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/player/teamMates/{playerId}/{teamId}/{startDate}/{endDate}": {
+      "get": {
+        "operationId": "TeamMatesPlayer",
+        "summary": "Returns a list of a player's teammates.",
+        "tags": [
+          "Player"
+        ],
+        "parameters": [
+          {
+            "name": "playerId",
+            "type": "integer",
+            "description": "The PA player ID or a recognised alias for the player in question.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "The PA team ID or a recognised alias for the team in question.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "The start date for the historical list in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "The end date for the historical list in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/player/teams/{playerId}": {
+      "get": {
+        "operationId": "TeamsPlayer",
+        "summary": "Returns a list of teams that a player has played f...",
+        "description": "Returns a list of teams that a player has played for.",
+        "tags": [
+          "Player"
+        ],
+        "parameters": [
+          {
+            "name": "playerId",
+            "type": "integer",
+            "description": "The PA player ID or a recognised alias for the player in question.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/player/appearances/{playerId}/{startDate}/{endDate}/{teamId}/{competitionId}": {
+      "get": {
+        "operationId": "AppearancesPlayerStats",
+        "summary": "Returns information on appearances, matches starte...",
+        "description": "Returns information on appearances, matches started, substitutions and dismissals for a player.",
+        "tags": [
+          "PlayerStats"
+        ],
+        "parameters": [
+          {
+            "name": "playerId",
+            "type": "integer",
+            "description": "The PA player ID or a recognised alias for the player in question.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "The required start date in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "The required end date in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "A PA team ID or a recognised alias.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "competitionId",
+            "type": "integer",
+            "description": "A PA competition ID or a recognised alias.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/player/competitionAppearances/{playerId}/{startDate}/{endDate}/{competitionId}": {
+      "get": {
+        "operationId": "CompetitionAppearancesPlayerStats",
+        "summary": "Returns appearance stats for a particular player i...",
+        "description": "Returns appearance stats for a particular player in a particular competition for the date range in question.",
+        "tags": [
+          "PlayerStats"
+        ],
+        "parameters": [
+          {
+            "name": "playerId",
+            "type": "string",
+            "description": "The PA player ID or a recognised alias for the player in question.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "The required start date in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "The required end date in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "competitionId",
+            "type": "string",
+            "description": "A PA competition ID or a recognised alias.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/player/selectStats/{playerId}/{startDate}/{endDate}/{teamId}/{competitionId}": {
+      "get": {
+        "operationId": "SelectStatsPlayerStats",
+        "summary": "Returns a predefined collection of select statisti...",
+        "description": "Returns a predefined collection of select statistics for a player in a team/competition.",
+        "tags": [
+          "PlayerStats"
+        ],
+        "parameters": [
+          {
+            "name": "playerId",
+            "type": "integer",
+            "description": "A Player ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "The Start of the Date Range",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "The End of the Date Range",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "A Team ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "competitionId",
+            "type": "integer",
+            "description": "A Competition ID",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/player/stats/{statType}/{playerId}/{startDate}/{endDate}/{teamId}/{competitionId}": {
+      "get": {
+        "operationId": "StatsPlayerStats",
+        "summary": "Returns stats for all event types of the given sta...",
+        "description": "Returns stats for all event types of the given stat type for a player for the dates requested.",
+        "tags": [
+          "PlayerStats"
+        ],
+        "parameters": [
+          {
+            "name": "statType",
+            "type": "string",
+            "description": "A valid statistic type (e.g. goals)",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "playerId",
+            "type": "integer",
+            "description": "A Player ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "The start date of the date range in yyyyMMdd format",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "The end date of the date range in yyyyMMdd format",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "A Team ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "competitionId",
+            "type": "integer",
+            "description": "A CompetitionID",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/player/stats/summary/{playerId}/{startDate}/{endDate}/{teamId}/{competitionId}": {
+      "get": {
+        "operationId": "SummaryPlayerStats",
+        "summary": "Returns top level total stats for all event types ...",
+        "description": "Returns top level total stats for all event types for a player for the dates requested.",
+        "tags": [
+          "PlayerStats"
+        ],
+        "parameters": [
+          {
+            "name": "playerId",
+            "type": "integer",
+            "description": "The PA player ID or a recognised alias for the player in question.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "The start date of the period in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "The end date of the period in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "The PA team ID or a recognised alias for the team in question.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "competitionId",
+            "type": "integer",
+            "description": "The PA competition ID or a recognised alias for the competition in question.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/players/top/{stat}/{limit}/{startDate}/{endDate}/{competitionId}/{teamId}": {
+      "get": {
+        "operationId": "TopXPlayerStats",
+        "summary": "Rank players by occurrences of events",
+        "tags": [
+          "PlayerStats"
+        ],
+        "parameters": [
+          {
+            "name": "stat",
+            "type": "string",
+            "description": "A valid stat type (e.g. DismissalsForViolentConduct)",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "The number of results to return",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "The start of the date range in yyyyMMdd format",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "The end of the date range in yyyyMMdd format",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "competitionId",
+            "type": "integer",
+            "description": "A Competition ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "A Team ID",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/eventBreakdown/{statType}/{startDate}/{endDate}/{competitionId}/{teamId}/{playerId}": {
+      "get": {
+        "operationId": "EventBreakdownStats",
+        "summary": "Shows the breakdown of match event occurrences",
+        "tags": [
+          "Stats"
+        ],
+        "parameters": [
+          {
+            "name": "statType",
+            "type": "string",
+            "description": "A valid Statistic Type",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "The start of the date range",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "The end of the date range",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "competitionId",
+            "type": "integer",
+            "description": "A Competition ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "A Team ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "playerId",
+            "type": "integer",
+            "description": "A Player ID",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/types": {
+      "get": {
+        "operationId": "StatsTypesStats",
+        "summary": "List and description of defined stats types",
+        "tags": [
+          "Stats"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/team/aliases/{teamId}": {
+      "get": {
+        "operationId": "AliasesTeam",
+        "summary": "Returns a list of recognised aliases, which can be...",
+        "description": "Returns a list of recognised aliases, which can be used in the API method calls, for a team.",
+        "tags": [
+          "Team"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "The PA team ID for the team in question.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/team/badge/{teamId}/{width}/{height}": {
+      "get": {
+        "operationId": "BadgeTeam",
+        "summary": "Returns the current badge image for a team.",
+        "tags": [
+          "Team"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "The PA team ID or a recognised alias for the team in question.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "width",
+            "type": "integer",
+            "description": "The required width in pixels.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "height",
+            "type": "integer",
+            "description": "The required height in pixels.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/team/competitionsMatchDays/{teamId}/{startDate}/{endDate}/{competitionId}": {
+      "get": {
+        "operationId": "CompetitionsMatchDaysTeam",
+        "summary": "Returns a combination of fixtures, live games and ...",
+        "description": "Returns a combination of fixtures, live games and results for a date range and team id.",
+        "tags": [
+          "Team"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "A Team ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "The required start date in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "The required start date in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "competitionId",
+            "type": "integer",
+            "description": "A Competition ID",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/team/events/{teamId}/{startDate}/{endDate}": {
+      "get": {
+        "operationId": "EventsTeam",
+        "summary": "Returns all matches and their events for a particu...",
+        "description": "Returns all matches and their events for a particular team  for all competitions between two dates.",
+        "tags": [
+          "Team"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "type": "string",
+            "description": "The unique identifier or recognised alias for the team in question.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "The start date for the period in question in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "The end date for the period in question in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/team/fixtures/{teamId}": {
+      "get": {
+        "operationId": "FixturesTeam",
+        "summary": "Returns the fixtures (all upcoming matches) for a ...",
+        "description": "Returns the fixtures (all upcoming matches) for a team.",
+        "tags": [
+          "Team"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "The PA team ID or a recognised alias for the team in question.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/team/fullSquad/{teamId}": {
+      "get": {
+        "operationId": "FullSquadTeam",
+        "summary": "Returns full team squad including loaned palyers.",
+        "tags": [
+          "Team"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "A Team ID",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/team/headToHeads/{team1Id}/{team2Id}/{startDate}/{endDate}/{competitionId}": {
+      "get": {
+        "operationId": "HeadToHeadsTeam",
+        "summary": "Compares top level stats for a particular set of t...",
+        "description": "Compares top level stats for a particular set of teams, between two dates.",
+        "tags": [
+          "Team"
+        ],
+        "parameters": [
+          {
+            "name": "team1Id",
+            "type": "string",
+            "description": "The unique identifier or recognised alias for the first team to be compared.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "team2Id",
+            "type": "string",
+            "description": "The unique identifier or recognised alias for the second team to be compared.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "description": "The start date for the period in question in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "description": "The end date for the period in question in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "competitionId",
+            "type": "string",
+            "description": "The optional unique identifier or recognised alias for the competition in question.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/team/history/{teamId}/{startDate}/{endDate}/{competitionId}": {
+      "get": {
+        "operationId": "HistoryTeam",
+        "summary": "Returns a top level summary of matches won, drawn ...",
+        "description": "Returns a top level summary of matches won, drawn and lost for a team, along with a full list of matches.",
+        "tags": [
+          "Team"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "The PA team ID or a recognised alias for the team in question.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "The required start date for the period in question in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "The required end date for the period in question in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "competitionId",
+            "type": "integer",
+            "description": "The PA competition ID or a recognised alias for the competition in question.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/team/manager/{managerId}": {
+      "get": {
+        "operationId": "ManagerTeam",
+        "summary": "Returns a complete team and match history for a ma...",
+        "description": "Returns a complete team and match history for a manager.",
+        "tags": [
+          "Team"
+        ],
+        "parameters": [
+          {
+            "name": "managerId",
+            "type": "integer",
+            "description": "The unique identifier for the manager in question.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/team/news/{teamId}": {
+      "get": {
+        "operationId": "NewsTeam",
+        "summary": "Returns a set of Team News",
+        "tags": [
+          "Team"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "A Team ID",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/team/profile/{teamId}": {
+      "get": {
+        "operationId": "ProfileTeam",
+        "summary": "A team profile overview; manager history and curre...",
+        "description": "A team profile overview; manager history and current competitions with league position where appropriate.",
+        "tags": [
+          "Team"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "A Team ID",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/team/results/{teamId}/{startDate}/{endDate}": {
+      "get": {
+        "operationId": "ResultsTeam",
+        "summary": "Returns a list of results for a team.",
+        "tags": [
+          "Team"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "The PA team ID or a recognised alias for the team in question.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "The start date for historical results in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "The end date for historical results in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/team/shirt/{teamId}/{width}/{height}": {
+      "get": {
+        "operationId": "ShirtTeam",
+        "summary": "Returns the current shirt of a team, this image is...",
+        "description": "Returns the current shirt of a team, this image is representational and does not exactly match the shirts themselves, nor do we include any sponsors logos for legal reasons.",
+        "tags": [
+          "Team"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "The PA team ID or a recognised alias for the team in question.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "width",
+            "type": "integer",
+            "description": "The required width in pixels.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "height",
+            "type": "integer",
+            "description": "The required height in pixels.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/team/squad/{teamId}/{startDate}/{endDate}/{mode}": {
+      "get": {
+        "operationId": "SquadTeam",
+        "summary": "Returns the current squad list for a team. The opt...",
+        "description": "Returns the current squad list for a team. The optional date parameters allow you to request an historical squad list.",
+        "tags": [
+          "Team"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "The PA team ID or a recognised alias for the team in question.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "The start date for the historical squad list in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "The end date for the historical squad list in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "mode",
+            "type": "string",
+            "description": "members or transfers",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/team/squadEnhanced/{teamId}/{competitionId}": {
+      "get": {
+        "operationId": "SquadEnhancedTeam",
+        "summary": "Returns squad members and stats for a team (and op...",
+        "description": "Returns squad members and stats for a team (and optionally competition) for the current season.",
+        "tags": [
+          "Team"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "A Team ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "competitionId",
+            "type": "integer",
+            "description": "A CompetitionID",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/team/teamSummary/{teamId}": {
+      "get": {
+        "operationId": "TeamSummaryTeam",
+        "summary": "Returns details on accepted aliases and managers f...",
+        "description": "Returns details on accepted aliases and managers for a team.",
+        "tags": [
+          "Team"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "type": "string",
+            "description": "The team ID or recognised alias for the team in question.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/team/teamSummaryEnhanced/{teamId}": {
+      "get": {
+        "operationId": "TeamSummaryEnhancedTeam",
+        "summary": "Returns a summary of team details.",
+        "tags": [
+          "Team"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "A PA team Id.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/team/venue/{teamId}": {
+      "get": {
+        "operationId": "VenueTeam",
+        "summary": "Returns the home venue (ground) of a team, along w...",
+        "description": "Returns the home venue (ground) of a team, along with its longitude and latitude (when available).",
+        "tags": [
+          "Team"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "The PA team ID or a recognised alias for the team in question.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/team/metrics/{teamId}/{startDate}/{endDate}/{competitionId}": {
+      "get": {
+        "operationId": "MetricsTeamStats",
+        "summary": "Returns top level figures on how many events, matc...",
+        "description": "Returns top level figures on how many events, matches and players have been processed for the team in question, for the dates in question and the optional competition.",
+        "tags": [
+          "TeamStats"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "type": "string",
+            "description": "The PA team ID or a recognised alias for the team in question.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "The start date for historical results in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "description": "The end date for historical results in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "competitionId",
+            "type": "string",
+            "description": "The unique ID or recognised alias for the competition in question.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/team/selectStats/{teamId}/{startDate}/{endDate}/{competitionId}": {
+      "get": {
+        "operationId": "SelectStatsTeamStats",
+        "summary": "Returns a predefined collection of select statisti...",
+        "description": "Returns a predefined collection of select statistics for a team in a competition.",
+        "tags": [
+          "TeamStats"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "A Team ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "The Start of the Date Range",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "The End of the Date Range",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "competitionId",
+            "type": "integer",
+            "description": "A Competition ID",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/team/stats/{statType}/{teamId}/{startDate}/{endDate}/{competitionId}": {
+      "get": {
+        "operationId": "StatsTeamStats",
+        "summary": "Returns stats for all event types of the given sta...",
+        "description": "Returns stats for all event types of the given stat type for a team for the dates requested.",
+        "tags": [
+          "TeamStats"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "A Team ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "The required start date in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "The required start date in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "competitionId",
+            "type": "integer",
+            "description": "A Competition ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "statType",
+            "type": "string",
+            "description": "A statistic type",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/teams/stats/{competitionId}/{startDate}/{endDate}": {
+      "get": {
+        "operationId": "StatsOverviewTeamStats",
+        "summary": "Returns a statistical overview of teams in a compe...",
+        "description": "Returns a statistical overview of teams in a competition between two dates.",
+        "tags": [
+          "TeamStats"
+        ],
+        "parameters": [
+          {
+            "name": "competitionId",
+            "type": "integer",
+            "description": "A Competition ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "The required start date in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "The required start date in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/team/stats/summary/{teamId}/{startDate}/{endDate}/{competitionId}": {
+      "get": {
+        "operationId": "SummaryTeamStats",
+        "summary": "Returns top level total stats for all event types ...",
+        "description": "Returns top level total stats for all event types for a team for the dates requested.",
+        "tags": [
+          "TeamStats"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "The PA team ID or a recognised alias for the team in question.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "The start date of the period in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "The end date of the period in yyyyMMdd format.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "competitionId",
+            "type": "integer",
+            "description": "The PA competition ID or a recognised alias for the competition in question.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/teams/top/{stat}/{limit}/{startDate}/{endDate}/{competitionId}": {
+      "get": {
+        "operationId": "TopXTeamStats",
+        "summary": "Rank teams by occurrences of events",
+        "tags": [
+          "TeamStats"
+        ],
+        "parameters": [
+          {
+            "name": "stat",
+            "type": "string",
+            "description": "A valid stat type (e.g. dismissals)",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "The number of results to return (see notes)",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "The start of the date range in yyyyMMdd format",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "The end of the date range in yyyyMMdd format",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "competitionId",
+            "type": "integer",
+            "description": "A Competition ID",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

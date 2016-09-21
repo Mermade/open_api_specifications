@@ -1,0 +1,211 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Online Traffic Flow",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test our API services using our API Explorer below. Simply enter the parameters and click “Try It”. You must have a valid API key for this to work (go to My Account to request a key if you do not already have one). You can also view our written documentation for Online Maps, Online Routing, Online Traffic Flow, Online Traffic Incidents and MySports Cloud. Online Traffic Flow is a suite of web services designed for developers to create web and mobile applications around real-time traffic. These web services can be used via RESTful APIs.",
+    "x-mashery-id": "4070"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.tomtom.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "http://developer.tomtom.com/io-docs/member"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Flow Segment Data"
+    },
+    {
+      "name": "Flow Tiles"
+    }
+  ],
+  "paths": {
+    "/traffic/services/4/flowSegmentData/{style}/{zoom}/{format}": {
+      "get": {
+        "operationId": "FlowSegmentDataFlowSegmentData",
+        "summary": "Returns information about the speeds and travel ti...",
+        "description": "Returns information about the speeds and travel times of the road fragment closest to the given coordinates. It is designed to work alongside the Flow layer of the Maps API to support clickable flow data visualizations. With this API, the client side can connect any place in the map with flow data on the closest road and present it to the user.",
+        "tags": [
+          "Flow Segment Data"
+        ],
+        "parameters": [
+          {
+            "name": "style",
+            "type": "string",
+            "description": "Speed information used to render the flow tile.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "absolute",
+              "relative",
+              "relative-delay"
+            ]
+          },
+          {
+            "name": "zoom",
+            "type": "integer",
+            "description": "Zoom level (0..18).",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "The content type of the response structure. If the content type is jsonp, a callback method can be specified at the end of the service call.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "xml",
+              "json",
+              "jsonp"
+            ]
+          },
+          {
+            "name": "point",
+            "type": "string",
+            "description": "Coordinates of the point close to the road segment, comma separated and in EPSG4326 format.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "unit",
+            "type": "string",
+            "description": "Units to denominate speeds. Default: KMPH.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "KMPH",
+              "MPH"
+            ]
+          },
+          {
+            "name": "thickness",
+            "type": "integer",
+            "description": "Thickness of the line (1..20). Default: 10.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "jsonp",
+            "type": "string",
+            "description": "Callback method for jsonp responses.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/traffic/map/4/tile/flow/{style}/{zoom}/{x}/{y}.{mimeType}": {
+      "get": {
+        "operationId": "FlowTilesFlowTiles",
+        "summary": "Returns 256 x 256 pixel tiles showing traffic flow...",
+        "description": "Returns 256 x 256 pixel tiles showing traffic flow. All tiles use the same grid system. Because the traffic tiles use transparent images, they can be layered on top of map tiles to create a compound display. The Online Traffic Flow tiles use colors to indicate either the speed of traffic on different road segments, or the difference between that speed and the free-flow speed on the road segment in question.",
+        "tags": [
+          "Flow Tiles"
+        ],
+        "parameters": [
+          {
+            "name": "style",
+            "type": "string",
+            "description": "Speed information used to render the tile.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "absolute",
+              "relative",
+              "relative-delay"
+            ]
+          },
+          {
+            "name": "zoom",
+            "type": "integer",
+            "description": "Zoom level (0..18).",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "x",
+            "type": "integer",
+            "description": "X position on zoom grid.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "y",
+            "type": "integer",
+            "description": "Y position on zoom grid.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "mimeType",
+            "type": "string",
+            "description": "Image format to be returned.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "png"
+            ]
+          },
+          {
+            "name": "thickness",
+            "type": "integer",
+            "description": "Thickness of the line (1..20). Default: 10.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

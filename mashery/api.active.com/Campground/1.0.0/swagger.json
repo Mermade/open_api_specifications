@@ -1,0 +1,391 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Campground API",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test our API services using I/O Docs. Third-party developers can use the API to build applications to promote and distribute campgrounds from the ReserveAmerica.com database. The Campground APIs, backed by Reserve America's database, provide access to campground data for 97% of the US and Canada's national and state/provincial parks.  With it, developers can search for campgrounds that meet specified criteria. For example, they can search for campgrounds with horse sites in the state of California, or campgrounds in Maine that allow pets. This API features two concepts, campground and campsite.  Campgrounds are generally situated inside state or national parks and consist of one or more campsites. All campsite reservations, however, must be processed online at ReserveAmerica.com.  The Campground APIs are read-only and provides registration links for campgrounds on ReserveAmerica.com.",
+    "x-mashery-id": "707"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.active.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "http://developer.active.com/io-docs/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Assets"
+    }
+  ],
+  "paths": {
+    "/camping/campgrounds/": {
+      "get": {
+        "operationId": "SearchCampgroundsAssets",
+        "summary": "The Campground Search API processes HTTP GET reque...",
+        "description": "The Campground Search API processes HTTP GET requests and returns results in XML format.  It is designed to return campground data matching a set of filters, such as state, name, features (fishing, hunting, golf) and ammenities (RV friendly, electricity, hunting, fishing).  This API searches metadata from 97% of the national and state parks in the United States and Canada.",
+        "tags": [
+          "Assets"
+        ],
+        "parameters": [
+          {
+            "name": "pstate",
+            "type": "string",
+            "description": "State or Province - The two character abbreviation for US state http://www.usps.com/ncsc/lookups/usps_abbreviations.html, Canadian province or territory http://canadaonline.about.com/library/bl/blpabb.htm.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "pname",
+            "type": "string",
+            "description": "Park Name - The name of the park.  When this parameter is specified, the API performs a string-match query for parks containing the character string specified.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "siteType",
+            "type": "number",
+            "description": "Site Type - Type of site you wish to search for. The following types are supported: RV Sites (2001), Cabins or Lodgings (10001), Tent (2003), Trailer (2002), Group Site (9002), Day Use (9001), Horse Site (3001), Boat Site (2004).",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "2001",
+              "10001",
+              "2003",
+              "2002",
+              "9002",
+              "9001",
+              "3001",
+              "2004"
+            ]
+          },
+          {
+            "name": "amenity",
+            "type": "number",
+            "description": "Campground Feature - There are all sorts of things to do at campgrounds.  Specifying amenity=4004, for example, returns campgrounds with fishing.  Only one amenity can be specified per query.  The following is a list of valid amenity codes: Biking (4001), Boating (4002), Equipment Rental (4003), Fishing (4004), Golf (4005), Hiking (4006), Horseback Riding (4007), Hunting (4008), Recreational Activities (4009), Scenic Trails (4010), Sports (4011), Beach/Water Activities (4012), Winter Activities (4013).",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "4001",
+              "4002",
+              "4003",
+              "4004",
+              "4005",
+              "4006",
+              "4007",
+              "4008",
+              "4009",
+              "4010",
+              "4011",
+              "4012",
+              "2013"
+            ]
+          },
+          {
+            "name": "eqplen",
+            "type": "number",
+            "description": "Equipment Length - If the camper wants to find campgrounds where his 50 foot RV will fit, issue a query where eqplen=50:",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Maxpeople",
+            "type": "string",
+            "description": "Number of campers - Looking for campgrounds with sites that will fit up to 8 people?",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "hookup",
+            "type": "string",
+            "description": "Electric Hookup - 15 Amps or More (3002), 20 Amps or More (3003), 30 Amps or More (3004), 50 Amps or More (3005).",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "3002",
+              "3003",
+              "3004",
+              "3005"
+            ]
+          },
+          {
+            "name": "sewer",
+            "type": "string",
+            "description": "Sewer Hookup - Specify &sewer=3007 to search for campgrounds with sewer hookups.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "3007"
+            ]
+          },
+          {
+            "name": "water",
+            "type": "string",
+            "description": "Water Hookup - Specify &water=3006 to search for campgrounds with water hookups.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "3006"
+            ]
+          },
+          {
+            "name": "pull",
+            "type": "string",
+            "description": "Pull Through Driveway - Specify &pull=3008 to search for campgrounds with pull through driveways.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "3008"
+            ]
+          },
+          {
+            "name": "pets",
+            "type": "string",
+            "description": "Pets Allowed - Specify &pets=3010 to search for campgrounds where pets are allowed.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "3010"
+            ]
+          },
+          {
+            "name": "waterfront",
+            "type": "string",
+            "description": "Waterfront Sites - Specify &waterfront=3011 to search for campgrounds with waterfront campsites.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "3011"
+            ]
+          },
+          {
+            "name": "landmarkLat",
+            "type": "string",
+            "description": "Parameter allows for campground searches around a fixed geo-point. Used in conjuction with landmarkLong. Also, the landmarkName=true parameter/value must be supplied when doing this query.  Results are sorted by distance from the geo-point, with the closest campground being the first result.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "landmarkLong",
+            "type": "string",
+            "description": "Parameter allows for campground searches around a fixed geo-point. Used in conjuction with landmarkLat. Also, the landmarkName=true parameter/value must be supplied when doing this query.  Results are sorted by distance from the geo-point, with the closest campground being the first result.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "landmarkName",
+            "type": "string",
+            "description": "Parameter allows for campground searches around a fixed geo-point. Must be used with landmarkLat and landmarkLong.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/camping/campground/details": {
+      "get": {
+        "operationId": "CampgroundDetailsAssets",
+        "summary": "The Campground Details API provides a rich set of ...",
+        "description": "The Campground Details API provides a rich set of metadata about a given campground.  This includes a detailed description, often authored by park rangers, and a comprehensive list of ammenities.",
+        "tags": [
+          "Assets"
+        ],
+        "parameters": [
+          {
+            "name": "contractCode",
+            "type": "string",
+            "description": "STATE, FEDERAL or PRIVATE - contractCode is a syonym for contractID, which is what is returned by the Campground Search API.  It specifies the jurisdiction for the campground.  This parameter must be used in conjuction with parkId.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "parkId",
+            "type": "number",
+            "description": "Facility ID - parkId is a synonym for facilityID, which is returned by the Campground Search API.  It is a unique identifier for the campground.",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/camping/campsites/": {
+      "get": {
+        "operationId": "SearchCampsitesAssets",
+        "summary": "The Campsite Search API is designed to return info...",
+        "description": "The Campsite Search API is designed to return information about campsites within a given campground that match a set of filters like ammenities (RV friendly, electricity, hunting, fishing) and  maximum occupants.",
+        "tags": [
+          "Assets"
+        ],
+        "parameters": [
+          {
+            "name": "contractCode",
+            "type": "string",
+            "description": "STATE, FEDERAL or PRIVATE - contractCode is a syonym for contractID, which is what is returned by the Campground Search API.  It specifies the jurisdiction for the campground.  This parameter must be used in conjuction with parkId.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "parkId",
+            "type": "number",
+            "description": "Facility ID - parkId is a synonym for facilityID, which is returned by the Campground Search API.  It is a unique identifier for the campground.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "siteType",
+            "type": "number",
+            "description": "Site Type - Type of site you wish to search for. The following types are supported: RV Sites (2001), Cabins or Lodgings (10001), Tent (2003), Trailer (2002), Group Site (9002), Day Use (9001), Horse Site (3001), Boat Site (2004).",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "2001",
+              "10001",
+              "2003",
+              "2002",
+              "9002",
+              "9001",
+              "3001",
+              "2004"
+            ]
+          },
+          {
+            "name": "eqplen",
+            "type": "number",
+            "description": "Equipment Length - If the camper wants to find campgrounds where his 50 foot RV will fit, issue a query where eqplen=50:",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Maxpeople",
+            "type": "string",
+            "description": "Number of campers - Looking for campgrounds with sites that will fit up to 8 people?",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "hookup",
+            "type": "string",
+            "description": "Electric Hookup - 15 Amps or More (3002), 20 Amps or More (3003), 30 Amps or More (3004), 50 Amps or More (3005).",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "3002",
+              "3003",
+              "3004",
+              "3005"
+            ]
+          },
+          {
+            "name": "sewer",
+            "type": "string",
+            "description": "Sewer Hookup - Specify &sewer=3007 to search for campgrounds with sewer hookups.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "3007"
+            ]
+          },
+          {
+            "name": "water",
+            "type": "string",
+            "description": "Water Hookup - Specify &water=3006 to search for campgrounds with water hookups.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "3006"
+            ]
+          },
+          {
+            "name": "pull",
+            "type": "string",
+            "description": "Pull Through Driveway - Specify &pull=3008 to search for campgrounds with pull through driveways.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "3008"
+            ]
+          },
+          {
+            "name": "pets",
+            "type": "string",
+            "description": "Pets Allowed - Specify &pets=3010 to search for campgrounds where pets are allowed.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "3010"
+            ]
+          },
+          {
+            "name": "waterfront",
+            "type": "string",
+            "description": "Waterfront Sites - Specify &waterfront=3011 to search for campgrounds with waterfront campsites.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "3011"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

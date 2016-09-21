@@ -1,0 +1,439 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Distributor API",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test our API services using I/O Docs. ",
+    "x-mashery-id": "3672"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.leisurelink.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "https://developer.leisurelink.com/io-docs?api=3965/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "General"
+    },
+    {
+      "name": "Rental Units"
+    }
+  ],
+  "paths": {
+    "/ping": {
+      "get": {
+        "operationId": "PingGeneral",
+        "summary": "Provides a connectivity and authentication check",
+        "tags": [
+          "General"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/rentalUnits": {
+      "get": {
+        "operationId": "ListRentalUnits",
+        "summary": "Retrieve a list of rental unit ids for a given sup...",
+        "description": "Retrieve a list of rental unit ids for a given supplier",
+        "tags": [
+          "Rental Units"
+        ],
+        "parameters": [
+          {
+            "name": "supplierId",
+            "type": "string",
+            "description": "Optional filter that can be used to specify only active or inactive rental units be returned in the list",
+            "in": "query",
+            "required": true,
+            "default": "8430"
+          },
+          {
+            "name": "isActive",
+            "type": "boolean",
+            "description": "Id of the supplier for which to retrieve rental unit list",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Response format",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/rentalUnits/{rentalUnitId}": {
+      "get": {
+        "operationId": "DetailRentalUnits",
+        "summary": "Request rental unit identifying information",
+        "tags": [
+          "Rental Units"
+        ],
+        "parameters": [
+          {
+            "name": "rentalUnitId",
+            "type": "string",
+            "description": "Id of the desired rental unit",
+            "in": "path",
+            "required": true,
+            "default": "114392"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Response format",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/rentalUnits/{rentalUnitId}/images": {
+      "get": {
+        "operationId": "ImagesRentalUnits",
+        "summary": "Returns detailed data for images on a given rental...",
+        "description": "Returns detailed data for images on a given rental unit",
+        "tags": [
+          "Rental Units"
+        ],
+        "parameters": [
+          {
+            "name": "rentalUnitId",
+            "type": "string",
+            "description": "Id of the desired rental unit",
+            "in": "path",
+            "required": true,
+            "default": "114396"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Response format",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/rentalUnits/{rentalUnitId}/availability": {
+      "get": {
+        "operationId": "AvailabilityRentalUnits",
+        "summary": "Returns a calendar of availability for a given ren...",
+        "description": "Returns a calendar of availability for a given rental unit",
+        "tags": [
+          "Rental Units"
+        ],
+        "parameters": [
+          {
+            "name": "rentalUnitId",
+            "type": "string",
+            "description": "Id of the desired rental unit",
+            "in": "path",
+            "required": true,
+            "default": "114400"
+          },
+          {
+            "name": "days",
+            "type": "integer",
+            "description": "Number of days to return availability for",
+            "in": "query",
+            "required": false,
+            "default": "180"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Response format",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/rentalUnits/{rentalUnitId}/checkAvailability": {
+      "get": {
+        "operationId": "CheckAvailabilityRentalUnits",
+        "summary": "Returns the availability for a given rental unit a...",
+        "description": "Returns the availability for a given rental unit and a date range",
+        "tags": [
+          "Rental Units"
+        ],
+        "parameters": [
+          {
+            "name": "rentalUnitId",
+            "type": "string",
+            "description": "Id of the desired rental unit",
+            "in": "path",
+            "required": true,
+            "default": "114392"
+          },
+          {
+            "name": "checkIn",
+            "type": "string",
+            "description": "Check In Date in format YYYY-MM-DD",
+            "in": "query",
+            "required": true,
+            "default": "2015-12-01"
+          },
+          {
+            "name": "checkOut",
+            "type": "string",
+            "description": "Check Out Date in format YYYY-MM-DD",
+            "in": "query",
+            "required": true,
+            "default": "2015-12-05"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Response format",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/rentalUnits/{rentalUnitId}/baseRates": {
+      "get": {
+        "operationId": "BaseRatesRentalUnits",
+        "summary": "Retrieve a calendar of base rates for a given rent...",
+        "description": "Retrieve a calendar of base rates for a given rental unit",
+        "tags": [
+          "Rental Units"
+        ],
+        "parameters": [
+          {
+            "name": "rentalUnitId",
+            "type": "string",
+            "description": "Id of the desired rental unit",
+            "in": "path",
+            "required": true,
+            "default": "114396"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Response format",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/rentalUnits/{rentalUnitId}/stayRestrictions": {
+      "get": {
+        "operationId": "StayRestrictionsRentalUnits",
+        "summary": "Retrieve a calendar of stay restrictions for a giv...",
+        "description": "Retrieve a calendar of stay restrictions for a given rental unit",
+        "tags": [
+          "Rental Units"
+        ],
+        "parameters": [
+          {
+            "name": "rentalUnitId",
+            "type": "string",
+            "description": "Id of the desired rental unit",
+            "in": "path",
+            "required": true,
+            "default": "114396"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Response format",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Date Range": {
+      "type": "object",
+      "properties": {
+        "beginDate": {
+          "type": "string",
+          "default": "2015-10-01"
+        },
+        "endDate": {
+          "type": "string",
+          "default": "2015-10-31"
+        }
+      }
+    }
+  }
+}

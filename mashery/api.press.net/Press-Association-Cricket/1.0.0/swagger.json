@@ -1,0 +1,863 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Press Association Cricket API",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test our API services using I/O Docs. Welcome to the IO Docs page for the Press Association Cricket API.",
+    "x-mashery-id": "964"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.press.net",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "http://developer.press.net/io-docs/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Competition"
+    },
+    {
+      "name": "Match"
+    },
+    {
+      "name": "Team"
+    },
+    {
+      "name": "Player"
+    }
+  ],
+  "paths": {
+    "/competition": {
+      "get": {
+        "operationId": "ListallCompetitionsCompetition",
+        "summary": "Returns a list of all available competitions",
+        "tags": [
+          "Competition"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/competition/{competitionId}": {
+      "get": {
+        "operationId": "DetailsofspecificCompetitionCompetition",
+        "summary": "Returns the details of a specific competition",
+        "tags": [
+          "Competition"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          },
+          {
+            "name": "competitionId",
+            "type": "string",
+            "description": "The ID of the required competition, e.g.ae533484-a755-f5b4-f6e5-355615a1f06c",
+            "in": "path",
+            "required": true,
+            "default": "ae533484-a755-f5b4-f6e5-355615a1f06c"
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/competition/{competitionId}/table": {
+      "get": {
+        "operationId": "CompetitionTableCompetition",
+        "summary": "Returns the table of a specific competition",
+        "tags": [
+          "Competition"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          },
+          {
+            "name": "competitionId",
+            "type": "string",
+            "description": "The ID of the required competition, e.g.ae533484-a755-f5b4-f6e5-355615a1f06c",
+            "in": "path",
+            "required": true,
+            "default": "ae533484-a755-f5b4-f6e5-355615a1f06c"
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/competition/{competitionId}/fixtures": {
+      "get": {
+        "operationId": "ListofFixturesforaspecificCompetitionCompetition",
+        "summary": "Returns a list of fixtures for a specific competit...",
+        "description": "Returns a list of fixtures for a specific competition",
+        "tags": [
+          "Competition"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          },
+          {
+            "name": "competitionId",
+            "type": "string",
+            "description": "The ID of the required competition, e.g.ae533484-a755-f5b4-f6e5-355615a1f06c",
+            "in": "path",
+            "required": true,
+            "default": "ae533484-a755-f5b4-f6e5-355615a1f06c"
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "YYYY-MM-DD Format for the Start Date",
+            "in": "query",
+            "required": false,
+            "default": "2010-01-01"
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "YYYY-MM-DD Format for the End Date",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/competition/{competitionId}/results": {
+      "get": {
+        "operationId": "ListofResultsforaspecificCompetitionCompetition",
+        "summary": "Returns a list of results for a specific competiti...",
+        "description": "Returns a list of results for a specific competition",
+        "tags": [
+          "Competition"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          },
+          {
+            "name": "competitionId",
+            "type": "string",
+            "description": "The ID of the required competition, e.g.ae533484-a755-f5b4-f6e5-355615a1f06c",
+            "in": "path",
+            "required": true,
+            "default": "ae533484-a755-f5b4-f6e5-355615a1f06c"
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "YYYY-MM-DD Format for the Start Date",
+            "in": "query",
+            "required": false,
+            "default": "2010-01-01"
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "YYYY-MM-DD Format for the End Date",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/competition/{competitionId}/statistics": {
+      "get": {
+        "operationId": "ListofStatisticsforaspecificCompetitionCompetition",
+        "summary": "Returns a list of statistics for a specific compet...",
+        "description": "Returns a list of statistics for a specific competition",
+        "tags": [
+          "Competition"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          },
+          {
+            "name": "competitionId",
+            "type": "string",
+            "description": "The ID of the required competition, e.g.ae533484-a755-f5b4-f6e5-355615a1f06c",
+            "in": "path",
+            "required": true,
+            "default": "ae533484-a755-f5b4-f6e5-355615a1f06c"
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "YYYY-MM-DD Format for the Start Date",
+            "in": "query",
+            "required": false,
+            "default": "2013-01-01"
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "YYYY-MM-DD Format for the End Date",
+            "in": "query",
+            "required": false,
+            "default": "2014-01-01"
+          },
+          {
+            "name": "teamId",
+            "type": "string",
+            "description": "The ID of the team query, e.g.0f0ca30c-fc57-4eed-ff54-62a4aeb1db92",
+            "in": "query",
+            "required": false,
+            "default": "0f0ca30c-fc57-4eed-ff54-62a4aeb1db92"
+          },
+          {
+            "name": "opposingTeamId",
+            "type": "string",
+            "description": "The ID of the opposing team query, e.g.26721a38-e81d-e8cb-d33f-bd590ebd85ec",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/competition/{competitionId}/team": {
+      "get": {
+        "operationId": "ListofTeamsforaspecificCompetitioninthecurrentyearandfutureseasonsCompetition",
+        "summary": "Returns a list of Teams for a specific competition...",
+        "description": "Returns a list of Teams for a specific competition in the current year and future seasons",
+        "tags": [
+          "Competition"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          },
+          {
+            "name": "competitionId",
+            "type": "string",
+            "description": "The ID of the required competition, e.g.f0e51504-8adf-dc7b-c80d-9b0df7939c16",
+            "in": "path",
+            "required": true,
+            "default": "f0e51504-8adf-dc7b-c80d-9b0df7939c16"
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/match/{matchId}": {
+      "get": {
+        "operationId": "DetailsofaspecificMatchMatch",
+        "summary": "Returns the details of a specific match",
+        "tags": [
+          "Match"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          },
+          {
+            "name": "matchId",
+            "type": "string",
+            "description": "The ID of the required match, e.g.f3c4584a-340f-91c3-0a32-714f798a514a",
+            "in": "path",
+            "required": true,
+            "default": "1d61eac5-c767-1a74-84f7-4d1b7641c969"
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/match/{matchId}/line-ups": {
+      "get": {
+        "operationId": "Line-upsforaspecificMatchMatch",
+        "summary": "Returns the Line-up for a specific match",
+        "tags": [
+          "Match"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          },
+          {
+            "name": "matchId",
+            "type": "string",
+            "description": "The ID of the required match, e.g.f3c4584a-340f-91c3-0a32-714f798a514a",
+            "in": "path",
+            "required": true,
+            "default": "1d61eac5-c767-1a74-84f7-4d1b7641c969"
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/match/{matchId}/scorecard": {
+      "get": {
+        "operationId": "ScorecardforaspecificMatchMatch",
+        "summary": "Returns the Scorecard for a specific match",
+        "tags": [
+          "Match"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          },
+          {
+            "name": "matchId",
+            "type": "string",
+            "description": "The ID of the required match, e.g.f3c4584a-340f-91c3-0a32-714f798a514a",
+            "in": "path",
+            "required": true,
+            "default": "1d61eac5-c767-1a74-84f7-4d1b7641c969"
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/team/{teamId}": {
+      "get": {
+        "operationId": "DetailsofaspecificTeamTeam",
+        "summary": "Returns the details of a specific Team",
+        "tags": [
+          "Team"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          },
+          {
+            "name": "teamId",
+            "type": "string",
+            "description": "The ID of the required team, e.g. 2",
+            "in": "path",
+            "required": true,
+            "default": "73f5d08d-0950-ca50-796a-a1cdbc9bd602"
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/team/{teamId}/fixtures": {
+      "get": {
+        "operationId": "ListofFixturesforaspecificTeamTeam",
+        "summary": "Returns a List of Fixtures for a specific Team",
+        "tags": [
+          "Team"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          },
+          {
+            "name": "teamId",
+            "type": "string",
+            "description": "The ID of the required team, e.g. 2",
+            "in": "path",
+            "required": true,
+            "default": "73f5d08d-0950-ca50-796a-a1cdbc9bd602"
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "YYYY-MM-DD Format for the Start Date",
+            "in": "query",
+            "required": false,
+            "default": "2010-01-01"
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "YYYY-MM-DD Format for the End Date",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/team/{teamId}/results": {
+      "get": {
+        "operationId": "ListofResultsforaspecificTeamTeam",
+        "summary": "Returns a List of Results for a specific Team",
+        "tags": [
+          "Team"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          },
+          {
+            "name": "teamId",
+            "type": "string",
+            "description": "The ID of the required team, e.g. 2",
+            "in": "path",
+            "required": true,
+            "default": "73f5d08d-0950-ca50-796a-a1cdbc9bd602"
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "YYYY-MM-DD Format for the Start Date",
+            "in": "query",
+            "required": false,
+            "default": "2010-01-01"
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "YYYY-MM-DD Format for the End Date",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/team/{teamId}/statistics": {
+      "get": {
+        "operationId": "ListofStatisticsforaspecificTeamTeam",
+        "summary": "Returns a List of Statistics for a specific Team",
+        "tags": [
+          "Team"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          },
+          {
+            "name": "teamId",
+            "type": "string",
+            "description": "The ID of the required team, e.g. 2",
+            "in": "path",
+            "required": true,
+            "default": "0f0ca30c-fc57-4eed-ff54-62a4aeb1db92"
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "YYYY-MM-DD Format for the Start Date",
+            "in": "query",
+            "required": false,
+            "default": "2013-01-01"
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "YYYY-MM-DD Format for the End Date",
+            "in": "query",
+            "required": false,
+            "default": "2014-01-01"
+          },
+          {
+            "name": "competitionId",
+            "type": "string",
+            "description": "The ID of the requested competitions, e.g. ae533484-a755-f5b4-f6e5-355615a1f06c",
+            "in": "query",
+            "required": false,
+            "default": "ae533484-a755-f5b4-f6e5-355615a1f06c"
+          },
+          {
+            "name": "opposingTeamId",
+            "type": "string",
+            "description": "The ID of the opposing team query, e.g.26721a38-e81d-e8cb-d33f-bd590ebd85ec",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/player/{playerId}": {
+      "get": {
+        "operationId": "DetailsofaspecificPlayerPlayer",
+        "summary": "Returns a specific player",
+        "tags": [
+          "Player"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/xml",
+              "application/json"
+            ]
+          },
+          {
+            "name": "playerId",
+            "type": "string",
+            "description": "The ID of the required player",
+            "in": "path",
+            "required": true,
+            "default": "ebe3b180-fd84-d8c3-d9c7-4bf1a51d6a04"
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

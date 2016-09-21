@@ -1,0 +1,367 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Sumo",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "The API calls below can be used to test the Input and Output of our API endpoints.  You'll need an API key and an assigned secret to access the live data and so if you haven't contacted us yet, now is the time!  Our sales staff would be happy to set you up with trial access so you can begin to evaluate the product. Sumo",
+    "x-mashery-id": "2164"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.stats.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "After you've been given an API key and secret, enter it below and \"Get\" the method you'd like to try out.  Fill in the parameters with what you'd like to try, or use the built in defaults, and click \"Try It!\" to execute the call.  The JSON or XML response will be populated in the Response Body, the Response Body will provide you with any relevant codes, and the Request Header URI will show you how the call would be made within your application. Please note:Also, endpoints almost always require a final \"/\".  You will receive \"596 Service Not Found\" when it is missing.  An exception to this is for optional methods, such as eventId or teamId.",
+    "url": "http://developer.stats.com/io-docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Sumo - Leagues"
+    },
+    {
+      "name": "Sumo - Schedules and results"
+    },
+    {
+      "name": "Sumo - Standings"
+    },
+    {
+      "name": "Sumo - Decodes"
+    }
+  ],
+  "paths": {
+    "/stats/sumo/leagues/": {
+      "get": {
+        "operationId": "Sumo-LeaguesSumo-Leagues",
+        "summary": "The sumo leagues endpoint serves as a decode for t...",
+        "description": "The sumo leagues endpoint serves as a decode for the available leagues names, abbreviations, and URI paths.",
+        "tags": [
+          "Sumo - Leagues"
+        ],
+        "parameters": [
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/sumo/{leaguePath}/events/{eventId}/": {
+      "get": {
+        "operationId": "Sumo-SchedulesandresultsSumo-Schedulesandresults",
+        "summary": "Schedules and results",
+        "tags": [
+          "Sumo - Schedules and results"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the sumo/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "aki",
+              "haru",
+              "hatsu",
+              "kyushu",
+              "nagoya",
+              "natsu"
+            ]
+          },
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Provide a specific eventID when you want information on a single game.  Must be populated to use the box request.\n Default - basic score data will be returned using date or season, if entered, else the current days events will be returned",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "description": "Will return all events from a specific date.\n Format: YYYYMMDD or YYYY-MM-DD.\n  Default - if a specific game isn't requested, all games from the current date will be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get events for a different season, enter the year as YYYY.\n Note: Seasons that span years like NBA 2013-2014 would be entered as 2013.\n Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of players, country names, and venues names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/sumo/{leaguePath}/standings/": {
+      "get": {
+        "operationId": "Sumo-StandingsSumo-Standings",
+        "summary": "The standings endpoint will provide the league sta...",
+        "description": "The standings endpoint will provide the league standings, including all team data relevant to standings.",
+        "tags": [
+          "Sumo - Standings"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the sumo/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "aki",
+              "haru",
+              "hatsu",
+              "kyushu",
+              "nagoya",
+              "natsu"
+            ]
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get standings for a different season, enter the year as YYYY.\n Note: Seasons that span years like NBA 2013-2014 would be entered as 2013.\n Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "integer",
+            "description": "To get team names in a different language, enter languageId. See languages decode endpoint.\n Default - english",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/decode/sumo/{leaguePath}/{decodeType}": {
+      "get": {
+        "operationId": "Sumo-DecodesSumo-Decodes",
+        "summary": "Sumo - Decodes",
+        "tags": [
+          "Sumo - Decodes"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the sumo/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "aki",
+              "haru",
+              "hatsu",
+              "kyushu",
+              "nagoya",
+              "natsu"
+            ]
+          },
+          {
+            "name": "decodeType",
+            "type": "integer",
+            "description": "The data type to be decoded.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "competitionDivisionType",
+              "coverageLevels",
+              "eventStatuses",
+              "matchEndType",
+              "seasonStructure",
+              "venues"
+            ]
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "For venues only. Select ID to change language of venue names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

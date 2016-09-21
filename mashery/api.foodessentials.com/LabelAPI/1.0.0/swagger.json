@@ -1,0 +1,1057 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "LabelAPI",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Here you can test every one of our methods. Follow these steps to get started: ",
+    "x-mashery-id": "323"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.foodessentials.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "1) CLICK HERE to register with Mashery.Additional Information:\n- View our Written Documentation for additional details about each method including sample output.\n- Play with our in-house Mobile Demo Application to see a basic example of what is possible with LabelAPI.",
+    "url": "http://developer.foodessentials.com/member/register"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Session - Step 1"
+    },
+    {
+      "name": "Diet Profile Resources - Step 2"
+    },
+    {
+      "name": "Label Resources - Step 3"
+    },
+    {
+      "name": "Feature Resources"
+    }
+  ],
+  "paths": {
+    "/createsession": {
+      "get": {
+        "operationId": "CreateSessionSession-Step1",
+        "summary": "Use this to manage sessions and User IDs. User IDs...",
+        "description": "Use this to manage sessions and User IDs. User IDs are a way for you to manage your own users within your app. It is highly recommended that you use a UUID for this to avoid issues as you get more users.",
+        "tags": [
+          "Session - Step 1"
+        ],
+        "parameters": [
+          {
+            "name": "uid",
+            "type": "string",
+            "description": "User ID. UUID recommended.",
+            "in": "query",
+            "required": true,
+            "default": "demoUID_01"
+          },
+          {
+            "name": "devid",
+            "type": "string",
+            "description": "The Device ID of the mobile device or the User ID.",
+            "in": "query",
+            "required": true,
+            "default": "demoDev_01"
+          },
+          {
+            "name": "appid",
+            "type": "string",
+            "description": "Use your Mashery API Key",
+            "in": "query",
+            "required": true,
+            "default": "demoApp_01"
+          },
+          {
+            "name": "f",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/getprofile": {
+      "get": {
+        "operationId": "GetProfileDietProfileResources-Step2",
+        "summary": "This gets your personalized dietary profile. It se...",
+        "description": "This gets your personalized dietary profile. It sets what nutrients, additives, allergens, and ingredients you care about, so we can flag these products. It has a default setting. This is NOT the same as the 'My List' methods which just stores products for a specific user. It also has a setting for sorting product result sets based on one profile attribute. The dietary profile is updated with the Set Profile method (see below).",
+        "tags": [
+          "Diet Profile Resources - Step 2"
+        ],
+        "parameters": [
+          {
+            "name": "sid",
+            "type": "string",
+            "description": "Session ID",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "f",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/setprofile": {
+      "post": {
+        "operationId": "SetProfileDietProfileResources-Step2",
+        "summary": "Setprofile is a fundamental method to the API arch...",
+        "description": "Setprofile is a fundamental method to the API architecture. Use setprofile to personalize, limit, or set, the nutrient, allergen, and additive properties of the personalized dietary profile that you want returned in the various other methods. Setprofile requires a json string to operate. The default profile json string can be obtained using the getprofile method (see above).",
+        "tags": [
+          "Diet Profile Resources - Step 2"
+        ],
+        "parameters": [
+          {
+            "name": "json",
+            "type": "string",
+            "description": "Json document that describes a profile. To set a users profile.",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/ingredientsearch": {
+      "get": {
+        "operationId": "IngredientSearchDietProfileResources-Step2",
+        "summary": "A keyword search for any ingredient.",
+        "tags": [
+          "Diet Profile Resources - Step 2"
+        ],
+        "parameters": [
+          {
+            "name": "q",
+            "type": "string",
+            "description": "search term(s)/query",
+            "in": "query",
+            "required": true,
+            "default": "bacon"
+          },
+          {
+            "name": "sid",
+            "type": "string",
+            "description": "Session ID",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "n",
+            "type": "integer",
+            "description": "Number of results to return",
+            "in": "query",
+            "required": true,
+            "default": "10"
+          },
+          {
+            "name": "s",
+            "type": "integer",
+            "description": "Start number (offset)",
+            "in": "query",
+            "required": true,
+            "default": "0"
+          },
+          {
+            "name": "f",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/addmyingredient": {
+      "get": {
+        "operationId": "AddMyIngredientDietProfileResources-Step2",
+        "summary": "Adds an ingredient from my profile",
+        "tags": [
+          "Diet Profile Resources - Step 2"
+        ],
+        "parameters": [
+          {
+            "name": "sid",
+            "type": "string",
+            "description": "Session ID",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "id",
+            "type": "string",
+            "description": "Ingredient ID",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "f",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/removemyingredient": {
+      "get": {
+        "operationId": "RemoveMyIngredientDietProfileResources-Step2",
+        "summary": "Removes an ingredient from my profile",
+        "tags": [
+          "Diet Profile Resources - Step 2"
+        ],
+        "parameters": [
+          {
+            "name": "sid",
+            "type": "string",
+            "description": "Session ID",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "id",
+            "type": "string",
+            "description": "Ingredient ID",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "f",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/showingredient": {
+      "get": {
+        "operationId": "ShowIngredientDietProfileResources-Step2",
+        "summary": "Descriptive information about an ingredient",
+        "tags": [
+          "Diet Profile Resources - Step 2"
+        ],
+        "parameters": [
+          {
+            "name": "sid",
+            "type": "string",
+            "description": "Session ID",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "id",
+            "type": "string",
+            "description": "Ingredient ID",
+            "in": "query",
+            "required": true,
+            "default": "10571"
+          },
+          {
+            "name": "f",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/searchprods": {
+      "get": {
+        "operationId": "SearchProductsLabelResources-Step3",
+        "summary": "Search for products by keyword. Including product ...",
+        "description": "Search for products by keyword. Including product type, product title, or brand.",
+        "tags": [
+          "Label Resources - Step 3"
+        ],
+        "parameters": [
+          {
+            "name": "q",
+            "type": "string",
+            "description": "Search query",
+            "in": "query",
+            "required": true,
+            "default": "bacon"
+          },
+          {
+            "name": "sid",
+            "type": "string",
+            "description": "Session ID",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "n",
+            "type": "integer",
+            "description": "Number of results to return",
+            "in": "query",
+            "required": true,
+            "default": "10"
+          },
+          {
+            "name": "s",
+            "type": "integer",
+            "description": "Start number (offset)",
+            "in": "query",
+            "required": true,
+            "default": "0"
+          },
+          {
+            "name": "f",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/productscore": {
+      "get": {
+        "operationId": "ProductScoreLabelResources-Step3",
+        "summary": "Personalized Product Score: this powerful feature ...",
+        "description": "Personalized Product Score: this powerful feature returns a personalized product score between -100 to 100 based on a user's/app profile (setprofile)",
+        "tags": [
+          "Label Resources - Step 3"
+        ],
+        "parameters": [
+          {
+            "name": "u",
+            "type": "string",
+            "description": "UPC",
+            "in": "query",
+            "required": true,
+            "default": "028400071932"
+          },
+          {
+            "name": "sid",
+            "type": "string",
+            "description": "Session ID",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "f",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/label": {
+      "get": {
+        "operationId": "LabelLabelResources-Step3",
+        "summary": "Delivers the allergen and additive properties and ...",
+        "description": "Delivers the allergen and additive properties and product details for a specific upc.",
+        "tags": [
+          "Label Resources - Step 3"
+        ],
+        "parameters": [
+          {
+            "name": "u",
+            "type": "string",
+            "description": "UPC",
+            "in": "query",
+            "required": true,
+            "default": "028400071932"
+          },
+          {
+            "name": "sid",
+            "type": "string",
+            "description": "Session ID",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "appid",
+            "type": "string",
+            "description": "App ID",
+            "in": "query",
+            "required": true,
+            "default": "demoApp_01"
+          },
+          {
+            "name": "f",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "long",
+            "type": "string",
+            "description": "Longitude",
+            "in": "query",
+            "required": false,
+            "default": "38.6300"
+          },
+          {
+            "name": "lat",
+            "type": "string",
+            "description": "Latitude",
+            "in": "query",
+            "required": false,
+            "default": "90.2000"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/labelarray": {
+      "get": {
+        "operationId": "LabelArrayLabelResources-Step3",
+        "summary": "A sorted list of similar products to any specific ...",
+        "description": "A sorted list of similar products to any specific UPC.",
+        "tags": [
+          "Label Resources - Step 3"
+        ],
+        "parameters": [
+          {
+            "name": "u",
+            "type": "string",
+            "description": "UPC",
+            "in": "query",
+            "required": true,
+            "default": "016000264601"
+          },
+          {
+            "name": "sid",
+            "type": "string",
+            "description": "Session ID",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "n",
+            "type": "integer",
+            "description": "Number of results to return",
+            "in": "query",
+            "required": true,
+            "default": "10"
+          },
+          {
+            "name": "s",
+            "type": "integer",
+            "description": "Start number (offset)",
+            "in": "query",
+            "required": true,
+            "default": "0"
+          },
+          {
+            "name": "f",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/label_summary": {
+      "get": {
+        "operationId": "LabelSummaryLabelResources-Step3",
+        "summary": "Returns the product name, UPC, and URL.",
+        "tags": [
+          "Label Resources - Step 3"
+        ],
+        "parameters": [
+          {
+            "name": "u",
+            "type": "string",
+            "description": "UPC",
+            "in": "query",
+            "required": true,
+            "default": "016000264601"
+          },
+          {
+            "name": "sid",
+            "type": "string",
+            "description": "Session ID",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "appid",
+            "type": "string",
+            "description": "App ID",
+            "in": "query",
+            "required": true,
+            "default": "demoApp_01"
+          },
+          {
+            "name": "f",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "long",
+            "type": "string",
+            "description": "Longitude",
+            "in": "query",
+            "required": false,
+            "default": "38.6300"
+          },
+          {
+            "name": "lat",
+            "type": "string",
+            "description": "Latitude",
+            "in": "query",
+            "required": false,
+            "default": "90.2000"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/getallergenadditive": {
+      "get": {
+        "operationId": "GetAllergenAdditiveLabelResources-Step3",
+        "summary": "Gives a specific allergen or additive properties o...",
+        "description": "Gives a specific allergen or additive properties of a specific upc.",
+        "tags": [
+          "Label Resources - Step 3"
+        ],
+        "parameters": [
+          {
+            "name": "u",
+            "type": "string",
+            "description": "UPC",
+            "in": "query",
+            "required": false,
+            "default": "021131501013"
+          },
+          {
+            "name": "sid",
+            "type": "string",
+            "description": "Session ID",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "property",
+            "type": "string",
+            "description": "has to equal the allergen or additive exactly as it is spelt",
+            "in": "query",
+            "required": false,
+            "default": "Corn"
+          },
+          {
+            "name": "propType",
+            "type": "string",
+            "description": "Property Type",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "allergen",
+              "additive"
+            ]
+          },
+          {
+            "name": "f",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/getpropdescription": {
+      "get": {
+        "operationId": "GetPropertyDescriptionLabelResources-Step3",
+        "summary": "Gives a description of each of the nutrient, addit...",
+        "description": "Gives a description of each of the nutrient, additive, allergen properties.",
+        "tags": [
+          "Label Resources - Step 3"
+        ],
+        "parameters": [
+          {
+            "name": "sid",
+            "type": "string",
+            "description": "Session ID",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "description": "nutrient/allergen/additive",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "nutrient",
+              "allergen",
+              "additive"
+            ]
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "description": "name of nutrient/allergen/additive",
+            "in": "query",
+            "required": true,
+            "default": "Calories"
+          },
+          {
+            "name": "f",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/getmylist": {
+      "get": {
+        "operationId": "GetMyListFeatureResources",
+        "summary": "This is to get the list of products for which this...",
+        "description": "This is to get the list of products for which this user has added to his/her list",
+        "tags": [
+          "Feature Resources"
+        ],
+        "parameters": [
+          {
+            "name": "sid",
+            "type": "string",
+            "description": "Session ID",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "n",
+            "type": "integer",
+            "description": "Number of results to return",
+            "in": "query",
+            "required": true,
+            "default": "10"
+          },
+          {
+            "name": "s",
+            "type": "integer",
+            "description": "Start number (offset)",
+            "in": "query",
+            "required": true,
+            "default": "0"
+          },
+          {
+            "name": "f",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/addmylist": {
+      "get": {
+        "operationId": "AddMyListFeatureResources",
+        "summary": "Add products to my list.",
+        "tags": [
+          "Feature Resources"
+        ],
+        "parameters": [
+          {
+            "name": "u",
+            "type": "string",
+            "description": "UPC",
+            "in": "query",
+            "required": true,
+            "default": "021131501013"
+          },
+          {
+            "name": "sid",
+            "type": "string",
+            "description": "Session ID",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "f",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/removemylist": {
+      "get": {
+        "operationId": "RemoveMyListFeatureResources",
+        "summary": "Removes products from my list. You can save a prod...",
+        "description": "Removes products from my list. You can save a product list for your users using this API",
+        "tags": [
+          "Feature Resources"
+        ],
+        "parameters": [
+          {
+            "name": "sid",
+            "type": "string",
+            "description": "Session ID",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "u",
+            "type": "string",
+            "description": "UPC",
+            "in": "query",
+            "required": true,
+            "default": "021131501013"
+          },
+          {
+            "name": "f",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/getsearchlog": {
+      "get": {
+        "operationId": "GetSearchLogFeatureResources",
+        "summary": "Returns the previous searches for this session ID....",
+        "description": "Returns the previous searches for this session ID.",
+        "tags": [
+          "Feature Resources"
+        ],
+        "parameters": [
+          {
+            "name": "sid",
+            "type": "string",
+            "description": "Session ID",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "n",
+            "type": "integer",
+            "description": "Number of results to return",
+            "in": "query",
+            "required": true,
+            "default": "10"
+          },
+          {
+            "name": "s",
+            "type": "integer",
+            "description": "Start number (offset)",
+            "in": "query",
+            "required": true,
+            "default": "0"
+          },
+          {
+            "name": "f",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

@@ -1,0 +1,1027 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Protected - v2",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test our API services using I/O Docs. You can also view our documentation here. The Protected API is used to gain access to user data using OAuth2 authentication and authorization. This API gives access to user collections, agent listings, and off-market searches for the Professional.  Currently supporting the OAuth2 Implicit flow.",
+    "x-mashery-id": "1585"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.solidearth.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "https://developer.solidearth.com/io-docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "oauth2": {
+      "type": "oauth2",
+      "flow": "implicit",
+      "authorizationUrl": "",
+      "scopes": {}
+    }
+  },
+  "security": [
+    {
+      "oauth2": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Collections"
+    },
+    {
+      "name": "Pro Search"
+    },
+    {
+      "name": "My Listings"
+    },
+    {
+      "name": "Single Listing View Counters"
+    },
+    {
+      "name": "Agents"
+    }
+  ],
+  "paths": {
+    "/v2/collections/{site}/": {
+      "get": {
+        "operationId": "MyCollectionsCollections",
+        "summary": "Gets my collections.",
+        "tags": [
+          "Collections"
+        ],
+        "parameters": [
+          {
+            "name": "site",
+            "type": "string",
+            "description": "site",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "gbrar",
+              "tuscar",
+              "mibor",
+              "baarmls",
+              "sandicor",
+              "rafgc",
+              "lafmls",
+              "metrotex",
+              "nwms",
+              "mobmls",
+              "baymls",
+              "neren"
+            ]
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "content type",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "put": {
+        "operationId": "CreateCollectionCollections",
+        "summary": "Create a new collection",
+        "tags": [
+          "Collections"
+        ],
+        "parameters": [
+          {
+            "name": "site",
+            "type": "string",
+            "description": "site",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "gbrar",
+              "tuscar",
+              "mibor",
+              "baarmls",
+              "sandicor",
+              "rafgc",
+              "lafmls",
+              "metrotex",
+              "nwms",
+              "mobmls",
+              "baymls",
+              "neren"
+            ]
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "description": "name of new collection",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "content type",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v2/collections/{site}/{collectionKey}/": {
+      "post": {
+        "operationId": "RenameCollectionCollections",
+        "summary": "Delete a collection",
+        "tags": [
+          "Collections"
+        ],
+        "parameters": [
+          {
+            "name": "site",
+            "type": "string",
+            "description": "site",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "gbrar",
+              "tuscar",
+              "mibor",
+              "baarmls",
+              "sandicor",
+              "rafgc",
+              "lafmls",
+              "metrotex",
+              "nwms",
+              "mobmls",
+              "baymls",
+              "neren"
+            ]
+          },
+          {
+            "name": "collectionKey",
+            "type": "string",
+            "description": "collection Key",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "description": "name of collection",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "content type",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DeleteCollectionCollections",
+        "summary": "Delete a collection",
+        "tags": [
+          "Collections"
+        ],
+        "parameters": [
+          {
+            "name": "site",
+            "type": "string",
+            "description": "site",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "gbrar",
+              "tuscar",
+              "mibor",
+              "baarmls",
+              "sandicor",
+              "rafgc",
+              "lafmls",
+              "metrotex",
+              "nwms",
+              "mobmls",
+              "baymls",
+              "neren"
+            ]
+          },
+          {
+            "name": "collectionKey",
+            "type": "string",
+            "description": "collection Key",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "content type",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v2/collections/{site}/{collectionKey}/l/{listingKey}": {
+      "put": {
+        "operationId": "AddItemtoCollectionCollections",
+        "summary": "Adds a listing to a collection.",
+        "tags": [
+          "Collections"
+        ],
+        "parameters": [
+          {
+            "name": "site",
+            "type": "string",
+            "description": "site",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "gbrar",
+              "tuscar",
+              "mibor",
+              "baarmls",
+              "sandicor",
+              "rafgc",
+              "lafmls",
+              "metrotex",
+              "nwms",
+              "mobmls",
+              "baymls",
+              "neren"
+            ]
+          },
+          {
+            "name": "collectionKey",
+            "type": "string",
+            "description": "collection Key",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "listingKey",
+            "type": "string",
+            "description": "Listing Key",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "content type",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DeleteItemInCollectionCollections",
+        "summary": "Adds a listing to a collection.",
+        "tags": [
+          "Collections"
+        ],
+        "parameters": [
+          {
+            "name": "site",
+            "type": "string",
+            "description": "site",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "gbrar",
+              "tuscar",
+              "mibor",
+              "baarmls",
+              "sandicor",
+              "rafgc",
+              "lafmls",
+              "metrotex",
+              "nwms",
+              "mobmls",
+              "baymls",
+              "neren"
+            ]
+          },
+          {
+            "name": "collectionKey",
+            "type": "string",
+            "description": "collection Key",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "listingKey",
+            "type": "string",
+            "description": "Listing Key",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "content type",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v2/collections/{site}/{collectionKey}": {
+      "get": {
+        "operationId": "GetItemsInCollectionCollections",
+        "summary": "Gets items in a collection.",
+        "tags": [
+          "Collections"
+        ],
+        "parameters": [
+          {
+            "name": "site",
+            "type": "string",
+            "description": "site",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "gbrar",
+              "tuscar",
+              "mibor",
+              "baarmls",
+              "sandicor",
+              "rafgc",
+              "lafmls",
+              "metrotex",
+              "nwms",
+              "mobmls",
+              "baymls",
+              "neren"
+            ]
+          },
+          {
+            "name": "collectionKey",
+            "type": "string",
+            "description": "collection Key",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "content type",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v2/prosearch/{site}": {
+      "get": {
+        "operationId": "ProSearchProSearch",
+        "summary": "Search lisitngs with access to all paramters.",
+        "tags": [
+          "Pro Search"
+        ],
+        "parameters": [
+          {
+            "name": "site",
+            "type": "string",
+            "description": "site",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "gbrar",
+              "tuscar",
+              "mibor",
+              "baarmls",
+              "sandicor",
+              "rafgc",
+              "lafmls",
+              "metrotex",
+              "nwms",
+              "mobmls",
+              "baymls",
+              "neren"
+            ]
+          },
+          {
+            "name": "ListPriceMin",
+            "type": "string",
+            "description": "Min Price",
+            "in": "query",
+            "required": false,
+            "default": "150000"
+          },
+          {
+            "name": "ListPriceMax",
+            "type": "string",
+            "description": "Max Price",
+            "in": "query",
+            "required": false,
+            "default": "175000"
+          },
+          {
+            "name": "BathsTotalMin",
+            "type": "string",
+            "description": "min total baths",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "BedsTotalMin",
+            "type": "string",
+            "description": "min total beds",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "MlsStatusin",
+            "type": "string",
+            "description": "Comma separated list of property status",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Active",
+              "Closed",
+              "Pending",
+              "Withdrawn",
+              "Expired",
+              "Active Under Contract"
+            ]
+          },
+          {
+            "name": "sortOption",
+            "type": "string",
+            "description": "Determines the order of the data set",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "ListPrice",
+              "ListPrice desc",
+              "created",
+              "created desc",
+              "BedsTotal",
+              "BedsTotal desc",
+              "BathsTotal",
+              "BathsTotal desc",
+              "LivingArea",
+              "LivingArea desc"
+            ]
+          },
+          {
+            "name": "class",
+            "type": "string",
+            "description": "Property type",
+            "in": "query",
+            "required": false,
+            "default": "Residential"
+          },
+          {
+            "name": "_keywordsAll",
+            "type": "string",
+            "description": "Comma separated list of keywords (neighborhood,zip,city,address)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "_featuresIn",
+            "type": "string",
+            "description": "Comma separated list of features(pool,deck,patio)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "PropertyTypeIn",
+            "type": "string",
+            "description": "Comma separated list of type",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Condominium",
+              "Single Family Residence",
+              "Manufactured Home",
+              "Townhouse"
+            ]
+          },
+          {
+            "name": "page",
+            "type": "string",
+            "description": "page",
+            "in": "query",
+            "required": true,
+            "default": "0"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "content type",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v2/mylistings/{site}": {
+      "get": {
+        "operationId": "AgentListingsMyListings",
+        "summary": "Search listings with minimum parameters.",
+        "tags": [
+          "My Listings"
+        ],
+        "parameters": [
+          {
+            "name": "site",
+            "type": "string",
+            "description": "site",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "gbrar",
+              "tuscar",
+              "mibor",
+              "baarmls",
+              "sandicor",
+              "rafgc",
+              "lafmls",
+              "metrotex",
+              "nwms",
+              "mobmls",
+              "baymls",
+              "neren"
+            ]
+          },
+          {
+            "name": "MlsStatusin",
+            "type": "string",
+            "description": "Comma separated list of property status",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Active",
+              "Closed",
+              "Pending",
+              "Withdrawn",
+              "Expired",
+              "Active Under Contract"
+            ]
+          },
+          {
+            "name": "class",
+            "type": "string",
+            "description": "Property type",
+            "in": "query",
+            "required": false,
+            "default": "Residential"
+          },
+          {
+            "name": "page",
+            "type": "string",
+            "description": "page",
+            "in": "query",
+            "required": true,
+            "default": "0"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "content type",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v2/myofficelistings/{site}": {
+      "get": {
+        "operationId": "OfficeListingsMyListings",
+        "summary": "Get all office listings",
+        "tags": [
+          "My Listings"
+        ],
+        "parameters": [
+          {
+            "name": "site",
+            "type": "string",
+            "description": "site",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "gbrar",
+              "tuscar",
+              "mibor",
+              "baarmls",
+              "sandicor",
+              "rafgc",
+              "lafmls",
+              "metrotex",
+              "nwms",
+              "mobmls",
+              "baymls",
+              "neren"
+            ]
+          },
+          {
+            "name": "MlsStatusin",
+            "type": "string",
+            "description": "Comma separated list of property status",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Active",
+              "Closed",
+              "Pending",
+              "Withdrawn",
+              "Expired",
+              "Active Under Contract"
+            ]
+          },
+          {
+            "name": "class",
+            "type": "string",
+            "description": "Property type",
+            "in": "query",
+            "required": false,
+            "default": "Residential"
+          },
+          {
+            "name": "page",
+            "type": "string",
+            "description": "page",
+            "in": "query",
+            "required": true,
+            "default": "0"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "content type",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v2/listing/{site}/counters/{listingKey}": {
+      "get": {
+        "operationId": "GetListingCountersSingleListingViewCounters",
+        "summary": "List view counts by role level.",
+        "tags": [
+          "Single Listing View Counters"
+        ],
+        "parameters": [
+          {
+            "name": "site",
+            "type": "string",
+            "description": "site",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "gbrar",
+              "tuscar",
+              "mibor",
+              "baarmls",
+              "sandicor",
+              "rafgc",
+              "lafmls",
+              "metrotex",
+              "nwms",
+              "mobmls",
+              "baymls",
+              "neren"
+            ]
+          },
+          {
+            "name": "listingKey",
+            "type": "string",
+            "description": "Listing Key",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "content type",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v2/agent/{site}": {
+      "get": {
+        "operationId": "ProfileAgents",
+        "summary": "Agent Profile",
+        "tags": [
+          "Agents"
+        ],
+        "parameters": [
+          {
+            "name": "site",
+            "type": "string",
+            "description": "Agent Profile",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "gbrar",
+              "tuscar",
+              "mibor",
+              "baarmls",
+              "sandicor",
+              "rafgc",
+              "lafmls",
+              "metrotex",
+              "nwms",
+              "mobmls",
+              "baymls",
+              "neren"
+            ]
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "content type",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

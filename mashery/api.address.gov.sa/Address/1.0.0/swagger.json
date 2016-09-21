@@ -1,0 +1,753 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Address",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test our API services using API Explorer. Search National Address",
+    "x-mashery-id": "3445"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.address.gov.sa",
+  "basePath": "/address",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "https://api.address.gov.sa/io-docs/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "address"
+    }
+  ],
+  "paths": {
+    "/address-free-text": {
+      "get": {
+        "operationId": "address-free-textaddress",
+        "summary": "Search for an address by free text.",
+        "tags": [
+          "address"
+        ],
+        "parameters": [
+          {
+            "name": "language",
+            "type": "string",
+            "description": "It is an optional input. Our API can provide response in Arabic or English with Arabic being the default language.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "A",
+              "E"
+            ]
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "It is an optional input. We currently support output for API in two formats Json and XML. You will be required to specify in which format you need response, default is Json.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "JSON",
+              "XML"
+            ]
+          },
+          {
+            "name": "page",
+            "type": "integer",
+            "description": "Its an optional input. By default each request returns a maximum number of 10 results. If there are a large number of results, in such a case, this page number must be passed along to get the next set of results. Default value is 1.",
+            "in": "query",
+            "required": false,
+            "default": "1"
+          },
+          {
+            "name": "addressstring",
+            "type": "string",
+            "description": "Free text details in a string format for a address",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "encode",
+            "type": "string",
+            "description": "Get response in utf-8.Pass input as 'utf8'.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/address-fixed-params": {
+      "get": {
+        "operationId": "address-fixed-paramsaddress",
+        "summary": "Search for an address by fixed parameters.",
+        "tags": [
+          "address"
+        ],
+        "parameters": [
+          {
+            "name": "language",
+            "type": "string",
+            "description": "It is an optional input. Our API can provide response in Arabic or English with Arabic being the default language.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "A",
+              "E"
+            ]
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "It is an optional input. We currently support output for API in two formats Json and XML. You will be required to specify in which format you need response, default is Json.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "JSON",
+              "XML"
+            ]
+          },
+          {
+            "name": "page",
+            "type": "integer",
+            "description": "Its an optional input. By default each request returns a maximum number of 10 results. If there are a large number of results, in such a case, this page number must be passed along to get the next set of results. Default value is 1.",
+            "in": "query",
+            "required": false,
+            "default": "1"
+          },
+          {
+            "name": "cityid",
+            "type": "integer",
+            "description": "Id of city for which you want to get an address. You can obtain this id by using KSA Cities Lookup Api",
+            "in": "query",
+            "required": false,
+            "default": "3"
+          },
+          {
+            "name": "districtid",
+            "type": "integer",
+            "description": "Id of district for which you want to get an address. You can obtain this id by using KSA Districts Lookup Api",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Buildingnumber",
+            "type": "integer",
+            "description": "Buildingnumber",
+            "in": "query",
+            "required": false,
+            "default": "8228"
+          },
+          {
+            "name": "Additionalnumber",
+            "type": "integer",
+            "description": "Additionalnumber",
+            "in": "query",
+            "required": false,
+            "default": "2121"
+          },
+          {
+            "name": "Zipcode",
+            "type": "integer",
+            "description": "Zipcode",
+            "in": "query",
+            "required": false,
+            "default": "12643"
+          },
+          {
+            "name": "cityname",
+            "type": "string",
+            "description": "Name of a city",
+            "in": "query",
+            "required": false,
+            "default": "riyadh"
+          },
+          {
+            "name": "districtname",
+            "type": "string",
+            "description": "Name of a district",
+            "in": "query",
+            "required": false,
+            "default": "al amal"
+          },
+          {
+            "name": "streetname",
+            "type": "string",
+            "description": "Name of a street",
+            "in": "query",
+            "required": false,
+            "default": "king abdul aziz road"
+          },
+          {
+            "name": "encode",
+            "type": "string",
+            "description": "Get response in utf-8.Pass input as 'utf8'.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/address-bulk": {
+      "get": {
+        "operationId": "address-bulkaddress",
+        "summary": "Search bulk addresses",
+        "tags": [
+          "address"
+        ],
+        "parameters": [
+          {
+            "name": "language",
+            "type": "string",
+            "description": "It is an optional input. Our API can provide response in Arabic or English with Arabic being the default language.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "A",
+              "E"
+            ]
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "It is an optional input. We currently support output for API in two formats Json and XML. You will be required to specify in which format you need response, default is Json.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "JSON",
+              "XML"
+            ]
+          },
+          {
+            "name": "page",
+            "type": "integer",
+            "description": "Its an optional input. By default each request returns a maximum number of 10 results. If there are a large number of results, in such a case, this page number must be passed along to get the next set of results. Default value is 1.",
+            "in": "query",
+            "required": false,
+            "default": "1"
+          },
+          {
+            "name": "addressstring",
+            "type": "string",
+            "description": "Address attributes would be separated with a pipe. Whereas, each address would be separated from others with a semicolon. BuildingNumber l ZipCode l AdditionalNumber;",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "encode",
+            "type": "string",
+            "description": "Get response in utf-8.Pass input as 'utf8'.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/address-verify": {
+      "get": {
+        "operationId": "address-verifyaddress",
+        "summary": "Search services",
+        "tags": [
+          "address"
+        ],
+        "parameters": [
+          {
+            "name": "language",
+            "type": "string",
+            "description": "It is an optional input. Our API can provide response in Arabic or English with Arabic being the default language.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "A",
+              "E"
+            ]
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "It is an optional input. We currently support output for API in two formats Json and XML. You will be required to specify in which format you need response, default is Json.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "JSON",
+              "XML"
+            ]
+          },
+          {
+            "name": "page",
+            "type": "integer",
+            "description": "Its an optional input. By default each request returns a maximum number of 10 results. If there are a large number of results, in such a case, this page number must be passed along to get the next set of results. Default value is 1.",
+            "in": "query",
+            "required": false,
+            "default": "1"
+          },
+          {
+            "name": "Buildingnumber",
+            "type": "integer",
+            "description": "Buildingnumber",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "Additionalnumber",
+            "type": "integer",
+            "description": "Additionalnumber",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "Zipcode",
+            "type": "integer",
+            "description": "Zipcode",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "encode",
+            "type": "string",
+            "description": "Get response in utf-8.Pass input as 'utf8'.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/address-geocode": {
+      "get": {
+        "operationId": "address-geocodeaddress",
+        "summary": "Get address by latitude & longitude",
+        "tags": [
+          "address"
+        ],
+        "parameters": [
+          {
+            "name": "language",
+            "type": "string",
+            "description": "It is an optional input. Our API can provide response in Arabic or English with Arabic being the default language.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "A",
+              "E"
+            ]
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "It is an optional input. We currently support output for API in two formats Json and XML. You will be required to specify in which format you need response, default is Json.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "JSON",
+              "XML"
+            ]
+          },
+          {
+            "name": "lat",
+            "type": "number",
+            "format": "float",
+            "description": "Latitude in decimal units.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "long",
+            "type": "number",
+            "format": "float",
+            "description": "Longitude in decimal units.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "encode",
+            "type": "string",
+            "description": "Get response in utf-8.Pass input as 'utf8'.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/poi-free-text": {
+      "get": {
+        "operationId": "poi-free-textaddress",
+        "summary": "Search for point of interests by free text",
+        "tags": [
+          "address"
+        ],
+        "parameters": [
+          {
+            "name": "language",
+            "type": "string",
+            "description": "It is an optional input. Our API can provide response in Arabic or English with Arabic being the default language.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "A",
+              "E"
+            ]
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "It is an optional input. We currently support output for API in two formats Json and XML. You will be required to specify in which format you need response, default is Json.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "JSON",
+              "XML"
+            ]
+          },
+          {
+            "name": "page",
+            "type": "integer",
+            "description": "Its an optional input. By default each request returns a maximum number of 10 results. If there are a large number of results, in such a case, this page number must be passed along to get the next set of results. Default value is 1.",
+            "in": "query",
+            "required": false,
+            "default": "1"
+          },
+          {
+            "name": "servicestring",
+            "type": "string",
+            "description": "service",
+            "in": "query",
+            "required": true,
+            "default": "saudi post"
+          },
+          {
+            "name": "encode",
+            "type": "string",
+            "description": "Get response in utf-8.Pass input as 'utf8'.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/poi-fixed-params": {
+      "get": {
+        "operationId": "poi-fixed-paramsaddress",
+        "summary": "Search for points of interest by fixed parameters....",
+        "description": "Search for points of interest by fixed parameters.",
+        "tags": [
+          "address"
+        ],
+        "parameters": [
+          {
+            "name": "language",
+            "type": "string",
+            "description": "It is an optional input. Our API can provide response in Arabic or English with Arabic being the default language.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "A",
+              "E"
+            ]
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "It is an optional input. We currently support output for API in two formats Json and XML. You will be required to specify in which format you need response, default is Json.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "JSON",
+              "XML"
+            ]
+          },
+          {
+            "name": "page",
+            "type": "integer",
+            "description": "Its an optional input. By default each request returns a maximum number of 10 results. If there are a large number of results, in such a case, this page number must be passed along to get the next set of results. Default value is 1.",
+            "in": "query",
+            "required": false,
+            "default": "1"
+          },
+          {
+            "name": "servicestring",
+            "type": "string",
+            "description": "Name of the point of interest for search.",
+            "in": "query",
+            "required": true,
+            "default": "tazaj"
+          },
+          {
+            "name": "servicecategoryid",
+            "type": "integer",
+            "description": "ID of service category by which its recognized in system. You can obtain service category id by using Service Category Api",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "servicesubcategoryid",
+            "type": "integer",
+            "description": "ID of service Sub category by which its recognized in system. You can obtain service sub category id by using Service Sub Category Api",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "regionid",
+            "type": "integer",
+            "description": "Id of region for which you want to get an address. You can obtain this id by using KSA Regions Lookup Api",
+            "in": "query",
+            "required": false,
+            "default": "6"
+          },
+          {
+            "name": "cityid",
+            "type": "integer",
+            "description": "Id of city for which you want to get an address. You can obtain this id by using KSA Cities Lookup Api",
+            "in": "query",
+            "required": false,
+            "default": "3"
+          },
+          {
+            "name": "districtid",
+            "type": "integer",
+            "description": "Id of district for which you want to get an address. You can obtain this id by using KSA Districts Lookup Api",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Buildingnumber",
+            "type": "integer",
+            "description": "Buildingnumber",
+            "in": "query",
+            "required": false,
+            "default": "7517"
+          },
+          {
+            "name": "Additionalnumber",
+            "type": "integer",
+            "description": "Additionalnumber",
+            "in": "query",
+            "required": false,
+            "default": "3091"
+          },
+          {
+            "name": "Zipcode",
+            "type": "integer",
+            "description": "Zipcode",
+            "in": "query",
+            "required": false,
+            "default": "12313"
+          },
+          {
+            "name": "cityname",
+            "type": "string",
+            "description": "Name of a city",
+            "in": "query",
+            "required": false,
+            "default": "riyadh"
+          },
+          {
+            "name": "districtname",
+            "type": "string",
+            "description": "Name of a district",
+            "in": "query",
+            "required": false,
+            "default": "al ulaya"
+          },
+          {
+            "name": "streetname",
+            "type": "string",
+            "description": "Name of a street",
+            "in": "query",
+            "required": false,
+            "default": "at takhassusi st"
+          },
+          {
+            "name": "encode",
+            "type": "string",
+            "description": "Get response in utf-8.Pass input as 'utf8'.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/poi-nearest": {
+      "get": {
+        "operationId": "poi-nearestaddress",
+        "summary": "Search nearest point of interests",
+        "tags": [
+          "address"
+        ],
+        "parameters": [
+          {
+            "name": "language",
+            "type": "string",
+            "description": "It is an optional input. Our API can provide response in Arabic or English with Arabic being the default language.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "A",
+              "E"
+            ]
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "It is an optional input. We currently support output for API in two formats Json and XML. You will be required to specify in which format you need response, default is Json.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "JSON",
+              "XML"
+            ]
+          },
+          {
+            "name": "page",
+            "type": "integer",
+            "description": "Its an optional input. By default each request returns a maximum number of 10 results. If there are a large number of results, in such a case, this page number must be passed along to get the next set of results. Default value is 1.",
+            "in": "query",
+            "required": false,
+            "default": "1"
+          },
+          {
+            "name": "lat",
+            "type": "number",
+            "format": "float",
+            "description": "Latitude in decimal units.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "long",
+            "type": "number",
+            "format": "float",
+            "description": "Longitude in decimal units.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "radius",
+            "type": "number",
+            "format": "float",
+            "description": "Its an optional input. In Kilometers. Default = 0.5 kms",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "encode",
+            "type": "string",
+            "description": "Get response in utf-8.Pass input as 'utf8'.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

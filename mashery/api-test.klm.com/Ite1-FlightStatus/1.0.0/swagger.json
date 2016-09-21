@@ -1,0 +1,150 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Ite1 FlightStatus API",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test our API services using I/O Docs. You can also view our [written documentation]. get flight status",
+    "x-mashery-id": "3918"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api-test.klm.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "https://developer-test.klm.com/io-docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "oauth2": {
+      "type": "oauth2",
+      "flow": "application",
+      "tokenUrl": "",
+      "scopes": {}
+    }
+  },
+  "security": [
+    {
+      "oauth2": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "ite1-flightstatusapi-flights"
+    }
+  ],
+  "paths": {
+    "/flights": {
+      "get": {
+        "operationId": "0ite1-flightstatusapi-flights",
+        "summary": "Returns a list of flights",
+        "tags": [
+          "ite1-flightstatusapi-flights"
+        ],
+        "parameters": [
+          {
+            "name": "origin",
+            "type": "string",
+            "description": "The IATAA code for the departure station",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "destination",
+            "type": "string",
+            "description": "The IATAA code for the arrival station",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "startRange",
+            "type": "string",
+            "format": "date-time",
+            "description": "The earliest timestamp for the departure of the flights (Format: '2015-11-13T00:00:00Z')",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "endRange",
+            "type": "string",
+            "format": "date-time",
+            "description": "The latest timestamp for the departure of the flights (Format: '2015-11-13T23:59:59Z')",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/flights/{flightId}?expand={expand}": {
+      "get": {
+        "operationId": "1ite1-flightstatusapi-flights",
+        "summary": "Returns the status of the specified flight",
+        "tags": [
+          "ite1-flightstatusapi-flights"
+        ],
+        "parameters": [
+          {
+            "name": "flightId",
+            "type": "string",
+            "description": "The flight id in the format KL1234+2015-11-13",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "expand",
+            "type": "string",
+            "description": "The value 'trajectory' expands the response with trajectory infromation",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "flightId",
+            "type": "string",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "expand",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

@@ -1,0 +1,3349 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "OnConnect Data Delivery APIs",
+    "version": "1.1",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test our Gracenote API services using API Explorer. Simply enter the parameters and click “Try It”. You must have a valid API key for this to work (if you do not already have one, Get Started to read more about plans and request a key). OnConnect v1.1 APIs are active and available! All endpoints below are now v1.1. For more information on version migration, see Migration FAQ.",
+    "x-mashery-id": "2855"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.tmsapi.com",
+  "basePath": "/v1.1",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "http://developer.tmsapi.com/Getting_Started"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Public Plan Methods"
+    },
+    {
+      "name": "Lineups"
+    },
+    {
+      "name": "Stations"
+    },
+    {
+      "name": "Programs"
+    },
+    {
+      "name": "Series"
+    },
+    {
+      "name": "Movies on TV"
+    },
+    {
+      "name": "Movies in Theatres"
+    },
+    {
+      "name": "Movie Trailers"
+    },
+    {
+      "name": "Sports"
+    },
+    {
+      "name": "Celebrities"
+    }
+  ],
+  "paths": {
+    "/movies/showings": {
+      "get": {
+        "operationId": "MoviesPlayinginLocalTheatresMoviesinTheatres",
+        "summary": "Returns a list of all movies currently playing in ...",
+        "description": "Returns a list of all movies currently playing in local theatres, with showtimes.",
+        "tags": [
+          "Movies in Theatres"
+        ],
+        "parameters": [
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "Start date (yyyy-mm-dd). Schedules available starting with current day.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "numDays",
+            "type": "string",
+            "description": "Number of schedule days. Defaults to 1.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "zip",
+            "type": "string",
+            "description": "US zip code or Canadian postal code. Must supply either zip or coordinates.",
+            "in": "query",
+            "required": false,
+            "default": "78701"
+          },
+          {
+            "name": "lat",
+            "type": "string",
+            "description": "Latitude coordinate. Valid values are between -90 and 90. Must supply either zip or coordinates.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "lng",
+            "type": "string",
+            "description": "Longitude coordinate. Valid values are between -180 and 180. Must supply either zip or coordinates.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "radius",
+            "type": "string",
+            "description": "Range to search from initial location. Defaults to 5 miles. Maximum 100 mi (160 km).",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "units",
+            "type": "string",
+            "description": "Unit of measurement for the radius parameter as well as the distance value in response.  Defaults to miles.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "mi",
+              "km"
+            ]
+          },
+          {
+            "name": "imageSize",
+            "type": "string",
+            "description": "Size of the image referenced by the preferred image URI returned. The default value is Md (medium)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Sm",
+              "Md",
+              "Lg",
+              "Ms"
+            ]
+          },
+          {
+            "name": "imageText",
+            "type": "boolean",
+            "description": "Boolean indicating preference for image with or without text. If no image is found matching text preference, next available image will be returned. Defaults to true (prefer images with text).",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/programs/newShowAirings": {
+      "get": {
+        "operationId": "NewShowsAiringonTVPrograms",
+        "summary": "Returns all shows and episodes and associated meta...",
+        "description": "Returns all shows and episodes and associated metadata airing new (or live) on a lineup for a given time period up to 24 hours in length and up to 14 days in advance.",
+        "tags": [
+          "Programs"
+        ],
+        "parameters": [
+          {
+            "name": "lineupId",
+            "type": "string",
+            "description": "Lineup ID",
+            "in": "query",
+            "required": true,
+            "default": "USA-TX42500-X"
+          },
+          {
+            "name": "startDateTime",
+            "type": "string",
+            "format": "date-time",
+            "description": "Date/Time to start from (ISO 8601).",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "endDateTime",
+            "type": "string",
+            "format": "date-time",
+            "description": "Date/Time to end on (ISO 8601). Defaults to startDateTime plus three hours.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "includeAdult",
+            "type": "boolean",
+            "description": "Boolean indicating whether to include adult TV shows in response. Defaults to false.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "imageSize",
+            "type": "string",
+            "description": "Size of the image referenced by the preferred image URI returned. The default value is Md (medium)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Sm",
+              "Md",
+              "Lg",
+              "Ms"
+            ]
+          },
+          {
+            "name": "imageAspectTV",
+            "type": "string",
+            "description": "Aspect ratio of the image referenced by the preferred image URI returned. Only applies to TV content. The default value is 2x3.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "2x3",
+              "3x4",
+              "4x3",
+              "16x9"
+            ]
+          },
+          {
+            "name": "imageText",
+            "type": "boolean",
+            "description": "Boolean indicating preference for image with or without text. If no image is found matching text preference, next available image will be returned. Defaults to true (prefer images with text).",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/sports/{sportsId}/events/airings": {
+      "get": {
+        "operationId": "AiringsofSportsEventsSports",
+        "summary": "Returns live sports events and associated metadata...",
+        "description": "Returns live sports events and associated metadata for a list of sports that are airing on a lineup for a given time period up to 24 hours in length and up to 14 days in advance.",
+        "tags": [
+          "Sports"
+        ],
+        "parameters": [
+          {
+            "name": "sportsId",
+            "type": "string",
+            "description": "A comma-separated list of sports genre ids (e.g., 58 for baseball, 59 for basketball) or 'all' to return airings for all sports.",
+            "in": "path",
+            "required": true,
+            "default": "58,59"
+          },
+          {
+            "name": "lineupId",
+            "type": "string",
+            "description": "Lineup ID",
+            "in": "query",
+            "required": true,
+            "default": "USA-TX42500-X"
+          },
+          {
+            "name": "startDateTime",
+            "type": "string",
+            "format": "date-time",
+            "description": "Date/Time to start from (ISO 8601).",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "endDateTime",
+            "type": "string",
+            "format": "date-time",
+            "description": "Date/Time to end on (ISO 8601). Defaults to startDateTime plus three hours.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "liveOnly",
+            "type": "boolean",
+            "description": "Boolean indicating whether to only include live events. Defaults to false.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "imageSize",
+            "type": "string",
+            "description": "Size of the image referenced by the preferred image URI returned. The default value is Md (medium)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Sm",
+              "Md",
+              "Lg",
+              "Ms"
+            ]
+          },
+          {
+            "name": "imageAspectTV",
+            "type": "string",
+            "description": "Aspect ratio of the image referenced by the preferred image URI returned. Only applies to TV content. The default value is 2x3.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "2x3",
+              "3x4",
+              "4x3",
+              "16x9"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/movies/airings": {
+      "get": {
+        "operationId": "AllMoviesAiringonTVMoviesonTV",
+        "summary": "Returns movies and associated metadata that are ai...",
+        "description": "Returns movies and associated metadata that are airing on a lineup for a given time period up to 24 hours in length and up to 14 days in advance.",
+        "tags": [
+          "Movies on TV"
+        ],
+        "parameters": [
+          {
+            "name": "lineupId",
+            "type": "string",
+            "description": "Lineup ID",
+            "in": "query",
+            "required": true,
+            "default": "USA-TX42500-X"
+          },
+          {
+            "name": "startDateTime",
+            "type": "string",
+            "format": "date-time",
+            "description": "Date/Time to start from (ISO 8601).",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "endDateTime",
+            "type": "string",
+            "format": "date-time",
+            "description": "Date/Time to end on (ISO 8601). Defaults to startDateTime plus three hours.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "includeAdult",
+            "type": "boolean",
+            "description": "Boolean indicating whether to include adult TV shows in response. Defaults to false.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "imageSize",
+            "type": "string",
+            "description": "Size of the image referenced by the preferred image URI returned. The default value is Md (medium)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Sm",
+              "Md",
+              "Lg",
+              "Ms"
+            ]
+          },
+          {
+            "name": "imageText",
+            "type": "boolean",
+            "description": "Boolean indicating preference for image with or without text. If no image is found matching text preference, next available image will be returned. Defaults to true (prefer images with text).",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "descriptionLang",
+            "type": "string",
+            "description": "Optional filter based on specified description language. If not specified, all movies airings returned.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "da",
+              "de",
+              "en",
+              "en-GB",
+              "es",
+              "fi",
+              "fr",
+              "fr-CA",
+              "it",
+              "nl",
+              "no",
+              "pt",
+              "pt-BR",
+              "sv"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/lineups": {
+      "get": {
+        "operationId": "FindLineupsLineups",
+        "summary": "Returns a list of lineups for a country and postal...",
+        "description": "Returns a list of lineups for a country and postal code.",
+        "tags": [
+          "Lineups"
+        ],
+        "parameters": [
+          {
+            "name": "country",
+            "type": "string",
+            "description": "Country code. See here for list of countries currently available.  If not specified, defaults to USA.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-",
+              "USA",
+              "CAN",
+              "AUT",
+              "CHE",
+              "DEU",
+              "DNK",
+              "ESP",
+              "FIN",
+              "FRA",
+              "GBR",
+              "ITA",
+              "NOR",
+              "SWE",
+              "ARG",
+              "BLZ",
+              "BRA",
+              "CHL",
+              "COL",
+              "CRI",
+              "ECU",
+              "GTM",
+              "GUY",
+              "HND",
+              "MEX",
+              "PAN",
+              "PER",
+              "URY",
+              "VEN",
+              "AIA",
+              "ATG",
+              "ABW",
+              "BHS",
+              "BRB",
+              "BMU",
+              "BES",
+              "VGB",
+              "CYM",
+              "CUW",
+              "DMA",
+              "DOM",
+              "GRD",
+              "JAM",
+              "PRI",
+              "MAF",
+              "VCT",
+              "KNA",
+              "LCA",
+              "TTO",
+              "TCA"
+            ]
+          },
+          {
+            "name": "postalCode",
+            "type": "string",
+            "description": "Postal Code. See International Lineups for more information.",
+            "in": "query",
+            "required": true,
+            "default": "78701"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/lineups/{lineupId}": {
+      "get": {
+        "operationId": "LineupDetailsLineups",
+        "summary": "Returns details for a given lineup.",
+        "tags": [
+          "Lineups"
+        ],
+        "parameters": [
+          {
+            "name": "lineupId",
+            "type": "string",
+            "description": "Lineup ID",
+            "in": "path",
+            "required": true,
+            "default": "USA-TX42500-X"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/lineups/{lineupId}/channels": {
+      "get": {
+        "operationId": "LineupChannelListLineups",
+        "summary": "Returns a list of stations and channel positions a...",
+        "description": "Returns a list of stations and channel positions associated with the lineup provided.",
+        "tags": [
+          "Lineups"
+        ],
+        "parameters": [
+          {
+            "name": "lineupId",
+            "type": "string",
+            "description": "Lineup ID",
+            "in": "path",
+            "required": true,
+            "default": "USA-TX42500-X"
+          },
+          {
+            "name": "imageSize",
+            "type": "string",
+            "description": "Size of the image referenced by the preferred image URI returned. The default value is Md (medium)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Sm",
+              "Md",
+              "Lg",
+              "Ms"
+            ]
+          },
+          {
+            "name": "enhancedCallSign",
+            "type": "boolean",
+            "description": "Boolean indicating whether or not to include display-friendly call signs in the results. Defaults to false.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/lineups/{lineupId}/grid": {
+      "get": {
+        "operationId": "LineupAirings(TVGrid)Lineups",
+        "summary": "Returns schedule airing and associated program met...",
+        "description": "Returns schedule airing and associated program metadata for a lineup to be contained within a TV grid. Allows for up to 6 hours of schedule metadata for a given date up to 14 days in advance.",
+        "tags": [
+          "Lineups"
+        ],
+        "parameters": [
+          {
+            "name": "lineupId",
+            "type": "string",
+            "description": "Lineup ID",
+            "in": "path",
+            "required": true,
+            "default": "USA-TX42500-X"
+          },
+          {
+            "name": "stationId",
+            "type": "string",
+            "description": "Station ID. Multiple stations accepted, comma-separated.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "startDateTime",
+            "type": "string",
+            "format": "date-time",
+            "description": "Date/Time to start from (ISO 8601)",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "endDateTime",
+            "type": "string",
+            "format": "date-time",
+            "description": "Date/Time to end on (ISO 8601). Defaults to startDateTime plus three hours.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "size",
+            "type": "string",
+            "description": "Amount of program metadata to be returned in TV grid. The default value is Detailed. For smaller response size, use Basic or DetailedNoImage.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Basic",
+              "Detailed",
+              "DetailedNoImage"
+            ]
+          },
+          {
+            "name": "imageSize",
+            "type": "string",
+            "description": "Size of the image referenced by the preferred image URI returned. The default value is Md (medium)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Sm",
+              "Md",
+              "Lg",
+              "Ms"
+            ]
+          },
+          {
+            "name": "imageAspectTV",
+            "type": "string",
+            "description": "Aspect ratio of the image referenced by the preferred image URI returned. Only applies to TV content. The default value is 2x3.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "2x3",
+              "3x4",
+              "4x3",
+              "16x9"
+            ]
+          },
+          {
+            "name": "imageText",
+            "type": "boolean",
+            "description": "Boolean indicating preference for image with or without text. If no image is found matching text preference, next available image will be returned. Defaults to true (prefer images with text).",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "excludeChannels",
+            "type": "string",
+            "description": "Optional comma-delimited list of channel types to exclude from grid. Valid values are: nonhd, music, ppv, adult, premium.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "enhancedCallSign",
+            "type": "boolean",
+            "description": "Boolean indicating whether or not to include display-friendly call signs in the results. Defaults to false.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stations/{stationId}": {
+      "get": {
+        "operationId": "StationDetailsStations",
+        "summary": "Returns details for a single station. *Available w...",
+        "description": "Returns details for a single station. *Available with R&D/Commercial plans only.",
+        "tags": [
+          "Stations"
+        ],
+        "parameters": [
+          {
+            "name": "stationId",
+            "type": "string",
+            "description": "Station ID",
+            "in": "path",
+            "required": true,
+            "default": "10359"
+          },
+          {
+            "name": "lineupId",
+            "type": "string",
+            "description": "Lineup ID. If not provided, channel numbers will not be included in the response.",
+            "in": "query",
+            "required": false,
+            "default": "USA-TX42500-X"
+          },
+          {
+            "name": "imageSize",
+            "type": "string",
+            "description": "Size of the image referenced by the preferred image URI returned. The default value is Md (medium). Only small and medium logos available for stations.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Sm",
+              "Md"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stations/{stationId}/airings": {
+      "get": {
+        "operationId": "StationAiringsStations",
+        "summary": "Returns airings schedule and associated program me...",
+        "description": "Returns airings schedule and associated program metadata for a single station for a given time period over the next 14 days.",
+        "tags": [
+          "Stations"
+        ],
+        "parameters": [
+          {
+            "name": "stationId",
+            "type": "string",
+            "description": "Station ID",
+            "in": "path",
+            "required": true,
+            "default": "10359"
+          },
+          {
+            "name": "lineupId",
+            "type": "string",
+            "description": "Lineup ID. If not provided, channel numbers will not be included in the response.",
+            "in": "query",
+            "required": false,
+            "default": "USA-TX42500-X"
+          },
+          {
+            "name": "startDateTime",
+            "type": "string",
+            "format": "date-time",
+            "description": "Date/Time to start from (ISO 8601).",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "endDateTime",
+            "type": "string",
+            "format": "date-time",
+            "description": "Date/Time to end on (ISO 8601). Defaults to startDateTime plus three hours.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "imageSize",
+            "type": "string",
+            "description": "Size of the image referenced by the preferred image URI returned. The default value is Md (medium)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Sm",
+              "Md",
+              "Lg",
+              "Ms"
+            ]
+          },
+          {
+            "name": "imageAspectTV",
+            "type": "string",
+            "description": "Aspect ratio of the image referenced by the preferred image URI returned. Only applies to TV content. The default value is 2x3.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "2x3",
+              "3x4",
+              "4x3",
+              "16x9"
+            ]
+          },
+          {
+            "name": "imageText",
+            "type": "boolean",
+            "description": "Boolean indicating preference for image with or without text. If no image is found matching text preference, next available image will be returned. Defaults to true (prefer images with text).",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/programs/search": {
+      "get": {
+        "operationId": "ProgramSearchPrograms",
+        "summary": "Returns basic program metatdata based on free-form...",
+        "description": "Returns basic program metatdata based on free-form search criteria.",
+        "tags": [
+          "Programs"
+        ],
+        "parameters": [
+          {
+            "name": "q",
+            "type": "string",
+            "description": "Query string.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "queryFields",
+            "type": "string",
+            "description": "Comma-separated list of fields in which the search string is queried against. Valid fields are title, description, cast, genres, and directors. Do not include spaces in list.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "entityType",
+            "type": "string",
+            "description": "Comma-separated list of program types to search. Valid values are movie, episode, sports, show. Do not include spaces in list.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "genres",
+            "type": "string",
+            "description": "Filter results by the specified comma-separated list of genres. See Program Genres method for available genres.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "includeAdult",
+            "type": "boolean",
+            "description": "Boolean indicating whether to include programs with 'Adults Only' genre in response. Defaults to false.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "titleLang",
+            "type": "string",
+            "description": "Filter results based on the specified title language (e.g., en=English, es=Spanish, en-GB=British English, pt-BR=Brazilian Portugese)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "da",
+              "de",
+              "en",
+              "en-GB",
+              "es",
+              "fi",
+              "fr",
+              "fr-CA",
+              "it",
+              "nl",
+              "no",
+              "pt",
+              "pt-BR",
+              "sv"
+            ]
+          },
+          {
+            "name": "descriptionLang",
+            "type": "string",
+            "description": "Filter results based on the specified description language, using IETF language tags.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "da",
+              "de",
+              "en",
+              "en-GB",
+              "es",
+              "fi",
+              "fr",
+              "fr-CA",
+              "it",
+              "nl",
+              "no",
+              "pt",
+              "pt-BR",
+              "sv"
+            ]
+          },
+          {
+            "name": "limit",
+            "type": "string",
+            "description": "The maximum number of results to be returned from the query. Valid values are between 1 and 50. Default is 10.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "string",
+            "description": "Zero-based offset index on the result set. Used in conjunction with limit to page through results. For example, offset=10 will set response data to begin with 11th hit.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "lineupId",
+            "type": "string",
+            "description": "Lineup ID. If specified, response will include only programs found in the schedule and list their airings under each program summary. If not specified, all programs matching the query will be returned, and no airings will be listed.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "startDateTime",
+            "type": "string",
+            "description": "Date/Time to start from (ISO 8601). Defaults to start of current hour. Only used when lineupId is specified. Example: 2013-03-05T22:00Z",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "endDateTime",
+            "type": "string",
+            "description": "Date/Time to end on (ISO 8601). If not specified, airings will be shown chronologically from the startDateTime, up to the maximum of 50 per program. Only used when lineupId is specified.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "imageSize",
+            "type": "string",
+            "description": "Size of the image referenced by the preferred image URI returned. The default value is Md (medium)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Sm",
+              "Md",
+              "Lg",
+              "Ms"
+            ]
+          },
+          {
+            "name": "imageAspectTV",
+            "type": "string",
+            "description": "Aspect ratio of the image referenced by the preferred image URI returned. Only applies to TV content. The default value is 2x3.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "2x3",
+              "3x4",
+              "4x3",
+              "16x9"
+            ]
+          },
+          {
+            "name": "imageText",
+            "type": "boolean",
+            "description": "Boolean indicating preference for image with or without text. If no image is found matching text preference, next available image will be returned. Defaults to true (prefer images with text).",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/programs/{tmsId}": {
+      "get": {
+        "operationId": "ProgramDetailsPrograms",
+        "summary": "Returns detailed metadata for any TMS program ID (...",
+        "description": "Returns detailed metadata for any TMS program ID (Movie, Show, Episode, or Sports).",
+        "tags": [
+          "Programs"
+        ],
+        "parameters": [
+          {
+            "name": "tmsId",
+            "type": "string",
+            "description": "TMS ID",
+            "in": "path",
+            "required": true,
+            "default": "SH006883590000"
+          },
+          {
+            "name": "imageSize",
+            "type": "string",
+            "description": "Size of the image referenced by the preferred image URI returned. The default value is Md (medium)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Sm",
+              "Md",
+              "Lg",
+              "Ms"
+            ]
+          },
+          {
+            "name": "imageAspectTV",
+            "type": "string",
+            "description": "Aspect ratio of the image referenced by the preferred image URI returned. Only applies to TV content. The default value is 2x3.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "2x3",
+              "3x4",
+              "4x3",
+              "16x9"
+            ]
+          },
+          {
+            "name": "imageText",
+            "type": "boolean",
+            "description": "Boolean indicating preference for image with or without text. If no image is found matching text preference, next available image will be returned. Defaults to true (prefer images with text).",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/programs/{tmsId}/airings": {
+      "get": {
+        "operationId": "ProgramAiringsPrograms",
+        "summary": "Returns all airings of a specific program for a gi...",
+        "description": "Returns all airings of a specific program for a given lineup and time period up to 14 days in advance.",
+        "tags": [
+          "Programs"
+        ],
+        "parameters": [
+          {
+            "name": "tmsId",
+            "type": "string",
+            "description": "TMS ID",
+            "in": "path",
+            "required": true,
+            "default": "SH006883590000"
+          },
+          {
+            "name": "lineupId",
+            "type": "string",
+            "description": "Lineup ID",
+            "in": "query",
+            "required": true,
+            "default": "USA-TX42500-X"
+          },
+          {
+            "name": "startDateTime",
+            "type": "string",
+            "format": "date-time",
+            "description": "Date/Time to start from (ISO 8601).",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "endDateTime",
+            "type": "string",
+            "format": "date-time",
+            "description": "Date/Time to end on (ISO 8601). Defaults to startDateTime plus three hours.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "includeDetail",
+            "type": "boolean",
+            "description": "Boolean indicating whether to include detailed program metadata with each airing. Defaults to false.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "imageSize",
+            "type": "string",
+            "description": "Size of the image referenced by the preferred image URI returned. The default value is Md (medium)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Sm",
+              "Md",
+              "Lg",
+              "Ms"
+            ]
+          },
+          {
+            "name": "imageAspectTV",
+            "type": "string",
+            "description": "Aspect ratio of the image referenced by the preferred image URI returned. Only applies to TV content. The default value is 2x3.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "2x3",
+              "3x4",
+              "4x3",
+              "16x9"
+            ]
+          },
+          {
+            "name": "imageText",
+            "type": "boolean",
+            "description": "Boolean indicating preference for image with or without text. If no image is found matching text preference, next available image will be returned. Defaults to true (prefer images with text).",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/programs/newShowsLastWeek": {
+      "get": {
+        "operationId": "NewShowsthatAiredinLastWeekPrograms",
+        "summary": "Returns all shows and episodes and associated meta...",
+        "description": "Returns all shows and episodes and associated metadata that aired new (or live) for given past dates up to 7 days. *Available with R&D/Commercial plans only.",
+        "tags": [
+          "Programs"
+        ],
+        "parameters": [
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "Date to start (yyyy-mm-dd).",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "Date to end (yyyy-mm-dd). Defaults to startDate.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "includeAdult",
+            "type": "boolean",
+            "description": "Boolean indicating whether to include adult TV shows in response. Defaults to false.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "imageSize",
+            "type": "string",
+            "description": "Size of the image referenced by the preferred image URI returned. The default value is Md (medium)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Sm",
+              "Md",
+              "Lg",
+              "Ms"
+            ]
+          },
+          {
+            "name": "imageAspectTV",
+            "type": "string",
+            "description": "Aspect ratio of the image referenced by the preferred image URI returned. Only applies to TV content. The default value is 2x3.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "2x3",
+              "3x4",
+              "4x3",
+              "16x9"
+            ]
+          },
+          {
+            "name": "imageText",
+            "type": "boolean",
+            "description": "Boolean indicating preference for image with or without text. If no image is found matching text preference, next available image will be returned. Defaults to true (prefer images with text).",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/programs/advancePlanner": {
+      "get": {
+        "operationId": "AdvancePlannerPrograms",
+        "summary": "Returns a list of notable TV programming and assoc...",
+        "description": "Returns a list of notable TV programming and associated metadata due to air at future date. *Available with R&D/Commercial plans only.",
+        "tags": [
+          "Programs"
+        ],
+        "parameters": [
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "Date to start (yyyy-mm-dd).",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "Date to end (yyyy-mm-dd). Defaults to 31 days after startDate.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventCode",
+            "type": "string",
+            "description": "Comma-separated list corresponding to selected event type codes. Default will return all types.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11"
+            ]
+          },
+          {
+            "name": "titleLang",
+            "type": "string",
+            "description": "Filter results based on the specified title language (e.g., en=English, es=Spanish, en-GB=British English, pt-BR=Brazilian Portugese)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "da",
+              "de",
+              "en",
+              "en-GB",
+              "es",
+              "fi",
+              "fr",
+              "fr-CA",
+              "it",
+              "nl",
+              "no",
+              "pt",
+              "pt-BR",
+              "sv"
+            ]
+          },
+          {
+            "name": "descriptionLang",
+            "type": "string",
+            "description": "Preference for description language to be returned. If specified descriptionLang not found for series, reverts to primary TMS ID for series.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "da",
+              "de",
+              "en",
+              "en-GB",
+              "es",
+              "fi",
+              "fr",
+              "fr-CA",
+              "it",
+              "nl",
+              "no",
+              "pt",
+              "pt-BR",
+              "sv"
+            ]
+          },
+          {
+            "name": "imageSize",
+            "type": "string",
+            "description": "Size of the images to be returned. If not specified, images in all available sizes will be returned.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Sm",
+              "Md",
+              "Lg",
+              "Ms"
+            ]
+          },
+          {
+            "name": "imageAspectTV",
+            "type": "string",
+            "description": "Aspect ratio of the images to be returned. Only applies to TV content. If not specified, images in all available aspect ratios will be returned.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "2x3",
+              "3x4",
+              "4x3",
+              "16x9"
+            ]
+          },
+          {
+            "name": "imageText",
+            "type": "boolean",
+            "description": "Boolean indicating preference for image with or without text. If no image is found matching text preference, next available image will be returned. Defaults to true (prefer images with text).",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/programs/{resourceId}/images": {
+      "get": {
+        "operationId": "AllProgramImagesPrograms",
+        "summary": "Returns all available images associated with a pro...",
+        "description": "Returns all available images associated with a program. *Available with R&D/Commercial plans only.",
+        "tags": [
+          "Programs"
+        ],
+        "parameters": [
+          {
+            "name": "resourceId",
+            "type": "string",
+            "description": "tmsId or rootId for program",
+            "in": "path",
+            "required": true,
+            "default": "SH006883590000"
+          },
+          {
+            "name": "imageSize",
+            "type": "string",
+            "description": "If specified, only images in selected size will be included. Default will return all available image sizes.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Sm",
+              "Md",
+              "Lg",
+              "Ms"
+            ]
+          },
+          {
+            "name": "imageAspectTV",
+            "type": "string",
+            "description": "If specified, only images in selected aspect ratio will be included. Only applies to TV content. Default will return images in all available aspect ratios.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "2x3",
+              "3x4",
+              "4x3",
+              "16x9"
+            ]
+          },
+          {
+            "name": "imageText",
+            "type": "boolean",
+            "description": "Boolean indicating filter for image types with or without text. If not specified, will return all image types.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/programs/genres": {
+      "get": {
+        "operationId": "ProgramGenresPrograms",
+        "summary": "Returns a list of program genres, to be used in co...",
+        "description": "Returns a list of program genres, to be used in conjunction with Program Search. Note: language parameter deprecated in v1.1.",
+        "tags": [
+          "Programs"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/series/{seriesId}": {
+      "get": {
+        "operationId": "SeriesDetailsSeries",
+        "summary": "Returns detailed metadata for a given series.",
+        "tags": [
+          "Series"
+        ],
+        "parameters": [
+          {
+            "name": "seriesId",
+            "type": "string",
+            "description": "Series ID",
+            "in": "path",
+            "required": true,
+            "default": "185044"
+          },
+          {
+            "name": "imageSize",
+            "type": "string",
+            "description": "Size of the image referenced by the preferred image URI returned. The default value is Md (medium)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Sm",
+              "Md",
+              "Lg",
+              "Ms"
+            ]
+          },
+          {
+            "name": "imageAspectTV",
+            "type": "string",
+            "description": "Aspect ratio of the image referenced by the preferred image URI returned. Only applies to TV content. The default value is 2x3.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "2x3",
+              "3x4",
+              "4x3",
+              "16x9"
+            ]
+          },
+          {
+            "name": "imageText",
+            "type": "boolean",
+            "description": "Boolean indicating preference for image with or without text. If no image is found matching text preference, next available image will be returned. Defaults to true (prefer images with text).",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "titleLang",
+            "type": "string",
+            "description": "Filter results based on the specified title language (e.g., en=English, es=Spanish, en-GB=British English, pt-BR=Brazilian Portugese)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "da",
+              "de",
+              "en",
+              "en-GB",
+              "es",
+              "fi",
+              "fr",
+              "fr-CA",
+              "it",
+              "nl",
+              "no",
+              "pt",
+              "pt-BR",
+              "sv"
+            ]
+          },
+          {
+            "name": "descriptionLang",
+            "type": "string",
+            "description": "Preference for description language to be returned. If specified descriptionLang not found for series, reverts to primary TMS ID for series.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "da",
+              "de",
+              "en",
+              "en-GB",
+              "es",
+              "fi",
+              "fr",
+              "fr-CA",
+              "it",
+              "nl",
+              "no",
+              "pt",
+              "pt-BR",
+              "sv"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/series/{seriesId}/airings": {
+      "get": {
+        "operationId": "SeriesAiringsSeries",
+        "summary": "Returns all airings of a series for a given lineup...",
+        "description": "Returns all airings of a series for a given lineup and time period up to 14 days in advance.",
+        "tags": [
+          "Series"
+        ],
+        "parameters": [
+          {
+            "name": "seriesId",
+            "type": "string",
+            "description": "Series ID",
+            "in": "path",
+            "required": true,
+            "default": "185044"
+          },
+          {
+            "name": "lineupId",
+            "type": "string",
+            "description": "Lineup ID",
+            "in": "query",
+            "required": true,
+            "default": "USA-TX42500-X"
+          },
+          {
+            "name": "startDateTime",
+            "type": "string",
+            "format": "date-time",
+            "description": "Date/Time to start from (ISO 8601).",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "endDateTime",
+            "type": "string",
+            "format": "date-time",
+            "description": "Date/Time to end on (ISO 8601). Defaults to startDateTime plus three hours.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "includeDetail",
+            "type": "boolean",
+            "description": "Boolean indicating whether to include detailed program metadata with each airing. Defaults to false.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "imageSize",
+            "type": "string",
+            "description": "Size of the image referenced by the preferred image URI returned. The default value is Md (medium)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Sm",
+              "Md",
+              "Lg",
+              "Ms"
+            ]
+          },
+          {
+            "name": "imageAspectTV",
+            "type": "string",
+            "description": "Aspect ratio of the image referenced by the preferred image URI returned. Only applies to TV content. The default value is 2x3.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "2x3",
+              "3x4",
+              "4x3",
+              "16x9"
+            ]
+          },
+          {
+            "name": "imageText",
+            "type": "boolean",
+            "description": "Boolean indicating preference for image with or without text. If no image is found matching text preference, next available image will be returned. Defaults to true (prefer images with text).",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "descriptionLang",
+            "type": "string",
+            "description": "Optional filter based on specified description language. If not specified, all series airings returned.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "da",
+              "de",
+              "en",
+              "en-GB",
+              "es",
+              "fi",
+              "fr",
+              "fr-CA",
+              "it",
+              "nl",
+              "no",
+              "pt",
+              "pt-BR",
+              "sv"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/series/{seriesId}/episodes": {
+      "get": {
+        "operationId": "SeriesEpisodesSeries",
+        "summary": "Returns episodes of a series, sorted by season and...",
+        "description": "Returns episodes of a series, sorted by season and episode numbers. If limit/offset parameters not provided, will return up to maximum of 100 episodes. If limit/offset parameters provided, response will be wrapped in object with hitCount (total number of episodes) for paging.",
+        "tags": [
+          "Series"
+        ],
+        "parameters": [
+          {
+            "name": "seriesId",
+            "type": "string",
+            "description": "Series ID",
+            "in": "path",
+            "required": true,
+            "default": "185044"
+          },
+          {
+            "name": "season",
+            "type": "string",
+            "description": "Season number. If not specified, will return episodes from all seasons.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "size",
+            "type": "string",
+            "description": "Amount of program metadata to be returned for episodes. The default value is Detailed. For smaller response size, use Basic.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Basic",
+              "Detailed"
+            ]
+          },
+          {
+            "name": "limit",
+            "type": "string",
+            "description": "The maximum number of results to be returned from the query. Default is 100.",
+            "in": "query",
+            "required": false,
+            "default": "50"
+          },
+          {
+            "name": "offset",
+            "type": "string",
+            "description": "Zero-based offset index on the result set. Used in conjunction with limit to page through results. For example, offset=10 will set response data to begin with 11th hit.",
+            "in": "query",
+            "required": false,
+            "default": "0"
+          },
+          {
+            "name": "imageSize",
+            "type": "string",
+            "description": "Size of the image referenced by the preferred image URI returned. The default value is Md (medium)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Sm",
+              "Md",
+              "Lg",
+              "Ms"
+            ]
+          },
+          {
+            "name": "imageAspectTV",
+            "type": "string",
+            "description": "Aspect ratio of the image referenced by the preferred image URI returned. Only applies to TV content. The default value is 2x3.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "2x3",
+              "3x4",
+              "4x3",
+              "16x9"
+            ]
+          },
+          {
+            "name": "imageText",
+            "type": "boolean",
+            "description": "Boolean indicating preference for image with or without text. If no image is found matching text preference, next available image will be returned. Defaults to true (prefer images with text).",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "titleLang",
+            "type": "string",
+            "description": "Filter results based on the specified title language (e.g., en=English, es=Spanish, en-GB=British English, pt-BR=Brazilian Portugese)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "da",
+              "de",
+              "en",
+              "en-GB",
+              "es",
+              "fi",
+              "fr",
+              "fr-CA",
+              "it",
+              "nl",
+              "no",
+              "pt",
+              "pt-BR",
+              "sv"
+            ]
+          },
+          {
+            "name": "descriptionLang",
+            "type": "string",
+            "description": "Set preference for description language to be returned. If specified descriptionLang not found for episode, reverts to primary TMS ID for episode.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "da",
+              "de",
+              "en",
+              "en-GB",
+              "es",
+              "fi",
+              "fr",
+              "fr-CA",
+              "it",
+              "nl",
+              "no",
+              "pt",
+              "pt-BR",
+              "sv"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/movies/{rootId}/versions": {
+      "get": {
+        "operationId": "MovieVersionsMoviesonTV",
+        "summary": "Returns all versions of a given movie. *Available ...",
+        "description": "Returns all versions of a given movie. *Available with R&D/Commercial plans only.",
+        "tags": [
+          "Movies on TV"
+        ],
+        "parameters": [
+          {
+            "name": "rootId",
+            "type": "string",
+            "description": "Movie Root ID",
+            "in": "path",
+            "required": true,
+            "default": "3542039"
+          },
+          {
+            "name": "imageSize",
+            "type": "string",
+            "description": "Size of the image referenced by the preferred image URI returned. The default value is Md (medium)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Sm",
+              "Md",
+              "Lg",
+              "Ms"
+            ]
+          },
+          {
+            "name": "imageText",
+            "type": "boolean",
+            "description": "Boolean indicating preference for image with or without text. If no image is found matching text preference, next available image will be returned. Defaults to true (prefer images with text).",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "descriptionLang",
+            "type": "string",
+            "description": "Filter results based on the specified description language. When not specified, returns English versions, or if no English descriptions available, returns versions with descriptionLang of primary TMS ID.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "da",
+              "de",
+              "en",
+              "en-GB",
+              "es",
+              "fi",
+              "fr",
+              "fr-CA",
+              "it",
+              "nl",
+              "no",
+              "pt",
+              "pt-BR",
+              "sv"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/movies/{rootId}/airings": {
+      "get": {
+        "operationId": "MovieAiringsMoviesonTV",
+        "summary": "Returns all airings of a movie for a given lineup ...",
+        "description": "Returns all airings of a movie for a given lineup and time period up to 14 days in advance.",
+        "tags": [
+          "Movies on TV"
+        ],
+        "parameters": [
+          {
+            "name": "rootId",
+            "type": "string",
+            "description": "Movie Root ID",
+            "in": "path",
+            "required": true,
+            "default": "169874"
+          },
+          {
+            "name": "lineupId",
+            "type": "string",
+            "description": "Lineup ID",
+            "in": "query",
+            "required": true,
+            "default": "USA-TX42500-X"
+          },
+          {
+            "name": "startDateTime",
+            "type": "string",
+            "format": "date-time",
+            "description": "Date/Time to start from (ISO 8601).",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "endDateTime",
+            "type": "string",
+            "format": "date-time",
+            "description": "Date/Time to end on (ISO 8601). Defaults to startDateTime plus three hours.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "includeDetail",
+            "type": "boolean",
+            "description": "Boolean indicating whether to include detailed movie metadata with each airing. Defaults to false.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "imageSize",
+            "type": "string",
+            "description": "Size of the image referenced by the preferred image URI returned. The default value is Md (medium)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Sm",
+              "Md",
+              "Lg",
+              "Ms"
+            ]
+          },
+          {
+            "name": "imageText",
+            "type": "boolean",
+            "description": "Boolean indicating preference for image with or without text. If no image is found matching text preference, next available image will be returned. Defaults to true (prefer images with text).",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "descriptionLang",
+            "type": "string",
+            "description": "Optional filter based on specified description language. If not specified, all airings of movie returned.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "da",
+              "de",
+              "en",
+              "en-GB",
+              "es",
+              "fi",
+              "fr",
+              "fr-CA",
+              "it",
+              "nl",
+              "no",
+              "pt",
+              "pt-BR",
+              "sv"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/theatres": {
+      "get": {
+        "operationId": "FindTheatresMoviesinTheatres",
+        "summary": "Returns a list of theatres for a given zip/postal ...",
+        "description": "Returns a list of theatres for a given zip/postal code or coordinates.",
+        "tags": [
+          "Movies in Theatres"
+        ],
+        "parameters": [
+          {
+            "name": "zip",
+            "type": "string",
+            "description": "US zip code or Canadian postal code. Must supply either zip or coordinates.",
+            "in": "query",
+            "required": false,
+            "default": "78701"
+          },
+          {
+            "name": "lat",
+            "type": "string",
+            "description": "Latitude coordinate. Valid values are between -90 and 90. Must supply either zip or coordinates.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "lng",
+            "type": "string",
+            "description": "Longitude coordinate. Valid values are between -180 and 180. Must supply either zip or coordinates.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "radius",
+            "type": "string",
+            "description": "Range to search from initial location. Defaults to 5 miles. Maximum 100 mi (160 km).",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "units",
+            "type": "string",
+            "description": "Unit of measurement for the radius parameter as well as the distance value in response.  Defaults to miles.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "mi",
+              "km"
+            ]
+          },
+          {
+            "name": "numTheatres",
+            "type": "string",
+            "description": "Maximum number of theatres to return. If not specified, response will include max 100 theatres within specified radius.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/theatres/{theatreId}": {
+      "get": {
+        "operationId": "TheatreDetailsMoviesinTheatres",
+        "summary": "Returns details for a specified theatre. *Availabl...",
+        "description": "Returns details for a specified theatre. *Available with R&D/Commercial plans only.",
+        "tags": [
+          "Movies in Theatres"
+        ],
+        "parameters": [
+          {
+            "name": "theatreId",
+            "type": "string",
+            "description": "Theatre ID.",
+            "in": "path",
+            "required": true,
+            "default": "8749"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/theatres/{theatreId}/showings": {
+      "get": {
+        "operationId": "TheatreShowtimesMoviesinTheatres",
+        "summary": "Returns a list of all movies and showtimes at a th...",
+        "description": "Returns a list of all movies and showtimes at a theatre for a given day(s).",
+        "tags": [
+          "Movies in Theatres"
+        ],
+        "parameters": [
+          {
+            "name": "theatreId",
+            "type": "string",
+            "format": "date",
+            "description": "Theatre ID.",
+            "in": "path",
+            "required": true,
+            "default": "8749"
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "Start date (yyyy-mm-dd). Schedules available starting with current day.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "numDays",
+            "type": "string",
+            "description": "Number of schedule days. Defaults to 1.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "imageSize",
+            "type": "string",
+            "description": "Size of the image referenced by the preferred image URI returned. The default value is Md (medium)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Sm",
+              "Md",
+              "Lg",
+              "Ms"
+            ]
+          },
+          {
+            "name": "imageText",
+            "type": "boolean",
+            "description": "Boolean indicating preference for image with or without text. If no image is found matching text preference, next available image will be returned. Defaults to true (prefer images with text).",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/movies/{movieId}/showings": {
+      "get": {
+        "operationId": "MovieShowtimes(singlemovie)MoviesinTheatres",
+        "summary": "Returns movie metadata and theatre/showtimes infor...",
+        "description": "Returns movie metadata and theatre/showtimes information for a specified movie.",
+        "tags": [
+          "Movies in Theatres"
+        ],
+        "parameters": [
+          {
+            "name": "movieId",
+            "type": "string",
+            "format": "date",
+            "description": "tmsId or rootId.",
+            "in": "path",
+            "required": true,
+            "default": "MV005298400000"
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "format": "date",
+            "description": "Start date (yyyy-mm-dd). Schedules available starting with current day.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "numDays",
+            "type": "string",
+            "description": "Number of schedule days. Defaults to 1.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "zip",
+            "type": "string",
+            "description": "US zip code or Canadian postal code. Must supply either zip or coordinates.",
+            "in": "query",
+            "required": false,
+            "default": "78701"
+          },
+          {
+            "name": "lat",
+            "type": "string",
+            "description": "Latitude coordinate. Valid values are between -90 and 90. Must supply either zip or coordinates.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "lng",
+            "type": "string",
+            "description": "Longitude coordinate. Valid values are between -180 and 180. Must supply either zip or coordinates.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "radius",
+            "type": "string",
+            "description": "Range to search from initial location. Defaults to 5 miles. Maximum 100 mi (160 km).",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "units",
+            "type": "string",
+            "description": "Unit of measurement for the radius parameter as well as the distance value in response.  Defaults to miles.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "mi",
+              "km"
+            ]
+          },
+          {
+            "name": "imageSize",
+            "type": "string",
+            "description": "Size of the image referenced by the preferred image URI returned. The default value is Md (medium)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Sm",
+              "Md",
+              "Lg",
+              "Ms"
+            ]
+          },
+          {
+            "name": "imageText",
+            "type": "boolean",
+            "description": "Boolean indicating preference for image with or without text. If no image is found matching text preference, next available image will be returned. Defaults to true (prefer images with text).",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/movies/futureReleases": {
+      "get": {
+        "operationId": "FutureReleasesMoviesinTheatres",
+        "summary": "Returns a list of movies and associated metadata b...",
+        "description": "Returns a list of movies and associated metadata being released on a given date provided and up to 6 months into the future. *Available with R&D/Commercial plans only.",
+        "tags": [
+          "Movies in Theatres"
+        ],
+        "parameters": [
+          {
+            "name": "releaseDate",
+            "type": "string",
+            "format": "date",
+            "description": "Start date (yyyy-mm-dd). Can be up to 7 days prior to current date.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "numDays",
+            "type": "string",
+            "description": "Number of days to search. Defaults to 60. Maximum 180.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "country",
+            "type": "string",
+            "description": "Returns releases for specified country (USA or CAN). Defaults to USA.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "USA",
+              "CAN"
+            ]
+          },
+          {
+            "name": "titleLang",
+            "type": "string",
+            "description": "Filter results based on the specified title language (e.g., en=English). If not specified, defaults to en.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "descriptionLang",
+            "type": "string",
+            "description": "Filter results based on the specified description language (e.g., es=Spanish). If not specified, defaults to en.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "imageSize",
+            "type": "string",
+            "description": "Size of the image referenced by the preferred image URI returned. The default value is Md (medium)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Sm",
+              "Md",
+              "Lg",
+              "Ms"
+            ]
+          },
+          {
+            "name": "imageText",
+            "type": "boolean",
+            "description": "Boolean indicating preference for image with or without text. If no image is found matching text preference, next available image will be returned. Defaults to true (prefer images with text).",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/screenplayTrailers": {
+      "get": {
+        "operationId": "ScreenPlayTrailersMovieTrailers",
+        "summary": "Returns movie trailer metadata for one or more ass...",
+        "description": "Returns movie trailer metadata for one or more assets, with option for embeddable player links. A ScreenPlay customer agreement is required for production use.",
+        "tags": [
+          "Movie Trailers"
+        ],
+        "parameters": [
+          {
+            "name": "rootids",
+            "type": "string",
+            "format": "date",
+            "description": "Comma-separated list of movie rootIds.",
+            "in": "query",
+            "required": true,
+            "default": "9259673,8919177"
+          },
+          {
+            "name": "bitrateids",
+            "type": "string",
+            "description": "Comma-separated list of one or more encode bitrates. If omitted, all encode bitrates available per customer agreement will be returned.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "10",
+              "214",
+              "267",
+              "268",
+              "269",
+              "270",
+              "308",
+              "310",
+              "312",
+              "314",
+              "382",
+              "449",
+              "452",
+              "455",
+              "456",
+              "457",
+              "460",
+              "461",
+              "471",
+              "472"
+            ]
+          },
+          {
+            "name": "trailersonly",
+            "type": "string",
+            "description": "Filter by video asset type. 0 (default) returns trailers and extras. 1 returns trailers only.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "0",
+              "1"
+            ]
+          },
+          {
+            "name": "languageid",
+            "type": "string",
+            "description": "Return trailers in specified language only. Defaults to English. See documentation for Screenplay language codes.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "player_url",
+            "type": "string",
+            "description": "0 (default) returns bounce links, which require developer to supply appropriate player for format. 1 returns embeddable player links.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "0",
+              "1"
+            ]
+          },
+          {
+            "name": "best_eclip",
+            "type": "string",
+            "description": "0 (default) returns all video assets for each rootId. 1 returns most recent trailer asset.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/ivaTrailers/{programid}": {
+      "get": {
+        "operationId": "InternetVideoArchiveTrailers-ProgramIDMovieTrailers",
+        "summary": "This API provides subscribers access to all Intern...",
+        "description": "This API provides subscribers access to all Internet Video Archive,(IVA), trailers with direct links and various embed options. The API is is fully customizable using unlimited Application Profiles that are managed through IVA's CMS Media Manager.",
+        "tags": [
+          "Movie Trailers"
+        ],
+        "parameters": [
+          {
+            "name": "programid",
+            "type": "string",
+            "description": "Program ID or Title: In order to find a trailer for a movie, game or tv show the API needs to know what you are searching for. This is best done using ID's. If you don't have access to any ID's, Entertainment Express also supports a Title Search option where you can search for titles. The API will return a list of matches ordered by relevance for you to display to your users or automatically select the first one to display on your application.",
+            "in": "path",
+            "required": true,
+            "default": "8919177"
+          },
+          {
+            "name": "idtype",
+            "type": "string",
+            "description": "idtype is required for id search. 1 is the internal IVA ID, 11 indicates TMSid and 80 indicates rootId.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "11",
+              "80"
+            ]
+          },
+          {
+            "name": "appid",
+            "type": "string",
+            "description": "This is used to customize the response from the API. By using an Application Profile, you can specify the media types, target audience, language preferences, and a host of other options.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "customerid",
+            "type": "string",
+            "description": "This filed is required and identifies your account",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/ivaTrailers/actions/search": {
+      "get": {
+        "operationId": "InternetVideoArchiveTrailers-SearchMovieTrailers",
+        "summary": "This API provides subscribers access to all Intern...",
+        "description": "This API provides subscribers access to all Internet Video Archive,(IVA), trailers with direct links and various embed options. The API is is fully customizable using unlimited Application Profiles that are managed through IVA's CMS Media Manager.",
+        "tags": [
+          "Movie Trailers"
+        ],
+        "parameters": [
+          {
+            "name": "term",
+            "type": "string",
+            "description": "Term is required for title searches.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "appid",
+            "type": "string",
+            "description": "This is used to customize the response from the API. By using an Application Profile, you can specify the media types, target audience, language preferences, and a host of other options.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "customerid",
+            "type": "string",
+            "description": "This filed is required and identifies your account",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/sports/{sportsId}": {
+      "get": {
+        "operationId": "SportswithOptionalOrganizationsSports",
+        "summary": "Returns all (or specified) sports with associated ...",
+        "description": "Returns all (or specified) sports with associated organizations.",
+        "tags": [
+          "Sports"
+        ],
+        "parameters": [
+          {
+            "name": "sportsId",
+            "type": "string",
+            "description": "A comma-separated list of sports genre ids (e.g., \"59\" for Basketball) or 'all' for all sports.",
+            "in": "path",
+            "required": true,
+            "default": "all"
+          },
+          {
+            "name": "includeOrg",
+            "type": "boolean",
+            "description": "Boolean indicating whether to include organization metadata. Defaults to false.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "imageSize",
+            "type": "string",
+            "description": "Size of the image referenced by the preferred image URI returned. The default value is Md (medium)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Sm",
+              "Md",
+              "Lg",
+              "Ms"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/sports/sportsId/events/airings": {},
+    "/sports/{sportsId}/non-events/airings": {
+      "get": {
+        "operationId": "AiringsofSportsNon-EventsSports",
+        "summary": "Returns sports non-events (talk shows) and taped e...",
+        "description": "Returns sports non-events (talk shows) and taped events (classic games, early morning replays, etc.) for a list of sports that are airing on a lineup for a given time period up to 24 hours in length and up to 14 days in advance.",
+        "tags": [
+          "Sports"
+        ],
+        "parameters": [
+          {
+            "name": "sportsId",
+            "type": "string",
+            "description": "A comma-separated list of sports genre ids (e.g., 58 for baseball, 59 for basketball) or 'all' to return airings for all sports.",
+            "in": "path",
+            "required": true,
+            "default": "58,59"
+          },
+          {
+            "name": "lineupId",
+            "type": "string",
+            "description": "Lineup ID",
+            "in": "query",
+            "required": true,
+            "default": "USA-TX42500-X"
+          },
+          {
+            "name": "startDateTime",
+            "type": "string",
+            "format": "date-time",
+            "description": "Date/Time to start from (ISO 8601).",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "endDateTime",
+            "type": "string",
+            "format": "date-time",
+            "description": "Date/Time to end on (ISO 8601). Defaults to startDateTime plus three hours.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "imageSize",
+            "type": "string",
+            "description": "Size of the image referenced by the preferred image URI returned. The default value is Md (medium)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Sm",
+              "Md",
+              "Lg",
+              "Ms"
+            ]
+          },
+          {
+            "name": "imageAspectTV",
+            "type": "string",
+            "description": "Aspect ratio of the image referenced by the preferred image URI returned. Only applies to TV content. The default value is 2x3.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "2x3",
+              "3x4",
+              "4x3",
+              "16x9"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/sports/universities": {
+      "get": {
+        "operationId": "AllUniversitiesSports",
+        "summary": "Returns a list of all universities.",
+        "tags": [
+          "Sports"
+        ],
+        "parameters": [
+          {
+            "name": "imageSize",
+            "type": "string",
+            "description": "Size of the image referenced by the preferred image URI returned. The default value is Md (medium)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Sm",
+              "Md",
+              "Lg",
+              "Ms"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/sports/organizations/{organizationId}": {
+      "get": {
+        "operationId": "TeamsinanOrganizationSports",
+        "summary": "Returns a list of all teams associated with specif...",
+        "description": "Returns a list of all teams associated with specified organizations. *Available with R&D/Commercial plans only.",
+        "tags": [
+          "Sports"
+        ],
+        "parameters": [
+          {
+            "name": "organizationId",
+            "type": "string",
+            "description": "A comma-separated list of organization IDs (e.g., 17 for MLB, 19 for NBA)",
+            "in": "path",
+            "required": true,
+            "default": "17,19"
+          },
+          {
+            "name": "imageSize",
+            "type": "string",
+            "description": "Size of the image referenced by the preferred image URI returned. The default value is Md (medium)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Sm",
+              "Md",
+              "Lg",
+              "Ms"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/sports/universities/{universityId}": {
+      "get": {
+        "operationId": "TeamsataUniversitySports",
+        "summary": "Returns a list of all teams associated with specif...",
+        "description": "Returns a list of all teams associated with specified universities. *Available with R&D/Commercial plans only.",
+        "tags": [
+          "Sports"
+        ],
+        "parameters": [
+          {
+            "name": "universityId",
+            "type": "string",
+            "description": "A comma-separated list of university IDs, or 'all' for entire list of universities and teams.",
+            "in": "path",
+            "required": true,
+            "default": "1"
+          },
+          {
+            "name": "includeTeam",
+            "type": "boolean",
+            "description": "Boolean indicating whether to include organization metadata. Defaults to false.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "imageSize",
+            "type": "string",
+            "description": "Size of the image referenced by the preferred image URI returned. The default value is Md (medium)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Sm",
+              "Md",
+              "Lg",
+              "Ms"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/sports/teams/{teamBrandId}": {
+      "get": {
+        "operationId": "TeamDetailsSports",
+        "summary": "Returns details for a specified team. *Available w...",
+        "description": "Returns details for a specified team. *Available with R&D/Commercial plans only.",
+        "tags": [
+          "Sports"
+        ],
+        "parameters": [
+          {
+            "name": "teamBrandId",
+            "type": "string",
+            "description": "A comma-separated list of team IDs.",
+            "in": "path",
+            "required": true,
+            "default": "1"
+          },
+          {
+            "name": "imageSize",
+            "type": "string",
+            "description": "Size of the image referenced by the preferred image URI returned. The default value is Md (medium)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Sm",
+              "Md",
+              "Lg",
+              "Ms"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/sports/teams/{teamBrandId}/airings": {
+      "get": {
+        "operationId": "TeamAiringsSports",
+        "summary": "Returns airings for specified teams. *Available wi...",
+        "description": "Returns airings for specified teams. *Available with R&D/Commercial plans only.",
+        "tags": [
+          "Sports"
+        ],
+        "parameters": [
+          {
+            "name": "teamBrandId",
+            "type": "string",
+            "description": "A comma-separated list of teamBrandIds to return airings.",
+            "in": "path",
+            "required": true,
+            "default": "28,425"
+          },
+          {
+            "name": "lineupId",
+            "type": "string",
+            "description": "Lineup ID",
+            "in": "query",
+            "required": true,
+            "default": "USA-TX42500-X"
+          },
+          {
+            "name": "startDateTime",
+            "type": "string",
+            "format": "date-time",
+            "description": "Date/Time to start from (ISO 8601).",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "endDateTime",
+            "type": "string",
+            "format": "date-time",
+            "description": "Date/Time to end on (ISO 8601). Defaults to startDateTime plus three hours.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "includeDetail",
+            "type": "boolean",
+            "description": "Boolean indicating whether to include detailed program metadata with each airing. Defaults to false.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "imageSize",
+            "type": "string",
+            "description": "Size of the image referenced by the preferred image URI returned. The default value is Md (medium)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Sm",
+              "Md",
+              "Lg",
+              "Ms"
+            ]
+          },
+          {
+            "name": "imageAspectTV",
+            "type": "string",
+            "description": "Aspect ratio of the image referenced by the preferred image URI returned. Only applies to TV content. The default value is 2x3.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "2x3",
+              "3x4",
+              "4x3",
+              "16x9"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/sports/organizations/{organizationId}/airings": {
+      "get": {
+        "operationId": "OrganizationAiringsSports",
+        "summary": "Returns airings for specified organizations (e.g.,...",
+        "description": "Returns airings for specified organizations (e.g., MLB, NBA, NFL).",
+        "tags": [
+          "Sports"
+        ],
+        "parameters": [
+          {
+            "name": "organizationId",
+            "type": "string",
+            "description": "A comma-separated list of organizationIds to return airings (e.g., 17 for MLB, 19 for NBA)",
+            "in": "path",
+            "required": true,
+            "default": "17,19"
+          },
+          {
+            "name": "lineupId",
+            "type": "string",
+            "description": "Lineup ID",
+            "in": "query",
+            "required": true,
+            "default": "USA-TX42500-X"
+          },
+          {
+            "name": "startDateTime",
+            "type": "string",
+            "format": "date-time",
+            "description": "Date/Time to start from (ISO 8601).",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "endDateTime",
+            "type": "string",
+            "format": "date-time",
+            "description": "Date/Time to end on (ISO 8601). Defaults to startDateTime plus three hours.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "includeDetail",
+            "type": "boolean",
+            "description": "Boolean indicating whether to include detailed program metadata with each airing. Defaults to false.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "imageSize",
+            "type": "string",
+            "description": "Size of the image referenced by the preferred image URI returned. The default value is Md (medium)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Sm",
+              "Md",
+              "Lg",
+              "Ms"
+            ]
+          },
+          {
+            "name": "imageAspectTV",
+            "type": "string",
+            "description": "Aspect ratio of the image referenced by the preferred image URI returned. Only applies to TV content. The default value is 2x3.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "2x3",
+              "3x4",
+              "4x3",
+              "16x9"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/celebs/{personId}": {
+      "get": {
+        "operationId": "CelebrityDetailsCelebrities",
+        "summary": "Returns details for a given celebrity.",
+        "tags": [
+          "Celebrities"
+        ],
+        "parameters": [
+          {
+            "name": "personId",
+            "type": "string",
+            "description": "Person ID",
+            "in": "path",
+            "required": true,
+            "default": "13461"
+          },
+          {
+            "name": "imageSize",
+            "type": "string",
+            "description": "Size of the image referenced by the preferred image URI returned. The default value is Md (medium)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Sm",
+              "Md",
+              "Lg",
+              "Ms"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/celebs/{personId}/airings": {
+      "get": {
+        "operationId": "AiringsofCelebritiesCelebrities",
+        "summary": "Returns all airings of a given celebrity and given...",
+        "description": "Returns all airings of a given celebrity and given time period over the next 14 days.",
+        "tags": [
+          "Celebrities"
+        ],
+        "parameters": [
+          {
+            "name": "personId",
+            "type": "string",
+            "description": "Person ID",
+            "in": "path",
+            "required": true,
+            "default": "87269"
+          },
+          {
+            "name": "lineupId",
+            "type": "string",
+            "description": "Lineup ID",
+            "in": "query",
+            "required": true,
+            "default": "USA-TX42500-X"
+          },
+          {
+            "name": "startDateTime",
+            "type": "string",
+            "format": "date-time",
+            "description": "Date/Time to start from (ISO 8601).",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "endDateTime",
+            "type": "string",
+            "format": "date-time",
+            "description": "Date/Time to end on (ISO 8601). Defaults to startDateTime plus three hours.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "imageSize",
+            "type": "string",
+            "description": "Size of the image referenced by the preferred image URI returned. The default value is Md (medium)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Sm",
+              "Md",
+              "Lg",
+              "Ms"
+            ]
+          },
+          {
+            "name": "imageAspectTV",
+            "type": "string",
+            "description": "Aspect ratio of the image referenced by the preferred image URI returned. Only applies to TV content. The default value is 2x3.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "2x3",
+              "3x4",
+              "4x3",
+              "16x9"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/celebs/talkShowAirings": {
+      "get": {
+        "operationId": "CelebritiesAppearingonTalkShowsbyDayCelebrities",
+        "summary": "Returns a list of celebrities and associated metad...",
+        "description": "Returns a list of celebrities and associated metadata that are appearing on a talk show on a lineup for a given time period up to 24 hours in length and up to 14 days in advance. *Available with R&D/Commercial plans only.",
+        "tags": [
+          "Celebrities"
+        ],
+        "parameters": [
+          {
+            "name": "lineupId",
+            "type": "string",
+            "description": "Lineup ID",
+            "in": "query",
+            "required": true,
+            "default": "USA-TX42500-X"
+          },
+          {
+            "name": "startDateTime",
+            "type": "string",
+            "format": "date-time",
+            "description": "Date/Time to start from (ISO 8601).",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "endDateTime",
+            "type": "string",
+            "format": "date-time",
+            "description": "Date/Time to end on (ISO 8601). Defaults to startDateTime plus three hours.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "imageSize",
+            "type": "string",
+            "description": "Size of the image referenced by the preferred image URI returned. The default value is Md (medium)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Sm",
+              "Md",
+              "Lg",
+              "Ms"
+            ]
+          },
+          {
+            "name": "imageAspectTV",
+            "type": "string",
+            "description": "Aspect ratio of the image referenced by the preferred image URI returned. Only applies to TV content. The default value is 2x3.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "2x3",
+              "3x4",
+              "4x3",
+              "16x9"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/celebs/{personId}/images": {
+      "get": {
+        "operationId": "AllCelebrityImagesCelebrities",
+        "summary": "Returns all available images associated with a cel...",
+        "description": "Returns all available images associated with a celebrity. *Available with R&D/Commercial plans only.",
+        "tags": [
+          "Celebrities"
+        ],
+        "parameters": [
+          {
+            "name": "personId",
+            "type": "string",
+            "description": "Person ID",
+            "in": "path",
+            "required": true,
+            "default": "87269"
+          },
+          {
+            "name": "imageSize",
+            "type": "string",
+            "description": "If specified, only images in selected size will be included. Default will return all available image sizes.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Sm",
+              "Md",
+              "Lg",
+              "Ms"
+            ]
+          },
+          {
+            "name": "imageAspectTV",
+            "type": "string",
+            "description": "If specified, only images in selected aspect ratio will be included. Only applies to TV content. Default will return images in all available aspect ratios.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "2x3",
+              "3x4",
+              "4x3",
+              "16x9"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

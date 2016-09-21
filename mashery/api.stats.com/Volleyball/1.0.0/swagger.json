@@ -1,0 +1,737 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Volleyball",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "The API calls below can be used to test the Input and Output of our API endpoints.  You'll need an API key and an assigned secret to access the live data and so if you haven't contacted us yet, now is the time!  Our sales staff would be happy to set you up with trial access so you can begin to evaluate the product. Volleyball",
+    "x-mashery-id": "2165"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.stats.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "After you've been given an API key and secret, enter it below and \"Get\" the method you'd like to try out.  Fill in the parameters with what you'd like to try, or use the built in defaults, and click \"Try It!\" to execute the call.  The JSON or XML response will be populated in the Response Body, the Response Body will provide you with any relevant codes, and the Request Header URI will show you how the call would be made within your application. Please note:Also, endpoints almost always require a final \"/\".  You will receive \"596 Service Not Found\" when it is missing.  An exception to this is for optional methods, such as eventId or teamId.",
+    "url": "http://developer.stats.com/io-docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Volleyball - Leagues"
+    },
+    {
+      "name": "Volleyball - Teams"
+    },
+    {
+      "name": "Volleyball - Schedules and results"
+    },
+    {
+      "name": "Volleyball - Standings"
+    },
+    {
+      "name": "Volleyball - Participants"
+    },
+    {
+      "name": "Volleyball - Decodes"
+    }
+  ],
+  "paths": {
+    "/stats/volleyball/leagues/": {
+      "get": {
+        "operationId": "Volleyball-LeaguesVolleyball-Leagues",
+        "summary": "The volleyball leagues endpoint serves as a decode...",
+        "description": "The volleyball leagues endpoint serves as a decode for the available leagues names, abbreviations, and URI paths.",
+        "tags": [
+          "Volleyball - Leagues"
+        ],
+        "parameters": [
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/volleyball/{leaguePath}/teams/{teamId}/": {
+      "get": {
+        "operationId": "Volleyball-TeamsVolleyball-Teams",
+        "summary": "Team information.",
+        "tags": [
+          "Volleyball - Teams"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the volleyball/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "avp",
+              "fivb",
+              "mkovo"
+            ]
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "A teamId returns information for that team only.  If entered, then the conferenceId is ignored.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get team lists for a different season, enter the year as YYYY.\n Note: Seasons that span years like NBA 2013-2014 would be entered as 2013.\n  Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of team & venue names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/volleyball/{leaguePath}/events/{eventId}/": {
+      "get": {
+        "operationId": "Volleyball-SchedulesandresultsVolleyball-Schedulesandresults",
+        "summary": "Schedules and results",
+        "tags": [
+          "Volleyball - Schedules and results"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the volleyball/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "avp",
+              "fivb",
+              "mkovo"
+            ]
+          },
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Provide a specific eventID when you want information on a single game.  Must be populated to use the box request.\n Default - basic score data will be returned using date or season, if entered, else the current days events will be returned",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "linescore",
+            "type": "boolean",
+            "description": "Linescores are only returned when requested and will be returned for all events in the results.\n  Default - false, line score data will not be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "description": "Will return all events from a specific date.\n Format: YYYYMMDD or YYYY-MM-DD.\n  Default - if a specific game isn't requested, all games from the current date will be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get events for a different season, enter the year as YYYY.\n Note: Seasons that span years like NBA 2013-2014 would be entered as 2013.\n Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "To get events for a specific event type, enter the eventTypeId. See eventTypes decode endpoint for full list of possible values.\n Default - all event types",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventRoundId",
+            "type": "integer",
+            "description": "To get events for a specific event round, enter the eventRoundId. See eventRounds decode endpoint for full list of possible values. Must be used in conjunction with eventTypeId.\n Default - all event rounds",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "tournamentId",
+            "type": "integer",
+            "description": "To get events for a specific tournament, enter the TournamentId. See tournaments decode endpoint for full list of possible values.\n Default - all tournaments",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/volleyball/{leaguePath}/standings/": {
+      "get": {
+        "operationId": "Volleyball-StandingsVolleyball-Standings",
+        "summary": "The standings endpoint will provide the league sta...",
+        "description": "The standings endpoint will provide the league standings, including all team data relevant to standings.",
+        "tags": [
+          "Volleyball - Standings"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the volleyball/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "avp",
+              "fivb",
+              "mkovo"
+            ]
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get standings for a different season, enter the year as YYYY.\n Note: Seasons that span years like NBA 2013-2014 would be entered as 2013.\n Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "To get events for a specific event type, enter the eventTypeId. See eventTypes decode endpoint for full list of possible values.\n Default - all event types",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventRoundId",
+            "type": "integer",
+            "description": "To get events for a specific event round, enter the eventRoundId. See eventRounds decode endpoint for full list of possible values. Must be used in conjunction with eventTypeId.\n Default - all event rounds",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/volleyball/{leaguePath}/participants/": {
+      "get": {
+        "operationId": "Volleyball-ParticipantsVolleyball-Participants",
+        "summary": "The participants endpoint provides biographical in...",
+        "description": "The participants endpoint provides biographical information for players and can be used to return information on a single player, a single teams roster, or all teams rosters within the league.",
+        "tags": [
+          "Volleyball - Participants"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the volleyball/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "avp",
+              "fivb",
+              "mkovo"
+            ]
+          },
+          {
+            "name": "sinceYearLast",
+            "type": "integer",
+            "description": "Anyone who last played since the requested year.  Enter year as YYYY.\n  Default - current rosters",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player & team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/volleyball/{leaguePath}/participants/teams/{teamId}/": {
+      "get": {
+        "operationId": "Volleyball-AllparticipantsonasingleteamVolleyball-Participants",
+        "summary": "Including a team ID will limit rosters returned to...",
+        "description": "Including a team ID will limit rosters returned to the selected team only.",
+        "tags": [
+          "Volleyball - Participants"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the volleyball/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "avp",
+              "fivb",
+              "mkovo"
+            ]
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "Provide team ID to return roster for one team.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player & team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/volleyball/{leaguePath}/participants/{playerId}/": {
+      "get": {
+        "operationId": "Volleyball-SingleplayerVolleyball-Participants",
+        "summary": "Including a player ID will limit data returned to ...",
+        "description": "Including a player ID will limit data returned to the selected player only.",
+        "tags": [
+          "Volleyball - Participants"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the volleyball/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "avp",
+              "fivb",
+              "mkovo"
+            ]
+          },
+          {
+            "name": "playerId",
+            "type": "integer",
+            "description": "To get information on a specific player, enter their ID.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player & team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/decode/volleyball/{leaguePath}/{decodeType}": {
+      "get": {
+        "operationId": "Volleyball-DecodesVolleyball-Decodes",
+        "summary": "Volleyball - Decodes",
+        "tags": [
+          "Volleyball - Decodes"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the volleyball/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "avp",
+              "fivb",
+              "mkovo"
+            ]
+          },
+          {
+            "name": "decodeType",
+            "type": "integer",
+            "description": "The data type to be decoded.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "eventRounds",
+              "eventStatuses",
+              "eventTypes",
+              "seasonStructure",
+              "tournaments",
+              "venues"
+            ]
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "For venues only. Select ID to change language of venue names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

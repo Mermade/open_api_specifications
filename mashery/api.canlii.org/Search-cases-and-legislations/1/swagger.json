@@ -1,0 +1,106 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Search cases and legislations",
+    "version": "1",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test our API services using I/O Docs. The search endpoint allow the user to search for cases and legislations matching a search query",
+    "x-mashery-id": "704"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.canlii.org",
+  "basePath": "/v1/search",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "http://developer.canlii.org/io-docs/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "search"
+    }
+  ],
+  "paths": {
+    "/{language}/": {
+      "get": {
+        "operationId": "Searchsearch",
+        "summary": "The search endpoint allow the user to search for c...",
+        "description": "The search endpoint allow the user to search for cases and legislations matching a search query",
+        "tags": [
+          "search"
+        ],
+        "parameters": [
+          {
+            "name": "language",
+            "type": "string",
+            "description": "Language selection.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "en",
+              "fr"
+            ]
+          },
+          {
+            "name": "offset",
+            "type": "integer",
+            "description": "Starting record number for the list. First value is 0.",
+            "in": "query",
+            "required": true,
+            "default": "0"
+          },
+          {
+            "name": "resultCount",
+            "type": "integer",
+            "description": "Number of cases listed in each response. Maximum value is 100.",
+            "in": "query",
+            "required": true,
+            "default": "10"
+          },
+          {
+            "name": "fullText",
+            "type": "string",
+            "description": "Search query (encoded with UrlEncode)",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

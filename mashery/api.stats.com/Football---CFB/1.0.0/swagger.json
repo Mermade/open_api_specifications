@@ -1,0 +1,4114 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Football - CFB",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "The API calls below can be used to test the Input and Output of our API endpoints.  You'll need an API key and an assigned secret to access the live data and so if you haven't contacted us yet, now is the time!  Our sales staff would be happy to set you up with trial access so you can begin to evaluate the product. CFB - College Football",
+    "x-mashery-id": "1558"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.stats.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "After you've been given an API key and secret, enter it below and \"Get\" the method you'd like to try out.  Fill in the parameters with what you'd like to try, or use the built in defaults, and click \"Try It!\" to execute the call.  The JSON or XML response will be populated in the Response Body, the Response Body will provide you with any relevant codes, and the Request Header URI will show you how the call would be made within your application. Please note:Also, endpoints almost always require a final \"/\".  You will receive \"596 Service Not Found\" when it is missing.  An exception to this is for optional methods, such as eventId or teamId.",
+    "url": "http://developer.stats.com/io-docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "CFB - Teams"
+    },
+    {
+      "name": "CFB - Schedules, scores, box scores, play-by-play, drive charts"
+    },
+    {
+      "name": "CFB - Standings"
+    },
+    {
+      "name": "CFB - Participants"
+    },
+    {
+      "name": "CFB - Polls"
+    },
+    {
+      "name": "CFB - Statistics"
+    },
+    {
+      "name": "CFB - Leaders"
+    },
+    {
+      "name": "CFB - Coaches"
+    },
+    {
+      "name": "CFB - Odds"
+    },
+    {
+      "name": "CFB - Stories, Headlines, Images"
+    },
+    {
+      "name": "CFB - Bullets"
+    },
+    {
+      "name": "CFB - Decodes"
+    },
+    {
+      "name": "CFB - Matchup Gaming"
+    },
+    {
+      "name": "CFB - Weather"
+    }
+  ],
+  "paths": {
+    "/stats/football/cfb/teams/{teamId}": {
+      "get": {
+        "operationId": "CFB-TeamsCFB-Teams",
+        "summary": "",
+        "tags": [
+          "CFB - Teams"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "Provide team ID to return information for one team.  If entered, conferenceId and collegeSubDivisionId are ignored.\n Default - Blank (returns all teams).",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "conferenceId",
+            "type": "integer",
+            "description": "A conferenceId returns teams in the selected conference.  If entered, collegeSubDivisionId is ignored.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "collegeSubDivisionId",
+            "type": "string",
+            "description": "Entering a collegeSubDivisionId will return only the teams in that division",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2",
+              "other"
+            ]
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get team lists for a different season, enter the year as YYYY.\n Note: Seasons that span years like NFL 2013-2014 would be entered as 2013.\n  Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of team & venue names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/cfb/events/{eventId}": {
+      "get": {
+        "operationId": "CFB-IfpermissionedforalleventinformationCFB-Schedules,scores,boxscores,play-by-play,drivecharts",
+        "summary": "Access to this events endpoint will provide you wi...",
+        "description": "Access to this events endpoint will provide you with the highest level of game data including live scores, box scores, play-by-plays, and drive charts. The box, pbp, & driveCharts parameters are only available when a single game is selected.\n Simple schedules are also available via the events endpoint.",
+        "tags": [
+          "CFB - Schedules, scores, box scores, play-by-play, drive charts"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Provide a specific eventID when you want information on a single game.  Must be populated to use the box, pbp or driveCharts parameters.\n Default - basic schedule and score information is returned.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "box",
+            "type": "boolean",
+            "description": "Returns the box score for a specific in-progress or concluded event.  An eventId must also be entered in conjunction with 'box=true'.\n  Default - box score data will not be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "pbp",
+            "type": "boolean",
+            "description": "Returns the play-by-play for a specific in-progress or concluded event.  An eventId must also be entered in conjunction with 'pbp=true'.\n  Default - pbp data will not be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "driveCharts",
+            "type": "boolean",
+            "description": "Returns the drive charts for a specific in-progress or concluded event.  An eventId must also be entered in conjunction with 'driveCharts=true'.\n  Default - drive chart data will not be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "linescore",
+            "type": "boolean",
+            "description": "A full line score can be requested with any combination of parameters.\n  Default - line score data will not be returned.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "description": "If used, startDate and endDate must both be entered.  All items between the two dates (inclusive) will be returned.\n  Format: YYYYMMDD or YYYY-MM-DD.\n  Default - If not used, the last 7 days items will be returned.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "description": "If used, startDate and endDate must both be entered.  All items between the two dates (inclusive) will be returned.\n  Format: YYYYMMDD or YYYY-MM-DD.\n  Default - If not used, the last 7 days items will be returned.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "description": "Will return all games from a specific date.\n Format: YYYYMMDD or YYYY-MM-DD.\n  Default - if a specific date isn't requested, all games from the current week will be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "week",
+            "type": "integer",
+            "description": "To get all the games for the selected week.\n Default - the current week",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get scores for a different season, enter the year as YYYY.\n Note: Seasons that span years like NFL 2013-2014 would be entered as 2013.\n Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "top25PollId",
+            "type": "integer",
+            "description": "If used, will return only games involving top 25 teams for the selected pollId. Only applicable for a single day's games, and therefore must be used in conjunction with the &date paramenter, or the default (current day) call.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17"
+            ]
+          },
+          {
+            "name": "conferenceId",
+            "type": "integer",
+            "description": "A conferenceId returns teams in the selected conference.  If entered, collegeSubDivisionId is ignored.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "collegeSubDivisionId",
+            "type": "integer",
+            "description": "Entering a collegeSubDivisionId will return only the teams in that division",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Schedule will be returned for games included in the specified eventType.\n  Default - All event types",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player, team, and venue names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/cfb/events/teams/{teamId}": {
+      "get": {
+        "operationId": "CFB-Ifpermissionedforalleventinformation-foroneteamonlyCFB-Schedules,scores,boxscores,play-by-play,drivecharts",
+        "summary": "Access to this events endpoint will provide you wi...",
+        "description": "Access to this events endpoint will provide you with the highest level of game data including live scores, box scores, play-by-plays, and drive charts. However box scores, play-by-play, and drive charts are available for a single game only, and so acnnot be accessed here when all events for a single team are returned. This endpoitn should be used for team schedules & scores only.",
+        "tags": [
+          "CFB - Schedules, scores, box scores, play-by-play, drive charts"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "Provide a teamId when you want information for just that team.  The 'box', 'pbp' and 'driveCharts' parameters are not allowed because you are requesting schedule information for a team, not an individual event.\n   Default - basic score data will be returned for all the events of the current week.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "linescore",
+            "type": "boolean",
+            "description": "A full line score can be requested with any combination of parameters.\n  Default - line score data will not be returned.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "description": "If used, startDate and endDate must both be entered.  All items between the two dates (inclusive) will be returned.\n  Format: YYYYMMDD or YYYY-MM-DD.\n  Default - If not used, the last 7 days items will be returned.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "description": "If used, startDate and endDate must both be entered.  All items between the two dates (inclusive) will be returned.\n  Format: YYYYMMDD or YYYY-MM-DD.\n  Default - If not used, the last 7 days items will be returned.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "description": "Will return all games from a specific date.\n Format: YYYYMMDD or YYYY-MM-DD.\n  Default - if a specific date isn't requested, games from thecurrent week will be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "week",
+            "type": "integer",
+            "description": "To get all the games for the selected week.\n Default - the current week",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get scores for a different season, enter the year as YYYY.\n Note: Seasons that span years like NFL 2013-2014 would be entered as 2013.\n Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "top25PollId",
+            "type": "integer",
+            "description": "If used, will return only games involving top 25 teams for the selected pollId. Only applicable for a single day's games, and therefore must be used in conjunction with the &date paramenter, or the default (current day) call.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17"
+            ]
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Schedule will be returned for games included in the specified eventType.\n  Default - All event types",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player, team, and venue names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/cfb/box/{eventId}": {
+      "get": {
+        "operationId": "CFB-Ifpermissionedforjustschedules,scoresandboxscoresCFB-Schedules,scores,boxscores,play-by-play,drivecharts",
+        "summary": "The box/ resource provides scores/schedules and bo...",
+        "description": "The box/ resource provides scores/schedules and box score information for CFB events. (Play-by-play and Drive Charts are not available in the box endpoint.)",
+        "tags": [
+          "CFB - Schedules, scores, box scores, play-by-play, drive charts"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Provide a specific eventID when you want information on a single game.  Must be populated to use the box parameter.\n Default - basic schedule and score information is returned.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "box",
+            "type": "boolean",
+            "description": "Returns the box score for a specific in-progress or concluded event.  An eventId must also be entered in conjunction with 'box=true'.\n  Default - box score data will not be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "linescore",
+            "type": "boolean",
+            "description": "A full line score can be requested with any combination of parameters.\n  Default - line score data will not be returned.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "conferenceId",
+            "type": "integer",
+            "description": "A conferenceId returns teams in the selected conference.  If entered, collegeSubDivisionId is ignored.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "72",
+              "11",
+              "7"
+            ]
+          },
+          {
+            "name": "collegeSubDivisionId",
+            "type": "integer",
+            "description": "Entering a collegeSubDivisionId will return only the teams in that division",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "description": "Will return all games from a specific date.\n Format: YYYYMMDD or YYYY-MM-DD.\n  Default - if a specific date isn't requested, all games from the current week will be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "week",
+            "type": "integer",
+            "description": "To get all the games for the selected week.\n Default - the current week",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get scores for a different season, enter the year as YYYY.\n Note: Seasons that span years like NFL 2013-2014 would be entered as 2013.\n Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "top25PollId",
+            "type": "integer",
+            "description": "If used, will return only games involving top 25 teams for the selected pollId. Only applicable for a single day's games, and therefore must be used in conjunction with the &date paramenter, or the default (current day) call.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17"
+            ]
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Schedule will be returned for games included in the specified eventType.\n  Default - All event types",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player, team, and venue names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/cfb/box/teams/{teamId}": {
+      "get": {
+        "operationId": "CFB-Ifpermissionedforjustschedules,scoresandboxscores-foroneteamonlyCFB-Schedules,scores,boxscores,play-by-play,drivecharts",
+        "summary": "The box/ resource provides scores/schedules and bo...",
+        "description": "The box/ resource provides scores/schedules and box score information for CFB events. However, box scores are available for a single game only, and so cannot be accessed here when all events for a single team are returned. This endpoint should be used for team schedules & scores only.",
+        "tags": [
+          "CFB - Schedules, scores, box scores, play-by-play, drive charts"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "Provide a teamId when you want information for just that team.  The 'box' parameter is not allowed because you are requesting 'schedule' information for a team, not an individual event.\n  Default - basic score data will be returned for all the games of the current week.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "linescore",
+            "type": "boolean",
+            "description": "A full line score can be requested with any combination of parameters.\n  Default - line score data will not be returned.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "description": "Will return all games from a specific date.\n Format: YYYYMMDD or YYYY-MM-DD.\n  Default - if a specific date isn't requested, games from the current week will be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "week",
+            "type": "integer",
+            "description": "To get all the games for the selected week.\n Default - the current week",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get scores for a different season, enter the year as YYYY.\n Note: Seasons that span years like NFL 2013-2014 would be entered as 2013.\n Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "top25PollId",
+            "type": "integer",
+            "description": "If used, will return only games involving top 25 teams for the selected pollId. Only applicable for a single day's games, and therefore must be used in conjunction with the &date paramenter, or the default (current day) call.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17"
+            ]
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Schedule will be returned for games included in the specified eventType.\n  Default - All event types",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player, team, and venue names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/cfb/scores/{eventId}": {
+      "get": {
+        "operationId": "CFB-IfpermissionedforjustschedulesandscoresCFB-Schedules,scores,boxscores,play-by-play,drivecharts",
+        "summary": "The scores/ resource provides score and schedule i...",
+        "description": "The scores/ resource provides score and schedule information for CFB events. (Boxscores, Play-by-play, and Shot Charts are not available in the scores endpoint.)",
+        "tags": [
+          "CFB - Schedules, scores, box scores, play-by-play, drive charts"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Provide a specific eventID when you want information on a single game.\n Default - Schedule and score information is returned for the current or selected date or week.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "linescore",
+            "type": "boolean",
+            "description": "A full line score can be requested with any combination of parameters.\n  Default - line score data will not be returned.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "description": "Will return all games from a specific date.\n Format: YYYYMMDD or YYYY-MM-DD.\n  Default - if a specific date isn't requested, all games from the current week will be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "week",
+            "type": "integer",
+            "description": "To get all the games for the selected week.\n Default - the current week.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get scores for a different season, enter the year as YYYY.\n Note: Seasons that span years like NFL 2013-2014 would be entered as 2013.\n Default - the current season.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "top25PollId",
+            "type": "integer",
+            "description": "If used, will return only games involving top 25 teams for the selected pollId. Only applicable for a single day's games, and therefore must be used in conjunction with the &date paramenter, or the default (current day) call.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17"
+            ]
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Schedule will be returned for games included in the specified eventType.\n  Default - All event types",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player, team, and venue names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/cfb/scores/teams/{teamId}": {
+      "get": {
+        "operationId": "CFB-Ifpermissionedforjustschedulesandscores-foroneteamonlyCFB-Schedules,scores,boxscores,play-by-play,drivecharts",
+        "summary": "The scores/ resource provides score and schedule i...",
+        "description": "The scores/ resource provides score and schedule information for NFL events.",
+        "tags": [
+          "CFB - Schedules, scores, box scores, play-by-play, drive charts"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "Provide a teamId when you want information for just that team.\n   Default - basic score data will be returned for the current week.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "linescore",
+            "type": "boolean",
+            "description": "A full line score can be requested with any combination of parameters.\n  Default - line score data will not be returned.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "description": "Will return all games from a specific date.\n Format: YYYYMMDD or YYYY-MM-DD.\n  Default - if a specific date isn't requested, games from the current week will be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "week",
+            "type": "integer",
+            "description": "To get all the games for the selected week.\n Default - the current week",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get scores for a different season, enter the year as YYYY.\n Note: Seasons that span years like NFL 2013-2014 would be entered as 2013.\n Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "top25PollId",
+            "type": "integer",
+            "description": "If used, will return only games involving top 25 teams for the selected pollId. Only applicable for a single day's games, and therefore must be used in conjunction with the &date paramenter, or the default (current day) call.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17"
+            ]
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Schedule will be returned for games included in the specified eventType.\n  Default - All event types",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player, team, and venue names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/cfb/standings/": {
+      "get": {
+        "operationId": "CFB-StandingsCFB-Standings",
+        "summary": "The standings endpoint will provide the league sta...",
+        "description": "The standings endpoint will provide the league standings, including all team data relevant to standings.",
+        "tags": [
+          "CFB - Standings"
+        ],
+        "parameters": [
+          {
+            "name": "expanded",
+            "type": "boolean",
+            "description": "Expanded includes additional data points for each team.\n Default - false",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "conferenceId",
+            "type": "integer",
+            "description": "A conferenceId returns teams in the selected conference.  If entered, collegeSubDivisionId is ignored.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "collegeSubDivisionId",
+            "type": "integer",
+            "description": "Entering a collegeSubDivisionId will return only the teams in that division",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get standings for a different season, enter the year as YYYY.\n Note: Seasons that span years like NFL 2013-2014 would be entered as 2013.\n Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/cfb/standings/teams/{teamId}": {
+      "get": {
+        "operationId": "CFB-StandingsforasingleteamCFB-Standings",
+        "summary": "The standings endpoint will provide the league sta...",
+        "description": "The standings endpoint will provide the league standings, including all team data relevant to standings.",
+        "tags": [
+          "CFB - Standings"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "Provide team ID to return information for one team.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "expanded",
+            "type": "boolean",
+            "description": "Expanded includes additional data points for each team.\n Default - false",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get standings for a different season, enter the year as YYYY.\n Note: Seasons that span years like NFL 2013-2014 would be entered as 2013.\n Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/cfb/participants/teams/{teamId}": {
+      "get": {
+        "operationId": "CFB-HistoricalRostersCFB-Participants",
+        "summary": "Historical rosters provide biographical informatio...",
+        "description": "Historical rosters provide biographical information for players that played for a team in a single specified season.",
+        "tags": [
+          "CFB - Participants"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "Provide team ID to return roster for one team.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "Enter the year as YYYY.\n Note: Seasons that span years like CFB 2013-2014 would be entered as 2013.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player & team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/cfb/participants/{playerId}": {
+      "get": {
+        "operationId": "CFB-SingleplayerCFB-Participants",
+        "summary": "The participants endpoint provides biographical in...",
+        "description": "The participants endpoint provides biographical information for players and can be used to return information on a single player, a single teams roster, all teams rosters within the league, or all free agents.",
+        "tags": [
+          "CFB - Participants"
+        ],
+        "parameters": [
+          {
+            "name": "playerId",
+            "type": "integer",
+            "description": "To get information on a specific player, enter their ID.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player & team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/cfb/polls/": {
+      "get": {
+        "operationId": "CFB-PollsCFB-Polls",
+        "summary": "College football polls",
+        "tags": [
+          "CFB - Polls"
+        ],
+        "parameters": [
+          {
+            "name": "collegeSubDivisionId",
+            "type": "integer",
+            "description": "Entering a collegeSubDivisionId will return only the teams in that division",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          {
+            "name": "pollId",
+            "type": "integer",
+            "description": "The decodes resource provides a list of available codes.\n Default - Associated Press",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "lastNextOpponent",
+            "type": "boolean",
+            "description": "Should information about a team's last and next opponents be included?",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get team lists for a different season, enter the year as YYYY.\n Note: Seasons that span years like NFL 2013-2014 would be entered as 2013.\n  Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "pollDate",
+            "type": "string",
+            "description": "Returns the most recent poll less than or equal to the date entered.\n Format: YYYYMMDD or YYYY-MM-DD.\n  Default - most recent poll",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/cfb/polls/teams/{teamId}": {
+      "get": {
+        "operationId": "CFB-PollinfoforoneteamCFB-Polls",
+        "summary": "College football polls",
+        "tags": [
+          "CFB - Polls"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "Provide team ID to return information for one team.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "pollId",
+            "type": "integer",
+            "description": "The decodes resource provides a list of available codes.\n Default - Associated Press",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "lastNextOpponent",
+            "type": "boolean",
+            "description": "Should information about a team's last and next opponents be included?",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get team lists for a different season, enter the year as YYYY.\n Note: Seasons that span years like NFL 2013-2014 would be entered as 2013.\n  Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/cfb/stats/players/{playerId}": {
+      "get": {
+        "operationId": "CFB-Playerstats-CareerCFB-Statistics",
+        "summary": "CFB - Season stats for a single player",
+        "tags": [
+          "CFB - Statistics"
+        ],
+        "parameters": [
+          {
+            "name": "playerId",
+            "type": "integer",
+            "description": "To get information on a specific player, enter their ID.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "enc",
+            "type": "boolean",
+            "description": "The 'enc'yclopedia returns full career and season-by-season totals.\n Notes:\n  The encyclopedia is valid for a single player only.  If playerId is omitted, 'enc=true' will be ignored.\n  If 'enc=true', the seasonId will be ignored if included.\n  Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "careerOnly",
+            "type": "boolean",
+            "description": "For a single player's career stats, only to be used in conjunction with 'enc=true'",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Statistics for games in the specified eventType only.\n  Default - All games (reg/post combined)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of team & player names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/cfb/stats/players/{playerId}/events/{eventId}": {
+      "get": {
+        "operationId": "CFB-PlayersinglegamestatsCFB-Statistics",
+        "summary": "CFB - Season stats for a single player",
+        "tags": [
+          "CFB - Statistics"
+        ],
+        "parameters": [
+          {
+            "name": "playerId",
+            "type": "integer",
+            "description": "To get information on a specific player, enter their ID.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Statistics for a single game.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of team & player names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/cfb/stats/players/{playerId}/events/": {
+      "get": {
+        "operationId": "CFB-Playergame-by-gamestatsCFB-Statistics",
+        "summary": "CFB - A player's stats for one game.",
+        "tags": [
+          "CFB - Statistics"
+        ],
+        "parameters": [
+          {
+            "name": "playerId",
+            "type": "integer",
+            "description": "To get information on a specific player, enter their ID.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Statistics for games in the specified eventType only.\n  Default - All event types",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get data for a different season, enter the year as YYYY.\n Note: Seasons that span years like NFL 2013-2014 would be entered as 2013.\n  Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of team & player names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/cfb/stats/players/{playerId}/": {
+      "get": {
+        "operationId": "CFB-PlayersplitsCFB-Statistics",
+        "summary": "CFB - Player splits (breakdowns).",
+        "tags": [
+          "CFB - Statistics"
+        ],
+        "parameters": [
+          {
+            "name": "playerId",
+            "type": "integer",
+            "description": "To get information on a specific player, enter their ID.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "splitId",
+            "type": "string",
+            "description": "Enter the stat split to be returned.\n * If 'all' is used, then all the splits are returned.\n * If not used, only the official totals will be returned (default = -1).\n * Otherwise, the entered split is returned.\n -- A full list of the available splitId codes can be found using the decodes resource.",
+            "in": "query",
+            "required": true,
+            "default": "-1"
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get data for a different season, enter the year as YYYY.\n Note: Seasons that span years like NFL 2013-2014 would be entered as 2013.\n  Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Statistics for games in the specified eventType only.\n  Default - All games (reg/post combined)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of team & player names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/cfb/stats/teams/{teamId}/": {
+      "get": {
+        "operationId": "CFB-TeamsplitsCFB-Statistics",
+        "summary": "CFB - Team splits (breakdowns).",
+        "tags": [
+          "CFB - Statistics"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "Team ID.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "splitId",
+            "type": "string",
+            "description": "Enter the stat split to be returned. (The decodes resource provides a list of available codes.)\n  * If omitted, only official total stats (splitId = -1) will be returned.\n  * If 'all', all the splits are returned.\n  * Otherwise, the entered split is returned.\n  Default - Official totals (splitId = -1)",
+            "in": "query",
+            "required": true,
+            "default": "-1"
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Statistics for games in the specified eventType only.\n  Default - All games (reg/post combined)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get data for a different season, enter the year as YYYY.\n Note: Seasons that span years like NFL 2013-2014 would be entered as 2013.\n  Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/cfb/stats/teams/{teamId}/events/{eventId}": {
+      "get": {
+        "operationId": "CFB-TeamsinglegamestatsCFB-Statistics",
+        "summary": "CFB - A player's stats for one game.",
+        "tags": [
+          "CFB - Statistics"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "Team ID.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Statistics for a single game.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/cfb/stats/teams/{teamId}/events/": {
+      "get": {
+        "operationId": "CFB-Teamgame-by-gamestatsCFB-Statistics",
+        "summary": "CFB - A player's stats for one game.",
+        "tags": [
+          "CFB - Statistics"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "Team ID.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Statistics for games in the specified eventType only.\n  Default - All event types",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get data for a different season, enter the year as YYYY.\n Note: Seasons that span years like NFL 2013-2014 would be entered as 2013.\n  Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/cfb/leaders/": {
+      "get": {
+        "operationId": "CFB-LeadersCFB-Leaders",
+        "summary": "CFB - Leaders",
+        "tags": [
+          "CFB - Leaders"
+        ],
+        "parameters": [
+          {
+            "name": "leaderCategoryId",
+            "type": "integer",
+            "description": "Only one category per query.  The decodes resource provides a list of available codes. \n  Default - Blank (returns Passing Yards).",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "topCount",
+            "type": "integer",
+            "description": "This is the number of leaders to be returned.\n  You can return all leaders with the word 'all' instead of a number.\n  Default - Top 10 (plus ties), utilizing ranked players only if nonQualifiers is false/null; else will utilize ordered players.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "nonQualifiers",
+            "type": "boolean",
+            "description": "Should non-qualifiers be returned?\n  Default - false",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "sortType",
+            "type": "string",
+            "description": "To return 'worst' players (trailers) rather than 'best' players (leaders) in a category, select sortType = worst. Trailers are not available for every leaderCategoryId.\n  Default - If the sortType parameter is not used, leaders will be returned.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "worst"
+            ]
+          },
+          {
+            "name": "conferenceId",
+            "type": "integer",
+            "description": "To get data for only one conference, enter the conferenceId. See conferences decode endpoint for full list.\n  Default - no conference restrictions when conferenceId is not used",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "collegeSubDivisionId",
+            "type": "integer",
+            "description": "Entering a collegeSubDivisionId will return only the teams in that division",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Leaders among games in the specified eventType only.\n  Default - All games (reg/post combined)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get data for a different season, enter the year as YYYY.\n Note: Seasons that span years like NFL 2013-2014 would be entered as 2013.\n  Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "To get data for players on one team only, enter the teamId.\n  Default - all players",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/cfb/teamLeaders/": {
+      "get": {
+        "operationId": "CFB-TeamLeadersCFB-Leaders",
+        "summary": "CFB - Team Leaders",
+        "tags": [
+          "CFB - Leaders"
+        ],
+        "parameters": [
+          {
+            "name": "leaderCategoryId",
+            "type": "integer",
+            "description": "Only one category per query.  The decodes resource provides a list of available codes. \n  Default - Blank (returns Passing Yards).",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "topCount",
+            "type": "integer",
+            "description": "This is the number of leaders to be returned.\n  You can return all leaders with the word 'all' instead of a number.\n  Default - Top 10 (plus ties).",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "sortType",
+            "type": "string",
+            "description": "To return 'worst' teams (trailers) rather than 'best' teams (leaders) in a category, select sortType = worst. Trailers are not available for every leaderCategoryId.\n  Default - If the sortType parameter is not used, leaders will be returned.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "worst"
+            ]
+          },
+          {
+            "name": "conferenceId",
+            "type": "integer",
+            "description": "To get data for only one conference, enter the conferenceId. See conferences decode endpoint for full list.\n  Default - no conference restrictions when conferenceId is not used",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "collegeSubDivisionId",
+            "type": "integer",
+            "description": "Entering a collegeSubDivisionId will return only the teams in that division",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Leaders among games in the specified eventType only.\n  Default - All games (reg/post combined)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get data for a different season, enter the year as YYYY.\n Note: Seasons that span years like NFL 2013-2014 would be entered as 2013.\n  Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/cfb/weeklyLeaders/": {
+      "get": {
+        "operationId": "CFB-LeadersbyWeekCFB-Leaders",
+        "summary": "CFB - Leaders by Week",
+        "tags": [
+          "CFB - Leaders"
+        ],
+        "parameters": [
+          {
+            "name": "week",
+            "type": "integer",
+            "description": "Leaders returned for the selected week only. If no week is selected, leaders for the most recent week will be returned.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "leaderCategoryId",
+            "type": "integer",
+            "description": "Only one category per query.\n  Default - Blank (returns Passing Yards).",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "53",
+              "81",
+              "137",
+              "145",
+              "156",
+              "163"
+            ]
+          },
+          {
+            "name": "topCount",
+            "type": "integer",
+            "description": "This is the number of leaders to be returned.\n  You can return all leaders with the word 'all' instead of a number.\n  Default - Top 10 (plus ties).",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get data for a different season, enter the year as YYYY.\n Note: Seasons that span years like NFL 2013-2014 would be entered as 2013.\n  Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "collegeSubDivisionId",
+            "type": "integer",
+            "description": "Entering a collegeSubDivisionId will return only the teams in that division",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          {
+            "name": "conferenceId",
+            "type": "integer",
+            "description": "To get data for only one conference, enter the conferenceId. See conferences decode endpoint for full list.\n  Default - no conference restrictions when conferenceId is not used",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "To get data for players on one team only, enter the teamId.\n  Default - all players",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player & team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/cfb/coaches/": {
+      "get": {
+        "operationId": "CFB-CoachesCFB-Coaches",
+        "summary": "CFB - Coaches",
+        "tags": [
+          "CFB - Coaches"
+        ],
+        "parameters": [
+          {
+            "name": "coachId",
+            "type": "integer",
+            "description": "To get results for single coach, enter coach ID.\n  Default - If no ID is entered, all current CFB coaches will be returned.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "collegeSubDivisionId",
+            "type": "integer",
+            "description": "Entering a collegeSubDivisionId will return only the teams in that division",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/cfb/coaches/teams/{teamId}": {
+      "get": {
+        "operationId": "CFB-CoachesforasingleteamCFB-Coaches",
+        "summary": "CFB - Coaches for a single team",
+        "tags": [
+          "CFB - Coaches"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "Enter team ID to return information active coaches for one team. Example: 3438 - Northwestern. See /teams endpoint for list of all team IDs",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/cfb/odds/": {
+      "get": {
+        "operationId": "CFB-OddsCFB-Odds",
+        "summary": "CFB - Odds",
+        "tags": [
+          "CFB - Odds"
+        ],
+        "parameters": [
+          {
+            "name": "week",
+            "type": "integer",
+            "description": "To get all the games for the selected week.\n Default - Returned data is for the current week.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get data for a different season, enter the year as YYYY.\n Note: Seasons that span years like NFL 2013-2014 would be entered as 2013.\n  Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Odds for games in the specified eventType only.\n  Default - All event types",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          {
+            "name": "languageId",
+            "type": "integer",
+            "description": "For team names/nicknames/abbreviations only. Select ID to change language of team names. Not all languages available for every name/nickname/abbreviation.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/cfb/odds/{eventId}": {
+      "get": {
+        "operationId": "CFB-OddsforonegameonlyCFB-Odds",
+        "summary": "CFB - Odds",
+        "tags": [
+          "CFB - Odds"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "ID of the event you want returned.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "languageId",
+            "type": "integer",
+            "description": "For team names/nicknames/abbreviations only. Select ID to change language of team names. Not all languages available for every name/nickname/abbreviation.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/cfb/odds/teams/{teamId}": {
+      "get": {
+        "operationId": "CFB-OddsforoneteamonlyCFB-Odds",
+        "summary": "CFB - Odds",
+        "tags": [
+          "CFB - Odds"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "ID of team you want returned.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "week",
+            "type": "integer",
+            "description": "Week you want returned.\n Default - the current week",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get data for a different season, enter the year as YYYY.\n Note: Seasons that span years like CFB 2013-2014 would be entered as 2013.\n Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Odds for games in the specified eventType only.\n  Default - All event types",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          {
+            "name": "languageId",
+            "type": "integer",
+            "description": "For team names/nicknames/abbreviations only. Select ID to change language of team names. Not all languages available for every name/nickname/abbreviation.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/football/cfb/stories/headlines/": {
+      "get": {
+        "operationId": "CFB-HeadlinesCFB-Stories,Headlines,Images",
+        "summary": "List of headlines.",
+        "tags": [
+          "CFB - Stories, Headlines, Images"
+        ],
+        "parameters": [
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/football/cfb/articles/headlines/": {
+      "get": {
+        "operationId": "CFB-HeadlinesArticlesCFB-Stories,Headlines,Images",
+        "summary": "List of headlines.",
+        "tags": [
+          "CFB - Stories, Headlines, Images"
+        ],
+        "parameters": [
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/football/cfb/stories/recent/": {
+      "get": {
+        "operationId": "CFB-RecentstoriesCFB-Stories,Headlines,Images",
+        "summary": "Recent stories for the selected league.",
+        "tags": [
+          "CFB - Stories, Headlines, Images"
+        ],
+        "parameters": [
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/football/cfb/articles/recent/": {
+      "get": {
+        "operationId": "CFB-RecentArticlesCFB-Stories,Headlines,Images",
+        "summary": "Recent stories for the selected league.",
+        "tags": [
+          "CFB - Stories, Headlines, Images"
+        ],
+        "parameters": [
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/football/cfb/stories/recent/teams/{teamId}/": {
+      "get": {
+        "operationId": "CFB-RecentstoriesbyteamCFB-Stories,Headlines,Images",
+        "summary": "Recent stories for the selected league/team.",
+        "tags": [
+          "CFB - Stories, Headlines, Images"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "ID of the team in the selected league.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/football/cfb/articles/recent/teams/{teamId}/": {
+      "get": {
+        "operationId": "CFB-RecentarticlesbyteamCFB-Stories,Headlines,Images",
+        "summary": "Recent stories for the selected league/team.",
+        "tags": [
+          "CFB - Stories, Headlines, Images"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "ID of the team in the selected league.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/football/cfb/stories/{storyId}/": {
+      "get": {
+        "operationId": "CFB-FullstoryCFB-Stories,Headlines,Images",
+        "summary": "Get the full story for a storyId found in headline...",
+        "description": "Get the full story for a storyId found in headlines or stories.",
+        "tags": [
+          "CFB - Stories, Headlines, Images"
+        ],
+        "parameters": [
+          {
+            "name": "storyId",
+            "type": "integer",
+            "description": "storyId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/football/cfb/articles/{storyId}/": {
+      "get": {
+        "operationId": "CFB-FullArticleCFB-Stories,Headlines,Images",
+        "summary": "Get the full article for a storyId found in headli...",
+        "description": "Get the full article for a storyId found in headlines or articles.",
+        "tags": [
+          "CFB - Stories, Headlines, Images"
+        ],
+        "parameters": [
+          {
+            "name": "storyId",
+            "type": "integer",
+            "description": "storyId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/football/cfb/stories/previews/events/{eventId}/": {
+      "get": {
+        "operationId": "CFB-Previews-AvailableforoneeventCFB-Stories,Headlines,Images",
+        "summary": "Preview for one specific event, must identify leag...",
+        "description": "Preview for one specific event, must identify league, and eventId",
+        "tags": [
+          "CFB - Stories, Headlines, Images"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Enter event ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/football/cfb/stories/recaps/events/{eventId}/": {
+      "get": {
+        "operationId": "CFB-Recaps-AvailableforoneeventCFB-Stories,Headlines,Images",
+        "summary": "Recap for one specific event, must identify sport,...",
+        "description": "Recap for one specific event, must identify sport, league, and eventId",
+        "tags": [
+          "CFB - Stories, Headlines, Images"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Enter event ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/football/cfb/articles/recaps/events/{eventId}/": {
+      "get": {
+        "operationId": "CFB-RecapsArticles-AvailableforoneeventCFB-Stories,Headlines,Images",
+        "summary": "Recap for one specific event, must identify sport,...",
+        "description": "Recap for one specific event, must identify sport, league, and eventId",
+        "tags": [
+          "CFB - Stories, Headlines, Images"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Enter event ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/football/cfb/images/list/": {
+      "get": {
+        "operationId": "CFB-ListofavailableimagesCFB-Stories,Headlines,Images",
+        "summary": "List of available images.",
+        "tags": [
+          "CFB - Stories, Headlines, Images"
+        ],
+        "parameters": [
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "originId",
+            "type": "integer",
+            "description": "Origin of given images.\n  Default - All origins are returned when nothing is selected",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/football/cfb/photos/list/": {
+      "get": {
+        "operationId": "CFB-ListofavailablephotosCFB-Stories,Headlines,Images",
+        "summary": "List of available photos.",
+        "tags": [
+          "CFB - Stories, Headlines, Images"
+        ],
+        "parameters": [
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "originId",
+            "type": "integer",
+            "description": "Origin of given images.\n  Default - All origins are returned when nothing is selected",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/football/cfb/images/{imageSize}/{imageId}/": {
+      "get": {
+        "operationId": "RetrieveimageCFB-Stories,Headlines,Images",
+        "summary": "",
+        "tags": [
+          "CFB - Stories, Headlines, Images"
+        ],
+        "parameters": [
+          {
+            "name": "imageSize",
+            "type": "string",
+            "description": "Options are:\n  'p128', 'p256', 'p512', 'pMax'",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "p128",
+              "p256",
+              "p512",
+              "pMax"
+            ]
+          },
+          {
+            "name": "imageId",
+            "type": "integer",
+            "description": "Photo ID",
+            "in": "path",
+            "required": true,
+            "default": "abcdefg"
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/football/cfb/photos/{imageSize}/{imageId}/": {
+      "get": {
+        "operationId": "RetrievePhotoCFB-Stories,Headlines,Images",
+        "summary": "",
+        "tags": [
+          "CFB - Stories, Headlines, Images"
+        ],
+        "parameters": [
+          {
+            "name": "imageSize",
+            "type": "string",
+            "description": "Options are:\n  'p128', 'p256', 'p512', 'pMax'",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "p128",
+              "p256",
+              "p512",
+              "pMax"
+            ]
+          },
+          {
+            "name": "imageId",
+            "type": "integer",
+            "description": "Photo ID",
+            "in": "path",
+            "required": true,
+            "default": "abcdefg"
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/cfb/bullets/": {
+      "get": {
+        "operationId": "CFB-Bullets-bydayCFB-Bullets",
+        "summary": "CFB - Bullets for a single day",
+        "tags": [
+          "CFB - Bullets"
+        ],
+        "parameters": [
+          {
+            "name": "date",
+            "type": "string",
+            "description": "Will return bullets for a specific date.\n Format: YYYYMMDD or YYYY-MM-DD.\n  Default - Blank - Bullets for the current day.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/cfb/bullets/events/{eventId}/": {
+      "get": {
+        "operationId": "CFB-Bullets-bygameCFB-Bullets",
+        "summary": "MLB - Bullets for a single day",
+        "tags": [
+          "CFB - Bullets"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Bullets for a single game - specify eventId.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/decode/football/cfb/{decodeType}": {
+      "get": {
+        "operationId": "CFB-DecodesCFB-Decodes",
+        "summary": "CFB - Decodes",
+        "tags": [
+          "CFB - Decodes"
+        ],
+        "parameters": [
+          {
+            "name": "decodeType",
+            "type": "integer",
+            "description": "The data type to be decoded.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "bowls",
+              "clinchStatuses",
+              "collegeSubDivisions",
+              "conferences",
+              "divisions",
+              "driveChartPlayNames",
+              "eventRounds",
+              "eventStatuses",
+              "eventTypes",
+              "kickTypes",
+              "leaderCategories",
+              "missReasons",
+              "penaltyTypes",
+              "playTypes",
+              "polls",
+              "positions",
+              "rushTypes",
+              "scoreTypes",
+              "seasonStructure",
+              "splits",
+              "tvStations",
+              "venues"
+            ]
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "For venues only. Select ID to change language of venue names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/cfb/matchupgaming/": {
+      "get": {
+        "operationId": "CFB-MatchupGaming-bydayCFB-MatchupGaming",
+        "summary": "CFB - Matchup Gaming for a single day",
+        "tags": [
+          "CFB - Matchup Gaming"
+        ],
+        "parameters": [
+          {
+            "name": "date",
+            "type": "string",
+            "description": "Will return matchup gaming for a specific date.\n Format: YYYYMMDD or YYYY-MM-DD.\n  Default - Blank - matchup gaming for the current day.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/cfb/matchupgaming/{eventId}": {
+      "get": {
+        "operationId": "CFB-MatchupGamingforonegameonlyCFB-MatchupGaming",
+        "summary": "CFB - Single Game",
+        "tags": [
+          "CFB - Matchup Gaming"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "ID of event you want returned.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/cfb/weatherforecasts/": {
+      "get": {
+        "operationId": "CFB-Weather-bydayCFB-Weather",
+        "summary": "CFB - Weather forecast for a single day",
+        "tags": [
+          "CFB - Weather"
+        ],
+        "parameters": [
+          {
+            "name": "date",
+            "type": "string",
+            "description": "Will return forecasts for a specific date.\n Format: YYYYMMDD or YYYY-MM-DD.\n  Default - Blank - Bullets for the current day.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/football/CFB/weatherforecasts/{eventId}": {
+      "get": {
+        "operationId": "CFB-Weather-bygameCFB-Weather",
+        "summary": "CFB - Weather forecast for the required event",
+        "tags": [
+          "CFB - Weather"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Weather forecast for a single game - specify eventId.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

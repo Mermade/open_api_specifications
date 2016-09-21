@@ -1,0 +1,1019 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "REST TV Listings APIs",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test our API services using these I/O Docs. For detailed information about any call or parameter, please see our complete documentation.  Note: For I/O Docs to work properly, you need to be logged into your developer account. You can sign in by clicking the link on the top right of this page. International television listings plus program and celebrity data and images.",
+    "x-mashery-id": "73"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.rovicorp.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "http://developer.rovicorp.com/io-docs/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "TV Listings API"
+    }
+  ],
+  "paths": {
+    "/services/postalcode/{postalCode}/info": {
+      "get": {
+        "operationId": "ServicesTVListingsAPI",
+        "summary": "Returns a list of the television service offerings...",
+        "description": "Returns a list of the television service offerings for an area. Fields in bold are required.",
+        "tags": [
+          "TV Listings API"
+        ],
+        "parameters": [
+          {
+            "name": "postalCode",
+            "type": "string",
+            "description": "For the United States or Canada, a postal code. For other countries, specify 0 (zero).",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "Language and country code of the television service (case-sensitive).",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "en-US",
+              "da-DK",
+              "nl-BE",
+              "nl-NL",
+              "en-BM",
+              "en-CA",
+              "en-IE",
+              "en-JM",
+              "en-GB",
+              "fi-FI",
+              "fl-BE",
+              "fr-BE",
+              "fr-CA",
+              "fr-FR",
+              "fr-LU",
+              "fr-CH",
+              "de-AT",
+              "de-DE",
+              "de-LU",
+              "de-CH",
+              "it-IT",
+              "it-CH",
+              "no-NO",
+              "pl-PL",
+              "pt-PT",
+              "es-AR",
+              "es-BO",
+              "es-CL",
+              "es-CO",
+              "es-CR",
+              "es-DO",
+              "es-EC",
+              "es-SV",
+              "es-GT",
+              "es-HN",
+              "es-MX",
+              "es-NI",
+              "es-PA",
+              "es-PE",
+              "es-ES",
+              "es-US",
+              "es-VE",
+              "sv-SE"
+            ]
+          },
+          {
+            "name": "countrycode",
+            "type": "string",
+            "description": "Country served by the television service, stated as the upper-case, two-letter country code.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "US",
+              "AR",
+              "AT",
+              "BE",
+              "BM",
+              "BO",
+              "CA",
+              "CH",
+              "CL",
+              "CO",
+              "CR",
+              "DE",
+              "DK",
+              "DO",
+              "EC",
+              "ES",
+              "FI",
+              "FR",
+              "GB",
+              "GT",
+              "HN",
+              "IE",
+              "IT",
+              "JM",
+              "LU",
+              "MX",
+              "NI",
+              "NL",
+              "NO",
+              "PA",
+              "PE",
+              "PL",
+              "PT",
+              "SE",
+              "SV",
+              "VE"
+            ]
+          },
+          {
+            "name": "msoid",
+            "type": "integer",
+            "description": "ID of a specific cable or satellite operator. Returns information for just that operator. If you don't know the MSO ID for an operator, first request the list of services in an area and then look through the response for that operator.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Format of the returned data",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/servicedetails/serviceid/{serviceId}/info": {
+      "get": {
+        "operationId": "ServiceDetailsTVListingsAPI",
+        "summary": "Returns the channel lineup offered by a television...",
+        "description": "Returns the channel lineup offered by a television service, plus information about the source of programming on a channel. Fields in bold are required.",
+        "tags": [
+          "TV Listings API"
+        ],
+        "parameters": [
+          {
+            "name": "serviceId",
+            "type": "integer",
+            "description": "Service ID of the television service, for example: 360861. To get the service ID for a television service, request the list of services in the area with Services.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "Language and country code of the television service (case-sensitive).",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "en-US",
+              "da-DK",
+              "nl-BE",
+              "nl-NL",
+              "en-BM",
+              "en-CA",
+              "en-IE",
+              "en-JM",
+              "en-GB",
+              "fi-FI",
+              "fl-BE",
+              "fr-BE",
+              "fr-CA",
+              "fr-FR",
+              "fr-LU",
+              "fr-CH",
+              "de-AT",
+              "de-DE",
+              "de-LU",
+              "de-CH",
+              "it-IT",
+              "it-CH",
+              "no-NO",
+              "pl-PL",
+              "pt-PT",
+              "es-AR",
+              "es-BO",
+              "es-CL",
+              "es-CO",
+              "es-CR",
+              "es-DO",
+              "es-EC",
+              "es-SV",
+              "es-GT",
+              "es-HN",
+              "es-MX",
+              "es-NI",
+              "es-PA",
+              "es-PE",
+              "es-ES",
+              "es-US",
+              "es-VE",
+              "sv-SE"
+            ]
+          },
+          {
+            "name": "includechannelimages",
+            "type": "boolean",
+            "description": "Include channel logos in the response.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "imageformatid",
+            "type": "integer",
+            "description": "If you set includechannelimages to true, imageformatid determines the size and file format of channel logos returned in the response. Choose the ID from the Format ID table. For details, see the documentation of ServiceDetails in REST TV Listings.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "imagehorizontalresolution",
+            "type": "integer",
+            "description": "If you set includechannelimages to true, imagehorizontalresolution determines the exact horizontal resolution of the images returned in the response (in pixels).",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "imageverticalresolution",
+            "type": "integer",
+            "description": "If you set includechannelimages to true, imageverticalresolution determines the exact vertical resolution of the images returned in the response (in pixels).",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Format of the returned data.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/gridschedule/{serviceId}/info": {
+      "get": {
+        "operationId": "GridScheduleTVListingsAPI",
+        "summary": "Returns up to four hours of TV listings with infor...",
+        "description": "Returns up to four hours of TV listings with information appropriate for the space limitations of a grid. Fields in bold are required.",
+        "tags": [
+          "TV Listings API"
+        ],
+        "parameters": [
+          {
+            "name": "serviceId",
+            "type": "integer",
+            "description": "Service ID of the television service, for example: 360861. To get the service ID for a television service, request the list of services in the area with Services.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "Language and country code of the television service (case-sensitive).",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "en-US",
+              "da-DK",
+              "nl-BE",
+              "nl-NL",
+              "en-BM",
+              "en-CA",
+              "en-IE",
+              "en-JM",
+              "en-GB",
+              "fi-FI",
+              "fl-BE",
+              "fr-BE",
+              "fr-CA",
+              "fr-FR",
+              "fr-LU",
+              "fr-CH",
+              "de-AT",
+              "de-DE",
+              "de-LU",
+              "de-CH",
+              "it-IT",
+              "it-CH",
+              "no-NO",
+              "pl-PL",
+              "pt-PT",
+              "es-AR",
+              "es-BO",
+              "es-CL",
+              "es-CO",
+              "es-CR",
+              "es-DO",
+              "es-EC",
+              "es-SV",
+              "es-GT",
+              "es-HN",
+              "es-MX",
+              "es-NI",
+              "es-PA",
+              "es-PE",
+              "es-ES",
+              "es-US",
+              "es-VE",
+              "sv-SE"
+            ]
+          },
+          {
+            "name": "duration",
+            "type": "integer",
+            "description": "Number of minutes of program schedule to return, from 1 to 240 minutes (4 hours).",
+            "in": "query",
+            "required": false,
+            "default": "30"
+          },
+          {
+            "name": "includechannelimages",
+            "type": "boolean",
+            "description": "Whether to include channel logos in the response.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "imageformatid",
+            "type": "integer",
+            "description": "If you set includechannelimages to true, imageformatid determines the width, height, and file format of the channel logos returned in the response. For details, see the documentation of GridSchedule in REST TV Listings.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "sourceid",
+            "type": "string",
+            "description": "Channel sources to include on the schedule, specified as a comma-separated list. For details, see the documentation of GridSchedule in REST TV Listings.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "sourcefilterexclude",
+            "type": "string",
+            "description": "If you specify sourceid, sourcefilterexclude excludes certain types of channels from the listings: HD, PPV, Music (case-sensitive).",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "sourcefilterinclude",
+            "type": "string",
+            "description": "If you specify sourceid, sourcefilterinclude includes certain types of channels in the listings: HD, PPV, Music (case-senstive).",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "startdate",
+            "type": "string",
+            "description": "Beginning of the time period covered by the schedule, specified in a DateTime format. For details, see the documentation of GridSchedule in REST TV Listings.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "titletype",
+            "type": "integer",
+            "description": "Type of title to return for each program. For details, see the documentation of GridSchedule in REST TV Listings.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Format of the returned data",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/linearschedule/{serviceId}/info": {
+      "get": {
+        "operationId": "LinearScheduleTVListingsAPI",
+        "summary": "Returns up to four hours of TV listings with detai...",
+        "description": "Returns up to four hours of TV listings with detailed program information. Fields in bold are required.",
+        "tags": [
+          "TV Listings API"
+        ],
+        "parameters": [
+          {
+            "name": "serviceId",
+            "type": "integer",
+            "description": "Service ID of the television service, for example: 360861. To get the service ID for a television service, request the list of services in the area with Services.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "Language and country code of the television service (case-sensitive).",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "en-US",
+              "da-DK",
+              "nl-BE",
+              "nl-NL",
+              "en-BM",
+              "en-CA",
+              "en-IE",
+              "en-JM",
+              "en-GB",
+              "fi-FI",
+              "fl-BE",
+              "fr-BE",
+              "fr-CA",
+              "fr-FR",
+              "fr-LU",
+              "fr-CH",
+              "de-AT",
+              "de-DE",
+              "de-LU",
+              "de-CH",
+              "it-IT",
+              "it-CH",
+              "no-NO",
+              "pl-PL",
+              "pt-PT",
+              "es-AR",
+              "es-BO",
+              "es-CL",
+              "es-CO",
+              "es-CR",
+              "es-DO",
+              "es-EC",
+              "es-SV",
+              "es-GT",
+              "es-HN",
+              "es-MX",
+              "es-NI",
+              "es-PA",
+              "es-PE",
+              "es-ES",
+              "es-US",
+              "es-VE",
+              "sv-SE"
+            ]
+          },
+          {
+            "name": "duration",
+            "type": "integer",
+            "description": "Number of minutes of program schedule to return, from 1 to 240 (4 hours).",
+            "in": "query",
+            "required": false,
+            "default": "30"
+          },
+          {
+            "name": "inprogress",
+            "type": "boolean",
+            "description": "Whether shows in progress at the time specified for startdate are included in the schedule.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "oneairingpersourceid",
+            "type": "boolean",
+            "description": "Whether to return only the next show on each channel that is not in progress at the time specified by startdate. Note: Setting this parameter to true overrides the inprogress and duration parameters.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "sourceid",
+            "type": "string",
+            "description": "Determines the channels that will appear on the schedule. For details, see the documentation of LinearSchedule in REST TV Listings.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "startdate",
+            "type": "string",
+            "description": "Beginning of the time period covered by the schedule, specified in a DateTime format. Default is the time of the request. For details, see the documentation of LinearSchedule in REST TV Listings.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Format of the returned data.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/programdetails/{serviceId}/{programId}/info": {
+      "get": {
+        "operationId": "ProgramDetailsTVListingsAPI",
+        "summary": "Returns information about a series, movie, episode...",
+        "description": "Returns information about a series, movie, episode, or program, and can optionally include a schedule of upcoming broadcasts of the show. Fields in bold are required.",
+        "tags": [
+          "TV Listings API"
+        ],
+        "parameters": [
+          {
+            "name": "programId",
+            "type": "integer",
+            "description": "A series, episode, or program identifier. You can get program IDs from responses to GridSchedule or LinearSchedule.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "Language and country code of the television service (case-sensitive)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "en-US",
+              "da-DK",
+              "nl-BE",
+              "nl-NL",
+              "en-BM",
+              "en-CA",
+              "en-IE",
+              "en-JM",
+              "en-GB",
+              "fi-FI",
+              "fl-BE",
+              "fr-BE",
+              "fr-CA",
+              "fr-FR",
+              "fr-LU",
+              "fr-CH",
+              "de-AT",
+              "de-DE",
+              "de-LU",
+              "de-CH",
+              "it-IT",
+              "it-CH",
+              "no-NO",
+              "pl-PL",
+              "pt-PT",
+              "es-AR",
+              "es-BO",
+              "es-CL",
+              "es-CO",
+              "es-CR",
+              "es-DO",
+              "es-EC",
+              "es-SV",
+              "es-GT",
+              "es-HN",
+              "es-MX",
+              "es-NI",
+              "es-PA",
+              "es-PE",
+              "es-ES",
+              "es-US",
+              "es-VE",
+              "sv-SE"
+            ]
+          },
+          {
+            "name": "copytextformat",
+            "type": "string",
+            "description": "Format of the description of the program or movie.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "PlainText",
+              "HTML"
+            ]
+          },
+          {
+            "name": "copytype",
+            "type": "integer",
+            "description": "Type of description you want returned for the program or movie. For details, see the documentation of ProgramDetails in REST TV Listings.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "include",
+            "type": "string",
+            "description": "Data to include in the response: Award, Credit, Image, Keyword, Program, Seasons (case-senstive). To include multiple values, separate them with commas like this: include=Award,Credit,Image.",
+            "in": "query",
+            "required": false,
+            "default": "Program"
+          },
+          {
+            "name": "imagecount",
+            "type": "integer",
+            "description": "If you request Image in the include parameter, imagecount determines the number of images returned in the ProgramImages element.",
+            "in": "query",
+            "required": false,
+            "default": "5"
+          },
+          {
+            "name": "imageformat",
+            "type": "string",
+            "description": "If you request Image in the include parameter, imageformat specifies the file format of images returned in the ProgramImages element.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "jpg",
+              "png"
+            ]
+          },
+          {
+            "name": "imageformatid",
+            "type": "integer",
+            "description": "If you request Image in the include parameter, imageformatid determines the format ID of images returned in the ProgramImages element. For details, see the documentation of ProgramDetails in REST TV Listings.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "imagetype",
+            "type": "string",
+            "description": "If you request Image in the include parameter, imagetype determines the type of images returned in the ProgramImages element. For details, see the documentation of ProgramDetails in REST TV Listings.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "imagehorizontalresolution",
+            "type": "integer",
+            "description": "If you request Image in the include parameter, imagehorizontalresolution determines the exact horizontal resolution (in pixels) of the images returned in the ProgramImages element.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "imageverticalresolution",
+            "type": "integer",
+            "description": "If you request Image in the include parameter, imageverticalresolution determines the exact vertical resolution (in pixels) of the images returned in the ProgramImages element.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "serviceId",
+            "type": "integer",
+            "description": "The television service the program airs on, for example: 360861. This must be specified if you want to return a schedule of upcoming broadcasts of the show. To get the service ID for a television service, request the list of services in the area with Services.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "duration",
+            "type": "integer",
+            "description": "If you specify serviceid to include a schedule of broadcasts of the show, duration determines the number of minutes the schedule will cover, from 1 to 20160 (14 days).",
+            "in": "query",
+            "required": false,
+            "default": "20160"
+          },
+          {
+            "name": "inprogress",
+            "type": "boolean",
+            "description": "If you specify a serviceid to include a schedule of broadcasts of the show, inprogress determines whether shows that are in progress at startdate are included in the schedule.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "sourceid",
+            "type": "string",
+            "description": "If you specify a serviceid to include a schedule of broadcasts of the show, sourceid determines the channel or channels that will appear on the schedule. For details, see the documentation of ProgramDetails in REST TV Listings.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "startdate",
+            "type": "string",
+            "description": "If you specify a serviceid to include a schedule of broadcasts of the show, startdate determines the starting time of the schedule. The date and time must be specified as a DateTime value. The default is the time of the request.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "pagesize",
+            "type": "integer",
+            "description": "If you specify a serviceid to include a schedule of broadcasts of the show, pagesize specifies the maximum number of rows to be returned in the broadcast schedule. The default is 0, which returns all rows after the startindex.",
+            "in": "query",
+            "required": false,
+            "default": "0"
+          },
+          {
+            "name": "startindex",
+            "type": "string",
+            "description": "If you specify a serviceid to include a schedule of broadcasts of the show, startindex specifies the number of the first row you want, counting from zero as the first row in the schedule. Note: You can use startindex and pagesize to paginate the returned schedule.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Format of the returned data",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/celebritydetails/info": {
+      "get": {
+        "operationId": "CelebrityDetailsTVListingsAPI",
+        "summary": "Returns information about a celebrity and can opti...",
+        "description": "Returns information about a celebrity and can optionally include a schedule of upcoming broadcasts the celebrity appears in. Fields in bold are required.",
+        "tags": [
+          "TV Listings API"
+        ],
+        "parameters": [
+          {
+            "name": "include",
+            "type": "string",
+            "description": "Data to include in the response: AKAs, All, Awards, Biography, Credits, Factsheets, Images, None, Relations (case-senstive). To include multiple values, separate them with commas like this: include=Awards,Credits,Images.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "Language and country code of the television service (case-sensitive)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "en-US",
+              "da-DK",
+              "nl-BE",
+              "nl-NL",
+              "en-BM",
+              "en-CA",
+              "en-IE",
+              "en-JM",
+              "en-GB",
+              "fi-FI",
+              "fl-BE",
+              "fr-BE",
+              "fr-CA",
+              "fr-FR",
+              "fr-LU",
+              "fr-CH",
+              "de-AT",
+              "de-DE",
+              "de-LU",
+              "de-CH",
+              "it-IT",
+              "it-CH",
+              "no-NO",
+              "pl-PL",
+              "pt-PT",
+              "es-AR",
+              "es-BO",
+              "es-CL",
+              "es-CO",
+              "es-CR",
+              "es-DO",
+              "es-EC",
+              "es-SV",
+              "es-GT",
+              "es-HN",
+              "es-MX",
+              "es-NI",
+              "es-PA",
+              "es-PE",
+              "es-ES",
+              "es-US",
+              "es-VE",
+              "sv-SE"
+            ]
+          },
+          {
+            "name": "nameid",
+            "type": "integer",
+            "description": "Database ID of the celebrity. You can get celebrity IDs (Cosmo IDs) from responses to ProgramDetails with the include=Credit parameter or from Search requests with the credit entity type.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "copytextformat",
+            "type": "string",
+            "description": "Format of the description of the program or movie.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "PlainText",
+              "HTML"
+            ]
+          },
+          {
+            "name": "copytype",
+            "type": "integer",
+            "description": "Type of description you want returned for the program or movie. For details, see the documentation of CelebrityDetails in REST TV Listings.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "includecreditsforepisodes",
+            "type": "boolean",
+            "description": "If you request Credits in the include parameter, includecreditsforepisodes determines whether credits for each episode in a series are returned in the response.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "imagecount",
+            "type": "integer",
+            "description": "If you request Images in the include parameter, imagecount determines the number of images returned in the Images element.",
+            "in": "query",
+            "required": false,
+            "default": "5"
+          },
+          {
+            "name": "imageformat",
+            "type": "string",
+            "description": "If you request Images in the include parameter, imageformat specifies the file format of images returned in the Images element.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "jpg",
+              "png"
+            ]
+          },
+          {
+            "name": "imageformatid",
+            "type": "integer",
+            "description": "If you request Images in the include parameter, imageformatid determines the format ID of images returned in the Images element. For details, see the documentation of CelebrityDetails in REST TV Listings.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "imagetype",
+            "type": "string",
+            "description": "If you request Images in the include parameter, imagetype determines the type of images returned in the Images element. For details, see the documentation of CelebrityDetails in REST TV Listings.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "imagehorizontalresolution",
+            "type": "integer",
+            "description": "If you request Images in the include parameter, imagehorizontalresolution determines the exact horizontal resolution (in pixels) of images returned in the Images element.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "imageverticalresolution",
+            "type": "integer",
+            "description": "If you request Images in the include parameter, imageverticalresolution determines the exact vertical resolution (in pixels) of images returned in the Images element.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "serviceid",
+            "type": "integer",
+            "description": "The television service ID, for example: 360861. This must be specified if you want to return a schedule of upcoming broadcasts the celebrity appears in. To get the service ID for a television service, request the list of services in the area with Services.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "duration",
+            "type": "integer",
+            "description": "If you specify a serviceid to include a schedule of broadcast appearances, duration determines the number of minutes the schedule will cover, from 1 to 20160 (14 days).",
+            "in": "query",
+            "required": false,
+            "default": "20160"
+          },
+          {
+            "name": "inprogress",
+            "type": "boolean",
+            "description": "If you specify serviceid to include a schedule of broadcast appearances, inprogress determines whether shows that are in progress at startdate are included in the schedule.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "sourceid",
+            "type": "string",
+            "description": "If you specify serviceid to include a schedule of broadcast appearances, sourceid determines the channels that will appear on the schedule. For details, see the documentation of CelebrityDetails in REST TV Listings.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "startdate",
+            "type": "string",
+            "description": "If you specify serviceid to include a schedule of broadcast appearances, startdate determines the starting time of the schedule. The default is the time of the request. For details, see the documentation of CelebrityDetails in REST TV Listings.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Format of the returned data.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

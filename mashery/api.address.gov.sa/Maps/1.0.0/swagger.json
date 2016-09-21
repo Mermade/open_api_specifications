@@ -1,0 +1,119 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Maps",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test our API services using API Explorer. National Address Maps Api",
+    "x-mashery-id": "3450"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.address.gov.sa",
+  "basePath": "/maps",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "https://api.address.gov.sa/io-docs/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "maps"
+    }
+  ],
+  "paths": {
+    "/map-engine": {
+      "get": {
+        "operationId": "map-enginemaps",
+        "summary": "Get National Address Map Engine Api.",
+        "tags": [
+          "maps"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/get-feature-extents": {
+      "get": {
+        "operationId": "get-feature-extentsmaps",
+        "summary": "Get extents of a requested feature.",
+        "tags": [
+          "maps"
+        ],
+        "parameters": [
+          {
+            "name": "format",
+            "type": "string",
+            "description": "It is an optional input. We currently support output for API in two formats Json and XML. You will be required to specify in which format you need response, default is Json.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "JSON",
+              "XML"
+            ]
+          },
+          {
+            "name": "layername",
+            "type": "string",
+            "description": "Layernames. regions, cities, districts, streets or a zipcode",
+            "in": "query",
+            "required": true,
+            "default": "regions"
+          },
+          {
+            "name": "featureid",
+            "type": "integer",
+            "description": "Id of requested feature.",
+            "in": "query",
+            "required": true,
+            "default": "6"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

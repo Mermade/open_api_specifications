@@ -1,0 +1,1092 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Media OS - Prima UK API",
+    "version": "1",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test our API services using I/O Docs. ",
+    "x-mashery-id": "3832"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.hearst.com",
+  "basePath": "/api/v1",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "http://developer.hearst.com/io-docs/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Prima UK Endpoint"
+    }
+  ],
+  "paths": {
+    "/content": {
+      "get": {
+        "operationId": "ContentSearchPrimaUKEndpoint",
+        "summary": "Content Search",
+        "tags": [
+          "Prima UK Endpoint"
+        ],
+        "parameters": [
+          {
+            "name": "_callback",
+            "type": "string",
+            "description": "The jsonp callback function name.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "title",
+            "type": "string",
+            "description": "Will return content where the title equals the passed in title.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "slug",
+            "type": "string",
+            "description": "The URL of the content on the web.  It's essentially everything to the right of the rightmost slash",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "section_id",
+            "type": "integer",
+            "description": "The internal ID of the section on the site to pull data from.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "subsection_id",
+            "type": "integer",
+            "description": "The internal ID of the subsection on the site to pull data from.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "collection_id",
+            "type": "integer",
+            "description": "The internal ID of the collection to pull data from.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "ad_category_id",
+            "type": "integer",
+            "description": "The internal ID of the ad category to pull data from.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "content_type_id",
+            "type": "integer",
+            "description": "The internal ID of the content type to pull data from.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "publishedFrom",
+            "type": "string",
+            "description": "The publish date from which no content published earlier will be returned.  Format YYYY-MM-DD or YYYY-MM-DDThh:mm.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "publishedTo",
+            "type": "string",
+            "description": "The publish date from which no content published later will be returned.  Format YYYY-MM-DD or YYYY-MM-DDThh:mm",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "visibility",
+            "type": "integer",
+            "description": "1 for published articles only, 0 for draft articles, blank for both.",
+            "in": "query",
+            "required": false,
+            "default": "1"
+          },
+          {
+            "name": "all_images",
+            "type": "integer",
+            "description": "Flag to determine whether all associated images are returned for a given article.  This includes processing image ID short codes in the article body and making them part of the image JSON structure.  When not enabled, a singlle headline image is returned for each article.  Values are 0 or 1.",
+            "in": "query",
+            "required": false,
+            "default": "0"
+          },
+          {
+            "name": "get_image_cuts",
+            "type": "integer",
+            "description": "Flag to determine whether or not to retrieve all associated image cuts for every image.  Values are 0 or 1.",
+            "in": "query",
+            "required": false,
+            "default": "0"
+          },
+          {
+            "name": "fields",
+            "type": "string",
+            "description": "List of fields to return.  Default set of fields is documented in the API Settings document. Use * for all fields.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "ignore_cache",
+            "type": "integer",
+            "description": "Flag as to whether or not to ingore internal caching.  Values are 0 or 1.",
+            "in": "query",
+            "required": false,
+            "default": "0"
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Number of records returned.  Allowable values are from 1 to 1,000.",
+            "in": "query",
+            "required": false,
+            "default": "10"
+          },
+          {
+            "name": "order_by",
+            "type": "string",
+            "description": "Sort order for results returned.  Please specify the field name and sort order (asc/desc) separated with a space.",
+            "in": "query",
+            "required": false,
+            "default": "date desc"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/articles": {
+      "get": {
+        "operationId": "ArticleSearchPrimaUKEndpoint",
+        "summary": "Article Search",
+        "tags": [
+          "Prima UK Endpoint"
+        ],
+        "parameters": [
+          {
+            "name": "_callback",
+            "type": "string",
+            "description": "The jsonp callback function name.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "id",
+            "type": "integer",
+            "description": "The primary key.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "title",
+            "type": "string",
+            "description": "Will return articles where the title equals the passed in title.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "slug",
+            "type": "string",
+            "description": "The URL of the article on the web.  It's essentially everything to the right of the rightmost slash",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "editor",
+            "type": "integer",
+            "description": "The internal ID of the editor .",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "editor2",
+            "type": "integer",
+            "description": "The internal ID of the second editor .",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "editor3",
+            "type": "integer",
+            "description": "The internal ID of the third editor .",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "section_id",
+            "type": "integer",
+            "description": "The internal ID of the section on the site to pull data from.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "subsection_id",
+            "type": "integer",
+            "description": "The internal ID of the subsection on the site to pull data from.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "collection_id",
+            "type": "integer",
+            "description": "The internal ID of the collection to pull data from.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "ad_category_id",
+            "type": "integer",
+            "description": "The internal ID of the ad category to pull data from.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "content_type_id",
+            "type": "integer",
+            "description": "The internal ID of the content type to pull data from.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "publishedFrom",
+            "type": "string",
+            "description": "The publish date from which no content published earlier will be returned.  Format YYYY-MM-DD or YYYY-MM-DDThh:mm.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "publishedTo",
+            "type": "string",
+            "description": "The publish date from which no content published later will be returned.  Format YYYY-MM-DD or YYYY-MM-DDThh:mm.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "visibility",
+            "type": "integer",
+            "description": "1 for published articles only, 0 for draft articles, blank for both.",
+            "in": "query",
+            "required": false,
+            "default": "1"
+          },
+          {
+            "name": "all_images",
+            "type": "integer",
+            "description": "Flag to determine whether all associated images are returned for a given article.  This includes processing image ID short codes in the article body and making them part of the image JSON structure.  When not enabled, a singlle headline image is returned for each article.  Values are 0 or 1.",
+            "in": "query",
+            "required": false,
+            "default": "0"
+          },
+          {
+            "name": "get_image_cuts",
+            "type": "integer",
+            "description": "Flag to determine whether or not to retrieve all associated image cuts for every image.  Values are 0 or 1.",
+            "in": "query",
+            "required": false,
+            "default": "0"
+          },
+          {
+            "name": "fields",
+            "type": "string",
+            "description": "List of fields to return.  Default set of fields is documented in the API Settings document. Use * for all fields.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "ignore_cache",
+            "type": "integer",
+            "description": "Flag as to whether or not to ingore internal caching.  Values are 0 or 1.",
+            "in": "query",
+            "required": false,
+            "default": "0"
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Number of records returned.  Allowable values are from 1 to 1,000.",
+            "in": "query",
+            "required": false,
+            "default": "10"
+          },
+          {
+            "name": "order_by",
+            "type": "string",
+            "description": "Sort order for results returned.  Please specify the name and sort order (asc/desc) separated with a space.",
+            "in": "query",
+            "required": false,
+            "default": "date desc"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/galleries": {
+      "get": {
+        "operationId": "GallerySearchPrimaUKEndpoint",
+        "summary": "Gallery Search",
+        "tags": [
+          "Prima UK Endpoint"
+        ],
+        "parameters": [
+          {
+            "name": "_callback",
+            "type": "string",
+            "description": "The jsonp callback function name.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "group_id",
+            "type": "integer",
+            "description": "The primary key.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "title",
+            "type": "string",
+            "description": "Will return articles where the title equals the passed in title.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "slug",
+            "type": "string",
+            "description": "The URL of the article on the web.  It's essentially everything to the right of the rightmost slash",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "editor",
+            "type": "integer",
+            "description": "The internal ID of the editor.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "editor2",
+            "type": "integer",
+            "description": "The internal ID of the second editor.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "editor3",
+            "type": "integer",
+            "description": "The internal ID of the third editor.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "section_id",
+            "type": "integer",
+            "description": "The internal ID of the section on the site to pull data from.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "subsection_id",
+            "type": "integer",
+            "description": "The internal ID of the subsection on the site to pull data from.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "collection_id",
+            "type": "integer",
+            "description": "The internal ID of the collection to pull data from.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "ad_category_id",
+            "type": "integer",
+            "description": "The internal ID of the ad category to pull data from.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "content_type_id",
+            "type": "integer",
+            "description": "The internal ID of the content type to pull data from.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "publishedFrom",
+            "type": "string",
+            "description": "The publish date from which no content published earlier will be returned.  Format YYYY-MM-DD or YYYY-MM-DDThh:mm.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "publishedTo",
+            "type": "string",
+            "description": "The publish date from which no content published later will be returned.  Format YYYY-MM-DD or YYYY-MM-DDThh:mm.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "visibility",
+            "type": "integer",
+            "description": "1 for published articles only, 0 for draft articles, blank for both.",
+            "in": "query",
+            "required": false,
+            "default": "1"
+          },
+          {
+            "name": "get_image_cuts",
+            "type": "integer",
+            "description": "Flag to determine whether or not to retrieve all associated image cuts for every image.  Values are 0 or 1.",
+            "in": "query",
+            "required": false,
+            "default": "0"
+          },
+          {
+            "name": "fields",
+            "type": "string",
+            "description": "List of fields to return.  Default set of fields is documented in the API Settings document. Use * for all fields.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "ignore_cache",
+            "type": "integer",
+            "description": "Flag as to whether or not to ingore internal caching.  Values are 0 or 1.",
+            "in": "query",
+            "required": false,
+            "default": "0"
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Number of records returned.  Allowable values are from 1 to 1,000.",
+            "in": "query",
+            "required": false,
+            "default": "10"
+          },
+          {
+            "name": "order_by",
+            "type": "string",
+            "description": "Sort order for results returned.  Please specify the name and sort order (asc/desc) separated with a space.",
+            "in": "query",
+            "required": false,
+            "default": "date desc"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/images": {
+      "get": {
+        "operationId": "ImageSearchPrimaUKEndpoint",
+        "summary": "Image Search",
+        "tags": [
+          "Prima UK Endpoint"
+        ],
+        "parameters": [
+          {
+            "name": "_callback",
+            "type": "string",
+            "description": "The jsonp callback function name.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "id",
+            "type": "integer",
+            "description": "The primary key.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "image_title",
+            "type": "string",
+            "description": "Will return images where the title equals the passed in title.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "file_domain",
+            "type": "string",
+            "description": "The domain where the image is hosted. First of three fields to construct the actual URL (file_domain + file_path + file_name).",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "file_path",
+            "type": "string",
+            "description": "The directory path where the image is hosted. Second of three fields to construct the actual URL (file_domain + file_path + file_name).",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "file_name",
+            "type": "string",
+            "description": "The file name of the image. Third of three fields to construct the actual URL (file_domain + file_path + file_name).",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "ed_id",
+            "type": "integer",
+            "description": "The internal ID of the editor .",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "section_id",
+            "type": "integer",
+            "description": "The internal ID of the section on the site to pull data from.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "keywords",
+            "type": "string",
+            "description": "Keywords associated with the image (separated by spaces).",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "description",
+            "type": "string",
+            "description": "The description of the image.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "width",
+            "type": "integer",
+            "description": "Width of the image in pixels.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "height",
+            "type": "integer",
+            "description": "Height of the image in pixels.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "get_image_cuts",
+            "type": "integer",
+            "description": "Flag to determine whether or not to retrieve all associated image cuts for every image.  Values are 0 or 1.",
+            "in": "query",
+            "required": false,
+            "default": "0"
+          },
+          {
+            "name": "fields",
+            "type": "string",
+            "description": "List of fields to return.  Default set of fields is documented in the API Settings document. Use * for all fields.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "ignore_cache",
+            "type": "integer",
+            "description": "Flag as to whether or not to ingore internal caching.  Values are 0 or 1.",
+            "in": "query",
+            "required": false,
+            "default": "0"
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Number of records returned.  Allowable values are from 1 to 1,000.",
+            "in": "query",
+            "required": false,
+            "default": "10"
+          },
+          {
+            "name": "order_by",
+            "type": "string",
+            "description": "Sort order for results returned.  Please specify the name and sort order (asc/desc) separated with a space.",
+            "in": "query",
+            "required": false,
+            "default": "date desc"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editors": {
+      "get": {
+        "operationId": "EditorSearchPrimaUKEndpoint",
+        "summary": "Editor Search",
+        "tags": [
+          "Prima UK Endpoint"
+        ],
+        "parameters": [
+          {
+            "name": "_callback",
+            "type": "string",
+            "description": "The jsonp callback function name.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "ed_id",
+            "type": "integer",
+            "description": "The primary key.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "ed_username",
+            "type": "string",
+            "description": "The username of the editor.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "ed_firstname",
+            "type": "string",
+            "description": "The editor's first name.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "ed_lastname",
+            "type": "string",
+            "description": "The editor's last name.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "ed_fullname",
+            "type": "string",
+            "description": "The editor's full name.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "ed_email",
+            "type": "string",
+            "description": "The editor's email address.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "fields",
+            "type": "string",
+            "description": "List of fields to return.  Default set of fields is documented in the API Settings document. Use * for all fields.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "ignore_cache",
+            "type": "integer",
+            "description": "Flag as to whether or not to ingore internal caching.  Values are 0 or 1.",
+            "in": "query",
+            "required": false,
+            "default": "0"
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Number of records returned.  Allowable values are from 1 to 1,000.",
+            "in": "query",
+            "required": false,
+            "default": "10"
+          },
+          {
+            "name": "order_by",
+            "type": "string",
+            "description": "Sort order for results returned.  Please specify the name and sort order (asc/desc) separated with a space.",
+            "in": "query",
+            "required": false,
+            "default": "last_updated desc"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/sections": {
+      "get": {
+        "operationId": "SectionSearchPrimaUKEndpoint",
+        "summary": "Section Search",
+        "tags": [
+          "Prima UK Endpoint"
+        ],
+        "parameters": [
+          {
+            "name": "_callback",
+            "type": "string",
+            "description": "The jsonp callback function name.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "section_id",
+            "type": "integer",
+            "description": "The primary key.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "section_sitename",
+            "type": "string",
+            "description": "The name of the section.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "section_url",
+            "type": "string",
+            "description": "The url part of the section as used on the site.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "section_isactive",
+            "type": "integer",
+            "description": "Is the section active or not.  Valid are '1' or '0'.",
+            "in": "query",
+            "required": false,
+            "default": "1"
+          },
+          {
+            "name": "meta_title",
+            "type": "string",
+            "description": "The meta title of the section.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "meta_description",
+            "type": "string",
+            "description": "The meta description of the section.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "meta_keywords",
+            "type": "string",
+            "description": "The meta keywords for the section.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "fields",
+            "type": "string",
+            "description": "List of fields to return.  Default set of fields is documented in the API Settings document. Use * for all fields.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "ignore_cache",
+            "type": "integer",
+            "description": "Flag as to whether or not to ingore internal caching.  Values are 0 or 1.",
+            "in": "query",
+            "required": false,
+            "default": "0"
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Number of records returned.  Allowable values are from 1 to 1,000.",
+            "in": "query",
+            "required": false,
+            "default": "10"
+          },
+          {
+            "name": "order_by",
+            "type": "string",
+            "description": "Sort order for results returned.  Please specify the name and sort order (asc/desc) separated with a space.",
+            "in": "query",
+            "required": false,
+            "default": "last_updated desc"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/subsections": {
+      "get": {
+        "operationId": "SubsectionSearchPrimaUKEndpoint",
+        "summary": "Subsection Search",
+        "tags": [
+          "Prima UK Endpoint"
+        ],
+        "parameters": [
+          {
+            "name": "_callback",
+            "type": "string",
+            "description": "The jsonp callback function name.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "subsection_id",
+            "type": "integer",
+            "description": "The primary key.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "subsection_sitename",
+            "type": "string",
+            "description": "The name of the subsection.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "subsection_url",
+            "type": "string",
+            "description": "The url part of the subsection as used on the site.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "subsection_isactive",
+            "type": "integer",
+            "description": "Is the subsection active or not.  Valid are '1' and '0'.",
+            "in": "query",
+            "required": false,
+            "default": "1"
+          },
+          {
+            "name": "subsection_parent_id",
+            "type": "integer",
+            "description": "The section_id of the parent section.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "meta_title",
+            "type": "string",
+            "description": "The meta title of the section.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "meta_description",
+            "type": "string",
+            "description": "The meta description of the section.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "meta_keywords",
+            "type": "string",
+            "description": "The meta keywords for the section.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "fields",
+            "type": "string",
+            "description": "List of fields to return.  Default set of fields is documented in the API Settings document. Use * for all fields.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "ignore_cache",
+            "type": "integer",
+            "description": "Flag as to whether or not to ingore internal caching.  Values are 0 or 1.",
+            "in": "query",
+            "required": false,
+            "default": "0"
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Number of records returned.  Allowable values are from 1 to 1,000.",
+            "in": "query",
+            "required": false,
+            "default": "10"
+          },
+          {
+            "name": "order_by",
+            "type": "string",
+            "description": "Sort order for results returned.  Please specify the name and sort order (asc/desc) separated with a space.",
+            "in": "query",
+            "required": false,
+            "default": "last_updated desc"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/ad_categories": {
+      "get": {
+        "operationId": "AdCategorySearchPrimaUKEndpoint",
+        "summary": "Ad Category Search",
+        "tags": [
+          "Prima UK Endpoint"
+        ],
+        "parameters": [
+          {
+            "name": "_callback",
+            "type": "string",
+            "description": "The jsonp callback function name.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "ad_category_id",
+            "type": "integer",
+            "description": "The primary key.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "ad_category_name",
+            "type": "string",
+            "description": "The name of the ad category.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "ad_category_prefix",
+            "type": "string",
+            "description": "The short name of the ad category.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "ad_category_parent_id",
+            "type": "integer",
+            "description": "The parent ad_category_id of the ad category.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "fields",
+            "type": "string",
+            "description": "List of fields to return.  Default set of fields is documented in the API Settings document. Use * for all fields.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "ignore_cache",
+            "type": "integer",
+            "description": "Flag as to whether or not to ingore internal caching.  Values are 0 or 1.",
+            "in": "query",
+            "required": false,
+            "default": "0"
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Number of records returned.  Allowable values are from 1 to 1,000.",
+            "in": "query",
+            "required": false,
+            "default": "10"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

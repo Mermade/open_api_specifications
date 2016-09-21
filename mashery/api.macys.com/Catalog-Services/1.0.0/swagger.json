@@ -1,0 +1,1300 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Catalog Services",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test Macy's API using our easy to use Interactive Console! You can also view more detailed  written documentation. (Note: You must attain approval for an API key for one of the services in the drop-down menu below before being able to use the Macy's API Console.) Catalog Services give you access to the Macy's product line in a variety of ways:",
+    "x-mashery-id": "331"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.macys.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "Please contact us if you are having trouble getting access to keys: Click Here",
+    "url": "http://developer.macys.com/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Catalog Services"
+    }
+  ],
+  "paths": {
+    "/v3/catalog/category/index": {
+      "get": {
+        "operationId": "CategoryIndexCatalogServices",
+        "summary": "This API provides an option to obtain all the cate...",
+        "description": "This API provides an option to obtain all the categoryIDs in a hierarchical structure by making a call with the ‘index’ parameter.  Then you can use the CategoryBrowse call (Below) to make subsequent calls to get the more detailed category info. Please click here for the additional documentation.",
+        "tags": [
+          "Catalog Services"
+        ],
+        "parameters": [
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Output format as JSON or XML (Required) Ex. JSON",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
+          },
+          {
+            "name": "category",
+            "type": "string",
+            "description": "Use this parameter to narrow the response returned by category ID. (Optional) Ex. 118",
+            "in": "query",
+            "required": false,
+            "default": "118"
+          },
+          {
+            "name": "depth",
+            "type": "string",
+            "description": "Number between 1-5.  This allows you to return additional layers of subcategories. (Optional) Ex. 2",
+            "in": "query",
+            "required": false,
+            "default": "1"
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "If sent, the format is JSONP (JSON with Padding) with the callback returned with the JSON response. You can put anything in the callback parameter and whatever you send is returned.(Optional) Ex. magicofmacysapi",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v3/catalog/category/{categoryId}": {
+      "get": {
+        "operationId": "CategoryBrowseCatalogServices",
+        "summary": "The CategoryBrowse service can retrieve informatio...",
+        "description": "The CategoryBrowse service can retrieve information on the hierarchy of product categories as on Macys.com. In addition to the hierarchy details such as category description, Product IDs within the category & facets that can appear for those products can be retrieved.The API enables users to obtain category details by specifying a category ID. All of these category ID's can be pulled from the CategoryIndex call (above). Please click here for the additional documentation.",
+        "tags": [
+          "Catalog Services"
+        ],
+        "parameters": [
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Output format as JSON or XML (Required) Ex. JSON",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
+          },
+          {
+            "name": "categoryId",
+            "type": "integer",
+            "description": "Multiple Category ID's can be sent by seperating them by Comma's: Maximum of 250 (Optional). Ex. 118",
+            "in": "path",
+            "required": true,
+            "default": "118"
+          },
+          {
+            "name": "show",
+            "type": "string",
+            "description": "Every show parameter specified would enable users to restrict the service response to contain only the desired details about the category. By default all details of a category are shown. (Optional) Ex. product, facet, attribute.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "product",
+              "facet",
+              "attribute"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "If sent, the format is JSONP (JSON with Padding) with the callback returned with the JSON response. You can put anything in the callback parameter and whatever you send is returned. (Optional) Ex. magicofmacysapi",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v4/catalog/category/brandindex/{categoryId}": {
+      "get": {
+        "operationId": "CategoryBrandIndexCatalogServices",
+        "summary": "This API allows users to specify Category(s) and r...",
+        "description": "This API allows users to specify Category(s) and retrieve the complete list of Brands for that Category(s).  This is called the Brand Index. Please click here for the additional documentation.",
+        "tags": [
+          "Catalog Services"
+        ],
+        "parameters": [
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Output format as JSON or XML (Required) Ex. JSON",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
+          },
+          {
+            "name": "categoryId",
+            "type": "integer",
+            "description": "Unique ID for each category. Multiple Category ID's can be sent in one call by comma separating them. (Required) Ex. 3111",
+            "in": "path",
+            "required": true,
+            "default": "3111"
+          },
+          {
+            "name": "refcatid",
+            "type": "string",
+            "description": "Reference Category ID.  This is an higher level category ID for the category you are trying to get brand index information for.  For instance your higher level Category would be Womens (refcatid=118) and your nested category ID would be Jeans (3111). (Optional) Ex. 118",
+            "in": "query",
+            "required": false,
+            "default": "118"
+          },
+          {
+            "name": "callback",
+            "type": "integer",
+            "description": "If sent, the format is JSONP (JSON with Padding) with the callback returned with the JSON response. You can put anything in the callback parameter and whatever you send is returned.(Optional) Ex. magicofmacysapi",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v3/catalog/category/{categoryId}/browseproducts": {
+      "get": {
+        "operationId": "CategoryBrowseProductCatalogServices",
+        "summary": "The GetCategoryBrowse API call retrieves a list of...",
+        "description": "The GetCategoryBrowse API call retrieves a list of products from a given category allowing you to browse the products. Please click here for the additional documentation.",
+        "tags": [
+          "Catalog Services"
+        ],
+        "parameters": [
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Output format as JSON or XML (Required) Ex. JSON",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
+          },
+          {
+            "name": "categoryId",
+            "type": "integer",
+            "description": "Category ID (Required) Ex. 118",
+            "in": "path",
+            "required": true,
+            "default": "118"
+          },
+          {
+            "name": "resultsperpage",
+            "type": "string",
+            "description": "Results per page (Number 1-100). Default is 12.  (Optional) Ex. 20",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "currentpage",
+            "type": "string",
+            "description": "Current page number requested. Default: 1 (Optional) Ex. 3",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "show",
+            "type": "string",
+            "description": "You can use this parameter to show only products or only facets . We return both facets and products by default.(Optional) Ex. product, facet.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "facet",
+              "product"
+            ]
+          },
+          {
+            "name": "sortby",
+            "type": "string",
+            "description": "Sort By (Optional) Ex. customerrating",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "customerrating",
+              "name",
+              "bestseller",
+              "newarrival",
+              "price"
+            ]
+          },
+          {
+            "name": "sortorder",
+            "type": "string",
+            "description": "Sort Order(Optional) Ex. asc",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "asc",
+              "desc"
+            ]
+          },
+          {
+            "name": "imagewidth",
+            "type": "string",
+            "description": "Image Width(Optional) Ex.100 (Pixels)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "imagequality",
+            "type": "string",
+            "description": "Image Quality (Optional) Ex. 90",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "upcimagewidth",
+            "type": "string",
+            "description": "UPC Image Width (Optional) Ex.100 (Pixels)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "swatchimagewidth",
+            "type": "string",
+            "description": "Swatch Image Width (Optional) Ex.100 (Pixels)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "If sent, the format is JSONP (JSON with Padding) with the callback returned with the JSON response. You can put anything in the callback parameter and whatever you send is returned. (Optional) Ex. magicofmacysapi",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v3/catalog/product/index": {
+      "get": {
+        "operationId": "ProductIndexCatalogServices",
+        "summary": "Get all products in our database using Product ID....",
+        "description": "Get all products in our database using Product ID. Please click here for the additional documentation.",
+        "tags": [
+          "Catalog Services"
+        ],
+        "parameters": [
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Output format as JSON or XML (Required) Ex. JSON",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
+          },
+          {
+            "name": "category",
+            "type": "string",
+            "description": "Use this parameter to narrow the products returned by category ID. (Optional) Ex. 118",
+            "in": "query",
+            "required": false,
+            "default": "118"
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "If sent, the format is JSONP (JSON with Padding) with the callback returned with the JSON response. You can put anything in the callback parameter and whatever you send is returned. (Optional) Ex. magicofmacysapi",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v3/catalog/product/{productId}": {
+      "get": {
+        "operationId": "ProductDetailV3(UsingProductID)CatalogServices",
+        "summary": "Get product details in our database using Product ...",
+        "description": "Get product details in our database using Product ID. Please click here for the additional documentation.",
+        "tags": [
+          "Catalog Services"
+        ],
+        "parameters": [
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Output format as JSON or XML (Required) Ex. JSON",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
+          },
+          {
+            "name": "productId",
+            "type": "integer",
+            "description": "Product ID(s). Multiple products can be returned if you separate the Product ID's with commas. (Required) Ex. 77589,166725",
+            "in": "path",
+            "required": true,
+            "default": "77589"
+          },
+          {
+            "name": "show",
+            "type": "string",
+            "description": "You can specify which values are returned. By default we return each attribute except Reviews and Promotion. To return this data you will need to be specified using the 'show' query parameter.  You can specify multiple values by comma separating them. Available values: summary, price, attribute, promotion, image, category, availability, rebate, upc, review (Optional) Ex. summary or summary,price,rebate",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "imagewidth",
+            "type": "string",
+            "description": "Image Width (Optional) Ex.100 (Pixels)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "imagequality",
+            "type": "string",
+            "description": "Image Quality (Optional) Ex.90",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "upcimagewidth",
+            "type": "string",
+            "description": "UPC Image Width (Optional) Ex.100 (Pixels)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "swatchimagewidth",
+            "type": "string",
+            "description": "Swatch Image Width (Optional) Ex.100 (Pixels)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "numOfReviews",
+            "type": "string",
+            "description": "Number of Reviews (Optional) Ex. 3",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "If sent, the format is JSONP (JSON with Padding) with the callback returned with the JSON response. You can put anything in the callback parameter and whatever you send is returned. (Optional) Ex. magicofmacysapi",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v3/catalog/product": {
+      "get": {
+        "operationId": "ProductDetailV3(UsingUPC)CatalogServices",
+        "summary": "Get product details in our database using UPC. Ple...",
+        "description": "Get product details in our database using UPC. Please click here for the additional documentation.",
+        "tags": [
+          "Catalog Services"
+        ],
+        "parameters": [
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Output format as JSON or XML (Required) Ex. JSON",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
+          },
+          {
+            "name": "upc",
+            "type": "integer",
+            "description": "UPC of the product. Multiple products can be returned if you separate the UPC's with commas. (Required) Ex. 50946872827,4003683257743",
+            "in": "query",
+            "required": true,
+            "default": "50946872827"
+          },
+          {
+            "name": "show",
+            "type": "string",
+            "description": "You can specify which values are returned.  By default we return each attribute except Reviews and Promotions. To return this data you will need to use the 'show' query parameter.  You can specify multiple values by comma separating them. Available values: summary, price, attribute, promotion, image, category, availability, rebate, upc, review (Optional) Ex. summary or summary,price,rebate",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "imagewidth",
+            "type": "string",
+            "description": "Image Width (Optional) Ex.100 (Pixels)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "upcimagewidth",
+            "type": "string",
+            "description": "UPC Image Width (Optional) Ex.100 (Pixels)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "swatchimagewidth",
+            "type": "string",
+            "description": "Swatch Image Width (Optional) Ex.100 (Pixels)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "numOfReviews",
+            "type": "string",
+            "description": "Number of Reviews (Optional) Ex. 3",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "If sent, the format is JSONP (JSON with Padding) with the callback returned with the JSON response. You can put anything in the callback parameter and whatever you send is returned. (Optional) Ex. magicofmacysapi",
+            "in": "query",
+            "required": false,
+            "default": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v4/catalog/product/{productId}": {
+      "get": {
+        "operationId": "ProductDetailV4(UsingProductID)CatalogServices",
+        "summary": "Get product details in our database using Product ...",
+        "description": "Get product details in our database using Product ID. Please click here for the additional documentation.",
+        "tags": [
+          "Catalog Services"
+        ],
+        "parameters": [
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Output format as JSON or XML (Required) Ex. JSON",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
+          },
+          {
+            "name": "productId",
+            "type": "integer",
+            "description": "Product ID(s). Multiple products can be returned if you separate the Product ID's with commas. (Required) Ex. 77589,166725 You can also specify what objects are returned here.  Please visit the static documentation to view details",
+            "in": "path",
+            "required": true,
+            "default": "77589(productdetails(price,summary,availability),promotions,reviews)"
+          },
+          {
+            "name": "retrieveallupcs",
+            "type": "string",
+            "description": "The parameter retrieveallupcs can be set to true or false. When set to true all upcs including inactive or unavailable upcs are returned. By default it is set to false.  (Optional) Ex.false",
+            "in": "query",
+            "required": false,
+            "default": "true"
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "If sent, the format is JSONP (JSON with Padding) with the callback returned with the JSON response. You can put anything in the callback parameter and whatever you send is returned. (Optional) Ex. magicofmacysapi",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v4/catalog/product/upc/{upcId}": {
+      "get": {
+        "operationId": "ProductDetailV4(UsingUPCID)CatalogServices",
+        "summary": "Get product details in our database using Product ...",
+        "description": "Get product details in our database using Product ID. Please click here for the additional documentation.",
+        "tags": [
+          "Catalog Services"
+        ],
+        "parameters": [
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Output format as JSON or XML (Required) Ex. JSON",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
+          },
+          {
+            "name": "upcId",
+            "type": "integer",
+            "description": "Multiple UPCs can be returned if you separate the UPC ID's with commas. (Required) Ex. 50946872827. You can also specify what objects are returned here.  Please visit the static documentation to view details",
+            "in": "path",
+            "required": true,
+            "default": "50946872827(productdetails(price,summary,availability),promotions,reviews)"
+          },
+          {
+            "name": "retrieveallupcs",
+            "type": "string",
+            "description": "The parameter retrieveallupcs can be set to true or false. When set to true all upcs including inactive or unavailable upcs are returned. By default it is set to false.  (Optional) Ex.false",
+            "in": "query",
+            "required": false,
+            "default": "true"
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "If sent, the format is JSONP (JSON with Padding) with the callback returned with the JSON response. You can put anything in the callback parameter and whatever you send is returned. (Optional) Ex. magicofmacysapi",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v4/recommendations/product/{productId}": {
+      "get": {
+        "operationId": "ProductRecommendationsV4CatalogServices",
+        "summary": "The Product recommendations service allows you to ...",
+        "description": "The Product recommendations service allows you to specify a product and return related products that are recommended just as is done on Macys.com. Please click here for the additional documentation.",
+        "tags": [
+          "Catalog Services"
+        ],
+        "parameters": [
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Output format as JSON or XML (Required) Ex. JSON",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
+          },
+          {
+            "name": "productId",
+            "type": "integer",
+            "description": "Product ID of the product you would like to return recommendations for (Required) Ex. 77589.",
+            "in": "path",
+            "required": true,
+            "default": "77589"
+          },
+          {
+            "name": "visitorid",
+            "type": "string",
+            "description": "Visitor ID is a unique ID that captures a person's session. (Required) Ex.123456789",
+            "in": "query",
+            "required": true,
+            "default": "123456789"
+          },
+          {
+            "name": "maxprods",
+            "type": "string",
+            "description": "Max product returned. Default is 10.  This number should be between 1 and 9.(Optional) Ex.5",
+            "in": "query",
+            "required": false,
+            "default": "5"
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "If sent, the format is JSONP (JSON with Padding) with the callback returned with the JSON response. You can put anything in the callback parameter and whatever you send is returned. (Optional) Ex. magicofmacysapi",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v4/catalog/bops/product/{productId}": {
+      "get": {
+        "operationId": "BOPSProductAvailability(UsingProductID)V4CatalogServices",
+        "summary": "The V4 BOPS (Buy Online Pick-up in Store) Product ...",
+        "description": "The V4 BOPS (Buy Online Pick-up in Store) Product Availability service allows you specify a Product ID and return the products BOPS availability at a nearby store using zipcode, city-state, or locationnumber. Please click here for the additional documentation.",
+        "tags": [
+          "Catalog Services"
+        ],
+        "parameters": [
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Output format as JSON or XML (Required) Ex. JSON",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
+          },
+          {
+            "name": "productId",
+            "type": "integer",
+            "description": "Product ID of the product you would like to return BOPS availability for. Multiple Product ID's can be specified here by comma separating. (Required) Ex. 77589. You can also specify what objects are returned here.  Please visit the static documentation to view details",
+            "in": "path",
+            "required": true,
+            "default": "77589(upcs(upcdetails,storedata),stores)"
+          },
+          {
+            "name": "locationNumber",
+            "type": "integer",
+            "description": "Location number of the area you are trying to locate a BOPS product. Required if you do not specify latitude/longitude, zipcode or city/state. (Optional) Ex.5459",
+            "in": "query",
+            "required": false,
+            "default": "5459"
+          },
+          {
+            "name": "latitude",
+            "type": "integer",
+            "description": "BOPS look up by global coordinates. You must specify longitude parameter if you specify the latitude parameter. Required if you do not specify locationNumber, zipcode or city/state. (Required if also using longitude parameter) Ex. 37.355965",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "longitude",
+            "type": "integer",
+            "description": "BOPS look up by global coordinates. You must specify latitude parameter if you specify the longitude parameter. First in priority if city and state and/or zipcode also supplied.(Required if also using latitude parameter) Ex. -122.01318",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "zipCode",
+            "type": "integer",
+            "description": "Zip code of area you are trying to locate a BOPS product. Required if you do not specify locationNumber or city/state. (Optional) Ex.94105",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "city",
+            "type": "string",
+            "description": "Zip code of area you are trying to locate a BOPS product. You must specify state parameter if you specify the city parameter. Required if you do not specify locationNumber, latitude/longitude, or zipcode. (Optional) Ex.San Francisco",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "state",
+            "type": "string",
+            "description": "Zip code of area you are trying to locate a BOPS product. You must specify city parameter if you specify the state parameter. Required if you do not specify locationNumber, latitude/longitude, or zipcode. (Optional) Ex.CA",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "distance",
+            "type": "string",
+            "description": "Distance from location specified above using the locationNumber, zipcode, or city/state parameter. Default is 200 (miles).  Can be a number between 1-200. (Optional) Ex.50",
+            "in": "query",
+            "required": false,
+            "default": "50"
+          },
+          {
+            "name": "numberOfStores",
+            "type": "string",
+            "description": "Distance from location specified above using the locationNumber, zipcode, or city/state parameter. Default is 15. Can be a number between 1-15. (Optional) Ex.5",
+            "in": "query",
+            "required": false,
+            "default": "5"
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "If sent, the format is JSONP (JSON with Padding) with the callback returned with the JSON response. You can put anything in the callback parameter and whatever you send is returned. (Optional) Ex. magicofmacysapi",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v4/catalog/bops/upc/{upcId}": {
+      "get": {
+        "operationId": "BOPSProductAvailability(UsingUPCID)V4CatalogServices",
+        "summary": "The V4 BOPS (Buy Online Pick-up in Store) Product ...",
+        "description": "The V4 BOPS (Buy Online Pick-up in Store) Product Availability service allows you specify a Product ID and return the products BOPS availability at a nearby store using zipcode, city-state, or locationnumber. Please click here for the additional documentation.",
+        "tags": [
+          "Catalog Services"
+        ],
+        "parameters": [
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Output format as JSON or XML (Required) Ex. JSON",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
+          },
+          {
+            "name": "upcId",
+            "type": "integer",
+            "description": "Product ID of the product you would like to return BOPS availability for. Multiple Product ID's can be specified here by comma separating. (Required) Ex. 50946872827,96018254016 . You can also specify what objects are returned here.  Please visit the static documentation to view details",
+            "in": "path",
+            "required": true,
+            "default": "50946872827(upcs(upcdetails,storedata),stores)"
+          },
+          {
+            "name": "locationNumber",
+            "type": "integer",
+            "description": "Location number of the area you are trying to locate a BOPS product. Required if you do not specify latitude/longitude, zipcode or city/state. (Optional) Ex.5459",
+            "in": "query",
+            "required": false,
+            "default": "5459"
+          },
+          {
+            "name": "latitude",
+            "type": "integer",
+            "description": "BOPS look up by global coordinates. You must specify longitude parameter if you specify the latitude parameter. Required if you do not specify locationNumber, zipcode or city/state. (Required if also using longitude parameter) Ex. 37.355965",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "longitude",
+            "type": "integer",
+            "description": "BOPS look up by global coordinates. You must specify latitude parameter if you specify the longitude parameter. First in priority if city and state and/or zipcode also supplied.(Required if also using latitude parameter) Ex. -122.01318",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "zipCode",
+            "type": "integer",
+            "description": "Zip code of area you are trying to locate a BOPS product. Required if you do not specify latitude/longitude, locationNumber or city/state. (Optional) Ex.94105",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "city",
+            "type": "string",
+            "description": "Zip code of area you are trying to locate a BOPS product. You must specify state parameter if you specify the city parameter. Required if you do not specify latitude/longitude, locationNumber or zipcode. (Optional) Ex.San Francisco",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "state",
+            "type": "string",
+            "description": "Zip code of area you are trying to locate a BOPS product. You must specify city parameter if you specify the state parameter. Required if you do not specify latitude/longitude, locationNumber or zipcode. (Optional) Ex.CA",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "distance",
+            "type": "string",
+            "description": "Distance from location specified above using the locationNumber, zipcode, or city/state parameter. Default is 200 (miles).  Can be a number between 1-200. (Optional) Ex.50",
+            "in": "query",
+            "required": false,
+            "default": "50"
+          },
+          {
+            "name": "numberOfStores",
+            "type": "string",
+            "description": "Distance from location specified above using the locationNumber, zipcode, or city/state parameter. Default is 15. Can be a number between 1-15. (Optional) Ex.5",
+            "in": "query",
+            "required": false,
+            "default": "5"
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "If sent, the format is JSONP (JSON with Padding) with the callback returned with the JSON response. You can put anything in the callback parameter and whatever you send is returned. (Optional) Ex. magicofmacysapi",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v4/catalog/search": {
+      "get": {
+        "operationId": "SearchPhraseCatalogServices",
+        "summary": "Search for a product using string. Please click he...",
+        "description": "Search for a product using string. Please click here for the additional documentation.",
+        "tags": [
+          "Catalog Services"
+        ],
+        "parameters": [
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Output format as JSON or XML (Required) Ex. JSON",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
+          },
+          {
+            "name": "searchphrase",
+            "type": "integer",
+            "description": "Search for a product using string (Required) Ex. red dress",
+            "in": "query",
+            "required": true,
+            "default": "red dress"
+          },
+          {
+            "name": "show",
+            "type": "string",
+            "description": "Shows products or facets only. If neither product or facet requested, shows BOTH products AND facets (Optional) Ex. product",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "product",
+              "facet"
+            ]
+          },
+          {
+            "name": "sortorderby",
+            "type": "string",
+            "description": "Sorts order of response by PRICE_ASCENDING, PRICE_DESCENDING, CUSTOMER_RATING, NEWNESS, BEST_SELLERS   (Optional)Ex. BEST_SELLERS",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "PRICE_ASCENDING",
+              "PRICE_DESCENDING",
+              "CUSTOMER_RATING",
+              "NEWNESS",
+              "BEST_SELLERS"
+            ]
+          },
+          {
+            "name": "perpage",
+            "type": "string",
+            "description": "Default 12. not more than 24 per page (Optional) Ex. 4",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "page",
+            "type": "string",
+            "description": "What is current page number requested. Default 1 (Optional) Ex. 2",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "imagewidth",
+            "type": "string",
+            "description": "Image Width (Optional) Ex.100 (Pixels)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "imagequality",
+            "type": "string",
+            "description": "Image Quality (Optional) Ex.90",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "upcimagewidth",
+            "type": "string",
+            "description": "UPC Image Width (Optional) Ex.100 (Pixels)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "swatchimagewidth",
+            "type": "string",
+            "description": "Swatch Image Width (Optional) Ex.100 (Pixels)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "include",
+            "type": "string",
+            "description": "This parameter allows you to return additional information about products such as promotions and product description. NOTE: Can only be used if the show=product also. Multiple values can be sent by separating them by Comma's.  Currently promo and proddesc are the only two available. (Optional) Ex. promo,proddesc",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "avoidredirects",
+            "type": "boolean",
+            "description": "When a search input includes the name of a Macy's category we return the category ID in the response as a redirect instead of the products and facets that would normally be delivered. (Ex. Search phrase: chanel)  You can avoid this by seeing this parameter to true. Default is false. (Optional) Ex.true",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "facetexpandall",
+            "type": "boolean",
+            "description": "When a user wants to see ALL facet values listed for the search. Default will show only first 10 values for each facet. Default is false. (Optional) Ex.true",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "invassort",
+            "type": "string",
+            "description": "Pass Inventory Assortment value to retreive Context specifc to return customized search results. Default is SITE (Optional)Ex. STORE",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "SITE",
+              "STORE",
+              "JEWELRY",
+              "WEDDING_REGISTRY",
+              "SEARCH_AND_SEND",
+              "SHOES"
+            ]
+          },
+          {
+            "name": "appl",
+            "type": "string",
+            "description": "Pass Application value to retreive Context specifc to return customized search results. Default is ASSOCIATE (Optional)Ex. SITE",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "ASSOCIATE ",
+              "SITE",
+              "MOBILE",
+              "SEO_LINK_MODULE",
+              "SEARCH_AND_SEND",
+              "MEW"
+            ]
+          },
+          {
+            "name": "device",
+            "type": "string",
+            "description": "Pass Device value to retreive Context specifc to return customized search results. Default is TABLET (Optional)Ex. PHONE",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "TABLET",
+              "PHONE",
+              "PC",
+              "POS"
+            ]
+          },
+          {
+            "name": "country",
+            "type": "string",
+            "description": "Pass Country value to retreive Context specifc to return customized search results. Default is US (Optional)Ex. US",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "US"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "If sent, the format is JSONP (JSON with Padding) with the callback returned with the JSON response. You can put anything in the callback parameter and whatever you send is returned. (Optional) Ex. magicofmacysapi",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "zip",
+            "type": "string",
+            "description": "Zip code of area you are trying to search for a product. Required if you do not specify locationNumber or city/state. (Optional) Ex.94105",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "city",
+            "type": "string",
+            "description": "You must specify state parameter if you specify the city parameter. (Optional) Ex.San Francisco",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "state",
+            "type": "string",
+            "description": "You must specify city parameter if you specify the state parameter. (Optional) Ex.CA",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "latitude",
+            "type": "string",
+            "description": "Search by global coordinates. You must specify longitude parameter if you specify the latitude parameter.  (Required if also using longitude parameter) Ex. 37.355965",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "longitude",
+            "type": "string",
+            "description": "Search by global coordinates. You must specify latitude parameter if you specify the longitude parameter.(Required if also using latitude parameter) Ex. -122.01318",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v3/catalog/reviews": {
+      "get": {
+        "operationId": "ReviewsCatalogServices",
+        "summary": "GetCatalogReviews retrieves information about macy...",
+        "description": "GetCatalogReviews retrieves information about macys.com customer reviews. Please click here for the additional documentation.",
+        "tags": [
+          "Catalog Services"
+        ],
+        "parameters": [
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Output format as JSON or XML (Required) Ex. JSON",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
+          },
+          {
+            "name": "productId",
+            "type": "string",
+            "description": "Product id from the website - Web Id. (Required) Ex. 199462",
+            "in": "query",
+            "required": false,
+            "default": "77589"
+          },
+          {
+            "name": "numOfReviews",
+            "type": "string",
+            "description": "Must be number. Defaults to 10 if not sent in this parameter. (Optional) Ex. 3",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "pageNumber",
+            "type": "string",
+            "description": "You can specify which page you return.  For instance if there are 20 reviews and you are returning 10 reviews per page then you could specify page 2 to get the second page of reviews. Default is 1 (Optional) Ex. 2",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "If sent, the format is JSONP (JSON with Padding) with the callback returned with the JSON response. You can put anything in the callback parameter and whatever you send is returned. (Optional) Ex. magicofmacysapi",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v3/job/refreshjobstatus": {
+      "get": {
+        "operationId": "RefreshStatusCatalogServices",
+        "summary": "The refreshstatus Service is a read only resource ...",
+        "description": "The refreshstatus Service is a read only resource that returns the status and time of last data refresh. Please click here for the additional documentation.",
+        "tags": [
+          "Catalog Services"
+        ],
+        "parameters": [
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Output format as JSON or XML (Required) Ex. JSON",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "If sent, the format is JSONP (JSON with Padding) with the callback returned with the JSON response. You can put anything in the callback parameter and whatever you send is returned. (Optional) Ex. magicofmacysapi",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

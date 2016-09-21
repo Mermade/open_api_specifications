@@ -1,0 +1,433 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API v1",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test our API services using I/O Docs. join.me API v1",
+    "x-mashery-id": "3297"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.join.me",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "https://developer.join.me/io-docs/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "oauth2": {
+      "type": "oauth2",
+      "flow": "implicit",
+      "authorizationUrl": "",
+      "scopes": {}
+    }
+  },
+  "security": [
+    {
+      "oauth2": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "API v1"
+    }
+  ],
+  "paths": {
+    "/meetings/start": {
+      "post": {
+        "operationId": "StartNewMeetingAPIv1",
+        "summary": "Start a New Meeting",
+        "tags": [
+          "API v1"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content type of the payload",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/StartNewMeeting"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/meetings/{meetingId}/start": {
+      "post": {
+        "operationId": "StartScheduledMeetingAPIv1",
+        "summary": "Start an Existing Meeting",
+        "tags": [
+          "API v1"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content type of the payload",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          },
+          {
+            "name": "meetingId",
+            "type": "integer",
+            "description": "The meetingId of the existing meeting to start",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/meetings/{meetingId}": {
+      "get": {
+        "operationId": "GetScheduledMeetingAPIv1",
+        "summary": "Get a Scheduled Meeting by ID",
+        "tags": [
+          "API v1"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content type of the payload",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          },
+          {
+            "name": "meetingId",
+            "type": "integer",
+            "description": "The meetingId of the existing meeting to start",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "patch": {
+        "operationId": "UpdateaMeetingAPIv1",
+        "summary": "Update a Meeting",
+        "tags": [
+          "API v1"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content type of the payload",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          },
+          {
+            "name": "meetingId",
+            "type": "integer",
+            "description": "The ID of the meeting to update",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DeleteaMeetingAPIv1",
+        "summary": "Delete a Meeting",
+        "tags": [
+          "API v1"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content type of the payload",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          },
+          {
+            "name": "meetingId",
+            "type": "integer",
+            "description": "The ID of the meeting to delete",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/meetings": {
+      "get": {
+        "operationId": "GetScheduledMeetingsAPIv1",
+        "summary": "Get Scheduled Meetings",
+        "tags": [
+          "API v1"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content type of the payload",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "format": "date",
+            "description": "If provided, returns meetings up until the given date only. If not provided, all upcoming meetings are returned.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "operationId": "ScheduleaNewMeetingAPIv1",
+        "summary": "Schedule a New Meeting",
+        "tags": [
+          "API v1"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content type of the payload",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/ScheduleNewMeeting"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/meetings/meetingId": {},
+    "/user": {
+      "get": {
+        "operationId": "GetUserInformationAPIv1",
+        "summary": "Get User Information",
+        "tags": [
+          "API v1"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content type of the payload",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "StartNewMeeting": {
+      "title": "Meeting Settings",
+      "type": "object",
+      "properties": {
+        "startWithPersonalUrl": {
+          "type": "boolean",
+          "default": false,
+          "description": "If true, the meeting starts using the user's personal URL."
+        }
+      },
+      "required": [
+        "startWithPersonalUrl"
+      ]
+    },
+    "ScheduleNewMeeting": {
+      "title": "Meeting Details",
+      "type": "object",
+      "properties": {
+        "startWithPersonalUrl": {
+          "type": "boolean",
+          "default": false,
+          "description": "If true, the meeting starts using the user's personal URL."
+        },
+        "meetingStart": {
+          "type": "string",
+          "description": "The time when the meeting should begin (in ISO 8601 UTC -- YYYY-MM-DDTHH:MM:SSZ)"
+        },
+        "meetingEnd": {
+          "type": "string",
+          "description": "The time when the meeting should end (in ISO 8601 UTC -- YYYY-MM-DDTHH:MM:SSZ)"
+        },
+        "meetingName": {
+          "type": "string",
+          "description": "The name to use for the meeting"
+        },
+        "participants": {
+          "type": "array",
+          "description": "List of e-mails to invite to the meeting",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "startWithPersonalUrl",
+        "meetingStart",
+        "meetingEnd",
+        "meetingName"
+      ]
+    },
+    "UpdateMeeting": {
+      "title": "Meeting Details",
+      "type": "object",
+      "properties": {
+        "startWithPersonalUrl": {
+          "type": "boolean",
+          "default": false,
+          "description": "If true, the meeting starts using the user's personal URL."
+        },
+        "meetingStart": {
+          "type": "string",
+          "default": "",
+          "description": "The time when the meeting should begin (in ISO 8601 UTC -- YYYY-MM-DDTHH:MM:SSZ)"
+        },
+        "meetingEnd": {
+          "type": "string",
+          "description": "The time when the meeting should end (in ISO 8601 UTC -- YYYY-MM-DDTHH:MM:SSZ)"
+        },
+        "meetingName": {
+          "type": "string",
+          "description": "The name to use for the meeting"
+        },
+        "participants": {
+          "type": "array",
+          "description": "List of e-mails to invite to the meeting",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

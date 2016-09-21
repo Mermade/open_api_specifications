@@ -1,0 +1,542 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Dubber AU Prod",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Your a Developer, so we know you think like a Developer!   The best form of Documentation is the code -- right!   It's living documentation and always up-to-date.   Test our API services using I/O Docs.  \"Yes, you code to see how it works and whether its right for you\". To help you out, we've even got some sample code that uses our APIs, just like how you would put together a real 'client' application. Dubber IODocs AU Production features OAuth 2.0 as well as a selection of endpoints",
+    "x-mashery-id": "4228"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.dubber.net",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "P.S. \nWe're even covering you when you talk with your Software Development Manager.  Our service incorporates a SDLC.  A sandbox for Development & Testing, as we never develop directly in Production :)  You decide and control how you moved to Production.  All good!!  Well don't wait, get coding!!",
+    "url": "https://developer.dubber.net/io-docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "oauth2": {
+      "type": "oauth2",
+      "flow": "implicit",
+      "authorizationUrl": "",
+      "scopes": {}
+    }
+  },
+  "security": [
+    {
+      "oauth2": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Group Methods (Group Authentication Required)"
+    },
+    {
+      "name": "Account Methods"
+    },
+    {
+      "name": "Recording Methods"
+    },
+    {
+      "name": "User Methods"
+    },
+    {
+      "name": "Notification (Rest Hook) Methods"
+    },
+    {
+      "name": "External Identifier Methods (Group Authentication Required)"
+    }
+  ],
+  "paths": {
+    "/au/v1/groups/{group_id}": {
+      "get": {
+        "operationId": "GetGroupDetailsGroupMethods(GroupAuthenticationRequired)",
+        "summary": "Get information about a group.",
+        "tags": [
+          "Group Methods (Group Authentication Required)"
+        ],
+        "parameters": [
+          {
+            "name": "group_id",
+            "type": "string",
+            "description": "The group ID.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/au/v1/accounts/{account_id}": {
+      "get": {
+        "operationId": "GetAccountDetailsAccountMethods",
+        "summary": "Get information about an account.",
+        "tags": [
+          "Account Methods"
+        ],
+        "parameters": [
+          {
+            "name": "account_id",
+            "type": "string",
+            "description": "The account ID.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/au/v1/accounts/{account_id}/recordings": {
+      "get": {
+        "operationId": "GetAccountRecordingsRecordingMethods",
+        "summary": "Get account recordings.",
+        "tags": [
+          "Recording Methods"
+        ],
+        "parameters": [
+          {
+            "name": "account_id",
+            "type": "string",
+            "description": "The account ID.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "before_id",
+            "type": "string",
+            "description": "Return recordings before this recording ID",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "after_id",
+            "type": "string",
+            "description": "Return recordings after this recording ID",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "count",
+            "type": "integer",
+            "description": "Total recordings to return. Maximum 100",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "query",
+            "type": "string",
+            "description": "String to search",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "page",
+            "type": "integer",
+            "description": "Page number to return. Can't be used when sending before_id and after_id",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/au/v1/recordings/{recording_id}": {
+      "get": {
+        "operationId": "GetRecordingDetailsRecordingMethods",
+        "summary": "Gets a specified recording.",
+        "tags": [
+          "Recording Methods"
+        ],
+        "parameters": [
+          {
+            "name": "recording_id",
+            "type": "string",
+            "description": "The recording ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "listener",
+            "type": "string",
+            "description": "Username (email) of the user making the call. Providing this value will return a link to the recording.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/au/v1/recordings/{recording_id}/metadata": {
+      "put": {
+        "operationId": "UpdateRecordingMetadataRecordingMethods",
+        "summary": "Updated the metadata for a specified recording.",
+        "tags": [
+          "Recording Methods"
+        ],
+        "parameters": [
+          {
+            "name": "recording_id",
+            "type": "string",
+            "description": "The recording ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content type of the payload",
+            "in": "header",
+            "required": true,
+            "default": "application/json"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/au/v1/accounts/{account_id}/users": {
+      "get": {
+        "operationId": "GetAccountUsersUserMethods",
+        "summary": "Get account users.",
+        "tags": [
+          "User Methods"
+        ],
+        "parameters": [
+          {
+            "name": "account_id",
+            "type": "string",
+            "description": "The account ID.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/au/v1/users/{user_id}": {
+      "get": {
+        "operationId": "GetUserDetailsUserMethods",
+        "summary": "Gets a specified user.",
+        "tags": [
+          "User Methods"
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "type": "string",
+            "description": "The user ID",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/au/v1/groups/{group_id}/notifications": {
+      "get": {
+        "operationId": "GetGroupNotifications(GroupAuthenticationOnly)Notification(RestHook)Methods",
+        "summary": "Gets the list of notifications for the given group...",
+        "description": "Gets the list of notifications for the given group.",
+        "tags": [
+          "Notification (Rest Hook) Methods"
+        ],
+        "parameters": [
+          {
+            "name": "group_id",
+            "type": "string",
+            "description": "The group ID.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/au/v1/accounts/{account_id}/notifications": {
+      "get": {
+        "operationId": "GetAccountNotificationsNotification(RestHook)Methods",
+        "summary": "Gets the list of notifications for the given accou...",
+        "description": "Gets the list of notifications for the given account.",
+        "tags": [
+          "Notification (Rest Hook) Methods"
+        ],
+        "parameters": [
+          {
+            "name": "account_id",
+            "type": "string",
+            "description": "The account ID.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/au/v1/notifications/{notification_id}": {
+      "get": {
+        "operationId": "GetNotificationDetailsNotification(RestHook)Methods",
+        "summary": "Gets information about a given notification",
+        "tags": [
+          "Notification (Rest Hook) Methods"
+        ],
+        "parameters": [
+          {
+            "name": "notification_id",
+            "type": "string",
+            "description": "The notification ID.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/au/v1/notifications/{notification_id}/activate": {
+      "post": {
+        "operationId": "ActivateNotificationNotification(RestHook)Methods",
+        "summary": "Activates the given notification, using delayed ac...",
+        "description": "Activates the given notification, using delayed activation",
+        "tags": [
+          "Notification (Rest Hook) Methods"
+        ],
+        "parameters": [
+          {
+            "name": "notification_id",
+            "type": "string",
+            "description": "The notification ID.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "X-Hook-Secret",
+            "type": "string",
+            "description": "The secret sent to activate the notification",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content type of the payload",
+            "in": "header",
+            "required": true,
+            "default": "application/json"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/au/v1/notifications/{notification_id}/unclaimed": {
+      "get": {
+        "operationId": "ReleaseUnclaimedNotificationNotification(RestHook)Methods",
+        "summary": "Releases any unclaimed notifications for the given...",
+        "description": "Releases any unclaimed notifications for the given notification",
+        "tags": [
+          "Notification (Rest Hook) Methods"
+        ],
+        "parameters": [
+          {
+            "name": "notification_id",
+            "type": "string",
+            "description": "The notification ID.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/au/v1/external_identifiers/{external_identifier_id}": {
+      "get": {
+        "operationId": "GetExternalIdentifierDetailsExternalIdentifierMethods(GroupAuthenticationRequired)",
+        "summary": "Gets information about a given external identifier...",
+        "description": "Gets information about a given external identifier",
+        "tags": [
+          "External Identifier Methods (Group Authentication Required)"
+        ],
+        "parameters": [
+          {
+            "name": "external_identifier_id",
+            "type": "string",
+            "description": "The external identifier ID.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/au/v1/external_identifiers/find": {
+      "get": {
+        "operationId": "FindExternalIdentifierExternalIdentifierMethods(GroupAuthenticationRequired)",
+        "summary": "Finds a matching external identifier",
+        "tags": [
+          "External Identifier Methods (Group Authentication Required)"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content type of the payload",
+            "in": "header",
+            "required": true,
+            "default": "application/json"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

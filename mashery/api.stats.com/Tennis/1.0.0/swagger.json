@@ -1,0 +1,1721 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Tennis",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "The API calls below can be used to test the Input and Output of our API endpoints.  You'll need an API key and an assigned secret to access the live data and so if you haven't contacted us yet, now is the time!  Our sales staff would be happy to set you up with trial access so you can begin to evaluate the product. Tennis",
+    "x-mashery-id": "1965"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.stats.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "After you've been given an API key and secret, enter it below and \"Get\" the method you'd like to try out.  Fill in the parameters with what you'd like to try, or use the built in defaults, and click \"Try It!\" to execute the call.  The JSON or XML response will be populated in the Response Body, the Response Body will provide you with any relevant codes, and the Request Header URI will show you how the call would be made within your application. Please note:Also, endpoints almost always require a final \"/\".  You will receive \"596 Service Not Found\" when it is missing.  An exception to this is for optional methods, such as eventId or teamId.",
+    "url": "http://developer.stats.com/io-docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Tennis - Leagues"
+    },
+    {
+      "name": "Tennis - Schedules, results, entrants (seeds), and match stats"
+    },
+    {
+      "name": "Tennis - Participants"
+    },
+    {
+      "name": "Tennis - Statistics"
+    },
+    {
+      "name": "Tennis - Leaders"
+    },
+    {
+      "name": "Odds"
+    },
+    {
+      "name": "Tennis - Stories & Images"
+    },
+    {
+      "name": "Tennis - Decodes"
+    },
+    {
+      "name": "Tennis - Teams"
+    }
+  ],
+  "paths": {
+    "/stats/tennis/leagues/": {
+      "get": {
+        "operationId": "Tennis-LeaguesTennis-Leagues",
+        "summary": "The tennis leagues endpoint serves as a decode for...",
+        "description": "The tennis leagues endpoint serves as a decode for the available sub leagues (ATP, WTA, etc.).",
+        "tags": [
+          "Tennis - Leagues"
+        ],
+        "parameters": [
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/tennis/{subLeagueAbbreviation}/events/{eventId}": {
+      "get": {
+        "operationId": "Tennis-Schedules,results,entrants(seeds),andmatchstatsTennis-Schedules,results,entrants(seeds),andmatchstats",
+        "summary": "The events endpoint provides schedules, live score...",
+        "description": "The events endpoint provides schedules, live scores, entrants (seeds), results, and match statistics.  Results & match statistics are not available by full season.",
+        "tags": [
+          "Tennis - Schedules, results, entrants (seeds), and match stats"
+        ],
+        "parameters": [
+          {
+            "name": "subLeagueAbbreviation",
+            "type": "string",
+            "description": "Select sub league",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "atp",
+              "wta",
+              "itf"
+            ]
+          },
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Provide a specific eventID when you want information on a single event.\n Default - When no eventId entered, current event(s) will be returned",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "results",
+            "type": "boolean",
+            "description": "Returns match results.  Will be ignored if all events for a full season are returned.\n  Default - false: results will not be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "matchStats",
+            "type": "boolean",
+            "description": "Returns more in depth match stats (aces, serve speed) for a specific event where available. Must be used conjunction with 'results=true'.\n  Default - false: matchStats data will not be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "seeds",
+            "type": "boolean",
+            "description": "When true, returns a list of the seeded entrants for the tournament.\n  Default - false: seeds will not be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "description": "Will return events from a specific date. This parameter is ignored if an eventId is used.\n Format: YYYYMMDD or YYYY-MM-DD.\n  Default - current event(s)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get events for a full season, enter the year as YYYY. Results & match statistics cannot be returned when the season parameter is used, unless it is in conjunction with a specific tournamentId.\n Default - current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "matchTypeId",
+            "type": "integer",
+            "description": "Only the specified match type will be returned.\n  Default - all match types",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6"
+            ]
+          },
+          {
+            "name": "tournamentId",
+            "type": "integer",
+            "description": "To get events for a particular tournament, enter the tournamentId. See tournaments decode endpoint for full list of tournament IDs.\n Default - all tournaments",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player names and venues. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/tennis/{subLeagueAbbreviation}/participants/": {
+      "get": {
+        "operationId": "Tennis-PlayersTennis-Participants",
+        "summary": "The participants endpoint provides biographical in...",
+        "description": "The participants endpoint provides biographical information for players and can be used to return information on a single player, or all players within the subLeague. When no specific playerId is selected, all players that have participated in a tournament for the given subLeague within the last two years are returned.",
+        "tags": [
+          "Tennis - Participants"
+        ],
+        "parameters": [
+          {
+            "name": "subLeagueAbbreviation",
+            "type": "string",
+            "description": "Select sub league",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "atp",
+              "wta",
+              "itf"
+            ]
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player & team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/tennis/{subLeagueAbbreviation}/participants/{playerId}": {
+      "get": {
+        "operationId": "Tennis-SingleplayerTennis-Participants",
+        "summary": "This returns only one selected player.",
+        "tags": [
+          "Tennis - Participants"
+        ],
+        "parameters": [
+          {
+            "name": "subLeagueAbbreviation",
+            "type": "string",
+            "description": "Select sub league",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "atp",
+              "wta",
+              "itf"
+            ]
+          },
+          {
+            "name": "playerId",
+            "type": "integer",
+            "description": "To get information on a specific player, enter his/her ID.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player & team names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/tennis/{subLeagueAbbreviation}/stats/players/{playerId}": {
+      "get": {
+        "operationId": "Tennis-Playerstats-Year-to-dateorCareerTennis-Statistics",
+        "summary": "Tennis - Single season or career stats for a singl...",
+        "description": "Tennis - Single season or career stats for a single player",
+        "tags": [
+          "Tennis - Statistics"
+        ],
+        "parameters": [
+          {
+            "name": "subLeagueAbbreviation",
+            "type": "string",
+            "description": "Select sub league",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "atp",
+              "wta"
+            ]
+          },
+          {
+            "name": "playerId",
+            "type": "integer",
+            "description": "Player Id. You must enter either a single playerId, or set allPlayers (below) to true.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "allPlayers",
+            "type": "boolean",
+            "description": "When true, all players with stats in the given season are returned.\n  Default - false, all players not returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get data for a different single season, enter the year as YYYY.\n  Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "enc",
+            "type": "boolean",
+            "description": "When true, the encyclopedia returns full career and season-by-season totals.\n  Default - false, full career data is not returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/tennis/{subLeagueAbbreviation}/leaders/": {
+      "get": {
+        "operationId": "Tennis-LeadersTennis-Leaders",
+        "summary": "Tennis - Leaders",
+        "tags": [
+          "Tennis - Leaders"
+        ],
+        "parameters": [
+          {
+            "name": "subLeagueAbbreviation",
+            "type": "string",
+            "description": "Select sub league",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "atp",
+              "wta"
+            ]
+          },
+          {
+            "name": "leaderCategoryId",
+            "type": "integer",
+            "description": "Only one category per query. The leaderCategories decode resource provides a full list of available codes.\n  Default -  Official Player Rankings",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "topCount",
+            "type": "integer",
+            "description": "This is the number of leaders to be returned.\n  You can return all leaders with the word 'all' instead of a number.\n  Default - Top 10 (plus ties)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "sortType",
+            "type": "string",
+            "description": "To return 'worst' players (trailers) rather than 'best' players (leaders) in a category, select sortType = worst. Traliers are not available for every leaderCategoryId.\n  Default - If the sortType parameter is not used, leaders will be returned.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "worst"
+            ]
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get data for a different season, enter the year as YYYY.\n  Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/tennis/{subLeagueAbbreviation}/odds/": {
+      "get": {
+        "operationId": "Tennis-OddsOdds",
+        "summary": "Tennis - Odds",
+        "tags": [
+          "Odds"
+        ],
+        "parameters": [
+          {
+            "name": "subLeagueAbbreviation",
+            "type": "string",
+            "description": "Select sub league",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "atp",
+              "wta"
+            ]
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "description": "Will return all games from a specific date.\n Format: YYYYMMDD or YYYY-MM-DD.\n  Default - if a specific game isn't requested, games from the current date will be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get data for a different season, enter the year as YYYY.\n Note: Seasons that span years like NHL 2013-2014 would be entered as 2013.\n Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "tournamentId",
+            "type": "integer",
+            "description": "To get data for a specific tournament, enter the ID number.\n Default - all tournaments",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Result will return only games for the specific eventType.\n Default - All event types",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "0",
+              "4"
+            ]
+          },
+          {
+            "name": "eventRoundId",
+            "type": "integer",
+            "description": "Returns games in the specified eventRound only. Rounds are only relevant when eventTypeId = 4 (Konckout) is selected\n  Default - all rounds combined",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8"
+            ]
+          },
+          {
+            "name": "languageId",
+            "type": "integer",
+            "description": "For team names/nicknames/abbreviations only. Select ID to change language of team names. Not all languages available for every name/nickname/abbreviation.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/tennis/{subLeagueAbbreviation}/odds/{eventId}": {
+      "get": {
+        "operationId": "Tennis-OddsforonegameonlyOdds",
+        "summary": "Tennis - Odds",
+        "tags": [
+          "Odds"
+        ],
+        "parameters": [
+          {
+            "name": "subLeagueAbbreviation",
+            "type": "string",
+            "description": "Select sub league",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "atp",
+              "wta"
+            ]
+          },
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Provide a specific eventID when you want information on a single game.\n   Default - the current day's games.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "languageId",
+            "type": "integer",
+            "description": "For team names/nicknames/abbreviations only. Select ID to change language of team names. Not all languages available for every name/nickname/abbreviation.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/tennis/general/stories/headlines/": {
+      "get": {
+        "operationId": "Tennis-HeadlinesTennis-Stories&Images",
+        "summary": "List of headlines.",
+        "tags": [
+          "Tennis - Stories & Images"
+        ],
+        "parameters": [
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/tennis/general/articles/headlines/": {
+      "get": {
+        "operationId": "Tennis-HeadlinesArticlesTennis-Stories&Images",
+        "summary": "List of headlines.",
+        "tags": [
+          "Tennis - Stories & Images"
+        ],
+        "parameters": [
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/tennis/{subLeagueAbbreviation}/stories/recent/": {
+      "get": {
+        "operationId": "Tennis-RecentstoriesTennis-Stories&Images",
+        "summary": "Recent stories for the selected league.",
+        "tags": [
+          "Tennis - Stories & Images"
+        ],
+        "parameters": [
+          {
+            "name": "subLeagueAbbreviation",
+            "type": "string",
+            "description": "Select sub league",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "atp",
+              "general",
+              "wta"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/tennis/{subLeagueAbbreviation}/articles/recent/": {
+      "get": {
+        "operationId": "Tennis-RecentArticlesTennis-Stories&Images",
+        "summary": "Recent articles for the selected league.",
+        "tags": [
+          "Tennis - Stories & Images"
+        ],
+        "parameters": [
+          {
+            "name": "subLeagueAbbreviation",
+            "type": "string",
+            "description": "Select sub league",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "atp",
+              "general",
+              "wta"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/tennis/{subLeagueAbbreviation}/stories/{storyId}/": {
+      "get": {
+        "operationId": "Tennis-FullstoryTennis-Stories&Images",
+        "summary": "Get the full story for a storyId found in headline...",
+        "description": "Get the full story for a storyId found in headlines or stories.",
+        "tags": [
+          "Tennis - Stories & Images"
+        ],
+        "parameters": [
+          {
+            "name": "subLeagueAbbreviation",
+            "type": "string",
+            "description": "Select sub league",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "atp",
+              "general",
+              "wta"
+            ]
+          },
+          {
+            "name": "storyId",
+            "type": "integer",
+            "description": "storyId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/tennis/{subLeagueAbbreviation}/articles/{storyId}/": {
+      "get": {
+        "operationId": "Tennis-FullarticleTennis-Stories&Images",
+        "summary": "Get the full article for a storyId found in headli...",
+        "description": "Get the full article for a storyId found in headlines or articles.",
+        "tags": [
+          "Tennis - Stories & Images"
+        ],
+        "parameters": [
+          {
+            "name": "subLeagueAbbreviation",
+            "type": "string",
+            "description": "Select sub league",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "atp",
+              "general",
+              "wta"
+            ]
+          },
+          {
+            "name": "storyId",
+            "type": "integer",
+            "description": "storyId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/tennis/{subLeagueAbbreviation}/stories/previews/events/{eventId}/": {
+      "get": {
+        "operationId": "Tennis-Previews-AvailableforoneeventTennis-Stories&Images",
+        "summary": "Preview for one specific event, must identify leag...",
+        "description": "Preview for one specific event, must identify league, and eventId",
+        "tags": [
+          "Tennis - Stories & Images"
+        ],
+        "parameters": [
+          {
+            "name": "subLeagueAbbreviation",
+            "type": "string",
+            "description": "Select sub league",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "atp",
+              "wta"
+            ]
+          },
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Enter event ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/tennis/{subLeagueAbbreviation}/stories/recaps/events/{eventId}/": {
+      "get": {
+        "operationId": "Tennis-Recaps-AvailableforoneeventTennis-Stories&Images",
+        "summary": "Recap for one specific event, must identify sport,...",
+        "description": "Recap for one specific event, must identify sport, league, and eventId",
+        "tags": [
+          "Tennis - Stories & Images"
+        ],
+        "parameters": [
+          {
+            "name": "subLeagueAbbreviation",
+            "type": "string",
+            "description": "Select sub league",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "atp",
+              "wta"
+            ]
+          },
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Enter event ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/tennis/{subLeagueAbbreviation}/articles/recaps/events/{eventId}/": {
+      "get": {
+        "operationId": "Tennis-RecapsArticles-AvailableforoneeventTennis-Stories&Images",
+        "summary": "Recap for one specific event, must identify sport,...",
+        "description": "Recap for one specific event, must identify sport, league, and eventId",
+        "tags": [
+          "Tennis - Stories & Images"
+        ],
+        "parameters": [
+          {
+            "name": "subLeagueAbbreviation",
+            "type": "string",
+            "description": "Select sub league",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "atp",
+              "wta"
+            ]
+          },
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Enter event ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/tennis/{subLeagueAbbreviation}/images/list/": {
+      "get": {
+        "operationId": "Tennis-ListofavailableimagesTennis-Stories&Images",
+        "summary": "List of available images.",
+        "tags": [
+          "Tennis - Stories & Images"
+        ],
+        "parameters": [
+          {
+            "name": "subLeagueAbbreviation",
+            "type": "string",
+            "description": "Select sub league",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "atp",
+              "general",
+              "wta"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "originId",
+            "type": "integer",
+            "description": "Origin of given images.\n  Default - All origins are returned when nothing is selected",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/tennis/{subLeagueAbbreviation}/photos/list/": {
+      "get": {
+        "operationId": "Tennis-ListofavailablephotosTennis-Stories&Images",
+        "summary": "List of available photos.",
+        "tags": [
+          "Tennis - Stories & Images"
+        ],
+        "parameters": [
+          {
+            "name": "subLeagueAbbreviation",
+            "type": "string",
+            "description": "Select sub league",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "atp",
+              "general",
+              "wta"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "originId",
+            "type": "integer",
+            "description": "Origin of given images.\n  Default - All origins are returned when nothing is selected",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/tennis/{subLeagueAbbreviation}/images/{imageSize}/{imageId}/": {
+      "get": {
+        "operationId": "Tennis-RetrieveimageTennis-Stories&Images",
+        "summary": "",
+        "tags": [
+          "Tennis - Stories & Images"
+        ],
+        "parameters": [
+          {
+            "name": "subLeagueAbbreviation",
+            "type": "string",
+            "description": "Select sub league",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "atp",
+              "general",
+              "wta"
+            ]
+          },
+          {
+            "name": "imageSize",
+            "type": "string",
+            "description": "Options are:\n  'p128', 'p256', 'p512', 'pMax'",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "p128",
+              "p256",
+              "p512",
+              "pMax"
+            ]
+          },
+          {
+            "name": "imageId",
+            "type": "integer",
+            "description": "Photo ID",
+            "in": "path",
+            "required": true,
+            "default": "abcdefg"
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/editorial/tennis/{subLeagueAbbreviation}/photos/{imageSize}/{imageId}/": {
+      "get": {
+        "operationId": "Tennis-RetrievephotoTennis-Stories&Images",
+        "summary": "",
+        "tags": [
+          "Tennis - Stories & Images"
+        ],
+        "parameters": [
+          {
+            "name": "subLeagueAbbreviation",
+            "type": "string",
+            "description": "Select sub league",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "atp",
+              "general",
+              "wta"
+            ]
+          },
+          {
+            "name": "imageSize",
+            "type": "string",
+            "description": "Options are:\n  'p128', 'p256', 'p512', 'pMax'",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "p128",
+              "p256",
+              "p512",
+              "pMax"
+            ]
+          },
+          {
+            "name": "imageId",
+            "type": "integer",
+            "description": "Photo ID",
+            "in": "path",
+            "required": true,
+            "default": "abcdefg"
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/decode/tennis/{subLeagueAbbreviation}/{decodeType}/": {
+      "get": {
+        "operationId": "Tennis-DecodesTennis-Decodes",
+        "summary": "Tennis - Decodes",
+        "tags": [
+          "Tennis - Decodes"
+        ],
+        "parameters": [
+          {
+            "name": "subLeagueAbbreviation",
+            "type": "string",
+            "description": "Select sub league",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "atp",
+              "wta",
+              "itf"
+            ]
+          },
+          {
+            "name": "decodeType",
+            "type": "integer",
+            "description": "The data type to be decoded.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "coverageLevels",
+              "eventRounds",
+              "eventStatuses",
+              "eventTypes",
+              "leaderCategories",
+              "matchStatuses",
+              "matchTypes",
+              "seasonStructure",
+              "surfaceTypes",
+              "timeStatuses",
+              "tournamentTypes",
+              "tournaments",
+              "venues"
+            ]
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "For use with tournaments decode only. Enter the year as YYYY.\n Default - current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "For venues only. Select ID to change language of venue names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stats/tennis/itf/teams/{teamId}": {
+      "get": {
+        "operationId": "Tennis-TeamsTennis-Teams",
+        "summary": "The teams endpoint for Tennis is available for the...",
+        "description": "The teams endpoint for Tennis is available for the International Tennis Federation (ITF) only.  You can get information about a single team by including the teamId.  If you do not include a teamId, you will get all the teams for the sub league.",
+        "tags": [
+          "Tennis - Teams"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "Provide team ID to return information for one team.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get team lists for a different season, enter the year as YYYY.\n Note: Seasons that span years like NBA 2013-2014 would be entered as 2013.\n  Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of team & venue names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

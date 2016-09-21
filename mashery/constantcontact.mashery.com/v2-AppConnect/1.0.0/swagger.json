@@ -1,0 +1,3796 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "v2 AppConnect API",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Use the API Tester to make API calls to a Constant Contact account. The API Tester requires an API key and an access token that grants access to data in a Constant Contact account. If you have forgotten or do not have a token, click the Get Access Token button below. API for managing contacts, lists, email and event campaigns, and other Contant Contact resources.",
+    "x-mashery-id": "407"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "constantcontact.mashery.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "https://constantcontact.mashery.com/io-docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Account Services methods"
+    },
+    {
+      "name": "Contact methods"
+    },
+    {
+      "name": "ContactList methods"
+    },
+    {
+      "name": "Contact Tracking methods"
+    },
+    {
+      "name": "Email Campaign methods"
+    },
+    {
+      "name": "Email Campaign Tracking methods"
+    },
+    {
+      "name": "Email Campaign Scheduling methods"
+    },
+    {
+      "name": "Email Campaign Test Send method"
+    },
+    {
+      "name": "EventSpot Event methods"
+    },
+    {
+      "name": "MyLibrary method"
+    }
+  ],
+  "paths": {
+    "/account/info": {
+      "get": {
+        "operationId": "GetaccountsummaryinformationAccountServicesmethods",
+        "summary": "Method to retrieve information about the account.",
+        "tags": [
+          "Account Services methods"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "OAuth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "put": {
+        "operationId": "UpdateaccountinformationAccountServicesmethods",
+        "summary": "Method to retrieve information about the account.",
+        "tags": [
+          "Account Services methods"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content Type.",
+            "in": "header",
+            "required": true,
+            "default": "application/json"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/account/verifiedemailaddresses": {
+      "get": {
+        "operationId": "RetrieveaccountemailaddressesAccountServicesmethods",
+        "summary": "Method to retrieve the list of email addresses ass...",
+        "description": "Method to retrieve the list of email addresses associated with the account (not contact email addresses).",
+        "tags": [
+          "Account Services methods"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "status",
+            "type": "string",
+            "description": "Filter the response based on the email address status: CONFIRMED or UNCONFIRMED",
+            "in": "query",
+            "required": false,
+            "default": "ALL"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "operationId": "AddanaccountemailaddressesAccountServicesmethods",
+        "summary": "Method to create a new email address associated wi...",
+        "description": "Method to create a new email address associated with the account (not a contact email addresses).",
+        "tags": [
+          "Account Services methods"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content Type.",
+            "in": "header",
+            "required": true,
+            "default": "application/json"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/contacts": {
+      "get": {
+        "operationId": "GetContactsContactmethods",
+        "summary": "Method for retrieving a list of contacts.",
+        "tags": [
+          "Contact methods"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "email",
+            "type": "string",
+            "description": "Search for a  contact by email address",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "status",
+            "type": "string",
+            "description": "Filter the response based on the contact status property: ALL, ACTIVE, UNCONFIRMED, OPTOUT, orREMOVED",
+            "in": "query",
+            "required": false,
+            "default": "ALL"
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Number of contacts to return per page, 1-500, default 50",
+            "in": "query",
+            "required": false,
+            "default": "50"
+          },
+          {
+            "name": "modified_since",
+            "type": "string",
+            "description": "Retrieve only contacts modified since the time specified (in ISO-8601 format)",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "operationId": "AddaContacttothecollectionContactmethods",
+        "summary": "Method for adding a Contact to a collection.",
+        "tags": [
+          "Contact methods"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content Type.",
+            "in": "header",
+            "required": true,
+            "default": "application/json"
+          },
+          {
+            "name": "action_by",
+            "type": "string",
+            "description": "Can be ACTION_BY_OWNER or ACTION_BY_VISITOR",
+            "in": "query",
+            "required": true,
+            "default": "ACTION_BY_OWNER"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/contacts/{contactId}": {
+      "get": {
+        "operationId": "RetrieveacontactwithaspecifiedContactID.Contactmethods",
+        "summary": "Method for returning a particular Contact using a ...",
+        "description": "Method for returning a particular Contact using a contact ID.",
+        "tags": [
+          "Contact methods"
+        ],
+        "parameters": [
+          {
+            "name": "contactId",
+            "type": "integer",
+            "description": "Specifies the contact to retrieve",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "put": {
+        "operationId": "ModifyacontactwithspecificContactID.Contactmethods",
+        "summary": "Modify a particular contact.",
+        "tags": [
+          "Contact methods"
+        ],
+        "parameters": [
+          {
+            "name": "contactId",
+            "type": "integer",
+            "description": "Specifies the contact to retrieve data for",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content Type.",
+            "in": "header",
+            "required": true,
+            "default": "application/json"
+          },
+          {
+            "name": "action_by",
+            "type": "string",
+            "description": "Can be ACTION_BY_OWNER or ACTION_BY_VISITOR",
+            "in": "query",
+            "required": true,
+            "default": "ACTION_BY_OWNER"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DeleteacontactwithaspecificcontactID.Contactmethods",
+        "summary": "Deleting a Contact with a particular contactID.",
+        "tags": [
+          "Contact methods"
+        ],
+        "parameters": [
+          {
+            "name": "contactId",
+            "type": "integer",
+            "description": "Specifies the contact to retrieve data for",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/contacts/contactId": {},
+    "/lists": {
+      "get": {
+        "operationId": "RetrieveacollectionofContactLists.ContactListmethods",
+        "summary": "This collection method returns a list of ContactLi...",
+        "description": "This collection method returns a list of ContactLists.",
+        "tags": [
+          "ContactList methods"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "modified_since",
+            "type": "string",
+            "description": "Retrieve only contact lists modified since the time specified (in ISO-8601 format)",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "operationId": "CreateaContactList.ContactListmethods",
+        "summary": "Method to create a ContactList.",
+        "tags": [
+          "ContactList methods"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content Type.",
+            "in": "header",
+            "required": true,
+            "default": "application/json"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/lists/{listId}": {
+      "get": {
+        "operationId": "RetrieveaContactListspecifiedbyalistId.ContactListmethods",
+        "summary": "Method to retrieve a ContactList specified by list...",
+        "description": "Method to retrieve a ContactList specified by listId.",
+        "tags": [
+          "ContactList methods"
+        ],
+        "parameters": [
+          {
+            "name": "listId",
+            "type": "string",
+            "description": "List ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "put": {
+        "operationId": "ModifyaContactListContactListmethods",
+        "summary": "Modify a ContactList",
+        "tags": [
+          "ContactList methods"
+        ],
+        "parameters": [
+          {
+            "name": "listId",
+            "type": "string",
+            "description": "List ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content Type.",
+            "in": "header",
+            "required": true,
+            "default": "application/json"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DeleteaContactListContactListmethods",
+        "summary": "Delete a ContactList",
+        "tags": [
+          "ContactList methods"
+        ],
+        "parameters": [
+          {
+            "name": "listId",
+            "type": "string",
+            "description": "List ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/lists/listId": {},
+    "/lists/{listId}/contacts": {
+      "get": {
+        "operationId": "RetrieveacollectionofcontactsfromaContactListContactListmethods",
+        "summary": "This method returns a collection of contacts assoc...",
+        "description": "This method returns a collection of contacts associated with a ContactList",
+        "tags": [
+          "ContactList methods"
+        ],
+        "parameters": [
+          {
+            "name": "listId",
+            "type": "string",
+            "description": "List ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Number of contacts to return per page, 1-500, default 50",
+            "in": "query",
+            "required": false,
+            "default": "50"
+          },
+          {
+            "name": "modified_since",
+            "type": "string",
+            "description": "Retrieve only contacts modified since the time specified (in ISO-8601 format)",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/contacts/{contactId}/tracking": {
+      "get": {
+        "operationId": "contacttrackingsummaryreportContactTrackingmethods",
+        "summary": "Method for getting all activities for a Contact",
+        "tags": [
+          "Contact Tracking methods"
+        ],
+        "parameters": [
+          {
+            "name": "contactId",
+            "type": "integer",
+            "description": "Specifies the contact to retrieve data for",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Number of activities returned per page, 1-500, default 500",
+            "in": "query",
+            "required": false,
+            "default": "500"
+          },
+          {
+            "name": "created_since",
+            "type": "string",
+            "description": "Retrieve activities created since the time specified (in ISO-8601 format)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/contacts/{contactId}/tracking/reports/summaryByCampaign": {
+      "get": {
+        "operationId": "contacttrackingsummarybyemailcampaignContactTrackingmethods",
+        "summary": "Method for getting all activities sorted by campai...",
+        "description": "Method for getting all activities sorted by campaign",
+        "tags": [
+          "Contact Tracking methods"
+        ],
+        "parameters": [
+          {
+            "name": "contactId",
+            "type": "integer",
+            "description": "Specifies the contact to retrieve data for",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/contacts/{contactId}/tracking/bounces": {
+      "get": {
+        "operationId": "contacttrackingbouncesContactTrackingmethods",
+        "summary": "Get a list of all bounce activities for the contac...",
+        "description": "Get a list of all bounce activities for the contact",
+        "tags": [
+          "Contact Tracking methods"
+        ],
+        "parameters": [
+          {
+            "name": "contactId",
+            "type": "integer",
+            "description": "Specifies the contact to retrieve data for",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Number of activities returned per page, 1-500, default 500",
+            "in": "query",
+            "required": false,
+            "default": "500"
+          },
+          {
+            "name": "created_since",
+            "type": "string",
+            "description": "Retrieve activities created since the time specified (in ISO-8601 format)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/contacts/{contactId}/tracking/clicks": {
+      "get": {
+        "operationId": "contacttrackingclicksContactTrackingmethods",
+        "summary": "Get a list of all click activities for the Contact...",
+        "description": "Get a list of all click activities for the Contact",
+        "tags": [
+          "Contact Tracking methods"
+        ],
+        "parameters": [
+          {
+            "name": "contactId",
+            "type": "integer",
+            "description": "Specifies the contact to retrieve data for",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Number of activities returned per page, 1-500, default 500",
+            "in": "query",
+            "required": false,
+            "default": "500"
+          },
+          {
+            "name": "created_since",
+            "type": "string",
+            "description": "Retrieve activities created since the time specified (in ISO-8601 format)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/contacts/{contactId}/tracking/forwards": {
+      "get": {
+        "operationId": "contacttrackingforwardsContactTrackingmethods",
+        "summary": "Get a list of all forward activities for the Conta...",
+        "description": "Get a list of all forward activities for the Contact",
+        "tags": [
+          "Contact Tracking methods"
+        ],
+        "parameters": [
+          {
+            "name": "contactId",
+            "type": "integer",
+            "description": "Specifies the contact to retrieve data for",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Number of activities returned per page, 1-500, default 500",
+            "in": "query",
+            "required": false,
+            "default": "500"
+          },
+          {
+            "name": "created_since",
+            "type": "string",
+            "description": "Retrieve activities created since the time specified (in ISO-8601 format)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/contacts/{contactId}/tracking/opens": {
+      "get": {
+        "operationId": "contacttrackingopensContactTrackingmethods",
+        "summary": "Get a list of all open activities for the Contact",
+        "tags": [
+          "Contact Tracking methods"
+        ],
+        "parameters": [
+          {
+            "name": "contactId",
+            "type": "integer",
+            "description": "Specifies the contact to retrieve data for",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Number of activities returned per page, 1-500, default 500",
+            "in": "query",
+            "required": false,
+            "default": "500"
+          },
+          {
+            "name": "created_since",
+            "type": "string",
+            "description": "Retrieve activities created since the time specified (in ISO-8601 format)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/contacts/{contactId}/tracking/sends": {
+      "get": {
+        "operationId": "contacttrackingsendContactTrackingmethods",
+        "summary": "Get a list of all send activities for the Contact",
+        "tags": [
+          "Contact Tracking methods"
+        ],
+        "parameters": [
+          {
+            "name": "contactId",
+            "type": "integer",
+            "description": "Specifies the contact for which to retrieve data",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Number of activities returned per page, 1-500, default 500",
+            "in": "query",
+            "required": false,
+            "default": "500"
+          },
+          {
+            "name": "created_since",
+            "type": "string",
+            "description": "Retrieve activities created since the time specified (in ISO-8601 format)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/contacts/{contactId}/tracking/unsubscribes": {
+      "get": {
+        "operationId": "contacttrackingunsubscribesContactTrackingmethods",
+        "summary": "Get a list of all unsubscribe activities for the C...",
+        "description": "Get a list of all unsubscribe activities for the Contact",
+        "tags": [
+          "Contact Tracking methods"
+        ],
+        "parameters": [
+          {
+            "name": "contactId",
+            "type": "integer",
+            "description": "Specifies the contact to retrieve data for",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Number of activities returned per page, 1-500, default 500",
+            "in": "query",
+            "required": false,
+            "default": "500"
+          },
+          {
+            "name": "created_since",
+            "type": "string",
+            "description": "Retrieve activities created since the time specified (in ISO-8601 format)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/emailmarketing/campaigns": {
+      "get": {
+        "operationId": "Retrievealistofemailcampaigns.EmailCampaignmethods",
+        "summary": "This collection method returns a list of email cam...",
+        "description": "This collection method returns a list of email campaigns.",
+        "tags": [
+          "Email Campaign methods"
+        ],
+        "parameters": [
+          {
+            "name": "status",
+            "type": "string",
+            "description": "Filter the results by campaign status: ALL, DRAFT, RUNNING, SENT, SCHEDULED",
+            "in": "query",
+            "required": false,
+            "default": "ALL"
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "limit",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "modified_since",
+            "type": "string",
+            "description": "Retrieve only contacts modified since the time specified (in ISO-8601 format)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "operationId": "Createanemailcampaign.EmailCampaignmethods",
+        "summary": "Method to create a Email Campaign.",
+        "tags": [
+          "Email Campaign methods"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content Type header must be application/json.",
+            "in": "header",
+            "required": true,
+            "default": "application/json"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/emailmarketing/campaigns/{campaignId}": {
+      "get": {
+        "operationId": "RetrieveacampaignspecifiedbythecampaignId.EmailCampaignmethods",
+        "summary": "Method to retrieve a Email Campaign specified by c...",
+        "description": "Method to retrieve a Email Campaign specified by campaignId",
+        "tags": [
+          "Email Campaign methods"
+        ],
+        "parameters": [
+          {
+            "name": "campaignId",
+            "type": "integer",
+            "description": "Unique ID of the campaign to retrieve",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "put": {
+        "operationId": "ModifyanexistingemailcampaignspecifiedbythecampaignId.EmailCampaignmethods",
+        "summary": "Method to retrieve a Email Campaign specified by c...",
+        "description": "Method to retrieve a Email Campaign specified by campaignId",
+        "tags": [
+          "Email Campaign methods"
+        ],
+        "parameters": [
+          {
+            "name": "campaignId",
+            "type": "integer",
+            "description": "Unique ID of the campaign to modify",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content Type header must be application/json.",
+            "in": "header",
+            "required": true,
+            "default": "application/json"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DeleteacampaignspecifiedbythecampaignId.EmailCampaignmethods",
+        "summary": "Method to retrieve a Email Campaign specified by c...",
+        "description": "Method to retrieve a Email Campaign specified by campaignId",
+        "tags": [
+          "Email Campaign methods"
+        ],
+        "parameters": [
+          {
+            "name": "campaignId",
+            "type": "integer",
+            "description": "Unique ID of the campaign to delete",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/emailmarketing/campaigns/campaignId": {},
+    "/emailmarketing/campaigns/{campaignId}/preview": {
+      "get": {
+        "operationId": "Retrieveapreviewofspecificemailcampaign.EmailCampaignmethods",
+        "summary": "Retrieve a preview of an email campaign specified ...",
+        "description": "Retrieve a preview of an email campaign specified by campaignId",
+        "tags": [
+          "Email Campaign methods"
+        ],
+        "parameters": [
+          {
+            "name": "campaignId",
+            "type": "integer",
+            "description": "Unique ID of the campaign to preview",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/emailmarketing/campaigns/{campaignId}/tests": {
+      "post": {
+        "operationId": "TestsendaCampaignEmailCampaignTestSendmethod",
+        "summary": "Method for test sending a campaign.",
+        "tags": [
+          "Email Campaign Test Send method"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "campaignId",
+            "type": "string",
+            "description": "Specifies the email campaign",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content Type header must be application/json.",
+            "in": "header",
+            "required": true,
+            "default": "application/json"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/emailmarketing/campaigns/{campaignId}/tracking/bounces": {
+      "get": {
+        "operationId": "campaigntrackingbouncesEmailCampaignTrackingmethods",
+        "summary": "Get a list of all bounce activities",
+        "tags": [
+          "Email Campaign Tracking methods"
+        ],
+        "parameters": [
+          {
+            "name": "campaignId",
+            "type": "integer",
+            "description": "Specifies the email campaign to retrieve data for",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Number of activities returned per page, 1-500, default 500",
+            "in": "query",
+            "required": false,
+            "default": "500"
+          },
+          {
+            "name": "created_since",
+            "type": "string",
+            "description": "Retrieve activities created since the time specified (in ISO-8601 format)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/emailmarketing/campaigns/{campaignId}/tracking/clicks": {
+      "get": {
+        "operationId": "emailcampaigntrackingclicksEmailCampaignTrackingmethods",
+        "summary": "Get a list of all click activities",
+        "tags": [
+          "Email Campaign Tracking methods"
+        ],
+        "parameters": [
+          {
+            "name": "campaignId",
+            "type": "integer",
+            "description": "Specifies the email campaign to retrieve data for",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Number of activities returned per page, 1-500, default 500",
+            "in": "query",
+            "required": false,
+            "default": "500"
+          },
+          {
+            "name": "created_since",
+            "type": "string",
+            "description": "Retrieve activities created since the time specified (in ISO-8601 format)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/emailmarketing/campaigns/{campaignId}/tracking/forwards": {
+      "get": {
+        "operationId": "emailcampaigntrackingforwardsEmailCampaignTrackingmethods",
+        "summary": "Get a list of all forward activities",
+        "tags": [
+          "Email Campaign Tracking methods"
+        ],
+        "parameters": [
+          {
+            "name": "campaignId",
+            "type": "integer",
+            "description": "Specifies the email campaign to retrieve data for",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Number of activities returned per page, 1-500, default 500",
+            "in": "query",
+            "required": false,
+            "default": "500"
+          },
+          {
+            "name": "created_since",
+            "type": "string",
+            "description": "Retrieve activities created since the time specified (in ISO-8601 format)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/emailmarketing/campaigns/{campaignId}/tracking/opens": {
+      "get": {
+        "operationId": "emailcampaigntrackingopensEmailCampaignTrackingmethods",
+        "summary": "Get a list of all open activities",
+        "tags": [
+          "Email Campaign Tracking methods"
+        ],
+        "parameters": [
+          {
+            "name": "campaignId",
+            "type": "integer",
+            "description": "Specifies the email campaign to retrieve data for",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Number of activities returned per page, 1-500, default 500",
+            "in": "query",
+            "required": false,
+            "default": "500"
+          },
+          {
+            "name": "created_since",
+            "type": "string",
+            "description": "Retrieve activities created since the time specified (in ISO-8601 format)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/emailmarketing/campaigns/{campaignId}/tracking/sends": {
+      "get": {
+        "operationId": "emailcampaigntrackingsendsEmailCampaignTrackingmethods",
+        "summary": "Get a list of all send activities",
+        "tags": [
+          "Email Campaign Tracking methods"
+        ],
+        "parameters": [
+          {
+            "name": "campaignId",
+            "type": "integer",
+            "description": "Specifies the email campaign to retrieve data for",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Number of activities returned per page, 1-500, default 500",
+            "in": "query",
+            "required": false,
+            "default": "500"
+          },
+          {
+            "name": "created_since",
+            "type": "string",
+            "description": "Retrieve activities created since the time specified (in ISO-8601 format)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/emailmarketing/campaigns/{campaignId}/tracking/reports/summary": {
+      "get": {
+        "operationId": "emailcampaigntrackingsummaryEmailCampaignTrackingmethods",
+        "summary": "Get a summary of all activities for an email campa...",
+        "description": "Get a summary of all activities for an email campaign",
+        "tags": [
+          "Email Campaign Tracking methods"
+        ],
+        "parameters": [
+          {
+            "name": "campaignId",
+            "type": "integer",
+            "description": "Specifies the email campaign to retrieve data for",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "limit",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/emailmarketing/campaigns/{campaignId}/tracking/unsubscribes": {
+      "get": {
+        "operationId": "emailcampaigntrackingunsubscribesEmailCampaignTrackingmethods",
+        "summary": "Get a list of all unsubscribe activity for an emai...",
+        "description": "Get a list of all unsubscribe activity for an email campaign",
+        "tags": [
+          "Email Campaign Tracking methods"
+        ],
+        "parameters": [
+          {
+            "name": "campaignId",
+            "type": "integer",
+            "description": "Specifies the email campaign to retrieve data for",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Number of activities returned per page, 1-500, default 500",
+            "in": "query",
+            "required": false,
+            "default": "500"
+          },
+          {
+            "name": "created_since",
+            "type": "string",
+            "description": "Retrieve activities created since the time specified (in ISO-8601 format)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/emailmarketing/campaigns/{campaignId}/tracking/clicks/{linkId}": {
+      "get": {
+        "operationId": "emailcampaigntrackinglinkclicksEmailCampaignTrackingmethods",
+        "summary": "Get a list of all the opt-out activities",
+        "tags": [
+          "Email Campaign Tracking methods"
+        ],
+        "parameters": [
+          {
+            "name": "campaignId",
+            "type": "integer",
+            "description": "Specifies the email campaign to retrieve data for",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "linkId",
+            "type": "integer",
+            "description": "Specifies the link to retrieve data for",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Number of activities returned per page, 1-500, default 500",
+            "in": "query",
+            "required": false,
+            "default": "500"
+          },
+          {
+            "name": "created_since",
+            "type": "string",
+            "description": "Retrieve activities created since the time specified (in ISO-8601 format)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/emailmarketing/campaigns/{campaignId}/schedules": {
+      "get": {
+        "operationId": "RetrieveallschedulesforacampaignEmailCampaignSchedulingmethods",
+        "summary": "This collection method returns a list of schedules...",
+        "description": "This collection method returns a list of schedules for a campaign.",
+        "tags": [
+          "Email Campaign Scheduling methods"
+        ],
+        "parameters": [
+          {
+            "name": "campaignId",
+            "type": "string",
+            "description": "Specifies the email campaign to retrieve data for",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "operationId": "createanemailcampaignscheduleEmailCampaignSchedulingmethods",
+        "summary": "This is a method for creating an email campaign sc...",
+        "description": "This is a method for creating an email campaign schedule.",
+        "tags": [
+          "Email Campaign Scheduling methods"
+        ],
+        "parameters": [
+          {
+            "name": "campaignId",
+            "type": "string",
+            "description": "Specifies the email campaign to schedule",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content Type.",
+            "in": "header",
+            "required": true,
+            "default": "application/json"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/emailmarketing/campaigns/campaignId/schedules": {},
+    "/emailmarketing/campaigns/{campaignId}/schedules/{scheduleId}": {
+      "get": {
+        "operationId": "retrieveaspecificemailcampaignscheduleEmailCampaignSchedulingmethods",
+        "summary": "",
+        "tags": [
+          "Email Campaign Scheduling methods"
+        ],
+        "parameters": [
+          {
+            "name": "campaignId",
+            "type": "string",
+            "description": "Specifies the email campaign to retrieve the schedule for",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "scheduleId",
+            "type": "string",
+            "description": "Specifies the schedule to retrieve",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content Type header must be application/json.",
+            "in": "header",
+            "required": true,
+            "default": "application/json"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "put": {
+        "operationId": "modifyanexistingemailcampaignscheduleEmailCampaignSchedulingmethods",
+        "summary": "",
+        "tags": [
+          "Email Campaign Scheduling methods"
+        ],
+        "parameters": [
+          {
+            "name": "campaignId",
+            "type": "string",
+            "description": "Specifies the email campaign",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "scheduleId",
+            "type": "string",
+            "description": "Specifies the schedule to modify",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content Type header must be application/json.",
+            "in": "header",
+            "required": true,
+            "default": "application/json"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteanemailcampaignscheduleEmailCampaignSchedulingmethods",
+        "summary": "This method deletes an existing schedule for an em...",
+        "description": "This method deletes an existing schedule for an email campaign.",
+        "tags": [
+          "Email Campaign Scheduling methods"
+        ],
+        "parameters": [
+          {
+            "name": "campaignId",
+            "type": "string",
+            "description": "Specifies the email campaign",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "scheduleId",
+            "type": "string",
+            "description": "Specifies the schedule to delete",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/emailmarketing/campaigns/campaignId/schedules/scheduleId": {},
+    "/emailmarketing/campaigns/campaignId/tests": {},
+    "/eventspot/events": {
+      "get": {
+        "operationId": "RetrievethecollectionofeventsEventSpotEventmethods",
+        "summary": "Retrieve all EventSpot events in the account",
+        "tags": [
+          "EventSpot Event methods"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Number of Events returned per page, 1-500",
+            "in": "query",
+            "required": false,
+            "default": "50"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "operationId": "CreateaneweventEventSpotEventmethods",
+        "summary": "Create a new EventSpot event",
+        "tags": [
+          "EventSpot Event methods"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content Type header must be application/json.",
+            "in": "header",
+            "required": true,
+            "default": "application/json"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/eventspot/events/{eventId}": {
+      "get": {
+        "operationId": "GETanIndividualEventEventSpotEventmethods",
+        "summary": "Retrieve a specific event",
+        "tags": [
+          "EventSpot Event methods"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "type": "string",
+            "description": "Specifies the event to retrieve",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "put": {
+        "operationId": "ModifyanEventEventSpotEventmethods",
+        "summary": "Modify an existing event",
+        "tags": [
+          "EventSpot Event methods"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "type": "string",
+            "description": "Specifies the event to retrieve",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content Type.",
+            "in": "header",
+            "required": true,
+            "default": "application/json"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "patch": {
+        "operationId": "PublishorCancelanEventEventSpotEventmethods",
+        "summary": "Publish or Cancel an existing event using PATCH",
+        "tags": [
+          "EventSpot Event methods"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "type": "string",
+            "description": "Specifies the event to publish or cancel",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content Type.",
+            "in": "header",
+            "required": true,
+            "default": "application/json"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/eventspot/events/eventId": {},
+    "/eventspot/events/{eventId}/fees": {
+      "get": {
+        "operationId": "GetAllFeesforanEventEventSpotEventmethods",
+        "summary": "Retrieve all fees for an existing event",
+        "tags": [
+          "EventSpot Event methods"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Unique ID of the event for which you are retrieving fees",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "operationId": "CreateanewfeeEventSpotEventmethods",
+        "summary": "Create a new fee for an EventSpot event",
+        "tags": [
+          "EventSpot Event methods"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Unique ID of the event for which you are creating a new fee",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content Type header must be application/json.",
+            "in": "header",
+            "required": true,
+            "default": "application/json"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/eventspot/events/eventId/fees": {},
+    "/eventspot/events/{eventId}/fees/{feeId}": {
+      "get": {
+        "operationId": "GetaspecificFeeforanEventEventSpotEventmethods",
+        "summary": "Retrieve an existing fee for a specific event",
+        "tags": [
+          "EventSpot Event methods"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Unique ID for the event",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "feeId",
+            "type": "integer",
+            "description": "Unique ID of the fee you are retrieving",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "put": {
+        "operationId": "ModifyaFeeEventSpotEventmethods",
+        "summary": "Modify an existing event fee",
+        "tags": [
+          "EventSpot Event methods"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "type": "string",
+            "description": "Specifies the event you are updating the fee for",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "feeId",
+            "type": "integer",
+            "description": "Unique ID of the fee you are updating",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content Type.",
+            "in": "header",
+            "required": true,
+            "default": "application/json"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DeleteaFeeEventSpotEventmethods",
+        "summary": "Delete an existing event fee",
+        "tags": [
+          "EventSpot Event methods"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "type": "string",
+            "description": "Specifies the event you are updating the fee for",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "feeId",
+            "type": "integer",
+            "description": "Unique ID of the fee you are updating",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/eventspot/events/eventId/fees/feeId": {},
+    "/eventspot/events/{eventId}/registrants": {
+      "get": {
+        "operationId": "GetAllRegistrantsforanEventEventSpotEventmethods",
+        "summary": "Retrieve all registrants for an existing event",
+        "tags": [
+          "EventSpot Event methods"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Specifies the event for which you are retrieving registrants",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Number of registrants returned per page, 1-500",
+            "in": "query",
+            "required": false,
+            "default": "50"
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/eventspot/events/{eventId}/registrants/{registrantId}": {
+      "get": {
+        "operationId": "GetdetailsforaspecificRegistrantEventSpotEventmethods",
+        "summary": "Retrieve details for a specific event registrant",
+        "tags": [
+          "EventSpot Event methods"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Unique ID for the event",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "registrantId",
+            "type": "integer",
+            "description": "Unique ID of the registrant you are retrieving",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/eventspot/events/{eventId}/promocodes": {
+      "get": {
+        "operationId": "RetrieveallPromocodesforaneventEventSpotEventmethods",
+        "summary": "Retrieve all promocodes for the specified event",
+        "tags": [
+          "EventSpot Event methods"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Unique ID for the event",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "operationId": "CreateanewpromocodeforaneventEventSpotEventmethods",
+        "summary": "Create a new promocode for the specified event",
+        "tags": [
+          "EventSpot Event methods"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Unique ID for the event",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content Type header must be application/json.",
+            "in": "header",
+            "required": true,
+            "default": "application/json"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/eventspot/events/eventId/promocodes": {},
+    "/eventspot/events/{eventId}/promocodes/{promocodeId}": {
+      "get": {
+        "operationId": "RetrieveanindividualPromocodeforaneventEventSpotEventmethods",
+        "summary": "Retrieve a specific promocode for an event",
+        "tags": [
+          "EventSpot Event methods"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Unique ID for the event",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "promocodeId",
+            "type": "integer",
+            "description": "Unique ID for the promocode",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "put": {
+        "operationId": "ModifyanindividualPromocodeforaneventEventSpotEventmethods",
+        "summary": "Modify an existing promocode for the specified eve...",
+        "description": "Modify an existing promocode for the specified event",
+        "tags": [
+          "EventSpot Event methods"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Unique ID for the event",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "promocodeId",
+            "type": "integer",
+            "description": "Unique ID for the promocode",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content Type header must be application/json.",
+            "in": "header",
+            "required": true,
+            "default": "application/json"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DeleteaneventpromocodeEventSpotEventmethods",
+        "summary": "Delete an existing promocode for the specified eve...",
+        "description": "Delete an existing promocode for the specified event",
+        "tags": [
+          "EventSpot Event methods"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Unique ID for the event",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "promocodeId",
+            "type": "integer",
+            "description": "Unique ID for the promocode",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/eventspot/events/eventId/promocodes/promocodeId": {},
+    "/eventspot/events/{eventId}/items": {
+      "post": {
+        "operationId": "CreateaneweventitemEventSpotEventmethods",
+        "summary": "Create a new item for an event.",
+        "tags": [
+          "EventSpot Event methods"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Unique ID for the event",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content Type header must be set to application json.",
+            "in": "header",
+            "required": true,
+            "default": "application/json"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "get": {
+        "operationId": "RetrieveallitemsforaneventEventSpotEventmethods",
+        "summary": "Retrieve all existing items for a specific event",
+        "tags": [
+          "EventSpot Event methods"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Unique ID for the event",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/eventspot/events/eventId/items": {},
+    "/eventspot/events/{eventId}/items/{itemId}": {
+      "get": {
+        "operationId": "RetrieveaneventitemEventSpotEventmethods",
+        "summary": "Retrieve a specific item for an event",
+        "tags": [
+          "EventSpot Event methods"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Unique ID for the event",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "itemId",
+            "type": "integer",
+            "description": "Unique ID of the item to retrieve",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "put": {
+        "operationId": "UpdateaneventitemEventSpotEventmethods",
+        "summary": "Make changes to a specific item for an event",
+        "tags": [
+          "EventSpot Event methods"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Unique ID for the event",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "itemId",
+            "type": "integer",
+            "description": "Unique ID of the item to update",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content Type header must be set to application json.",
+            "in": "header",
+            "required": true,
+            "default": "application/json"
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DeleteaneventitemEventSpotEventmethods",
+        "summary": "Delete an existing event item",
+        "tags": [
+          "EventSpot Event methods"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Unique ID for the event",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "itemId",
+            "type": "integer",
+            "description": "Unique ID of the item to delete",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/eventspot/events/eventId/items/itemId": {},
+    "/eventspot/events/{eventId}/items/{itemId}/attributes": {
+      "post": {
+        "operationId": "CreateanewitemattributeEventSpotEventmethods",
+        "summary": "Create a new attribute for an item.",
+        "tags": [
+          "EventSpot Event methods"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Unique ID for the event",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "itemId",
+            "type": "integer",
+            "description": "Unique ID of the item",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content Type header must be set to application json.",
+            "in": "header",
+            "required": true,
+            "default": "application/json"
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "get": {
+        "operationId": "RetrieveallattibutesforanitemEventSpotEventmethods",
+        "summary": "Retrieve all existing attributes for a specific it...",
+        "description": "Retrieve all existing attributes for a specific item",
+        "tags": [
+          "EventSpot Event methods"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Unique ID for the event",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "itemId",
+            "type": "integer",
+            "description": "Unique ID of the item to update",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/eventspot/events/eventId/items/itemId/attributes": {},
+    "/eventspot/events/{eventId}/items/{itemId}/attributes/{attributeId}": {
+      "get": {
+        "operationId": "RetrieveanitemattributeEventSpotEventmethods",
+        "summary": "Retrieve an existing item attribute",
+        "tags": [
+          "EventSpot Event methods"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Unique ID for the event",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "itemId",
+            "type": "integer",
+            "description": "Unique item ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "attributeId",
+            "type": "integer",
+            "description": "Unique ID of the attribute to retrieve",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "put": {
+        "operationId": "UpdateanitemattributeEventSpotEventmethods",
+        "summary": "Make changes to a specific item attribute",
+        "tags": [
+          "EventSpot Event methods"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Unique event ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "itemId",
+            "type": "integer",
+            "description": "Unique item ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "attributeId",
+            "type": "integer",
+            "description": "Unique ID of the attribute to update",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content Type header must be set to application json.",
+            "in": "header",
+            "required": true,
+            "default": "application/json"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DeleteanitemattributeEventSpotEventmethods",
+        "summary": "Delete an existing item attribute",
+        "tags": [
+          "EventSpot Event methods"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Unique event ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "itemId",
+            "type": "integer",
+            "description": "Unique item ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "attributeId",
+            "type": "integer",
+            "description": "Unique ID of the attribute to delete",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/eventspot/events/eventId/items/itemId/attributes/attributeId": {},
+    "/library/info": {
+      "get": {
+        "operationId": "MyLibraryusageinformationMyLibrarymethod",
+        "summary": "Retrieve MyLibrary usage information",
+        "tags": [
+          "MyLibrary method"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/library/folders": {
+      "get": {
+        "operationId": "RetrievethecollectionofMyLibraryfoldersMyLibrarymethod",
+        "summary": "Retrieve the account's MyLibrary folder collection...",
+        "description": "Retrieve the account's MyLibrary folder collection.",
+        "tags": [
+          "MyLibrary method"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Number of folders returned per page, 1-1000",
+            "in": "query",
+            "required": false,
+            "default": "50"
+          },
+          {
+            "name": "sort_by",
+            "type": "string",
+            "description": "sort folder list by CREATED_DATE, CREATED_DATE_DESC, MODIFIED_DATE, MODIFIED_DATE_DESC, NAME, NAME_DESC",
+            "in": "query",
+            "required": false,
+            "default": "CREATED_DATE_DESC"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "operationId": "CreateaMyLibraryfolderMyLibrarymethod",
+        "summary": "Create a new MyLibrary folder.",
+        "tags": [
+          "MyLibrary method"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content Type header must be set to application json.",
+            "in": "header",
+            "required": true,
+            "default": "application/json"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/library/folders/{folderId}": {
+      "get": {
+        "operationId": "RetrieveanIndividualMyLibraryFolderMyLibrarymethod",
+        "summary": "Retrieve a specific MyLibrary folder",
+        "tags": [
+          "MyLibrary method"
+        ],
+        "parameters": [
+          {
+            "name": "folderId",
+            "type": "string",
+            "description": "Specifies the folder to retrieve",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "put": {
+        "operationId": "UpdateanIndividualMyLibraryFolderMyLibrarymethod",
+        "summary": "Update an existing MyLibrary folder",
+        "tags": [
+          "MyLibrary method"
+        ],
+        "parameters": [
+          {
+            "name": "folderId",
+            "type": "string",
+            "description": "Specifies the folder to update",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content Type header must be set to application json.",
+            "in": "header",
+            "required": true,
+            "default": "application/json"
+          },
+          {
+            "name": "include_payload",
+            "type": "boolean",
+            "description": "Choose whether or not to return the updated folder JSON payload",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "0"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DeleteanIndividualMyLibraryFolderMyLibrarymethod",
+        "summary": "Delete an existing MyLibrary folder",
+        "tags": [
+          "MyLibrary method"
+        ],
+        "parameters": [
+          {
+            "name": "folderId",
+            "type": "string",
+            "description": "Specifies the folder to delete",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/library/folders/folderId": {},
+    "/library/folders/trash/files": {
+      "get": {
+        "operationId": "RetrievefilesintheTrashfolderMyLibrarymethod",
+        "summary": "Retrieve files in the Trash folder",
+        "tags": [
+          "MyLibrary method"
+        ],
+        "parameters": [
+          {
+            "name": "type",
+            "type": "string",
+            "description": "Specifies the type of files to retrieve, ALL, IMAGES, or DOCUMENTS",
+            "in": "query",
+            "required": false,
+            "default": "ALL"
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Number of files returned per page, 1-1000",
+            "in": "query",
+            "required": false,
+            "default": "50"
+          },
+          {
+            "name": "sort_by",
+            "type": "string",
+            "description": "sort the file list by CREATED_DATE, CREATED_DATE_DESC, MODIFIED_DATE, MODIFIED_DATE_DESC, NAME, NAME_DESC",
+            "in": "query",
+            "required": false,
+            "default": "CREATED_DATE_DESC"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DeletefilesintheTrashfolderMyLibrarymethod",
+        "summary": "Delete all files in the Trash folder",
+        "tags": [
+          "MyLibrary method"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/library/files": {
+      "get": {
+        "operationId": "RetrievetheCollectionofMyLibraryfilesMyLibrarymethod",
+        "summary": "Retrieve the account's MyLibrary folder collection...",
+        "description": "Retrieve the account's MyLibrary folder collection.",
+        "tags": [
+          "MyLibrary method"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Number of files returned per page, 1-1000",
+            "in": "query",
+            "required": false,
+            "default": "50"
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "description": "Specifies the type of file to retrieve, ALL, IMAGES, or DOCUMENTS",
+            "in": "query",
+            "required": false,
+            "default": "ALL"
+          },
+          {
+            "name": "source",
+            "type": "string",
+            "description": "Specifies to retrieve files from a particular source: ALL, MyComputer, Facebook, Instagram, Shutterstock, or  Mobile",
+            "in": "query",
+            "required": false,
+            "default": "ALL"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/library/folders/{folderId}/files": {
+      "get": {
+        "operationId": "RetrieveaCollectionofMyLibraryFilesfromaFolderMyLibrarymethod",
+        "summary": "Retrieve a collection of files from a specific MyL...",
+        "description": "Retrieve a collection of files from a specific MyLibrary folder.",
+        "tags": [
+          "MyLibrary method"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "folderId",
+            "type": "string",
+            "description": "Specifies the folder from which to retrieve files",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Number of files returned per page, 1-1000",
+            "in": "query",
+            "required": false,
+            "default": "50"
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "description": "Specifies the type of file to retrieve, ALL, IMAGES, or DOCUMENTS",
+            "in": "query",
+            "required": false,
+            "default": "ALL"
+          },
+          {
+            "name": "source",
+            "type": "string",
+            "description": "Specifies to retrieve files from a particular source: ALL, MyComputer, Facebook, Instagram, Shutterstock, or  Mobile",
+            "in": "query",
+            "required": false,
+            "default": "ALL"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "put": {
+        "operationId": "MoveMyLibraryFilesMyLibrarymethod",
+        "summary": "Move one or more MyLibrary Files to a Specified Fo...",
+        "description": "Move one or more MyLibrary Files to a Specified Folder.",
+        "tags": [
+          "MyLibrary method"
+        ],
+        "parameters": [
+          {
+            "name": "folderId",
+            "type": "string",
+            "description": "Specifies the destination folder to which to move the files",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content Type header must be set to application json.",
+            "in": "header",
+            "required": true,
+            "default": "application/json"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/library/files/{fileId}": {
+      "get": {
+        "operationId": "RetrieveanIndividualMyLibraryFileMyLibrarymethod",
+        "summary": "Retrieve a specific MyLibrary file",
+        "tags": [
+          "MyLibrary method"
+        ],
+        "parameters": [
+          {
+            "name": "fileId",
+            "type": "string",
+            "description": "Specifies the file to retrieve",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "put": {
+        "operationId": "UpdateanIndividualMyLibraryFileMyLibrarymethod",
+        "summary": "Update an existing MyLibrary file",
+        "tags": [
+          "MyLibrary method"
+        ],
+        "parameters": [
+          {
+            "name": "fileId",
+            "type": "string",
+            "description": "Specifies the file to update",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "include_payload",
+            "type": "boolean",
+            "description": "Choose whether or not to return the updated folder JSON payload",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "0"
+            ]
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content Type must be set to application/json.",
+            "in": "header",
+            "required": true,
+            "default": "application/json"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DeleteanIndividualMyLibraryFileMyLibrarymethod",
+        "summary": "Delete an existing MyLibrary file",
+        "tags": [
+          "MyLibrary method"
+        ],
+        "parameters": [
+          {
+            "name": "fileId",
+            "type": "string",
+            "description": "Specifies the file to update",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/library/files/fileId": {},
+    "/library/files/uploadstatus/{fileId}": {
+      "get": {
+        "operationId": "RetrieveMyLibraryFileUploadStatusReportMyLibrarymethod",
+        "summary": "Get the status of one or more file upload activiti...",
+        "description": "Get the status of one or more file upload activities.",
+        "tags": [
+          "MyLibrary method"
+        ],
+        "parameters": [
+          {
+            "name": "fileId",
+            "type": "string",
+            "description": "Specifies the file for which to get an upload status report, separate multiple fileIds with a comma",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "Oauth2 access token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/library/folders/folderId/files": {}
+  },
+  "definitions": {}
+}

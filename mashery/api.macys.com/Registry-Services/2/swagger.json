@@ -1,0 +1,201 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Registry Services",
+    "version": "2",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Test Macy's API using our easy to use Interactive Console! You can also view more detailed  written documentation. (Note: You must attain approval for an API key for one of the services in the drop-down menu below before being able to use the Macy's API Console.) Registry Services",
+    "x-mashery-id": "856"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.macys.com",
+  "basePath": "/v2/registry",
+  "externalDocs": {
+    "description": "Please contact us if you are having trouble getting access to keys: Click Here",
+    "url": "http://developer.macys.com/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Registry Services"
+    }
+  ],
+  "paths": {
+    "/by-name": {
+      "get": {
+        "operationId": "RegistrybyName(GVR)RegistryServices",
+        "summary": "This service returns the Guest View Registry (GVR)...",
+        "description": "This service returns the Guest View Registry (GVR) Registry ID based on Name.  You can narrow your results by specifying month and year of event. Once you have the correct Registry ID you can use the Get Registry by Registry ID (GVR) (below) to return the products of that specific registry. Please click here for the additional documentation.",
+        "tags": [
+          "Registry Services"
+        ],
+        "parameters": [
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Output format as JSON or XML (Required) Ex. JSON",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
+          },
+          {
+            "name": "firstName",
+            "type": "string",
+            "description": "Enter First name of Bride, Groom, or Guest of Honor (Required) Ex. David",
+            "in": "query",
+            "required": true,
+            "default": "David"
+          },
+          {
+            "name": "lastName",
+            "type": "string",
+            "description": "Enter Last name of Bride, Groom, or Guest of Honor (Required) Ex. Smith",
+            "in": "query",
+            "required": true,
+            "default": "Smith"
+          },
+          {
+            "name": "eventYear",
+            "type": "string",
+            "description": "Year of Registry Event. (Required only if you choose to also query by eventMonth parameter.) Ex. 2013",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventMonth",
+            "type": "string",
+            "description": "Month of event: 1-12. (Optional: However, you must use the eventYear parameter to specify this parameter of registry specified.) Ex. For May use 5",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12"
+            ]
+          },
+          {
+            "name": "registryType",
+            "type": "string",
+            "description": "Default to WEDDING.  Currently WEDDING is the only registry supported through this service (Optional) Ex. WEDDING",
+            "in": "query",
+            "required": false,
+            "default": "WEDDING"
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "If sent, the format is JSONP (JSON with Padding) with the callback returned with the JSON response. You can put anything in the callback parameter and whatever you send is returned. (Optional) Ex. magicofmacysapi",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/by-id/{registryID}": {
+      "get": {
+        "operationId": "RegistrybyRegistryID(GVR)RegistryServices",
+        "summary": "This service returns products shown in the Guest V...",
+        "description": "This service returns products shown in the Guest View Registry (GVR) when a request is made by Registry ID. Please click here for the additional documentation.",
+        "tags": [
+          "Registry Services"
+        ],
+        "parameters": [
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Output format as JSON or XML (Required) Ex. JSON",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
+          },
+          {
+            "name": "registryID",
+            "type": "string",
+            "description": "The unique identifier of this registry assigned when the registry was created. (Required)  Ex. 2055190",
+            "in": "path",
+            "required": true,
+            "default": "2055190"
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "description": "This specifies this is a Guest View Registry (GVR) request (Required) Ex. GVR Note: a BVR (Bridal View Registry) is also available.  This is a protected Services call",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "GVR"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "If sent, the format is JSONP (JSON with Padding) with the callback returned with the JSON response. You can put anything in the callback parameter and whatever you send is returned. (Optional) Ex. magicofmacysapi",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

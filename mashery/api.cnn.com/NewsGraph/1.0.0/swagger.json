@@ -1,0 +1,363 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "NewsGraph API",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Make sample calls to the NewsGraph API using I/O Docs. For more information, refer to our full documentation. ",
+    "x-mashery-id": "3665"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.cnn.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "https://developer.cnn.com/io-docs/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "NewsGraph Search"
+    },
+    {
+      "name": "NewsGraph Card Factory"
+    },
+    {
+      "name": "NewsGraph Docs"
+    }
+  ],
+  "paths": {
+    "/search/{query-key}:{query-value}/{additional-query-parameters}/rows:{rows}/start:{start}/{sort-option}": {
+      "get": {
+        "operationId": "SearchNewsGraphSearch",
+        "summary": "NewsGraph Search allows you to find content by pro...",
+        "description": "NewsGraph Search allows you to find content by providing matching criteria. \nFull documentation for Search",
+        "tags": [
+          "NewsGraph Search"
+        ],
+        "parameters": [
+          {
+            "name": "query-key",
+            "type": "string",
+            "description": "The field you would like to search. Learn More",
+            "in": "path",
+            "required": true,
+            "default": "type"
+          },
+          {
+            "name": "query-value",
+            "type": "string",
+            "description": "The value for the key you are searching with. Separate multiple values with a semicolon. Learn more",
+            "in": "path",
+            "required": true,
+            "default": "article"
+          },
+          {
+            "name": "additional-query-parameters",
+            "type": "string",
+            "description": "Additional query key-value pairs can also be added if desired by using a / to separate each pair. Learn more.",
+            "in": "path",
+            "required": true,
+            "default": "section:tech/language:en"
+          },
+          {
+            "name": "rows",
+            "type": "number",
+            "description": "The amount of items to be returned. Learn more.",
+            "in": "path",
+            "required": true,
+            "default": "10"
+          },
+          {
+            "name": "start",
+            "type": "number",
+            "description": "The row at which the results should begin. Learn more.",
+            "in": "path",
+            "required": true,
+            "default": "0"
+          },
+          {
+            "name": "sort-option",
+            "type": "string",
+            "description": "Apply a specific sort order to the returned content. Learn more.",
+            "in": "path",
+            "required": true,
+            "default": "lastPublishDate,desc"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/cards/sections/{data-source}/{section-name}/rows:{rows}/start:{start}": {
+      "get": {
+        "operationId": "sectionsNewsGraphCardFactory",
+        "summary": "The Card Factory turns section landing pages into ...",
+        "description": "The Card Factory turns section landing pages into clean feeds of content cards.\nFull documentation for Card Factory - Sections",
+        "tags": [
+          "NewsGraph Card Factory"
+        ],
+        "parameters": [
+          {
+            "name": "data-source",
+            "type": "string",
+            "description": "The data source for the requested section. Values are 'cnn' or 'money'.",
+            "in": "path",
+            "required": true,
+            "default": "cnn"
+          },
+          {
+            "name": "section-name",
+            "type": "string",
+            "description": "The name value of the requested section. Contact us for a list of sections.",
+            "in": "path",
+            "required": true,
+            "default": "tech"
+          },
+          {
+            "name": "rows",
+            "type": "number",
+            "description": "The amount of items to be returned.",
+            "in": "path",
+            "required": true,
+            "default": "10"
+          },
+          {
+            "name": "start",
+            "type": "number",
+            "description": "The row at which the results should begin.",
+            "in": "path",
+            "required": true,
+            "default": "0"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/cards/shows/{id}/rows:{rows}/start:{start}": {
+      "get": {
+        "operationId": "showsNewsGraphCardFactory",
+        "summary": "The Card Factory turns show landing pages into cle...",
+        "description": "The Card Factory turns show landing pages into clean feeds of content cards.\nFull documentation for Card Factory - Shows",
+        "tags": [
+          "NewsGraph Card Factory"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "The NewsGraph ID of the show being requested.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "rows",
+            "type": "number",
+            "description": "The amount of items to be returned.",
+            "in": "path",
+            "required": true,
+            "default": "10"
+          },
+          {
+            "name": "start",
+            "type": "number",
+            "description": "The row at which the results should begin.",
+            "in": "path",
+            "required": true,
+            "default": "0"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/cards/specials/{id}/rows:{rows}/start:{start}": {
+      "get": {
+        "operationId": "specialsNewsGraphCardFactory",
+        "summary": "The Card Factory turns special landing pages into ...",
+        "description": "The Card Factory turns special landing pages into clean feeds of content cards.\nFull documentation for Card Factory - Specials",
+        "tags": [
+          "NewsGraph Card Factory"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "The NewsGraph ID of the special being requested.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "rows",
+            "type": "number",
+            "description": "The amount of items to be returned.",
+            "in": "path",
+            "required": true,
+            "default": "10"
+          },
+          {
+            "name": "start",
+            "type": "number",
+            "description": "The row at which the results should begin.",
+            "in": "path",
+            "required": true,
+            "default": "0"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/cards//videoCollections/{id}/rows:{rows}/start:{start}": {
+      "get": {
+        "operationId": "videocollectionsNewsGraphCardFactory",
+        "summary": "The Card Factory turns video collections into clea...",
+        "description": "The Card Factory turns video collections into clean feeds of content cards.\nFull documentation for Card Factory - Video Collections",
+        "tags": [
+          "NewsGraph Card Factory"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "The NewsGraph ID of the video collection  being requested.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "rows",
+            "type": "number",
+            "description": "The amount of items to be returned.",
+            "in": "path",
+            "required": true,
+            "default": "10"
+          },
+          {
+            "name": "start",
+            "type": "number",
+            "description": "The row at which the results should begin.",
+            "in": "path",
+            "required": true,
+            "default": "0"
+          },
+          {
+            "name": "id",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/docs/{id};{additional-ids}": {
+      "get": {
+        "operationId": "DocsNewsGraphDocs",
+        "summary": "Request a batch of up to 20 documents using their ...",
+        "description": "Request a batch of up to 20 documents using their ID value.\nFull documentation for Docs",
+        "tags": [
+          "NewsGraph Docs"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "The NewsGraph ID of the content to be returned.",
+            "in": "path",
+            "required": true,
+            "default": "h_2431197cae557206782942f637581767"
+          },
+          {
+            "name": "additional-ids",
+            "type": "string",
+            "description": "Use a semicolon to separate multiple id values",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}
