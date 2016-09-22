@@ -1,0 +1,1109 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Inventory API",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "The API Console (aka I/O Docs) is an interactive tool that enables you to interact with the Edmunds API without writing a single line of code!  Discover, learn, test and debug live API calls within seconds.  For more details on authentication, method references and special requirements, please see the API Documentation section. You must be signed in before using this tool. If you already have an account, you can sign in, otherwise, please register now. The Inventory API provides information about vehicles on a dealer's lot. Use of this API is limited to keys owned by specific partners who have prior agreements established with Edmunds.com.",
+    "x-mashery-id": "1210"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.edmunds.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "http://developer.edmunds.com/api-documentation/overview/"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "oauth2": {
+      "type": "oauth2",
+      "flow": "application",
+      "tokenUrl": "",
+      "scopes": {}
+    }
+  },
+  "security": [
+    {
+      "oauth2": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Search Inventory Listings"
+    },
+    {
+      "name": "Get Inventory Item by VIN"
+    }
+  ],
+  "paths": {
+    "/api/inventory/v1/getall": {
+      "get": {
+        "operationId": "GetInventoryListingsbyZipcode(Legacy)SearchInventoryListings",
+        "summary": "Lookup inventory listings by Zip Code",
+        "tags": [
+          "Search Inventory Listings"
+        ],
+        "parameters": [
+          {
+            "name": "zipcode",
+            "type": "string",
+            "description": "The zipcode for the area where to search",
+            "in": "query",
+            "required": true,
+            "default": "90404"
+          },
+          {
+            "name": "range",
+            "type": "string",
+            "description": "Radius of search",
+            "in": "query",
+            "required": true,
+            "default": "5"
+          },
+          {
+            "name": "make",
+            "type": "string",
+            "description": "Car make name (case sensitive). (required if dealer ID is not supplied)",
+            "in": "query",
+            "required": false,
+            "default": "Audi"
+          },
+          {
+            "name": "model",
+            "type": "string",
+            "description": "Car model name (case sensitive). (required if make is supplied)",
+            "in": "query",
+            "required": false,
+            "default": "A4"
+          },
+          {
+            "name": "submodel",
+            "type": "string",
+            "description": "Car submodel name (case sensitive). (required if make is supplied)",
+            "in": "query",
+            "required": false,
+            "default": "Sedan"
+          },
+          {
+            "name": "dealerId",
+            "type": "string",
+            "description": "The dealership ID",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "types",
+            "type": "string",
+            "description": "The type of inventory",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "USED",
+              "NEW",
+              "CPO",
+              "ALL"
+            ]
+          },
+          {
+            "name": "sort",
+            "type": "string",
+            "description": "The desired sort (i.e. price:asc)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "basicFilter",
+            "type": "string",
+            "description": "Narrow down response by key:�value�",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "pageNumber",
+            "type": "string",
+            "description": "Pagination starting index",
+            "in": "query",
+            "required": false,
+            "default": "1"
+          },
+          {
+            "name": "pageSize",
+            "type": "string",
+            "description": "Pagination response size",
+            "in": "query",
+            "required": false,
+            "default": "5"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/inventory/v2/franchises/{franchiseId}": {
+      "get": {
+        "operationId": "GetInventoryListingsbyFranchiseIDSearchInventoryListings",
+        "summary": "Lookup a inventory at a particular dealer franchis...",
+        "description": "Lookup a inventory at a particular dealer franchise",
+        "tags": [
+          "Search Inventory Listings"
+        ],
+        "parameters": [
+          {
+            "name": "franchiseId",
+            "type": "string",
+            "description": "The dealership Franchise ID",
+            "in": "path",
+            "required": true,
+            "default": "47788"
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "description": "The type of inventory",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "used",
+              "new",
+              "cpo"
+            ]
+          },
+          {
+            "name": "intcolor",
+            "type": "string",
+            "description": "The interior color of inventory",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "black",
+              "blue",
+              "brown",
+              "cream",
+              "gold",
+              "gray",
+              "green",
+              "orange",
+              "purple",
+              "red",
+              "silver",
+              "white",
+              "yellow"
+            ]
+          },
+          {
+            "name": "extcolor",
+            "type": "string",
+            "description": "The exterior color of inventory",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "black",
+              "blue",
+              "brown",
+              "cream",
+              "gold",
+              "gray",
+              "green",
+              "orange",
+              "purple",
+              "red",
+              "silver",
+              "white",
+              "yellow"
+            ]
+          },
+          {
+            "name": "intcolorhex",
+            "type": "string",
+            "description": "The interior HEX color code of inventory",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "extcolorhex",
+            "type": "string",
+            "description": "The exterior HEX color code of inventory",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "fuel",
+            "type": "string",
+            "description": "The fuel type of inventory",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "gasoline",
+              "diesel",
+              "electric",
+              "natural-gas"
+            ]
+          },
+          {
+            "name": "cylinder",
+            "type": "string",
+            "description": "The cylinders count of inventory",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "0",
+              "3",
+              "4",
+              "5",
+              "6",
+              "8",
+              "10",
+              "12",
+              "16"
+            ]
+          },
+          {
+            "name": "engine",
+            "type": "string",
+            "description": "The engine type of inventory",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "gas",
+              "flex-fuel",
+              "hybrid",
+              "diesel",
+              "natural-gas"
+            ]
+          },
+          {
+            "name": "transmission",
+            "type": "string",
+            "description": "The transmission type of inventory",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "automatic",
+              "manual",
+              "automated-manula",
+              "direct-drive"
+            ]
+          },
+          {
+            "name": "msrpmin",
+            "type": "number",
+            "format": "double",
+            "description": "The lower limit of inventory MSRP",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "msrpmax",
+            "type": "number",
+            "format": "double",
+            "description": "The upper limit of inventory MSRP",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "lpmin",
+            "type": "number",
+            "format": "double",
+            "description": "The lower limit of Lease Promise Program monthly payment",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "lpmax",
+            "type": "number",
+            "format": "double",
+            "description": "The upper limit of Lease Promise Program monthly payment",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "pagenum",
+            "type": "integer",
+            "description": "Pagination starting index",
+            "in": "query",
+            "required": false,
+            "default": "1"
+          },
+          {
+            "name": "pagesize",
+            "type": "integer",
+            "description": "Pagination response size. The max value is 50",
+            "in": "query",
+            "required": false,
+            "default": "10"
+          },
+          {
+            "name": "view",
+            "type": "string",
+            "description": "The response payload",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "basic",
+              "full"
+            ]
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/inventory/v2/stocks/{stockNumber}": {
+      "get": {
+        "operationId": "GetInventoryListingsbyStockNumberSearchInventoryListings",
+        "summary": "Lookup inventory listings by stock number",
+        "tags": [
+          "Search Inventory Listings"
+        ],
+        "parameters": [
+          {
+            "name": "stockNumber",
+            "type": "string",
+            "description": "The stock number of inventory",
+            "in": "path",
+            "required": true,
+            "default": "350175"
+          },
+          {
+            "name": "franchiseid",
+            "type": "string",
+            "description": "The dealership Franchise ID",
+            "in": "query",
+            "required": false,
+            "default": "819332"
+          },
+          {
+            "name": "pagenum",
+            "type": "integer",
+            "description": "Pagination starting index",
+            "in": "query",
+            "required": false,
+            "default": "1"
+          },
+          {
+            "name": "pagesize",
+            "type": "integer",
+            "description": "Pagination response size. The max value is 50",
+            "in": "query",
+            "required": false,
+            "default": "10"
+          },
+          {
+            "name": "view",
+            "type": "string",
+            "description": "The response payload",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "basic",
+              "full"
+            ]
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/inventory/v2/inventories": {
+      "get": {
+        "operationId": "GetInventoryListingsbyZipCodeSearchInventoryListings",
+        "summary": "Lookup inventory listings by Zip Code",
+        "tags": [
+          "Search Inventory Listings"
+        ],
+        "parameters": [
+          {
+            "name": "zipcode",
+            "type": "string",
+            "description": "The zipcode for the area where to search",
+            "in": "query",
+            "required": true,
+            "default": "90404"
+          },
+          {
+            "name": "radius",
+            "type": "integer",
+            "description": "Radius of search",
+            "in": "query",
+            "required": false,
+            "default": "50"
+          },
+          {
+            "name": "make",
+            "type": "string",
+            "description": "Vehicle make name (required if model is supplied)",
+            "in": "query",
+            "required": false,
+            "default": "Audi"
+          },
+          {
+            "name": "model",
+            "type": "string",
+            "description": "Vehicle model name",
+            "in": "query",
+            "required": false,
+            "default": "A4"
+          },
+          {
+            "name": "year",
+            "type": "integer",
+            "description": "Vehicle four-digit year",
+            "in": "query",
+            "required": false,
+            "default": "2015"
+          },
+          {
+            "name": "body",
+            "type": "string",
+            "description": "The body type of inventory",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "sedan",
+              "suv",
+              "pickup",
+              "hatchback",
+              "minivan",
+              "coupe",
+              "station-wagon",
+              "truck",
+              "convertible",
+              "van"
+            ]
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "description": "The type of inventory",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "used",
+              "new",
+              "cpo"
+            ]
+          },
+          {
+            "name": "intcolor",
+            "type": "string",
+            "description": "The interior color of inventory",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "black",
+              "blue",
+              "brown",
+              "cream",
+              "gold",
+              "gray",
+              "green",
+              "orange",
+              "purple",
+              "red",
+              "silver",
+              "white",
+              "yellow"
+            ]
+          },
+          {
+            "name": "extcolor",
+            "type": "string",
+            "description": "The exterior color of inventory",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "black",
+              "blue",
+              "brown",
+              "cream",
+              "gold",
+              "gray",
+              "green",
+              "orange",
+              "purple",
+              "red",
+              "silver",
+              "white",
+              "yellow"
+            ]
+          },
+          {
+            "name": "intcolorhex",
+            "type": "string",
+            "description": "The interior HEX color code of inventory",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "extcolorhex",
+            "type": "string",
+            "description": "The exterior HEX color code of inventory",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "fuel",
+            "type": "string",
+            "description": "The fuel type of inventory",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "gasoline",
+              "diesel",
+              "electric",
+              "natural-gas"
+            ]
+          },
+          {
+            "name": "cylinder",
+            "type": "string",
+            "description": "The cylinders count of inventory",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "0",
+              "3",
+              "4",
+              "5",
+              "6",
+              "8",
+              "10",
+              "12",
+              "16"
+            ]
+          },
+          {
+            "name": "engine",
+            "type": "string",
+            "description": "The engine type of inventory",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "gas",
+              "flex-fuel",
+              "hybrid",
+              "diesel",
+              "natural-gas"
+            ]
+          },
+          {
+            "name": "transmission",
+            "type": "string",
+            "description": "The transmission type of inventory",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "automatic",
+              "manual",
+              "automated-manula",
+              "direct-drive"
+            ]
+          },
+          {
+            "name": "msrpmin",
+            "type": "number",
+            "format": "double",
+            "description": "The lower limit of inventory MSRP",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "msrpmax",
+            "type": "number",
+            "format": "double",
+            "description": "The upper limit of inventory MSRP",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "lpmin",
+            "type": "number",
+            "format": "double",
+            "description": "The lower limit of Lease Promise Program monthly payment",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "lpmax",
+            "type": "number",
+            "format": "double",
+            "description": "The upper limit of Lease Promise Program monthly payment",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "pagenum",
+            "type": "integer",
+            "description": "Pagination starting index",
+            "in": "query",
+            "required": false,
+            "default": "1"
+          },
+          {
+            "name": "pagesize",
+            "type": "integer",
+            "description": "Pagination response size. The max value is 50",
+            "in": "query",
+            "required": false,
+            "default": "10"
+          },
+          {
+            "name": "sortby",
+            "type": "string",
+            "description": "The sorting strategy for the results",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "distance:asc",
+              "distance:desc"
+            ]
+          },
+          {
+            "name": "view",
+            "type": "string",
+            "description": "The response payload",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "basic",
+              "full"
+            ]
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/inventory/v2/styles/{styleId}": {
+      "get": {
+        "operationId": "GetInventoryListingsbyStyleIDandZipcodeSearchInventoryListings",
+        "summary": "Lookup inventory listings by Style ID and Zip Code...",
+        "description": "Lookup inventory listings by Style ID and Zip Code",
+        "tags": [
+          "Search Inventory Listings"
+        ],
+        "parameters": [
+          {
+            "name": "styleId",
+            "type": "string",
+            "description": "Edmunds vehicle style ID",
+            "in": "path",
+            "required": true,
+            "default": "200703383"
+          },
+          {
+            "name": "zipcode",
+            "type": "string",
+            "description": "The zipcode for the area where to search",
+            "in": "query",
+            "required": true,
+            "default": "90404"
+          },
+          {
+            "name": "radius",
+            "type": "integer",
+            "description": "Radius of search",
+            "in": "query",
+            "required": false,
+            "default": "50"
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "description": "The type of inventory",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "used",
+              "new",
+              "cpo"
+            ]
+          },
+          {
+            "name": "intcolor",
+            "type": "string",
+            "description": "The interior color of inventory",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "black",
+              "blue",
+              "brown",
+              "cream",
+              "gold",
+              "gray",
+              "green",
+              "orange",
+              "purple",
+              "red",
+              "silver",
+              "white",
+              "yellow"
+            ]
+          },
+          {
+            "name": "extcolor",
+            "type": "string",
+            "description": "The exterior color of inventory",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "black",
+              "blue",
+              "brown",
+              "cream",
+              "gold",
+              "gray",
+              "green",
+              "orange",
+              "purple",
+              "red",
+              "silver",
+              "white",
+              "yellow"
+            ]
+          },
+          {
+            "name": "intcolorhex",
+            "type": "string",
+            "description": "The interior HEX color code of inventory",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "extcolorhex",
+            "type": "string",
+            "description": "The exterior HEX color code of inventory",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "msrpmin",
+            "type": "number",
+            "format": "double",
+            "description": "The lower limit of inventory MSRP",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "msrpmax",
+            "type": "number",
+            "format": "double",
+            "description": "The upper limit of inventory MSRP",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "lpmin",
+            "type": "number",
+            "format": "double",
+            "description": "The lower limit of Lease Promise Program monthly payment",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "lpmax",
+            "type": "number",
+            "format": "double",
+            "description": "The upper limit of Lease Promise Program monthly payment",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "pagenum",
+            "type": "integer",
+            "description": "Pagination starting index",
+            "in": "query",
+            "required": false,
+            "default": "1"
+          },
+          {
+            "name": "pagesize",
+            "type": "integer",
+            "description": "Pagination response size. The max value is 50",
+            "in": "query",
+            "required": false,
+            "default": "10"
+          },
+          {
+            "name": "view",
+            "type": "string",
+            "description": "The response payload",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "basic",
+              "full"
+            ]
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/inventory/v1/lookup": {
+      "get": {
+        "operationId": "RunInventoryLookupbyVIN(Legacy)GetInventoryItembyVIN",
+        "summary": "Lookup an inventory item by VIN",
+        "tags": [
+          "Get Inventory Item by VIN"
+        ],
+        "parameters": [
+          {
+            "name": "vin",
+            "type": "string",
+            "description": "Vehicle VIN (Vehicle Identification Number)",
+            "in": "query",
+            "required": true,
+            "default": "1FT7X2B68CEA05672"
+          },
+          {
+            "name": "zipcode",
+            "type": "string",
+            "description": "Vehicle Zip Code",
+            "in": "query",
+            "required": true,
+            "default": "16229"
+          },
+          {
+            "name": "range",
+            "type": "string",
+            "description": "Zip Code Radius",
+            "in": "query",
+            "required": true,
+            "default": "50"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/inventory/v2/vins/{vin}": {
+      "get": {
+        "operationId": "GetInventorybyVINGetInventoryItembyVIN",
+        "summary": "Lookup an inventory item by VIN v2",
+        "tags": [
+          "Get Inventory Item by VIN"
+        ],
+        "parameters": [
+          {
+            "name": "vin",
+            "type": "string",
+            "description": "Vehicle VIN (Vehicle Identification Number)",
+            "in": "path",
+            "required": true,
+            "default": "WDDHF8JB3EB009213"
+          },
+          {
+            "name": "view",
+            "type": "string",
+            "description": "The response payload",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "basic",
+              "full"
+            ]
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

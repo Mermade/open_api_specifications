@@ -1,0 +1,846 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Dealer API",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "The API Console (aka I/O Docs) is an interactive tool that enables you to interact with the Edmunds API without writing a single line of code!  Discover, learn, test and debug live API calls within seconds.  For more details on authentication, method references and special requirements, please see the API Documentation section. You must be signed in before using this tool. If you already have an account, you can sign in, otherwise, please register now. The Dealer API provides information about automotive dealerships associated with a given criteria like zipcode, vehicle make or Style ID amongst other things.",
+    "x-mashery-id": "404"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.edmunds.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "http://developer.edmunds.com/api-documentation/overview/"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Dealership Details"
+    },
+    {
+      "name": "Franchise Details"
+    },
+    {
+      "name": "Repairshop Details"
+    },
+    {
+      "name": "Dealership Ratings and Reviews"
+    }
+  ],
+  "paths": {
+    "/api/dealer/v2/dealers/{id}": {
+      "get": {
+        "operationId": "GetdealerbyIDDealershipDetails",
+        "summary": "Find a rooftop dealerships and its details, includ...",
+        "description": "Find a rooftop dealerships and its details, including franchises and repairshops.",
+        "tags": [
+          "Dealership Details"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "integer",
+            "description": "Dealer ID",
+            "in": "path",
+            "required": true,
+            "default": "3742"
+          },
+          {
+            "name": "view",
+            "type": "string",
+            "description": "The response payload",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "basic",
+              "full"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/dealer/v2/dealers/": {
+      "get": {
+        "operationId": "SearchforadealershipDealershipDetails",
+        "summary": "Find dealerships based on specific set of paramete...",
+        "description": "Find dealerships based on specific set of parameters.",
+        "tags": [
+          "Dealership Details"
+        ],
+        "parameters": [
+          {
+            "name": "zipcode",
+            "type": "integer",
+            "description": "Five-digit zip code",
+            "in": "query",
+            "required": true,
+            "default": "90404"
+          },
+          {
+            "name": "radius",
+            "type": "integer",
+            "description": "The radius of search area",
+            "in": "query",
+            "required": false,
+            "default": "100"
+          },
+          {
+            "name": "make",
+            "type": "string",
+            "description": "The vehicle make nicename",
+            "in": "query",
+            "required": false,
+            "default": "audi"
+          },
+          {
+            "name": "state",
+            "type": "string",
+            "description": "The types of vehicles this dealership sells",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "new",
+              "used"
+            ]
+          },
+          {
+            "name": "pageNum",
+            "type": "integer",
+            "description": "The page number of results",
+            "in": "query",
+            "required": false,
+            "default": "1"
+          },
+          {
+            "name": "pageSize",
+            "type": "integer",
+            "description": "The page size of results (i.e. how many results per page to show)",
+            "in": "query",
+            "required": false,
+            "default": "10"
+          },
+          {
+            "name": "sortby",
+            "type": "string",
+            "description": "The sorting strategy for the results",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "distance:ASC",
+              "distance:DESC",
+              "name:ASC",
+              "name:DESC"
+            ]
+          },
+          {
+            "name": "keyword",
+            "type": "string",
+            "description": "Comma-separated list of keywords",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "view",
+            "type": "string",
+            "description": "The response payload",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "basic",
+              "full"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/dealer/v2/dealers/count": {
+      "get": {
+        "operationId": "GetdealershipcountDealershipDetails",
+        "summary": "Get the number of dealerships based on specific se...",
+        "description": "Get the number of dealerships based on specific set of parameters.",
+        "tags": [
+          "Dealership Details"
+        ],
+        "parameters": [
+          {
+            "name": "zipcode",
+            "type": "integer",
+            "description": "Five-digit zip code",
+            "in": "query",
+            "required": true,
+            "default": "90404"
+          },
+          {
+            "name": "radius",
+            "type": "integer",
+            "description": "The radius of search area",
+            "in": "query",
+            "required": false,
+            "default": "100"
+          },
+          {
+            "name": "make",
+            "type": "string",
+            "description": "The vehicle make nicename",
+            "in": "query",
+            "required": false,
+            "default": "audi"
+          },
+          {
+            "name": "state",
+            "type": "string",
+            "description": "The types of vehicles this dealership sells",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "new",
+              "used"
+            ]
+          },
+          {
+            "name": "keyword",
+            "type": "string",
+            "description": "Comma-separated list of keywords",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/dealer/v2/franchises/{id}": {
+      "get": {
+        "operationId": "GetfranchisebyIDFranchiseDetails",
+        "summary": "Get a dealership franchise details.",
+        "tags": [
+          "Franchise Details"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "integer",
+            "description": "Franchise ID",
+            "in": "path",
+            "required": true,
+            "default": "816091"
+          },
+          {
+            "name": "view",
+            "type": "string",
+            "description": "The response payload",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "basic",
+              "full"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/dealer/v2/franchises/": {
+      "get": {
+        "operationId": "SearchforafranchiseFranchiseDetails",
+        "summary": "Find dealership franchises based on specific set o...",
+        "description": "Find dealership franchises based on specific set of parameters.",
+        "tags": [
+          "Franchise Details"
+        ],
+        "parameters": [
+          {
+            "name": "zipcode",
+            "type": "integer",
+            "description": "Five-digit zip code",
+            "in": "query",
+            "required": true,
+            "default": "90404"
+          },
+          {
+            "name": "radius",
+            "type": "integer",
+            "description": "The radius of search area",
+            "in": "query",
+            "required": false,
+            "default": "100"
+          },
+          {
+            "name": "make",
+            "type": "string",
+            "description": "The vehicle make nicename",
+            "in": "query",
+            "required": false,
+            "default": "audi"
+          },
+          {
+            "name": "state",
+            "type": "string",
+            "description": "The types of vehicles this dealership sells",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "new",
+              "used"
+            ]
+          },
+          {
+            "name": "pageNum",
+            "type": "integer",
+            "description": "The page number of results",
+            "in": "query",
+            "required": false,
+            "default": "1"
+          },
+          {
+            "name": "pageSize",
+            "type": "integer",
+            "description": "The page size of results (i.e. how many results per page to show)",
+            "in": "query",
+            "required": false,
+            "default": "10"
+          },
+          {
+            "name": "sortby",
+            "type": "string",
+            "description": "The sorting strategy for the results",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "distance:ASC",
+              "distance:DESC",
+              "name:ASC",
+              "name:DESC"
+            ]
+          },
+          {
+            "name": "keyword",
+            "type": "string",
+            "description": "Comma-separated list of keywords",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "view",
+            "type": "string",
+            "description": "The response payload",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "basic",
+              "full"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/dealer/v2/franchises/count": {
+      "get": {
+        "operationId": "GetfranchisecountFranchiseDetails",
+        "summary": "Get the number of franchises based on specific set...",
+        "description": "Get the number of franchises based on specific set of parameters.",
+        "tags": [
+          "Franchise Details"
+        ],
+        "parameters": [
+          {
+            "name": "zipcode",
+            "type": "integer",
+            "description": "Five-digit zip code",
+            "in": "query",
+            "required": true,
+            "default": "90404"
+          },
+          {
+            "name": "radius",
+            "type": "integer",
+            "description": "The radius of search area",
+            "in": "query",
+            "required": false,
+            "default": "100"
+          },
+          {
+            "name": "make",
+            "type": "string",
+            "description": "The vehicle make nicename",
+            "in": "query",
+            "required": false,
+            "default": "audi"
+          },
+          {
+            "name": "state",
+            "type": "string",
+            "description": "The types of vehicles this dealership sells",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "new",
+              "used"
+            ]
+          },
+          {
+            "name": "keyword",
+            "type": "string",
+            "description": "Comma-separated list of keywords",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/dealer/v2/repairshops/{id}": {
+      "get": {
+        "operationId": "GetrepairshopbyIDRepairshopDetails",
+        "summary": "Get a dealership repairshop details.",
+        "tags": [
+          "Repairshop Details"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "integer",
+            "description": "Repairshop ID",
+            "in": "path",
+            "required": true,
+            "default": "839031"
+          },
+          {
+            "name": "view",
+            "type": "string",
+            "description": "The response payload",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "basic",
+              "full"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/dealer/v2/repairshops/": {
+      "get": {
+        "operationId": "SearchforarepairshopRepairshopDetails",
+        "summary": "Find dealership repairshops based on specific set ...",
+        "description": "Find dealership repairshops based on specific set of parameters.",
+        "tags": [
+          "Repairshop Details"
+        ],
+        "parameters": [
+          {
+            "name": "zipcode",
+            "type": "integer",
+            "description": "Five-digit zip code",
+            "in": "query",
+            "required": true,
+            "default": "90404"
+          },
+          {
+            "name": "radius",
+            "type": "integer",
+            "description": "The radius of search area",
+            "in": "query",
+            "required": false,
+            "default": "100"
+          },
+          {
+            "name": "make",
+            "type": "string",
+            "description": "The vehicle make nicename",
+            "in": "query",
+            "required": false,
+            "default": "audi"
+          },
+          {
+            "name": "pageNum",
+            "type": "integer",
+            "description": "The page number of results",
+            "in": "query",
+            "required": false,
+            "default": "1"
+          },
+          {
+            "name": "pageSize",
+            "type": "integer",
+            "description": "The page size of results (i.e. how many results per page to show)",
+            "in": "query",
+            "required": false,
+            "default": "10"
+          },
+          {
+            "name": "sortby",
+            "type": "string",
+            "description": "The sorting strategy for the results",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "distance:ASC",
+              "distance:DESC",
+              "name:ASC",
+              "name:DESC"
+            ]
+          },
+          {
+            "name": "keyword",
+            "type": "string",
+            "description": "Comma-separated list of keywords",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "view",
+            "type": "string",
+            "description": "The response payload",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "basic",
+              "full"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/dealer/v2/repairshops/count": {
+      "get": {
+        "operationId": "GetrepairshopscountRepairshopDetails",
+        "summary": "Get the number of repairshops based on specific se...",
+        "description": "Get the number of repairshops based on specific set of parameters.",
+        "tags": [
+          "Repairshop Details"
+        ],
+        "parameters": [
+          {
+            "name": "zipcode",
+            "type": "integer",
+            "description": "Five-digit zip code",
+            "in": "query",
+            "required": true,
+            "default": "90404"
+          },
+          {
+            "name": "radius",
+            "type": "integer",
+            "description": "The radius of search area",
+            "in": "query",
+            "required": false,
+            "default": "100"
+          },
+          {
+            "name": "make",
+            "type": "string",
+            "description": "The vehicle make nicename",
+            "in": "query",
+            "required": false,
+            "default": "audi"
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v1/api/drrrepository/getdrrbydealerid": {
+      "get": {
+        "operationId": "GetContentbyDealerIDDealershipRatingsandReviews",
+        "summary": "The Dealer Ratings and Reviews are submited by vis...",
+        "description": "The Dealer Ratings and Reviews are submited by visitors to Edmunds.com. In order to get that content, you need to provide either the Dealer ID of the dealership on which you want to get data.",
+        "tags": [
+          "Dealership Ratings and Reviews"
+        ],
+        "parameters": [
+          {
+            "name": "dealerid",
+            "type": "integer",
+            "description": "The ID of the dealership. You can get that from the 'Dealer Lookup' method.",
+            "in": "query",
+            "required": true,
+            "default": "26711"
+          },
+          {
+            "name": "limit",
+            "type": "string",
+            "description": "query filter. limit=[index of review],[# of reviews]",
+            "in": "query",
+            "required": false,
+            "default": "0,5"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v1/api/drrrepository/getdrrbyzipcodeandmake": {
+      "get": {
+        "operationId": "GetContentbyZipcodeandVehicleMakeDealershipRatingsandReviews",
+        "summary": "The Dealer Ratings and Reviews are submited by vis...",
+        "description": "The Dealer Ratings and Reviews are submited by visitors to Edmunds.com. In order to get that content, you need to provide the vehicle make and zipcode of the dealerships on which you want to get data.",
+        "tags": [
+          "Dealership Ratings and Reviews"
+        ],
+        "parameters": [
+          {
+            "name": "zipcode",
+            "type": "integer",
+            "description": "Five-digit zipcode",
+            "in": "query",
+            "required": true,
+            "default": "90019"
+          },
+          {
+            "name": "make",
+            "type": "string",
+            "description": "Vehicle make nicename",
+            "in": "query",
+            "required": true,
+            "default": "bmw"
+          },
+          {
+            "name": "limit",
+            "type": "string",
+            "description": "query filter. limit=[index of review],[# of reviews]",
+            "in": "query",
+            "required": false,
+            "default": "0,5"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

@@ -1,0 +1,4719 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Vehicle API",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "The API Console (aka I/O Docs) is an interactive tool that enables you to interact with the Edmunds API without writing a single line of code!  Discover, learn, test and debug live API calls within seconds.  For more details on authentication, method references and special requirements, please see the API Documentation section. You must be signed in before using this tool. If you already have an account, you can sign in, otherwise, please register now. The Vehicle API is made up of four distinct datasets: Vehicle Pricing (Edmunds.com TMV, TCO and incentives & rebates data), Vehicle Reviews (Consumer-generated vehicle ratings and reviews), Vehicle Service (Maintenance and recall data), Vehicle Specs (All related vehicle data from make, model, years specs to VIN decoding)",
+    "x-mashery-id": "3060"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.edmunds.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "http://developer.edmunds.com/api-documentation/overview/"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Spec: Vehicle Make"
+    },
+    {
+      "name": "Spec: Vehicle Model"
+    },
+    {
+      "name": "Spec: Vehicle Model Year"
+    },
+    {
+      "name": "Spec: Vehicle Style"
+    },
+    {
+      "name": "Spec: Vehicle Colors and Options"
+    },
+    {
+      "name": "Spec: Vehicle Engine & Transmission"
+    },
+    {
+      "name": "Spec: Vehicle Equipment"
+    },
+    {
+      "name": "Spec: Vehicle SquishVINs"
+    },
+    {
+      "name": "Spec: Vehicle Configuration"
+    },
+    {
+      "name": "Spec: VIN Decoding"
+    },
+    {
+      "name": "Pricing: True Cost to Own (TCO®)"
+    },
+    {
+      "name": "Pricing: True Market Value® (TMV®)"
+    },
+    {
+      "name": "Pricing: Incentives and Rebates"
+    },
+    {
+      "name": "Content: Edmunds Car Ratings"
+    },
+    {
+      "name": "Content: Vehicle Ratings and Reviews"
+    },
+    {
+      "name": "Service: Vehicle Maintenance"
+    },
+    {
+      "name": "Service: Vehicle Recalls"
+    },
+    {
+      "name": "Service: Vehicle Service Bulletin"
+    },
+    {
+      "name": "Service: Vehicle Notes"
+    },
+    {
+      "name": "Service: Local Labor Rate"
+    },
+    {
+      "name": "Service: Safety"
+    }
+  ],
+  "paths": {
+    "/api/vehicle/v2/makes": {
+      "get": {
+        "operationId": "GetAllCarMakesSpec:VehicleMake",
+        "summary": "Get a list of all vehicle makes (new, used and fut...",
+        "description": "Get a list of all vehicle makes (new, used and future) and their models. Click here for full documentation.",
+        "tags": [
+          "Spec: Vehicle Make"
+        ],
+        "parameters": [
+          {
+            "name": "state",
+            "type": "string",
+            "description": "The state of the car make",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "new",
+              "used",
+              "future"
+            ]
+          },
+          {
+            "name": "year",
+            "type": "integer",
+            "description": "The four-digit year of interest",
+            "in": "query",
+            "required": false,
+            "default": "2014"
+          },
+          {
+            "name": "view",
+            "type": "string",
+            "description": "The response payload",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "basic",
+              "full"
+            ]
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/vehicle/v2/{makeNiceName}": {
+      "get": {
+        "operationId": "GetCarMakeDetailsbyMakeNicenameSpec:VehicleMake",
+        "summary": "Get the car make details by its URL-friendly name,...",
+        "description": "Get the car make details by its URL-friendly name, or niceName. Click here for full documentation.",
+        "tags": [
+          "Spec: Vehicle Make"
+        ],
+        "parameters": [
+          {
+            "name": "makeNiceName",
+            "type": "string",
+            "description": "Car make niceName (you get the niceName from the Get All Car Makes endpoint)",
+            "in": "path",
+            "required": true,
+            "default": "audi"
+          },
+          {
+            "name": "state",
+            "type": "string",
+            "description": "The state of the car make",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "new",
+              "used",
+              "future"
+            ]
+          },
+          {
+            "name": "year",
+            "type": "integer",
+            "description": "The four-digit year of interest",
+            "in": "query",
+            "required": false,
+            "default": "2013"
+          },
+          {
+            "name": "view",
+            "type": "string",
+            "description": "The response payload",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "basic",
+              "full"
+            ]
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/vehicle/v2/makes/count": {
+      "get": {
+        "operationId": "GetCarMakesCountSpec:VehicleMake",
+        "summary": "Get the car makes count in total and per criteria....",
+        "description": "Get the car makes count in total and per criteria. Click here for full documentation.",
+        "tags": [
+          "Spec: Vehicle Make"
+        ],
+        "parameters": [
+          {
+            "name": "state",
+            "type": "string",
+            "description": "The state of the car make",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "new",
+              "used",
+              "future"
+            ]
+          },
+          {
+            "name": "year",
+            "type": "integer",
+            "description": "The four-digit year of interest",
+            "in": "query",
+            "required": false,
+            "default": "2005"
+          },
+          {
+            "name": "view",
+            "type": "string",
+            "description": "The response payload",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "basic",
+              "full"
+            ]
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/vehicle/v2/{makeNiceName}/{modelNiceName}": {
+      "get": {
+        "operationId": "GetCarModelDetailsbyCarMakeandModelNicenamesSpec:VehicleModel",
+        "summary": "Get a vehicle model by its Edmunds Vehicle Make an...",
+        "description": "Get a vehicle model by its Edmunds Vehicle Make and Model niceNames. Click here for full documentation.",
+        "tags": [
+          "Spec: Vehicle Model"
+        ],
+        "parameters": [
+          {
+            "name": "makeNiceName",
+            "type": "string",
+            "description": "Car make niceName (you get the niceName from the Get All Car Makes endpoint in the Vehicle Makes resource)",
+            "in": "path",
+            "required": true,
+            "default": "honda"
+          },
+          {
+            "name": "modelNiceName",
+            "type": "string",
+            "description": "Car model niceName",
+            "in": "path",
+            "required": true,
+            "default": "accord"
+          },
+          {
+            "name": "state",
+            "type": "string",
+            "description": "The state of the car make",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "new",
+              "used",
+              "future"
+            ]
+          },
+          {
+            "name": "year",
+            "type": "integer",
+            "description": "The four-digit year of interest",
+            "in": "query",
+            "required": false,
+            "default": "2014"
+          },
+          {
+            "name": "submodel",
+            "type": "string",
+            "description": "The vehicle submodel niceName",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "category",
+            "type": "string",
+            "description": "Vehicle category",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "4dr Hatchback",
+              "Coupe",
+              "Convertible",
+              "Sedan",
+              "2dr Hatchback",
+              "Wagon",
+              "Regular Cab Pickup",
+              "Extended Cab Pickup",
+              "Crew Cab Pickup",
+              "2dr SUV",
+              "4dr SUV",
+              "Convertible SUV",
+              "Cargo Van",
+              "Passenger Van",
+              "Cargo Minivan",
+              "Passenger Minivan"
+            ]
+          },
+          {
+            "name": "view",
+            "type": "string",
+            "description": "The response payload",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "basic",
+              "full"
+            ]
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/vehicle/v2/{makeNiceName}/models": {
+      "get": {
+        "operationId": "GetAllCarModelsbyaCarMakeNicenameSpec:VehicleModel",
+        "summary": "Get a list of car models for a specific car make b...",
+        "description": "Get a list of car models for a specific car make by the make's niceName. Click here for full documentation.",
+        "tags": [
+          "Spec: Vehicle Model"
+        ],
+        "parameters": [
+          {
+            "name": "makeNiceName",
+            "type": "string",
+            "description": "Car make niceName (you get the niceName from the Get All Car Makes endpoint in the Vehicle Makes resource)",
+            "in": "path",
+            "required": true,
+            "default": "bmw"
+          },
+          {
+            "name": "state",
+            "type": "string",
+            "description": "The state of the car make",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "new",
+              "used",
+              "future"
+            ]
+          },
+          {
+            "name": "year",
+            "type": "integer",
+            "description": "The four-digit year of interest",
+            "in": "query",
+            "required": false,
+            "default": "2013"
+          },
+          {
+            "name": "submodel",
+            "type": "string",
+            "description": "The vehicle submodel niceName",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "category",
+            "type": "string",
+            "description": "Vehicle category",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "4dr Hatchback",
+              "Coupe",
+              "Convertible",
+              "Sedan",
+              "2dr Hatchback",
+              "Wagon",
+              "Regular Cab Pickup",
+              "Extended Cab Pickup",
+              "Crew Cab Pickup",
+              "2dr SUV",
+              "4dr SUV",
+              "Convertible SUV",
+              "Cargo Van",
+              "Passenger Van",
+              "Cargo Minivan",
+              "Passenger Minivan"
+            ]
+          },
+          {
+            "name": "view",
+            "type": "string",
+            "description": "The response payload",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "basic",
+              "full"
+            ]
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/vehicle/v2/{makeNiceName}/models/count": {
+      "get": {
+        "operationId": "GetCarModelsCountSpec:VehicleModel",
+        "summary": "Get car models count for a specific car make. Clic...",
+        "description": "Get car models count for a specific car make. Click here for full documentation.",
+        "tags": [
+          "Spec: Vehicle Model"
+        ],
+        "parameters": [
+          {
+            "name": "makeNiceName",
+            "type": "string",
+            "description": "Car make niceName (you get the niceName from the Get All Car Makes endpoint in the Vehicle Makes resource)",
+            "in": "path",
+            "required": true,
+            "default": "honda"
+          },
+          {
+            "name": "state",
+            "type": "string",
+            "description": "The state of the car make",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "new",
+              "used",
+              "future"
+            ]
+          },
+          {
+            "name": "year",
+            "type": "integer",
+            "description": "The four-digit year of interest",
+            "in": "query",
+            "required": false,
+            "default": "2011"
+          },
+          {
+            "name": "submodel",
+            "type": "string",
+            "description": "The vehicle submodel niceName",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "category",
+            "type": "string",
+            "description": "Vehicle category",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "4dr Hatchback",
+              "Coupe",
+              "Convertible",
+              "Sedan",
+              "2dr Hatchback",
+              "Wagon",
+              "Regular Cab Pickup",
+              "Extended Cab Pickup",
+              "Crew Cab Pickup",
+              "2dr SUV",
+              "4dr SUV",
+              "Convertible SUV",
+              "Cargo Van",
+              "Passenger Van",
+              "Cargo Minivan",
+              "Passenger Minivan"
+            ]
+          },
+          {
+            "name": "view",
+            "type": "string",
+            "description": "The response payload",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "basic",
+              "full"
+            ]
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/vehicle/v2/{makeNiceName}/{modelNiceName}/years": {
+      "get": {
+        "operationId": "GetCarModelYearbyCarMakeandModelNicenamesSpec:VehicleModelYear",
+        "summary": "Get a vehicle's model year details by providing it...",
+        "description": "Get a vehicle's model year details by providing its vehicle Make and Model niceNames. Click here for full documentation.",
+        "tags": [
+          "Spec: Vehicle Model Year"
+        ],
+        "parameters": [
+          {
+            "name": "makeNiceName",
+            "type": "string",
+            "description": "Car make niceName (you get the niceName from the Get All Car Makes endpoint in the Vehicle Makes resource)",
+            "in": "path",
+            "required": true,
+            "default": "honda"
+          },
+          {
+            "name": "modelNiceName",
+            "type": "string",
+            "description": "Car model niceName",
+            "in": "path",
+            "required": true,
+            "default": "accord"
+          },
+          {
+            "name": "state",
+            "type": "string",
+            "description": "The state of the car make",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "new",
+              "used",
+              "future"
+            ]
+          },
+          {
+            "name": "submodel",
+            "type": "string",
+            "description": "The vehicle submodel niceName",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "category",
+            "type": "string",
+            "description": "Vehicle category",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "4dr Hatchback",
+              "Coupe",
+              "Convertible",
+              "Sedan",
+              "2dr Hatchback",
+              "Wagon",
+              "Regular Cab Pickup",
+              "Extended Cab Pickup",
+              "Crew Cab Pickup",
+              "2dr SUV",
+              "4dr SUV",
+              "Convertible SUV",
+              "Cargo Van",
+              "Passenger Van",
+              "Cargo Minivan",
+              "Passenger Minivan"
+            ]
+          },
+          {
+            "name": "view",
+            "type": "string",
+            "description": "The response payload",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "basic",
+              "full"
+            ]
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/vehicle/v2/{makeNiceName}/{modelNiceName}/{year}": {
+      "get": {
+        "operationId": "GetCarModelYearbyCarMakeandModelNicenamesandtheCarYearSpec:VehicleModelYear",
+        "summary": "Get a list of all Model Years and Styles for a spe...",
+        "description": "Get a list of all Model Years and Styles for a specific vehicle by its Make/Model/Year details. Click here for full documentation.",
+        "tags": [
+          "Spec: Vehicle Model Year"
+        ],
+        "parameters": [
+          {
+            "name": "makeNiceName",
+            "type": "string",
+            "description": "Car make niceName (you get the niceName from the Get All Car Makes endpoint in the Vehicle Makes resource)",
+            "in": "path",
+            "required": true,
+            "default": "honda"
+          },
+          {
+            "name": "modelNiceName",
+            "type": "string",
+            "description": "Car model niceName",
+            "in": "path",
+            "required": true,
+            "default": "civic"
+          },
+          {
+            "name": "year",
+            "type": "string",
+            "description": "Car model year",
+            "in": "path",
+            "required": true,
+            "default": "2013"
+          },
+          {
+            "name": "submodel",
+            "type": "string",
+            "description": "The vehicle submodel niceName",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "category",
+            "type": "string",
+            "description": "Vehicle category",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "4dr Hatchback",
+              "Coupe",
+              "Convertible",
+              "Sedan",
+              "2dr Hatchback",
+              "Wagon",
+              "Regular Cab Pickup",
+              "Extended Cab Pickup",
+              "Crew Cab Pickup",
+              "2dr SUV",
+              "4dr SUV",
+              "Convertible SUV",
+              "Cargo Van",
+              "Passenger Van",
+              "Cargo Minivan",
+              "Passenger Minivan"
+            ]
+          },
+          {
+            "name": "view",
+            "type": "string",
+            "description": "The response payload",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "basic",
+              "full"
+            ]
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/vehicle/v2/{makeNiceName}/{modelNiceName}/years/count": {
+      "get": {
+        "operationId": "GetCarModelYearsCountbyVehicleMakeandModelNicenamesSpec:VehicleModelYear",
+        "summary": "Get the total count of car make years for a specif...",
+        "description": "Get the total count of car make years for a specific car make and model. Click here for full documentation.",
+        "tags": [
+          "Spec: Vehicle Model Year"
+        ],
+        "parameters": [
+          {
+            "name": "makeNiceName",
+            "type": "string",
+            "description": "Car make niceName (you get the niceName from the Get All Car Makes endpoint in the Vehicle Makes resource)",
+            "in": "path",
+            "required": true,
+            "default": "audi"
+          },
+          {
+            "name": "modelNiceName",
+            "type": "string",
+            "description": "Car model niceName",
+            "in": "path",
+            "required": true,
+            "default": "a6"
+          },
+          {
+            "name": "state",
+            "type": "string",
+            "description": "The state of the car make",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "new",
+              "used",
+              "future"
+            ]
+          },
+          {
+            "name": "view",
+            "type": "string",
+            "description": "The response payload",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "basic",
+              "full"
+            ]
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/vehicle/v2/styles/{id}": {
+      "get": {
+        "operationId": "GetStyleDetailsbyIDSpec:VehicleStyle",
+        "summary": "Get vehicle style details by Edmunds vehicle style...",
+        "description": "Get vehicle style details by Edmunds vehicle style ID. Click here for full documentation.",
+        "tags": [
+          "Spec: Vehicle Style"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "Edmunds vehicle style ID",
+            "in": "path",
+            "required": true,
+            "default": "200487199"
+          },
+          {
+            "name": "view",
+            "type": "string",
+            "description": "The response payload",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "basic",
+              "full"
+            ]
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/vehicle/v2/{makeNiceName}/{modelNiceName}/{year}/styles": {
+      "get": {
+        "operationId": "GetStylesDetailsbyVehicleMake/Model/YearSpec:VehicleStyle",
+        "summary": "Get vehicle style details by vehicle make and mode...",
+        "description": "Get vehicle style details by vehicle make and model niceNames and year. Click here for full documentation.",
+        "tags": [
+          "Spec: Vehicle Style"
+        ],
+        "parameters": [
+          {
+            "name": "makeNiceName",
+            "type": "string",
+            "description": "Vehicle make niceName",
+            "in": "path",
+            "required": true,
+            "default": "honda"
+          },
+          {
+            "name": "modelNiceName",
+            "type": "string",
+            "description": "Vehicle model niceName",
+            "in": "path",
+            "required": true,
+            "default": "pilot"
+          },
+          {
+            "name": "year",
+            "type": "string",
+            "description": "Vehicle four-digit year",
+            "in": "path",
+            "required": true,
+            "default": "2010"
+          },
+          {
+            "name": "state",
+            "type": "string",
+            "description": "The state of the car style",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "new",
+              "used",
+              "future"
+            ]
+          },
+          {
+            "name": "submodel",
+            "type": "string",
+            "description": "The vehicle submodel",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "category",
+            "type": "string",
+            "description": "Vehicle category (e.g. sedan, suv, ...etc)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "4dr Hatchback",
+              "Coupe",
+              "Convertible",
+              "Sedan",
+              "2dr Hatchback",
+              "Wagon",
+              "Regular Cab Pickup",
+              "Extended Cab Pickup",
+              "Crew Cab Pickup",
+              "2dr SUV",
+              "4dr SUV",
+              "Convertible SUV",
+              "Cargo Van",
+              "Passenger Van",
+              "Cargo Minivan",
+              "Passenger Minivan"
+            ]
+          },
+          {
+            "name": "view",
+            "type": "string",
+            "description": "The response payload",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "basic",
+              "full"
+            ]
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/vehicle/v2/{makeNiceName}/{modelNiceName}/{year}/styles/count": {
+      "get": {
+        "operationId": "GetStylesCountbyVehicleMake/Model/YearSpec:VehicleStyle",
+        "summary": "Get vehicle style count by vehicle make and model ...",
+        "description": "Get vehicle style count by vehicle make and model niceNames and year. Click here for full documentation.",
+        "tags": [
+          "Spec: Vehicle Style"
+        ],
+        "parameters": [
+          {
+            "name": "makeNiceName",
+            "type": "string",
+            "description": "Vehicle make niceName",
+            "in": "path",
+            "required": true,
+            "default": "honda"
+          },
+          {
+            "name": "modelNiceName",
+            "type": "string",
+            "description": "Vehicle model niceName",
+            "in": "path",
+            "required": true,
+            "default": "pilot"
+          },
+          {
+            "name": "year",
+            "type": "string",
+            "description": "Vehicle four-digit year",
+            "in": "path",
+            "required": true,
+            "default": "2010"
+          },
+          {
+            "name": "state",
+            "type": "string",
+            "description": "The state of the car style",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "new",
+              "used",
+              "future"
+            ]
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/vehicle/v2/{makeNiceName}/{modelNiceName}/styles/count": {
+      "get": {
+        "operationId": "GetStylesCountbyVehicleMakeandModelSpec:VehicleStyle",
+        "summary": "Get vehicle style count by vehicle make and model ...",
+        "description": "Get vehicle style count by vehicle make and model niceNames. Click here for full documentation.",
+        "tags": [
+          "Spec: Vehicle Style"
+        ],
+        "parameters": [
+          {
+            "name": "makeNiceName",
+            "type": "string",
+            "description": "Vehicle make niceName",
+            "in": "path",
+            "required": true,
+            "default": "honda"
+          },
+          {
+            "name": "modelNiceName",
+            "type": "string",
+            "description": "Vehicle model niceName",
+            "in": "path",
+            "required": true,
+            "default": "pilot"
+          },
+          {
+            "name": "state",
+            "type": "string",
+            "description": "The state of the car style",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "new",
+              "used",
+              "future"
+            ]
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/vehicle/v2/{makeNiceName}/styles/count": {
+      "get": {
+        "operationId": "GetStylesCountbyVehicleMakeSpec:VehicleStyle",
+        "summary": "Get vehicle style count by vehicle make niceName. ...",
+        "description": "Get vehicle style count by vehicle make niceName. Click here for full documentation.",
+        "tags": [
+          "Spec: Vehicle Style"
+        ],
+        "parameters": [
+          {
+            "name": "makeNiceName",
+            "type": "string",
+            "description": "Vehicle make niceName",
+            "in": "path",
+            "required": true,
+            "default": "honda"
+          },
+          {
+            "name": "state",
+            "type": "string",
+            "description": "The state of the car style",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "new",
+              "used",
+              "future"
+            ]
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/vehicle/v2/styles/count": {
+      "get": {
+        "operationId": "GetStylesCountSpec:VehicleStyle",
+        "summary": "Get vehicle style count. Click here for full docum...",
+        "description": "Get vehicle style count. Click here for full documentation.",
+        "tags": [
+          "Spec: Vehicle Style"
+        ],
+        "parameters": [
+          {
+            "name": "state",
+            "type": "string",
+            "description": "The state of the car style",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "new",
+              "used",
+              "future"
+            ]
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/vehicle/v2/partners/chrome/styles/{chromeId}": {
+      "get": {
+        "operationId": "GetStylesDetailsbyVehicleChromeIDSpec:VehicleStyle",
+        "summary": "Get vehicle style details by Chrome Data vehicle I...",
+        "description": "Get vehicle style details by Chrome Data vehicle ID. **this is an endpoint only provided to explicit partners of both Chrome Data and Edmunds.com, please contact us to inquire.",
+        "tags": [
+          "Spec: Vehicle Style"
+        ],
+        "parameters": [
+          {
+            "name": "chromeId",
+            "type": "string",
+            "description": "The Chrome ID for a vehicle",
+            "in": "path",
+            "required": true,
+            "default": "11916"
+          },
+          {
+            "name": "view",
+            "type": "string",
+            "description": "The response payload",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "basic",
+              "full"
+            ]
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/vehicle/v2/styles/{id}/options": {
+      "get": {
+        "operationId": "GetListofOptionsbyStyleIDSpec:VehicleColorsandOptions",
+        "summary": "Get list of options and their details for a specif...",
+        "description": "Get list of options and their details for a specific style ID",
+        "tags": [
+          "Spec: Vehicle Colors and Options"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "Edmunds vehicle style ID",
+            "in": "path",
+            "required": true,
+            "default": "200477465"
+          },
+          {
+            "name": "category",
+            "type": "string",
+            "description": "Option category",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Interior",
+              "Exterior",
+              "Roof",
+              "Interior Trim",
+              "Mechanical",
+              "Package",
+              "Additional Fees",
+              "Other"
+            ]
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/vehicle/v2/options/{id}": {
+      "get": {
+        "operationId": "GetOptionsDetailsbyIDSpec:VehicleColorsandOptions",
+        "summary": "Get options detail by option ID",
+        "tags": [
+          "Spec: Vehicle Colors and Options"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "Edmunds option ID",
+            "in": "path",
+            "required": true,
+            "default": "200477503"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/vehicle/v2/styles/{id}/colors": {
+      "get": {
+        "operationId": "GetListofColorsbyStyleIDSpec:VehicleColorsandOptions",
+        "summary": "Get list of colors and their details for a specifi...",
+        "description": "Get list of colors and their details for a specific Edmunds style ID",
+        "tags": [
+          "Spec: Vehicle Colors and Options"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "Edmunds vehicle style ID",
+            "in": "path",
+            "required": true,
+            "default": "200477465"
+          },
+          {
+            "name": "category",
+            "type": "string",
+            "description": "Color category",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Interior",
+              "Exterior"
+            ]
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/vehicle/v2/colors/{id}": {
+      "get": {
+        "operationId": "GetColorsDetailsbyIDSpec:VehicleColorsandOptions",
+        "summary": "Get colors detail by color ID",
+        "tags": [
+          "Spec: Vehicle Colors and Options"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "Edmunds color ID",
+            "in": "path",
+            "required": true,
+            "default": "200477485"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/vehicle/v2/styles/{id}/engines": {
+      "get": {
+        "operationId": "GetListofEnginesbyStyleIDSpec:VehicleEngine&Transmission",
+        "summary": "Get list of engines and their details for a specif...",
+        "description": "Get list of engines and their details for a specific Edmunds style ID",
+        "tags": [
+          "Spec: Vehicle Engine & Transmission"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "Edmunds vehicle style ID",
+            "in": "path",
+            "required": true,
+            "default": "200477465"
+          },
+          {
+            "name": "availability",
+            "type": "string",
+            "description": "Option category",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "standard",
+              "optional"
+            ]
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "description": "Engine name",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/vehicle/v2/engines/{id}": {
+      "get": {
+        "operationId": "GetEngineDetailsbyIDSpec:VehicleEngine&Transmission",
+        "summary": "Get vehicle engine details by engine ID",
+        "tags": [
+          "Spec: Vehicle Engine & Transmission"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "The engine ID",
+            "in": "path",
+            "required": true,
+            "default": "200477467"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/vehicle/v2/styles/{id}/transmissions": {
+      "get": {
+        "operationId": "GetListofTransmissionsbyStyleIDSpec:VehicleEngine&Transmission",
+        "summary": "Get list of transmission and their details for a s...",
+        "description": "Get list of transmission and their details for a specific Edmunds style ID",
+        "tags": [
+          "Spec: Vehicle Engine & Transmission"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "Edmunds vehicle style ID",
+            "in": "path",
+            "required": true,
+            "default": "200477465"
+          },
+          {
+            "name": "availability",
+            "type": "string",
+            "description": "Option category",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "standard",
+              "optional"
+            ]
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "description": "Transmission name",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/vehicle/v2/transmissions/{id}": {
+      "get": {
+        "operationId": "GetTransmissionDetailsbyIDSpec:VehicleEngine&Transmission",
+        "summary": "Get vehicle transmission details by transmission I...",
+        "description": "Get vehicle transmission details by transmission ID",
+        "tags": [
+          "Spec: Vehicle Engine & Transmission"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "The transmission ID",
+            "in": "path",
+            "required": true,
+            "default": "200477468"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/vehicle/v2/styles/{id}/equipment": {
+      "get": {
+        "operationId": "GetEquipmentDetailsbyStyleIDSpec:VehicleEquipment",
+        "summary": "Get list of equipment details for a specific style...",
+        "description": "Get list of equipment details for a specific style ID",
+        "tags": [
+          "Spec: Vehicle Equipment"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "Edmunds vehicle style ID",
+            "in": "path",
+            "required": true,
+            "default": "200477465"
+          },
+          {
+            "name": "availability",
+            "type": "string",
+            "description": "Equipment availability",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "standard",
+              "optional",
+              "used"
+            ]
+          },
+          {
+            "name": "equipmentType",
+            "type": "string",
+            "description": "Equipment category",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "AUDIO_SYSTEM",
+              "COLOR",
+              "ENGINE",
+              "MANUFACTURER",
+              "MIRRORS",
+              "OPTION",
+              "OTHER",
+              "TELEMATICS",
+              "TIRES"
+            ]
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "description": "Equipment category",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1ST_ROW_SEATS",
+              "2ND_ROW_SEATS",
+              "3RD_ROW_SEATS",
+              "4TH_ROW_SEATS",
+              "5TH_ROW_SEATS",
+              "AIR_CONDITIONING",
+              "AIRBAGS",
+              "AUDIO_SYSTEM",
+              "BRAKE_SYSTEM",
+              "CARGO_DIMENSIONS",
+              "COLLISION_SAFETY_SYSTEM",
+              "COLOR",
+              "CONVERTIBLE_ROOF",
+              "DIFFERENTIAL",
+              "DOORS",
+              "DRIVE_TYPE",
+              "DRIVER_SEAT",
+              "ENGINE",
+              "EXTERIOR_DIMENSIONS",
+              "EXTERIOR_LIGHTS",
+              "FRONT_PASSENGER_SEAT",
+              "INSTRUMENTATION",
+              "INTERIOR_DIMENSIONS",
+              "MANUFACTURER",
+              "MIRRORS",
+              "MOBILE_CONNECTIVITY",
+              "NAVIGATION_SYSTEM",
+              "PARKING_AID",
+              "POWER_OUTLETS",
+              "SEATBELTS",
+              "SEATING_CONFIGURATION",
+              "SECURITY",
+              "SPARE_TIRE/WHEEL",
+              "SPECIFICATIONS",
+              "STEERING",
+              "STEERING_WHEEL",
+              "STORAGE",
+              "SUNROOF",
+              "SUSPENSION",
+              "TECHNOLOGY_FEATURE",
+              "TELEMATICS",
+              "TIRES",
+              "TRAILER_TOWING_EQUIPMENT",
+              "TRANSMISSION",
+              "TRUCK_BED",
+              "TRUNK",
+              "VIDEO_SYSTEM",
+              "WARRANTY",
+              "WHEELS",
+              "WINDOWS"
+            ]
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/vehicle/v2/equipment/{id}": {
+      "get": {
+        "operationId": "GetEquipmentDetailsbyIDSpec:VehicleEquipment",
+        "summary": "Get equipment details by ID",
+        "tags": [
+          "Spec: Vehicle Equipment"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "The equipment ID",
+            "in": "path",
+            "required": true,
+            "default": "200477520"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/vehicle/v2/squishvins/{id}/": {
+      "get": {
+        "operationId": "GetVehicleDetailsbySquishVINSpec:VehicleSquishVINs",
+        "summary": "Get vehicle details for a squishVIN (basically the...",
+        "description": "Get vehicle details for a squishVIN (basically the first 11 digits of the VIN minus the 9th digit which is a check digit)",
+        "tags": [
+          "Spec: Vehicle SquishVINs"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "SquishVIN",
+            "in": "path",
+            "required": true,
+            "default": "1GTGG29W11"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v1/api/configurator/default": {
+      "get": {
+        "operationId": "GetthedefaultconfiguredvehiclebyzipcodeandstyleIDSpec:VehicleConfiguration",
+        "summary": "Get vehicle style details by VIN",
+        "tags": [
+          "Spec: Vehicle Configuration"
+        ],
+        "parameters": [
+          {
+            "name": "zip",
+            "type": "string",
+            "description": "Zipcode",
+            "in": "query",
+            "required": true,
+            "default": "90019"
+          },
+          {
+            "name": "styleid",
+            "type": "string",
+            "description": "Vehicle Style ID",
+            "in": "query",
+            "required": true,
+            "default": "200477465"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v1/api/configurator/withOptions": {
+      "get": {
+        "operationId": "GettheconfiguredvehiclewithoptionsSpec:VehicleConfiguration",
+        "summary": "Get vehicle style details by VIN",
+        "tags": [
+          "Spec: Vehicle Configuration"
+        ],
+        "parameters": [
+          {
+            "name": "zip",
+            "type": "string",
+            "description": "Zipcode",
+            "in": "query",
+            "required": true,
+            "default": "90019"
+          },
+          {
+            "name": "styleid",
+            "type": "string",
+            "description": "Vehicle Style ID",
+            "in": "query",
+            "required": true,
+            "default": "200477465"
+          },
+          {
+            "name": "optionid",
+            "type": "string",
+            "description": "Vehicle Option ID",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "selected",
+            "type": "string",
+            "description": "Vehicle Option ID",
+            "in": "query",
+            "required": true,
+            "default": "200477503"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/vehicle/vin/{vin}/configuration": {
+      "get": {
+        "operationId": "GetBasicVehicleInformationbyVIN(NEWCARSONLY)Spec:VINDecoding",
+        "summary": "Get vehicle make, model, year, type, fuel type, nu...",
+        "description": "Get vehicle make, model, year, type, fuel type, number of cylinders and list of styles by decoding the vehicle's VIN. Limited to: Non-Commercial vehicles for sale in the USA, built after 1990",
+        "tags": [
+          "Spec: VIN Decoding"
+        ],
+        "parameters": [
+          {
+            "name": "vin",
+            "type": "string",
+            "description": "NEW Vehicle VIN",
+            "in": "path",
+            "required": true,
+            "default": "2G1FC3D33C9165616"
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/vehicle/v2/vins/{vin}": {
+      "get": {
+        "operationId": "GetFullVehicleDetailsbyVINSpec:VINDecoding",
+        "summary": "Get all vehicle details from make, model, year and...",
+        "description": "Get all vehicle details from make, model, year and fuel type to list of options, features and standard equipment. All this information is returned by decoding the vehicle's VIN. Limited to: Non-Commercial vehicles for sale in the USA, built after 1990",
+        "tags": [
+          "Spec: VIN Decoding"
+        ],
+        "parameters": [
+          {
+            "name": "vin",
+            "type": "string",
+            "description": "Vehicle VIN",
+            "in": "path",
+            "required": true,
+            "default": "2G1FC3D33C9165616"
+          },
+          {
+            "name": "manufacturerCode",
+            "type": "string",
+            "description": "The vehicle manufacturer (i.e. OEM) code for this vehicle.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v1/api/tco/newtruecosttoownbystyleidandzip/{styleid}/{zip}": {
+      "get": {
+        "operationId": "CalculateforNewVehiclesPricing:TrueCosttoOwn(TCO®)",
+        "summary": "Get the total 5-year True Cost to Own for a new ve...",
+        "description": "Get the total 5-year True Cost to Own for a new vehicle",
+        "tags": [
+          "Pricing: True Cost to Own (TCO®)"
+        ],
+        "parameters": [
+          {
+            "name": "styleid",
+            "type": "string",
+            "description": "Vehicle style ID",
+            "in": "path",
+            "required": true,
+            "default": "200477465"
+          },
+          {
+            "name": "zip",
+            "type": "string",
+            "description": "five-digit zipcode",
+            "in": "path",
+            "required": true,
+            "default": "90019"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v1/api/tco/usedtruecosttoownbystyleidandzip/{styleid}/{zip}": {
+      "get": {
+        "operationId": "CalculateforUsedVehiclesPricing:TrueCosttoOwn(TCO®)",
+        "summary": "Get the total 5-year True Cost to Own for a used v...",
+        "description": "Get the total 5-year True Cost to Own for a used vehicle",
+        "tags": [
+          "Pricing: True Cost to Own (TCO®)"
+        ],
+        "parameters": [
+          {
+            "name": "styleid",
+            "type": "string",
+            "description": "Vehicle style ID",
+            "in": "path",
+            "required": true,
+            "default": "101172637"
+          },
+          {
+            "name": "zip",
+            "type": "string",
+            "description": "Five-digit zipcode",
+            "in": "path",
+            "required": true,
+            "default": "90019"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v1/api/tco/newtotalcashpricebystyleidandzip/{styleid}/{zip}": {
+      "get": {
+        "operationId": "CalculateTotalCashPriceforNewVehiclePricing:TrueCosttoOwn(TCO®)",
+        "summary": "The Total Cash Price displayed is the vehicle's Tr...",
+        "description": "The Total Cash Price displayed is the vehicle's True Market Value� price plus the Typically Equipped options, destination charge, base tax and fees assessed by your state, and, if applicable, gas guzzler tax; less any widely available manufacturer-to-customer cash rebates. (However, we do not account for other types of cash rebates or incentives because of the variability of those offers and their eligibility requirements.)",
+        "tags": [
+          "Pricing: True Cost to Own (TCO®)"
+        ],
+        "parameters": [
+          {
+            "name": "styleid",
+            "type": "string",
+            "description": "Vehicle style ID",
+            "in": "path",
+            "required": true,
+            "default": "200477465"
+          },
+          {
+            "name": "zip",
+            "type": "string",
+            "description": "Five-digit zipcode",
+            "in": "path",
+            "required": true,
+            "default": "90404"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v1/api/tco/usedtotalcashpricebystyleidandzip/{styleid}/{zip}": {
+      "get": {
+        "operationId": "CalculateTotalCashPriceforUsedVehiclesPricing:TrueCosttoOwn(TCO®)",
+        "summary": "The Total Cash Price displayed is the vehicle's Tr...",
+        "description": "The Total Cash Price displayed is the vehicle's True Market Value� price plus the Typically Equipped options, destination charge, base tax and fees assessed by your state, and, if applicable, gas guzzler tax; less any widely available manufacturer-to-customer cash rebates. (However, we do not account for other types of cash rebates or incentives because of the variability of those offers and their eligibility requirements.)",
+        "tags": [
+          "Pricing: True Cost to Own (TCO®)"
+        ],
+        "parameters": [
+          {
+            "name": "styleid",
+            "type": "string",
+            "description": "Vehicle style ID",
+            "in": "path",
+            "required": true,
+            "default": "101172637"
+          },
+          {
+            "name": "zip",
+            "type": "string",
+            "description": "Five-digit zipcode",
+            "in": "path",
+            "required": true,
+            "default": "90069"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v1/api/tco/getmakeswithtcodata": {
+      "get": {
+        "operationId": "GetVehicleMakeswithTCO®DataPricing:TrueCosttoOwn(TCO®)",
+        "summary": "Get a list of vehicle makes with available True Co...",
+        "description": "Get a list of vehicle makes with available True Cost to Own data",
+        "tags": [
+          "Pricing: True Cost to Own (TCO®)"
+        ],
+        "parameters": [
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v1/api/tco/getmodelswithtcodata": {
+      "get": {
+        "operationId": "GetVehicleModelswithTCO®DataPricing:TrueCosttoOwn(TCO®)",
+        "summary": "Get a list of vehicle models with available True C...",
+        "description": "Get a list of vehicle models with available True Cost to Own data",
+        "tags": [
+          "Pricing: True Cost to Own (TCO®)"
+        ],
+        "parameters": [
+          {
+            "name": "makeid",
+            "type": "string",
+            "description": "The Car Make ID",
+            "in": "query",
+            "required": true,
+            "default": "200005143"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v1/api/tco/getstyleswithtcodatabysubmodel": {
+      "get": {
+        "operationId": "GetVehicleStyleswithTCO®DataPricing:TrueCosttoOwn(TCO®)",
+        "summary": "Get a list of vehicle styles with available True C...",
+        "description": "Get a list of vehicle styles with available True Cost to Own data",
+        "tags": [
+          "Pricing: True Cost to Own (TCO®)"
+        ],
+        "parameters": [
+          {
+            "name": "make",
+            "type": "string",
+            "description": "Vehicle make niceName",
+            "in": "query",
+            "required": true,
+            "default": "honda"
+          },
+          {
+            "name": "model",
+            "type": "string",
+            "description": "Vehicle model niceName",
+            "in": "query",
+            "required": true,
+            "default": "accord"
+          },
+          {
+            "name": "year",
+            "type": "string",
+            "description": "Vehicle year (YYYY)",
+            "in": "query",
+            "required": true,
+            "default": "2013"
+          },
+          {
+            "name": "submodel",
+            "type": "string",
+            "description": "Vehicle submodel",
+            "in": "query",
+            "required": true,
+            "default": "Coupe"
+          },
+          {
+            "name": "makeyear",
+            "type": "string",
+            "description": "The vehicle make year",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/tco/v1/details/allnewtcobystyleidzipandstate/{styleid}/{zip}/{state}": {
+      "get": {
+        "operationId": "GetTCO®detailsforaNEWcarPricing:TrueCosttoOwn(TCO®)",
+        "summary": "Get the 5-year breakdown values of all TCO categor...",
+        "description": "Get the 5-year breakdown values of all TCO categories for a NEW vehicle based on its specified style Id, zip code, and state code.",
+        "tags": [
+          "Pricing: True Cost to Own (TCO®)"
+        ],
+        "parameters": [
+          {
+            "name": "styleid",
+            "type": "string",
+            "description": "Vehicle style ID",
+            "in": "path",
+            "required": true,
+            "default": "200477465"
+          },
+          {
+            "name": "zip",
+            "type": "string",
+            "description": "Five-digit zipcode",
+            "in": "path",
+            "required": true,
+            "default": "90019"
+          },
+          {
+            "name": "state",
+            "type": "string",
+            "description": "US State Code (e.g. CA, NY, NJ, PA, ...etc)",
+            "in": "path",
+            "required": true,
+            "default": "CA"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/tco/v1/details/allusedtcobystyleidzipandstate/{styleid}/{zip}/{state}": {
+      "get": {
+        "operationId": "GetTCO®detailsforaUSEDcarPricing:TrueCosttoOwn(TCO®)",
+        "summary": "Get the 5-year breakdown values of all TCO categor...",
+        "description": "Get the 5-year breakdown values of all TCO categories for a USED vehicle based on its specified style Id, zip code, and state code.",
+        "tags": [
+          "Pricing: True Cost to Own (TCO®)"
+        ],
+        "parameters": [
+          {
+            "name": "styleid",
+            "type": "string",
+            "description": "Vehicle style ID",
+            "in": "path",
+            "required": true,
+            "default": "101172637"
+          },
+          {
+            "name": "zip",
+            "type": "string",
+            "description": "Five-digit zipcode",
+            "in": "path",
+            "required": true,
+            "default": "90019"
+          },
+          {
+            "name": "state",
+            "type": "string",
+            "description": "US State Code (e.g. CA, NY, NJ, PA, ...etc)",
+            "in": "path",
+            "required": true,
+            "default": "CA"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/vehicle/{makeNiceName}/{year}/price": {
+      "get": {
+        "operationId": "CalculateforNewVehiclewithCarMake/Year,MSRPandZipCodePricing:TrueMarketValue®(TMV®)",
+        "summary": "",
+        "tags": [
+          "Pricing: True Market Value® (TMV®)"
+        ],
+        "parameters": [
+          {
+            "name": "makeNiceName",
+            "type": "string",
+            "description": "Vehicle Make niceName",
+            "in": "path",
+            "required": true,
+            "default": "honda"
+          },
+          {
+            "name": "year",
+            "type": "string",
+            "description": "Vehicle model four-digit year",
+            "in": "path",
+            "required": true,
+            "default": "2013"
+          },
+          {
+            "name": "msrp",
+            "type": "string",
+            "description": "Vehicle MSRP",
+            "in": "query",
+            "required": true,
+            "default": "32000"
+          },
+          {
+            "name": "zip",
+            "type": "string",
+            "description": "Five-digit zipcode",
+            "in": "query",
+            "required": true,
+            "default": "90404"
+          },
+          {
+            "name": "color",
+            "type": "string",
+            "description": "Vehicle color (i.e. black, white, blue, ..etc)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "model",
+            "type": "string",
+            "description": "Vehicle Model name",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "vehicleStyle",
+            "type": "string",
+            "description": "Vehicle Style name",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "drivenWheels",
+            "type": "string",
+            "description": "Vehicle drive type name",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "all-wheel-drive",
+              "front-wheel-drive",
+              "rear-wheel-drive",
+              "four-wheel-drive"
+            ]
+          },
+          {
+            "name": "fuelType",
+            "type": "string",
+            "description": "Name of the type of fuel the vehicle engine uses",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "electric",
+              "natural-gas-cng",
+              "gas",
+              "flex-fuel-ffv",
+              "diesel",
+              "hybrid"
+            ]
+          },
+          {
+            "name": "cylinders",
+            "type": "string",
+            "description": "The number of cylinders the vehicle engine has",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "compressorType",
+            "type": "string",
+            "description": "The name of the aspiration of the vehicle engine",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "supercharger",
+              "twin-turbocharger",
+              "turbocharger"
+            ]
+          },
+          {
+            "name": "trim",
+            "type": "string",
+            "description": "Vehicle trim name",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/vehicle/vin/{vin}/price": {
+      "get": {
+        "operationId": "CalculateforNewVehiclewithCarVIN,MSRPandZipCodePricing:TrueMarketValue®(TMV®)",
+        "summary": "Get basic vehicle information and pricing by suppl...",
+        "description": "Get basic vehicle information and pricing by supplying the vehicle's VIN, MSRP price and the zipcode in which it's located",
+        "tags": [
+          "Pricing: True Market Value® (TMV®)"
+        ],
+        "parameters": [
+          {
+            "name": "vin",
+            "type": "string",
+            "description": "Vehicle VIN",
+            "in": "path",
+            "required": true,
+            "default": "WAUCFAFH2DN018228"
+          },
+          {
+            "name": "zip",
+            "type": "string",
+            "description": "Five-digit zipcode",
+            "in": "query",
+            "required": true,
+            "default": "90404"
+          },
+          {
+            "name": "msrp",
+            "type": "string",
+            "description": "Vehicle MSRP",
+            "in": "query",
+            "required": true,
+            "default": "47000"
+          },
+          {
+            "name": "color",
+            "type": "string",
+            "description": "Vehicle color (i.e. black, white, blue, ...etc)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "black",
+              "dark-blue",
+              "dark-brown",
+              "dark-green",
+              "dark-red",
+              "gold",
+              "gray",
+              "light-blue",
+              "light-brown",
+              "light-green",
+              "off-whitecream",
+              "orange",
+              "other",
+              "purple",
+              "red",
+              "silver",
+              "white",
+              "yellow"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v1/api/tmv/tmvservice/calculatenewtmv": {
+      "get": {
+        "operationId": "CalculateforNewVehiclewithCarStyleIDandZipCodePricing:TrueMarketValue®(TMV®)",
+        "summary": "",
+        "tags": [
+          "Pricing: True Market Value® (TMV®)"
+        ],
+        "parameters": [
+          {
+            "name": "styleid",
+            "type": "string",
+            "description": "Vehicle style ID",
+            "in": "query",
+            "required": true,
+            "default": "200477465"
+          },
+          {
+            "name": "zip",
+            "type": "string",
+            "description": "Five-digit zipcode",
+            "in": "query",
+            "required": true,
+            "default": "90019"
+          },
+          {
+            "name": "colorid",
+            "type": "string",
+            "description": "Vehicle color ID (&colorid=xxx&colorid=xxx&colorid=xxx for multiples)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "optionid",
+            "type": "string",
+            "description": "Vehicle option ID (&optionid=xxx&optionid=xxx&optionid=xxx for multiples)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v1/api/tmv/tmvservice/calculateusedtmv": {
+      "get": {
+        "operationId": "CalculateforUsedVehicleswithCarStyleID,Condition,MileageandZipCodePricing:TrueMarketValue®(TMV®)",
+        "summary": "",
+        "tags": [
+          "Pricing: True Market Value® (TMV®)"
+        ],
+        "parameters": [
+          {
+            "name": "styleid",
+            "type": "string",
+            "description": "Vehicle style ID",
+            "in": "query",
+            "required": true,
+            "default": "101172637"
+          },
+          {
+            "name": "condition",
+            "type": "string",
+            "description": "Vehicle condition",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Outstanding",
+              "Clean",
+              "Average",
+              "Rough",
+              "Damaged"
+            ]
+          },
+          {
+            "name": "mileage",
+            "type": "string",
+            "description": "Vehicle milage (e.g. 24000)",
+            "in": "query",
+            "required": true,
+            "default": "10000"
+          },
+          {
+            "name": "zip",
+            "type": "string",
+            "description": "Five-digit zipcode",
+            "in": "query",
+            "required": true,
+            "default": "90404"
+          },
+          {
+            "name": "colorid",
+            "type": "string",
+            "description": "Vehicle color ID (&colorid=xxx&colorid=xxx&colorid=xxx for multiples)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "optionid",
+            "type": "string",
+            "description": "Vehicle option ID (&optionid=xxx&optionid=xxx&optionid=xxx for multiples)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v1/api/tmv/tmvservice/calculatetypicallyequippedusedtmv": {
+      "get": {
+        "operationId": "CalculatefortheTypicallyEquippedVehiclePricing:TrueMarketValue®(TMV®)",
+        "summary": "",
+        "tags": [
+          "Pricing: True Market Value® (TMV®)"
+        ],
+        "parameters": [
+          {
+            "name": "styleid",
+            "type": "string",
+            "description": "Vehicle style ID",
+            "in": "query",
+            "required": true,
+            "default": "101172637"
+          },
+          {
+            "name": "zip",
+            "type": "string",
+            "description": "Five-digit zipcode",
+            "in": "query",
+            "required": true,
+            "default": "90404"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v1/api/tmv/tmvservice/findcertifiedpriceforstyle": {
+      "get": {
+        "operationId": "CalculatefortheCertifiedVehiclePricing:TrueMarketValue®(TMV®)",
+        "summary": "",
+        "tags": [
+          "Pricing: True Market Value® (TMV®)"
+        ],
+        "parameters": [
+          {
+            "name": "styleid",
+            "type": "string",
+            "description": "Vehicle style ID",
+            "in": "query",
+            "required": true,
+            "default": "101172637"
+          },
+          {
+            "name": "zip",
+            "type": "string",
+            "description": "Five-digit zipcode",
+            "in": "query",
+            "required": true,
+            "default": "90019"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v1/api/incentive/incentiverepository/findbyid": {
+      "get": {
+        "operationId": "GetbyIDPricing:IncentivesandRebates",
+        "summary": "Get incentives and rebates by ID",
+        "tags": [
+          "Pricing: Incentives and Rebates"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "Incentive ID",
+            "in": "query",
+            "required": true,
+            "default": "3083078"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v1/api/incentive/incentiverepository/findincentivesbymakeid": {
+      "get": {
+        "operationId": "GetbyVehicleMakeIDPricing:IncentivesandRebates",
+        "summary": "Get incentives and rebates by vehicle make ID",
+        "tags": [
+          "Pricing: Incentives and Rebates"
+        ],
+        "parameters": [
+          {
+            "name": "makeid",
+            "type": "string",
+            "description": "Vehicle make ID",
+            "in": "query",
+            "required": true,
+            "default": "200000001"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v1/api/incentive/incentiverepository/findincentivesbystyleid": {
+      "get": {
+        "operationId": "GetbyVehicleStyleIDPricing:IncentivesandRebates",
+        "summary": "Get incentives and rebates by vehicle style ID",
+        "tags": [
+          "Pricing: Incentives and Rebates"
+        ],
+        "parameters": [
+          {
+            "name": "styleid",
+            "type": "string",
+            "description": "Vehicle style ID",
+            "in": "query",
+            "required": true,
+            "default": "200477465"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v1/api/incentive/incentiverepository/findincentivesbycategoryandzipcode": {
+      "get": {
+        "operationId": "GetbyVehicleCategoryandZipcodePricing:IncentivesandRebates",
+        "summary": "Get incentives and rebates by vehicle category and...",
+        "description": "Get incentives and rebates by vehicle category and zipcode",
+        "tags": [
+          "Pricing: Incentives and Rebates"
+        ],
+        "parameters": [
+          {
+            "name": "category",
+            "type": "string",
+            "description": "Vehicle category",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "4dr Hatchback",
+              "Coupe",
+              "Convertible",
+              "Sedan",
+              "2dr Hatchback",
+              "Wagon",
+              "Regular Cab Pickup",
+              "Extended Cab Pickup",
+              "Crew Cab Pickup",
+              "2dr SUV",
+              "4dr SUV",
+              "Convertible SUV",
+              "Cargo Van",
+              "Passenger Van",
+              "Cargo Minivan",
+              "Passenger Minivan"
+            ]
+          },
+          {
+            "name": "zipcode",
+            "type": "string",
+            "description": "Five-digit Zipcode",
+            "in": "query",
+            "required": true,
+            "default": "90404"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v1/api/incentive/incentiverepository/findincentivesbymakeidandzipcode": {
+      "get": {
+        "operationId": "GetbyVehicleMakeIDandZipcodePricing:IncentivesandRebates",
+        "summary": "Get incentives and rebates by vehicle make ID and ...",
+        "description": "Get incentives and rebates by vehicle make ID and zipcode",
+        "tags": [
+          "Pricing: Incentives and Rebates"
+        ],
+        "parameters": [
+          {
+            "name": "makeid",
+            "type": "string",
+            "description": "Vehicle make ID",
+            "in": "query",
+            "required": true,
+            "default": "200000001"
+          },
+          {
+            "name": "zipcode",
+            "type": "string",
+            "description": "Five-digit Zipcode",
+            "in": "query",
+            "required": true,
+            "default": "90019"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v1/api/incentive/incentiverepository/findincentivesbymodelyearidandzipcode": {
+      "get": {
+        "operationId": "GetbyVehicleModelYearIDandZipcodePricing:IncentivesandRebates",
+        "summary": "Get incentives and rebates by vehicle model year I...",
+        "description": "Get incentives and rebates by vehicle model year ID and zipcode",
+        "tags": [
+          "Pricing: Incentives and Rebates"
+        ],
+        "parameters": [
+          {
+            "name": "modelyearid",
+            "type": "string",
+            "description": "Vehicle model year ID",
+            "in": "query",
+            "required": true,
+            "default": "100537293"
+          },
+          {
+            "name": "zipcode",
+            "type": "string",
+            "description": "Five-digit ZIP code",
+            "in": "query",
+            "required": true,
+            "default": "90019"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v1/api/incentive/incentiverepository/findincentivesbystyleidandzipcode": {
+      "get": {
+        "operationId": "GetbyVehicleStyleIDandZipcodePricing:IncentivesandRebates",
+        "summary": "Get incentives and rebates by vehicle style ID and...",
+        "description": "Get incentives and rebates by vehicle style ID and zipcode",
+        "tags": [
+          "Pricing: Incentives and Rebates"
+        ],
+        "parameters": [
+          {
+            "name": "styleid",
+            "type": "string",
+            "description": "Vehicle style ID",
+            "in": "query",
+            "required": true,
+            "default": "200477465"
+          },
+          {
+            "name": "zipcode",
+            "type": "string",
+            "description": "Five-digit Zipcode",
+            "in": "query",
+            "required": true,
+            "default": "90404"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/vehicle/v2/grade/{makeNiceName}/{modelNiceName}/{year}": {
+      "get": {
+        "operationId": "GetCarRatingsbyMake/Model/YearContent:EdmundsCarRatings",
+        "summary": "Get vehicle ratings grade by make/model/year, on s...",
+        "description": "Get vehicle ratings grade by make/model/year, on select 2013 and newer vehicles",
+        "tags": [
+          "Content: Edmunds Car Ratings"
+        ],
+        "parameters": [
+          {
+            "name": "makeNiceName",
+            "type": "string",
+            "description": "Vehicle make niceName",
+            "in": "path",
+            "required": true,
+            "default": "honda"
+          },
+          {
+            "name": "modelNiceName",
+            "type": "string",
+            "description": "Vehicle model niceName",
+            "in": "path",
+            "required": true,
+            "default": "accord"
+          },
+          {
+            "name": "year",
+            "type": "string",
+            "description": "Vehicle four-digit year",
+            "in": "path",
+            "required": true,
+            "default": "2013"
+          },
+          {
+            "name": "submodel",
+            "type": "string",
+            "description": "Vehicle submodel (i.e. sedan, suv, ...etc)",
+            "in": "query",
+            "required": true,
+            "default": "sedan"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/vehicle/v2/{makeNiceName}/{modelNiceName}/{year}/grade": {
+      "get": {
+        "operationId": "GetAllCarRatingsDetailsReviewsbyMake/Model/YearContent:EdmundsCarRatings",
+        "summary": "Get all rating details reviews by make/model/year",
+        "tags": [
+          "Content: Edmunds Car Ratings"
+        ],
+        "parameters": [
+          {
+            "name": "makeNiceName",
+            "type": "string",
+            "description": "Vehicle make niceName",
+            "in": "path",
+            "required": true,
+            "default": "honda"
+          },
+          {
+            "name": "modelNiceName",
+            "type": "string",
+            "description": "Vehicle model niceName",
+            "in": "path",
+            "required": true,
+            "default": "accord"
+          },
+          {
+            "name": "year",
+            "type": "string",
+            "description": "Vehicle four-digit year",
+            "in": "path",
+            "required": true,
+            "default": "2013"
+          },
+          {
+            "name": "submodel",
+            "type": "string",
+            "description": "Vehicle submodel (i.e. sedan, suv, ...etc)",
+            "in": "query",
+            "required": true,
+            "default": "sedan"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/vehicle/v2/{makeNiceName}/{modelNiceName}/{year}/grade/{reviewId}": {
+      "get": {
+        "operationId": "GetCarRatingDetailsfortheGivenMake/Model/YearbyIDContent:EdmundsCarRatings",
+        "summary": "Get car rating details for the given make/model/ye...",
+        "description": "Get car rating details for the given make/model/year by ID",
+        "tags": [
+          "Content: Edmunds Car Ratings"
+        ],
+        "parameters": [
+          {
+            "name": "makeNiceName",
+            "type": "string",
+            "description": "Vehicle make niceName",
+            "in": "path",
+            "required": true,
+            "default": "honda"
+          },
+          {
+            "name": "modelNiceName",
+            "type": "string",
+            "description": "Vehicle model niceName",
+            "in": "path",
+            "required": true,
+            "default": "accord"
+          },
+          {
+            "name": "year",
+            "type": "string",
+            "description": "Vehicle four-digit year",
+            "in": "path",
+            "required": true,
+            "default": "2013"
+          },
+          {
+            "name": "reviewId",
+            "type": "string",
+            "description": "Car rating review ID",
+            "in": "path",
+            "required": true,
+            "default": "1"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/vehicle/v2/styles/{styleId}/grade": {
+      "get": {
+        "operationId": "GetCarRatingbyVehicleStyleIDContent:EdmundsCarRatings",
+        "summary": "Get vehicle ratings grade by vehicle style ID",
+        "tags": [
+          "Content: Edmunds Car Ratings"
+        ],
+        "parameters": [
+          {
+            "name": "styleId",
+            "type": "string",
+            "description": "Vehicle Style ID",
+            "in": "path",
+            "required": true,
+            "default": "200434856"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/vehiclereviews/v2/{makeNiceName}/{modelNiceName}/{year}": {
+      "get": {
+        "operationId": "GetConsumerRatingsandReviewsbyCarMake/Model/YearContent:VehicleRatingsandReviews",
+        "summary": "Get vehicle ratings and reviews by providing vehic...",
+        "description": "Get vehicle ratings and reviews by providing vehicle make/model/year data",
+        "tags": [
+          "Content: Vehicle Ratings and Reviews"
+        ],
+        "parameters": [
+          {
+            "name": "makeNiceName",
+            "type": "string",
+            "description": "Vehicle make niceName",
+            "in": "path",
+            "required": true,
+            "default": "audi"
+          },
+          {
+            "name": "modelNiceName",
+            "type": "string",
+            "description": "Vehicle model niceName",
+            "in": "path",
+            "required": true,
+            "default": "a4"
+          },
+          {
+            "name": "year",
+            "type": "string",
+            "description": "Vehicle four-digit year",
+            "in": "path",
+            "required": true,
+            "default": "2013"
+          },
+          {
+            "name": "sortby",
+            "type": "string",
+            "description": "Sort the reviews by any string of the format field or field:direction, where field = created, thumbsUp, or avgRating and direction = ASC (ascending) or DESC (descending). Default: created:DESC",
+            "in": "query",
+            "required": false,
+            "default": "thumbsUp:ASC"
+          },
+          {
+            "name": "pagenum",
+            "type": "string",
+            "description": "The page number of the paginated result. Default: 1",
+            "in": "query",
+            "required": false,
+            "default": "1"
+          },
+          {
+            "name": "pagesize",
+            "type": "string",
+            "description": "The maximum number of returned reviews. Default: 10",
+            "in": "query",
+            "required": false,
+            "default": "10"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/vehiclereviews/v2/styles/{styleId}": {
+      "get": {
+        "operationId": "GetConsumerRatingsandReviewsbyCarStyleIDContent:VehicleRatingsandReviews",
+        "summary": "Get vehicle ratings and reviews by providing vehic...",
+        "description": "Get vehicle ratings and reviews by providing vehicle make/model/year data",
+        "tags": [
+          "Content: Vehicle Ratings and Reviews"
+        ],
+        "parameters": [
+          {
+            "name": "styleId",
+            "type": "string",
+            "description": "Vehicle style ID",
+            "in": "path",
+            "required": true,
+            "default": "200421519"
+          },
+          {
+            "name": "sortby",
+            "type": "string",
+            "description": "Sort the reviews by any string of the format field or field:direction, where field = created, thumbsUp, or avgRating and direction = ASC (ascending) or DESC (descending). Default: created:DESC",
+            "in": "query",
+            "required": false,
+            "default": "created:DESC"
+          },
+          {
+            "name": "pagenum",
+            "type": "string",
+            "description": "The page number of the paginated result. Default: 1",
+            "in": "query",
+            "required": false,
+            "default": "1"
+          },
+          {
+            "name": "pagesize",
+            "type": "string",
+            "description": "The maximum number of returned reviews. Default: 10",
+            "in": "query",
+            "required": false,
+            "default": "5"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v1/api/maintenance/action/{id}": {
+      "get": {
+        "operationId": "GetbyIDService:VehicleMaintenance",
+        "summary": "Get a specific maintenance schedule by ID",
+        "tags": [
+          "Service: Vehicle Maintenance"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "Vehicle maintenance action ID",
+            "in": "path",
+            "required": true,
+            "default": "1924943"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v1/api/maintenance/actionrepository/findbymodelyearid": {
+      "get": {
+        "operationId": "GetbyVehicleModelYearIDService:VehicleMaintenance",
+        "summary": "Get a specific maintenance schedule for a certain ...",
+        "description": "Get a specific maintenance schedule for a certain vehicle model year ID",
+        "tags": [
+          "Service: Vehicle Maintenance"
+        ],
+        "parameters": [
+          {
+            "name": "modelyearid",
+            "type": "string",
+            "description": "Vehicle model year ID",
+            "in": "query",
+            "required": true,
+            "default": "100537293"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v1/api/maintenance/actionrepository/findmodelyearidswithmaintenanceschedule": {
+      "get": {
+        "operationId": "GetVehicleModelYearswithMaintenanceSchedulesService:VehicleMaintenance",
+        "summary": "Get a list of all vehicle model years with a maint...",
+        "description": "Get a list of all vehicle model years with a maintenace schedule",
+        "tags": [
+          "Service: Vehicle Maintenance"
+        ],
+        "parameters": [
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v1/api/maintenance/recall/{id}": {
+      "get": {
+        "operationId": "GetbyIDService:VehicleRecalls",
+        "summary": "Get a specific vehicle recall by ID",
+        "tags": [
+          "Service: Vehicle Recalls"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "Vehicle recall ID",
+            "in": "path",
+            "required": true,
+            "default": "359563"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v1/api/maintenance/recallrepository/findbymodelyearid": {
+      "get": {
+        "operationId": "GetbyVehicleModelYearIDService:VehicleRecalls",
+        "summary": "Get a specific vehicle recall for a certain vehicl...",
+        "description": "Get a specific vehicle recall for a certain vehicle model year ID",
+        "tags": [
+          "Service: Vehicle Recalls"
+        ],
+        "parameters": [
+          {
+            "name": "modelyearid",
+            "type": "string",
+            "description": "Vehicle model year ID",
+            "in": "query",
+            "required": true,
+            "default": "100537293"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v1/api/maintenance/servicebulletin/{id}": {
+      "get": {
+        "operationId": "GetbyIDService:VehicleServiceBulletin",
+        "summary": "Get a specific vehicle service bulletin by ID",
+        "tags": [
+          "Service: Vehicle Service Bulletin"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "Vehicle service bulletin ID",
+            "in": "path",
+            "required": true,
+            "default": "271056"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v1/api/maintenance/servicebulletinrepository/findbymodelyearid": {
+      "get": {
+        "operationId": "GetbyVehicleModelYearIDService:VehicleServiceBulletin",
+        "summary": "Get a specific vehicle service bulletin for a cert...",
+        "description": "Get a specific vehicle service bulletin for a certain vehicle model year ID",
+        "tags": [
+          "Service: Vehicle Service Bulletin"
+        ],
+        "parameters": [
+          {
+            "name": "modelyearid",
+            "type": "string",
+            "description": "Vehicle model year ID",
+            "in": "query",
+            "required": true,
+            "default": "100537293"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v1/api/maintenance/stylesnotes/{styleid}": {
+      "get": {
+        "operationId": "GetbyVehicleStyleIDService:VehicleNotes",
+        "summary": "Get maintenance notes for a specific vehicle",
+        "tags": [
+          "Service: Vehicle Notes"
+        ],
+        "parameters": [
+          {
+            "name": "styleid",
+            "type": "string",
+            "description": "Vehicle style ID",
+            "in": "path",
+            "required": true,
+            "default": "3869"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v1/api/maintenance/ziplaborrate/{zipcode}": {
+      "get": {
+        "operationId": "GetbyZipcodeService:LocalLaborRate",
+        "summary": "Get service labor rates in dollars per hour for a ...",
+        "description": "Get service labor rates in dollars per hour for a zipcode",
+        "tags": [
+          "Service: Local Labor Rate"
+        ],
+        "parameters": [
+          {
+            "name": "zipcode",
+            "type": "string",
+            "description": "Five-digit zipcode",
+            "in": "path",
+            "required": true,
+            "default": "90019"
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/vehicle/v2/{makeNiceName}/{modelNiceName}/{year}/safety": {
+      "get": {
+        "operationId": "GetbyVehicleMake/Model/YearService:Safety",
+        "summary": "Get Safety tests result by vehicle Make/Model/Year...",
+        "description": "Get Safety tests result by vehicle Make/Model/Year",
+        "tags": [
+          "Service: Safety"
+        ],
+        "parameters": [
+          {
+            "name": "makeNiceName",
+            "type": "string",
+            "description": "Vehicle make niceName",
+            "in": "path",
+            "required": true,
+            "default": "acura"
+          },
+          {
+            "name": "modelNiceName",
+            "type": "string",
+            "description": "Vehicle model niceName",
+            "in": "path",
+            "required": true,
+            "default": "ilx"
+          },
+          {
+            "name": "year",
+            "type": "string",
+            "description": "Vehicle four-digit year",
+            "in": "path",
+            "required": true,
+            "default": "2013"
+          },
+          {
+            "name": "view",
+            "type": "string",
+            "description": "The response payload",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "basic",
+              "full"
+            ]
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/vehicle/v2/styles/{styleId}/safety": {
+      "get": {
+        "operationId": "GetbyVehicleStyleIDService:Safety",
+        "summary": "Get Safety tests result by vehicle Style ID",
+        "tags": [
+          "Service: Safety"
+        ],
+        "parameters": [
+          {
+            "name": "styleId",
+            "type": "string",
+            "description": "Vehicle style ID",
+            "in": "path",
+            "required": true,
+            "default": "101418219"
+          },
+          {
+            "name": "view",
+            "type": "string",
+            "description": "The response payload",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "basic",
+              "full"
+            ]
+          },
+          {
+            "name": "fmt",
+            "type": "string",
+            "description": "Response format (json only)",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function that the JSON response will be wrapped in if desired",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}
