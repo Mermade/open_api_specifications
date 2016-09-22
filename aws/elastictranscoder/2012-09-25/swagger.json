@@ -36,18 +36,59 @@
     "application/json"
   ],
   "parameters": {
+    "Action": {
+      "name": "Action",
+      "in": "header",
+      "type": "string",
+      "required": true
+    },
+    "Version": {
+      "name": "Version",
+      "in": "header",
+      "type": "string",
+      "required": true
+    },
     "X-Amz-Content-Sha256": {
       "name": "X-Amz-Content-Sha256",
       "in": "header",
       "type": "string",
-      "required": true
+      "required": false
     },
     "X-Amz-Date": {
       "name": "X-Amz-Date",
       "in": "header",
       "type": "string",
-      "format": "date-time",
-      "required": true
+      "required": false
+    },
+    "X-Amz-Algorithm": {
+      "name": "X-Amz-Algorithm",
+      "in": "header",
+      "type": "string",
+      "required": false
+    },
+    "X-Amz-Credential": {
+      "name": "X-Amz-Credential",
+      "in": "header",
+      "type": "string",
+      "required": false
+    },
+    "X-Amz-Security-Token": {
+      "name": "X-Amz-Security-Token",
+      "in": "header",
+      "type": "string",
+      "required": false
+    },
+    "X-Amz-Signature": {
+      "name": "X-Amz-Signature",
+      "in": "header",
+      "type": "string",
+      "required": false
+    },
+    "X-Amz-SignedHeaders": {
+      "name": "X-Amz-SignedHeaders",
+      "in": "header",
+      "type": "string",
+      "required": false
     }
   },
   "securityDefinitions": {
@@ -132,10 +173,31 @@
       },
       "parameters": [
         {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
           "$ref": "#/parameters/X-Amz-Content-Sha256"
         },
         {
           "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
         }
       ],
       "get": {
@@ -193,6 +255,33 @@
             "in": "path",
             "type": "string",
             "required": true
+          }
+        ],
+        "x-waiters": [
+          {
+            "delay": 30,
+            "operation": "ReadJob",
+            "maxAttempts": 120,
+            "acceptors": [
+              {
+                "expected": "Complete",
+                "matcher": "path",
+                "state": "success",
+                "argument": "Job.Status"
+              },
+              {
+                "expected": "Canceled",
+                "matcher": "path",
+                "state": "failure",
+                "argument": "Job.Status"
+              },
+              {
+                "expected": "Error",
+                "matcher": "path",
+                "state": "failure",
+                "argument": "Job.Status"
+              }
+            ]
           }
         ]
       }
@@ -258,10 +347,31 @@
       },
       "parameters": [
         {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
           "$ref": "#/parameters/X-Amz-Content-Sha256"
         },
         {
           "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
         }
       ]
     },
@@ -326,10 +436,31 @@
       },
       "parameters": [
         {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
           "$ref": "#/parameters/X-Amz-Content-Sha256"
         },
         {
           "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
         }
       ],
       "get": {
@@ -375,6 +506,13 @@
             "schema": {
               "$ref": "#/definitions/ListPipelinesRequest"
             }
+          },
+          {
+            "name": "PageToken",
+            "type": "string",
+            "in": "query",
+            "description": "Pagination token",
+            "required": false
           }
         ]
       }
@@ -434,10 +572,31 @@
       },
       "parameters": [
         {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
           "$ref": "#/parameters/X-Amz-Content-Sha256"
         },
         {
           "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
         }
       ],
       "get": {
@@ -483,6 +642,13 @@
             "schema": {
               "$ref": "#/definitions/ListPresetsRequest"
             }
+          },
+          {
+            "name": "PageToken",
+            "type": "string",
+            "in": "query",
+            "description": "Pagination token",
+            "required": false
           }
         ]
       }
@@ -554,10 +720,31 @@
       },
       "parameters": [
         {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
           "$ref": "#/parameters/X-Amz-Content-Sha256"
         },
         {
           "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
         }
       ],
       "get": {
@@ -744,10 +931,31 @@
       },
       "parameters": [
         {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
           "$ref": "#/parameters/X-Amz-Content-Sha256"
         },
         {
           "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
         }
       ],
       "get": {
@@ -861,6 +1069,13 @@
             }
           },
           {
+            "name": "PageToken",
+            "type": "string",
+            "in": "query",
+            "description": "Pagination token",
+            "required": false
+          },
+          {
             "name": "PipelineId",
             "in": "path",
             "type": "string",
@@ -870,10 +1085,31 @@
       },
       "parameters": [
         {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
           "$ref": "#/parameters/X-Amz-Content-Sha256"
         },
         {
           "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
         }
       ]
     },
@@ -929,6 +1165,13 @@
             }
           },
           {
+            "name": "PageToken",
+            "type": "string",
+            "in": "query",
+            "description": "Pagination token",
+            "required": false
+          },
+          {
             "name": "Status",
             "in": "path",
             "type": "string",
@@ -938,10 +1181,31 @@
       },
       "parameters": [
         {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
           "$ref": "#/parameters/X-Amz-Content-Sha256"
         },
         {
           "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
         }
       ]
     },
@@ -1000,10 +1264,31 @@
       },
       "parameters": [
         {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
           "$ref": "#/parameters/X-Amz-Content-Sha256"
         },
         {
           "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
         }
       ]
     },
@@ -1074,10 +1359,31 @@
       },
       "parameters": [
         {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
           "$ref": "#/parameters/X-Amz-Content-Sha256"
         },
         {
           "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
         }
       ]
     },
@@ -1148,10 +1454,31 @@
       },
       "parameters": [
         {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
           "$ref": "#/parameters/X-Amz-Content-Sha256"
         },
         {
           "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
         }
       ]
     }

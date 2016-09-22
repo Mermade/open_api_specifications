@@ -32,18 +32,59 @@
   "consumes": [],
   "produces": [],
   "parameters": {
+    "Action": {
+      "name": "Action",
+      "in": "header",
+      "type": "string",
+      "required": true
+    },
+    "Version": {
+      "name": "Version",
+      "in": "header",
+      "type": "string",
+      "required": true
+    },
     "X-Amz-Content-Sha256": {
       "name": "X-Amz-Content-Sha256",
       "in": "header",
       "type": "string",
-      "required": true
+      "required": false
     },
     "X-Amz-Date": {
       "name": "X-Amz-Date",
       "in": "header",
       "type": "string",
-      "format": "date-time",
-      "required": true
+      "required": false
+    },
+    "X-Amz-Algorithm": {
+      "name": "X-Amz-Algorithm",
+      "in": "header",
+      "type": "string",
+      "required": false
+    },
+    "X-Amz-Credential": {
+      "name": "X-Amz-Credential",
+      "in": "header",
+      "type": "string",
+      "required": false
+    },
+    "X-Amz-Security-Token": {
+      "name": "X-Amz-Security-Token",
+      "in": "header",
+      "type": "string",
+      "required": false
+    },
+    "X-Amz-Signature": {
+      "name": "X-Amz-Signature",
+      "in": "header",
+      "type": "string",
+      "required": false
+    },
+    "X-Amz-SignedHeaders": {
+      "name": "X-Amz-SignedHeaders",
+      "in": "header",
+      "type": "string",
+      "required": false
     }
   },
   "securityDefinitions": {
@@ -86,10 +127,31 @@
       },
       "parameters": [
         {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
           "$ref": "#/parameters/X-Amz-Content-Sha256"
         },
         {
           "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
         }
       ]
     }
@@ -262,6 +324,10 @@
         "RuleSetName",
         "OriginalRuleSetName"
       ],
+      "example": {
+        "OriginalRuleSetName": "RuleSetToClone",
+        "RuleSetName": "RuleSetToCreate"
+      },
       "properties": {
         "RuleSetName": {
           "$ref": "#/definitions/ReceiptRuleSetName",
@@ -304,6 +370,15 @@
       "required": [
         "Filter"
       ],
+      "example": {
+        "Filter": {
+          "IpFilter": {
+            "Cidr": "1.2.3.4/24",
+            "Policy": "Allow"
+          },
+          "Name": "MyFilter"
+        }
+      },
       "properties": {
         "Filter": {
           "$ref": "#/definitions/ReceiptFilter",
@@ -323,6 +398,24 @@
         "RuleSetName",
         "Rule"
       ],
+      "example": {
+        "After": "",
+        "Rule": {
+          "Actions": [
+            {
+              "S3Action": {
+                "BucketName": "MyBucket",
+                "ObjectKeyPrefix": "email"
+              }
+            }
+          ],
+          "Enabled": true,
+          "Name": "MyRule",
+          "ScanEnabled": true,
+          "TlsPolicy": "Optional"
+        },
+        "RuleSetName": "MyRuleSet"
+      },
       "properties": {
         "RuleSetName": {
           "$ref": "#/definitions/ReceiptRuleSetName",
@@ -349,6 +442,9 @@
       "required": [
         "RuleSetName"
       ],
+      "example": {
+        "RuleSetName": "MyRuleSet"
+      },
       "properties": {
         "RuleSetName": {
           "$ref": "#/definitions/ReceiptRuleSetName",
@@ -377,6 +473,10 @@
         "Identity",
         "PolicyName"
       ],
+      "example": {
+        "Identity": "user@example.com",
+        "PolicyName": "MyPolicy"
+      },
       "properties": {
         "Identity": {
           "$ref": "#/definitions/Identity",
@@ -399,6 +499,9 @@
       "required": [
         "Identity"
       ],
+      "example": {
+        "Identity": "user@example.com"
+      },
       "properties": {
         "Identity": {
           "$ref": "#/definitions/Identity",
@@ -417,6 +520,9 @@
       "required": [
         "FilterName"
       ],
+      "example": {
+        "FilterName": "MyFilter"
+      },
       "properties": {
         "FilterName": {
           "$ref": "#/definitions/ReceiptFilterName",
@@ -436,6 +542,10 @@
         "RuleSetName",
         "RuleName"
       ],
+      "example": {
+        "RuleName": "MyRule",
+        "RuleSetName": "MyRuleSet"
+      },
       "properties": {
         "RuleSetName": {
           "$ref": "#/definitions/ReceiptRuleSetName",
@@ -458,6 +568,9 @@
       "required": [
         "RuleSetName"
       ],
+      "example": {
+        "RuleSetName": "MyRuleSet"
+      },
       "properties": {
         "RuleSetName": {
           "$ref": "#/definitions/ReceiptRuleSetName",
@@ -476,6 +589,9 @@
       "required": [
         "EmailAddress"
       ],
+      "example": {
+        "EmailAddress": "user@example.com"
+      },
       "properties": {
         "EmailAddress": {
           "$ref": "#/definitions/Address",
@@ -486,11 +602,34 @@
     },
     "DescribeActiveReceiptRuleSetRequest": {
       "type": "object",
+      "example": {},
       "properties": {},
       "description": "Represents a request to return the metadata and receipt rules for the receipt rule set that is currently active. You use receipt rule sets to receive email with Amazon SES. For more information, see the <a href=\"http://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-concepts.html\">Amazon SES Developer Guide</a>."
     },
     "DescribeActiveReceiptRuleSetResponse": {
       "type": "object",
+      "example": {
+        "Metadata": {
+          "CreatedTimestamp": "2016-07-15T16:25:59.607Z",
+          "Name": "default-rule-set"
+        },
+        "Rules": [
+          {
+            "Actions": [
+              {
+                "S3Action": {
+                  "BucketName": "MyBucket",
+                  "ObjectKeyPrefix": "email"
+                }
+              }
+            ],
+            "Enabled": true,
+            "Name": "MyRule",
+            "ScanEnabled": true,
+            "TlsPolicy": "Optional"
+          }
+        ]
+      },
       "properties": {
         "Metadata": {
           "$ref": "#/definitions/ReceiptRuleSetMetadata",
@@ -509,6 +648,10 @@
         "RuleSetName",
         "RuleName"
       ],
+      "example": {
+        "RuleName": "MyRule",
+        "RuleSetName": "MyRuleSet"
+      },
       "properties": {
         "RuleSetName": {
           "$ref": "#/definitions/ReceiptRuleSetName",
@@ -523,6 +666,22 @@
     },
     "DescribeReceiptRuleResponse": {
       "type": "object",
+      "example": {
+        "Rule": {
+          "Actions": [
+            {
+              "S3Action": {
+                "BucketName": "MyBucket",
+                "ObjectKeyPrefix": "email"
+              }
+            }
+          ],
+          "Enabled": true,
+          "Name": "MyRule",
+          "ScanEnabled": true,
+          "TlsPolicy": "Optional"
+        }
+      },
       "properties": {
         "Rule": {
           "$ref": "#/definitions/ReceiptRule",
@@ -536,6 +695,9 @@
       "required": [
         "RuleSetName"
       ],
+      "example": {
+        "RuleSetName": "MyRuleSet"
+      },
       "properties": {
         "RuleSetName": {
           "$ref": "#/definitions/ReceiptRuleSetName",
@@ -546,6 +708,28 @@
     },
     "DescribeReceiptRuleSetResponse": {
       "type": "object",
+      "example": {
+        "Metadata": {
+          "CreatedTimestamp": "2016-07-15T16:25:59.607Z",
+          "Name": "MyRuleSet"
+        },
+        "Rules": [
+          {
+            "Actions": [
+              {
+                "S3Action": {
+                  "BucketName": "MyBucket",
+                  "ObjectKeyPrefix": "email"
+                }
+              }
+            ],
+            "Enabled": true,
+            "Name": "MyRule",
+            "ScanEnabled": true,
+            "TlsPolicy": "Optional"
+          }
+        ]
+      },
       "properties": {
         "Metadata": {
           "$ref": "#/definitions/ReceiptRuleSetMetadata",
@@ -650,6 +834,12 @@
       "required": [
         "Identities"
       ],
+      "example": {
+        "Identities": [
+          "example.com",
+          "user@example.com"
+        ]
+      },
       "properties": {
         "Identities": {
           "$ref": "#/definitions/IdentityList",
@@ -663,6 +853,23 @@
       "required": [
         "DkimAttributes"
       ],
+      "example": {
+        "DkimAttributes": {
+          "example.com": {
+            "DkimEnabled": true,
+            "DkimTokens": [
+              "EXAMPLEjcs5xoyqytjsotsijas7236gr",
+              "EXAMPLEjr76cvoc6mysspnioorxsn6ep",
+              "EXAMPLEkbmkqkhlm2lyz77ppkulerm4k"
+            ],
+            "DkimVerificationStatus": "Success"
+          },
+          "user@example.com": {
+            "DkimEnabled": false,
+            "DkimVerificationStatus": "NotStarted"
+          }
+        }
+      },
       "properties": {
         "DkimAttributes": {
           "$ref": "#/definitions/DkimAttributes",
@@ -676,6 +883,11 @@
       "required": [
         "Identities"
       ],
+      "example": {
+        "Identities": [
+          "example.com"
+        ]
+      },
       "properties": {
         "Identities": {
           "$ref": "#/definitions/IdentityList",
@@ -689,6 +901,15 @@
       "required": [
         "MailFromDomainAttributes"
       ],
+      "example": {
+        "MailFromDomainAttributes": {
+          "example.com": {
+            "BehaviorOnMXFailure": "UseDefaultValue",
+            "MailFromDomain": "bounces.example.com",
+            "MailFromDomainStatus": "Success"
+          }
+        }
+      },
       "properties": {
         "MailFromDomainAttributes": {
           "$ref": "#/definitions/MailFromDomainAttributes",
@@ -702,6 +923,11 @@
       "required": [
         "Identities"
       ],
+      "example": {
+        "Identities": [
+          "example.com"
+        ]
+      },
       "properties": {
         "Identities": {
           "$ref": "#/definitions/IdentityList",
@@ -715,6 +941,17 @@
       "required": [
         "NotificationAttributes"
       ],
+      "example": {
+        "NotificationAttributes": {
+          "example.com": {
+            "BounceTopic": "arn:aws:sns:us-east-1:EXAMPLE65304:ExampleTopic",
+            "ForwardingEnabled": true,
+            "HeadersInBounceNotificationsEnabled": false,
+            "HeadersInComplaintNotificationsEnabled": false,
+            "HeadersInDeliveryNotificationsEnabled": false
+          }
+        }
+      },
       "properties": {
         "NotificationAttributes": {
           "$ref": "#/definitions/NotificationAttributes",
@@ -729,6 +966,12 @@
         "Identity",
         "PolicyNames"
       ],
+      "example": {
+        "Identity": "example.com",
+        "PolicyNames": [
+          "MyPolicy"
+        ]
+      },
       "properties": {
         "Identity": {
           "$ref": "#/definitions/Identity",
@@ -746,6 +989,11 @@
       "required": [
         "Policies"
       ],
+      "example": {
+        "Policies": {
+          "MyPolicy": "{\"Version\":\"2008-10-17\",\"Statement\":[{\"Sid\":\"stmt1469123904194\",\"Effect\":\"Allow\",\"Principal\":{\"AWS\":\"arn:aws:iam::123456789012:root\"},\"Action\":[\"ses:SendEmail\",\"ses:SendRawEmail\"],\"Resource\":\"arn:aws:ses:us-east-1:EXAMPLE65304:identity/example.com\"}]}"
+        }
+      },
       "properties": {
         "Policies": {
           "$ref": "#/definitions/PolicyMap",
@@ -759,6 +1007,11 @@
       "required": [
         "Identities"
       ],
+      "example": {
+        "Identities": [
+          "example.com"
+        ]
+      },
       "properties": {
         "Identities": {
           "$ref": "#/definitions/IdentityList",
@@ -772,6 +1025,14 @@
       "required": [
         "VerificationAttributes"
       ],
+      "example": {
+        "VerificationAttributes": {
+          "example.com": {
+            "VerificationStatus": "Success",
+            "VerificationToken": "EXAMPLE3VYb9EDI2nTOQRi/Tf6MI/6bD6THIGiP1MVY="
+          }
+        }
+      },
       "properties": {
         "VerificationAttributes": {
           "$ref": "#/definitions/VerificationAttributes",
@@ -782,6 +1043,11 @@
     },
     "GetSendQuotaResponse": {
       "type": "object",
+      "example": {
+        "Max24HourSend": 200,
+        "MaxSendRate": 1,
+        "SentLast24Hours": 1
+      },
       "properties": {
         "Max24HourSend": {
           "$ref": "#/definitions/Max24HourSend",
@@ -800,6 +1066,31 @@
     },
     "GetSendStatisticsResponse": {
       "type": "object",
+      "example": {
+        "SendDataPoints": [
+          {
+            "Bounces": 0,
+            "Complaints": 0,
+            "DeliveryAttempts": 5,
+            "Rejects": 0,
+            "Timestamp": "2016-07-13T22:43:00Z"
+          },
+          {
+            "Bounces": 0,
+            "Complaints": 0,
+            "DeliveryAttempts": 3,
+            "Rejects": 0,
+            "Timestamp": "2016-07-13T23:13:00Z"
+          },
+          {
+            "Bounces": 0,
+            "Complaints": 0,
+            "DeliveryAttempts": 1,
+            "Rejects": 0,
+            "Timestamp": "2016-07-13T21:13:00Z"
+          }
+        ]
+      },
       "properties": {
         "SendDataPoints": {
           "$ref": "#/definitions/SendDataPointList",
@@ -1003,6 +1294,11 @@
     },
     "ListIdentitiesRequest": {
       "type": "object",
+      "example": {
+        "IdentityType": "EmailAddress",
+        "MaxItems": 123,
+        "NextToken": ""
+      },
       "properties": {
         "IdentityType": {
           "$ref": "#/definitions/IdentityType",
@@ -1024,6 +1320,12 @@
       "required": [
         "Identities"
       ],
+      "example": {
+        "Identities": [
+          "user@example.com"
+        ],
+        "NextToken": ""
+      },
       "properties": {
         "Identities": {
           "$ref": "#/definitions/IdentityList",
@@ -1041,6 +1343,9 @@
       "required": [
         "Identity"
       ],
+      "example": {
+        "Identity": "example.com"
+      },
       "properties": {
         "Identity": {
           "$ref": "#/definitions/Identity",
@@ -1054,6 +1359,11 @@
       "required": [
         "PolicyNames"
       ],
+      "example": {
+        "PolicyNames": [
+          "MyPolicy"
+        ]
+      },
       "properties": {
         "PolicyNames": {
           "$ref": "#/definitions/PolicyNameList",
@@ -1069,6 +1379,17 @@
     },
     "ListReceiptFiltersResponse": {
       "type": "object",
+      "example": {
+        "Filters": [
+          {
+            "IpFilter": {
+              "Cidr": "1.2.3.4/24",
+              "Policy": "Block"
+            },
+            "Name": "MyFilter"
+          }
+        ]
+      },
       "properties": {
         "Filters": {
           "$ref": "#/definitions/ReceiptFilterList",
@@ -1079,6 +1400,9 @@
     },
     "ListReceiptRuleSetsRequest": {
       "type": "object",
+      "example": {
+        "NextToken": ""
+      },
       "properties": {
         "NextToken": {
           "$ref": "#/definitions/NextToken",
@@ -1089,6 +1413,15 @@
     },
     "ListReceiptRuleSetsResponse": {
       "type": "object",
+      "example": {
+        "NextToken": "",
+        "RuleSets": [
+          {
+            "CreatedTimestamp": "2016-07-15T16:25:59.607Z",
+            "Name": "MyRuleSet"
+          }
+        ]
+      },
       "properties": {
         "RuleSets": {
           "$ref": "#/definitions/ReceiptRuleSetsLists",
@@ -1103,6 +1436,12 @@
     },
     "ListVerifiedEmailAddressesResponse": {
       "type": "object",
+      "example": {
+        "VerifiedEmailAddresses": [
+          "user1@example.com",
+          "user2@example.com"
+        ]
+      },
       "properties": {
         "VerifiedEmailAddresses": {
           "$ref": "#/definitions/AddressList",
@@ -1258,6 +1597,11 @@
         "PolicyName",
         "Policy"
       ],
+      "example": {
+        "Identity": "example.com",
+        "Policy": "{\"Version\":\"2008-10-17\",\"Statement\":[{\"Sid\":\"stmt1469123904194\",\"Effect\":\"Allow\",\"Principal\":{\"AWS\":\"arn:aws:iam::123456789012:root\"},\"Action\":[\"ses:SendEmail\",\"ses:SendRawEmail\"],\"Resource\":\"arn:aws:ses:us-east-1:EXAMPLE65304:identity/example.com\"}]}",
+        "PolicyName": "MyPolicy"
+      },
       "properties": {
         "Identity": {
           "$ref": "#/definitions/Identity",
@@ -1514,6 +1858,13 @@
         "RuleSetName",
         "RuleNames"
       ],
+      "example": {
+        "RuleNames": [
+          "MyRule",
+          "MyOtherRule"
+        ],
+        "RuleSetName": "MyRuleSet"
+      },
       "properties": {
         "RuleSetName": {
           "$ref": "#/definitions/ReceiptRuleSetName",
@@ -1694,6 +2045,39 @@
         "Destination",
         "Message"
       ],
+      "example": {
+        "Destination": {
+          "BccAddresses": [],
+          "CcAddresses": [
+            "recipient3@example.com"
+          ],
+          "ToAddresses": [
+            "recipient1@example.com",
+            "recipient2@example.com"
+          ]
+        },
+        "Message": {
+          "Body": {
+            "Html": {
+              "Charset": "UTF-8",
+              "Data": "This message body contains HTML formatting. It can, for example, contain links like this one: <a class=\"ulink\" href=\"http://docs.aws.amazon.com/ses/latest/DeveloperGuide\" target=\"_blank\">Amazon SES Developer Guide</a>."
+            },
+            "Text": {
+              "Charset": "UTF-8",
+              "Data": "This is the message body in text format."
+            }
+          },
+          "Subject": {
+            "Charset": "UTF-8",
+            "Data": "Test email"
+          }
+        },
+        "ReplyToAddresses": [],
+        "ReturnPath": "",
+        "ReturnPathArn": "",
+        "Source": "sender@example.com",
+        "SourceArn": ""
+      },
       "properties": {
         "Source": {
           "$ref": "#/definitions/Address",
@@ -1731,6 +2115,9 @@
       "required": [
         "MessageId"
       ],
+      "example": {
+        "MessageId": "EXAMPLE78603177f-7a5433e7-8edb-42ae-af10-f0181f34d6ee-000000"
+      },
       "properties": {
         "MessageId": {
           "$ref": "#/definitions/MessageId",
@@ -1744,6 +2131,16 @@
       "required": [
         "RawMessage"
       ],
+      "example": {
+        "Destinations": [],
+        "FromArn": "",
+        "RawMessage": {
+          "Data": "From: sender@example.com\\nTo: recipient@example.com\\nSubject: Test email (contains an attachment)\\nMIME-Version: 1.0\\nContent-type: Multipart/Mixed; boundary=\"NextPart\"\\n\\n--NextPart\\nContent-Type: text/plain\\n\\nThis is the message body.\\n\\n--NextPart\\nContent-Type: text/plain;\\nContent-Disposition: attachment; filename=\"attachment.txt\"\\n\\nThis is the text in the attachment.\\n\\n--NextPart--"
+        },
+        "ReturnPathArn": "",
+        "Source": "",
+        "SourceArn": ""
+      },
       "properties": {
         "Source": {
           "$ref": "#/definitions/Address",
@@ -1777,6 +2174,9 @@
       "required": [
         "MessageId"
       ],
+      "example": {
+        "MessageId": "EXAMPLEf3f73d99b-c63fb06f-d263-41f8-a0fb-d0dc67d56c07-000000"
+      },
       "properties": {
         "MessageId": {
           "$ref": "#/definitions/MessageId",
@@ -1791,6 +2191,9 @@
     },
     "SetActiveReceiptRuleSetRequest": {
       "type": "object",
+      "example": {
+        "RuleSetName": "RuleSetToActivate"
+      },
       "properties": {
         "RuleSetName": {
           "$ref": "#/definitions/ReceiptRuleSetName",
@@ -1810,6 +2213,10 @@
         "Identity",
         "DkimEnabled"
       ],
+      "example": {
+        "DkimEnabled": true,
+        "Identity": "user@example.com"
+      },
       "properties": {
         "Identity": {
           "$ref": "#/definitions/Identity",
@@ -1833,6 +2240,10 @@
         "Identity",
         "ForwardingEnabled"
       ],
+      "example": {
+        "ForwardingEnabled": true,
+        "Identity": "user@example.com"
+      },
       "properties": {
         "Identity": {
           "$ref": "#/definitions/Identity",
@@ -1857,6 +2268,11 @@
         "NotificationType",
         "Enabled"
       ],
+      "example": {
+        "Enabled": true,
+        "Identity": "user@example.com",
+        "NotificationType": "Bounce"
+      },
       "properties": {
         "Identity": {
           "$ref": "#/definitions/Identity",
@@ -1883,6 +2299,11 @@
       "required": [
         "Identity"
       ],
+      "example": {
+        "BehaviorOnMXFailure": "UseDefaultValue",
+        "Identity": "user@example.com",
+        "MailFromDomain": "bounces.example.com"
+      },
       "properties": {
         "Identity": {
           "$ref": "#/definitions/Identity",
@@ -1910,6 +2331,11 @@
         "Identity",
         "NotificationType"
       ],
+      "example": {
+        "Identity": "user@example.com",
+        "NotificationType": "Bounce",
+        "SnsTopic": "arn:aws:sns:us-west-2:111122223333:MyTopic"
+      },
       "properties": {
         "Identity": {
           "$ref": "#/definitions/Identity",
@@ -1937,6 +2363,11 @@
         "RuleSetName",
         "RuleName"
       ],
+      "example": {
+        "After": "PutRuleAfterThisRule",
+        "RuleName": "RuleToReposition",
+        "RuleSetName": "MyRuleSet"
+      },
       "properties": {
         "RuleSetName": {
           "$ref": "#/definitions/ReceiptRuleSetName",
@@ -1998,6 +2429,23 @@
         "RuleSetName",
         "Rule"
       ],
+      "example": {
+        "Rule": {
+          "Actions": [
+            {
+              "S3Action": {
+                "BucketName": "MyBucket",
+                "ObjectKeyPrefix": "email"
+              }
+            }
+          ],
+          "Enabled": true,
+          "Name": "MyRule",
+          "ScanEnabled": true,
+          "TlsPolicy": "Optional"
+        },
+        "RuleSetName": "MyRuleSet"
+      },
       "properties": {
         "RuleSetName": {
           "$ref": "#/definitions/ReceiptRuleSetName",
@@ -2053,6 +2501,9 @@
       "required": [
         "Domain"
       ],
+      "example": {
+        "Domain": "example.com"
+      },
       "properties": {
         "Domain": {
           "$ref": "#/definitions/Domain",
@@ -2066,6 +2517,13 @@
       "required": [
         "DkimTokens"
       ],
+      "example": {
+        "DkimTokens": [
+          "EXAMPLEq76owjnks3lnluwg65scbemvw",
+          "EXAMPLEi3dnsj67hstzaj673klariwx2",
+          "EXAMPLEwfbtcukvimehexktmdtaz6naj"
+        ]
+      },
       "properties": {
         "DkimTokens": {
           "$ref": "#/definitions/VerificationTokenList",
@@ -2079,6 +2537,9 @@
       "required": [
         "Domain"
       ],
+      "example": {
+        "Domain": "example.com"
+      },
       "properties": {
         "Domain": {
           "$ref": "#/definitions/Domain",
@@ -2092,6 +2553,9 @@
       "required": [
         "VerificationToken"
       ],
+      "example": {
+        "VerificationToken": "eoEmxw+YaYhb3h3iVJHuXMJXqeu1q1/wwmvjuEXAMPLE"
+      },
       "properties": {
         "VerificationToken": {
           "$ref": "#/definitions/VerificationToken",
@@ -2105,6 +2569,9 @@
       "required": [
         "EmailAddress"
       ],
+      "example": {
+        "EmailAddress": "user@example.com"
+      },
       "properties": {
         "EmailAddress": {
           "$ref": "#/definitions/Address",
@@ -2118,6 +2585,9 @@
       "required": [
         "EmailAddress"
       ],
+      "example": {
+        "EmailAddress": "user@example.com"
+      },
       "properties": {
         "EmailAddress": {
           "$ref": "#/definitions/Address",

@@ -36,18 +36,59 @@
     "application/json"
   ],
   "parameters": {
+    "Action": {
+      "name": "Action",
+      "in": "header",
+      "type": "string",
+      "required": true
+    },
+    "Version": {
+      "name": "Version",
+      "in": "header",
+      "type": "string",
+      "required": true
+    },
     "X-Amz-Content-Sha256": {
       "name": "X-Amz-Content-Sha256",
       "in": "header",
       "type": "string",
-      "required": true
+      "required": false
     },
     "X-Amz-Date": {
       "name": "X-Amz-Date",
       "in": "header",
       "type": "string",
-      "format": "date-time",
-      "required": true
+      "required": false
+    },
+    "X-Amz-Algorithm": {
+      "name": "X-Amz-Algorithm",
+      "in": "header",
+      "type": "string",
+      "required": false
+    },
+    "X-Amz-Credential": {
+      "name": "X-Amz-Credential",
+      "in": "header",
+      "type": "string",
+      "required": false
+    },
+    "X-Amz-Security-Token": {
+      "name": "X-Amz-Security-Token",
+      "in": "header",
+      "type": "string",
+      "required": false
+    },
+    "X-Amz-Signature": {
+      "name": "X-Amz-Signature",
+      "in": "header",
+      "type": "string",
+      "required": false
+    },
+    "X-Amz-SignedHeaders": {
+      "name": "X-Amz-SignedHeaders",
+      "in": "header",
+      "type": "string",
+      "required": false
     }
   },
   "securityDefinitions": {
@@ -126,10 +167,31 @@
       },
       "parameters": [
         {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
           "$ref": "#/parameters/X-Amz-Content-Sha256"
         },
         {
           "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
         }
       ]
     }
@@ -480,6 +542,9 @@
     },
     "CreateClusterRequest": {
       "type": "object",
+      "example": {
+        "clusterName": "my_cluster"
+      },
       "properties": {
         "clusterName": {
           "$ref": "#/definitions/String",
@@ -489,6 +554,17 @@
     },
     "CreateClusterResponse": {
       "type": "object",
+      "example": {
+        "cluster": {
+          "activeServicesCount": 0,
+          "clusterArn": "arn:aws:ecs:us-east-1:012345678910:cluster/my_cluster",
+          "clusterName": "my_cluster",
+          "pendingTasksCount": 0,
+          "registeredContainerInstancesCount": 0,
+          "runningTasksCount": 0,
+          "status": "ACTIVE"
+        }
+      },
       "properties": {
         "cluster": {
           "$ref": "#/definitions/Cluster",
@@ -503,6 +579,19 @@
         "taskDefinition",
         "desiredCount"
       ],
+      "example": {
+        "desiredCount": 10,
+        "loadBalancers": [
+          {
+            "containerName": "simple-app",
+            "containerPort": 80,
+            "loadBalancerName": "EC2Contai-EcsElast-15DCDAURT3ZO2"
+          }
+        ],
+        "role": "ecsServiceRole",
+        "serviceName": "ecs-simple-service-elb",
+        "taskDefinition": "console-sample-app-static"
+      },
       "properties": {
         "cluster": {
           "$ref": "#/definitions/String",
@@ -540,6 +629,44 @@
     },
     "CreateServiceResponse": {
       "type": "object",
+      "example": {
+        "service": {
+          "clusterArn": "arn:aws:ecs:us-east-1:012345678910:cluster/default",
+          "createdAt": "2016-08-29T16:02:54.884Z",
+          "deploymentConfiguration": {
+            "maximumPercent": 200,
+            "minimumHealthyPercent": 100
+          },
+          "deployments": [
+            {
+              "createdAt": "2016-08-29T16:02:54.884Z",
+              "desiredCount": 10,
+              "id": "ecs-svc/9223370564343000923",
+              "pendingCount": 0,
+              "runningCount": 0,
+              "status": "PRIMARY",
+              "taskDefinition": "arn:aws:ecs:us-east-1:012345678910:task-definition/console-sample-app-static:6",
+              "updatedAt": "2016-08-29T16:02:54.884Z"
+            }
+          ],
+          "desiredCount": 10,
+          "events": [],
+          "loadBalancers": [
+            {
+              "containerName": "simple-app",
+              "containerPort": 80,
+              "loadBalancerName": "EC2Contai-EcsElast-15DCDAURT3ZO2"
+            }
+          ],
+          "pendingCount": 0,
+          "roleArn": "arn:aws:iam::012345678910:role/ecsServiceRole",
+          "runningCount": 0,
+          "serviceArn": "arn:aws:ecs:us-east-1:012345678910:service/ecs-simple-service-elb",
+          "serviceName": "ecs-simple-service-elb",
+          "status": "ACTIVE",
+          "taskDefinition": "arn:aws:ecs:us-east-1:012345678910:task-definition/console-sample-app-static:6"
+        }
+      },
       "properties": {
         "service": {
           "$ref": "#/definitions/Service",
@@ -552,6 +679,9 @@
       "required": [
         "cluster"
       ],
+      "example": {
+        "cluster": "my_cluster"
+      },
       "properties": {
         "cluster": {
           "$ref": "#/definitions/String",
@@ -561,6 +691,17 @@
     },
     "DeleteClusterResponse": {
       "type": "object",
+      "example": {
+        "cluster": {
+          "activeServicesCount": 0,
+          "clusterArn": "arn:aws:ecs:us-east-1:012345678910:cluster/my_cluster",
+          "clusterName": "my_cluster",
+          "pendingTasksCount": 0,
+          "registeredContainerInstancesCount": 0,
+          "runningTasksCount": 0,
+          "status": "INACTIVE"
+        }
+      },
       "properties": {
         "cluster": {
           "$ref": "#/definitions/Cluster",
@@ -573,6 +714,9 @@
       "required": [
         "service"
       ],
+      "example": {
+        "service": "my-http-service"
+      },
       "properties": {
         "cluster": {
           "$ref": "#/definitions/String",
@@ -586,6 +730,7 @@
     },
     "DeleteServiceResponse": {
       "type": "object",
+      "example": {},
       "properties": {
         "service": {
           "$ref": "#/definitions/Service",
@@ -656,6 +801,11 @@
       "required": [
         "containerInstance"
       ],
+      "example": {
+        "cluster": "default",
+        "containerInstance": "container_instance_UUID",
+        "force": true
+      },
       "properties": {
         "cluster": {
           "$ref": "#/definitions/String",
@@ -673,6 +823,7 @@
     },
     "DeregisterContainerInstanceResponse": {
       "type": "object",
+      "example": {},
       "properties": {
         "containerInstance": {
           "$ref": "#/definitions/ContainerInstance"
@@ -702,6 +853,11 @@
     },
     "DescribeClustersRequest": {
       "type": "object",
+      "example": {
+        "clusters": [
+          "default"
+        ]
+      },
       "properties": {
         "clusters": {
           "$ref": "#/definitions/StringList",
@@ -711,6 +867,16 @@
     },
     "DescribeClustersResponse": {
       "type": "object",
+      "example": {
+        "clusters": [
+          {
+            "clusterArn": "arn:aws:ecs:us-east-1:aws_account_id:cluster/default",
+            "clusterName": "default",
+            "status": "ACTIVE"
+          }
+        ],
+        "failures": []
+      },
       "properties": {
         "clusters": {
           "$ref": "#/definitions/Clusters",
@@ -727,6 +893,12 @@
       "required": [
         "containerInstances"
       ],
+      "example": {
+        "cluster": "default",
+        "containerInstances": [
+          "f2756532-8f13-4d53-87c9-aed50dc94cd7"
+        ]
+      },
       "properties": {
         "cluster": {
           "$ref": "#/definitions/String",
@@ -740,6 +912,78 @@
     },
     "DescribeContainerInstancesResponse": {
       "type": "object",
+      "example": {
+        "containerInstances": [
+          {
+            "agentConnected": true,
+            "containerInstanceArn": "arn:aws:ecs:us-east-1:012345678910:container-instance/f2756532-8f13-4d53-87c9-aed50dc94cd7",
+            "ec2InstanceId": "i-807f3249",
+            "pendingTasksCount": 0,
+            "registeredResources": [
+              {
+                "name": "CPU",
+                "type": "INTEGER",
+                "doubleValue": 0,
+                "integerValue": 2048,
+                "longValue": 0
+              },
+              {
+                "name": "MEMORY",
+                "type": "INTEGER",
+                "doubleValue": 0,
+                "integerValue": 3768,
+                "longValue": 0
+              },
+              {
+                "name": "PORTS",
+                "type": "STRINGSET",
+                "doubleValue": 0,
+                "integerValue": 0,
+                "longValue": 0,
+                "stringSetValue": [
+                  "2376",
+                  "22",
+                  "51678",
+                  "2375"
+                ]
+              }
+            ],
+            "remainingResources": [
+              {
+                "name": "CPU",
+                "type": "INTEGER",
+                "doubleValue": 0,
+                "integerValue": 1948,
+                "longValue": 0
+              },
+              {
+                "name": "MEMORY",
+                "type": "INTEGER",
+                "doubleValue": 0,
+                "integerValue": 3668,
+                "longValue": 0
+              },
+              {
+                "name": "PORTS",
+                "type": "STRINGSET",
+                "doubleValue": 0,
+                "integerValue": 0,
+                "longValue": 0,
+                "stringSetValue": [
+                  "2376",
+                  "22",
+                  "80",
+                  "51678",
+                  "2375"
+                ]
+              }
+            ],
+            "runningTasksCount": 1,
+            "status": "ACTIVE"
+          }
+        ],
+        "failures": []
+      },
       "properties": {
         "containerInstances": {
           "$ref": "#/definitions/ContainerInstances",
@@ -756,6 +1000,11 @@
       "required": [
         "services"
       ],
+      "example": {
+        "services": [
+          "ecs-simple-service"
+        ]
+      },
       "properties": {
         "cluster": {
           "$ref": "#/definitions/String",
@@ -769,6 +1018,46 @@
     },
     "DescribeServicesResponse": {
       "type": "object",
+      "example": {
+        "failures": [],
+        "services": [
+          {
+            "clusterArn": "arn:aws:ecs:us-east-1:012345678910:cluster/default",
+            "createdAt": "2016-08-29T16:25:52.130Z",
+            "deploymentConfiguration": {
+              "maximumPercent": 200,
+              "minimumHealthyPercent": 100
+            },
+            "deployments": [
+              {
+                "createdAt": "2016-08-29T16:25:52.130Z",
+                "desiredCount": 1,
+                "id": "ecs-svc/9223370564341623665",
+                "pendingCount": 0,
+                "runningCount": 0,
+                "status": "PRIMARY",
+                "taskDefinition": "arn:aws:ecs:us-east-1:012345678910:task-definition/hello_world:6",
+                "updatedAt": "2016-08-29T16:25:52.130Z"
+              }
+            ],
+            "desiredCount": 1,
+            "events": [
+              {
+                "createdAt": "2016-08-29T16:25:58.520Z",
+                "id": "38c285e5-d335-4b68-8b15-e46dedc8e88d",
+                "message": "(service ecs-simple-service) was unable to place a task because no container instance met all of its requirements. The closest matching (container-instance 3f4de1c5-ffdd-4954-af7e-75b4be0c8841) is already using a port required by your task. For more information, see the Troubleshooting section of the Amazon ECS Developer Guide."
+              }
+            ],
+            "loadBalancers": [],
+            "pendingCount": 0,
+            "runningCount": 0,
+            "serviceArn": "arn:aws:ecs:us-east-1:012345678910:service/ecs-simple-service",
+            "serviceName": "ecs-simple-service",
+            "status": "ACTIVE",
+            "taskDefinition": "arn:aws:ecs:us-east-1:012345678910:task-definition/hello_world:6"
+          }
+        ]
+      },
       "properties": {
         "services": {
           "$ref": "#/definitions/Services",
@@ -785,6 +1074,9 @@
       "required": [
         "taskDefinition"
       ],
+      "example": {
+        "taskDefinition": "hello_world:8"
+      },
       "properties": {
         "taskDefinition": {
           "$ref": "#/definitions/String",
@@ -794,6 +1086,51 @@
     },
     "DescribeTaskDefinitionResponse": {
       "type": "object",
+      "example": {
+        "taskDefinition": {
+          "containerDefinitions": [
+            {
+              "name": "wordpress",
+              "cpu": 10,
+              "environment": [],
+              "essential": true,
+              "image": "wordpress",
+              "links": [
+                "mysql"
+              ],
+              "memory": 500,
+              "mountPoints": [],
+              "portMappings": [
+                {
+                  "containerPort": 80,
+                  "hostPort": 80
+                }
+              ],
+              "volumesFrom": []
+            },
+            {
+              "name": "mysql",
+              "cpu": 10,
+              "environment": [
+                {
+                  "name": "MYSQL_ROOT_PASSWORD",
+                  "value": "password"
+                }
+              ],
+              "essential": true,
+              "image": "mysql",
+              "memory": 500,
+              "mountPoints": [],
+              "portMappings": [],
+              "volumesFrom": []
+            }
+          ],
+          "family": "hello_world",
+          "revision": 8,
+          "taskDefinitionArn": "arn:aws:ecs:us-east-1:<aws_account_id>:task-definition/hello_world:8",
+          "volumes": []
+        }
+      },
       "properties": {
         "taskDefinition": {
           "$ref": "#/definitions/TaskDefinition",
@@ -806,6 +1143,11 @@
       "required": [
         "tasks"
       ],
+      "example": {
+        "tasks": [
+          "c5cba4eb-5dad-405e-96db-71ef8eefe6a8"
+        ]
+      },
       "properties": {
         "cluster": {
           "$ref": "#/definitions/String",
@@ -819,6 +1161,42 @@
     },
     "DescribeTasksResponse": {
       "type": "object",
+      "example": {
+        "failures": [],
+        "tasks": [
+          {
+            "clusterArn": "arn:aws:ecs:<region>:<aws_account_id>:cluster/default",
+            "containerInstanceArn": "arn:aws:ecs:<region>:<aws_account_id>:container-instance/18f9eda5-27d7-4c19-b133-45adc516e8fb",
+            "containers": [
+              {
+                "name": "ecs-demo",
+                "containerArn": "arn:aws:ecs:<region>:<aws_account_id>:container/7c01765b-c588-45b3-8290-4ba38bd6c5a6",
+                "lastStatus": "RUNNING",
+                "networkBindings": [
+                  {
+                    "bindIP": "0.0.0.0",
+                    "containerPort": 80,
+                    "hostPort": 80
+                  }
+                ],
+                "taskArn": "arn:aws:ecs:<region>:<aws_account_id>:task/c5cba4eb-5dad-405e-96db-71ef8eefe6a8"
+              }
+            ],
+            "desiredStatus": "RUNNING",
+            "lastStatus": "RUNNING",
+            "overrides": {
+              "containerOverrides": [
+                {
+                  "name": "ecs-demo"
+                }
+              ]
+            },
+            "startedBy": "ecs-svc/9223370608528463088",
+            "taskArn": "arn:aws:ecs:<region>:<aws_account_id>:task/c5cba4eb-5dad-405e-96db-71ef8eefe6a8",
+            "taskDefinitionArn": "arn:aws:ecs:<region>:<aws_account_id>:task-definition/amazon-ecs-sample:1"
+          }
+        ]
+      },
       "properties": {
         "tasks": {
           "$ref": "#/definitions/Tasks",
@@ -966,6 +1344,7 @@
     },
     "ListClustersRequest": {
       "type": "object",
+      "example": {},
       "properties": {
         "nextToken": {
           "$ref": "#/definitions/String",
@@ -979,6 +1358,12 @@
     },
     "ListClustersResponse": {
       "type": "object",
+      "example": {
+        "clusterArns": [
+          "arn:aws:ecs:us-east-1:<aws_account_id>:cluster/test",
+          "arn:aws:ecs:us-east-1:<aws_account_id>:cluster/default"
+        ]
+      },
       "properties": {
         "clusterArns": {
           "$ref": "#/definitions/StringList",
@@ -992,6 +1377,9 @@
     },
     "ListContainerInstancesRequest": {
       "type": "object",
+      "example": {
+        "cluster": "default"
+      },
       "properties": {
         "cluster": {
           "$ref": "#/definitions/String",
@@ -1009,6 +1397,12 @@
     },
     "ListContainerInstancesResponse": {
       "type": "object",
+      "example": {
+        "containerInstanceArns": [
+          "arn:aws:ecs:us-east-1:<aws_account_id>:container-instance/f6bbb147-5370-4ace-8c73-c7181ded911f",
+          "arn:aws:ecs:us-east-1:<aws_account_id>:container-instance/ffe3d344-77e2-476c-a4d0-bf560ad50acb"
+        ]
+      },
       "properties": {
         "containerInstanceArns": {
           "$ref": "#/definitions/StringList",
@@ -1022,6 +1416,7 @@
     },
     "ListServicesRequest": {
       "type": "object",
+      "example": {},
       "properties": {
         "cluster": {
           "$ref": "#/definitions/String",
@@ -1039,6 +1434,11 @@
     },
     "ListServicesResponse": {
       "type": "object",
+      "example": {
+        "serviceArns": [
+          "arn:aws:ecs:us-east-1:012345678910:service/my-http-service"
+        ]
+      },
       "properties": {
         "serviceArns": {
           "$ref": "#/definitions/StringList",
@@ -1052,6 +1452,9 @@
     },
     "ListTaskDefinitionFamiliesRequest": {
       "type": "object",
+      "example": {
+        "familyPrefix": "hpcc"
+      },
       "properties": {
         "familyPrefix": {
           "$ref": "#/definitions/String",
@@ -1073,6 +1476,12 @@
     },
     "ListTaskDefinitionFamiliesResponse": {
       "type": "object",
+      "example": {
+        "families": [
+          "hpcc",
+          "hpcc-c4-8xlarge"
+        ]
+      },
       "properties": {
         "families": {
           "$ref": "#/definitions/StringList",
@@ -1086,6 +1495,9 @@
     },
     "ListTaskDefinitionsRequest": {
       "type": "object",
+      "example": {
+        "familyPrefix": "wordpress"
+      },
       "properties": {
         "familyPrefix": {
           "$ref": "#/definitions/String",
@@ -1111,6 +1523,14 @@
     },
     "ListTaskDefinitionsResponse": {
       "type": "object",
+      "example": {
+        "taskDefinitionArns": [
+          "arn:aws:ecs:us-east-1:<aws_account_id>:task-definition/wordpress:3",
+          "arn:aws:ecs:us-east-1:<aws_account_id>:task-definition/wordpress:4",
+          "arn:aws:ecs:us-east-1:<aws_account_id>:task-definition/wordpress:5",
+          "arn:aws:ecs:us-east-1:<aws_account_id>:task-definition/wordpress:6"
+        ]
+      },
       "properties": {
         "taskDefinitionArns": {
           "$ref": "#/definitions/StringList",
@@ -1124,6 +1544,10 @@
     },
     "ListTasksRequest": {
       "type": "object",
+      "example": {
+        "cluster": "default",
+        "containerInstance": "f6bbb147-5370-4ace-8c73-c7181ded911f"
+      },
       "properties": {
         "cluster": {
           "$ref": "#/definitions/String",
@@ -1161,6 +1585,11 @@
     },
     "ListTasksResponse": {
       "type": "object",
+      "example": {
+        "taskArns": [
+          "arn:aws:ecs:us-east-1:012345678910:task/0cc43cdb-3bee-4407-9c26-c0e6ea5bee84"
+        ]
+      },
       "properties": {
         "taskArns": {
           "$ref": "#/definitions/StringList",
@@ -1387,6 +1816,24 @@
         "family",
         "containerDefinitions"
       ],
+      "example": {
+        "containerDefinitions": [
+          {
+            "name": "sleep",
+            "command": [
+              "sleep",
+              "360"
+            ],
+            "cpu": 10,
+            "essential": true,
+            "image": "busybox",
+            "memory": 10
+          }
+        ],
+        "family": "sleep360",
+        "taskRoleArn": "",
+        "volumes": []
+      },
       "properties": {
         "family": {
           "$ref": "#/definitions/String",
@@ -1412,6 +1859,31 @@
     },
     "RegisterTaskDefinitionResponse": {
       "type": "object",
+      "example": {
+        "taskDefinition": {
+          "containerDefinitions": [
+            {
+              "name": "sleep",
+              "command": [
+                "sleep",
+                "360"
+              ],
+              "cpu": 10,
+              "environment": [],
+              "essential": true,
+              "image": "busybox",
+              "memory": 10,
+              "mountPoints": [],
+              "portMappings": [],
+              "volumesFrom": []
+            }
+          ],
+          "family": "sleep360",
+          "revision": 1,
+          "taskDefinitionArn": "arn:aws:ecs:us-east-1:<aws_account_id>:task-definition/sleep360:19",
+          "volumes": []
+        }
+      },
       "properties": {
         "taskDefinition": {
           "$ref": "#/definitions/TaskDefinition",
@@ -1466,6 +1938,10 @@
       "required": [
         "taskDefinition"
       ],
+      "example": {
+        "cluster": "default",
+        "taskDefinition": "sleep360:1"
+      },
       "properties": {
         "cluster": {
           "$ref": "#/definitions/String",
@@ -1491,6 +1967,32 @@
     },
     "RunTaskResponse": {
       "type": "object",
+      "example": {
+        "tasks": [
+          {
+            "containerInstanceArn": "arn:aws:ecs:us-east-1:<aws_account_id>:container-instance/ffe3d344-77e2-476c-a4d0-bf560ad50acb",
+            "containers": [
+              {
+                "name": "sleep",
+                "containerArn": "arn:aws:ecs:us-east-1:<aws_account_id>:container/58591c8e-be29-4ddf-95aa-ee459d4c59fd",
+                "lastStatus": "PENDING",
+                "taskArn": "arn:aws:ecs:us-east-1:<aws_account_id>:task/a9f21ea7-c9f5-44b1-b8e6-b31f50ed33c0"
+              }
+            ],
+            "desiredStatus": "RUNNING",
+            "lastStatus": "PENDING",
+            "overrides": {
+              "containerOverrides": [
+                {
+                  "name": "sleep"
+                }
+              ]
+            },
+            "taskArn": "arn:aws:ecs:us-east-1:<aws_account_id>:task/a9f21ea7-c9f5-44b1-b8e6-b31f50ed33c0",
+            "taskDefinitionArn": "arn:aws:ecs:us-east-1:<aws_account_id>:task-definition/sleep360:1"
+          }
+        ]
+      },
       "properties": {
         "tasks": {
           "$ref": "#/definitions/Tasks",
@@ -2000,6 +2502,10 @@
       "required": [
         "service"
       ],
+      "example": {
+        "desiredCount": 10,
+        "service": "my-http-service"
+      },
       "properties": {
         "cluster": {
           "$ref": "#/definitions/String",
@@ -2025,6 +2531,7 @@
     },
     "UpdateServiceResponse": {
       "type": "object",
+      "example": {},
       "properties": {
         "service": {
           "$ref": "#/definitions/Service",

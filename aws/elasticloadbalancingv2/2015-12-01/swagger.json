@@ -32,18 +32,59 @@
   "consumes": [],
   "produces": [],
   "parameters": {
+    "Action": {
+      "name": "Action",
+      "in": "header",
+      "type": "string",
+      "required": true
+    },
+    "Version": {
+      "name": "Version",
+      "in": "header",
+      "type": "string",
+      "required": true
+    },
     "X-Amz-Content-Sha256": {
       "name": "X-Amz-Content-Sha256",
       "in": "header",
       "type": "string",
-      "required": true
+      "required": false
     },
     "X-Amz-Date": {
       "name": "X-Amz-Date",
       "in": "header",
       "type": "string",
-      "format": "date-time",
-      "required": true
+      "required": false
+    },
+    "X-Amz-Algorithm": {
+      "name": "X-Amz-Algorithm",
+      "in": "header",
+      "type": "string",
+      "required": false
+    },
+    "X-Amz-Credential": {
+      "name": "X-Amz-Credential",
+      "in": "header",
+      "type": "string",
+      "required": false
+    },
+    "X-Amz-Security-Token": {
+      "name": "X-Amz-Security-Token",
+      "in": "header",
+      "type": "string",
+      "required": false
+    },
+    "X-Amz-Signature": {
+      "name": "X-Amz-Signature",
+      "in": "header",
+      "type": "string",
+      "required": false
+    },
+    "X-Amz-SignedHeaders": {
+      "name": "X-Amz-SignedHeaders",
+      "in": "header",
+      "type": "string",
+      "required": false
     }
   },
   "securityDefinitions": {
@@ -110,10 +151,31 @@
       },
       "parameters": [
         {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
           "$ref": "#/parameters/X-Amz-Content-Sha256"
         },
         {
           "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
         }
       ]
     }
@@ -155,6 +217,21 @@
         "ResourceArns",
         "Tags"
       ],
+      "example": {
+        "ResourceArns": [
+          "arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188"
+        ],
+        "Tags": [
+          {
+            "Key": "project",
+            "Value": "lima"
+          },
+          {
+            "Key": "department",
+            "Value": "digital-media"
+          }
+        ]
+      },
       "properties": {
         "ResourceArns": {
           "$ref": "#/definitions/ResourceArns",
@@ -257,6 +334,23 @@
         "Port",
         "DefaultActions"
       ],
+      "example": {
+        "Certificates": [
+          {
+            "CertificateArn": "arn:aws:iam::123456789012:server-certificate/my-server-cert"
+          }
+        ],
+        "DefaultActions": [
+          {
+            "TargetGroupArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067",
+            "Type": "forward"
+          }
+        ],
+        "LoadBalancerArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188",
+        "Port": 443,
+        "Protocol": "HTTPS",
+        "SslPolicy": "ELBSecurityPolicy-2015-05"
+      },
       "properties": {
         "LoadBalancerArn": {
           "$ref": "#/definitions/LoadBalancerArn",
@@ -287,6 +381,28 @@
     },
     "CreateListenerOutput": {
       "type": "object",
+      "example": {
+        "Listeners": [
+          {
+            "Certificates": [
+              {
+                "CertificateArn": "arn:aws:iam::123456789012:server-certificate/my-server-cert"
+              }
+            ],
+            "DefaultActions": [
+              {
+                "TargetGroupArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067",
+                "Type": "forward"
+              }
+            ],
+            "ListenerArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:listener/app/my-load-balancer/50dc6c495c0c9188/f2f7dc8efc522ab2",
+            "LoadBalancerArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188",
+            "Port": 443,
+            "Protocol": "HTTPS",
+            "SslPolicy": "ELBSecurityPolicy-2015-05"
+          }
+        ]
+      },
       "properties": {
         "Listeners": {
           "$ref": "#/definitions/Listeners",
@@ -301,6 +417,15 @@
         "Name",
         "Subnets"
       ],
+      "example": {
+        "Name": "my-internal-load-balancer",
+        "Scheme": "internal",
+        "SecurityGroups": [],
+        "Subnets": [
+          "subnet-b7d581c0",
+          "subnet-8360a9e7"
+        ]
+      },
       "properties": {
         "Name": {
           "$ref": "#/definitions/LoadBalancerName",
@@ -327,6 +452,36 @@
     },
     "CreateLoadBalancerOutput": {
       "type": "object",
+      "example": {
+        "LoadBalancers": [
+          {
+            "AvailabilityZones": [
+              {
+                "SubnetId": "subnet-8360a9e7",
+                "ZoneName": "us-west-2a"
+              },
+              {
+                "SubnetId": "subnet-b7d581c0",
+                "ZoneName": "us-west-2b"
+              }
+            ],
+            "CanonicalHostedZoneId": "Z2P70J7EXAMPLE",
+            "CreatedTime": "2016-03-25T21:29:48.850Z",
+            "DNSName": "internal-my-internal-load-balancer-1529930873.us-west-2.elb.amazonaws.com",
+            "LoadBalancerArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-internal-load-balancer/5b49b8d4303115c2",
+            "LoadBalancerName": "my-internal-load-balancer",
+            "Scheme": "internal",
+            "SecurityGroups": [
+              "sg-5943793c"
+            ],
+            "State": {
+              "Code": "provisioning"
+            },
+            "Type": "application",
+            "VpcId": "vpc-3ac0fb5f"
+          }
+        ]
+      },
       "properties": {
         "LoadBalancers": {
           "$ref": "#/definitions/LoadBalancers",
@@ -343,6 +498,24 @@
         "Priority",
         "Actions"
       ],
+      "example": {
+        "Actions": [
+          {
+            "TargetGroupArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067",
+            "Type": "forward"
+          }
+        ],
+        "Conditions": [
+          {
+            "Field": "path-pattern",
+            "Values": [
+              "/img/*"
+            ]
+          }
+        ],
+        "ListenerArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:listener/app/my-load-balancer/50dc6c495c0c9188/f2f7dc8efc522ab2",
+        "Priority": 10
+      },
       "properties": {
         "ListenerArn": {
           "$ref": "#/definitions/ListenerArn",
@@ -365,6 +538,29 @@
     },
     "CreateRuleOutput": {
       "type": "object",
+      "example": {
+        "Rules": [
+          {
+            "Actions": [
+              {
+                "TargetGroupArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067",
+                "Type": "forward"
+              }
+            ],
+            "Conditions": [
+              {
+                "Field": "path-pattern",
+                "Values": [
+                  "/img/*"
+                ]
+              }
+            ],
+            "IsDefault": false,
+            "Priority": "10",
+            "RuleArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:listener-rule/app/my-load-balancer/50dc6c495c0c9188/f2f7dc8efc522ab2/9683b2d02a6cabee"
+          }
+        ]
+      },
       "properties": {
         "Rules": {
           "$ref": "#/definitions/Rules",
@@ -381,6 +577,12 @@
         "Port",
         "VpcId"
       ],
+      "example": {
+        "Name": "my-targets",
+        "Port": 80,
+        "Protocol": "HTTP",
+        "VpcId": "vpc-3ac0fb5f"
+      },
       "properties": {
         "Name": {
           "$ref": "#/definitions/TargetGroupName",
@@ -435,6 +637,27 @@
     },
     "CreateTargetGroupOutput": {
       "type": "object",
+      "example": {
+        "TargetGroups": [
+          {
+            "HealthCheckIntervalSeconds": 30,
+            "HealthCheckPath": "/",
+            "HealthCheckPort": "traffic-port",
+            "HealthCheckProtocol": "HTTP",
+            "HealthCheckTimeoutSeconds": 5,
+            "HealthyThresholdCount": 5,
+            "Matcher": {
+              "HttpCode": "200"
+            },
+            "Port": 80,
+            "Protocol": "HTTP",
+            "TargetGroupArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067",
+            "TargetGroupName": "my-targets",
+            "UnhealthyThresholdCount": 2,
+            "VpcId": "vpc-3ac0fb5f"
+          }
+        ]
+      },
       "properties": {
         "TargetGroups": {
           "$ref": "#/definitions/TargetGroups",
@@ -455,6 +678,9 @@
       "required": [
         "ListenerArn"
       ],
+      "example": {
+        "ListenerArn": "arn:aws:elasticloadbalancing:ua-west-2:123456789012:listener/app/my-load-balancer/50dc6c495c0c9188/f2f7dc8efc522ab2"
+      },
       "properties": {
         "ListenerArn": {
           "$ref": "#/definitions/ListenerArn",
@@ -473,6 +699,9 @@
       "required": [
         "LoadBalancerArn"
       ],
+      "example": {
+        "LoadBalancerArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188"
+      },
       "properties": {
         "LoadBalancerArn": {
           "$ref": "#/definitions/LoadBalancerArn",
@@ -491,6 +720,9 @@
       "required": [
         "RuleArn"
       ],
+      "example": {
+        "RuleArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:listener-rule/app/my-load-balancer/50dc6c495c0c9188/f2f7dc8efc522ab2/1291d13826f405c3"
+      },
       "properties": {
         "RuleArn": {
           "$ref": "#/definitions/RuleArn",
@@ -509,6 +741,9 @@
       "required": [
         "TargetGroupArn"
       ],
+      "example": {
+        "TargetGroupArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067"
+      },
       "properties": {
         "TargetGroupArn": {
           "$ref": "#/definitions/TargetGroupArn",
@@ -528,6 +763,14 @@
         "TargetGroupArn",
         "Targets"
       ],
+      "example": {
+        "TargetGroupArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067",
+        "Targets": [
+          {
+            "Id": "i-0f76fade"
+          }
+        ]
+      },
       "properties": {
         "TargetGroupArn": {
           "$ref": "#/definitions/TargetGroupArn",
@@ -547,6 +790,11 @@
     },
     "DescribeListenersInput": {
       "type": "object",
+      "example": {
+        "ListenerArns": [
+          "arn:aws:elasticloadbalancing:us-west-2:123456789012:listener/app/my-load-balancer/50dc6c495c0c9188/f2f7dc8efc522ab2"
+        ]
+      },
       "properties": {
         "LoadBalancerArn": {
           "$ref": "#/definitions/LoadBalancerArn",
@@ -569,6 +817,22 @@
     },
     "DescribeListenersOutput": {
       "type": "object",
+      "example": {
+        "Listeners": [
+          {
+            "DefaultActions": [
+              {
+                "TargetGroupArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067",
+                "Type": "forward"
+              }
+            ],
+            "ListenerArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:listener/app/my-load-balancer/50dc6c495c0c9188/f2f7dc8efc522ab2",
+            "LoadBalancerArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188",
+            "Port": 80,
+            "Protocol": "HTTP"
+          }
+        ]
+      },
       "properties": {
         "Listeners": {
           "$ref": "#/definitions/Listeners",
@@ -586,6 +850,9 @@
       "required": [
         "LoadBalancerArn"
       ],
+      "example": {
+        "LoadBalancerArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188"
+      },
       "properties": {
         "LoadBalancerArn": {
           "$ref": "#/definitions/LoadBalancerArn",
@@ -596,6 +863,30 @@
     },
     "DescribeLoadBalancerAttributesOutput": {
       "type": "object",
+      "example": {
+        "Attributes": [
+          {
+            "Key": "access_logs.s3.enabled",
+            "Value": "false"
+          },
+          {
+            "Key": "idle_timeout.timeout_seconds",
+            "Value": "60"
+          },
+          {
+            "Key": "access_logs.s3.prefix",
+            "Value": ""
+          },
+          {
+            "Key": "deletion_protection.enabled",
+            "Value": "false"
+          },
+          {
+            "Key": "access_logs.s3.bucket",
+            "Value": ""
+          }
+        ]
+      },
       "properties": {
         "Attributes": {
           "$ref": "#/definitions/LoadBalancerAttributes",
@@ -606,6 +897,11 @@
     },
     "DescribeLoadBalancersInput": {
       "type": "object",
+      "example": {
+        "LoadBalancerArns": [
+          "arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188"
+        ]
+      },
       "properties": {
         "LoadBalancerArns": {
           "$ref": "#/definitions/LoadBalancerArns",
@@ -628,6 +924,36 @@
     },
     "DescribeLoadBalancersOutput": {
       "type": "object",
+      "example": {
+        "LoadBalancers": [
+          {
+            "AvailabilityZones": [
+              {
+                "SubnetId": "subnet-8360a9e7",
+                "ZoneName": "us-west-2a"
+              },
+              {
+                "SubnetId": "subnet-b7d581c0",
+                "ZoneName": "us-west-2b"
+              }
+            ],
+            "CanonicalHostedZoneId": "Z2P70J7EXAMPLE",
+            "CreatedTime": "2016-03-25T21:26:12.920Z",
+            "DNSName": "my-load-balancer-424835706.us-west-2.elb.amazonaws.com",
+            "LoadBalancerArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188",
+            "LoadBalancerName": "my-load-balancer",
+            "Scheme": "internet-facing",
+            "SecurityGroups": [
+              "sg-5943793c"
+            ],
+            "State": {
+              "Code": "active"
+            },
+            "Type": "application",
+            "VpcId": "vpc-3ac0fb5f"
+          }
+        ]
+      },
       "properties": {
         "LoadBalancers": {
           "$ref": "#/definitions/LoadBalancers",
@@ -642,6 +968,11 @@
     },
     "DescribeRulesInput": {
       "type": "object",
+      "example": {
+        "RuleArns": [
+          "arn:aws:elasticloadbalancing:us-west-2:123456789012:listener-rule/app/my-load-balancer/50dc6c495c0c9188/f2f7dc8efc522ab2/9683b2d02a6cabee"
+        ]
+      },
       "properties": {
         "ListenerArn": {
           "$ref": "#/definitions/ListenerArn",
@@ -656,6 +987,29 @@
     },
     "DescribeRulesOutput": {
       "type": "object",
+      "example": {
+        "Rules": [
+          {
+            "Actions": [
+              {
+                "TargetGroupArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067",
+                "Type": "forward"
+              }
+            ],
+            "Conditions": [
+              {
+                "Field": "path-pattern",
+                "Values": [
+                  "/img/*"
+                ]
+              }
+            ],
+            "IsDefault": false,
+            "Priority": "10",
+            "RuleArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:listener-rule/app/my-load-balancer/50dc6c495c0c9188/f2f7dc8efc522ab2/9683b2d02a6cabee"
+          }
+        ]
+      },
       "properties": {
         "Rules": {
           "$ref": "#/definitions/Rules",
@@ -666,6 +1020,11 @@
     },
     "DescribeSSLPoliciesInput": {
       "type": "object",
+      "example": {
+        "Names": [
+          "ELBSecurityPolicy-2015-05"
+        ]
+      },
       "properties": {
         "Names": {
           "$ref": "#/definitions/SslPolicyNames",
@@ -684,6 +1043,96 @@
     },
     "DescribeSSLPoliciesOutput": {
       "type": "object",
+      "example": {
+        "SslPolicies": [
+          {
+            "Ciphers": [
+              {
+                "Name": "ECDHE-ECDSA-AES128-GCM-SHA256",
+                "Priority": 1
+              },
+              {
+                "Name": "ECDHE-RSA-AES128-GCM-SHA256",
+                "Priority": 2
+              },
+              {
+                "Name": "ECDHE-ECDSA-AES128-SHA256",
+                "Priority": 3
+              },
+              {
+                "Name": "ECDHE-RSA-AES128-SHA256",
+                "Priority": 4
+              },
+              {
+                "Name": "ECDHE-ECDSA-AES128-SHA",
+                "Priority": 5
+              },
+              {
+                "Name": "ECDHE-RSA-AES128-SHA",
+                "Priority": 6
+              },
+              {
+                "Name": "DHE-RSA-AES128-SHA",
+                "Priority": 7
+              },
+              {
+                "Name": "ECDHE-ECDSA-AES256-GCM-SHA384",
+                "Priority": 8
+              },
+              {
+                "Name": "ECDHE-RSA-AES256-GCM-SHA384",
+                "Priority": 9
+              },
+              {
+                "Name": "ECDHE-ECDSA-AES256-SHA384",
+                "Priority": 10
+              },
+              {
+                "Name": "ECDHE-RSA-AES256-SHA384",
+                "Priority": 11
+              },
+              {
+                "Name": "ECDHE-RSA-AES256-SHA",
+                "Priority": 12
+              },
+              {
+                "Name": "ECDHE-ECDSA-AES256-SHA",
+                "Priority": 13
+              },
+              {
+                "Name": "AES128-GCM-SHA256",
+                "Priority": 14
+              },
+              {
+                "Name": "AES128-SHA256",
+                "Priority": 15
+              },
+              {
+                "Name": "AES128-SHA",
+                "Priority": 16
+              },
+              {
+                "Name": "AES256-GCM-SHA384",
+                "Priority": 17
+              },
+              {
+                "Name": "AES256-SHA256",
+                "Priority": 18
+              },
+              {
+                "Name": "AES256-SHA",
+                "Priority": 19
+              }
+            ],
+            "Name": "ELBSecurityPolicy-2015-05",
+            "SslProtocols": [
+              "TLSv1",
+              "TLSv1.1",
+              "TLSv1.2"
+            ]
+          }
+        ]
+      },
       "properties": {
         "SslPolicies": {
           "$ref": "#/definitions/SslPolicies",
@@ -701,6 +1150,11 @@
       "required": [
         "ResourceArns"
       ],
+      "example": {
+        "ResourceArns": [
+          "arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188"
+        ]
+      },
       "properties": {
         "ResourceArns": {
           "$ref": "#/definitions/ResourceArns",
@@ -711,6 +1165,23 @@
     },
     "DescribeTagsOutput": {
       "type": "object",
+      "example": {
+        "TagDescriptions": [
+          {
+            "ResourceArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188",
+            "Tags": [
+              {
+                "Key": "project",
+                "Value": "lima"
+              },
+              {
+                "Key": "department",
+                "Value": "digital-media"
+              }
+            ]
+          }
+        ]
+      },
       "properties": {
         "TagDescriptions": {
           "$ref": "#/definitions/TagDescriptions",
@@ -724,6 +1195,9 @@
       "required": [
         "TargetGroupArn"
       ],
+      "example": {
+        "TargetGroupArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067"
+      },
       "properties": {
         "TargetGroupArn": {
           "$ref": "#/definitions/TargetGroupArn",
@@ -734,6 +1208,26 @@
     },
     "DescribeTargetGroupAttributesOutput": {
       "type": "object",
+      "example": {
+        "Attributes": [
+          {
+            "Key": "stickiness.enabled",
+            "Value": "false"
+          },
+          {
+            "Key": "deregistration_delay.timeout_seconds",
+            "Value": "300"
+          },
+          {
+            "Key": "stickiness.type",
+            "Value": "lb_cookie"
+          },
+          {
+            "Key": "stickiness.lb_cookie.duration_seconds",
+            "Value": "86400"
+          }
+        ]
+      },
       "properties": {
         "Attributes": {
           "$ref": "#/definitions/TargetGroupAttributes",
@@ -744,6 +1238,11 @@
     },
     "DescribeTargetGroupsInput": {
       "type": "object",
+      "example": {
+        "TargetGroupArns": [
+          "arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067"
+        ]
+      },
       "properties": {
         "LoadBalancerArn": {
           "$ref": "#/definitions/LoadBalancerArn",
@@ -770,6 +1269,30 @@
     },
     "DescribeTargetGroupsOutput": {
       "type": "object",
+      "example": {
+        "TargetGroups": [
+          {
+            "HealthCheckIntervalSeconds": 30,
+            "HealthCheckPath": "/",
+            "HealthCheckPort": "traffic-port",
+            "HealthCheckProtocol": "HTTP",
+            "HealthCheckTimeoutSeconds": 5,
+            "HealthyThresholdCount": 5,
+            "LoadBalancerArns": [
+              "arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188"
+            ],
+            "Matcher": {
+              "HttpCode": "200"
+            },
+            "Port": 80,
+            "Protocol": "HTTP",
+            "TargetGroupArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067",
+            "TargetGroupName": "my-targets",
+            "UnhealthyThresholdCount": 2,
+            "VpcId": "vpc-3ac0fb5f"
+          }
+        ]
+      },
       "properties": {
         "TargetGroups": {
           "$ref": "#/definitions/TargetGroups",
@@ -787,6 +1310,15 @@
       "required": [
         "TargetGroupArn"
       ],
+      "example": {
+        "TargetGroupArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067",
+        "Targets": [
+          {
+            "Id": "i-0f76fade",
+            "Port": 80
+          }
+        ]
+      },
       "properties": {
         "TargetGroupArn": {
           "$ref": "#/definitions/TargetGroupArn",
@@ -801,6 +1333,20 @@
     },
     "DescribeTargetHealthOutput": {
       "type": "object",
+      "example": {
+        "TargetHealthDescriptions": [
+          {
+            "HealthCheckPort": "80",
+            "Target": {
+              "Id": "i-0f76fade",
+              "Port": 80
+            },
+            "TargetHealth": {
+              "State": "healthy"
+            }
+          }
+        ]
+      },
       "properties": {
         "TargetHealthDescriptions": {
           "$ref": "#/definitions/TargetHealthDescriptions",
@@ -1116,6 +1662,14 @@
       "required": [
         "ListenerArn"
       ],
+      "example": {
+        "Certificates": [
+          {
+            "CertificateArn": "arn:aws:iam::123456789012:server-certificate/my-new-server-cert"
+          }
+        ],
+        "ListenerArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:listener/app/my-load-balancer/50dc6c495c0c9188/0467ef3c8400ae65"
+      },
       "properties": {
         "ListenerArn": {
           "$ref": "#/definitions/ListenerArn",
@@ -1146,6 +1700,28 @@
     },
     "ModifyListenerOutput": {
       "type": "object",
+      "example": {
+        "Listeners": [
+          {
+            "Certificates": [
+              {
+                "CertificateArn": "arn:aws:iam::123456789012:server-certificate/my-new-server-cert"
+              }
+            ],
+            "DefaultActions": [
+              {
+                "TargetGroupArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067",
+                "Type": "forward"
+              }
+            ],
+            "ListenerArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:listener/app/my-load-balancer/50dc6c495c0c9188/0467ef3c8400ae65",
+            "LoadBalancerArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188",
+            "Port": 443,
+            "Protocol": "HTTPS",
+            "SslPolicy": "ELBSecurityPolicy-2015-05"
+          }
+        ]
+      },
       "properties": {
         "Listeners": {
           "$ref": "#/definitions/Listeners",
@@ -1160,6 +1736,23 @@
         "LoadBalancerArn",
         "Attributes"
       ],
+      "example": {
+        "Attributes": [
+          {
+            "Key": "access_logs.s3.enabled",
+            "Value": "true"
+          },
+          {
+            "Key": "access_logs.s3.bucket",
+            "Value": "my-loadbalancer-logs"
+          },
+          {
+            "Key": "access_logs.s3.prefix",
+            "Value": "myapp"
+          }
+        ],
+        "LoadBalancerArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188"
+      },
       "properties": {
         "LoadBalancerArn": {
           "$ref": "#/definitions/LoadBalancerArn",
@@ -1174,6 +1767,30 @@
     },
     "ModifyLoadBalancerAttributesOutput": {
       "type": "object",
+      "example": {
+        "Attributes": [
+          {
+            "Key": "access_logs.s3.enabled",
+            "Value": "true"
+          },
+          {
+            "Key": "access_logs.s3.bucket",
+            "Value": "my-load-balancer-logs"
+          },
+          {
+            "Key": "access_logs.s3.prefix",
+            "Value": "myapp"
+          },
+          {
+            "Key": "idle_timeout.timeout_seconds",
+            "Value": "60"
+          },
+          {
+            "Key": "deletion_protection.enabled",
+            "Value": "false"
+          }
+        ]
+      },
       "properties": {
         "Attributes": {
           "$ref": "#/definitions/LoadBalancerAttributes",
@@ -1187,6 +1804,17 @@
       "required": [
         "RuleArn"
       ],
+      "example": {
+        "Conditions": [
+          {
+            "Field": "path-pattern",
+            "Values": [
+              "/images/*"
+            ]
+          }
+        ],
+        "RuleArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:listener-rule/app/my-load-balancer/50dc6c495c0c9188/f2f7dc8efc522ab2/9683b2d02a6cabee"
+      },
       "properties": {
         "RuleArn": {
           "$ref": "#/definitions/RuleArn",
@@ -1205,6 +1833,29 @@
     },
     "ModifyRuleOutput": {
       "type": "object",
+      "example": {
+        "Rules": [
+          {
+            "Actions": [
+              {
+                "TargetGroupArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067",
+                "Type": "forward"
+              }
+            ],
+            "Conditions": [
+              {
+                "Field": "path-pattern",
+                "Values": [
+                  "/images/*"
+                ]
+              }
+            ],
+            "IsDefault": false,
+            "Priority": "10",
+            "RuleArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:listener-rule/app/my-load-balancer/50dc6c495c0c9188/f2f7dc8efc522ab2/9683b2d02a6cabee"
+          }
+        ]
+      },
       "properties": {
         "Rules": {
           "$ref": "#/definitions/Rules",
@@ -1219,6 +1870,15 @@
         "TargetGroupArn",
         "Attributes"
       ],
+      "example": {
+        "Attributes": [
+          {
+            "Key": "deregistration_delay.timeout_seconds",
+            "Value": "600"
+          }
+        ],
+        "TargetGroupArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067"
+      },
       "properties": {
         "TargetGroupArn": {
           "$ref": "#/definitions/TargetGroupArn",
@@ -1233,6 +1893,26 @@
     },
     "ModifyTargetGroupAttributesOutput": {
       "type": "object",
+      "example": {
+        "Attributes": [
+          {
+            "Key": "stickiness.enabled",
+            "Value": "false"
+          },
+          {
+            "Key": "deregistration_delay.timeout_seconds",
+            "Value": "600"
+          },
+          {
+            "Key": "stickiness.type",
+            "Value": "lb_cookie"
+          },
+          {
+            "Key": "stickiness.lb_cookie.duration_seconds",
+            "Value": "86400"
+          }
+        ]
+      },
       "properties": {
         "Attributes": {
           "$ref": "#/definitions/TargetGroupAttributes",
@@ -1246,6 +1926,11 @@
       "required": [
         "TargetGroupArn"
       ],
+      "example": {
+        "HealthCheckPort": "443",
+        "HealthCheckProtocol": "HTTPS",
+        "TargetGroupArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-https-targets/2453ed029918f21f"
+      },
       "properties": {
         "TargetGroupArn": {
           "$ref": "#/definitions/TargetGroupArn",
@@ -1288,6 +1973,29 @@
     },
     "ModifyTargetGroupOutput": {
       "type": "object",
+      "example": {
+        "TargetGroups": [
+          {
+            "HealthCheckIntervalSeconds": 30,
+            "HealthCheckPort": "443",
+            "HealthCheckProtocol": "HTTPS",
+            "HealthCheckTimeoutSeconds": 5,
+            "HealthyThresholdCount": 5,
+            "LoadBalancerArns": [
+              "arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188"
+            ],
+            "Matcher": {
+              "HttpCode": "200"
+            },
+            "Port": 443,
+            "Protocol": "HTTPS",
+            "TargetGroupArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-https-targets/2453ed029918f21f",
+            "TargetGroupName": "my-https-targets",
+            "UnhealthyThresholdCount": 2,
+            "VpcId": "vpc-3ac0fb5f"
+          }
+        ]
+      },
       "properties": {
         "TargetGroups": {
           "$ref": "#/definitions/TargetGroups",
@@ -1334,6 +2042,19 @@
         "TargetGroupArn",
         "Targets"
       ],
+      "example": {
+        "TargetGroupArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-new-targets/3bb63f11dfb0faf9",
+        "Targets": [
+          {
+            "Id": "i-80c8dd94",
+            "Port": 80
+          },
+          {
+            "Id": "i-80c8dd94",
+            "Port": 766
+          }
+        ]
+      },
       "properties": {
         "TargetGroupArn": {
           "$ref": "#/definitions/TargetGroupArn",
@@ -1357,6 +2078,15 @@
         "ResourceArns",
         "TagKeys"
       ],
+      "example": {
+        "ResourceArns": [
+          "arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188"
+        ],
+        "TagKeys": [
+          "project",
+          "department"
+        ]
+      },
       "properties": {
         "ResourceArns": {
           "$ref": "#/definitions/ResourceArns",
@@ -1498,6 +2228,14 @@
       "required": [
         "RulePriorities"
       ],
+      "example": {
+        "RulePriorities": [
+          {
+            "Priority": 5,
+            "RuleArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:listener-rule/app/my-load-balancer/50dc6c495c0c9188/f2f7dc8efc522ab2/1291d13826f405c3"
+          }
+        ]
+      },
       "properties": {
         "RulePriorities": {
           "$ref": "#/definitions/RulePriorityList",
@@ -1508,6 +2246,29 @@
     },
     "SetRulePrioritiesOutput": {
       "type": "object",
+      "example": {
+        "Rules": [
+          {
+            "Actions": [
+              {
+                "TargetGroupArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067",
+                "Type": "forward"
+              }
+            ],
+            "Conditions": [
+              {
+                "Field": "path-pattern",
+                "Values": [
+                  "/img/*"
+                ]
+              }
+            ],
+            "IsDefault": false,
+            "Priority": "5",
+            "RuleArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:listener-rule/app/my-load-balancer/50dc6c495c0c9188/f2f7dc8efc522ab2/1291d13826f405c3"
+          }
+        ]
+      },
       "properties": {
         "Rules": {
           "$ref": "#/definitions/Rules",
@@ -1522,6 +2283,12 @@
         "LoadBalancerArn",
         "SecurityGroups"
       ],
+      "example": {
+        "LoadBalancerArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188",
+        "SecurityGroups": [
+          "sg-5943793c"
+        ]
+      },
       "properties": {
         "LoadBalancerArn": {
           "$ref": "#/definitions/LoadBalancerArn",
@@ -1536,6 +2303,11 @@
     },
     "SetSecurityGroupsOutput": {
       "type": "object",
+      "example": {
+        "SecurityGroupIds": [
+          "sg-5943793c"
+        ]
+      },
       "properties": {
         "SecurityGroupIds": {
           "$ref": "#/definitions/SecurityGroups",
@@ -1550,6 +2322,13 @@
         "LoadBalancerArn",
         "Subnets"
       ],
+      "example": {
+        "LoadBalancerArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188",
+        "Subnets": [
+          "subnet-8360a9e7",
+          "subnet-b7d581c0"
+        ]
+      },
       "properties": {
         "LoadBalancerArn": {
           "$ref": "#/definitions/LoadBalancerArn",
@@ -1564,6 +2343,18 @@
     },
     "SetSubnetsOutput": {
       "type": "object",
+      "example": {
+        "AvailabilityZones": [
+          {
+            "SubnetId": "subnet-8360a9e7",
+            "ZoneName": "us-west-2a"
+          },
+          {
+            "SubnetId": "subnet-b7d581c0",
+            "ZoneName": "us-west-2b"
+          }
+        ]
+      },
       "properties": {
         "AvailabilityZones": {
           "$ref": "#/definitions/AvailabilityZones",

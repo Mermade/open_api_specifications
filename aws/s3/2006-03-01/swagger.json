@@ -34,21 +34,7 @@
   "produces": [
     "text/xml"
   ],
-  "parameters": {
-    "X-Amz-Content-Sha256": {
-      "name": "X-Amz-Content-Sha256",
-      "in": "header",
-      "type": "string",
-      "required": true
-    },
-    "X-Amz-Date": {
-      "name": "X-Amz-Date",
-      "in": "header",
-      "type": "string",
-      "format": "date-time",
-      "required": true
-    }
-  },
+  "parameters": {},
   "securityDefinitions": {
     "hmac": {
       "type": "apiKey",
@@ -198,6 +184,20 @@
             }
           },
           {
+            "name": "MaxParts",
+            "type": "string",
+            "in": "query",
+            "description": "Pagination limit",
+            "required": false
+          },
+          {
+            "name": "PartNumberMarker",
+            "type": "string",
+            "in": "query",
+            "description": "Pagination token",
+            "required": false
+          },
+          {
             "name": "Bucket",
             "in": "path",
             "type": "string",
@@ -256,6 +256,37 @@
               "type": "string"
             },
             "collectionFormat": "csv"
+          }
+        ],
+        "x-waiters": [
+          {
+            "delay": 5,
+            "operation": "HeadObject",
+            "maxAttempts": 20,
+            "acceptors": [
+              {
+                "expected": 200,
+                "matcher": "status",
+                "state": "success"
+              },
+              {
+                "expected": 404,
+                "matcher": "status",
+                "state": "retry"
+              }
+            ]
+          },
+          {
+            "delay": 5,
+            "operation": "HeadObject",
+            "maxAttempts": 20,
+            "acceptors": [
+              {
+                "expected": 404,
+                "matcher": "status",
+                "state": "success"
+              }
+            ]
           }
         ]
       }
@@ -355,6 +386,47 @@
             "type": "string",
             "required": true
           }
+        ],
+        "x-waiters": [
+          {
+            "delay": 5,
+            "operation": "HeadBucket",
+            "maxAttempts": 20,
+            "acceptors": [
+              {
+                "expected": 200,
+                "matcher": "status",
+                "state": "success"
+              },
+              {
+                "expected": 301,
+                "matcher": "status",
+                "state": "success"
+              },
+              {
+                "expected": 403,
+                "matcher": "status",
+                "state": "success"
+              },
+              {
+                "expected": 404,
+                "matcher": "status",
+                "state": "retry"
+              }
+            ]
+          },
+          {
+            "delay": 5,
+            "operation": "HeadBucket",
+            "maxAttempts": 20,
+            "acceptors": [
+              {
+                "expected": 404,
+                "matcher": "status",
+                "state": "success"
+              }
+            ]
+          }
         ]
       },
       "get": {
@@ -382,6 +454,20 @@
             "schema": {
               "$ref": "#/definitions/ListObjectsRequest"
             }
+          },
+          {
+            "name": "MaxKeys",
+            "type": "string",
+            "in": "query",
+            "description": "Pagination limit",
+            "required": false
+          },
+          {
+            "name": "Marker",
+            "type": "string",
+            "in": "query",
+            "description": "Pagination token",
+            "required": false
           },
           {
             "name": "Bucket",
@@ -1468,6 +1554,27 @@
             }
           },
           {
+            "name": "MaxUploads",
+            "type": "string",
+            "in": "query",
+            "description": "Pagination limit",
+            "required": false
+          },
+          {
+            "name": "KeyMarker",
+            "type": "string",
+            "in": "query",
+            "description": "Pagination token",
+            "required": false
+          },
+          {
+            "name": "UploadIdMarker",
+            "type": "string",
+            "in": "query",
+            "description": "Pagination token",
+            "required": false
+          },
+          {
             "name": "Bucket",
             "in": "path",
             "type": "string",
@@ -1496,6 +1603,27 @@
             "schema": {
               "$ref": "#/definitions/ListObjectVersionsRequest"
             }
+          },
+          {
+            "name": "MaxKeys",
+            "type": "string",
+            "in": "query",
+            "description": "Pagination limit",
+            "required": false
+          },
+          {
+            "name": "KeyMarker",
+            "type": "string",
+            "in": "query",
+            "description": "Pagination token",
+            "required": false
+          },
+          {
+            "name": "VersionIdMarker",
+            "type": "string",
+            "in": "query",
+            "description": "Pagination token",
+            "required": false
           },
           {
             "name": "Bucket",
@@ -1532,6 +1660,20 @@
             "schema": {
               "$ref": "#/definitions/ListObjectsV2Request"
             }
+          },
+          {
+            "name": "MaxKeys",
+            "type": "string",
+            "in": "query",
+            "description": "Pagination limit",
+            "required": false
+          },
+          {
+            "name": "ContinuationToken",
+            "type": "string",
+            "in": "query",
+            "description": "Pagination token",
+            "required": false
           },
           {
             "name": "Bucket",

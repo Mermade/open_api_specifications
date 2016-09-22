@@ -36,18 +36,59 @@
     "application/json"
   ],
   "parameters": {
+    "Action": {
+      "name": "Action",
+      "in": "header",
+      "type": "string",
+      "required": true
+    },
+    "Version": {
+      "name": "Version",
+      "in": "header",
+      "type": "string",
+      "required": true
+    },
     "X-Amz-Content-Sha256": {
       "name": "X-Amz-Content-Sha256",
       "in": "header",
       "type": "string",
-      "required": true
+      "required": false
     },
     "X-Amz-Date": {
       "name": "X-Amz-Date",
       "in": "header",
       "type": "string",
-      "format": "date-time",
-      "required": true
+      "required": false
+    },
+    "X-Amz-Algorithm": {
+      "name": "X-Amz-Algorithm",
+      "in": "header",
+      "type": "string",
+      "required": false
+    },
+    "X-Amz-Credential": {
+      "name": "X-Amz-Credential",
+      "in": "header",
+      "type": "string",
+      "required": false
+    },
+    "X-Amz-Security-Token": {
+      "name": "X-Amz-Security-Token",
+      "in": "header",
+      "type": "string",
+      "required": false
+    },
+    "X-Amz-Signature": {
+      "name": "X-Amz-Signature",
+      "in": "header",
+      "type": "string",
+      "required": false
+    },
+    "X-Amz-SignedHeaders": {
+      "name": "X-Amz-SignedHeaders",
+      "in": "header",
+      "type": "string",
+      "required": false
     }
   },
   "securityDefinitions": {
@@ -126,10 +167,31 @@
       },
       "parameters": [
         {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
           "$ref": "#/parameters/X-Amz-Content-Sha256"
         },
         {
           "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
         }
       ]
     }
@@ -206,6 +268,14 @@
         "repositoryName",
         "imageIds"
       ],
+      "example": {
+        "imageIds": [
+          {
+            "imageTag": "precise"
+          }
+        ],
+        "repositoryName": "ubuntu"
+      },
       "properties": {
         "registryId": {
           "$ref": "#/definitions/RegistryId",
@@ -224,6 +294,15 @@
     },
     "BatchDeleteImageResponse": {
       "type": "object",
+      "example": {
+        "failures": [],
+        "imageIds": [
+          {
+            "imageDigest": "sha256:examplee6d1e504117a17000003d3753086354a38375961f2e665416ef4b1b2f",
+            "imageTag": "precise"
+          }
+        ]
+      },
       "properties": {
         "imageIds": {
           "$ref": "#/definitions/ImageIdentifierList",
@@ -241,6 +320,14 @@
         "repositoryName",
         "imageIds"
       ],
+      "example": {
+        "imageIds": [
+          {
+            "imageTag": "precise"
+          }
+        ],
+        "repositoryName": "ubuntu"
+      },
       "properties": {
         "registryId": {
           "$ref": "#/definitions/RegistryId",
@@ -258,6 +345,20 @@
     },
     "BatchGetImageResponse": {
       "type": "object",
+      "example": {
+        "failures": [],
+        "images": [
+          {
+            "imageId": {
+              "imageDigest": "sha256:example76bdff6d83a09ba2a818f0d00000063724a9ac3ba5019c56f74ebf42a",
+              "imageTag": "precise"
+            },
+            "imageManifest": "{\n \"schemaVersion\": 1,\n \"name\": \"ubuntu\",\n \"tag\": \"precise\",\n...",
+            "registryId": "244698725403",
+            "repositoryName": "ubuntu"
+          }
+        ]
+      },
       "properties": {
         "images": {
           "$ref": "#/definitions/ImageList",
@@ -334,6 +435,9 @@
       "required": [
         "repositoryName"
       ],
+      "example": {
+        "repositoryName": "project-a/nginx-web-app"
+      },
       "properties": {
         "repositoryName": {
           "$ref": "#/definitions/RepositoryName",
@@ -343,6 +447,13 @@
     },
     "CreateRepositoryResponse": {
       "type": "object",
+      "example": {
+        "repository": {
+          "registryId": "012345678901",
+          "repositoryArn": "arn:aws:ecr:us-west-2:012345678901:repository/project-a/nginx-web-app",
+          "repositoryName": "project-a/nginx-web-app"
+        }
+      },
       "properties": {
         "repository": {
           "$ref": "#/definitions/Repository"
@@ -354,6 +465,9 @@
       "required": [
         "repositoryName"
       ],
+      "example": {
+        "repositoryName": "ubuntu"
+      },
       "properties": {
         "registryId": {
           "$ref": "#/definitions/RegistryId",
@@ -367,6 +481,11 @@
     },
     "DeleteRepositoryPolicyResponse": {
       "type": "object",
+      "example": {
+        "policyText": "{ ... }",
+        "registryId": "012345678901",
+        "repositoryName": "ubuntu"
+      },
       "properties": {
         "registryId": {
           "$ref": "#/definitions/RegistryId",
@@ -387,6 +506,10 @@
       "required": [
         "repositoryName"
       ],
+      "example": {
+        "force": true,
+        "repositoryName": "ubuntu"
+      },
       "properties": {
         "registryId": {
           "$ref": "#/definitions/RegistryId",
@@ -404,6 +527,13 @@
     },
     "DeleteRepositoryResponse": {
       "type": "object",
+      "example": {
+        "repository": {
+          "registryId": "012345678901",
+          "repositoryArn": "arn:aws:ecr:us-west-2:012345678901:repository/ubuntu",
+          "repositoryName": "ubuntu"
+        }
+      },
       "properties": {
         "repository": {
           "$ref": "#/definitions/Repository"
@@ -412,6 +542,7 @@
     },
     "DescribeRepositoriesRequest": {
       "type": "object",
+      "example": {},
       "properties": {
         "registryId": {
           "$ref": "#/definitions/RegistryId",
@@ -433,6 +564,20 @@
     },
     "DescribeRepositoriesResponse": {
       "type": "object",
+      "example": {
+        "repositories": [
+          {
+            "registryId": "012345678910",
+            "repositoryArn": "arn:aws:ecr:us-west-2:012345678910:repository/ubuntu",
+            "repositoryName": "ubuntu"
+          },
+          {
+            "registryId": "012345678910",
+            "repositoryArn": "arn:aws:ecr:us-west-2:012345678910:repository/test",
+            "repositoryName": "test"
+          }
+        ]
+      },
       "properties": {
         "repositories": {
           "$ref": "#/definitions/RepositoryList",
@@ -474,6 +619,7 @@
     },
     "GetAuthorizationTokenRequest": {
       "type": "object",
+      "example": {},
       "properties": {
         "registryIds": {
           "$ref": "#/definitions/GetAuthorizationTokenRegistryIdList",
@@ -483,6 +629,15 @@
     },
     "GetAuthorizationTokenResponse": {
       "type": "object",
+      "example": {
+        "authorizationData": [
+          {
+            "authorizationToken": "QVdTOkN...",
+            "expiresAt": "1470951892432",
+            "proxyEndpoint": "https://012345678901.dkr.ecr.us-west-2.amazonaws.com"
+          }
+        ]
+      },
       "properties": {
         "authorizationData": {
           "$ref": "#/definitions/AuthorizationDataList",
@@ -529,6 +684,9 @@
       "required": [
         "repositoryName"
       ],
+      "example": {
+        "repositoryName": "ubuntu"
+      },
       "properties": {
         "registryId": {
           "$ref": "#/definitions/RegistryId",
@@ -542,6 +700,11 @@
     },
     "GetRepositoryPolicyResponse": {
       "type": "object",
+      "example": {
+        "policyText": "{\n  \"Version\" : \"2008-10-17\",\n  \"Statement\" : [ {\n    \"Sid\" : \"new statement\",\n    \"Effect\" : \"Allow\",\n    \"Principal\" : {\n     \"AWS\" : \"arn:aws:iam::012345678901:role/CodeDeployDemo\"\n    },\n\"Action\" : [ \"ecr:GetDownloadUrlForLayer\", \"ecr:BatchGetImage\", \"ecr:BatchCheckLayerAvailability\" ]\n } ]\n}",
+        "registryId": "012345678901",
+        "repositoryName": "ubuntu"
+      },
       "properties": {
         "registryId": {
           "$ref": "#/definitions/RegistryId",
@@ -886,6 +1049,9 @@
       "required": [
         "repositoryName"
       ],
+      "example": {
+        "repositoryName": "ubuntu"
+      },
       "properties": {
         "registryId": {
           "$ref": "#/definitions/RegistryId",
@@ -911,6 +1077,14 @@
     },
     "ListImagesResponse": {
       "type": "object",
+      "example": {
+        "imageIds": [
+          {
+            "imageDigest": "sha256:764f63476bdff6d83a09ba2a818f0d35757063724a9ac3ba5019c56f74ebf42a",
+            "imageTag": "precise"
+          }
+        ]
+      },
       "properties": {
         "imageIds": {
           "$ref": "#/definitions/ImageIdentifierList",

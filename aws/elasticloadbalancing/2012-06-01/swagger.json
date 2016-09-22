@@ -32,18 +32,59 @@
   "consumes": [],
   "produces": [],
   "parameters": {
+    "Action": {
+      "name": "Action",
+      "in": "header",
+      "type": "string",
+      "required": true
+    },
+    "Version": {
+      "name": "Version",
+      "in": "header",
+      "type": "string",
+      "required": true
+    },
     "X-Amz-Content-Sha256": {
       "name": "X-Amz-Content-Sha256",
       "in": "header",
       "type": "string",
-      "required": true
+      "required": false
     },
     "X-Amz-Date": {
       "name": "X-Amz-Date",
       "in": "header",
       "type": "string",
-      "format": "date-time",
-      "required": true
+      "required": false
+    },
+    "X-Amz-Algorithm": {
+      "name": "X-Amz-Algorithm",
+      "in": "header",
+      "type": "string",
+      "required": false
+    },
+    "X-Amz-Credential": {
+      "name": "X-Amz-Credential",
+      "in": "header",
+      "type": "string",
+      "required": false
+    },
+    "X-Amz-Security-Token": {
+      "name": "X-Amz-Security-Token",
+      "in": "header",
+      "type": "string",
+      "required": false
+    },
+    "X-Amz-Signature": {
+      "name": "X-Amz-Signature",
+      "in": "header",
+      "type": "string",
+      "required": false
+    },
+    "X-Amz-SignedHeaders": {
+      "name": "X-Amz-SignedHeaders",
+      "in": "header",
+      "type": "string",
+      "required": false
     }
   },
   "securityDefinitions": {
@@ -110,10 +151,31 @@
       },
       "parameters": [
         {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
           "$ref": "#/parameters/X-Amz-Content-Sha256"
         },
         {
           "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
         }
       ]
     }
@@ -170,6 +232,12 @@
         "LoadBalancerName",
         "AvailabilityZones"
       ],
+      "example": {
+        "AvailabilityZones": [
+          "us-west-2b"
+        ],
+        "LoadBalancerName": "my-load-balancer"
+      },
       "properties": {
         "LoadBalancerName": {
           "$ref": "#/definitions/AccessPointName",
@@ -184,6 +252,12 @@
     },
     "AddAvailabilityZonesOutput": {
       "type": "object",
+      "example": {
+        "AvailabilityZones": [
+          "us-west-2a",
+          "us-west-2b"
+        ]
+      },
       "properties": {
         "AvailabilityZones": {
           "$ref": "#/definitions/AvailabilityZones",
@@ -198,6 +272,21 @@
         "LoadBalancerNames",
         "Tags"
       ],
+      "example": {
+        "LoadBalancerNames": [
+          "my-load-balancer"
+        ],
+        "Tags": [
+          {
+            "Key": "project",
+            "Value": "lima"
+          },
+          {
+            "Key": "department",
+            "Value": "digital-media"
+          }
+        ]
+      },
       "properties": {
         "LoadBalancerNames": {
           "$ref": "#/definitions/LoadBalancerNames",
@@ -272,6 +361,12 @@
         "LoadBalancerName",
         "SecurityGroups"
       ],
+      "example": {
+        "LoadBalancerName": "my-load-balancer",
+        "SecurityGroups": [
+          "sg-fc448899"
+        ]
+      },
       "properties": {
         "LoadBalancerName": {
           "$ref": "#/definitions/AccessPointName",
@@ -286,6 +381,11 @@
     },
     "ApplySecurityGroupsToLoadBalancerOutput": {
       "type": "object",
+      "example": {
+        "SecurityGroups": [
+          "sg-fc448899"
+        ]
+      },
       "properties": {
         "SecurityGroups": {
           "$ref": "#/definitions/SecurityGroups",
@@ -300,6 +400,12 @@
         "LoadBalancerName",
         "Subnets"
       ],
+      "example": {
+        "LoadBalancerName": "my-load-balancer",
+        "Subnets": [
+          "subnet-0ecac448"
+        ]
+      },
       "properties": {
         "LoadBalancerName": {
           "$ref": "#/definitions/AccessPointName",
@@ -314,6 +420,12 @@
     },
     "AttachLoadBalancerToSubnetsOutput": {
       "type": "object",
+      "example": {
+        "Subnets": [
+          "subnet-15aaab61",
+          "subnet-0ecac448"
+        ]
+      },
       "properties": {
         "Subnets": {
           "$ref": "#/definitions/Subnets",
@@ -374,6 +486,16 @@
         "LoadBalancerName",
         "HealthCheck"
       ],
+      "example": {
+        "HealthCheck": {
+          "HealthyThreshold": 2,
+          "Interval": 30,
+          "Target": "HTTP:80/png",
+          "Timeout": 3,
+          "UnhealthyThreshold": 2
+        },
+        "LoadBalancerName": "my-load-balancer"
+      },
       "properties": {
         "LoadBalancerName": {
           "$ref": "#/definitions/AccessPointName",
@@ -388,6 +510,15 @@
     },
     "ConfigureHealthCheckOutput": {
       "type": "object",
+      "example": {
+        "HealthCheck": {
+          "HealthyThreshold": 2,
+          "Interval": 30,
+          "Target": "HTTP:80/png",
+          "Timeout": 3,
+          "UnhealthyThreshold": 2
+        }
+      },
       "properties": {
         "HealthCheck": {
           "$ref": "#/definitions/HealthCheck",
@@ -444,6 +575,24 @@
         "LoadBalancerName",
         "Listeners"
       ],
+      "example": {
+        "Listeners": [
+          {
+            "InstancePort": 80,
+            "InstanceProtocol": "HTTP",
+            "LoadBalancerPort": 80,
+            "Protocol": "HTTP"
+          }
+        ],
+        "LoadBalancerName": "my-load-balancer",
+        "Scheme": "internal",
+        "SecurityGroups": [
+          "sg-a61988c3"
+        ],
+        "Subnets": [
+          "subnet-15aaab61"
+        ]
+      },
       "properties": {
         "LoadBalancerName": {
           "$ref": "#/definitions/AccessPointName",
@@ -478,6 +627,9 @@
     },
     "CreateAccessPointOutput": {
       "type": "object",
+      "example": {
+        "DNSName": "internal-my-load-balancer-123456789.us-west-2.elb.amazonaws.com"
+      },
       "properties": {
         "DNSName": {
           "$ref": "#/definitions/DNSName",
@@ -493,6 +645,11 @@
         "PolicyName",
         "CookieName"
       ],
+      "example": {
+        "CookieName": "my-app-cookie",
+        "LoadBalancerName": "my-load-balancer",
+        "PolicyName": "my-app-cookie-policy"
+      },
       "properties": {
         "LoadBalancerName": {
           "$ref": "#/definitions/AccessPointName",
@@ -520,6 +677,11 @@
         "LoadBalancerName",
         "PolicyName"
       ],
+      "example": {
+        "CookieExpirationPeriod": 60,
+        "LoadBalancerName": "my-load-balancer",
+        "PolicyName": "my-duration-cookie-policy"
+      },
       "properties": {
         "LoadBalancerName": {
           "$ref": "#/definitions/AccessPointName",
@@ -547,6 +709,18 @@
         "LoadBalancerName",
         "Listeners"
       ],
+      "example": {
+        "Listeners": [
+          {
+            "InstancePort": 80,
+            "InstanceProtocol": "HTTP",
+            "LoadBalancerPort": 443,
+            "Protocol": "HTTPS",
+            "SSLCertificateId": "arn:aws:iam::123456789012:server-certificate/my-server-cert"
+          }
+        ],
+        "LoadBalancerName": "my-load-balancer"
+      },
       "properties": {
         "LoadBalancerName": {
           "$ref": "#/definitions/AccessPointName",
@@ -571,6 +745,17 @@
         "PolicyName",
         "PolicyTypeName"
       ],
+      "example": {
+        "LoadBalancerName": "my-load-balancer",
+        "PolicyAttributes": [
+          {
+            "AttributeName": "PublicKeyPolicyName",
+            "AttributeValue": "my-PublicKey-policy"
+          }
+        ],
+        "PolicyName": "my-authentication-policy",
+        "PolicyTypeName": "BackendServerAuthenticationPolicyType"
+      },
       "properties": {
         "LoadBalancerName": {
           "$ref": "#/definitions/AccessPointName",
@@ -627,6 +812,9 @@
       "required": [
         "LoadBalancerName"
       ],
+      "example": {
+        "LoadBalancerName": "my-load-balancer"
+      },
       "properties": {
         "LoadBalancerName": {
           "$ref": "#/definitions/AccessPointName",
@@ -646,6 +834,12 @@
         "LoadBalancerName",
         "LoadBalancerPorts"
       ],
+      "example": {
+        "LoadBalancerName": "my-load-balancer",
+        "LoadBalancerPorts": [
+          80
+        ]
+      },
       "properties": {
         "LoadBalancerName": {
           "$ref": "#/definitions/AccessPointName",
@@ -669,6 +863,10 @@
         "LoadBalancerName",
         "PolicyName"
       ],
+      "example": {
+        "LoadBalancerName": "my-load-balancer",
+        "PolicyName": "my-duration-cookie-policy"
+      },
       "properties": {
         "LoadBalancerName": {
           "$ref": "#/definitions/AccessPointName",
@@ -696,6 +894,14 @@
         "LoadBalancerName",
         "Instances"
       ],
+      "example": {
+        "Instances": [
+          {
+            "InstanceId": "i-d6f6fae3"
+          }
+        ],
+        "LoadBalancerName": "my-load-balancer"
+      },
       "properties": {
         "LoadBalancerName": {
           "$ref": "#/definitions/AccessPointName",
@@ -710,6 +916,16 @@
     },
     "DeregisterEndPointsOutput": {
       "type": "object",
+      "example": {
+        "Instances": [
+          {
+            "InstanceId": "i-207d9717"
+          },
+          {
+            "InstanceId": "i-afefb49b"
+          }
+        ]
+      },
       "properties": {
         "Instances": {
           "$ref": "#/definitions/Instances",
@@ -720,6 +936,11 @@
     },
     "DescribeAccessPointsInput": {
       "type": "object",
+      "example": {
+        "LoadBalancerNames": [
+          "my-load-balancer"
+        ]
+      },
       "properties": {
         "LoadBalancerNames": {
           "$ref": "#/definitions/LoadBalancerNames",
@@ -738,6 +959,94 @@
     },
     "DescribeAccessPointsOutput": {
       "type": "object",
+      "example": {
+        "LoadBalancerDescriptions": [
+          {
+            "AvailabilityZones": [
+              "us-west-2a"
+            ],
+            "BackendServerDescriptions": [
+              {
+                "InstancePort": 80,
+                "PolicyNames": [
+                  "my-ProxyProtocol-policy"
+                ]
+              }
+            ],
+            "CanonicalHostedZoneName": "my-load-balancer-1234567890.us-west-2.elb.amazonaws.com",
+            "CanonicalHostedZoneNameID": "Z3DZXE0EXAMPLE",
+            "CreatedTime": "2015-03-19T03:24:02.650Z",
+            "DNSName": "my-load-balancer-1234567890.us-west-2.elb.amazonaws.com",
+            "HealthCheck": {
+              "HealthyThreshold": 2,
+              "Interval": 30,
+              "Target": "HTTP:80/png",
+              "Timeout": 3,
+              "UnhealthyThreshold": 2
+            },
+            "Instances": [
+              {
+                "InstanceId": "i-207d9717"
+              },
+              {
+                "InstanceId": "i-afefb49b"
+              }
+            ],
+            "ListenerDescriptions": [
+              {
+                "Listener": {
+                  "InstancePort": 80,
+                  "InstanceProtocol": "HTTP",
+                  "LoadBalancerPort": 80,
+                  "Protocol": "HTTP"
+                },
+                "PolicyNames": []
+              },
+              {
+                "Listener": {
+                  "InstancePort": 443,
+                  "InstanceProtocol": "HTTPS",
+                  "LoadBalancerPort": 443,
+                  "Protocol": "HTTPS",
+                  "SSLCertificateId": "arn:aws:iam::123456789012:server-certificate/my-server-cert"
+                },
+                "PolicyNames": [
+                  "ELBSecurityPolicy-2015-03"
+                ]
+              }
+            ],
+            "LoadBalancerName": "my-load-balancer",
+            "Policies": {
+              "AppCookieStickinessPolicies": [],
+              "LBCookieStickinessPolicies": [
+                {
+                  "CookieExpirationPeriod": 60,
+                  "PolicyName": "my-duration-cookie-policy"
+                }
+              ],
+              "OtherPolicies": [
+                "my-PublicKey-policy",
+                "my-authentication-policy",
+                "my-SSLNegotiation-policy",
+                "my-ProxyProtocol-policy",
+                "ELBSecurityPolicy-2015-03"
+              ]
+            },
+            "Scheme": "internet-facing",
+            "SecurityGroups": [
+              "sg-a61988c3"
+            ],
+            "SourceSecurityGroup": {
+              "GroupName": "my-elb-sg",
+              "OwnerAlias": "123456789012"
+            },
+            "Subnets": [
+              "subnet-15aaab61"
+            ],
+            "VPCId": "vpc-a01106c2"
+          }
+        ]
+      },
       "properties": {
         "LoadBalancerDescriptions": {
           "$ref": "#/definitions/LoadBalancerDescriptions",
@@ -755,6 +1064,9 @@
       "required": [
         "LoadBalancerName"
       ],
+      "example": {
+        "LoadBalancerName": "my-load-balancer"
+      },
       "properties": {
         "LoadBalancerName": {
           "$ref": "#/definitions/AccessPointName",
@@ -769,6 +1081,22 @@
     },
     "DescribeEndPointStateOutput": {
       "type": "object",
+      "example": {
+        "InstanceStates": [
+          {
+            "Description": "N/A",
+            "InstanceId": "i-207d9717",
+            "ReasonCode": "N/A",
+            "State": "InService"
+          },
+          {
+            "Description": "N/A",
+            "InstanceId": "i-afefb49b",
+            "ReasonCode": "N/A",
+            "State": "InService"
+          }
+        ]
+      },
       "properties": {
         "InstanceStates": {
           "$ref": "#/definitions/InstanceStates",
@@ -782,6 +1110,9 @@
       "required": [
         "LoadBalancerName"
       ],
+      "example": {
+        "LoadBalancerName": "my-load-balancer"
+      },
       "properties": {
         "LoadBalancerName": {
           "$ref": "#/definitions/AccessPointName",
@@ -792,6 +1123,23 @@
     },
     "DescribeLoadBalancerAttributesOutput": {
       "type": "object",
+      "example": {
+        "LoadBalancerAttributes": {
+          "AccessLog": {
+            "Enabled": false
+          },
+          "ConnectionDraining": {
+            "Enabled": false,
+            "Timeout": 300
+          },
+          "ConnectionSettings": {
+            "IdleTimeout": 60
+          },
+          "CrossZoneLoadBalancing": {
+            "Enabled": false
+          }
+        }
+      },
       "properties": {
         "LoadBalancerAttributes": {
           "$ref": "#/definitions/LoadBalancerAttributes",
@@ -802,6 +1150,12 @@
     },
     "DescribeLoadBalancerPoliciesInput": {
       "type": "object",
+      "example": {
+        "LoadBalancerName": "my-load-balancer",
+        "PolicyNames": [
+          "my-authentication-policy"
+        ]
+      },
       "properties": {
         "LoadBalancerName": {
           "$ref": "#/definitions/AccessPointName",
@@ -816,6 +1170,20 @@
     },
     "DescribeLoadBalancerPoliciesOutput": {
       "type": "object",
+      "example": {
+        "PolicyDescriptions": [
+          {
+            "PolicyAttributeDescriptions": [
+              {
+                "AttributeName": "PublicKeyPolicyName",
+                "AttributeValue": "my-PublicKey-policy"
+              }
+            ],
+            "PolicyName": "my-authentication-policy",
+            "PolicyTypeName": "BackendServerAuthenticationPolicyType"
+          }
+        ]
+      },
       "properties": {
         "PolicyDescriptions": {
           "$ref": "#/definitions/PolicyDescriptions",
@@ -826,6 +1194,11 @@
     },
     "DescribeLoadBalancerPolicyTypesInput": {
       "type": "object",
+      "example": {
+        "PolicyTypeNames": [
+          "ProxyProtocolPolicyType"
+        ]
+      },
       "properties": {
         "PolicyTypeNames": {
           "$ref": "#/definitions/PolicyTypeNames",
@@ -836,6 +1209,21 @@
     },
     "DescribeLoadBalancerPolicyTypesOutput": {
       "type": "object",
+      "example": {
+        "PolicyTypeDescriptions": [
+          {
+            "Description": "Policy that controls whether to include the IP address and port of the originating request for TCP messages. This policy operates on TCP listeners only.",
+            "PolicyAttributeTypeDescriptions": [
+              {
+                "AttributeName": "ProxyProtocol",
+                "AttributeType": "Boolean",
+                "Cardinality": "ONE"
+              }
+            ],
+            "PolicyTypeName": "ProxyProtocolPolicyType"
+          }
+        ]
+      },
       "properties": {
         "PolicyTypeDescriptions": {
           "$ref": "#/definitions/PolicyTypeDescriptions",
@@ -849,6 +1237,11 @@
       "required": [
         "LoadBalancerNames"
       ],
+      "example": {
+        "LoadBalancerNames": [
+          "my-load-balancer"
+        ]
+      },
       "properties": {
         "LoadBalancerNames": {
           "$ref": "#/definitions/LoadBalancerNamesMax20",
@@ -859,6 +1252,23 @@
     },
     "DescribeTagsOutput": {
       "type": "object",
+      "example": {
+        "TagDescriptions": [
+          {
+            "LoadBalancerName": "my-load-balancer",
+            "Tags": [
+              {
+                "Key": "project",
+                "Value": "lima"
+              },
+              {
+                "Key": "department",
+                "Value": "digital-media"
+              }
+            ]
+          }
+        ]
+      },
       "properties": {
         "TagDescriptions": {
           "$ref": "#/definitions/TagDescriptions",
@@ -876,6 +1286,12 @@
         "LoadBalancerName",
         "Subnets"
       ],
+      "example": {
+        "LoadBalancerName": "my-load-balancer",
+        "Subnets": [
+          "subnet-0ecac448"
+        ]
+      },
       "properties": {
         "LoadBalancerName": {
           "$ref": "#/definitions/AccessPointName",
@@ -890,6 +1306,11 @@
     },
     "DetachLoadBalancerFromSubnetsOutput": {
       "type": "object",
+      "example": {
+        "Subnets": [
+          "subnet-15aaab61"
+        ]
+      },
       "properties": {
         "Subnets": {
           "$ref": "#/definitions/Subnets",
@@ -1268,6 +1689,15 @@
         "LoadBalancerName",
         "LoadBalancerAttributes"
       ],
+      "example": {
+        "LoadBalancerAttributes": {
+          "ConnectionDraining": {
+            "Enabled": true,
+            "Timeout": 300
+          }
+        },
+        "LoadBalancerName": "my-load-balancer"
+      },
       "properties": {
         "LoadBalancerName": {
           "$ref": "#/definitions/AccessPointName",
@@ -1282,6 +1712,15 @@
     },
     "ModifyLoadBalancerAttributesOutput": {
       "type": "object",
+      "example": {
+        "LoadBalancerAttributes": {
+          "ConnectionDraining": {
+            "Enabled": true,
+            "Timeout": 300
+          }
+        },
+        "LoadBalancerName": "my-load-balancer"
+      },
       "properties": {
         "LoadBalancerName": {
           "$ref": "#/definitions/AccessPointName",
@@ -1482,6 +1921,14 @@
         "LoadBalancerName",
         "Instances"
       ],
+      "example": {
+        "Instances": [
+          {
+            "InstanceId": "i-d6f6fae3"
+          }
+        ],
+        "LoadBalancerName": "my-load-balancer"
+      },
       "properties": {
         "LoadBalancerName": {
           "$ref": "#/definitions/AccessPointName",
@@ -1496,6 +1943,19 @@
     },
     "RegisterEndPointsOutput": {
       "type": "object",
+      "example": {
+        "Instances": [
+          {
+            "InstanceId": "i-d6f6fae3"
+          },
+          {
+            "InstanceId": "i-207d9717"
+          },
+          {
+            "InstanceId": "i-afefb49b"
+          }
+        ]
+      },
       "properties": {
         "Instances": {
           "$ref": "#/definitions/Instances",
@@ -1510,6 +1970,12 @@
         "LoadBalancerName",
         "AvailabilityZones"
       ],
+      "example": {
+        "AvailabilityZones": [
+          "us-west-2a"
+        ],
+        "LoadBalancerName": "my-load-balancer"
+      },
       "properties": {
         "LoadBalancerName": {
           "$ref": "#/definitions/AccessPointName",
@@ -1524,6 +1990,11 @@
     },
     "RemoveAvailabilityZonesOutput": {
       "type": "object",
+      "example": {
+        "AvailabilityZones": [
+          "us-west-2b"
+        ]
+      },
       "properties": {
         "AvailabilityZones": {
           "$ref": "#/definitions/AvailabilityZones",
@@ -1538,6 +2009,16 @@
         "LoadBalancerNames",
         "Tags"
       ],
+      "example": {
+        "LoadBalancerNames": [
+          "my-load-balancer"
+        ],
+        "Tags": [
+          {
+            "Key": "project"
+          }
+        ]
+      },
       "properties": {
         "LoadBalancerNames": {
           "$ref": "#/definitions/LoadBalancerNames",
@@ -1583,6 +2064,11 @@
         "LoadBalancerPort",
         "SSLCertificateId"
       ],
+      "example": {
+        "LoadBalancerName": "my-load-balancer",
+        "LoadBalancerPort": 443,
+        "SSLCertificateId": "arn:aws:iam::123456789012:server-certificate/new-server-cert"
+      },
       "properties": {
         "LoadBalancerName": {
           "$ref": "#/definitions/AccessPointName",
@@ -1611,6 +2097,13 @@
         "InstancePort",
         "PolicyNames"
       ],
+      "example": {
+        "InstancePort": 80,
+        "LoadBalancerName": "my-load-balancer",
+        "PolicyNames": [
+          "my-ProxyProtocol-policy"
+        ]
+      },
       "properties": {
         "LoadBalancerName": {
           "$ref": "#/definitions/AccessPointName",
@@ -1639,6 +2132,13 @@
         "LoadBalancerPort",
         "PolicyNames"
       ],
+      "example": {
+        "LoadBalancerName": "my-load-balancer",
+        "LoadBalancerPort": 80,
+        "PolicyNames": [
+          "my-SSLNegotiation-policy"
+        ]
+      },
       "properties": {
         "LoadBalancerName": {
           "$ref": "#/definitions/AccessPointName",

@@ -36,18 +36,59 @@
     "application/json"
   ],
   "parameters": {
+    "Action": {
+      "name": "Action",
+      "in": "header",
+      "type": "string",
+      "required": true
+    },
+    "Version": {
+      "name": "Version",
+      "in": "header",
+      "type": "string",
+      "required": true
+    },
     "X-Amz-Content-Sha256": {
       "name": "X-Amz-Content-Sha256",
       "in": "header",
       "type": "string",
-      "required": true
+      "required": false
     },
     "X-Amz-Date": {
       "name": "X-Amz-Date",
       "in": "header",
       "type": "string",
-      "format": "date-time",
-      "required": true
+      "required": false
+    },
+    "X-Amz-Algorithm": {
+      "name": "X-Amz-Algorithm",
+      "in": "header",
+      "type": "string",
+      "required": false
+    },
+    "X-Amz-Credential": {
+      "name": "X-Amz-Credential",
+      "in": "header",
+      "type": "string",
+      "required": false
+    },
+    "X-Amz-Security-Token": {
+      "name": "X-Amz-Security-Token",
+      "in": "header",
+      "type": "string",
+      "required": false
+    },
+    "X-Amz-Signature": {
+      "name": "X-Amz-Signature",
+      "in": "header",
+      "type": "string",
+      "required": false
+    },
+    "X-Amz-SignedHeaders": {
+      "name": "X-Amz-SignedHeaders",
+      "in": "header",
+      "type": "string",
+      "required": false
     }
   },
   "securityDefinitions": {
@@ -120,10 +161,31 @@
       },
       "parameters": [
         {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
           "$ref": "#/parameters/X-Amz-Content-Sha256"
         },
         {
           "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
         }
       ]
     }
@@ -165,6 +227,10 @@
         "jobId",
         "nonce"
       ],
+      "example": {
+        "jobId": "11111111-abcd-1111-abcd-111111abcdef",
+        "nonce": "3"
+      },
       "properties": {
         "jobId": {
           "$ref": "#/definitions/JobId",
@@ -179,6 +245,9 @@
     },
     "AcknowledgeJobOutput": {
       "type": "object",
+      "example": {
+        "status": "InProgress"
+      },
       "properties": {
         "status": {
           "$ref": "#/definitions/JobStatus",
@@ -832,6 +901,35 @@
         "inputArtifactDetails",
         "outputArtifactDetails"
       ],
+      "example": {
+        "version": "1",
+        "category": "Build",
+        "configurationProperties": [
+          {
+            "name": "MyJenkinsExampleBuildProject",
+            "type": "String",
+            "required": true,
+            "key": true,
+            "description": "The name of the build project must be provided when this action is added to the pipeline.",
+            "queryable": false,
+            "secret": false
+          }
+        ],
+        "inputArtifactDetails": {
+          "maximumCount": 1,
+          "minimumCount": 0
+        },
+        "outputArtifactDetails": {
+          "maximumCount": 1,
+          "minimumCount": 0
+        },
+        "provider": "MyBuild-ProviderName",
+        "settings": {
+          "entityUrlTemplate": "https://192.0.2.4/job/{Config:ProjectName}/",
+          "executionUrlTemplate": "https://192.0.2.4/job/{Config:ProjectName}/lastSuccessfulBuild/{ExternalExecutionId}/",
+          "revisionUrlTemplate": "none"
+        }
+      },
       "properties": {
         "category": {
           "$ref": "#/definitions/ActionCategory",
@@ -866,6 +964,39 @@
       "required": [
         "actionType"
       ],
+      "example": {
+        "actionType": {
+          "actionConfigurationProperties": [
+            {
+              "name": "MyJenkinsExampleBuildProject",
+              "required": true,
+              "key": true,
+              "description": "The name of the build project must be provided when this action is added to the pipeline.",
+              "queryable": false,
+              "secret": false
+            }
+          ],
+          "id": {
+            "version": "1",
+            "category": "Build",
+            "owner": "Custom",
+            "provider": "MyBuild-ProviderName"
+          },
+          "inputArtifactDetails": {
+            "maximumCount": 1,
+            "minimumCount": 0
+          },
+          "outputArtifactDetails": {
+            "maximumCount": 1,
+            "minimumCount": 0
+          },
+          "settings": {
+            "entityUrlTemplate": "https://192.0.2.4/job/{Config:ProjectName}/",
+            "executionUrlTemplate": "https://192.0.2.4/job/{Config:ProjectName}/lastSuccessfulBuild/{ExternalExecutionId}/",
+            "revisionUrlTemplate": "none"
+          }
+        }
+      },
       "properties": {
         "actionType": {
           "$ref": "#/definitions/ActionType"
@@ -878,6 +1009,69 @@
       "required": [
         "pipeline"
       ],
+      "example": {
+        "pipeline": {
+          "version": 1,
+          "name": "MySecondPipeline",
+          "artifactStore": {
+            "type": "S3",
+            "location": "codepipeline-us-east-1-11EXAMPLE11"
+          },
+          "roleArn": "arn:aws:iam::111111111111:role/AWS-CodePipeline-Service",
+          "stages": [
+            {
+              "name": "Source",
+              "actions": [
+                {
+                  "name": "Source",
+                  "actionTypeId": {
+                    "version": "1",
+                    "category": "Source",
+                    "owner": "AWS",
+                    "provider": "S3"
+                  },
+                  "configuration": {
+                    "S3Bucket": "awscodepipeline-demo-bucket",
+                    "S3ObjectKey": "aws-codepipeline-s3-aws-codedeploy_linux.zip"
+                  },
+                  "inputArtifacts": [],
+                  "outputArtifacts": [
+                    {
+                      "name": "MyApp"
+                    }
+                  ],
+                  "runOrder": 1
+                }
+              ]
+            },
+            {
+              "name": "Beta",
+              "actions": [
+                {
+                  "name": "CodePipelineDemoFleet",
+                  "actionTypeId": {
+                    "version": "1",
+                    "category": "Deploy",
+                    "owner": "AWS",
+                    "provider": "CodeDeploy"
+                  },
+                  "configuration": {
+                    "ApplicationName": "CodePipelineDemoApplication",
+                    "DeploymentGroupName": "CodePipelineDemoFleet"
+                  },
+                  "inputArtifacts": [
+                    {
+                      "name": "MyApp"
+                    }
+                  ],
+                  "outputArtifacts": [],
+                  "runOrder": 1
+                }
+              ]
+            }
+          ]
+        }
+      },
       "properties": {
         "pipeline": {
           "$ref": "#/definitions/PipelineDeclaration"
@@ -887,6 +1081,69 @@
     },
     "CreatePipelineOutput": {
       "type": "object",
+      "example": {
+        "pipeline": {
+          "version": 1,
+          "name": "MySecondPipeline",
+          "artifactStore": {
+            "type": "S3",
+            "location": "codepipeline-us-east-1-11EXAMPLE11"
+          },
+          "roleArn": "arn:aws:iam::111111111111:role/AWS-CodePipeline-Service",
+          "stages": [
+            {
+              "name": "Source",
+              "actions": [
+                {
+                  "name": "Source",
+                  "actionTypeId": {
+                    "version": "1",
+                    "category": "Source",
+                    "owner": "AWS",
+                    "provider": "S3"
+                  },
+                  "configuration": {
+                    "S3Bucket": "awscodepipeline-demo-bucket",
+                    "S3ObjectKey": "aws-codepipeline-s3-aws-codedeploy_linux.zip"
+                  },
+                  "inputArtifacts": [],
+                  "outputArtifacts": [
+                    {
+                      "name": "MyApp"
+                    }
+                  ],
+                  "runOrder": 1
+                }
+              ]
+            },
+            {
+              "name": "Beta",
+              "actions": [
+                {
+                  "name": "CodePipelineDemoFleet",
+                  "actionTypeId": {
+                    "version": "1",
+                    "category": "Deploy",
+                    "owner": "AWS",
+                    "provider": "CodeDeploy"
+                  },
+                  "configuration": {
+                    "ApplicationName": "CodePipelineDemoApplication",
+                    "DeploymentGroupName": "CodePipelineDemoFleet"
+                  },
+                  "inputArtifacts": [
+                    {
+                      "name": "MyApp"
+                    }
+                  ],
+                  "outputArtifacts": [],
+                  "runOrder": 1
+                }
+              ]
+            }
+          ]
+        }
+      },
       "properties": {
         "pipeline": {
           "$ref": "#/definitions/PipelineDeclaration"
@@ -927,6 +1184,11 @@
         "provider",
         "version"
       ],
+      "example": {
+        "version": "1",
+        "category": "Build",
+        "provider": "MyJenkinsProviderName"
+      },
       "properties": {
         "category": {
           "$ref": "#/definitions/ActionCategory",
@@ -948,6 +1210,9 @@
       "required": [
         "name"
       ],
+      "example": {
+        "name": "MySecondPipeline"
+      },
       "properties": {
         "name": {
           "$ref": "#/definitions/PipelineName",
@@ -969,6 +1234,12 @@
         "transitionType",
         "reason"
       ],
+      "example": {
+        "pipelineName": "MyFirstPipeline",
+        "reason": "An example reason",
+        "stageName": "Beta",
+        "transitionType": "Inbound"
+      },
       "properties": {
         "pipelineName": {
           "$ref": "#/definitions/PipelineName",
@@ -1002,6 +1273,11 @@
         "stageName",
         "transitionType"
       ],
+      "example": {
+        "pipelineName": "MyFirstPipeline",
+        "stageName": "Beta",
+        "transitionType": "Inbound"
+      },
       "properties": {
         "pipelineName": {
           "$ref": "#/definitions/PipelineName",
@@ -1128,6 +1404,9 @@
       "required": [
         "jobId"
       ],
+      "example": {
+        "jobId": "11111111-abcd-1111-abcd-111111abcdef"
+      },
       "properties": {
         "jobId": {
           "$ref": "#/definitions/JobId",
@@ -1138,6 +1417,52 @@
     },
     "GetJobDetailsOutput": {
       "type": "object",
+      "example": {
+        "jobDetails": {
+          "accountId": "111111111111",
+          "data": {
+            "actionConfiguration": {
+              "configuration": {
+                "ProjectName": "MyJenkinsExampleTestProject"
+              }
+            },
+            "actionTypeId": {
+              "version": "1",
+              "category": "Test",
+              "owner": "Custom",
+              "provider": "MyJenkinsProviderName"
+            },
+            "artifactCredentials": {
+              "accessKeyId": "AKIAIOSFODNN7EXAMPLE",
+              "secretAccessKey": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+              "sessionToken": "fICCQD6m7oRw0uXOjANBgkqhkiG9w0BAQUFADCBiDELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAldBMRAwDgYDVQQHEwdTZWF0dGxlMQ8wDQYDVQQKEwZBbWF6b24xFDASBgNVBAsTC0lBTSBDb25zb2xlMRIwEAYDVQQDEwlUZXN0Q2lsYWMxHzAdBgkqhkiG9w0BCQEWEG5vb25lQGFtYXpvbi5jb20wHhcNMTEwNDI1MjA0NTIxWhcNMTIwNDI0MjA0NTIxWjCBiDELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAldBMRAwDgYDVQQHEwdTZWF0dGxlMQ8wDQYDVQQKEwZBbWF6b24xFDASBgNVBAsTC0lBTSBDb25zb2xlMRIwEAYDVQQDEwlUZXN0Q2lsYWMxHzAdBgkqhkiG9w0BCQEWEG5vb25lQGFtYXpvbi5jb20wgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAMaK0dn+a4GmWIWJ21uUSfwfEvySWtC2XADZ4nB+BLYgVIk60CpiwsZ3G93vUEIO3IyNoH/f0wYK8m9TrDHudUZg3qX4waLG5M43q7Wgc/MbQITxOUSQv7c7ugFFDzQGBzZswY6786m86gpEIbb3OhjZnzcvQAaRHhdlQWIMm2nrAgMBAAEwDQYJKoZIhvcNAQEFBQADgYEAtCu4nUhVVxYUntneD9+h8Mg9q6q+auNKyExzyLwaxlAoo7TJHidbtS4J5iNmZgXL0FkbFFBjvSfpJIlJ00zbhNYS5f6GuoEDmFJl0ZxBHjJnyp378OD8uTs7fLvjx79LjSTbNYiytVbZPQUQ5Yaxu2jXnimvw3rrszlaEXAMPLE="
+            },
+            "inputArtifacts": [
+              {
+                "name": "MyAppBuild",
+                "location": {
+                  "type": "S3",
+                  "s3Location": {
+                    "bucketName": "codepipeline-us-east-1-11EXAMPLE11",
+                    "objectKey": "MySecondPipeline/MyAppBuild/EXAMPLE"
+                  }
+                }
+              }
+            ],
+            "outputArtifacts": [],
+            "pipelineContext": {
+              "action": {
+                "name": "MyJenkinsTest-Action"
+              },
+              "pipelineName": "MySecondPipeline",
+              "stage": {
+                "name": "Testing"
+              }
+            }
+          },
+          "id": "11111111-abcd-1111-abcd-111111abcdef"
+        }
+      },
       "properties": {
         "jobDetails": {
           "$ref": "#/definitions/JobDetails",
@@ -1179,6 +1504,10 @@
       "required": [
         "name"
       ],
+      "example": {
+        "version": 123,
+        "name": "MyFirstPipeline"
+      },
       "properties": {
         "name": {
           "$ref": "#/definitions/PipelineName",
@@ -1193,6 +1522,69 @@
     },
     "GetPipelineOutput": {
       "type": "object",
+      "example": {
+        "pipeline": {
+          "version": 1,
+          "name": "MyFirstPipeline",
+          "artifactStore": {
+            "type": "S3",
+            "location": "codepipeline-us-east-1-11EXAMPLE11"
+          },
+          "roleArn": "arn:aws:iam::111111111111:role/AWS-CodePipeline-Service",
+          "stages": [
+            {
+              "name": "Source",
+              "actions": [
+                {
+                  "name": "Source",
+                  "actionTypeId": {
+                    "version": "1",
+                    "category": "Source",
+                    "owner": "AWS",
+                    "provider": "S3"
+                  },
+                  "configuration": {
+                    "S3Bucket": "awscodepipeline-demo-bucket",
+                    "S3ObjectKey": "aws-codepipeline-s3-aws-codedeploy_linux.zip"
+                  },
+                  "inputArtifacts": [],
+                  "outputArtifacts": [
+                    {
+                      "name": "MyApp"
+                    }
+                  ],
+                  "runOrder": 1
+                }
+              ]
+            },
+            {
+              "name": "Beta",
+              "actions": [
+                {
+                  "name": "CodePipelineDemoFleet",
+                  "actionTypeId": {
+                    "version": "1",
+                    "category": "Deploy",
+                    "owner": "AWS",
+                    "provider": "CodeDeploy"
+                  },
+                  "configuration": {
+                    "ApplicationName": "CodePipelineDemoApplication",
+                    "DeploymentGroupName": "CodePipelineDemoFleet"
+                  },
+                  "inputArtifacts": [
+                    {
+                      "name": "MyApp"
+                    }
+                  ],
+                  "outputArtifacts": [],
+                  "runOrder": 1
+                }
+              ]
+            }
+          ]
+        }
+      },
       "properties": {
         "pipeline": {
           "$ref": "#/definitions/PipelineDeclaration"
@@ -1205,6 +1597,9 @@
       "required": [
         "name"
       ],
+      "example": {
+        "name": "MyFirstPipeline"
+      },
       "properties": {
         "name": {
           "$ref": "#/definitions/PipelineName",
@@ -1215,6 +1610,46 @@
     },
     "GetPipelineStateOutput": {
       "type": "object",
+      "example": {
+        "created": "1446137312.204",
+        "pipelineName": "MyFirstPipeline",
+        "pipelineVersion": 1,
+        "stageStates": [
+          {
+            "actionStates": [
+              {
+                "actionName": "Source",
+                "entityUrl": "https://console.aws.amazon.com/s3/home?#",
+                "latestExecution": {
+                  "lastStatusChange": "1446137358.328",
+                  "status": "Succeeded"
+                }
+              }
+            ],
+            "stageName": "Source"
+          },
+          {
+            "actionStates": [
+              {
+                "actionName": "CodePipelineDemoFleet",
+                "entityUrl": "https://console.aws.amazon.com/codedeploy/home?#/applications/CodePipelineDemoApplication/deployment-groups/CodePipelineDemoFleet",
+                "latestExecution": {
+                  "externalExecutionId": "d-EXAMPLE",
+                  "externalExecutionUrl": "https://console.aws.amazon.com/codedeploy/home?#/deployments/d-EXAMPLE",
+                  "lastStatusChange": "1446137493.131",
+                  "status": "Succeeded",
+                  "summary": "Deployment Succeeded"
+                }
+              }
+            ],
+            "inboundTransitionState": {
+              "enabled": true
+            },
+            "stageName": "Beta"
+          }
+        ],
+        "updated": "1446137312.204"
+      },
       "properties": {
         "pipelineName": {
           "$ref": "#/definitions/PipelineName",
@@ -1452,6 +1887,10 @@
     },
     "ListActionTypesInput": {
       "type": "object",
+      "example": {
+        "actionOwnerFilter": "Custom",
+        "nextToken": ""
+      },
       "properties": {
         "actionOwnerFilter": {
           "$ref": "#/definitions/ActionOwner",
@@ -1469,6 +1908,69 @@
       "required": [
         "actionTypes"
       ],
+      "example": {
+        "actionTypes": [
+          {
+            "actionConfigurationProperties": [
+              {
+                "name": "MyJenkinsExampleBuildProject",
+                "required": true,
+                "key": true,
+                "queryable": true,
+                "secret": false
+              }
+            ],
+            "id": {
+              "version": "1",
+              "category": "Build",
+              "owner": "Custom",
+              "provider": "MyJenkinsProviderName"
+            },
+            "inputArtifactDetails": {
+              "maximumCount": 5,
+              "minimumCount": 0
+            },
+            "outputArtifactDetails": {
+              "maximumCount": 5,
+              "minimumCount": 0
+            },
+            "settings": {
+              "entityUrlTemplate": "http://54.174.131.118/job/{Config:ProjectName}",
+              "executionUrlTemplate": "http://54.174.131.118/job/{Config:ProjectName}/{ExternalExecutionId}"
+            }
+          },
+          {
+            "actionConfigurationProperties": [
+              {
+                "name": "MyJenkinsExampleTestProject",
+                "required": true,
+                "key": true,
+                "queryable": true,
+                "secret": false
+              }
+            ],
+            "id": {
+              "version": "1",
+              "category": "Build",
+              "owner": "Custom",
+              "provider": "MyJenkinsProviderName"
+            },
+            "inputArtifactDetails": {
+              "maximumCount": 5,
+              "minimumCount": 0
+            },
+            "outputArtifactDetails": {
+              "maximumCount": 5,
+              "minimumCount": 0
+            },
+            "settings": {
+              "entityUrlTemplate": "http://54.210.140.46/job/{Config:ProjectName}",
+              "executionUrlTemplate": "http://54.210.140.46/job/{Config:ProjectName}/{ExternalExecutionId}"
+            }
+          }
+        ],
+        "nextToken": ""
+      },
       "properties": {
         "actionTypes": {
           "$ref": "#/definitions/ActionTypeList",
@@ -1483,6 +1985,7 @@
     },
     "ListPipelinesInput": {
       "type": "object",
+      "example": {},
       "properties": {
         "nextToken": {
           "$ref": "#/definitions/NextToken",
@@ -1493,6 +1996,23 @@
     },
     "ListPipelinesOutput": {
       "type": "object",
+      "example": {
+        "nextToken": "",
+        "pipelines": [
+          {
+            "version": 1,
+            "name": "MyFirstPipeline",
+            "created": "1444681408.094",
+            "updated": "1444681408.094"
+          },
+          {
+            "version": 3,
+            "name": "MySecondPipeline",
+            "created": "1443046290.003",
+            "updated": "1443048299.639"
+          }
+        ]
+      },
       "properties": {
         "pipelines": {
           "$ref": "#/definitions/PipelineList",
@@ -1713,6 +2233,18 @@
       "required": [
         "actionTypeId"
       ],
+      "example": {
+        "actionTypeId": {
+          "version": "1",
+          "category": "Test",
+          "owner": "Custom",
+          "provider": "MyJenkinsProviderName"
+        },
+        "maxBatchSize": 5,
+        "queryParam": {
+          "ProjectName": "MyJenkinsTestProj"
+        }
+      },
       "properties": {
         "actionTypeId": {
           "$ref": "#/definitions/ActionTypeId"
@@ -1730,6 +2262,55 @@
     },
     "PollForJobsOutput": {
       "type": "object",
+      "example": {
+        "jobs": [
+          {
+            "accountId": "111111111111",
+            "data": {
+              "actionConfiguration": {
+                "configuration": {
+                  "ProjectName": "MyJenkinsTestProj"
+                }
+              },
+              "actionTypeId": {
+                "version": "1",
+                "category": "Test",
+                "owner": "Custom",
+                "provider": "MyJenkinsProviderName"
+              },
+              "artifactCredentials": {
+                "accessKeyId": "AKIAIOSFODNN7EXAMPLE",
+                "secretAccessKey": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+                "sessionToken": "fICCQD6m7oRw0uXOjANBgkqhkiG9w0BAQUFADCBiDELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAldBMRAwDgYDVQQHEwdTZWF0dGxlMQ8wDQYDVQQKEwZBbWF6b24xFDASBgNVBAsTC0lBTSBDb25zb2xlMRIwEAYDVQQDEwlUZXN0Q2lsYWMxHzAdBgkqhkiG9w0BCQEWEG5vb25lQGFtYXpvbi5jb20wHhcNMTEwNDI1MjA0NTIxWhcNMTIwNDI0MjA0NTIxWjCBiDELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAldBMRAwDgYDVQQHEwdTZWF0dGxlMQ8wDQYDVQQKEwZBbWF6b24xFDASBgNVBAsTC0lBTSBDb25zb2xlMRIwEAYDVQQDEwlUZXN0Q2lsYWMxHzAdBgkqhkiG9w0BCQEWEG5vb25lQGFtYXpvbi5jb20wgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAMaK0dn+a4GmWIWJ21uUSfwfEvySWtC2XADZ4nB+BLYgVIk60CpiwsZ3G93vUEIO3IyNoH/f0wYK8m9TrDHudUZg3qX4waLG5M43q7Wgc/MbQITxOUSQv7c7ugFFDzQGBzZswY6786m86gpEIbb3OhjZnzcvQAaRHhdlQWIMm2nrAgMBAAEwDQYJKoZIhvcNAQEFBQADgYEAtCu4nUhVVxYUntneD9+h8Mg9q6q+auNKyExzyLwaxlAoo7TJHidbtS4J5iNmZgXL0FkbFFBjvSfpJIlJ00zbhNYS5f6GuoEDmFJl0ZxBHjJnyp378OD8uTs7fLvjx79LjSTbNYiytVbZPQUQ5Yaxu2jXnimvw3rrszlaEXAMPLE="
+              },
+              "inputArtifacts": [
+                {
+                  "name": "MyAppBuild",
+                  "location": {
+                    "type": "S3",
+                    "s3Location": {
+                      "bucketName": "codepipeline-us-east-1-11EXAMPLE11",
+                      "objectKey": "MySecondPipeline/MyAppBuild/EXAMPLE"
+                    }
+                  }
+                }
+              ],
+              "outputArtifacts": [],
+              "pipelineContext": {
+                "action": {
+                  "name": "MyJenkinsTest-Action"
+                },
+                "pipelineName": "MySecondPipeline",
+                "stage": {
+                  "name": "Testing"
+                }
+              }
+            },
+            "id": "11111111-abcd-1111-abcd-111111abcdef",
+            "nonce": "3"
+          }
+        ]
+      },
       "properties": {
         "jobs": {
           "$ref": "#/definitions/JobList",
@@ -2177,6 +2758,9 @@
       "required": [
         "name"
       ],
+      "example": {
+        "name": "MyFirstPipeline"
+      },
       "properties": {
         "name": {
           "$ref": "#/definitions/PipelineName",
@@ -2187,6 +2771,9 @@
     },
     "StartPipelineExecutionOutput": {
       "type": "object",
+      "example": {
+        "pipelineExecutionId": "11111111-abcd-1111-abcd-111111abcdef"
+      },
       "properties": {
         "pipelineExecutionId": {
           "$ref": "#/definitions/PipelineExecutionId",
@@ -2307,6 +2894,69 @@
       "required": [
         "pipeline"
       ],
+      "example": {
+        "pipeline": {
+          "version": 2,
+          "name": "MyFirstPipeline",
+          "artifactStore": {
+            "type": "S3",
+            "location": "codepipeline-us-east-1-11EXAMPLE11"
+          },
+          "roleArn": "arn:aws:iam::111111111111:role/AWS-CodePipeline-Service",
+          "stages": [
+            {
+              "name": "Source",
+              "actions": [
+                {
+                  "name": "Source",
+                  "actionTypeId": {
+                    "version": "1",
+                    "category": "Source",
+                    "owner": "AWS",
+                    "provider": "S3"
+                  },
+                  "configuration": {
+                    "S3Bucket": "awscodepipeline-demo-bucket2",
+                    "S3ObjectKey": "aws-codepipeline-s3-aws-codedeploy_linux.zip"
+                  },
+                  "inputArtifacts": [],
+                  "outputArtifacts": [
+                    {
+                      "name": "MyApp"
+                    }
+                  ],
+                  "runOrder": 1
+                }
+              ]
+            },
+            {
+              "name": "Beta",
+              "actions": [
+                {
+                  "name": "CodePipelineDemoFleet",
+                  "actionTypeId": {
+                    "version": "1",
+                    "category": "Deploy",
+                    "owner": "AWS",
+                    "provider": "CodeDeploy"
+                  },
+                  "configuration": {
+                    "ApplicationName": "CodePipelineDemoApplication",
+                    "DeploymentGroupName": "CodePipelineDemoFleet"
+                  },
+                  "inputArtifacts": [
+                    {
+                      "name": "MyApp"
+                    }
+                  ],
+                  "outputArtifacts": [],
+                  "runOrder": 1
+                }
+              ]
+            }
+          ]
+        }
+      },
       "properties": {
         "pipeline": {
           "$ref": "#/definitions/PipelineDeclaration",
@@ -2317,6 +2967,69 @@
     },
     "UpdatePipelineOutput": {
       "type": "object",
+      "example": {
+        "pipeline": {
+          "version": 3,
+          "name": "MyFirstPipeline",
+          "artifactStore": {
+            "type": "S3",
+            "location": "codepipeline-us-east-1-11EXAMPLE11"
+          },
+          "roleArn": "arn:aws:iam::111111111111:role/AWS-CodePipeline-Service",
+          "stages": [
+            {
+              "name": "Source",
+              "actions": [
+                {
+                  "name": "Source",
+                  "actionTypeId": {
+                    "version": "1",
+                    "category": "Source",
+                    "owner": "AWS",
+                    "provider": "S3"
+                  },
+                  "configuration": {
+                    "S3Bucket": "awscodepipeline-demo-bucket2",
+                    "S3ObjectKey": "aws-codepipeline-s3-aws-codedeploy_linux.zip"
+                  },
+                  "inputArtifacts": [],
+                  "outputArtifacts": [
+                    {
+                      "name": "MyApp"
+                    }
+                  ],
+                  "runOrder": 1
+                }
+              ]
+            },
+            {
+              "name": "Beta",
+              "actions": [
+                {
+                  "name": "CodePipelineDemoFleet",
+                  "actionTypeId": {
+                    "version": "1",
+                    "category": "Deploy",
+                    "owner": "AWS",
+                    "provider": "CodeDeploy"
+                  },
+                  "configuration": {
+                    "ApplicationName": "CodePipelineDemoApplication",
+                    "DeploymentGroupName": "CodePipelineDemoFleet"
+                  },
+                  "inputArtifacts": [
+                    {
+                      "name": "MyApp"
+                    }
+                  ],
+                  "outputArtifacts": [],
+                  "runOrder": 1
+                }
+              ]
+            }
+          ]
+        }
+      },
       "properties": {
         "pipeline": {
           "$ref": "#/definitions/PipelineDeclaration",

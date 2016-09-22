@@ -32,18 +32,59 @@
   "consumes": [],
   "produces": [],
   "parameters": {
+    "Action": {
+      "name": "Action",
+      "in": "header",
+      "type": "string",
+      "required": true
+    },
+    "Version": {
+      "name": "Version",
+      "in": "header",
+      "type": "string",
+      "required": true
+    },
     "X-Amz-Content-Sha256": {
       "name": "X-Amz-Content-Sha256",
       "in": "header",
       "type": "string",
-      "required": true
+      "required": false
     },
     "X-Amz-Date": {
       "name": "X-Amz-Date",
       "in": "header",
       "type": "string",
-      "format": "date-time",
-      "required": true
+      "required": false
+    },
+    "X-Amz-Algorithm": {
+      "name": "X-Amz-Algorithm",
+      "in": "header",
+      "type": "string",
+      "required": false
+    },
+    "X-Amz-Credential": {
+      "name": "X-Amz-Credential",
+      "in": "header",
+      "type": "string",
+      "required": false
+    },
+    "X-Amz-Security-Token": {
+      "name": "X-Amz-Security-Token",
+      "in": "header",
+      "type": "string",
+      "required": false
+    },
+    "X-Amz-Signature": {
+      "name": "X-Amz-Signature",
+      "in": "header",
+      "type": "string",
+      "required": false
+    },
+    "X-Amz-SignedHeaders": {
+      "name": "X-Amz-SignedHeaders",
+      "in": "header",
+      "type": "string",
+      "required": false
     }
   },
   "securityDefinitions": {
@@ -98,10 +139,31 @@
       },
       "parameters": [
         {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
           "$ref": "#/parameters/X-Amz-Content-Sha256"
         },
         {
           "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
         }
       ]
     }
@@ -109,6 +171,9 @@
   "definitions": {
     "AbortEnvironmentUpdateMessage": {
       "type": "object",
+      "example": {
+        "EnvironmentName": "my-env"
+      },
       "properties": {
         "EnvironmentId": {
           "$ref": "#/definitions/EnvironmentId",
@@ -187,6 +252,22 @@
     },
     "ApplicationDescriptionMessage": {
       "type": "object",
+      "example": {
+        "Application": {
+          "ApplicationName": "my-app",
+          "ConfigurationTemplates": [],
+          "DateCreated": "2015-08-13T19:15:50.449Z",
+          "DateUpdated": "2015-08-20T22:34:56.195Z",
+          "Description": "my Elastic Beanstalk application",
+          "Versions": [
+            "2fba-stage-150819_234450",
+            "bf07-stage-150820_214945",
+            "93f8",
+            "fd7c-stage-150820_000431",
+            "22a0-stage-150819_185942"
+          ]
+        }
+      },
       "properties": {
         "Application": {
           "$ref": "#/definitions/ApplicationDescription",
@@ -197,6 +278,39 @@
     },
     "ApplicationDescriptionsMessage": {
       "type": "object",
+      "example": {
+        "Applications": [
+          {
+            "ApplicationName": "ruby",
+            "ConfigurationTemplates": [],
+            "DateCreated": "2015-08-13T21:05:44.376Z",
+            "DateUpdated": "2015-08-13T21:05:44.376Z",
+            "Versions": [
+              "Sample Application"
+            ]
+          },
+          {
+            "ApplicationName": "pythonsample",
+            "ConfigurationTemplates": [],
+            "DateCreated": "2015-08-13T19:05:43.637Z",
+            "DateUpdated": "2015-08-13T19:05:43.637Z",
+            "Description": "Application created from the EB CLI using \"eb init\"",
+            "Versions": [
+              "Sample Application"
+            ]
+          },
+          {
+            "ApplicationName": "nodejs-example",
+            "ConfigurationTemplates": [],
+            "DateCreated": "2015-08-06T17:50:02.486Z",
+            "DateUpdated": "2015-08-06T17:50:02.486Z",
+            "Versions": [
+              "add elasticache",
+              "First Release"
+            ]
+          }
+        ]
+      },
       "properties": {
         "Applications": {
           "$ref": "#/definitions/ApplicationDescriptionList",
@@ -280,6 +394,19 @@
     },
     "ApplicationVersionDescriptionMessage": {
       "type": "object",
+      "example": {
+        "ApplicationVersion": {
+          "ApplicationName": "my-app",
+          "DateCreated": "2015-08-19T18:59:17.646Z",
+          "DateUpdated": "2015-08-20T22:53:28.871Z",
+          "Description": "new description",
+          "SourceBundle": {
+            "S3Bucket": "elasticbeanstalk-us-west-2-0123456789012",
+            "S3Key": "my-app/22a0-stage-150819_185942.war"
+          },
+          "VersionLabel": "22a0-stage-150819_185942"
+        }
+      },
       "properties": {
         "ApplicationVersion": {
           "$ref": "#/definitions/ApplicationVersionDescription",
@@ -290,6 +417,32 @@
     },
     "ApplicationVersionDescriptionsMessage": {
       "type": "object",
+      "example": {
+        "ApplicationVersions": [
+          {
+            "ApplicationName": "my-app",
+            "DateCreated": "2015-07-23T01:32:26.079Z",
+            "DateUpdated": "2015-07-23T01:32:26.079Z",
+            "Description": "update cover page",
+            "SourceBundle": {
+              "S3Bucket": "elasticbeanstalk-us-west-2-015321684451",
+              "S3Key": "my-app/5026-stage-150723_224258.war"
+            },
+            "VersionLabel": "v2"
+          },
+          {
+            "ApplicationName": "my-app",
+            "DateCreated": "2015-07-23T22:26:10.816Z",
+            "DateUpdated": "2015-07-23T22:26:10.816Z",
+            "Description": "initial version",
+            "SourceBundle": {
+              "S3Bucket": "elasticbeanstalk-us-west-2-015321684451",
+              "S3Key": "my-app/5026-stage-150723_222618.war"
+            },
+            "VersionLabel": "v1"
+          }
+        ]
+      },
       "properties": {
         "ApplicationVersions": {
           "$ref": "#/definitions/ApplicationVersionDescriptionList",
@@ -434,6 +587,9 @@
       "required": [
         "CNAMEPrefix"
       ],
+      "example": {
+        "CNAMEPrefix": "my-cname"
+      },
       "properties": {
         "CNAMEPrefix": {
           "$ref": "#/definitions/DNSCnamePrefix",
@@ -444,6 +600,10 @@
     },
     "CheckDNSAvailabilityResultMessage": {
       "type": "object",
+      "example": {
+        "Available": true,
+        "FullyQualifiedCNAME": "my-cname.us-west-2.elasticbeanstalk.com"
+      },
       "properties": {
         "Available": {
           "$ref": "#/definitions/CnameAvailability",
@@ -599,6 +759,29 @@
     },
     "ConfigurationOptionsDescription": {
       "type": "object",
+      "example": {
+        "Options": [
+          {
+            "ChangeSeverity": "NoInterruption",
+            "DefaultValue": "30",
+            "MaxValue": 300,
+            "MinValue": 5,
+            "Name": "Interval",
+            "Namespace": "aws:elb:healthcheck",
+            "UserDefined": false,
+            "ValueType": "Scalar"
+          },
+          {
+            "ChangeSeverity": "NoInterruption",
+            "DefaultValue": "2000000",
+            "MinValue": 0,
+            "Name": "LowerThreshold",
+            "Namespace": "aws:autoscaling:trigger",
+            "UserDefined": false,
+            "ValueType": "Scalar"
+          }
+        ]
+      },
       "properties": {
         "SolutionStackName": {
           "$ref": "#/definitions/SolutionStackName",
@@ -613,6 +796,13 @@
     },
     "ConfigurationSettingsDescription": {
       "type": "object",
+      "example": {
+        "ApplicationName": "my-app",
+        "DateCreated": "2015-08-20T22:39:31Z",
+        "DateUpdated": "2015-08-20T22:43:11Z",
+        "SolutionStackName": "64bit Amazon Linux 2015.03 v2.0.0 running Tomcat 8 Java 8",
+        "TemplateName": "my-template"
+      },
       "properties": {
         "SolutionStackName": {
           "$ref": "#/definitions/SolutionStackName",
@@ -661,6 +851,45 @@
     },
     "ConfigurationSettingsDescriptions": {
       "type": "object",
+      "example": {
+        "ConfigurationSettings": [
+          {
+            "ApplicationName": "my-app",
+            "DateCreated": "2015-08-13T19:16:25Z",
+            "DateUpdated": "2015-08-13T23:30:07Z",
+            "DeploymentStatus": "deployed",
+            "Description": "Environment created from the EB CLI using \"eb create\"",
+            "EnvironmentName": "my-env",
+            "OptionSettings": [
+              {
+                "Namespace": "aws:autoscaling:asg",
+                "OptionName": "Availability Zones",
+                "ResourceName": "AWSEBAutoScalingGroup",
+                "Value": "Any"
+              },
+              {
+                "Namespace": "aws:autoscaling:asg",
+                "OptionName": "Cooldown",
+                "ResourceName": "AWSEBAutoScalingGroup",
+                "Value": "360"
+              },
+              {
+                "Namespace": "aws:elb:policies",
+                "OptionName": "ConnectionDrainingTimeout",
+                "ResourceName": "AWSEBLoadBalancer",
+                "Value": "20"
+              },
+              {
+                "Namespace": "aws:elb:policies",
+                "OptionName": "ConnectionSettingIdleTimeout",
+                "ResourceName": "AWSEBLoadBalancer",
+                "Value": "60"
+              }
+            ],
+            "SolutionStackName": "64bit Amazon Linux 2015.03 v2.0.0 running Tomcat 8 Java 8"
+          }
+        ]
+      },
       "properties": {
         "ConfigurationSettings": {
           "$ref": "#/definitions/ConfigurationSettingsDescriptionList",
@@ -671,6 +900,9 @@
     },
     "ConfigurationSettingsValidationMessages": {
       "type": "object",
+      "example": {
+        "Messages": []
+      },
       "properties": {
         "Messages": {
           "$ref": "#/definitions/ValidationMessagesList",
@@ -695,6 +927,10 @@
       "required": [
         "ApplicationName"
       ],
+      "example": {
+        "ApplicationName": "my-app",
+        "Description": "my application"
+      },
       "properties": {
         "ApplicationName": {
           "$ref": "#/definitions/ApplicationName",
@@ -713,6 +949,17 @@
         "ApplicationName",
         "VersionLabel"
       ],
+      "example": {
+        "ApplicationName": "my-app",
+        "AutoCreateApplication": true,
+        "Description": "my-app-v1",
+        "Process": true,
+        "SourceBundle": {
+          "S3Bucket": "my-bucket",
+          "S3Key": "sample.war"
+        },
+        "VersionLabel": "v1"
+      },
       "properties": {
         "ApplicationName": {
           "$ref": "#/definitions/ApplicationName",
@@ -747,6 +994,11 @@
         "ApplicationName",
         "TemplateName"
       ],
+      "example": {
+        "ApplicationName": "my-app",
+        "EnvironmentId": "e-rpqsewtp2j",
+        "TemplateName": "my-app-v1"
+      },
       "properties": {
         "ApplicationName": {
           "$ref": "#/definitions/ApplicationName",
@@ -784,6 +1036,13 @@
       "required": [
         "ApplicationName"
       ],
+      "example": {
+        "ApplicationName": "my-app",
+        "CNAMEPrefix": "my-app",
+        "EnvironmentName": "my-env",
+        "SolutionStackName": "64bit Amazon Linux 2015.03 v2.0.0 running Tomcat 8 Java 8",
+        "VersionLabel": "v1"
+      },
       "properties": {
         "ApplicationName": {
           "$ref": "#/definitions/ApplicationName",
@@ -838,6 +1097,9 @@
     },
     "CreateStorageLocationResultMessage": {
       "type": "object",
+      "example": {
+        "S3Bucket": "elasticbeanstalk-us-west-2-0123456789012"
+      },
       "properties": {
         "S3Bucket": {
           "$ref": "#/definitions/S3Bucket",
@@ -865,6 +1127,9 @@
       "required": [
         "ApplicationName"
       ],
+      "example": {
+        "ApplicationName": "my-app"
+      },
       "properties": {
         "ApplicationName": {
           "$ref": "#/definitions/ApplicationName",
@@ -883,6 +1148,11 @@
         "ApplicationName",
         "VersionLabel"
       ],
+      "example": {
+        "ApplicationName": "my-app",
+        "DeleteSourceBundle": true,
+        "VersionLabel": "22a0-stage-150819_182129"
+      },
       "properties": {
         "ApplicationName": {
           "$ref": "#/definitions/ApplicationName",
@@ -905,6 +1175,10 @@
         "ApplicationName",
         "TemplateName"
       ],
+      "example": {
+        "ApplicationName": "my-app",
+        "TemplateName": "my-template"
+      },
       "properties": {
         "ApplicationName": {
           "$ref": "#/definitions/ApplicationName",
@@ -923,6 +1197,10 @@
         "ApplicationName",
         "EnvironmentName"
       ],
+      "example": {
+        "ApplicationName": "my-app",
+        "EnvironmentName": "my-env"
+      },
       "properties": {
         "ApplicationName": {
           "$ref": "#/definitions/ApplicationName",
@@ -966,6 +1244,12 @@
     },
     "DescribeApplicationVersionsMessage": {
       "type": "object",
+      "example": {
+        "ApplicationName": "my-app",
+        "VersionLabels": [
+          "v2"
+        ]
+      },
       "properties": {
         "ApplicationName": {
           "$ref": "#/definitions/ApplicationName",
@@ -980,6 +1264,7 @@
     },
     "DescribeApplicationsMessage": {
       "type": "object",
+      "example": {},
       "properties": {
         "ApplicationNames": {
           "$ref": "#/definitions/ApplicationNamesList",
@@ -990,6 +1275,10 @@
     },
     "DescribeConfigurationOptionsMessage": {
       "type": "object",
+      "example": {
+        "ApplicationName": "my-app",
+        "EnvironmentName": "my-env"
+      },
       "properties": {
         "ApplicationName": {
           "$ref": "#/definitions/ApplicationName",
@@ -1019,6 +1308,10 @@
       "required": [
         "ApplicationName"
       ],
+      "example": {
+        "ApplicationName": "my-app",
+        "EnvironmentName": "my-env"
+      },
       "properties": {
         "ApplicationName": {
           "$ref": "#/definitions/ApplicationName",
@@ -1037,6 +1330,12 @@
     },
     "DescribeEnvironmentHealthRequest": {
       "type": "object",
+      "example": {
+        "AttributeNames": [
+          "All"
+        ],
+        "EnvironmentName": "my-env"
+      },
       "properties": {
         "EnvironmentName": {
           "$ref": "#/definitions/EnvironmentName",
@@ -1055,6 +1354,43 @@
     },
     "DescribeEnvironmentHealthResult": {
       "type": "object",
+      "example": {
+        "ApplicationMetrics": {
+          "Duration": 10,
+          "Latency": {
+            "P10": 0.001,
+            "P50": 0.001,
+            "P75": 0.002,
+            "P85": 0.003,
+            "P90": 0.003,
+            "P95": 0.004,
+            "P99": 0.004,
+            "P999": 0.004
+          },
+          "RequestCount": 45,
+          "StatusCodes": {
+            "Status2xx": 45,
+            "Status3xx": 0,
+            "Status4xx": 0,
+            "Status5xx": 0
+          }
+        },
+        "Causes": [],
+        "Color": "Green",
+        "EnvironmentName": "my-env",
+        "HealthStatus": "Ok",
+        "InstancesHealth": {
+          "Degraded": 0,
+          "Info": 0,
+          "NoData": 0,
+          "Ok": 1,
+          "Pending": 0,
+          "Severe": 0,
+          "Unknown": 0,
+          "Warning": 0
+        },
+        "RefreshedAt": "2015-08-20T21:09:18Z"
+      },
       "properties": {
         "EnvironmentName": {
           "$ref": "#/definitions/EnvironmentName",
@@ -1155,6 +1491,9 @@
     },
     "DescribeEnvironmentResourcesMessage": {
       "type": "object",
+      "example": {
+        "EnvironmentName": "my-env"
+      },
       "properties": {
         "EnvironmentId": {
           "$ref": "#/definitions/EnvironmentId",
@@ -1169,6 +1508,11 @@
     },
     "DescribeEnvironmentsMessage": {
       "type": "object",
+      "example": {
+        "EnvironmentNames": [
+          "my-env"
+        ]
+      },
       "properties": {
         "ApplicationName": {
           "$ref": "#/definitions/ApplicationName",
@@ -1199,6 +1543,9 @@
     },
     "DescribeEventsMessage": {
       "type": "object",
+      "example": {
+        "EnvironmentName": "my-env"
+      },
       "properties": {
         "ApplicationName": {
           "$ref": "#/definitions/ApplicationName",
@@ -1249,6 +1596,12 @@
     },
     "DescribeInstancesHealthRequest": {
       "type": "object",
+      "example": {
+        "AttributeNames": [
+          "All"
+        ],
+        "EnvironmentName": "my-env"
+      },
       "properties": {
         "EnvironmentName": {
           "$ref": "#/definitions/EnvironmentName",
@@ -1271,6 +1624,54 @@
     },
     "DescribeInstancesHealthResult": {
       "type": "object",
+      "example": {
+        "InstanceHealthList": [
+          {
+            "ApplicationMetrics": {
+              "Duration": 10,
+              "Latency": {
+                "P10": 0,
+                "P50": 0.001,
+                "P75": 0.002,
+                "P85": 0.003,
+                "P90": 0.004,
+                "P95": 0.005,
+                "P99": 0.006,
+                "P999": 0.006
+              },
+              "RequestCount": 48,
+              "StatusCodes": {
+                "Status2xx": 47,
+                "Status3xx": 0,
+                "Status4xx": 1,
+                "Status5xx": 0
+              }
+            },
+            "Causes": [],
+            "Color": "Green",
+            "HealthStatus": "Ok",
+            "InstanceId": "i-08691cc7",
+            "LaunchedAt": "2015-08-13T19:17:09Z",
+            "System": {
+              "CPUUtilization": {
+                "IOWait": 0.2,
+                "IRQ": 0,
+                "Idle": 97.8,
+                "Nice": 0.1,
+                "SoftIRQ": 0.1,
+                "System": 0.3,
+                "User": 1.5
+              },
+              "LoadAverage": [
+                0,
+                0.02,
+                0.05
+              ]
+            }
+          }
+        ],
+        "RefreshedAt": "2015-08-20T21:09:08Z"
+      },
       "properties": {
         "InstanceHealthList": {
           "$ref": "#/definitions/InstanceHealthList",
@@ -1309,6 +1710,25 @@
     },
     "EnvironmentDescription": {
       "type": "object",
+      "example": {
+        "AbortableOperationInProgress": true,
+        "ApplicationName": "my-app",
+        "CNAME": "my-env.elasticbeanstalk.com",
+        "DateCreated": "2015-08-07T20:48:49.599Z",
+        "DateUpdated": "2015-08-12T18:15:23.804Z",
+        "EndpointURL": "awseb-e-w-AWSEBLoa-14XB83101Q4L-104QXY80921.sa-east-1.elb.amazonaws.com",
+        "EnvironmentId": "e-wtp2rpqsej",
+        "EnvironmentName": "my-env",
+        "Health": "Grey",
+        "SolutionStackName": "64bit Amazon Linux 2015.03 v2.0.0 running Tomcat 8 Java 8",
+        "Status": "Updating",
+        "Tier": {
+          "Name": "WebServer",
+          "Type": "Standard",
+          "Version": " "
+        },
+        "VersionLabel": "7f58-stage-150812_025409"
+      },
       "properties": {
         "EnvironmentName": {
           "$ref": "#/definitions/EnvironmentName",
@@ -1393,6 +1813,29 @@
     },
     "EnvironmentDescriptionsMessage": {
       "type": "object",
+      "example": {
+        "Environments": [
+          {
+            "AbortableOperationInProgress": false,
+            "ApplicationName": "my-app",
+            "CNAME": "my-env.elasticbeanstalk.com",
+            "DateCreated": "2015-08-07T20:48:49.599Z",
+            "DateUpdated": "2015-08-12T18:16:55.019Z",
+            "EndpointURL": "awseb-e-w-AWSEBLoa-1483140XB0Q4L-109QXY8121.us-west-2.elb.amazonaws.com",
+            "EnvironmentId": "e-rpqsewtp2j",
+            "EnvironmentName": "my-env",
+            "Health": "Green",
+            "SolutionStackName": "64bit Amazon Linux 2015.03 v2.0.0 running Tomcat 8 Java 8",
+            "Status": "Ready",
+            "Tier": {
+              "Name": "WebServer",
+              "Type": "Standard",
+              "Version": " "
+            },
+            "VersionLabel": "7f58-stage-150812_025409"
+          }
+        ]
+      },
       "properties": {
         "Environments": {
           "$ref": "#/definitions/EnvironmentDescriptionsList",
@@ -1553,6 +1996,33 @@
     },
     "EnvironmentResourceDescriptionsMessage": {
       "type": "object",
+      "example": {
+        "EnvironmentResources": {
+          "AutoScalingGroups": [
+            {
+              "Name": "awseb-e-qu3fyyjyjs-stack-AWSEBAutoScalingGroup-QSB2ZO88SXZT"
+            }
+          ],
+          "EnvironmentName": "my-env",
+          "Instances": [
+            {
+              "Id": "i-0c91c786"
+            }
+          ],
+          "LaunchConfigurations": [
+            {
+              "Name": "awseb-e-qu3fyyjyjs-stack-AWSEBAutoScalingLaunchConfiguration-1UUVQIBC96TQ2"
+            }
+          ],
+          "LoadBalancers": [
+            {
+              "Name": "awseb-e-q-AWSEBLoa-1EEPZ0K98BIF0"
+            }
+          ],
+          "Queues": [],
+          "Triggers": []
+        }
+      },
       "properties": {
         "EnvironmentResources": {
           "$ref": "#/definitions/EnvironmentResourceDescription",
@@ -1649,6 +2119,41 @@
     },
     "EventDescriptionsMessage": {
       "type": "object",
+      "example": {
+        "Events": [
+          {
+            "ApplicationName": "my-app",
+            "EnvironmentName": "my-env",
+            "EventDate": "2015-08-20T07:06:53.535Z",
+            "Message": "Environment health has transitioned from Info to Ok.",
+            "Severity": "INFO"
+          },
+          {
+            "ApplicationName": "my-app",
+            "EnvironmentName": "my-env",
+            "EventDate": "2015-08-20T07:06:02.049Z",
+            "Message": "Environment update completed successfully.",
+            "RequestId": "b7f3960b-4709-11e5-ba1e-07e16200da41",
+            "Severity": "INFO"
+          },
+          {
+            "ApplicationName": "my-app",
+            "EnvironmentName": "my-env",
+            "EventDate": "2015-08-13T19:16:27.561Z",
+            "Message": "Using elasticbeanstalk-us-west-2-012445113685 as Amazon S3 storage bucket for environment data.",
+            "RequestId": "ca8dfbf6-41ef-11e5-988b-651aa638f46b",
+            "Severity": "INFO"
+          },
+          {
+            "ApplicationName": "my-app",
+            "EnvironmentName": "my-env",
+            "EventDate": "2015-08-13T19:16:26.581Z",
+            "Message": "createEnvironment is starting.",
+            "RequestId": "cdfba8f6-41ef-11e5-988b-65638f41aa6b",
+            "Severity": "INFO"
+          }
+        ]
+      },
       "properties": {
         "Events": {
           "$ref": "#/definitions/EventDescriptionList",
@@ -1870,6 +2375,46 @@
     },
     "ListAvailableSolutionStacksResultMessage": {
       "type": "object",
+      "example": {
+        "SolutionStackDetails": [
+          {
+            "PermittedFileTypes": [
+              "zip"
+            ],
+            "SolutionStackName": "64bit Amazon Linux 2015.03 v2.0.0 running Node.js"
+          }
+        ],
+        "SolutionStacks": [
+          "64bit Amazon Linux 2015.03 v2.0.0 running Node.js",
+          "64bit Amazon Linux 2015.03 v2.0.0 running PHP 5.6",
+          "64bit Amazon Linux 2015.03 v2.0.0 running PHP 5.5",
+          "64bit Amazon Linux 2015.03 v2.0.0 running PHP 5.4",
+          "64bit Amazon Linux 2015.03 v2.0.0 running Python 3.4",
+          "64bit Amazon Linux 2015.03 v2.0.0 running Python 2.7",
+          "64bit Amazon Linux 2015.03 v2.0.0 running Python",
+          "64bit Amazon Linux 2015.03 v2.0.0 running Ruby 2.2 (Puma)",
+          "64bit Amazon Linux 2015.03 v2.0.0 running Ruby 2.2 (Passenger Standalone)",
+          "64bit Amazon Linux 2015.03 v2.0.0 running Ruby 2.1 (Puma)",
+          "64bit Amazon Linux 2015.03 v2.0.0 running Ruby 2.1 (Passenger Standalone)",
+          "64bit Amazon Linux 2015.03 v2.0.0 running Ruby 2.0 (Puma)",
+          "64bit Amazon Linux 2015.03 v2.0.0 running Ruby 2.0 (Passenger Standalone)",
+          "64bit Amazon Linux 2015.03 v2.0.0 running Ruby 1.9.3",
+          "64bit Amazon Linux 2015.03 v2.0.0 running Tomcat 8 Java 8",
+          "64bit Amazon Linux 2015.03 v2.0.0 running Tomcat 7 Java 7",
+          "64bit Amazon Linux 2015.03 v2.0.0 running Tomcat 7 Java 6",
+          "64bit Windows Server Core 2012 R2 running IIS 8.5",
+          "64bit Windows Server 2012 R2 running IIS 8.5",
+          "64bit Windows Server 2012 running IIS 8",
+          "64bit Windows Server 2008 R2 running IIS 7.5",
+          "64bit Amazon Linux 2015.03 v2.0.0 running Docker 1.6.2",
+          "64bit Amazon Linux 2015.03 v2.0.0 running Multi-container Docker 1.6.2 (Generic)",
+          "64bit Debian jessie v2.0.0 running GlassFish 4.1 Java 8 (Preconfigured - Docker)",
+          "64bit Debian jessie v2.0.0 running GlassFish 4.0 Java 7 (Preconfigured - Docker)",
+          "64bit Debian jessie v2.0.0 running Go 1.4 (Preconfigured - Docker)",
+          "64bit Debian jessie v2.0.0 running Go 1.3 (Preconfigured - Docker)",
+          "64bit Debian jessie v2.0.0 running Python 3.4 (Preconfigured - Docker)"
+        ]
+      },
       "properties": {
         "SolutionStacks": {
           "$ref": "#/definitions/AvailableSolutionStackNamesList",
@@ -2131,6 +2676,9 @@
     },
     "RebuildEnvironmentMessage": {
       "type": "object",
+      "example": {
+        "EnvironmentName": "my-env"
+      },
       "properties": {
         "EnvironmentId": {
           "$ref": "#/definitions/EnvironmentId",
@@ -2161,6 +2709,10 @@
       "required": [
         "InfoType"
       ],
+      "example": {
+        "EnvironmentName": "my-env",
+        "InfoType": "tail"
+      },
       "properties": {
         "EnvironmentId": {
           "$ref": "#/definitions/EnvironmentId",
@@ -2190,6 +2742,9 @@
     },
     "RestartAppServerMessage": {
       "type": "object",
+      "example": {
+        "EnvironmentName": "my-env"
+      },
       "properties": {
         "EnvironmentId": {
           "$ref": "#/definitions/EnvironmentId",
@@ -2207,6 +2762,10 @@
       "required": [
         "InfoType"
       ],
+      "example": {
+        "EnvironmentName": "my-env",
+        "InfoType": "tail"
+      },
       "properties": {
         "EnvironmentId": {
           "$ref": "#/definitions/EnvironmentId",
@@ -2225,6 +2784,16 @@
     },
     "RetrieveEnvironmentInfoResultMessage": {
       "type": "object",
+      "example": {
+        "EnvironmentInfo": [
+          {
+            "Ec2InstanceId": "i-09c1c867",
+            "InfoType": "tail",
+            "Message": "https://elasticbeanstalk-us-west-2-0123456789012.s3.amazonaws.com/resources/environments/logs/tail/e-fyqyju3yjs/i-09c1c867/TailLogs-1440109397703.out?AWSAccessKeyId=AKGPT4J56IAJ2EUBL5CQ&Expires=1440195891&Signature=n%2BEalOV6A2HIOx4Rcfb7LT16bBM%3D",
+            "SampleTimestamp": "2015-08-20T22:23:17.703Z"
+          }
+        ]
+      },
       "properties": {
         "EnvironmentInfo": {
           "$ref": "#/definitions/EnvironmentInfoDescriptionList",
@@ -2383,6 +2952,10 @@
     },
     "SwapEnvironmentCNAMEsMessage": {
       "type": "object",
+      "example": {
+        "DestinationEnvironmentName": "my-env-green",
+        "SourceEnvironmentName": "my-env-blue"
+      },
       "properties": {
         "SourceEnvironmentId": {
           "$ref": "#/definitions/EnvironmentId",
@@ -2451,6 +3024,9 @@
     },
     "TerminateEnvironmentMessage": {
       "type": "object",
+      "example": {
+        "EnvironmentName": "my-env"
+      },
       "properties": {
         "EnvironmentId": {
           "$ref": "#/definitions/EnvironmentId",
@@ -2535,6 +3111,10 @@
       "required": [
         "ApplicationName"
       ],
+      "example": {
+        "ApplicationName": "my-app",
+        "Description": "my Elastic Beanstalk application"
+      },
       "properties": {
         "ApplicationName": {
           "$ref": "#/definitions/ApplicationName",
@@ -2553,6 +3133,11 @@
         "ApplicationName",
         "VersionLabel"
       ],
+      "example": {
+        "ApplicationName": "my-app",
+        "Description": "new description",
+        "VersionLabel": "22a0-stage-150819_185942"
+      },
       "properties": {
         "ApplicationName": {
           "$ref": "#/definitions/ApplicationName",
@@ -2575,6 +3160,16 @@
         "ApplicationName",
         "TemplateName"
       ],
+      "example": {
+        "ApplicationName": "my-app",
+        "OptionsToRemove": [
+          {
+            "Namespace": "aws:elasticbeanstalk:healthreporting:system",
+            "OptionName": "ConfigDocument"
+          }
+        ],
+        "TemplateName": "my-template"
+      },
       "properties": {
         "ApplicationName": {
           "$ref": "#/definitions/ApplicationName",
@@ -2605,6 +3200,31 @@
     },
     "UpdateEnvironmentMessage": {
       "type": "object",
+      "example": {
+        "EnvironmentName": "my-env",
+        "OptionSettings": [
+          {
+            "Namespace": "aws:elb:healthcheck",
+            "OptionName": "Interval",
+            "Value": "15"
+          },
+          {
+            "Namespace": "aws:elb:healthcheck",
+            "OptionName": "Timeout",
+            "Value": "8"
+          },
+          {
+            "Namespace": "aws:elb:healthcheck",
+            "OptionName": "HealthyThreshold",
+            "Value": "2"
+          },
+          {
+            "Namespace": "aws:elb:healthcheck",
+            "OptionName": "UnhealthyThreshold",
+            "Value": "3"
+          }
+        ]
+      },
       "properties": {
         "ApplicationName": {
           "$ref": "#/definitions/ApplicationName",
@@ -2662,6 +3282,17 @@
         "ApplicationName",
         "OptionSettings"
       ],
+      "example": {
+        "ApplicationName": "my-app",
+        "EnvironmentName": "my-env",
+        "OptionSettings": [
+          {
+            "Namespace": "aws:elasticbeanstalk:healthreporting:system",
+            "OptionName": "ConfigDocument",
+            "Value": "{\"CloudWatchMetrics\": {\"Environment\": {\"ApplicationLatencyP99.9\": null,\"InstancesSevere\": 60,\"ApplicationLatencyP90\": 60,\"ApplicationLatencyP99\": null,\"ApplicationLatencyP95\": 60,\"InstancesUnknown\": 60,\"ApplicationLatencyP85\": 60,\"InstancesInfo\": null,\"ApplicationRequests2xx\": null,\"InstancesDegraded\": null,\"InstancesWarning\": 60,\"ApplicationLatencyP50\": 60,\"ApplicationRequestsTotal\": null,\"InstancesNoData\": null,\"InstancesPending\": 60,\"ApplicationLatencyP10\": null,\"ApplicationRequests5xx\": null,\"ApplicationLatencyP75\": null,\"InstancesOk\": 60,\"ApplicationRequests3xx\": null,\"ApplicationRequests4xx\": null},\"Instance\": {\"ApplicationLatencyP99.9\": null,\"ApplicationLatencyP90\": 60,\"ApplicationLatencyP99\": null,\"ApplicationLatencyP95\": null,\"ApplicationLatencyP85\": null,\"CPUUser\": 60,\"ApplicationRequests2xx\": null,\"CPUIdle\": null,\"ApplicationLatencyP50\": null,\"ApplicationRequestsTotal\": 60,\"RootFilesystemUtil\": null,\"LoadAverage1min\": null,\"CPUIrq\": null,\"CPUNice\": 60,\"CPUIowait\": 60,\"ApplicationLatencyP10\": null,\"LoadAverage5min\": null,\"ApplicationRequests5xx\": null,\"ApplicationLatencyP75\": 60,\"CPUSystem\": 60,\"ApplicationRequests3xx\": 60,\"ApplicationRequests4xx\": null,\"InstanceHealth\": null,\"CPUSoftirq\": 60}},\"Version\": 1}"
+          }
+        ]
+      },
       "properties": {
         "ApplicationName": {
           "$ref": "#/definitions/ApplicationName",
