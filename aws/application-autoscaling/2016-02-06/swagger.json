@@ -108,6 +108,522 @@
   "paths": {
     "/": {
       "post": {
+        "operationId": "DeleteScalingPolicy",
+        "description": "<p>Deletes an Application Auto Scaling scaling policy that was previously created. If you are no longer using a scaling policy, you can delete it with this operation.</p> <p>Deleting a policy deletes the underlying alarm action, but does not delete the CloudWatch alarm associated with the scaling policy, even if it no longer has an associated action.</p> <p>To create a new scaling policy or update an existing one, see <a>PutScalingPolicy</a>.</p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DeleteScalingPolicyResponse"
+            }
+          },
+          "480": {
+            "description": "ValidationException",
+            "schema": {
+              "$ref": "#/definitions/ValidationException"
+            }
+          },
+          "481": {
+            "description": "ObjectNotFoundException",
+            "schema": {
+              "$ref": "#/definitions/ObjectNotFoundException"
+            }
+          },
+          "482": {
+            "description": "ConcurrentUpdateException",
+            "schema": {
+              "$ref": "#/definitions/ConcurrentUpdateException"
+            }
+          },
+          "483": {
+            "description": "InternalServiceException",
+            "schema": {
+              "$ref": "#/definitions/InternalServiceException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteScalingPolicyRequest"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#DeregisterScalableTarget": {
+      "post": {
+        "operationId": "DeregisterScalableTarget",
+        "description": "<p>Deregisters a scalable target that was previously registered. If you are no longer using a scalable target, you can delete it with this operation. When you deregister a scalable target, all of the scaling policies that are associated with that scalable target are deleted.</p> <p>To create a new scalable target or update an existing one, see <a>RegisterScalableTarget</a>.</p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DeregisterScalableTargetResponse"
+            }
+          },
+          "480": {
+            "description": "ValidationException",
+            "schema": {
+              "$ref": "#/definitions/ValidationException"
+            }
+          },
+          "481": {
+            "description": "ObjectNotFoundException",
+            "schema": {
+              "$ref": "#/definitions/ObjectNotFoundException"
+            }
+          },
+          "482": {
+            "description": "ConcurrentUpdateException",
+            "schema": {
+              "$ref": "#/definitions/ConcurrentUpdateException"
+            }
+          },
+          "483": {
+            "description": "InternalServiceException",
+            "schema": {
+              "$ref": "#/definitions/InternalServiceException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeregisterScalableTargetRequest"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#DescribeScalableTargets": {
+      "post": {
+        "operationId": "DescribeScalableTargets",
+        "description": "<p>Provides descriptive information for scalable targets with a specified service namespace.</p> <p>You can filter the results in a service namespace with the <code>ResourceIds</code> and <code>ScalableDimension</code> parameters.</p> <p>To create a new scalable target or update an existing one, see <a>RegisterScalableTarget</a>. If you are no longer using a scalable target, you can deregister it with <a>DeregisterScalableTarget</a>.</p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DescribeScalableTargetsResponse"
+            }
+          },
+          "480": {
+            "description": "ValidationException",
+            "schema": {
+              "$ref": "#/definitions/ValidationException"
+            }
+          },
+          "481": {
+            "description": "InvalidNextTokenException",
+            "schema": {
+              "$ref": "#/definitions/InvalidNextTokenException"
+            }
+          },
+          "482": {
+            "description": "ConcurrentUpdateException",
+            "schema": {
+              "$ref": "#/definitions/ConcurrentUpdateException"
+            }
+          },
+          "483": {
+            "description": "InternalServiceException",
+            "schema": {
+              "$ref": "#/definitions/InternalServiceException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DescribeScalableTargetsRequest"
+            }
+          },
+          {
+            "name": "MaxResults",
+            "type": "string",
+            "in": "query",
+            "description": "Pagination limit",
+            "required": false
+          },
+          {
+            "name": "NextToken",
+            "type": "string",
+            "in": "query",
+            "description": "Pagination token",
+            "required": false
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#DescribeScalingActivities": {
+      "post": {
+        "operationId": "DescribeScalingActivities",
+        "description": "<p>Provides descriptive information for scaling activities with a specified service namespace for the previous six weeks.</p> <p>You can filter the results in a service namespace with the <code>ResourceId</code> and <code>ScalableDimension</code> parameters.</p> <p>Scaling activities are triggered by CloudWatch alarms that are associated with scaling policies. To view the existing scaling policies for a service namespace, see <a>DescribeScalingPolicies</a>. To create a new scaling policy or update an existing one, see <a>PutScalingPolicy</a>.</p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DescribeScalingActivitiesResponse"
+            }
+          },
+          "480": {
+            "description": "ValidationException",
+            "schema": {
+              "$ref": "#/definitions/ValidationException"
+            }
+          },
+          "481": {
+            "description": "InvalidNextTokenException",
+            "schema": {
+              "$ref": "#/definitions/InvalidNextTokenException"
+            }
+          },
+          "482": {
+            "description": "ConcurrentUpdateException",
+            "schema": {
+              "$ref": "#/definitions/ConcurrentUpdateException"
+            }
+          },
+          "483": {
+            "description": "InternalServiceException",
+            "schema": {
+              "$ref": "#/definitions/InternalServiceException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DescribeScalingActivitiesRequest"
+            }
+          },
+          {
+            "name": "MaxResults",
+            "type": "string",
+            "in": "query",
+            "description": "Pagination limit",
+            "required": false
+          },
+          {
+            "name": "NextToken",
+            "type": "string",
+            "in": "query",
+            "description": "Pagination token",
+            "required": false
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#DescribeScalingPolicies": {
+      "post": {
+        "operationId": "DescribeScalingPolicies",
+        "description": "<p>Provides descriptive information for scaling policies with a specified service namespace.</p> <p>You can filter the results in a service namespace with the <code>ResourceId</code>, <code>ScalableDimension</code>, and <code>PolicyNames</code> parameters.</p> <p>To create a new scaling policy or update an existing one, see <a>PutScalingPolicy</a>. If you are no longer using a scaling policy, you can delete it with <a>DeleteScalingPolicy</a>.</p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DescribeScalingPoliciesResponse"
+            }
+          },
+          "480": {
+            "description": "ValidationException",
+            "schema": {
+              "$ref": "#/definitions/ValidationException"
+            }
+          },
+          "481": {
+            "description": "FailedResourceAccessException",
+            "schema": {
+              "$ref": "#/definitions/FailedResourceAccessException"
+            }
+          },
+          "482": {
+            "description": "InvalidNextTokenException",
+            "schema": {
+              "$ref": "#/definitions/InvalidNextTokenException"
+            }
+          },
+          "483": {
+            "description": "ConcurrentUpdateException",
+            "schema": {
+              "$ref": "#/definitions/ConcurrentUpdateException"
+            }
+          },
+          "484": {
+            "description": "InternalServiceException",
+            "schema": {
+              "$ref": "#/definitions/InternalServiceException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DescribeScalingPoliciesRequest"
+            }
+          },
+          {
+            "name": "MaxResults",
+            "type": "string",
+            "in": "query",
+            "description": "Pagination limit",
+            "required": false
+          },
+          {
+            "name": "NextToken",
+            "type": "string",
+            "in": "query",
+            "description": "Pagination token",
+            "required": false
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#PutScalingPolicy": {
+      "post": {
+        "operationId": "PutScalingPolicy",
+        "description": "<p>Creates or updates a policy for an existing Application Auto Scaling scalable target. Each scalable target is identified by service namespace, a resource ID, and a scalable dimension, and a scaling policy applies to a scalable target that is identified by those three attributes. You cannot create a scaling policy without first registering a scalable target with <a>RegisterScalableTarget</a>.</p> <p>To update an existing policy, use the existing policy name and set the parameters you want to change. Any existing parameter not changed in an update to an existing policy is not changed in this update request.</p> <p>You can view the existing scaling policies for a service namespace with <a>DescribeScalingPolicies</a>. If you are no longer using a scaling policy, you can delete it with <a>DeleteScalingPolicy</a>.</p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/PutScalingPolicyResponse"
+            }
+          },
+          "480": {
+            "description": "ValidationException",
+            "schema": {
+              "$ref": "#/definitions/ValidationException"
+            }
+          },
+          "481": {
+            "description": "LimitExceededException",
+            "schema": {
+              "$ref": "#/definitions/LimitExceededException"
+            }
+          },
+          "482": {
+            "description": "ObjectNotFoundException",
+            "schema": {
+              "$ref": "#/definitions/ObjectNotFoundException"
+            }
+          },
+          "483": {
+            "description": "ConcurrentUpdateException",
+            "schema": {
+              "$ref": "#/definitions/ConcurrentUpdateException"
+            }
+          },
+          "484": {
+            "description": "InternalServiceException",
+            "schema": {
+              "$ref": "#/definitions/InternalServiceException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PutScalingPolicyRequest"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#RegisterScalableTarget": {
+      "post": {
         "operationId": "RegisterScalableTarget",
         "description": "<p>Registers or updates a scalable target. A scalable target is a resource that can be scaled out or in with Application Auto Scaling. After you have registered a scalable target, you can use this operation to update the minimum and maximum values for your scalable dimension.</p> <p>After you register a scalable target with Application Auto Scaling, you can create and apply scaling policies to it with <a>PutScalingPolicy</a>. You can view the existing scaling policies for a service namespace with <a>DescribeScalableTargets</a>. If you are no longer using a scalable target, you can deregister it with <a>DeregisterScalableTarget</a>.</p>",
         "responses": {

@@ -108,6 +108,3173 @@
   "paths": {
     "/": {
       "post": {
+        "operationId": "CreateAlias",
+        "description": "<p>Creates an alias for a fleet. You can use an alias to anonymize your fleet by referencing an alias instead of a specific fleet when you create game sessions. Amazon GameLift supports two types of routing strategies for aliases: simple and terminal. Use a simple alias to point to an active fleet. Use a terminal alias to display a message to incoming traffic instead of routing players to an active fleet. This option is useful when a game server is no longer supported but you want to provide better messaging than a standard 404 error.</p> <p>To create a fleet alias, specify an alias name, routing strategy, and optional description. If successful, a new alias record is returned, including an alias ID, which you can reference when creating a game session. To reassign the alias to another fleet ID, call <a>UpdateAlias</a>.</p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CreateAliasOutput"
+            }
+          },
+          "480": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "481": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "482": {
+            "description": "ConflictException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ConflictException"
+            }
+          },
+          "483": {
+            "description": "InternalServiceException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalServiceException"
+            }
+          },
+          "484": {
+            "description": "LimitExceededException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/LimitExceededException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateAliasInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#CreateBuild": {
+      "post": {
+        "operationId": "CreateBuild",
+        "description": "<p>Initializes a new build record and generates information required to upload a game build to Amazon GameLift. Once the build record has been created and its status is <code>INITIALIZED</code>, you can upload your game build.</p> <important> <p>Do not use this API action unless you are using your own Amazon Simple Storage Service (Amazon S3) client and need to manually upload your build files. Instead, to create a build, use the CLI command <code>upload-build</code>, which creates a new build record and uploads the build files in one step. (See the <a href=\"http://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-build-intro.html\">Amazon GameLift Developer Guide</a> help on packaging and uploading your build.) </p> </important> <p>To create a new build, identify the operating system of the game server binaries. All game servers in a build must use the same operating system. Optionally, specify a build name and version; this metadata is stored with other properties in the build record and is displayed in the GameLift console (it is not visible to players). If successful, this action returns the newly created build record along with the Amazon S3 storage location and AWS account credentials. Use the location and credentials to upload your game build.</p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CreateBuildOutput"
+            }
+          },
+          "480": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "481": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "482": {
+            "description": "ConflictException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ConflictException"
+            }
+          },
+          "483": {
+            "description": "InternalServiceException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalServiceException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateBuildInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#CreateFleet": {
+      "post": {
+        "operationId": "CreateFleet",
+        "description": "<p>Creates a new fleet to run your game servers. A fleet is a set of Amazon Elastic Compute Cloud (Amazon EC2) instances, each of which can run multiple server processes to host game sessions. You configure a fleet to create instances with certain hardware specifications (see <a href=\"https://aws.amazon.com/ec2/instance-types/\">Amazon EC2 Instance Types</a> for more information), and deploy a specified game build to each instance. A newly created fleet passes through several statuses; once it reaches the <code>ACTIVE</code> status, it can begin hosting game sessions.</p> <p>To create a new fleet, provide a fleet name, an EC2 instance type, and a build ID of the game build to deploy. You can also configure the new fleet with the following settings: (1) a runtime configuration describing what server processes to run on each instance in the fleet (required to create fleet), (2) access permissions for inbound traffic, (3) fleet-wide game session protection, and (4) the location of default log files for GameLift to upload and store.</p> <p>If the <code>CreateFleet</code> call is successful, Amazon GameLift performs the following tasks:</p> <ul> <li>Creates a fleet record and sets the status to <code>NEW</code> (followed by other statuses as the fleet is activated).</li> <li>Sets the fleet's capacity to 1 \"desired\", which causes GameLift to start one new EC2 instance.</li> <li>Starts launching server processes on the instance. If the fleet is configured to run multiple server processes per instance, GameLift staggers each launch by a few seconds.</li> <li>Begins writing events to the fleet event log, which can be accessed in the GameLift console.</li> <li>Sets the fleet's status to <code>ACTIVE</code> once one server process in the fleet is ready to host a game session.</li> </ul> <p>After a fleet is created, use the following actions to change fleet properties and configuration:</p> <ul> <li> <a>UpdateFleetAttributes</a> -- Update fleet metadata, including name and description.</li> <li> <a>UpdateFleetCapacity</a> -- Increase or decrease the number of instances you want the fleet to maintain.</li> <li> <a>UpdateFleetPortSettings</a> -- Change the IP address and port ranges that allow access to incoming traffic.</li> <li> <a>UpdateRuntimeConfiguration</a> -- Change how server processes are launched in the fleet, including launch path, launch parameters, and the number of concurrent processes.</li> </ul>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CreateFleetOutput"
+            }
+          },
+          "480": {
+            "description": "InternalServiceException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalServiceException"
+            }
+          },
+          "481": {
+            "description": "NotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/NotFoundException"
+            }
+          },
+          "482": {
+            "description": "ConflictException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ConflictException"
+            }
+          },
+          "483": {
+            "description": "LimitExceededException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/LimitExceededException"
+            }
+          },
+          "484": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "485": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateFleetInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#CreateGameSession": {
+      "post": {
+        "operationId": "CreateGameSession",
+        "description": "<p>Creates a multiplayer game session for players. This action creates a game session record and assigns the new session to an instance in the specified fleet, which initializes a new server process to host the game session. A fleet must be in an <code>ACTIVE</code> status before a game session can be created in it.</p> <p>To create a game session, specify either a fleet ID or an alias ID and indicate the maximum number of players the game session allows. You can also provide a name and a set of properties for your game (optional). If successful, a <a>GameSession</a> object is returned containing session properties, including an IP address. By default, newly created game sessions are set to accept adding any new players to the game session. Use <a>UpdateGameSession</a> to change the creation policy.</p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CreateGameSessionOutput"
+            }
+          },
+          "480": {
+            "description": "ConflictException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ConflictException"
+            }
+          },
+          "481": {
+            "description": "InternalServiceException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalServiceException"
+            }
+          },
+          "482": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "483": {
+            "description": "InvalidFleetStatusException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidFleetStatusException"
+            }
+          },
+          "484": {
+            "description": "TerminalRoutingStrategyException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/TerminalRoutingStrategyException"
+            }
+          },
+          "485": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "486": {
+            "description": "NotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/NotFoundException"
+            }
+          },
+          "487": {
+            "description": "FleetCapacityExceededException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/FleetCapacityExceededException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateGameSessionInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#CreatePlayerSession": {
+      "post": {
+        "operationId": "CreatePlayerSession",
+        "description": "<p>Adds a player to a game session and creates a player session record. A game session must be in an <code>ACTIVE</code> status, have a creation policy of <code>ALLOW_ALL</code>, and have an open player slot before players can be added to the session.</p> <p>To create a player session, specify a game session ID and player ID. If successful, the player is added to the game session and a new <a>PlayerSession</a> object is returned. </p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CreatePlayerSessionOutput"
+            }
+          },
+          "480": {
+            "description": "InternalServiceException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalServiceException"
+            }
+          },
+          "481": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "482": {
+            "description": "InvalidGameSessionStatusException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidGameSessionStatusException"
+            }
+          },
+          "483": {
+            "description": "GameSessionFullException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/GameSessionFullException"
+            }
+          },
+          "484": {
+            "description": "TerminalRoutingStrategyException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/TerminalRoutingStrategyException"
+            }
+          },
+          "485": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "486": {
+            "description": "NotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/NotFoundException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreatePlayerSessionInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#CreatePlayerSessions": {
+      "post": {
+        "operationId": "CreatePlayerSessions",
+        "description": "<p>Adds a group of players to a game session. Similar to <a>CreatePlayerSession</a>, this action allows you to add multiple players in a single call, which is useful for games that provide party and/or matchmaking features. A game session must be in an <code>ACTIVE</code> status, have a creation policy of <code>ALLOW_ALL</code>, and have an open player slot before players can be added to the session.</p> <p>To create player sessions, specify a game session ID and a list of player IDs. If successful, the players are added to the game session and a set of new <a>PlayerSession</a> objects is returned. </p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CreatePlayerSessionsOutput"
+            }
+          },
+          "480": {
+            "description": "InternalServiceException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalServiceException"
+            }
+          },
+          "481": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "482": {
+            "description": "InvalidGameSessionStatusException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidGameSessionStatusException"
+            }
+          },
+          "483": {
+            "description": "GameSessionFullException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/GameSessionFullException"
+            }
+          },
+          "484": {
+            "description": "TerminalRoutingStrategyException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/TerminalRoutingStrategyException"
+            }
+          },
+          "485": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "486": {
+            "description": "NotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/NotFoundException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreatePlayerSessionsInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#DeleteAlias": {
+      "post": {
+        "operationId": "DeleteAlias",
+        "description": "Deletes an alias. This action removes all record of the alias; game clients attempting to access a server process using the deleted alias receive an error. To delete an alias, specify the alias ID to be deleted.",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "480": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "481": {
+            "description": "NotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/NotFoundException"
+            }
+          },
+          "482": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "483": {
+            "description": "InternalServiceException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalServiceException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteAliasInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#DeleteBuild": {
+      "post": {
+        "operationId": "DeleteBuild",
+        "description": "<p>Deletes a build. This action permanently deletes the build record and any uploaded build files.</p> <p>To delete a build, specify its ID. Deleting a build does not affect the status of any active fleets using the build, but you can no longer create new fleets with the deleted build.</p>",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "480": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "481": {
+            "description": "NotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/NotFoundException"
+            }
+          },
+          "482": {
+            "description": "InternalServiceException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalServiceException"
+            }
+          },
+          "483": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteBuildInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#DeleteFleet": {
+      "post": {
+        "operationId": "DeleteFleet",
+        "description": "<p>Deletes everything related to a fleet. Before deleting a fleet, you must set the fleet's desired capacity to zero. See <a>UpdateFleetCapacity</a>.</p> <p>This action removes the fleet's resources and the fleet record. Once a fleet is deleted, you can no longer use that fleet.</p>",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "480": {
+            "description": "NotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/NotFoundException"
+            }
+          },
+          "481": {
+            "description": "InternalServiceException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalServiceException"
+            }
+          },
+          "482": {
+            "description": "InvalidFleetStatusException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidFleetStatusException"
+            }
+          },
+          "483": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "484": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteFleetInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#DeleteScalingPolicy": {
+      "post": {
+        "operationId": "DeleteScalingPolicy",
+        "description": "Deletes a fleet scaling policy. This action means that the policy is no longer in force and removes all record of it. To delete a scaling policy, specify both the scaling policy name and the fleet ID it is associated with. ",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "480": {
+            "description": "InternalServiceException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalServiceException"
+            }
+          },
+          "481": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "482": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "483": {
+            "description": "NotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/NotFoundException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteScalingPolicyInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#DescribeAlias": {
+      "post": {
+        "operationId": "DescribeAlias",
+        "description": "Retrieves properties for a specified alias. To get the alias, specify an alias ID. If successful, an <a>Alias</a> object is returned.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DescribeAliasOutput"
+            }
+          },
+          "480": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "481": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "482": {
+            "description": "NotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/NotFoundException"
+            }
+          },
+          "483": {
+            "description": "InternalServiceException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalServiceException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DescribeAliasInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#DescribeBuild": {
+      "post": {
+        "operationId": "DescribeBuild",
+        "description": "Retrieves properties for a build. To get a build record, specify a build ID. If successful, an object containing the build properties is returned.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DescribeBuildOutput"
+            }
+          },
+          "480": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "481": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "482": {
+            "description": "NotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/NotFoundException"
+            }
+          },
+          "483": {
+            "description": "InternalServiceException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalServiceException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DescribeBuildInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#DescribeEC2InstanceLimits": {
+      "post": {
+        "operationId": "DescribeEC2InstanceLimits",
+        "description": "<p>Retrieves the following information for the specified EC2 instance type:</p> <ul> <li>maximum number of instances allowed per AWS account (service limit)</li> <li>current usage level for the AWS account </li> </ul> <p>Service limits vary depending on region. Available regions for GameLift can be found in the AWS Management Console for GameLift (see the drop-down list in the upper right corner).</p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DescribeEC2InstanceLimitsOutput"
+            }
+          },
+          "480": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "481": {
+            "description": "InternalServiceException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalServiceException"
+            }
+          },
+          "482": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DescribeEC2InstanceLimitsInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#DescribeFleetAttributes": {
+      "post": {
+        "operationId": "DescribeFleetAttributes",
+        "description": "<p>Retrieves fleet properties, including metadata, status, and configuration, for one or more fleets. You can request attributes for all fleets, or specify a list of one or more fleet IDs. When requesting multiple fleets, use the pagination parameters to retrieve results as a set of sequential pages. If successful, a <a>FleetAttributes</a> object is returned for each requested fleet ID. When specifying a list of fleet IDs, attribute objects are returned only for fleets that currently exist. </p> <note> <p>Some API actions may limit the number of fleet IDs allowed in one request. If a request exceeds this limit, the request fails and the error message includes the maximum allowed.</p> </note>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DescribeFleetAttributesOutput"
+            }
+          },
+          "480": {
+            "description": "InternalServiceException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalServiceException"
+            }
+          },
+          "481": {
+            "description": "NotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/NotFoundException"
+            }
+          },
+          "482": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "483": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DescribeFleetAttributesInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#DescribeFleetCapacity": {
+      "post": {
+        "operationId": "DescribeFleetCapacity",
+        "description": "<p>Retrieves the current status of fleet capacity for one or more fleets. This information includes the number of instances that have been requested for the fleet and the number currently active. You can request capacity for all fleets, or specify a list of one or more fleet IDs. When requesting multiple fleets, use the pagination parameters to retrieve results as a set of sequential pages. If successful, a <a>FleetCapacity</a> object is returned for each requested fleet ID. When specifying a list of fleet IDs, attribute objects are returned only for fleets that currently exist. </p> <note> <p>Some API actions may limit the number of fleet IDs allowed in one request. If a request exceeds this limit, the request fails and the error message includes the maximum allowed.</p> </note>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DescribeFleetCapacityOutput"
+            }
+          },
+          "480": {
+            "description": "InternalServiceException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalServiceException"
+            }
+          },
+          "481": {
+            "description": "NotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/NotFoundException"
+            }
+          },
+          "482": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "483": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DescribeFleetCapacityInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#DescribeFleetEvents": {
+      "post": {
+        "operationId": "DescribeFleetEvents",
+        "description": "Retrieves entries from the specified fleet's event log. You can specify a time range to limit the result set. Use the pagination parameters to retrieve results as a set of sequential pages. If successful, a collection of event log entries matching the request are returned.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DescribeFleetEventsOutput"
+            }
+          },
+          "480": {
+            "description": "NotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/NotFoundException"
+            }
+          },
+          "481": {
+            "description": "InternalServiceException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalServiceException"
+            }
+          },
+          "482": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "483": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DescribeFleetEventsInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#DescribeFleetPortSettings": {
+      "post": {
+        "operationId": "DescribeFleetPortSettings",
+        "description": "Retrieves the inbound connection permissions for a fleet. Connection permissions include a range of IP addresses and port settings that incoming traffic can use to access server processes in the fleet. To get a fleet's inbound connection permissions, specify a fleet ID. If successful, a collection of <a>IpPermission</a> objects is returned for the requested fleet ID. If the requested fleet has been deleted, the result set is empty.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DescribeFleetPortSettingsOutput"
+            }
+          },
+          "480": {
+            "description": "InternalServiceException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalServiceException"
+            }
+          },
+          "481": {
+            "description": "NotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/NotFoundException"
+            }
+          },
+          "482": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "483": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DescribeFleetPortSettingsInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#DescribeFleetUtilization": {
+      "post": {
+        "operationId": "DescribeFleetUtilization",
+        "description": "<p>Retrieves utilization statistics for one or more fleets. You can request utilization data for all fleets, or specify a list of one or more fleet IDs. When requesting multiple fleets, use the pagination parameters to retrieve results as a set of sequential pages. If successful, a <a>FleetUtilization</a> object is returned for each requested fleet ID. When specifying a list of fleet IDs, utilization objects are returned only for fleets that currently exist. </p> <note> <p>Some API actions may limit the number of fleet IDs allowed in one request. If a request exceeds this limit, the request fails and the error message includes the maximum allowed.</p> </note>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DescribeFleetUtilizationOutput"
+            }
+          },
+          "480": {
+            "description": "InternalServiceException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalServiceException"
+            }
+          },
+          "481": {
+            "description": "NotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/NotFoundException"
+            }
+          },
+          "482": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "483": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DescribeFleetUtilizationInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#DescribeGameSessionDetails": {
+      "post": {
+        "operationId": "DescribeGameSessionDetails",
+        "description": "<p>Retrieves properties, including the protection policy in force, for one or more game sessions. This action can be used in several ways: (1) provide a <code>GameSessionId</code> to request details for a specific game session; (2) provide either a <code>FleetId</code> or an <code>AliasId</code> to request properties for all game sessions running on a fleet. </p> <p>To get game session record(s), specify just one of the following: game session ID, fleet ID, or alias ID. You can filter this request by game session status. Use the pagination parameters to retrieve results as a set of sequential pages. If successful, a <a>GameSessionDetail</a> object is returned for each session matching the request.</p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DescribeGameSessionDetailsOutput"
+            }
+          },
+          "480": {
+            "description": "InternalServiceException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalServiceException"
+            }
+          },
+          "481": {
+            "description": "NotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/NotFoundException"
+            }
+          },
+          "482": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "483": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "484": {
+            "description": "TerminalRoutingStrategyException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/TerminalRoutingStrategyException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DescribeGameSessionDetailsInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#DescribeGameSessions": {
+      "post": {
+        "operationId": "DescribeGameSessions",
+        "description": "<p>Retrieves properties for one or more game sessions. This action can be used in several ways: (1) provide a <code>GameSessionId</code> to request properties for a specific game session; (2) provide a <code>FleetId</code> or an <code>AliasId</code> to request properties for all game sessions running on a fleet. </p> <p>To get game session record(s), specify just one of the following: game session ID, fleet ID, or alias ID. You can filter this request by game session status. Use the pagination parameters to retrieve results as a set of sequential pages. If successful, a <a>GameSession</a> object is returned for each session matching the request.</p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DescribeGameSessionsOutput"
+            }
+          },
+          "480": {
+            "description": "InternalServiceException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalServiceException"
+            }
+          },
+          "481": {
+            "description": "NotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/NotFoundException"
+            }
+          },
+          "482": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "483": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "484": {
+            "description": "TerminalRoutingStrategyException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/TerminalRoutingStrategyException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DescribeGameSessionsInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#DescribePlayerSessions": {
+      "post": {
+        "operationId": "DescribePlayerSessions",
+        "description": "<p>Retrieves properties for one or more player sessions. This action can be used in several ways: (1) provide a <code>PlayerSessionId</code> parameter to request properties for a specific player session; (2) provide a <code>GameSessionId</code> parameter to request properties for all player sessions in the specified game session; (3) provide a <code>PlayerId</code> parameter to request properties for all player sessions of a specified player. </p> <p>To get game session record(s), specify only one of the following: a player session ID, a game session ID, or a player ID. You can filter this request by player session status. Use the pagination parameters to retrieve results as a set of sequential pages. If successful, a <a>PlayerSession</a> object is returned for each session matching the request.</p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DescribePlayerSessionsOutput"
+            }
+          },
+          "480": {
+            "description": "InternalServiceException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalServiceException"
+            }
+          },
+          "481": {
+            "description": "NotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/NotFoundException"
+            }
+          },
+          "482": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "483": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DescribePlayerSessionsInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#DescribeRuntimeConfiguration": {
+      "post": {
+        "operationId": "DescribeRuntimeConfiguration",
+        "description": "Retrieves the current runtime configuration for the specified fleet. The runtime configuration tells GameLift how to launch server processes on instances in the fleet.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DescribeRuntimeConfigurationOutput"
+            }
+          },
+          "480": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "481": {
+            "description": "NotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/NotFoundException"
+            }
+          },
+          "482": {
+            "description": "InternalServiceException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalServiceException"
+            }
+          },
+          "483": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DescribeRuntimeConfigurationInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#DescribeScalingPolicies": {
+      "post": {
+        "operationId": "DescribeScalingPolicies",
+        "description": "<p>Retrieves all scaling policies applied to a fleet. </p> <p>To get a fleet's scaling policies, specify the fleet ID. You can filter this request by policy status, such as to retrieve only active scaling policies. Use the pagination parameters to retrieve results as a set of sequential pages. If successful, set of <a>ScalingPolicy</a> objects is returned for the fleet.</p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DescribeScalingPoliciesOutput"
+            }
+          },
+          "480": {
+            "description": "InternalServiceException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalServiceException"
+            }
+          },
+          "481": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "482": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "483": {
+            "description": "NotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/NotFoundException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DescribeScalingPoliciesInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#GetGameSessionLogUrl": {
+      "post": {
+        "operationId": "GetGameSessionLogUrl",
+        "description": "<p>Retrieves the location of stored game session logs for a specified game session. When a game session is terminated, Amazon GameLift automatically stores the logs in Amazon S3. Use this URL to download the logs.</p> <note> <p>See the <a href=\"http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_gamelift\">AWS Service Limits</a> page for maximum log file sizes. Log files that exceed this limit are not saved.</p> </note>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetGameSessionLogUrlOutput"
+            }
+          },
+          "480": {
+            "description": "InternalServiceException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalServiceException"
+            }
+          },
+          "481": {
+            "description": "NotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/NotFoundException"
+            }
+          },
+          "482": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "483": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetGameSessionLogUrlInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#ListAliases": {
+      "post": {
+        "operationId": "ListAliases",
+        "description": "<p>Retrieves a collection of alias records for this AWS account. You can filter the result set by alias name and/or routing strategy type. Use the pagination parameters to retrieve results in sequential pages. </p> <note> <p>Aliases are not listed in any particular order.</p> </note>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ListAliasesOutput"
+            }
+          },
+          "480": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "481": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "482": {
+            "description": "InternalServiceException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalServiceException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ListAliasesInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#ListBuilds": {
+      "post": {
+        "operationId": "ListBuilds",
+        "description": "<p>Retrieves build records for all builds associated with the AWS account in use. You can limit results to builds that are in a specific status by using the <code>Status</code> parameter. Use the pagination parameters to retrieve results in a set of sequential pages. </p> <note> <p>Build records are not listed in any particular order.</p> </note>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ListBuildsOutput"
+            }
+          },
+          "480": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "481": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "482": {
+            "description": "InternalServiceException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalServiceException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ListBuildsInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#ListFleets": {
+      "post": {
+        "operationId": "ListFleets",
+        "description": "<p>Retrieves a collection of fleet records for this AWS account. You can filter the result set by build ID. Use the pagination parameters to retrieve results in sequential pages. </p> <note> <p>Fleet records are not listed in any particular order.</p> </note>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ListFleetsOutput"
+            }
+          },
+          "480": {
+            "description": "InternalServiceException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalServiceException"
+            }
+          },
+          "481": {
+            "description": "NotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/NotFoundException"
+            }
+          },
+          "482": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "483": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ListFleetsInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#PutScalingPolicy": {
+      "post": {
+        "operationId": "PutScalingPolicy",
+        "description": "<p>Creates or updates a scaling policy for a fleet. An active scaling policy prompts Amazon GameLift to track a certain metric for a fleet and automatically change the fleet's capacity in specific circumstances. Each scaling policy contains one rule statement. Fleets can have multiple scaling policies in force simultaneously.</p> <p>A scaling policy rule statement has the following structure:</p> <p>If <code>[MetricName]</code> is <code>[ComparisonOperator]</code> <code>[Threshold]</code> for <code>[EvaluationPeriods]</code> minutes, then <code>[ScalingAdjustmentType]</code> to/by <code>[ScalingAdjustment]</code>.</p> <p>For example, this policy: \"If the number of idle instances exceeds 20 for more than 15 minutes, then reduce the fleet capacity by 10 instances\" could be implemented as the following rule statement: </p> <p>If [IdleInstances] is [GreaterThanOrEqualToThreshold] [20] for [15] minutes, then [ChangeInCapacity] by [-10]. </p> <p>To create or update a scaling policy, specify a unique combination of name and fleet ID, and set the rule values. All parameters for this action are required. If successful, the policy name is returned. Scaling policies cannot be suspended or made inactive. To stop enforcing a scaling policy, call <a>DeleteScalingPolicy</a>.</p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/PutScalingPolicyOutput"
+            }
+          },
+          "480": {
+            "description": "InternalServiceException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalServiceException"
+            }
+          },
+          "481": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "482": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "483": {
+            "description": "NotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/NotFoundException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PutScalingPolicyInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#RequestUploadCredentials": {
+      "post": {
+        "operationId": "RequestUploadCredentials",
+        "description": "<p>Retrieves a fresh set of upload credentials and the assigned Amazon S3 storage location for a specific build. Valid credentials are required to upload your game build files to Amazon S3.</p> <important> <p>Call this action only if you need credentials for a build created with <code><a>CreateBuild</a></code>. This is a rare situation; in most cases, builds are created using the CLI command <code>upload-build</code>, which creates a build record and also uploads build files. </p> </important> <p>Upload credentials are returned when you create the build, but they have a limited lifespan. You can get fresh credentials and use them to re-upload game files until the status of that build changes to <code>READY</code>. Once this happens, you must create a brand new build.</p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/RequestUploadCredentialsOutput"
+            }
+          },
+          "480": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "481": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "482": {
+            "description": "NotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/NotFoundException"
+            }
+          },
+          "483": {
+            "description": "InternalServiceException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalServiceException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RequestUploadCredentialsInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#ResolveAlias": {
+      "post": {
+        "operationId": "ResolveAlias",
+        "description": "Retrieves the fleet ID that a specified alias is currently pointing to. ",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ResolveAliasOutput"
+            }
+          },
+          "480": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "481": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "482": {
+            "description": "NotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/NotFoundException"
+            }
+          },
+          "483": {
+            "description": "TerminalRoutingStrategyException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/TerminalRoutingStrategyException"
+            }
+          },
+          "484": {
+            "description": "InternalServiceException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalServiceException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ResolveAliasInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#SearchGameSessions": {
+      "post": {
+        "operationId": "SearchGameSessions",
+        "description": "<p>Retrieves a list of game sessions in a fleet that match a set of search criteria and sorts them in a specified order. Currently game session searches are limited to a single fleet. Search results include only game sessions that are in ACTIVE status.</p> <p>You can search or sort by the following game session attributes:</p> <ul> <li> <b>gameSessionId</b> -- ID value assigned to a game session. This unique value is returned in a <a>GameSession</a> object when a new game session is created. </li> <li> <b>gameSessionName</b> -- Name assigned to a game session. This value is set when requesting a new game session with <a>CreateGameSession</a> or updating with <a>UpdateGameSession</a>. Game session names do not need to be unique to a game session.</li> <li> <b>creationTimeMillis</b> -- Value indicating when a game session was created. It is expressed in Unix time as milliseconds.</li> <li> <b>playerSessionCount</b> -- Number of players currently connected to a game session. This value changes rapidly as players join the session or drop out.</li> <li> <b>maximumSessions</b> -- Maximum number of player sessions allowed for a game session. This value is set when requesting a new game session with <a>CreateGameSession</a> or updating with <a>UpdateGameSession</a>.</li> <li> <b>hasAvailablePlayerSessions</b> -- Boolean value indicating whether or not a game session has reached its maximum number of players. When searching with this attribute, the search value must be <code>true</code> or <code>false</code>. It is highly recommended that all search requests include this filter attribute to optimize search performance and return only sessions that players can join. </li> </ul> <p>To search or sort, specify either a fleet ID or an alias ID, and provide a search filter expression, a sort expression, or both. Use the pagination parameters to retrieve results as a set of sequential pages. If successful, a collection of <a>GameSession</a> objects matching the request is returned.</p> <note> <p>Returned values for <code>playerSessionCount</code> and <code>hasAvailablePlayerSessions</code> change quickly as players join sessions and others drop out. Results should be considered a snapshot in time. Be sure to refresh search results often, and handle sessions that fill up before a player can join. </p> </note>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SearchGameSessionsOutput"
+            }
+          },
+          "480": {
+            "description": "InternalServiceException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalServiceException"
+            }
+          },
+          "481": {
+            "description": "NotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/NotFoundException"
+            }
+          },
+          "482": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "483": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "484": {
+            "description": "TerminalRoutingStrategyException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/TerminalRoutingStrategyException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SearchGameSessionsInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#UpdateAlias": {
+      "post": {
+        "operationId": "UpdateAlias",
+        "description": "Updates properties for an alias. To update properties, specify the alias ID to be updated and provide the information to be changed. To reassign an alias to another fleet, provide an updated routing strategy. If successful, the updated alias record is returned.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/UpdateAliasOutput"
+            }
+          },
+          "480": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "481": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "482": {
+            "description": "NotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/NotFoundException"
+            }
+          },
+          "483": {
+            "description": "InternalServiceException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalServiceException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateAliasInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#UpdateBuild": {
+      "post": {
+        "operationId": "UpdateBuild",
+        "description": "Updates metadata in a build record, including the build name and version. To update the metadata, specify the build ID to update and provide the new values. If successful, a build object containing the updated metadata is returned. ",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/UpdateBuildOutput"
+            }
+          },
+          "480": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "481": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "482": {
+            "description": "NotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/NotFoundException"
+            }
+          },
+          "483": {
+            "description": "InternalServiceException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalServiceException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateBuildInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#UpdateFleetAttributes": {
+      "post": {
+        "operationId": "UpdateFleetAttributes",
+        "description": "Updates fleet properties, including name and description, for a fleet. To update metadata, specify the fleet ID and the property values you want to change. If successful, the fleet ID for the updated fleet is returned.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/UpdateFleetAttributesOutput"
+            }
+          },
+          "480": {
+            "description": "NotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/NotFoundException"
+            }
+          },
+          "481": {
+            "description": "ConflictException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ConflictException"
+            }
+          },
+          "482": {
+            "description": "InvalidFleetStatusException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidFleetStatusException"
+            }
+          },
+          "483": {
+            "description": "LimitExceededException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/LimitExceededException"
+            }
+          },
+          "484": {
+            "description": "InternalServiceException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalServiceException"
+            }
+          },
+          "485": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "486": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateFleetAttributesInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#UpdateFleetCapacity": {
+      "post": {
+        "operationId": "UpdateFleetCapacity",
+        "description": "<p>Updates capacity settings for a fleet. Use this action to specify the number of EC2 instances (hosts) that you want this fleet to contain. Before calling this action, you may want to call <a>DescribeEC2InstanceLimits</a> to get the maximum capacity based on the fleet's EC2 instance type.</p> <p>If you're using autoscaling (see <a>PutScalingPolicy</a>), you may want to specify a minimum and/or maximum capacity. If you don't provide these, autoscaling can set capacity anywhere between zero and the <a href=\"http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_gamelift\">service limits</a>.</p> <p>To update fleet capacity, specify the fleet ID and the number of instances you want the fleet to host. If successful, Amazon GameLift starts or terminates instances so that the fleet's active instance count matches the desired instance count. You can view a fleet's current capacity information by calling <a>DescribeFleetCapacity</a>. If the desired instance count is higher than the instance type's limit, the \"Limit Exceeded\" exception occurs.</p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/UpdateFleetCapacityOutput"
+            }
+          },
+          "480": {
+            "description": "NotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/NotFoundException"
+            }
+          },
+          "481": {
+            "description": "ConflictException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ConflictException"
+            }
+          },
+          "482": {
+            "description": "LimitExceededException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/LimitExceededException"
+            }
+          },
+          "483": {
+            "description": "InvalidFleetStatusException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidFleetStatusException"
+            }
+          },
+          "484": {
+            "description": "InternalServiceException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalServiceException"
+            }
+          },
+          "485": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "486": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateFleetCapacityInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#UpdateFleetPortSettings": {
+      "post": {
+        "operationId": "UpdateFleetPortSettings",
+        "description": "Updates port settings for a fleet. To update settings, specify the fleet ID to be updated and list the permissions you want to update. List the permissions you want to add in <code>InboundPermissionAuthorizations</code>, and permissions you want to remove in <code>InboundPermissionRevocations</code>. Permissions to be removed must match existing fleet permissions. If successful, the fleet ID for the updated fleet is returned.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/UpdateFleetPortSettingsOutput"
+            }
+          },
+          "480": {
+            "description": "NotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/NotFoundException"
+            }
+          },
+          "481": {
+            "description": "ConflictException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ConflictException"
+            }
+          },
+          "482": {
+            "description": "InvalidFleetStatusException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidFleetStatusException"
+            }
+          },
+          "483": {
+            "description": "LimitExceededException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/LimitExceededException"
+            }
+          },
+          "484": {
+            "description": "InternalServiceException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalServiceException"
+            }
+          },
+          "485": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          },
+          "486": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateFleetPortSettingsInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#UpdateGameSession": {
+      "post": {
+        "operationId": "UpdateGameSession",
+        "description": "Updates game session properties. This includes the session name, maximum player count, protection policy, which controls whether or not an active game session can be terminated during a scale-down event, and the player session creation policy, which controls whether or not new players can join the session. To update a game session, specify the game session ID and the values you want to change. If successful, an updated <a>GameSession</a> object is returned. ",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/UpdateGameSessionOutput"
+            }
+          },
+          "480": {
+            "description": "NotFoundException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/NotFoundException"
+            }
+          },
+          "481": {
+            "description": "ConflictException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/ConflictException"
+            }
+          },
+          "482": {
+            "description": "InternalServiceException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InternalServiceException"
+            }
+          },
+          "483": {
+            "description": "UnauthorizedException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedException"
+            }
+          },
+          "484": {
+            "description": "InvalidGameSessionStatusException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidGameSessionStatusException"
+            }
+          },
+          "485": {
+            "description": "InvalidRequestException",
+            "x-aws-exception": true,
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateGameSessionInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#UpdateRuntimeConfiguration": {
+      "post": {
         "operationId": "UpdateRuntimeConfiguration",
         "description": "<p>Updates the current runtime configuration for the specified fleet, which tells GameLift how to launch server processes on instances in the fleet. You can update a fleet's runtime configuration at any time after the fleet is created; it does not need to be in an <code>ACTIVE</code> status.</p> <p>To update runtime configuration, specify the fleet ID and provide a <code>RuntimeConfiguration</code> object with the updated collection of server process configurations.</p> <p>Each instance in a GameLift fleet checks regularly for an updated runtime configuration and changes how it launches server processes to comply with the latest version. Existing server processes are not affected by the update; they continue to run until they end, while GameLift simply adds new server processes to fit the current runtime configuration. As a result, the runtime configuration changes are applied gradually as existing processes shut down and new processes are launched in GameLift's normal process recycling activity.</p>",
         "responses": {

@@ -290,99 +290,6 @@
       ]
     },
     "/2013-04-01/tags/{ResourceType}/{ResourceId}": {
-      "post": {
-        "operationId": "ChangeTagsForResource",
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "$ref": "#/definitions/ChangeTagsForResourceResponse"
-            }
-          },
-          "480": {
-            "description": "InvalidInput",
-            "schema": {
-              "$ref": "#/definitions/InvalidInput"
-            }
-          },
-          "481": {
-            "description": "NoSuchHealthCheck",
-            "schema": {
-              "$ref": "#/definitions/NoSuchHealthCheck"
-            }
-          },
-          "482": {
-            "description": "NoSuchHostedZone",
-            "schema": {
-              "$ref": "#/definitions/NoSuchHostedZone"
-            }
-          },
-          "483": {
-            "description": "PriorRequestNotComplete",
-            "schema": {
-              "$ref": "#/definitions/PriorRequestNotComplete"
-            }
-          },
-          "484": {
-            "description": "ThrottlingException",
-            "schema": {
-              "$ref": "#/definitions/ThrottlingException"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/ChangeTagsForResourceRequest"
-            }
-          },
-          {
-            "name": "ResourceType",
-            "in": "path",
-            "type": "string",
-            "required": true
-          },
-          {
-            "name": "ResourceId",
-            "in": "path",
-            "type": "string",
-            "required": true
-          }
-        ]
-      },
-      "parameters": [
-        {
-          "$ref": "#/parameters/Action"
-        },
-        {
-          "$ref": "#/parameters/Version"
-        },
-        {
-          "$ref": "#/parameters/X-Amz-Content-Sha256"
-        },
-        {
-          "$ref": "#/parameters/X-Amz-Date"
-        },
-        {
-          "$ref": "#/parameters/X-Amz-Algorithm"
-        },
-        {
-          "$ref": "#/parameters/X-Amz-Credential"
-        },
-        {
-          "$ref": "#/parameters/X-Amz-Security-Token"
-        },
-        {
-          "$ref": "#/parameters/X-Amz-Signature"
-        },
-        {
-          "$ref": "#/parameters/X-Amz-SignedHeaders"
-        }
-      ],
       "get": {
         "operationId": "ListTagsForResource",
         "description": "",
@@ -446,48 +353,6 @@
             "required": true
           }
         ]
-      }
-    },
-    "/2013-04-01/healthcheck": {
-      "post": {
-        "operationId": "CreateHealthCheck",
-        "description": "<p>Creates a new health check.</p> <p>To create a new health check, send a <code>POST</code> request to the <code>/2013-04-01/healthcheck</code> resource. The request body must include an XML document with a <code>CreateHealthCheckRequest</code> element. The response returns the <code>CreateHealthCheckResponse</code> element, containing the health check ID specified when adding health check to a resource record set. For information about adding health checks to resource record sets, see <a>ResourceRecordSet$HealthCheckId</a> in <a>ChangeResourceRecordSets</a>. </p> <p>If you are registering Amazon EC2 instances with an Elastic Load Balancing (ELB) load balancer, do not create Amazon Route 53 health checks for the Amazon EC2 instances. When you register an Amazon EC2 instance with a load balancer, you configure settings for an ELB health check, which performs a similar function to an Amazon Route 53 health check.</p> <p>You can associate health checks with failover resource record sets in a private hosted zone. Note the following:</p> <ul> <li> <p>Amazon Route 53 health checkers are outside the VPC. To check the health of an endpoint within a VPC by IP address, you must assign a public IP address to the instance in the VPC.</p> </li> <li> <p>You can configure a health checker to check the health of an external resource that the instance relies on, such as a database server.</p> </li> <li> <p>You can create a CloudWatch metric, associate an alarm with the metric, and then create a health check that is based on the state of the alarm. For example, you might create a CloudWatch metric that checks the status of the Amazon EC2 <code>StatusCheckFailed</code> metric, add an alarm to the metric, and then create a health check that is based on the state of the alarm. For information about creating CloudWatch metrics and alarms by using the CloudWatch console, see the <a href=\"http://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/WhatIsCloudWatch.html\">Amazon CloudWatch Developer Guide</a>.</p> </li> </ul>",
-        "responses": {
-          "201": {
-            "description": "Success",
-            "schema": {
-              "$ref": "#/definitions/CreateHealthCheckResponse"
-            }
-          },
-          "480": {
-            "description": "TooManyHealthChecks",
-            "schema": {
-              "$ref": "#/definitions/TooManyHealthChecks"
-            }
-          },
-          "481": {
-            "description": "HealthCheckAlreadyExists",
-            "schema": {
-              "$ref": "#/definitions/HealthCheckAlreadyExists"
-            }
-          },
-          "482": {
-            "description": "InvalidInput",
-            "schema": {
-              "$ref": "#/definitions/InvalidInput"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/CreateHealthCheckRequest"
-            }
-          }
-        ]
       },
       "parameters": [
         {
@@ -517,7 +382,9 @@
         {
           "$ref": "#/parameters/X-Amz-SignedHeaders"
         }
-      ],
+      ]
+    },
+    "/2013-04-01/healthcheck": {
       "get": {
         "operationId": "ListHealthChecks",
         "description": "<p>Retrieve a list of your health checks. Send a <code>GET</code> request to the <code>/2013-04-01/healthcheck</code> resource. The response to this request includes a <code>HealthChecks</code> element with zero or more <code>HealthCheck</code> child elements. By default, the list of health checks is displayed on a single page. You can control the length of the page that is displayed by using the <code>MaxItems</code> parameter. You can use the <code>Marker</code> parameter to control the health check that the list begins with.</p> <p>For information about listing health checks using the Amazon Route 53 console, see <a href=\"http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover.html\">Amazon Route 53 Health Checks and DNS Failover</a>.</p>",
@@ -565,84 +432,6 @@
             "required": false
           }
         ]
-      }
-    },
-    "/2013-04-01/hostedzone": {
-      "post": {
-        "operationId": "CreateHostedZone",
-        "description": "<p>Creates a new public hosted zone, used to specify how the Domain Name System (DNS) routes traffic on the Internet for a domain, such as example.com, and its subdomains. </p> <important> <p>Public hosted zones cannot be converted to a private hosted zone or vice versa. Instead, create a new hosted zone with the same name and create new resource record sets.</p> </important> <p>Send a <code>POST</code> request to the <code>/<i>Amazon Route 53 API version</i>/hostedzone</code> resource. The request body must include an XML document with a <code>CreateHostedZoneRequest</code> element. The response returns the <code>CreateHostedZoneResponse</code> element containing metadata about the hosted zone.</p> <p>Fore more information about charges for hosted zones, see <a href=\"http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/pricing/\">AmazonAmazon Route 53 Pricing</a>.</p> <p>Note the following:</p> <ul> <li> <p>You cannot create a hosted zone for a top-level domain (TLD).</p> </li> <li> <p>Amazon Route 53 automatically creates a default SOA record and four NS records for the zone. For more information about SOA and NS records, see <a href=\"http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/SOA-NSrecords.html\">NS and SOA Records that Amazon Route 53 Creates for a Hosted Zone</a> in the <i>Amazon Route 53 Developer Guide</i>.</p> </li> <li> <p>If your domain is registered with a registrar other than Amazon Route 53, you must update the name servers with your registrar to make Amazon Route 53 your DNS service. For more information, see <a href=\"http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/creating-migrating.html\">Configuring Amazon Route 53 as your DNS Service</a> in the <i>Amazon Route 53 Developer's Guide</i>.</p> </li> </ul> <p>After creating a zone, its initial status is <code>PENDING</code>. This means that it is not yet available on all DNS servers. The status of the zone changes to <code>INSYNC</code> when the NS and SOA records are available on all Amazon Route 53 DNS servers. </p> <p>When trying to create a hosted zone using a reusable delegation set, specify an optional DelegationSetId, and Amazon Route 53 would assign those 4 NS records for the zone, instead of alloting a new one.</p>",
-        "responses": {
-          "201": {
-            "description": "Success",
-            "schema": {
-              "$ref": "#/definitions/CreateHostedZoneResponse"
-            }
-          },
-          "480": {
-            "description": "InvalidDomainName",
-            "schema": {
-              "$ref": "#/definitions/InvalidDomainName"
-            }
-          },
-          "481": {
-            "description": "HostedZoneAlreadyExists",
-            "schema": {
-              "$ref": "#/definitions/HostedZoneAlreadyExists"
-            }
-          },
-          "482": {
-            "description": "TooManyHostedZones",
-            "schema": {
-              "$ref": "#/definitions/TooManyHostedZones"
-            }
-          },
-          "483": {
-            "description": "InvalidVPCId",
-            "schema": {
-              "$ref": "#/definitions/InvalidVPCId"
-            }
-          },
-          "484": {
-            "description": "InvalidInput",
-            "schema": {
-              "$ref": "#/definitions/InvalidInput"
-            }
-          },
-          "485": {
-            "description": "DelegationSetNotAvailable",
-            "schema": {
-              "$ref": "#/definitions/DelegationSetNotAvailable"
-            }
-          },
-          "486": {
-            "description": "ConflictingDomainExists",
-            "schema": {
-              "$ref": "#/definitions/ConflictingDomainExists"
-            }
-          },
-          "487": {
-            "description": "NoSuchDelegationSet",
-            "schema": {
-              "$ref": "#/definitions/NoSuchDelegationSet"
-            }
-          },
-          "488": {
-            "description": "DelegationSetNotReusable",
-            "schema": {
-              "$ref": "#/definitions/DelegationSetNotReusable"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/CreateHostedZoneRequest"
-            }
-          }
-        ]
       },
       "parameters": [
         {
@@ -672,7 +461,9 @@
         {
           "$ref": "#/parameters/X-Amz-SignedHeaders"
         }
-      ],
+      ]
+    },
+    "/2013-04-01/hostedzone": {
       "get": {
         "operationId": "ListHostedZones",
         "description": "<p>To retrieve a list of your public and private hosted zones, send a <code>GET</code> request to the <code>/2013-04-01/hostedzone</code> resource. The response to this request includes a <code>HostedZones</code> child element for each hosted zone created by the current AWS account.</p> <p>Amazon Route 53 returns a maximum of 100 items in each response. If you have a lot of hosted zones, you can use the <code>maxitems</code> parameter to list them in groups of up to 100. The response includes four values that help navigate from one group of <code>maxitems</code> hosted zones to the next:</p> <ul> <li> <p> <code>MaxItems</code>is the value specified for the <code>maxitems</code> parameter in the request that produced the current response.</p> </li> <li> <p>If the value of <code>IsTruncated</code> in the response is true, there are more hosted zones associated with the current AWS account. </p> </li> <li> <p> <code>NextMarker</code>is the hosted zone ID of the next hosted zone that is associated with the current AWS account. If you want to list more hosted zones, make another call to <code>ListHostedZones</code>, and specify the value of the <code>NextMarker</code> element in the marker parameter. </p> <p>If <code>IsTruncated</code> is false, the <code>NextMarker</code> element is omitted from the response.</p> </li> <li> <p>If you're making the second or subsequent call to <code>ListHostedZones</code>, the <code>Marker</code> element matches the value that you specified in the <code>marker</code> parameter in the previous request.</p> </li> </ul>",
@@ -726,59 +517,52 @@
             "required": false
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
     },
     "/2013-04-01/delegationset": {
-      "post": {
-        "operationId": "CreateReusableDelegationSet",
-        "description": "<p>Creates a delegation set (a group of four anem servers) that can be reused by multiple hosted zones. If a hosted zoned ID is specified, <code>CreateReusableDelegationSet</code> marks the delegation set associated with that zone as reusable</p> <p>Send a <code>POST</code> request to the <code>/<i>Amazon Route 53 API version</i>/delegationset</code> resource. The request body must include an XML document with a <code>CreateReusableDelegationSetRequest</code> element.</p> <note> <p>A reusable delegation set cannot be associated with a private hosted zone/</p> </note> <p>For more information, including a procedure on how to create and configure a reusable delegation set (also known as white label name servers), see <a href=\"http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/white-label-name-servers.html\">Configuring White Label Name Servers</a>.</p>",
+      "get": {
+        "operationId": "ListReusableDelegationSets",
+        "description": "<p>To retrieve a list of your reusable delegation sets, send a <code>GET</code> request to the <code>/2013-04-01/delegationset</code> resource. The response to this request includes a <code>DelegationSets</code> element with zero, one, or multiple <code>DelegationSet</code> child elements. By default, the list of delegation sets is displayed on a single page. You can control the length of the page that is displayed by using the <code>MaxItems</code> parameter. You can use the <code>Marker</code> parameter to control the delegation set that the list begins with. </p> <note> <p> Amazon Route 53 returns a maximum of 100 items. If you set MaxItems to a value greater than 100, Amazon Route 53 returns only the first 100.</p> </note>",
         "responses": {
-          "201": {
+          "200": {
             "description": "Success",
             "schema": {
-              "$ref": "#/definitions/CreateReusableDelegationSetResponse"
+              "$ref": "#/definitions/ListReusableDelegationSetsResponse"
             }
           },
           "480": {
-            "description": "DelegationSetAlreadyCreated",
-            "schema": {
-              "$ref": "#/definitions/DelegationSetAlreadyCreated"
-            }
-          },
-          "481": {
-            "description": "LimitsExceeded",
-            "schema": {
-              "$ref": "#/definitions/LimitsExceeded"
-            }
-          },
-          "482": {
-            "description": "HostedZoneNotFound",
-            "schema": {
-              "$ref": "#/definitions/HostedZoneNotFound"
-            }
-          },
-          "483": {
-            "description": "InvalidArgument",
-            "schema": {
-              "$ref": "#/definitions/InvalidArgument"
-            }
-          },
-          "484": {
             "description": "InvalidInput",
             "schema": {
               "$ref": "#/definitions/InvalidInput"
-            }
-          },
-          "485": {
-            "description": "DelegationSetNotAvailable",
-            "schema": {
-              "$ref": "#/definitions/DelegationSetNotAvailable"
-            }
-          },
-          "486": {
-            "description": "DelegationSetAlreadyReusable",
-            "schema": {
-              "$ref": "#/definitions/DelegationSetAlreadyReusable"
             }
           }
         },
@@ -788,7 +572,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/CreateReusableDelegationSetRequest"
+              "$ref": "#/definitions/ListReusableDelegationSetsRequest"
             }
           }
         ]
@@ -821,35 +605,7 @@
         {
           "$ref": "#/parameters/X-Amz-SignedHeaders"
         }
-      ],
-      "get": {
-        "operationId": "ListReusableDelegationSets",
-        "description": "<p>To retrieve a list of your reusable delegation sets, send a <code>GET</code> request to the <code>/2013-04-01/delegationset</code> resource. The response to this request includes a <code>DelegationSets</code> element with zero, one, or multiple <code>DelegationSet</code> child elements. By default, the list of delegation sets is displayed on a single page. You can control the length of the page that is displayed by using the <code>MaxItems</code> parameter. You can use the <code>Marker</code> parameter to control the delegation set that the list begins with. </p> <note> <p> Amazon Route 53 returns a maximum of 100 items. If you set MaxItems to a value greater than 100, Amazon Route 53 returns only the first 100.</p> </note>",
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "$ref": "#/definitions/ListReusableDelegationSetsResponse"
-            }
-          },
-          "480": {
-            "description": "InvalidInput",
-            "schema": {
-              "$ref": "#/definitions/InvalidInput"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/ListReusableDelegationSetsRequest"
-            }
-          }
-        ]
-      }
+      ]
     },
     "/2013-04-01/trafficpolicy": {
       "post": {
@@ -1095,127 +851,6 @@
       ]
     },
     "/2013-04-01/healthcheck/{HealthCheckId}": {
-      "delete": {
-        "operationId": "DeleteHealthCheck",
-        "description": "<p>Deletes a health check. Send a <code>DELETE</code> request to the <code>/2013-04-01/healthcheck/<i>health check ID</i> </code> resource.</p> <important> <p>Amazon Route 53 does not prevent you from deleting a health check even if the health check is associated with one or more resource record sets. If you delete a health check and you don't update the associated resource record sets, the future status of the health check cannot be predicted and may change. This will affect the routing of DNS queries for your DNS failover configuration. For more information, see <a href=\"http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/health-checks-creating-deleting.html#health-checks-deleting.html\">Replacing and Deleting Health Checks</a> in the Amazon Route 53 Developer Guide.</p> </important>",
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "$ref": "#/definitions/DeleteHealthCheckResponse"
-            }
-          },
-          "480": {
-            "description": "NoSuchHealthCheck",
-            "schema": {
-              "$ref": "#/definitions/NoSuchHealthCheck"
-            }
-          },
-          "481": {
-            "description": "HealthCheckInUse",
-            "schema": {
-              "$ref": "#/definitions/HealthCheckInUse"
-            }
-          },
-          "482": {
-            "description": "InvalidInput",
-            "schema": {
-              "$ref": "#/definitions/InvalidInput"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/DeleteHealthCheckRequest"
-            }
-          },
-          {
-            "name": "HealthCheckId",
-            "in": "path",
-            "type": "string",
-            "required": true
-          }
-        ]
-      },
-      "parameters": [
-        {
-          "$ref": "#/parameters/Action"
-        },
-        {
-          "$ref": "#/parameters/Version"
-        },
-        {
-          "$ref": "#/parameters/X-Amz-Content-Sha256"
-        },
-        {
-          "$ref": "#/parameters/X-Amz-Date"
-        },
-        {
-          "$ref": "#/parameters/X-Amz-Algorithm"
-        },
-        {
-          "$ref": "#/parameters/X-Amz-Credential"
-        },
-        {
-          "$ref": "#/parameters/X-Amz-Security-Token"
-        },
-        {
-          "$ref": "#/parameters/X-Amz-Signature"
-        },
-        {
-          "$ref": "#/parameters/X-Amz-SignedHeaders"
-        }
-      ],
-      "get": {
-        "operationId": "GetHealthCheck",
-        "description": "Gets information about a specified health check. Send a <code>GET</code> request to the <code>/2013-04-01/healthcheck/<i>health check ID</i> </code> resource. For more information about using the console to perform this operation, see <a href=\"http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover.html\">Amazon Route 53 Health Checks and DNS Failover</a> in the Amazon Route 53 Developer Guide.",
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "$ref": "#/definitions/GetHealthCheckResponse"
-            }
-          },
-          "480": {
-            "description": "NoSuchHealthCheck",
-            "schema": {
-              "$ref": "#/definitions/NoSuchHealthCheck"
-            }
-          },
-          "481": {
-            "description": "InvalidInput",
-            "schema": {
-              "$ref": "#/definitions/InvalidInput"
-            }
-          },
-          "482": {
-            "description": "IncompatibleVersion",
-            "schema": {
-              "$ref": "#/definitions/IncompatibleVersion"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/GetHealthCheckRequest"
-            }
-          },
-          {
-            "name": "HealthCheckId",
-            "in": "path",
-            "type": "string",
-            "required": true
-          }
-        ]
-      },
       "post": {
         "operationId": "UpdateHealthCheck",
         "description": "<p>Updates an existing health check.</p> <p>Send a <code>POST</code> request to the <code>/<i>Amazon Route 53 API version</i>/healthcheck/<i>health check ID</i> </code> resource. The request body must include an XML document with an <code>UpdateHealthCheckRequest</code> element. For more information about updating health checks, see <a href=\"http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/health-checks-creating-deleting.html\">Creating, Updating, and Deleting Health Checks</a> in the Amazon Route 53 Developer Guide.</p>",
@@ -1261,66 +896,6 @@
             "required": true
           }
         ]
-      }
-    },
-    "/2013-04-01/hostedzone/{Id}": {
-      "delete": {
-        "operationId": "DeleteHostedZone",
-        "description": "<p>Deletes a hosted zone. Send a <code>DELETE</code> request to the <code>/<i>Amazon Route 53 API version</i>/hostedzone/<i>hosted zone ID</i> </code> resource.</p> <important> <p>Delete a hosted zone only if there are no resource record sets other than the default SOA record and NS resource record sets. If the hosted zone contains other resource record sets, delete them before deleting the hosted zone. If you try to delete a hosted zone that contains other resource record sets, Amazon Route 53 denies your request with a <code>HostedZoneNotEmpty</code> error. For information about deleting records from your hosted zone, see <a>ChangeResourceRecordSets</a>.</p> </important>",
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "$ref": "#/definitions/DeleteHostedZoneResponse"
-            }
-          },
-          "480": {
-            "description": "NoSuchHostedZone",
-            "schema": {
-              "$ref": "#/definitions/NoSuchHostedZone"
-            }
-          },
-          "481": {
-            "description": "HostedZoneNotEmpty",
-            "schema": {
-              "$ref": "#/definitions/HostedZoneNotEmpty"
-            }
-          },
-          "482": {
-            "description": "PriorRequestNotComplete",
-            "schema": {
-              "$ref": "#/definitions/PriorRequestNotComplete"
-            }
-          },
-          "483": {
-            "description": "InvalidInput",
-            "schema": {
-              "$ref": "#/definitions/InvalidInput"
-            }
-          },
-          "484": {
-            "description": "InvalidDomainName",
-            "schema": {
-              "$ref": "#/definitions/InvalidDomainName"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/DeleteHostedZoneRequest"
-            }
-          },
-          {
-            "name": "Id",
-            "in": "path",
-            "type": "string",
-            "required": true
-          }
-        ]
       },
       "parameters": [
         {
@@ -1350,47 +925,9 @@
         {
           "$ref": "#/parameters/X-Amz-SignedHeaders"
         }
-      ],
-      "get": {
-        "operationId": "GetHostedZone",
-        "description": "Retrieves the delegation set for a hosted zone, including the four name servers assigned to the hosted zone. Send a <code>GET</code> request to the <code>/<i>Amazon Route 53 API version</i>/hostedzone/<i>hosted zone ID</i> </code> resource. ",
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "$ref": "#/definitions/GetHostedZoneResponse"
-            }
-          },
-          "480": {
-            "description": "NoSuchHostedZone",
-            "schema": {
-              "$ref": "#/definitions/NoSuchHostedZone"
-            }
-          },
-          "481": {
-            "description": "InvalidInput",
-            "schema": {
-              "$ref": "#/definitions/InvalidInput"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/GetHostedZoneRequest"
-            }
-          },
-          {
-            "name": "Id",
-            "in": "path",
-            "type": "string",
-            "required": true
-          }
-        ]
-      },
+      ]
+    },
+    "/2013-04-01/hostedzone/{Id}": {
       "post": {
         "operationId": "UpdateHostedZoneComment",
         "description": "Updates the hosted zone comment. Send a <code>POST</code> request to the <code>/2013-04-01/hostedzone/<i>hosted zone ID</i> </code> resource. ",
@@ -1430,60 +967,6 @@
             "required": true
           }
         ]
-      }
-    },
-    "/2013-04-01/delegationset/{Id}": {
-      "delete": {
-        "operationId": "DeleteReusableDelegationSet",
-        "description": "<p>Deletes a reusable delegation set. Send a <code>DELETE</code> request to the <code>/2013-04-01/delegationset/<i>delegation set ID</i> </code> resource.</p> <important> <p> You can delete a reusable delegation set only if there are no associated hosted zones.</p> </important> <p>To verify that the reusable delegation set is not associated with any hosted zones, run the <a>GetReusableDelegationSet</a> action and specify the ID of the reusable delegation set that you want to delete.</p>",
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "$ref": "#/definitions/DeleteReusableDelegationSetResponse"
-            }
-          },
-          "480": {
-            "description": "NoSuchDelegationSet",
-            "schema": {
-              "$ref": "#/definitions/NoSuchDelegationSet"
-            }
-          },
-          "481": {
-            "description": "DelegationSetInUse",
-            "schema": {
-              "$ref": "#/definitions/DelegationSetInUse"
-            }
-          },
-          "482": {
-            "description": "DelegationSetNotReusable",
-            "schema": {
-              "$ref": "#/definitions/DelegationSetNotReusable"
-            }
-          },
-          "483": {
-            "description": "InvalidInput",
-            "schema": {
-              "$ref": "#/definitions/InvalidInput"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/DeleteReusableDelegationSetRequest"
-            }
-          },
-          {
-            "name": "Id",
-            "in": "path",
-            "type": "string",
-            "required": true
-          }
-        ]
       },
       "parameters": [
         {
@@ -1513,7 +996,9 @@
         {
           "$ref": "#/parameters/X-Amz-SignedHeaders"
         }
-      ],
+      ]
+    },
+    "/2013-04-01/delegationset/{Id}": {
       "get": {
         "operationId": "GetReusableDelegationSet",
         "description": "Retrieves the reusable delegation set. Send a <code>GET</code> request to the <code>/2013-04-01/delegationset/<i>delegation set ID</i> </code> resource.",
@@ -1559,66 +1044,6 @@
             "required": true
           }
         ]
-      }
-    },
-    "/2013-04-01/trafficpolicy/{Id}/{Version}": {
-      "delete": {
-        "operationId": "DeleteTrafficPolicy",
-        "description": "<p>Deletes a traffic policy.</p> <p>Send a <code>DELETE</code> request to the <code>/<i>Amazon Route 53 API version</i>/trafficpolicy</code> resource.</p>",
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "$ref": "#/definitions/DeleteTrafficPolicyResponse"
-            }
-          },
-          "480": {
-            "description": "NoSuchTrafficPolicy",
-            "schema": {
-              "$ref": "#/definitions/NoSuchTrafficPolicy"
-            }
-          },
-          "481": {
-            "description": "InvalidInput",
-            "schema": {
-              "$ref": "#/definitions/InvalidInput"
-            }
-          },
-          "482": {
-            "description": "TrafficPolicyInUse",
-            "schema": {
-              "$ref": "#/definitions/TrafficPolicyInUse"
-            }
-          },
-          "483": {
-            "description": "ConcurrentModification",
-            "schema": {
-              "$ref": "#/definitions/ConcurrentModification"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/DeleteTrafficPolicyRequest"
-            }
-          },
-          {
-            "name": "Id",
-            "in": "path",
-            "type": "string",
-            "required": true
-          },
-          {
-            "name": "Version",
-            "in": "path",
-            "type": "string",
-            "required": true
-          }
-        ]
       },
       "parameters": [
         {
@@ -1648,53 +1073,9 @@
         {
           "$ref": "#/parameters/X-Amz-SignedHeaders"
         }
-      ],
-      "get": {
-        "operationId": "GetTrafficPolicy",
-        "description": "<p>Gets information about a specific traffic policy version.</p> <p>Send a <code>GET</code> request to the <code>/<i>Amazon Route 53 API version</i>/trafficpolicy</code> resource.</p>",
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "$ref": "#/definitions/GetTrafficPolicyResponse"
-            }
-          },
-          "480": {
-            "description": "NoSuchTrafficPolicy",
-            "schema": {
-              "$ref": "#/definitions/NoSuchTrafficPolicy"
-            }
-          },
-          "481": {
-            "description": "InvalidInput",
-            "schema": {
-              "$ref": "#/definitions/InvalidInput"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/GetTrafficPolicyRequest"
-            }
-          },
-          {
-            "name": "Id",
-            "in": "path",
-            "type": "string",
-            "required": true
-          },
-          {
-            "name": "Version",
-            "in": "path",
-            "type": "string",
-            "required": true
-          }
-        ]
-      },
+      ]
+    },
+    "/2013-04-01/trafficpolicy/{Id}/{Version}": {
       "post": {
         "operationId": "UpdateTrafficPolicyComment",
         "description": "<p>Updates the comment for a specified traffic policy version.</p> <p>Send a <code>POST</code> request to the <code>/<i>Amazon Route 53 API version</i>/trafficpolicy/</code> resource.</p> <p>The request body must include a document with an <code>UpdateTrafficPolicyCommentRequest</code> element.</p>",
@@ -1746,54 +1127,6 @@
             "required": true
           }
         ]
-      }
-    },
-    "/2013-04-01/trafficpolicyinstance/{Id}": {
-      "delete": {
-        "operationId": "DeleteTrafficPolicyInstance",
-        "description": "<p>Deletes a traffic policy instance and all of the resource record sets that Amazon Route 53 created when you created the instance.</p> <p>Send a <code>DELETE</code> request to the <code>/<i>Amazon Route 53 API version</i>/trafficpolicy/<i>traffic policy instance ID</i> </code> resource.</p> <note> <p>In the Amazon Route 53 console, traffic policy instances are known as policy records.</p> </note>",
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "$ref": "#/definitions/DeleteTrafficPolicyInstanceResponse"
-            }
-          },
-          "480": {
-            "description": "NoSuchTrafficPolicyInstance",
-            "schema": {
-              "$ref": "#/definitions/NoSuchTrafficPolicyInstance"
-            }
-          },
-          "481": {
-            "description": "InvalidInput",
-            "schema": {
-              "$ref": "#/definitions/InvalidInput"
-            }
-          },
-          "482": {
-            "description": "PriorRequestNotComplete",
-            "schema": {
-              "$ref": "#/definitions/PriorRequestNotComplete"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/DeleteTrafficPolicyInstanceRequest"
-            }
-          },
-          {
-            "name": "Id",
-            "in": "path",
-            "type": "string",
-            "required": true
-          }
-        ]
       },
       "parameters": [
         {
@@ -1823,47 +1156,9 @@
         {
           "$ref": "#/parameters/X-Amz-SignedHeaders"
         }
-      ],
-      "get": {
-        "operationId": "GetTrafficPolicyInstance",
-        "description": "<p>Gets information about a specified traffic policy instance.</p> <p>Send a <code>GET</code> request to the <code>/<i>Amazon Route 53 API version</i>/trafficpolicyinstance</code> resource.</p> <note> <p>After you submit a <code>CreateTrafficPolicyInstance</code> or an <code>UpdateTrafficPolicyInstance</code> request, there's a brief delay while Amazon Route 53 creates the resource record sets that are specified in the traffic policy definition. For more information, see the <code>State</code> response element.</p> </note> <note> <p>In the Amazon Route 53 console, traffic policy instances are known as policy records.</p> </note>",
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "$ref": "#/definitions/GetTrafficPolicyInstanceResponse"
-            }
-          },
-          "480": {
-            "description": "NoSuchTrafficPolicyInstance",
-            "schema": {
-              "$ref": "#/definitions/NoSuchTrafficPolicyInstance"
-            }
-          },
-          "481": {
-            "description": "InvalidInput",
-            "schema": {
-              "$ref": "#/definitions/InvalidInput"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/GetTrafficPolicyInstanceRequest"
-            }
-          },
-          {
-            "name": "Id",
-            "in": "path",
-            "type": "string",
-            "required": true
-          }
-        ]
-      },
+      ]
+    },
+    "/2013-04-01/trafficpolicyinstance/{Id}": {
       "post": {
         "operationId": "UpdateTrafficPolicyInstance",
         "description": "<p>Updates the resource record sets in a specified hosted zone that were created based on the settings in a specified traffic policy version.</p> <p>Send a <code>POST</code> request to the <code>/<i>Amazon Route 53 API version</i>/trafficpolicyinstance/<i>traffic policy ID</i> </code> resource. The request body must include a document with an <code>UpdateTrafficPolicyInstanceRequest</code> element.</p> <p>When you update a traffic policy instance, Amazon Route 53 continues to respond to DNS queries for the root resource record set name (such as example.com) while it replaces one group of resource record sets with another. Amazon Route 53 performs the following operations:</p> <ol> <li> <p>Amazon Route 53 creates a new group of resource record sets based on the specified traffic policy. This is true regardless of how substantial the differences are between the existing resource record sets and the new resource record sets. </p> </li> <li> <p>When all of the new resource record sets have been created, Amazon Route 53 starts to respond to DNS queries for the root resource record set name (such as example.com) by using the new resource record sets.</p> </li> <li> <p>Amazon Route 53 deletes the old group of resource record sets that are associated with the root resource record set name.</p> </li> </ol>",
@@ -1921,7 +1216,36 @@
             "required": true
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
     },
     "/2013-04-01/hostedzone/{Id}/disassociatevpc": {
       "post": {

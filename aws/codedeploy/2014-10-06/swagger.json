@@ -4,7 +4,7 @@
     "version": "2014-10-06",
     "x-release": "v4",
     "title": "AWS CodeDeploy",
-    "description": "<fullname>AWS CodeDeploy</fullname> <b>Overview</b> <p>This reference guide provides descriptions of the AWS CodeDeploy APIs. For more information about AWS CodeDeploy, see the <a href=\"docs.aws.amazon.com/codedeploy/latest/userguide\">AWS CodeDeploy User Guide</a>.</p> <b>Using the APIs</b> <p>You can use the AWS CodeDeploy APIs to work with the following:</p> <ul> <li> <p>Applications are unique identifiers used by AWS CodeDeploy to ensure the correct combinations of revisions, deployment configurations, and deployment groups are being referenced during deployments.</p> <p>You can use the AWS CodeDeploy APIs to create, delete, get, list, and update applications.</p> </li> <li> <p>Deployment configurations are sets of deployment rules and success and failure conditions used by AWS CodeDeploy during deployments.</p> <p>You can use the AWS CodeDeploy APIs to create, delete, get, and list deployment configurations.</p> </li> <li> <p>Deployment groups are groups of instances to which application revisions can be deployed.</p> <p>You can use the AWS CodeDeploy APIs to create, delete, get, list, and update deployment groups.</p> </li> <li> <p>Instances represent Amazon EC2 instances to which application revisions are deployed. Instances are identified by their Amazon EC2 tags or Auto Scaling group names. Instances belong to deployment groups.</p> <p>You can use the AWS CodeDeploy APIs to get and list instance.</p> </li> <li> <p>Deployments represent the process of deploying revisions to instances.</p> <p>You can use the AWS CodeDeploy APIs to create, get, list, and stop deployments.</p> </li> <li> <p>Application revisions are archive files stored in Amazon S3 buckets or GitHub repositories. These revisions contain source content (such as source code, web pages, executable files, and deployment scripts) along with an application specification (AppSpec) file. (The AppSpec file is unique to AWS CodeDeploy; it defines the deployment actions you want AWS CodeDeploy to execute.) Ffor application revisions stored in Amazon S3 buckets, an application revision is uniquely identified by its Amazon S3 object key and its ETag, version, or both. For application revisions stored in GitHub repositories, an application revision is uniquely identified by its repository name and commit ID. Application revisions are deployed through deployment groups.</p> <p>You can use the AWS CodeDeploy APIs to get, list, and register application revisions.</p> </li> </ul>",
+    "description": "<fullname>AWS CodeDeploy</fullname> <p> <b>Overview</b> </p> <p>This reference guide provides descriptions of the AWS CodeDeploy APIs. For more information about AWS CodeDeploy, see the <a href=\"http://docs.aws.amazon.com/codedeploy/latest/userguide\">AWS CodeDeploy User Guide</a>.</p> <p> <b>Using the APIs</b> </p> <p>You can use the AWS CodeDeploy APIs to work with the following:</p> <ul> <li> <p>Applications are unique identifiers used by AWS CodeDeploy to ensure the correct combinations of revisions, deployment configurations, and deployment groups are being referenced during deployments.</p> <p>You can use the AWS CodeDeploy APIs to create, delete, get, list, and update applications.</p> </li> <li> <p>Deployment configurations are sets of deployment rules and success and failure conditions used by AWS CodeDeploy during deployments.</p> <p>You can use the AWS CodeDeploy APIs to create, delete, get, and list deployment configurations.</p> </li> <li> <p>Deployment groups are groups of instances to which application revisions can be deployed.</p> <p>You can use the AWS CodeDeploy APIs to create, delete, get, list, and update deployment groups.</p> </li> <li> <p>Instances represent Amazon EC2 instances to which application revisions are deployed. Instances are identified by their Amazon EC2 tags or Auto Scaling group names. Instances belong to deployment groups.</p> <p>You can use the AWS CodeDeploy APIs to get and list instance.</p> </li> <li> <p>Deployments represent the process of deploying revisions to instances.</p> <p>You can use the AWS CodeDeploy APIs to create, get, list, and stop deployments.</p> </li> <li> <p>Application revisions are archive files stored in Amazon S3 buckets or GitHub repositories. These revisions contain source content (such as source code, web pages, executable files, and deployment scripts) along with an application specification (AppSpec) file. (The AppSpec file is unique to AWS CodeDeploy; it defines the deployment actions you want AWS CodeDeploy to execute.) For application revisions stored in Amazon S3 buckets, an application revision is uniquely identified by its Amazon S3 object key and its ETag, version, or both. For application revisions stored in GitHub repositories, an application revision is uniquely identified by its repository name and commit ID. Application revisions are deployed through deployment groups.</p> <p>You can use the AWS CodeDeploy APIs to get, list, and register application revisions.</p> </li> </ul>",
     "termsOfService": "https://aws.amazon.com/service-terms/",
     "contact": {
       "name": "Mike Ralphson",
@@ -107,6 +107,2933 @@
   ],
   "paths": {
     "/": {
+      "post": {
+        "operationId": "AddTagsToOnPremisesInstances",
+        "description": "Adds tags to on-premises instances.",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "480": {
+            "description": "InstanceNameRequiredException",
+            "schema": {
+              "$ref": "#/definitions/InstanceNameRequiredException"
+            }
+          },
+          "481": {
+            "description": "TagRequiredException",
+            "schema": {
+              "$ref": "#/definitions/TagRequiredException"
+            }
+          },
+          "482": {
+            "description": "InvalidTagException",
+            "schema": {
+              "$ref": "#/definitions/InvalidTagException"
+            }
+          },
+          "483": {
+            "description": "TagLimitExceededException",
+            "schema": {
+              "$ref": "#/definitions/TagLimitExceededException"
+            }
+          },
+          "484": {
+            "description": "InstanceLimitExceededException",
+            "schema": {
+              "$ref": "#/definitions/InstanceLimitExceededException"
+            }
+          },
+          "485": {
+            "description": "InstanceNotRegisteredException",
+            "schema": {
+              "$ref": "#/definitions/InstanceNotRegisteredException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddTagsToOnPremisesInstancesInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#BatchGetApplicationRevisions": {
+      "post": {
+        "operationId": "BatchGetApplicationRevisions",
+        "description": "Gets information about one or more application revisions.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/BatchGetApplicationRevisionsOutput"
+            }
+          },
+          "480": {
+            "description": "ApplicationDoesNotExistException",
+            "schema": {
+              "$ref": "#/definitions/ApplicationDoesNotExistException"
+            }
+          },
+          "481": {
+            "description": "ApplicationNameRequiredException",
+            "schema": {
+              "$ref": "#/definitions/ApplicationNameRequiredException"
+            }
+          },
+          "482": {
+            "description": "InvalidApplicationNameException",
+            "schema": {
+              "$ref": "#/definitions/InvalidApplicationNameException"
+            }
+          },
+          "483": {
+            "description": "RevisionRequiredException",
+            "schema": {
+              "$ref": "#/definitions/RevisionRequiredException"
+            }
+          },
+          "484": {
+            "description": "InvalidRevisionException",
+            "schema": {
+              "$ref": "#/definitions/InvalidRevisionException"
+            }
+          },
+          "485": {
+            "description": "BatchLimitExceededException",
+            "schema": {
+              "$ref": "#/definitions/BatchLimitExceededException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BatchGetApplicationRevisionsInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#BatchGetApplications": {
+      "post": {
+        "operationId": "BatchGetApplications",
+        "description": "Gets information about one or more applications.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/BatchGetApplicationsOutput"
+            }
+          },
+          "480": {
+            "description": "ApplicationNameRequiredException",
+            "schema": {
+              "$ref": "#/definitions/ApplicationNameRequiredException"
+            }
+          },
+          "481": {
+            "description": "InvalidApplicationNameException",
+            "schema": {
+              "$ref": "#/definitions/InvalidApplicationNameException"
+            }
+          },
+          "482": {
+            "description": "ApplicationDoesNotExistException",
+            "schema": {
+              "$ref": "#/definitions/ApplicationDoesNotExistException"
+            }
+          },
+          "483": {
+            "description": "BatchLimitExceededException",
+            "schema": {
+              "$ref": "#/definitions/BatchLimitExceededException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BatchGetApplicationsInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#BatchGetDeploymentGroups": {
+      "post": {
+        "operationId": "BatchGetDeploymentGroups",
+        "description": "Get information about one or more deployment groups.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/BatchGetDeploymentGroupsOutput"
+            }
+          },
+          "480": {
+            "description": "ApplicationNameRequiredException",
+            "schema": {
+              "$ref": "#/definitions/ApplicationNameRequiredException"
+            }
+          },
+          "481": {
+            "description": "InvalidApplicationNameException",
+            "schema": {
+              "$ref": "#/definitions/InvalidApplicationNameException"
+            }
+          },
+          "482": {
+            "description": "ApplicationDoesNotExistException",
+            "schema": {
+              "$ref": "#/definitions/ApplicationDoesNotExistException"
+            }
+          },
+          "483": {
+            "description": "DeploymentGroupNameRequiredException",
+            "schema": {
+              "$ref": "#/definitions/DeploymentGroupNameRequiredException"
+            }
+          },
+          "484": {
+            "description": "InvalidDeploymentGroupNameException",
+            "schema": {
+              "$ref": "#/definitions/InvalidDeploymentGroupNameException"
+            }
+          },
+          "485": {
+            "description": "BatchLimitExceededException",
+            "schema": {
+              "$ref": "#/definitions/BatchLimitExceededException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BatchGetDeploymentGroupsInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#BatchGetDeploymentInstances": {
+      "post": {
+        "operationId": "BatchGetDeploymentInstances",
+        "description": "Gets information about one or more instance that are part of a deployment group.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/BatchGetDeploymentInstancesOutput"
+            }
+          },
+          "480": {
+            "description": "DeploymentIdRequiredException",
+            "schema": {
+              "$ref": "#/definitions/DeploymentIdRequiredException"
+            }
+          },
+          "481": {
+            "description": "DeploymentDoesNotExistException",
+            "schema": {
+              "$ref": "#/definitions/DeploymentDoesNotExistException"
+            }
+          },
+          "482": {
+            "description": "InstanceIdRequiredException",
+            "schema": {
+              "$ref": "#/definitions/InstanceIdRequiredException"
+            }
+          },
+          "483": {
+            "description": "InvalidDeploymentIdException",
+            "schema": {
+              "$ref": "#/definitions/InvalidDeploymentIdException"
+            }
+          },
+          "484": {
+            "description": "InvalidInstanceNameException",
+            "schema": {
+              "$ref": "#/definitions/InvalidInstanceNameException"
+            }
+          },
+          "485": {
+            "description": "BatchLimitExceededException",
+            "schema": {
+              "$ref": "#/definitions/BatchLimitExceededException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BatchGetDeploymentInstancesInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#BatchGetDeployments": {
+      "post": {
+        "operationId": "BatchGetDeployments",
+        "description": "Gets information about one or more deployments.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/BatchGetDeploymentsOutput"
+            }
+          },
+          "480": {
+            "description": "DeploymentIdRequiredException",
+            "schema": {
+              "$ref": "#/definitions/DeploymentIdRequiredException"
+            }
+          },
+          "481": {
+            "description": "InvalidDeploymentIdException",
+            "schema": {
+              "$ref": "#/definitions/InvalidDeploymentIdException"
+            }
+          },
+          "482": {
+            "description": "BatchLimitExceededException",
+            "schema": {
+              "$ref": "#/definitions/BatchLimitExceededException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BatchGetDeploymentsInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#BatchGetOnPremisesInstances": {
+      "post": {
+        "operationId": "BatchGetOnPremisesInstances",
+        "description": "Gets information about one or more on-premises instances.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/BatchGetOnPremisesInstancesOutput"
+            }
+          },
+          "480": {
+            "description": "InstanceNameRequiredException",
+            "schema": {
+              "$ref": "#/definitions/InstanceNameRequiredException"
+            }
+          },
+          "481": {
+            "description": "InvalidInstanceNameException",
+            "schema": {
+              "$ref": "#/definitions/InvalidInstanceNameException"
+            }
+          },
+          "482": {
+            "description": "BatchLimitExceededException",
+            "schema": {
+              "$ref": "#/definitions/BatchLimitExceededException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BatchGetOnPremisesInstancesInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#CreateApplication": {
+      "post": {
+        "operationId": "CreateApplication",
+        "description": "Creates an application.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CreateApplicationOutput"
+            }
+          },
+          "480": {
+            "description": "ApplicationNameRequiredException",
+            "schema": {
+              "$ref": "#/definitions/ApplicationNameRequiredException"
+            }
+          },
+          "481": {
+            "description": "InvalidApplicationNameException",
+            "schema": {
+              "$ref": "#/definitions/InvalidApplicationNameException"
+            }
+          },
+          "482": {
+            "description": "ApplicationAlreadyExistsException",
+            "schema": {
+              "$ref": "#/definitions/ApplicationAlreadyExistsException"
+            }
+          },
+          "483": {
+            "description": "ApplicationLimitExceededException",
+            "schema": {
+              "$ref": "#/definitions/ApplicationLimitExceededException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateApplicationInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#CreateDeployment": {
+      "post": {
+        "operationId": "CreateDeployment",
+        "description": "Deploys an application revision through the specified deployment group.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CreateDeploymentOutput"
+            }
+          },
+          "480": {
+            "description": "ApplicationNameRequiredException",
+            "schema": {
+              "$ref": "#/definitions/ApplicationNameRequiredException"
+            }
+          },
+          "481": {
+            "description": "InvalidApplicationNameException",
+            "schema": {
+              "$ref": "#/definitions/InvalidApplicationNameException"
+            }
+          },
+          "482": {
+            "description": "ApplicationDoesNotExistException",
+            "schema": {
+              "$ref": "#/definitions/ApplicationDoesNotExistException"
+            }
+          },
+          "483": {
+            "description": "DeploymentGroupNameRequiredException",
+            "schema": {
+              "$ref": "#/definitions/DeploymentGroupNameRequiredException"
+            }
+          },
+          "484": {
+            "description": "InvalidDeploymentGroupNameException",
+            "schema": {
+              "$ref": "#/definitions/InvalidDeploymentGroupNameException"
+            }
+          },
+          "485": {
+            "description": "DeploymentGroupDoesNotExistException",
+            "schema": {
+              "$ref": "#/definitions/DeploymentGroupDoesNotExistException"
+            }
+          },
+          "486": {
+            "description": "RevisionRequiredException",
+            "schema": {
+              "$ref": "#/definitions/RevisionRequiredException"
+            }
+          },
+          "487": {
+            "description": "RevisionDoesNotExistException",
+            "schema": {
+              "$ref": "#/definitions/RevisionDoesNotExistException"
+            }
+          },
+          "488": {
+            "description": "InvalidRevisionException",
+            "schema": {
+              "$ref": "#/definitions/InvalidRevisionException"
+            }
+          },
+          "489": {
+            "description": "InvalidDeploymentConfigNameException",
+            "schema": {
+              "$ref": "#/definitions/InvalidDeploymentConfigNameException"
+            }
+          },
+          "490": {
+            "description": "DeploymentConfigDoesNotExistException",
+            "schema": {
+              "$ref": "#/definitions/DeploymentConfigDoesNotExistException"
+            }
+          },
+          "491": {
+            "description": "DescriptionTooLongException",
+            "schema": {
+              "$ref": "#/definitions/DescriptionTooLongException"
+            }
+          },
+          "492": {
+            "description": "DeploymentLimitExceededException",
+            "schema": {
+              "$ref": "#/definitions/DeploymentLimitExceededException"
+            }
+          },
+          "493": {
+            "description": "InvalidAutoRollbackConfigException",
+            "schema": {
+              "$ref": "#/definitions/InvalidAutoRollbackConfigException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateDeploymentInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#CreateDeploymentConfig": {
+      "post": {
+        "operationId": "CreateDeploymentConfig",
+        "description": "Creates a deployment configuration.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CreateDeploymentConfigOutput"
+            }
+          },
+          "480": {
+            "description": "InvalidDeploymentConfigNameException",
+            "schema": {
+              "$ref": "#/definitions/InvalidDeploymentConfigNameException"
+            }
+          },
+          "481": {
+            "description": "DeploymentConfigNameRequiredException",
+            "schema": {
+              "$ref": "#/definitions/DeploymentConfigNameRequiredException"
+            }
+          },
+          "482": {
+            "description": "DeploymentConfigAlreadyExistsException",
+            "schema": {
+              "$ref": "#/definitions/DeploymentConfigAlreadyExistsException"
+            }
+          },
+          "483": {
+            "description": "InvalidMinimumHealthyHostValueException",
+            "schema": {
+              "$ref": "#/definitions/InvalidMinimumHealthyHostValueException"
+            }
+          },
+          "484": {
+            "description": "DeploymentConfigLimitExceededException",
+            "schema": {
+              "$ref": "#/definitions/DeploymentConfigLimitExceededException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateDeploymentConfigInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#CreateDeploymentGroup": {
+      "post": {
+        "operationId": "CreateDeploymentGroup",
+        "description": "Creates a deployment group to which application revisions will be deployed.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CreateDeploymentGroupOutput"
+            }
+          },
+          "480": {
+            "description": "ApplicationNameRequiredException",
+            "schema": {
+              "$ref": "#/definitions/ApplicationNameRequiredException"
+            }
+          },
+          "481": {
+            "description": "InvalidApplicationNameException",
+            "schema": {
+              "$ref": "#/definitions/InvalidApplicationNameException"
+            }
+          },
+          "482": {
+            "description": "ApplicationDoesNotExistException",
+            "schema": {
+              "$ref": "#/definitions/ApplicationDoesNotExistException"
+            }
+          },
+          "483": {
+            "description": "DeploymentGroupNameRequiredException",
+            "schema": {
+              "$ref": "#/definitions/DeploymentGroupNameRequiredException"
+            }
+          },
+          "484": {
+            "description": "InvalidDeploymentGroupNameException",
+            "schema": {
+              "$ref": "#/definitions/InvalidDeploymentGroupNameException"
+            }
+          },
+          "485": {
+            "description": "DeploymentGroupAlreadyExistsException",
+            "schema": {
+              "$ref": "#/definitions/DeploymentGroupAlreadyExistsException"
+            }
+          },
+          "486": {
+            "description": "InvalidEC2TagException",
+            "schema": {
+              "$ref": "#/definitions/InvalidEC2TagException"
+            }
+          },
+          "487": {
+            "description": "InvalidTagException",
+            "schema": {
+              "$ref": "#/definitions/InvalidTagException"
+            }
+          },
+          "488": {
+            "description": "InvalidAutoScalingGroupException",
+            "schema": {
+              "$ref": "#/definitions/InvalidAutoScalingGroupException"
+            }
+          },
+          "489": {
+            "description": "InvalidDeploymentConfigNameException",
+            "schema": {
+              "$ref": "#/definitions/InvalidDeploymentConfigNameException"
+            }
+          },
+          "490": {
+            "description": "DeploymentConfigDoesNotExistException",
+            "schema": {
+              "$ref": "#/definitions/DeploymentConfigDoesNotExistException"
+            }
+          },
+          "491": {
+            "description": "RoleRequiredException",
+            "schema": {
+              "$ref": "#/definitions/RoleRequiredException"
+            }
+          },
+          "492": {
+            "description": "InvalidRoleException",
+            "schema": {
+              "$ref": "#/definitions/InvalidRoleException"
+            }
+          },
+          "493": {
+            "description": "DeploymentGroupLimitExceededException",
+            "schema": {
+              "$ref": "#/definitions/DeploymentGroupLimitExceededException"
+            }
+          },
+          "494": {
+            "description": "LifecycleHookLimitExceededException",
+            "schema": {
+              "$ref": "#/definitions/LifecycleHookLimitExceededException"
+            }
+          },
+          "495": {
+            "description": "InvalidTriggerConfigException",
+            "schema": {
+              "$ref": "#/definitions/InvalidTriggerConfigException"
+            }
+          },
+          "496": {
+            "description": "TriggerTargetsLimitExceededException",
+            "schema": {
+              "$ref": "#/definitions/TriggerTargetsLimitExceededException"
+            }
+          },
+          "497": {
+            "description": "InvalidAlarmConfigException",
+            "schema": {
+              "$ref": "#/definitions/InvalidAlarmConfigException"
+            }
+          },
+          "498": {
+            "description": "AlarmsLimitExceededException",
+            "schema": {
+              "$ref": "#/definitions/AlarmsLimitExceededException"
+            }
+          },
+          "499": {
+            "description": "InvalidAutoRollbackConfigException",
+            "schema": {
+              "$ref": "#/definitions/InvalidAutoRollbackConfigException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateDeploymentGroupInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#DeleteApplication": {
+      "post": {
+        "operationId": "DeleteApplication",
+        "description": "Deletes an application.",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "480": {
+            "description": "ApplicationNameRequiredException",
+            "schema": {
+              "$ref": "#/definitions/ApplicationNameRequiredException"
+            }
+          },
+          "481": {
+            "description": "InvalidApplicationNameException",
+            "schema": {
+              "$ref": "#/definitions/InvalidApplicationNameException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteApplicationInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#DeleteDeploymentConfig": {
+      "post": {
+        "operationId": "DeleteDeploymentConfig",
+        "description": "<p>Deletes a deployment configuration.</p> <note> <p>A deployment configuration cannot be deleted if it is currently in use. Predefined configurations cannot be deleted.</p> </note>",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "480": {
+            "description": "InvalidDeploymentConfigNameException",
+            "schema": {
+              "$ref": "#/definitions/InvalidDeploymentConfigNameException"
+            }
+          },
+          "481": {
+            "description": "DeploymentConfigNameRequiredException",
+            "schema": {
+              "$ref": "#/definitions/DeploymentConfigNameRequiredException"
+            }
+          },
+          "482": {
+            "description": "DeploymentConfigInUseException",
+            "schema": {
+              "$ref": "#/definitions/DeploymentConfigInUseException"
+            }
+          },
+          "483": {
+            "description": "InvalidOperationException",
+            "schema": {
+              "$ref": "#/definitions/InvalidOperationException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteDeploymentConfigInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#DeleteDeploymentGroup": {
+      "post": {
+        "operationId": "DeleteDeploymentGroup",
+        "description": "Deletes a deployment group.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DeleteDeploymentGroupOutput"
+            }
+          },
+          "480": {
+            "description": "ApplicationNameRequiredException",
+            "schema": {
+              "$ref": "#/definitions/ApplicationNameRequiredException"
+            }
+          },
+          "481": {
+            "description": "InvalidApplicationNameException",
+            "schema": {
+              "$ref": "#/definitions/InvalidApplicationNameException"
+            }
+          },
+          "482": {
+            "description": "DeploymentGroupNameRequiredException",
+            "schema": {
+              "$ref": "#/definitions/DeploymentGroupNameRequiredException"
+            }
+          },
+          "483": {
+            "description": "InvalidDeploymentGroupNameException",
+            "schema": {
+              "$ref": "#/definitions/InvalidDeploymentGroupNameException"
+            }
+          },
+          "484": {
+            "description": "InvalidRoleException",
+            "schema": {
+              "$ref": "#/definitions/InvalidRoleException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteDeploymentGroupInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#DeregisterOnPremisesInstance": {
+      "post": {
+        "operationId": "DeregisterOnPremisesInstance",
+        "description": "Deregisters an on-premises instance.",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "480": {
+            "description": "InstanceNameRequiredException",
+            "schema": {
+              "$ref": "#/definitions/InstanceNameRequiredException"
+            }
+          },
+          "481": {
+            "description": "InvalidInstanceNameException",
+            "schema": {
+              "$ref": "#/definitions/InvalidInstanceNameException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeregisterOnPremisesInstanceInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#GetApplication": {
+      "post": {
+        "operationId": "GetApplication",
+        "description": "Gets information about an application.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetApplicationOutput"
+            }
+          },
+          "480": {
+            "description": "ApplicationNameRequiredException",
+            "schema": {
+              "$ref": "#/definitions/ApplicationNameRequiredException"
+            }
+          },
+          "481": {
+            "description": "InvalidApplicationNameException",
+            "schema": {
+              "$ref": "#/definitions/InvalidApplicationNameException"
+            }
+          },
+          "482": {
+            "description": "ApplicationDoesNotExistException",
+            "schema": {
+              "$ref": "#/definitions/ApplicationDoesNotExistException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetApplicationInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#GetApplicationRevision": {
+      "post": {
+        "operationId": "GetApplicationRevision",
+        "description": "Gets information about an application revision.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetApplicationRevisionOutput"
+            }
+          },
+          "480": {
+            "description": "ApplicationDoesNotExistException",
+            "schema": {
+              "$ref": "#/definitions/ApplicationDoesNotExistException"
+            }
+          },
+          "481": {
+            "description": "ApplicationNameRequiredException",
+            "schema": {
+              "$ref": "#/definitions/ApplicationNameRequiredException"
+            }
+          },
+          "482": {
+            "description": "InvalidApplicationNameException",
+            "schema": {
+              "$ref": "#/definitions/InvalidApplicationNameException"
+            }
+          },
+          "483": {
+            "description": "RevisionDoesNotExistException",
+            "schema": {
+              "$ref": "#/definitions/RevisionDoesNotExistException"
+            }
+          },
+          "484": {
+            "description": "RevisionRequiredException",
+            "schema": {
+              "$ref": "#/definitions/RevisionRequiredException"
+            }
+          },
+          "485": {
+            "description": "InvalidRevisionException",
+            "schema": {
+              "$ref": "#/definitions/InvalidRevisionException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetApplicationRevisionInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#GetDeployment": {
+      "post": {
+        "operationId": "GetDeployment",
+        "description": "Gets information about a deployment.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetDeploymentOutput"
+            }
+          },
+          "480": {
+            "description": "DeploymentIdRequiredException",
+            "schema": {
+              "$ref": "#/definitions/DeploymentIdRequiredException"
+            }
+          },
+          "481": {
+            "description": "InvalidDeploymentIdException",
+            "schema": {
+              "$ref": "#/definitions/InvalidDeploymentIdException"
+            }
+          },
+          "482": {
+            "description": "DeploymentDoesNotExistException",
+            "schema": {
+              "$ref": "#/definitions/DeploymentDoesNotExistException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetDeploymentInput"
+            }
+          }
+        ],
+        "x-waiters": [
+          {
+            "delay": 15,
+            "operation": "GetDeployment",
+            "maxAttempts": 120,
+            "acceptors": [
+              {
+                "expected": "Succeeded",
+                "matcher": "path",
+                "state": "success",
+                "argument": "deploymentInfo.status"
+              },
+              {
+                "expected": "Failed",
+                "matcher": "path",
+                "state": "failure",
+                "argument": "deploymentInfo.status"
+              },
+              {
+                "expected": "Stopped",
+                "matcher": "path",
+                "state": "failure",
+                "argument": "deploymentInfo.status"
+              }
+            ]
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#GetDeploymentConfig": {
+      "post": {
+        "operationId": "GetDeploymentConfig",
+        "description": "Gets information about a deployment configuration.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetDeploymentConfigOutput"
+            }
+          },
+          "480": {
+            "description": "InvalidDeploymentConfigNameException",
+            "schema": {
+              "$ref": "#/definitions/InvalidDeploymentConfigNameException"
+            }
+          },
+          "481": {
+            "description": "DeploymentConfigNameRequiredException",
+            "schema": {
+              "$ref": "#/definitions/DeploymentConfigNameRequiredException"
+            }
+          },
+          "482": {
+            "description": "DeploymentConfigDoesNotExistException",
+            "schema": {
+              "$ref": "#/definitions/DeploymentConfigDoesNotExistException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetDeploymentConfigInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#GetDeploymentGroup": {
+      "post": {
+        "operationId": "GetDeploymentGroup",
+        "description": "Gets information about a deployment group.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetDeploymentGroupOutput"
+            }
+          },
+          "480": {
+            "description": "ApplicationNameRequiredException",
+            "schema": {
+              "$ref": "#/definitions/ApplicationNameRequiredException"
+            }
+          },
+          "481": {
+            "description": "InvalidApplicationNameException",
+            "schema": {
+              "$ref": "#/definitions/InvalidApplicationNameException"
+            }
+          },
+          "482": {
+            "description": "ApplicationDoesNotExistException",
+            "schema": {
+              "$ref": "#/definitions/ApplicationDoesNotExistException"
+            }
+          },
+          "483": {
+            "description": "DeploymentGroupNameRequiredException",
+            "schema": {
+              "$ref": "#/definitions/DeploymentGroupNameRequiredException"
+            }
+          },
+          "484": {
+            "description": "InvalidDeploymentGroupNameException",
+            "schema": {
+              "$ref": "#/definitions/InvalidDeploymentGroupNameException"
+            }
+          },
+          "485": {
+            "description": "DeploymentGroupDoesNotExistException",
+            "schema": {
+              "$ref": "#/definitions/DeploymentGroupDoesNotExistException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetDeploymentGroupInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#GetDeploymentInstance": {
+      "post": {
+        "operationId": "GetDeploymentInstance",
+        "description": "Gets information about an instance as part of a deployment.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetDeploymentInstanceOutput"
+            }
+          },
+          "480": {
+            "description": "DeploymentIdRequiredException",
+            "schema": {
+              "$ref": "#/definitions/DeploymentIdRequiredException"
+            }
+          },
+          "481": {
+            "description": "DeploymentDoesNotExistException",
+            "schema": {
+              "$ref": "#/definitions/DeploymentDoesNotExistException"
+            }
+          },
+          "482": {
+            "description": "InstanceIdRequiredException",
+            "schema": {
+              "$ref": "#/definitions/InstanceIdRequiredException"
+            }
+          },
+          "483": {
+            "description": "InvalidDeploymentIdException",
+            "schema": {
+              "$ref": "#/definitions/InvalidDeploymentIdException"
+            }
+          },
+          "484": {
+            "description": "InstanceDoesNotExistException",
+            "schema": {
+              "$ref": "#/definitions/InstanceDoesNotExistException"
+            }
+          },
+          "485": {
+            "description": "InvalidInstanceNameException",
+            "schema": {
+              "$ref": "#/definitions/InvalidInstanceNameException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetDeploymentInstanceInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#GetOnPremisesInstance": {
+      "post": {
+        "operationId": "GetOnPremisesInstance",
+        "description": "Gets information about an on-premises instance.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetOnPremisesInstanceOutput"
+            }
+          },
+          "480": {
+            "description": "InstanceNameRequiredException",
+            "schema": {
+              "$ref": "#/definitions/InstanceNameRequiredException"
+            }
+          },
+          "481": {
+            "description": "InstanceNotRegisteredException",
+            "schema": {
+              "$ref": "#/definitions/InstanceNotRegisteredException"
+            }
+          },
+          "482": {
+            "description": "InvalidInstanceNameException",
+            "schema": {
+              "$ref": "#/definitions/InvalidInstanceNameException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetOnPremisesInstanceInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#ListApplicationRevisions": {
+      "post": {
+        "operationId": "ListApplicationRevisions",
+        "description": "Lists information about revisions for an application.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ListApplicationRevisionsOutput"
+            }
+          },
+          "480": {
+            "description": "ApplicationDoesNotExistException",
+            "schema": {
+              "$ref": "#/definitions/ApplicationDoesNotExistException"
+            }
+          },
+          "481": {
+            "description": "ApplicationNameRequiredException",
+            "schema": {
+              "$ref": "#/definitions/ApplicationNameRequiredException"
+            }
+          },
+          "482": {
+            "description": "InvalidApplicationNameException",
+            "schema": {
+              "$ref": "#/definitions/InvalidApplicationNameException"
+            }
+          },
+          "483": {
+            "description": "InvalidSortByException",
+            "schema": {
+              "$ref": "#/definitions/InvalidSortByException"
+            }
+          },
+          "484": {
+            "description": "InvalidSortOrderException",
+            "schema": {
+              "$ref": "#/definitions/InvalidSortOrderException"
+            }
+          },
+          "485": {
+            "description": "InvalidBucketNameFilterException",
+            "schema": {
+              "$ref": "#/definitions/InvalidBucketNameFilterException"
+            }
+          },
+          "486": {
+            "description": "InvalidKeyPrefixFilterException",
+            "schema": {
+              "$ref": "#/definitions/InvalidKeyPrefixFilterException"
+            }
+          },
+          "487": {
+            "description": "BucketNameFilterRequiredException",
+            "schema": {
+              "$ref": "#/definitions/BucketNameFilterRequiredException"
+            }
+          },
+          "488": {
+            "description": "InvalidDeployedStateFilterException",
+            "schema": {
+              "$ref": "#/definitions/InvalidDeployedStateFilterException"
+            }
+          },
+          "489": {
+            "description": "InvalidNextTokenException",
+            "schema": {
+              "$ref": "#/definitions/InvalidNextTokenException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ListApplicationRevisionsInput"
+            }
+          },
+          {
+            "name": "nextToken",
+            "type": "string",
+            "in": "query",
+            "description": "Pagination token",
+            "required": false
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#ListApplications": {
+      "post": {
+        "operationId": "ListApplications",
+        "description": "Lists the applications registered with the applicable IAM user or AWS account.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ListApplicationsOutput"
+            }
+          },
+          "480": {
+            "description": "InvalidNextTokenException",
+            "schema": {
+              "$ref": "#/definitions/InvalidNextTokenException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ListApplicationsInput"
+            }
+          },
+          {
+            "name": "nextToken",
+            "type": "string",
+            "in": "query",
+            "description": "Pagination token",
+            "required": false
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#ListDeploymentConfigs": {
+      "post": {
+        "operationId": "ListDeploymentConfigs",
+        "description": "Lists the deployment configurations with the applicable IAM user or AWS account.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ListDeploymentConfigsOutput"
+            }
+          },
+          "480": {
+            "description": "InvalidNextTokenException",
+            "schema": {
+              "$ref": "#/definitions/InvalidNextTokenException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ListDeploymentConfigsInput"
+            }
+          },
+          {
+            "name": "nextToken",
+            "type": "string",
+            "in": "query",
+            "description": "Pagination token",
+            "required": false
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#ListDeploymentGroups": {
+      "post": {
+        "operationId": "ListDeploymentGroups",
+        "description": "Lists the deployment groups for an application registered with the applicable IAM user or AWS account.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ListDeploymentGroupsOutput"
+            }
+          },
+          "480": {
+            "description": "ApplicationNameRequiredException",
+            "schema": {
+              "$ref": "#/definitions/ApplicationNameRequiredException"
+            }
+          },
+          "481": {
+            "description": "InvalidApplicationNameException",
+            "schema": {
+              "$ref": "#/definitions/InvalidApplicationNameException"
+            }
+          },
+          "482": {
+            "description": "ApplicationDoesNotExistException",
+            "schema": {
+              "$ref": "#/definitions/ApplicationDoesNotExistException"
+            }
+          },
+          "483": {
+            "description": "InvalidNextTokenException",
+            "schema": {
+              "$ref": "#/definitions/InvalidNextTokenException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ListDeploymentGroupsInput"
+            }
+          },
+          {
+            "name": "nextToken",
+            "type": "string",
+            "in": "query",
+            "description": "Pagination token",
+            "required": false
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#ListDeploymentInstances": {
+      "post": {
+        "operationId": "ListDeploymentInstances",
+        "description": "Lists the instance for a deployment associated with the applicable IAM user or AWS account.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ListDeploymentInstancesOutput"
+            }
+          },
+          "480": {
+            "description": "DeploymentIdRequiredException",
+            "schema": {
+              "$ref": "#/definitions/DeploymentIdRequiredException"
+            }
+          },
+          "481": {
+            "description": "DeploymentDoesNotExistException",
+            "schema": {
+              "$ref": "#/definitions/DeploymentDoesNotExistException"
+            }
+          },
+          "482": {
+            "description": "DeploymentNotStartedException",
+            "schema": {
+              "$ref": "#/definitions/DeploymentNotStartedException"
+            }
+          },
+          "483": {
+            "description": "InvalidNextTokenException",
+            "schema": {
+              "$ref": "#/definitions/InvalidNextTokenException"
+            }
+          },
+          "484": {
+            "description": "InvalidDeploymentIdException",
+            "schema": {
+              "$ref": "#/definitions/InvalidDeploymentIdException"
+            }
+          },
+          "485": {
+            "description": "InvalidInstanceStatusException",
+            "schema": {
+              "$ref": "#/definitions/InvalidInstanceStatusException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ListDeploymentInstancesInput"
+            }
+          },
+          {
+            "name": "nextToken",
+            "type": "string",
+            "in": "query",
+            "description": "Pagination token",
+            "required": false
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#ListDeployments": {
+      "post": {
+        "operationId": "ListDeployments",
+        "description": "Lists the deployments in a deployment group for an application registered with the applicable IAM user or AWS account.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ListDeploymentsOutput"
+            }
+          },
+          "480": {
+            "description": "ApplicationNameRequiredException",
+            "schema": {
+              "$ref": "#/definitions/ApplicationNameRequiredException"
+            }
+          },
+          "481": {
+            "description": "InvalidApplicationNameException",
+            "schema": {
+              "$ref": "#/definitions/InvalidApplicationNameException"
+            }
+          },
+          "482": {
+            "description": "ApplicationDoesNotExistException",
+            "schema": {
+              "$ref": "#/definitions/ApplicationDoesNotExistException"
+            }
+          },
+          "483": {
+            "description": "InvalidDeploymentGroupNameException",
+            "schema": {
+              "$ref": "#/definitions/InvalidDeploymentGroupNameException"
+            }
+          },
+          "484": {
+            "description": "DeploymentGroupDoesNotExistException",
+            "schema": {
+              "$ref": "#/definitions/DeploymentGroupDoesNotExistException"
+            }
+          },
+          "485": {
+            "description": "DeploymentGroupNameRequiredException",
+            "schema": {
+              "$ref": "#/definitions/DeploymentGroupNameRequiredException"
+            }
+          },
+          "486": {
+            "description": "InvalidTimeRangeException",
+            "schema": {
+              "$ref": "#/definitions/InvalidTimeRangeException"
+            }
+          },
+          "487": {
+            "description": "InvalidDeploymentStatusException",
+            "schema": {
+              "$ref": "#/definitions/InvalidDeploymentStatusException"
+            }
+          },
+          "488": {
+            "description": "InvalidNextTokenException",
+            "schema": {
+              "$ref": "#/definitions/InvalidNextTokenException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ListDeploymentsInput"
+            }
+          },
+          {
+            "name": "nextToken",
+            "type": "string",
+            "in": "query",
+            "description": "Pagination token",
+            "required": false
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#ListOnPremisesInstances": {
+      "post": {
+        "operationId": "ListOnPremisesInstances",
+        "description": "<p>Gets a list of names for one or more on-premises instances.</p> <p>Unless otherwise specified, both registered and deregistered on-premises instance names will be listed. To list only registered or deregistered on-premises instance names, use the registration status parameter.</p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ListOnPremisesInstancesOutput"
+            }
+          },
+          "480": {
+            "description": "InvalidRegistrationStatusException",
+            "schema": {
+              "$ref": "#/definitions/InvalidRegistrationStatusException"
+            }
+          },
+          "481": {
+            "description": "InvalidTagFilterException",
+            "schema": {
+              "$ref": "#/definitions/InvalidTagFilterException"
+            }
+          },
+          "482": {
+            "description": "InvalidNextTokenException",
+            "schema": {
+              "$ref": "#/definitions/InvalidNextTokenException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ListOnPremisesInstancesInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#RegisterApplicationRevision": {
+      "post": {
+        "operationId": "RegisterApplicationRevision",
+        "description": "Registers with AWS CodeDeploy a revision for the specified application.",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "480": {
+            "description": "ApplicationDoesNotExistException",
+            "schema": {
+              "$ref": "#/definitions/ApplicationDoesNotExistException"
+            }
+          },
+          "481": {
+            "description": "ApplicationNameRequiredException",
+            "schema": {
+              "$ref": "#/definitions/ApplicationNameRequiredException"
+            }
+          },
+          "482": {
+            "description": "InvalidApplicationNameException",
+            "schema": {
+              "$ref": "#/definitions/InvalidApplicationNameException"
+            }
+          },
+          "483": {
+            "description": "DescriptionTooLongException",
+            "schema": {
+              "$ref": "#/definitions/DescriptionTooLongException"
+            }
+          },
+          "484": {
+            "description": "RevisionRequiredException",
+            "schema": {
+              "$ref": "#/definitions/RevisionRequiredException"
+            }
+          },
+          "485": {
+            "description": "InvalidRevisionException",
+            "schema": {
+              "$ref": "#/definitions/InvalidRevisionException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RegisterApplicationRevisionInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#RegisterOnPremisesInstance": {
+      "post": {
+        "operationId": "RegisterOnPremisesInstance",
+        "description": "Registers an on-premises instance.",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "480": {
+            "description": "InstanceNameAlreadyRegisteredException",
+            "schema": {
+              "$ref": "#/definitions/InstanceNameAlreadyRegisteredException"
+            }
+          },
+          "481": {
+            "description": "IamUserArnAlreadyRegisteredException",
+            "schema": {
+              "$ref": "#/definitions/IamUserArnAlreadyRegisteredException"
+            }
+          },
+          "482": {
+            "description": "InstanceNameRequiredException",
+            "schema": {
+              "$ref": "#/definitions/InstanceNameRequiredException"
+            }
+          },
+          "483": {
+            "description": "IamUserArnRequiredException",
+            "schema": {
+              "$ref": "#/definitions/IamUserArnRequiredException"
+            }
+          },
+          "484": {
+            "description": "InvalidInstanceNameException",
+            "schema": {
+              "$ref": "#/definitions/InvalidInstanceNameException"
+            }
+          },
+          "485": {
+            "description": "InvalidIamUserArnException",
+            "schema": {
+              "$ref": "#/definitions/InvalidIamUserArnException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RegisterOnPremisesInstanceInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#RemoveTagsFromOnPremisesInstances": {
+      "post": {
+        "operationId": "RemoveTagsFromOnPremisesInstances",
+        "description": "Removes one or more tags from one or more on-premises instances.",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "480": {
+            "description": "InstanceNameRequiredException",
+            "schema": {
+              "$ref": "#/definitions/InstanceNameRequiredException"
+            }
+          },
+          "481": {
+            "description": "TagRequiredException",
+            "schema": {
+              "$ref": "#/definitions/TagRequiredException"
+            }
+          },
+          "482": {
+            "description": "InvalidTagException",
+            "schema": {
+              "$ref": "#/definitions/InvalidTagException"
+            }
+          },
+          "483": {
+            "description": "TagLimitExceededException",
+            "schema": {
+              "$ref": "#/definitions/TagLimitExceededException"
+            }
+          },
+          "484": {
+            "description": "InstanceLimitExceededException",
+            "schema": {
+              "$ref": "#/definitions/InstanceLimitExceededException"
+            }
+          },
+          "485": {
+            "description": "InstanceNotRegisteredException",
+            "schema": {
+              "$ref": "#/definitions/InstanceNotRegisteredException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RemoveTagsFromOnPremisesInstancesInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#StopDeployment": {
+      "post": {
+        "operationId": "StopDeployment",
+        "description": "Attempts to stop an ongoing deployment.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/StopDeploymentOutput"
+            }
+          },
+          "480": {
+            "description": "DeploymentIdRequiredException",
+            "schema": {
+              "$ref": "#/definitions/DeploymentIdRequiredException"
+            }
+          },
+          "481": {
+            "description": "DeploymentDoesNotExistException",
+            "schema": {
+              "$ref": "#/definitions/DeploymentDoesNotExistException"
+            }
+          },
+          "482": {
+            "description": "DeploymentAlreadyCompletedException",
+            "schema": {
+              "$ref": "#/definitions/DeploymentAlreadyCompletedException"
+            }
+          },
+          "483": {
+            "description": "InvalidDeploymentIdException",
+            "schema": {
+              "$ref": "#/definitions/InvalidDeploymentIdException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/StopDeploymentInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#UpdateApplication": {
+      "post": {
+        "operationId": "UpdateApplication",
+        "description": "Changes the name of an application.",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "480": {
+            "description": "ApplicationNameRequiredException",
+            "schema": {
+              "$ref": "#/definitions/ApplicationNameRequiredException"
+            }
+          },
+          "481": {
+            "description": "InvalidApplicationNameException",
+            "schema": {
+              "$ref": "#/definitions/InvalidApplicationNameException"
+            }
+          },
+          "482": {
+            "description": "ApplicationAlreadyExistsException",
+            "schema": {
+              "$ref": "#/definitions/ApplicationAlreadyExistsException"
+            }
+          },
+          "483": {
+            "description": "ApplicationDoesNotExistException",
+            "schema": {
+              "$ref": "#/definitions/ApplicationDoesNotExistException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateApplicationInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#UpdateDeploymentGroup": {
       "post": {
         "operationId": "UpdateDeploymentGroup",
         "description": "Changes information about a deployment group.",
@@ -212,6 +3139,24 @@
             "schema": {
               "$ref": "#/definitions/TriggerTargetsLimitExceededException"
             }
+          },
+          "496": {
+            "description": "InvalidAlarmConfigException",
+            "schema": {
+              "$ref": "#/definitions/InvalidAlarmConfigException"
+            }
+          },
+          "497": {
+            "description": "AlarmsLimitExceededException",
+            "schema": {
+              "$ref": "#/definitions/AlarmsLimitExceededException"
+            }
+          },
+          "498": {
+            "description": "InvalidAutoRollbackConfigException",
+            "schema": {
+              "$ref": "#/definitions/InvalidAutoRollbackConfigException"
+            }
           }
         },
         "parameters": [
@@ -274,6 +3219,48 @@
         }
       },
       "description": "Represents the input of, and adds tags to, an on-premises instance operation."
+    },
+    "Alarm": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/AlarmName",
+          "description": "The name of the alarm. Maximum length is 255 characters. Each alarm name can be used only once in a list of alarms."
+        }
+      },
+      "description": "Information about an alarm."
+    },
+    "AlarmConfiguration": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/Boolean",
+          "description": "Indicates whether the alarm configuration is enabled."
+        },
+        "ignorePollAlarmFailure": {
+          "$ref": "#/definitions/Boolean",
+          "description": "<p>Indicates whether a deployment should continue if information about the current state of alarms cannot be retrieved from Amazon CloudWatch. The default value is false.</p> <ul> <li> <p>true: The deployment will proceed even if alarm status information can't be retrieved from Amazon CloudWatch.</p> </li> <li> <p>false: The deployment will stop if alarm status information can't be retrieved from Amazon CloudWatch.</p> </li> </ul>"
+        },
+        "alarms": {
+          "$ref": "#/definitions/AlarmList",
+          "description": "A list of alarms configured for the deployment group. A maximum of 10 alarms can be added to a deployment group."
+        }
+      },
+      "description": "Information about alarms associated with the deployment group."
+    },
+    "AlarmList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Alarm"
+      }
+    },
+    "AlarmName": {
+      "type": "string"
+    },
+    "AlarmsLimitExceededException": {
+      "type": "object",
+      "properties": {},
+      "description": "The maximum number of alarms for a deployment group (10) was exceeded."
     },
     "ApplicationAlreadyExistsException": {
       "type": "object",
@@ -343,6 +3330,34 @@
       "type": "array",
       "items": {
         "$ref": "#/definitions/ApplicationName"
+      }
+    },
+    "AutoRollbackConfiguration": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/Boolean",
+          "description": "Indicates whether a defined automatic rollback configuration is currently enabled."
+        },
+        "events": {
+          "$ref": "#/definitions/AutoRollbackEventsList",
+          "description": "The event type or types that trigger a rollback."
+        }
+      },
+      "description": "Information about a configuration for automatically rolling back to a previous version of an application revision when a deployment doesn't complete successfully."
+    },
+    "AutoRollbackEvent": {
+      "type": "string",
+      "enum": [
+        "DEPLOYMENT_FAILURE",
+        "DEPLOYMENT_STOP_ON_ALARM",
+        "DEPLOYMENT_STOP_ON_REQUEST"
+      ]
+    },
+    "AutoRollbackEventsList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/AutoRollbackEvent"
       }
     },
     "AutoScalingGroup": {
@@ -596,7 +3611,7 @@
         },
         "minimumHealthyHosts": {
           "$ref": "#/definitions/MinimumHealthyHosts",
-          "description": "<p>The minimum number of healthy instances that should be available at any time during the deployment. There are two parameters expected in the input: type and value.</p> <p>The type parameter takes either of the following values:</p> <ul> <li>HOST_COUNT: The value parameter represents the minimum number of healthy instances as an absolute value.</li> <li>FLEET_PERCENT: The value parameter represents the minimum number of healthy instances as a percentage of the total number of instances in the deployment. If you specify FLEET_PERCENT, at the start of the deployment, AWS CodeDeploy converts the percentage to the equivalent number of instance and rounds up fractional instances.</li> </ul> <p>The value parameter takes an integer.</p> <p>For example, to set a minimum of 95% healthy instance, specify a type of FLEET_PERCENT and a value of 95.</p>"
+          "description": "<p>The minimum number of healthy instances that should be available at any time during the deployment. There are two parameters expected in the input: type and value.</p> <p>The type parameter takes either of the following values:</p> <ul> <li> <p>HOST_COUNT: The value parameter represents the minimum number of healthy instances as an absolute value.</p> </li> <li> <p>FLEET_PERCENT: The value parameter represents the minimum number of healthy instances as a percentage of the total number of instances in the deployment. If you specify FLEET_PERCENT, at the start of the deployment, AWS CodeDeploy converts the percentage to the equivalent number of instance and rounds up fractional instances.</p> </li> </ul> <p>The value parameter takes an integer.</p> <p>For example, to set a minimum of 95% healthy instance, specify a type of FLEET_PERCENT and a value of 95.</p>"
         }
       },
       "description": "Represents the input of a create deployment configuration operation."
@@ -629,7 +3644,7 @@
         },
         "deploymentConfigName": {
           "$ref": "#/definitions/DeploymentConfigName",
-          "description": "<p>If specified, the deployment configuration name can be either one of the predefined configurations provided with AWS CodeDeploy or a custom deployment configuration that you create by calling the create deployment configuration operation.</p> <note> <p>CodeDeployDefault.OneAtATime is the default deployment configuration. It is used if a configuration isn't specified for the deployment or the deployment group.</p> </note> <p>The predefined deployment configurations include the following:</p> <ul> <li> <p><b>CodeDeployDefault.AllAtOnce</b> attempts to deploy an application revision to as many instance as possible at once. The status of the overall deployment will be displayed as <b>Succeeded</b> if the application revision is deployed to one or more of the instances. The status of the overall deployment will be displayed as <b>Failed</b> if the application revision is not deployed to any of the instances. Using an example of nine instance, CodeDeployDefault.AllAtOnce will attempt to deploy to all nine instance at once. The overall deployment will succeed if deployment to even a single instance is successful; it will fail only if deployments to all nine instance fail. </p> </li> <li> <p><b>CodeDeployDefault.HalfAtATime</b> deploys to up to half of the instances at a time (with fractions rounded down). The overall deployment succeeds if the application revision is deployed to at least half of the instances (with fractions rounded up); otherwise, the deployment fails. In the example of nine instances, it will deploy to up to four instance at a time. The overall deployment succeeds if deployment to five or more instances succeed; otherwise, the deployment fails. The deployment may be successfully deployed to some instances even if the overall deployment fails.</p> </li> <li> <p><b>CodeDeployDefault.OneAtATime</b> deploys the application revision to only one instance at a time.</p> <p>For deployment groups that contain more than one instance:</p> <ul> <li> <p>The overall deployment succeeds if the application revision is deployed to all of the instances. The exception to this rule is if deployment to the last instance fails, the overall deployment still succeeds. This is because AWS CodeDeploy allows only one instance at a time to be taken offline with the CodeDeployDefault.OneAtATime configuration.</p> </li> <li> <p>The overall deployment fails as soon as the application revision fails to be deployed to any but the last instance. The deployment may be successfully deployed to some instances even if the overall deployment fails.</p> </li> <li> <p>In an example using nine instance, it will deploy to one instance at a time. The overall deployment succeeds if deployment to the first eight instance is successful; the overall deployment fails if deployment to any of the first eight instance fails.</p> </li> </ul> <p>For deployment groups that contain only one instance, the overall deployment is successful only if deployment to the single instance is successful</p> </li> </ul>"
+          "description": "<p>If specified, the deployment configuration name can be either one of the predefined configurations provided with AWS CodeDeploy or a custom deployment configuration that you create by calling the create deployment configuration operation.</p> <note> <p>CodeDeployDefault.OneAtATime is the default deployment configuration. It is used if a configuration isn't specified for the deployment or the deployment group.</p> </note> <p>The predefined deployment configurations include the following:</p> <ul> <li> <p> <b>CodeDeployDefault.AllAtOnce</b> attempts to deploy an application revision to as many instances as possible at once. The status of the overall deployment will be displayed as <b>Succeeded</b> if the application revision is deployed to one or more of the instances. The status of the overall deployment will be displayed as <b>Failed</b> if the application revision is not deployed to any of the instances. Using an example of nine instances, CodeDeployDefault.AllAtOnce will attempt to deploy to all nine instances at once. The overall deployment will succeed if deployment to even a single instance is successful; it will fail only if deployments to all nine instances fail. </p> </li> <li> <p> <b>CodeDeployDefault.HalfAtATime</b> deploys to up to half of the instances at a time (with fractions rounded down). The overall deployment succeeds if the application revision is deployed to at least half of the instances (with fractions rounded up); otherwise, the deployment fails. In the example of nine instances, it will deploy to up to four instances at a time. The overall deployment succeeds if deployment to five or more instances succeed; otherwise, the deployment fails. The deployment may be successfully deployed to some instances even if the overall deployment fails.</p> </li> <li> <p> <b>CodeDeployDefault.OneAtATime</b> deploys the application revision to only one instance at a time.</p> <p>For deployment groups that contain more than one instance:</p> <ul> <li> <p>The overall deployment succeeds if the application revision is deployed to all of the instances. The exception to this rule is if deployment to the last instance fails, the overall deployment still succeeds. This is because AWS CodeDeploy allows only one instance at a time to be taken offline with the CodeDeployDefault.OneAtATime configuration.</p> </li> <li> <p>The overall deployment fails as soon as the application revision fails to be deployed to any but the last instance. The deployment may be successfully deployed to some instances even if the overall deployment fails.</p> </li> <li> <p>In an example using nine instances, it will deploy to one instance at a time. The overall deployment succeeds if deployment to the first eight instances is successful; the overall deployment fails if deployment to any of the first eight instances fails.</p> </li> </ul> <p>For deployment groups that contain only one instance, the overall deployment is successful only if deployment to the single instance is successful</p> </li> </ul>"
         },
         "ec2TagFilters": {
           "$ref": "#/definitions/EC2TagFilterList",
@@ -649,7 +3664,15 @@
         },
         "triggerConfigurations": {
           "$ref": "#/definitions/TriggerConfigList",
-          "description": "Information about triggers to create when the deployment group is created."
+          "description": "Information about triggers to create when the deployment group is created. For examples, see <a href=\"http://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-notify-sns.html\">Create a Trigger for an AWS CodeDeploy Event</a> in the AWS CodeDeploy User Guide."
+        },
+        "alarmConfiguration": {
+          "$ref": "#/definitions/AlarmConfiguration",
+          "description": "Information to add about Amazon CloudWatch alarms when the deployment group is created. "
+        },
+        "autoRollbackConfiguration": {
+          "$ref": "#/definitions/AutoRollbackConfiguration",
+          "description": "Configuration information for an automatic rollback that is added when a deployment group is created."
         }
       },
       "description": "Represents the input of a create deployment group operation."
@@ -693,6 +3716,14 @@
         "ignoreApplicationStopFailures": {
           "$ref": "#/definitions/Boolean",
           "description": "<p>If set to true, then if the deployment causes the ApplicationStop deployment lifecycle event to an instance to fail, the deployment to that instance will not be considered to have failed at that point and will continue on to the BeforeInstall deployment lifecycle event.</p> <p>If set to false or not specified, then if the deployment causes the ApplicationStop deployment lifecycle event to fail to an instance, the deployment to that instance will stop, and the deployment to that instance will be considered to have failed.</p>"
+        },
+        "autoRollbackConfiguration": {
+          "$ref": "#/definitions/AutoRollbackConfiguration",
+          "description": "Configuration information for an automatic rollback that is added when a deployment is created."
+        },
+        "updateOutdatedInstancesOnly": {
+          "$ref": "#/definitions/Boolean",
+          "description": "Indicates whether to deploy to all instances or only to instances that are not running the latest application revision."
         }
       },
       "description": "Represents the input of a create deployment operation."
@@ -831,7 +3862,8 @@
       "type": "string",
       "enum": [
         "user",
-        "autoscaling"
+        "autoscaling",
+        "codeDeployRollback"
       ]
     },
     "DeploymentDoesNotExistException": {
@@ -893,7 +3925,15 @@
         },
         "triggerConfigurations": {
           "$ref": "#/definitions/TriggerConfigList",
-          "description": "A list of associated triggers. "
+          "description": "Information about triggers associated with the deployment group."
+        },
+        "alarmConfiguration": {
+          "$ref": "#/definitions/AlarmConfiguration",
+          "description": "A list of alarms associated with the deployment group."
+        },
+        "autoRollbackConfiguration": {
+          "$ref": "#/definitions/AutoRollbackConfiguration",
+          "description": "Information about the automatic rollback configuration associated with the deployment group."
         }
       },
       "description": "Information about a deployment group."
@@ -986,11 +4026,23 @@
         },
         "creator": {
           "$ref": "#/definitions/DeploymentCreator",
-          "description": "<p>The means by which the deployment was created:</p> <ul> <li>user: A user created the deployment.</li> <li>autoscaling: Auto Scaling created the deployment.</li> </ul>"
+          "description": "<p>The means by which the deployment was created:</p> <ul> <li> <p>user: A user created the deployment.</p> </li> <li> <p>autoscaling: Auto Scaling created the deployment.</p> </li> <li> <p>codeDeployRollback: A rollback process created the deployment.</p> </li> </ul>"
         },
         "ignoreApplicationStopFailures": {
           "$ref": "#/definitions/Boolean",
           "description": "<p>If true, then if the deployment causes the ApplicationStop deployment lifecycle event to an instance to fail, the deployment to that instance will not be considered to have failed at that point and will continue on to the BeforeInstall deployment lifecycle event.</p> <p>If false or not specified, then if the deployment causes the ApplicationStop deployment lifecycle event to an instance to fail, the deployment to that instance will stop, and the deployment to that instance will be considered to have failed.</p>"
+        },
+        "autoRollbackConfiguration": {
+          "$ref": "#/definitions/AutoRollbackConfiguration",
+          "description": "Information about the automatic rollback configuration associated with the deployment."
+        },
+        "updateOutdatedInstancesOnly": {
+          "$ref": "#/definitions/Boolean",
+          "description": "Indicates whether only instances that are not running the latest application revision are to be deployed to."
+        },
+        "rollbackInfo": {
+          "$ref": "#/definitions/RollbackInfo",
+          "description": "Information about a deployment rollback."
         }
       },
       "description": "Information about a deployment."
@@ -1086,7 +4138,7 @@
       "properties": {
         "errorCode": {
           "$ref": "#/definitions/LifecycleErrorCode",
-          "description": "<p>The associated error code:</p> <ul> <li>Success: The specified script ran.</li> <li>ScriptMissing: The specified script was not found in the specified location.</li> <li>ScriptNotExecutable: The specified script is not a recognized executable file type.</li> <li>ScriptTimedOut: The specified script did not finish running in the specified time period.</li> <li>ScriptFailed: The specified script failed to run as expected.</li> <li>UnknownError: The specified script did not run for an unknown reason.</li> </ul>"
+          "description": "<p>The associated error code:</p> <ul> <li> <p>Success: The specified script ran.</p> </li> <li> <p>ScriptMissing: The specified script was not found in the specified location.</p> </li> <li> <p>ScriptNotExecutable: The specified script is not a recognized executable file type.</p> </li> <li> <p>ScriptTimedOut: The specified script did not finish running in the specified time period.</p> </li> <li> <p>ScriptFailed: The specified script failed to run as expected.</p> </li> <li> <p>UnknownError: The specified script did not run for an unknown reason.</p> </li> </ul>"
         },
         "scriptName": {
           "$ref": "#/definitions/ScriptName",
@@ -1116,7 +4168,7 @@
         },
         "Type": {
           "$ref": "#/definitions/EC2TagFilterType",
-          "description": "<p>The tag filter type:</p> <ul> <li>KEY_ONLY: Key only.</li> <li>VALUE_ONLY: Value only.</li> <li>KEY_AND_VALUE: Key and value.</li> </ul>"
+          "description": "<p>The tag filter type:</p> <ul> <li> <p>KEY_ONLY: Key only.</p> </li> <li> <p>VALUE_ONLY: Value only.</p> </li> <li> <p>KEY_AND_VALUE: Key and value.</p> </li> </ul>"
         }
       },
       "description": "Information about a tag filter."
@@ -1153,7 +4205,12 @@
         "HEALTH_CONSTRAINTS_INVALID",
         "HEALTH_CONSTRAINTS",
         "INTERNAL_ERROR",
-        "THROTTLED"
+        "THROTTLED",
+        "ALARM_ACTIVE",
+        "AGENT_ISSUE",
+        "AUTO_SCALING_IAM_ROLE_PERMISSIONS",
+        "AUTO_SCALING_CONFIGURATION",
+        "MANUAL_STOP"
       ]
     },
     "ErrorInformation": {
@@ -1161,7 +4218,7 @@
       "properties": {
         "code": {
           "$ref": "#/definitions/ErrorCode",
-          "description": "<p>The error code:</p> <ul> <li>APPLICATION_MISSING: The application was missing. This error code will most likely be raised if the application is deleted after the deployment is created but before it is started.</li> <li>DEPLOYMENT_GROUP_MISSING: The deployment group was missing. This error code will most likely be raised if the deployment group is deleted after the deployment is created but before it is started.</li> <li>HEALTH_CONSTRAINTS: The deployment failed on too many instances to be successfully deployed within the instance health constraints specified.</li> <li>HEALTH_CONSTRAINTS_INVALID: The revision cannot be successfully deployed within the instance health constraints specified.</li> <li>IAM_ROLE_MISSING: The service role cannot be accessed.</li> <li>IAM_ROLE_PERMISSIONS: The service role does not have the correct permissions.</li> <li>INTERNAL_ERROR: There was an internal error.</li> <li>NO_EC2_SUBSCRIPTION: The calling account is not subscribed to the Amazon EC2 service.</li> <li>NO_INSTANCES: No instance were specified, or no instance can be found.</li> <li>OVER_MAX_INSTANCES: The maximum number of instance was exceeded.</li> <li>THROTTLED: The operation was throttled because the calling account exceeded the throttling limits of one or more AWS services.</li> <li>TIMEOUT: The deployment has timed out.</li> <li>REVISION_MISSING: The revision ID was missing. This error code will most likely be raised if the revision is deleted after the deployment is created but before it is started.</li> </ul>"
+          "description": "<p>The error code:</p> <ul> <li> <p>APPLICATION_MISSING: The application was missing. This error code will most likely be raised if the application is deleted after the deployment is created but before it is started.</p> </li> <li> <p>DEPLOYMENT_GROUP_MISSING: The deployment group was missing. This error code will most likely be raised if the deployment group is deleted after the deployment is created but before it is started.</p> </li> <li> <p>HEALTH_CONSTRAINTS: The deployment failed on too many instances to be successfully deployed within the instance health constraints specified.</p> </li> <li> <p>HEALTH_CONSTRAINTS_INVALID: The revision cannot be successfully deployed within the instance health constraints specified.</p> </li> <li> <p>IAM_ROLE_MISSING: The service role cannot be accessed.</p> </li> <li> <p>IAM_ROLE_PERMISSIONS: The service role does not have the correct permissions.</p> </li> <li> <p>INTERNAL_ERROR: There was an internal error.</p> </li> <li> <p>NO_EC2_SUBSCRIPTION: The calling account is not subscribed to the Amazon EC2 service.</p> </li> <li> <p>NO_INSTANCES: No instance were specified, or no instance can be found.</p> </li> <li> <p>OVER_MAX_INSTANCES: The maximum number of instance was exceeded.</p> </li> <li> <p>THROTTLED: The operation was throttled because the calling account exceeded the throttling limits of one or more AWS services.</p> </li> <li> <p>TIMEOUT: The deployment has timed out.</p> </li> <li> <p>REVISION_MISSING: The revision ID was missing. This error code will most likely be raised if the revision is deleted after the deployment is created but before it is started.</p> </li> </ul>"
         },
         "message": {
           "$ref": "#/definitions/ErrorMessage",
@@ -1524,7 +4581,7 @@
         },
         "status": {
           "$ref": "#/definitions/InstanceStatus",
-          "description": "<p>The deployment status for this instance:</p> <ul> <li>Pending: The deployment is pending for this instance.</li> <li>In Progress: The deployment is in progress for this instance.</li> <li>Succeeded: The deployment has succeeded for this instance.</li> <li>Failed: The deployment has failed for this instance.</li> <li>Skipped: The deployment has been skipped for this instance.</li> <li>Unknown: The deployment status is unknown for this instance.</li> </ul>"
+          "description": "<p>The deployment status for this instance:</p> <ul> <li> <p>Pending: The deployment is pending for this instance.</p> </li> <li> <p>In Progress: The deployment is in progress for this instance.</p> </li> <li> <p>Succeeded: The deployment has succeeded for this instance.</p> </li> <li> <p>Failed: The deployment has failed for this instance.</p> </li> <li> <p>Skipped: The deployment has been skipped for this instance.</p> </li> <li> <p>Unknown: The deployment status is unknown for this instance.</p> </li> </ul>"
         },
         "lastUpdatedAt": {
           "$ref": "#/definitions/Timestamp",
@@ -1549,10 +4606,20 @@
         "$ref": "#/definitions/InstanceId"
       }
     },
+    "InvalidAlarmConfigException": {
+      "type": "object",
+      "properties": {},
+      "description": "<p>The format of the alarm configuration is invalid. Possible causes include:</p> <ul> <li> <p>The alarm list is null.</p> </li> <li> <p>The alarm object is null.</p> </li> <li> <p>The alarm name is empty or null or exceeds the 255 character limit.</p> </li> <li> <p>Two alarms with the same name have been specified.</p> </li> <li> <p>The alarm configuration is enabled but the alarm list is empty.</p> </li> </ul>"
+    },
     "InvalidApplicationNameException": {
       "type": "object",
       "properties": {},
       "description": "The application name was specified in an invalid format."
+    },
+    "InvalidAutoRollbackConfigException": {
+      "type": "object",
+      "properties": {},
+      "description": "The automatic rollback configuration was specified in an invalid format. For example, automatic rollback is enabled but an invalid triggering event type or no event types were listed."
     },
     "InvalidAutoScalingGroupException": {
       "type": "object",
@@ -1709,7 +4776,7 @@
         },
         "status": {
           "$ref": "#/definitions/LifecycleEventStatus",
-          "description": "<p>The deployment lifecycle event status:</p> <ul> <li>Pending: The deployment lifecycle event is pending.</li> <li>InProgress: The deployment lifecycle event is in progress.</li> <li>Succeeded: The deployment lifecycle event ran successfully.</li> <li>Failed: The deployment lifecycle event has failed.</li> <li>Skipped: The deployment lifecycle event has been skipped.</li> <li>Unknown: The deployment lifecycle event is unknown.</li> </ul>"
+          "description": "<p>The deployment lifecycle event status:</p> <ul> <li> <p>Pending: The deployment lifecycle event is pending.</p> </li> <li> <p>InProgress: The deployment lifecycle event is in progress.</p> </li> <li> <p>Succeeded: The deployment lifecycle event ran successfully.</p> </li> <li> <p>Failed: The deployment lifecycle event has failed.</p> </li> <li> <p>Skipped: The deployment lifecycle event has been skipped.</p> </li> <li> <p>Unknown: The deployment lifecycle event is unknown.</p> </li> </ul>"
         }
       },
       "description": "Information about a deployment lifecycle event."
@@ -1754,11 +4821,11 @@
         },
         "sortBy": {
           "$ref": "#/definitions/ApplicationRevisionSortBy",
-          "description": "<p>The column name to use to sort the list results:</p> <ul> <li>registerTime: Sort by the time the revisions were registered with AWS CodeDeploy.</li> <li>firstUsedTime: Sort by the time the revisions were first used in a deployment.</li> <li>lastUsedTime: Sort by the time the revisions were last used in a deployment.</li> </ul> <p>If not specified or set to null, the results will be returned in an arbitrary order.</p>"
+          "description": "<p>The column name to use to sort the list results:</p> <ul> <li> <p>registerTime: Sort by the time the revisions were registered with AWS CodeDeploy.</p> </li> <li> <p>firstUsedTime: Sort by the time the revisions were first used in a deployment.</p> </li> <li> <p>lastUsedTime: Sort by the time the revisions were last used in a deployment.</p> </li> </ul> <p>If not specified or set to null, the results will be returned in an arbitrary order.</p>"
         },
         "sortOrder": {
           "$ref": "#/definitions/SortOrder",
-          "description": "<p>The order in which to sort the list results:</p> <ul> <li>ascending: ascending order.</li> <li>descending: descending order.</li> </ul> <p>If not specified, the results will be sorted in ascending order.</p> <p>If set to null, the results will be sorted in an arbitrary order.</p>"
+          "description": "<p>The order in which to sort the list results:</p> <ul> <li> <p>ascending: ascending order.</p> </li> <li> <p>descending: descending order.</p> </li> </ul> <p>If not specified, the results will be sorted in ascending order.</p> <p>If set to null, the results will be sorted in an arbitrary order.</p>"
         },
         "s3Bucket": {
           "$ref": "#/definitions/S3Bucket",
@@ -1770,7 +4837,7 @@
         },
         "deployed": {
           "$ref": "#/definitions/ListStateFilterAction",
-          "description": "<p>Whether to list revisions based on whether the revision is the target revision of an deployment group:</p> <ul> <li>include: List revisions that are target revisions of a deployment group.</li> <li>exclude: Do not list revisions that are target revisions of a deployment group.</li> <li>ignore: List all revisions.</li> </ul>"
+          "description": "<p>Whether to list revisions based on whether the revision is the target revision of an deployment group:</p> <ul> <li> <p>include: List revisions that are target revisions of a deployment group.</p> </li> <li> <p>exclude: Do not list revisions that are target revisions of a deployment group.</p> </li> <li> <p>ignore: List all revisions.</p> </li> </ul>"
         },
         "nextToken": {
           "$ref": "#/definitions/NextToken",
@@ -1892,7 +4959,7 @@
         },
         "instanceStatusFilter": {
           "$ref": "#/definitions/InstanceStatusList",
-          "description": "<p>A subset of instances to list by status:</p> <ul> <li>Pending: Include those instance with pending deployments.</li> <li>InProgress: Include those instance where deployments are still in progress.</li> <li>Succeeded: Include those instances with successful deployments.</li> <li>Failed: Include those instance with failed deployments.</li> <li>Skipped: Include those instance with skipped deployments.</li> <li>Unknown: Include those instance with deployments in an unknown state.</li> </ul>"
+          "description": "<p>A subset of instances to list by status:</p> <ul> <li> <p>Pending: Include those instance with pending deployments.</p> </li> <li> <p>InProgress: Include those instance where deployments are still in progress.</p> </li> <li> <p>Succeeded: Include those instances with successful deployments.</p> </li> <li> <p>Failed: Include those instance with failed deployments.</p> </li> <li> <p>Skipped: Include those instance with skipped deployments.</p> </li> <li> <p>Unknown: Include those instance with deployments in an unknown state.</p> </li> </ul>"
         }
       },
       "description": "Represents the input of a list deployment instances operation."
@@ -1924,7 +4991,7 @@
         },
         "includeOnlyStatuses": {
           "$ref": "#/definitions/DeploymentStatusList",
-          "description": "<p>A subset of deployments to list by status:</p> <ul> <li>Created: Include created deployments in the resulting list.</li> <li>Queued: Include queued deployments in the resulting list.</li> <li>In Progress: Include in-progress deployments in the resulting list.</li> <li>Succeeded: Include successful deployments in the resulting list.</li> <li>Failed: Include failed deployments in the resulting list.</li> <li>Stopped: Include stopped deployments in the resulting list.</li> </ul>"
+          "description": "<p>A subset of deployments to list by status:</p> <ul> <li> <p>Created: Include created deployments in the resulting list.</p> </li> <li> <p>Queued: Include queued deployments in the resulting list.</p> </li> <li> <p>In Progress: Include in-progress deployments in the resulting list.</p> </li> <li> <p>Succeeded: Include successful deployments in the resulting list.</p> </li> <li> <p>Failed: Include failed deployments in the resulting list.</p> </li> <li> <p>Stopped: Include stopped deployments in the resulting list.</p> </li> </ul>"
         },
         "createTimeRange": {
           "$ref": "#/definitions/TimeRange",
@@ -1956,7 +5023,7 @@
       "properties": {
         "registrationStatus": {
           "$ref": "#/definitions/RegistrationStatus",
-          "description": "<p>The registration status of the on-premises instances:</p> <ul> <li>Deregistered: Include deregistered on-premises instances in the resulting list.</li> <li>Registered: Include registered on-premises instances in the resulting list.</li> </ul>"
+          "description": "<p>The registration status of the on-premises instances:</p> <ul> <li> <p>Deregistered: Include deregistered on-premises instances in the resulting list.</p> </li> <li> <p>Registered: Include registered on-premises instances in the resulting list.</p> </li> </ul>"
         },
         "tagFilters": {
           "$ref": "#/definitions/TagFilterList",
@@ -1967,7 +5034,7 @@
           "description": "An identifier returned from the previous list on-premises instances call. It can be used to return the next set of on-premises instances in the list."
         }
       },
-      "description": "<p>Represents the input of a list on-premises instances operation.</p>."
+      "description": "Represents the input of a list on-premises instances operation."
     },
     "ListOnPremisesInstancesOutput": {
       "type": "object",
@@ -2006,7 +5073,7 @@
         },
         "type": {
           "$ref": "#/definitions/MinimumHealthyHostsType",
-          "description": "<p>The minimum healthy instance type:</p> <ul> <li>HOST_COUNT: The minimum number of healthy instance as an absolute value.</li> <li>FLEET_PERCENT: The minimum number of healthy instance as a percentage of the total number of instance in the deployment.</li> </ul> <p>In an example of nine instance, if a HOST_COUNT of six is specified, deploy to up to three instances at a time. The deployment will be successful if six or more instances are deployed to successfully; otherwise, the deployment fails. If a FLEET_PERCENT of 40 is specified, deploy to up to five instance at a time. The deployment will be successful if four or more instance are deployed to successfully; otherwise, the deployment fails.</p> <note>In a call to the get deployment configuration operation, CodeDeployDefault.OneAtATime will return a minimum healthy instance type of MOST_CONCURRENCY and a value of 1. This means a deployment to only one instance at a time. (You cannot set the type to MOST_CONCURRENCY, only to HOST_COUNT or FLEET_PERCENT.) In addition, with CodeDeployDefault.OneAtATime, AWS CodeDeploy will try to ensure that all instances but one are kept in a healthy state during the deployment. Although this allows one instance at a time to be taken offline for a new deployment, it also means that if the deployment to the last instance fails, the overall deployment still succeeds.</note>"
+          "description": "<p>The minimum healthy instance type:</p> <ul> <li> <p>HOST_COUNT: The minimum number of healthy instance as an absolute value.</p> </li> <li> <p>FLEET_PERCENT: The minimum number of healthy instance as a percentage of the total number of instance in the deployment.</p> </li> </ul> <p>In an example of nine instance, if a HOST_COUNT of six is specified, deploy to up to three instances at a time. The deployment will be successful if six or more instances are deployed to successfully; otherwise, the deployment fails. If a FLEET_PERCENT of 40 is specified, deploy to up to five instance at a time. The deployment will be successful if four or more instance are deployed to successfully; otherwise, the deployment fails.</p> <note> <p>In a call to the get deployment configuration operation, CodeDeployDefault.OneAtATime will return a minimum healthy instance type of MOST_CONCURRENCY and a value of 1. This means a deployment to only one instance at a time. (You cannot set the type to MOST_CONCURRENCY, only to HOST_COUNT or FLEET_PERCENT.) In addition, with CodeDeployDefault.OneAtATime, AWS CodeDeploy will try to ensure that all instances but one are kept in a healthy state during the deployment. Although this allows one instance at a time to be taken offline for a new deployment, it also means that if the deployment to the last instance fails, the overall deployment still succeeds.</p> </note>"
         }
       },
       "description": "Information about minimum healthy instance."
@@ -2023,6 +5090,9 @@
     },
     "NextToken": {
       "type": "string"
+    },
+    "NullableBoolean": {
+      "type": "boolean"
     },
     "RegisterApplicationRevisionInput": {
       "type": "object",
@@ -2120,7 +5190,7 @@
       "properties": {
         "revisionType": {
           "$ref": "#/definitions/RevisionLocationType",
-          "description": "<p>The type of application revision:</p> <ul> <li>S3: An application revision stored in Amazon S3.</li> <li>GitHub: An application revision stored in GitHub.</li> </ul>"
+          "description": "<p>The type of application revision:</p> <ul> <li> <p>S3: An application revision stored in Amazon S3.</p> </li> <li> <p>GitHub: An application revision stored in GitHub.</p> </li> </ul>"
         },
         "s3Location": {
           "$ref": "#/definitions/S3Location"
@@ -2157,6 +5227,24 @@
       "properties": {},
       "description": "The role ID was not specified."
     },
+    "RollbackInfo": {
+      "type": "object",
+      "properties": {
+        "rollbackDeploymentId": {
+          "$ref": "#/definitions/DeploymentId",
+          "description": "The ID of the deployment rollback."
+        },
+        "rollbackTriggeringDeploymentId": {
+          "$ref": "#/definitions/DeploymentId",
+          "description": "The deployment ID of the deployment that was underway and triggered a rollback deployment because it failed or was stopped."
+        },
+        "rollbackMessage": {
+          "$ref": "#/definitions/Description",
+          "description": "Information describing the status of a deployment rollback; for example, whether the deployment can't be rolled back, is in progress, failed, or succeeded. "
+        }
+      },
+      "description": "Information about a deployment rollback."
+    },
     "S3Bucket": {
       "type": "string"
     },
@@ -2176,7 +5264,7 @@
         },
         "bundleType": {
           "$ref": "#/definitions/BundleType",
-          "description": "<p>The file type of the application revision. Must be one of the following:</p> <ul> <li>tar: A tar archive file.</li> <li>tgz: A compressed tar archive file.</li> <li>zip: A zip archive file.</li> </ul>"
+          "description": "<p>The file type of the application revision. Must be one of the following:</p> <ul> <li> <p>tar: A tar archive file.</p> </li> <li> <p>tgz: A compressed tar archive file.</p> </li> <li> <p>zip: A zip archive file.</p> </li> </ul>"
         },
         "version": {
           "$ref": "#/definitions/VersionId",
@@ -2208,6 +5296,10 @@
         "deploymentId": {
           "$ref": "#/definitions/DeploymentId",
           "description": "The unique ID of a deployment."
+        },
+        "autoRollbackEnabled": {
+          "$ref": "#/definitions/NullableBoolean",
+          "description": "Indicates, when a deployment is stopped, whether instances that have been updated should be rolled back to the previous version of the application revision."
         }
       },
       "description": "Represents the input of a stop deployment operation."
@@ -2217,7 +5309,7 @@
       "properties": {
         "status": {
           "$ref": "#/definitions/StopStatus",
-          "description": "<p>The status of the stop deployment operation:</p> <ul> <li>Pending: The stop operation is pending.</li> <li>Succeeded: The stop operation was successful.</li> </ul>"
+          "description": "<p>The status of the stop deployment operation:</p> <ul> <li> <p>Pending: The stop operation is pending.</p> </li> <li> <p>Succeeded: The stop operation was successful.</p> </li> </ul>"
         },
         "statusMessage": {
           "$ref": "#/definitions/Message",
@@ -2260,7 +5352,7 @@
         },
         "Type": {
           "$ref": "#/definitions/TagFilterType",
-          "description": "<p>The on-premises instance tag filter type:</p> <ul> <li>KEY_ONLY: Key only.</li> <li>VALUE_ONLY: Value only.</li> <li>KEY_AND_VALUE: Key and value.</li> </ul>"
+          "description": "<p>The on-premises instance tag filter type:</p> <ul> <li> <p>KEY_ONLY: Key only.</p> </li> <li> <p>VALUE_ONLY: Value only.</p> </li> <li> <p>KEY_AND_VALUE: Key and value.</p> </li> </ul>"
         }
       },
       "description": "Information about an on-premises instance tag filter."
@@ -2300,11 +5392,11 @@
       "properties": {
         "start": {
           "$ref": "#/definitions/Timestamp",
-          "description": "<p>The start time of the time range.</p> <note>Specify null to leave the start time open-ended.</note>"
+          "description": "<p>The start time of the time range.</p> <note> <p>Specify null to leave the start time open-ended.</p> </note>"
         },
         "end": {
           "$ref": "#/definitions/Timestamp",
-          "description": "<p>The end time of the time range.</p> <note>Specify null to leave the end time open-ended.</note>"
+          "description": "<p>The end time of the time range.</p> <note> <p>Specify null to leave the end time open-ended.</p> </note>"
         }
       },
       "description": "Information about a time range."
@@ -2326,7 +5418,7 @@
         },
         "triggerEvents": {
           "$ref": "#/definitions/TriggerEventTypeList",
-          "description": "<p>The event type or types for which notifications are triggered.</p> <p>The following event type values are supported:</p> <ul> <li>DEPLOYMENT_START</li> <li>DEPLOYMENT_SUCCESS</li> <li>DEPLOYMENT_FAILURE</li> <li>DEPLOYMENT_STOP</li> <li>INSTANCE_START</li> <li>INSTANCE_SUCCESS</li> <li>INSTANCE_FAILURE</li> </ul>"
+          "description": "The event type or types for which notifications are triggered."
         }
       },
       "description": "Information about notification triggers for the deployment group."
@@ -2344,6 +5436,7 @@
         "DeploymentSuccess",
         "DeploymentFailure",
         "DeploymentStop",
+        "DeploymentRollback",
         "InstanceStart",
         "InstanceSuccess",
         "InstanceFailure"
@@ -2421,7 +5514,15 @@
         },
         "triggerConfigurations": {
           "$ref": "#/definitions/TriggerConfigList",
-          "description": "Information about triggers to change when the deployment group is updated."
+          "description": "Information about triggers to change when the deployment group is updated. For examples, see <a href=\"http://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-notify-edit.html\">Modify Triggers in an AWS CodeDeploy Deployment Group</a> in the AWS CodeDeploy User Guide."
+        },
+        "alarmConfiguration": {
+          "$ref": "#/definitions/AlarmConfiguration",
+          "description": "Information to add or change about Amazon CloudWatch alarms when the deployment group is updated. "
+        },
+        "autoRollbackConfiguration": {
+          "$ref": "#/definitions/AutoRollbackConfiguration",
+          "description": "Information for an automatic rollback configuration that is added or changed when a deployment group is updated."
         }
       },
       "description": "Represents the input of an update deployment group operation."
