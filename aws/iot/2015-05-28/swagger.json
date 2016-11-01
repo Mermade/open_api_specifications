@@ -3336,6 +3336,10 @@
           "$ref": "#/definitions/DynamoDBAction",
           "description": "Write to a DynamoDB table."
         },
+        "dynamoDBv2": {
+          "$ref": "#/definitions/DynamoDBv2Action",
+          "description": "Write to a DynamoDB table. This is a new version of the DynamoDB action. It allows you to write each attribute in an MQTT message payload into a separate DynamoDB column."
+        },
         "lambda": {
           "$ref": "#/definitions/LambdaAction",
           "description": "Invoke a Lambda function."
@@ -4231,6 +4235,20 @@
       },
       "description": "<p>Describes an action to write to a DynamoDB table.</p> <p>The <code>tableName</code>, <code>hashKeyField</code>, and <code>rangeKeyField</code> values must match the values used when you created the table.</p> <p>The <code>hashKeyValue</code> and <code>rangeKeyvalue</code> fields use a substitution template syntax. These templates provide data at runtime. The syntax is as follows: ${<i>sql-expression</i>}.</p> <p>You can specify any valid expression in a WHERE or SELECT clause, including JSON properties, comparisons, calculations, and functions. For example, the following field uses the third level of the topic:</p> <p><code>\"hashKeyValue\": \"${topic(3)}\"</code></p> <p>The following field uses the timestamp:</p> <p><code>\"rangeKeyValue\": \"${timestamp()}\"</code></p>"
     },
+    "DynamoDBv2Action": {
+      "type": "object",
+      "properties": {
+        "roleArn": {
+          "$ref": "#/definitions/AwsArn",
+          "description": "The ARN of the IAM role that grants access to the DynamoDB table."
+        },
+        "putItem": {
+          "$ref": "#/definitions/PutItemInput",
+          "description": "<p>Specifies the DynamoDB table to which the message data will be written. For example:</p> <p><code>{ \"dynamoDBv2\": { \"roleArn\": \"aws:iam:12341251:my-role\" \"putItem\": { \"tableName\": \"my-table\" } } }</code></p> <p>Each attribute in the message payload will be written to a separate column in the DynamoDB database.</p>"
+        }
+      },
+      "description": "<p>Describes an action to write to a DynamoDB table.</p> <p>This DynamoDB action writes each attribute in the message payload into it's own column in the DynamoDB table.</p>"
+    },
     "DynamoKeyType": {
       "type": "string",
       "enum": [
@@ -4985,6 +5003,19 @@
     "PublicKey": {
       "type": "string",
       "minLength": 1
+    },
+    "PutItemInput": {
+      "type": "object",
+      "required": [
+        "tableName"
+      ],
+      "properties": {
+        "tableName": {
+          "$ref": "#/definitions/TableName",
+          "description": "The table where the message data will be written"
+        }
+      },
+      "description": "The input for the DynamoActionVS action that specifies the DynamoDB table to which the message data will be written."
     },
     "QueueUrl": {
       "type": "string"

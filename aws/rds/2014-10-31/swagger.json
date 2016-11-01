@@ -104,6 +104,80 @@
   "paths": {
     "/": {
       "post": {
+        "operationId": "AddRoleToDBCluster",
+        "description": "Associates an Identity and Access Management (IAM) role from an Aurora DB cluster. For more information, see <a href=\"http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Aurora.Authorizing.AWSServices.html\">Authorizing Amazon Aurora to Access Other AWS Services On Your Behalf</a>.",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "480": {
+            "description": "DBClusterNotFoundFault",
+            "schema": {
+              "$ref": "#/definitions/DBClusterNotFoundFault"
+            }
+          },
+          "481": {
+            "description": "DBClusterRoleAlreadyExistsFault",
+            "schema": {
+              "$ref": "#/definitions/DBClusterRoleAlreadyExistsFault"
+            }
+          },
+          "482": {
+            "description": "InvalidDBClusterStateFault",
+            "schema": {
+              "$ref": "#/definitions/InvalidDBClusterStateFault"
+            }
+          },
+          "483": {
+            "description": "DBClusterRoleQuotaExceededFault",
+            "schema": {
+              "$ref": "#/definitions/DBClusterRoleQuotaExceededFault"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddRoleToDBClusterMessage"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#AddSourceIdentifierToSubscription": {
+      "post": {
         "operationId": "AddSourceIdentifierToSubscription",
         "description": "Adds a source identifier to an existing RDS event notification subscription.",
         "responses": {
@@ -469,6 +543,18 @@
             "description": "InvalidDBClusterSnapshotStateFault",
             "schema": {
               "$ref": "#/definitions/InvalidDBClusterSnapshotStateFault"
+            }
+          },
+          "484": {
+            "description": "SnapshotQuotaExceededFault",
+            "schema": {
+              "$ref": "#/definitions/SnapshotQuotaExceededFault"
+            }
+          },
+          "485": {
+            "description": "KMSKeyNotAccessibleFault",
+            "schema": {
+              "$ref": "#/definitions/KMSKeyNotAccessibleFault"
             }
           }
         },
@@ -5633,6 +5719,74 @@
         }
       ]
     },
+    "/#RemoveRoleFromDBCluster": {
+      "post": {
+        "operationId": "RemoveRoleFromDBCluster",
+        "description": "Disassociates an Identity and Access Management (IAM) role from an Aurora DB cluster. For more information, see <a href=\"http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Aurora.Authorizing.AWSServices.html\">Authorizing Amazon Aurora to Access Other AWS Services On Your Behalf</a>.",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "480": {
+            "description": "DBClusterNotFoundFault",
+            "schema": {
+              "$ref": "#/definitions/DBClusterNotFoundFault"
+            }
+          },
+          "481": {
+            "description": "DBClusterRoleNotFoundFault",
+            "schema": {
+              "$ref": "#/definitions/DBClusterRoleNotFoundFault"
+            }
+          },
+          "482": {
+            "description": "InvalidDBClusterStateFault",
+            "schema": {
+              "$ref": "#/definitions/InvalidDBClusterStateFault"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RemoveRoleFromDBClusterMessage"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
     "/#RemoveSourceIdentifierFromSubscription": {
       "post": {
         "operationId": "RemoveSourceIdentifierFromSubscription",
@@ -6766,6 +6920,23 @@
         "$ref": "#/definitions/AccountQuota"
       }
     },
+    "AddRoleToDBClusterMessage": {
+      "type": "object",
+      "required": [
+        "DBClusterIdentifier",
+        "RoleArn"
+      ],
+      "properties": {
+        "DBClusterIdentifier": {
+          "$ref": "#/definitions/String",
+          "description": "The name of the DB cluster to associate the IAM role with."
+        },
+        "RoleArn": {
+          "$ref": "#/definitions/String",
+          "description": "The Amazon Resource Name (ARN) of the IAM role to associate with the Aurora DB cluster, for example <code>arn:aws:iam::123456789012:role/AuroraAccessRole</code>."
+        }
+      }
+    },
     "AddSourceIdentifierToSubscriptionMessage": {
       "type": "object",
       "required": [
@@ -7409,7 +7580,7 @@
         },
         "EngineVersion": {
           "$ref": "#/definitions/String",
-          "description": "<p>The version number of the database engine to use.</p> <p>The following are the database engines and major and minor versions that are available with Amazon RDS. Not every database engine is available for every AWS region.</p> <p> <b>Amazon Aurora</b> </p> <ul> <li> <p> <b>Version 5.6 (only available in AWS regions ap-northeast-1, ap-northeast-2, ap-south-1, ap-southeast-2, eu-west-1, us-east-1, us-west-2):</b> <code> 5.6.10a</code> </p> </li> </ul> <p> <b>MariaDB</b> </p> <ul> <li> <p> <b>Version 10.1 (available in all AWS regions except us-gov-west-1):</b> <code> 10.1.14</code> </p> </li> <li> <p> <b>Version 10.0 (available in all AWS regions):</b> <code> 10.0.17 | 10.0.24</code> </p> </li> </ul> <p> <b>Microsoft SQL Server Enterprise Edition (sqlserver-ee)</b> </p> <ul> <li> <p> <b>Version 11.00 (available in all AWS regions):</b> <code> 11.00.2100.60.v1 | 11.00.5058.0.v1 | 11.00.6020.0.v1</code> </p> </li> <li> <p> <b>Version 10.50 (available in all AWS regions):</b> <code> 10.50.2789.0.v1 | 10.50.6000.34.v1 | 10.50.6529.0.v1</code> </p> </li> </ul> <p> <b>Microsoft SQL Server Express Edition (sqlserver-ex)</b> </p> <ul> <li> <p> <b>Version 12.00 (available in all AWS regions):</b> <code> 12.00.4422.0.v1</code> </p> </li> <li> <p> <b>Version 11.00 (available in all AWS regions):</b> <code> 11.00.2100.60.v1 | 11.00.5058.0.v1 | 11.00.6020.0.v1</code> </p> </li> <li> <p> <b>Version 10.50 (available in all AWS regions):</b> <code> 10.50.2789.0.v1 | 10.50.6000.34.v1 | 10.50.6529.0.v1</code> </p> </li> </ul> <p> <b>Microsoft SQL Server Standard Edition (sqlserver-se)</b> </p> <ul> <li> <p> <b>Version 12.00 (available in all AWS regions):</b> <code> 12.00.4422.0.v1</code> </p> </li> <li> <p> <b>Version 11.00 (available in all AWS regions):</b> <code> 11.00.2100.60.v1 | 11.00.5058.0.v1 | 11.00.6020.0.v1</code> </p> </li> <li> <p> <b>Version 10.50 (available in all AWS regions):</b> <code> 10.50.2789.0.v1 | 10.50.6000.34.v1 | 10.50.6529.0.v1</code> </p> </li> </ul> <p> <b>Microsoft SQL Server Web Edition (sqlserver-web)</b> </p> <ul> <li> <p> <b>Version 12.00 (available in all AWS regions):</b> <code> 12.00.4422.0.v1</code> </p> </li> <li> <p> <b>Version 11.00 (available in all AWS regions):</b> <code> 11.00.2100.60.v1 | 11.00.5058.0.v1 | 11.00.6020.0.v1</code> </p> </li> <li> <p> <b>Version 10.50 (available in all AWS regions):</b> <code> 10.50.2789.0.v1 | 10.50.6000.34.v1 | 10.50.6529.0.v1</code> </p> </li> </ul> <p> <b>MySQL</b> </p> <ul> <li> <p> <b>Version 5.7 (available in all AWS regions):</b> <code> 5.7.10 | 5.7.11</code> </p> </li> <li> <p> <b>Version 5.6 (available in all AWS regions except ap-south-1, ap-northeast-2):</b> <code> 5.6.19a | 5.6.19b | 5.6.21 | 5.6.21b | 5.6.22</code> </p> </li> <li> <p> <b>Version 5.6 (available in all AWS regions except ap-south-1):</b> <code> 5.6.23</code> </p> </li> <li> <p> <b>Version 5.6 (available in all AWS regions):</b> <code> 5.6.27 | 5.6.29</code> </p> </li> <li> <p> <b>Version 5.5 (only available in AWS regions ap-northeast-1, ap-southeast-1, ap-southeast-2, eu-west-1, sa-east-1, us-east-1, us-gov-west-1, us-west-1, us-west-2):</b> <code> 5.5.40 | 5.5.40a</code> </p> </li> <li> <p> <b>Version 5.5 (available in all AWS regions except ap-south-1, ap-northeast-2):</b> <code> 5.5.40b | 5.5.41</code> </p> </li> <li> <p> <b>Version 5.5 (available in all AWS regions except ap-south-1):</b> <code> 5.5.42</code> </p> </li> <li> <p> <b>Version 5.5 (available in all AWS regions):</b> <code> 5.5.46</code> </p> </li> </ul> <p> <b>Oracle Database Enterprise Edition (oracle-ee)</b> </p> <ul> <li> <p> <b>Version 12.1 (available in all AWS regions except ap-south-1, ap-northeast-2):</b> <code> 12.1.0.1.v1 | 12.1.0.1.v2</code> </p> </li> <li> <p> <b>Version 12.1 (only available in AWS regions ap-northeast-1, ap-southeast-1, ap-southeast-2, eu-central-1, eu-west-1, sa-east-1, us-east-1, us-west-1, us-west-2):</b> <code> 12.1.0.1.v3 | 12.1.0.1.v4 | 12.1.0.1.v5</code> </p> </li> <li> <p> <b>Version 12.1 (available in all AWS regions):</b> <code> 12.1.0.2.v1</code> </p> </li> <li> <p> <b>Version 12.1 (available in all AWS regions except us-gov-west-1):</b> <code> 12.1.0.2.v2 | 12.1.0.2.v3 | 12.1.0.2.v4</code> </p> </li> <li> <p> <b>Version 11.2 (available in all AWS regions):</b> <code> 11.2.0.4.v1 | 11.2.0.4.v3 | 11.2.0.4.v4</code> </p> </li> <li> <p> <b>Version 11.2 (available in all AWS regions except us-gov-west-1):</b> <code> 11.2.0.4.v5 | 11.2.0.4.v6 | 11.2.0.4.v7 | 11.2.0.4.v8</code> </p> </li> </ul> <p> <b>Oracle Database Standard Edition (oracle-se)</b> </p> <ul> <li> <p> <b>Version 12.1 (available in all AWS regions except ap-south-1, ap-northeast-2):</b> <code> 12.1.0.1.v1 | 12.1.0.1.v2</code> </p> </li> <li> <p> <b>Version 12.1 (only available in AWS regions ap-northeast-1, ap-southeast-1, ap-southeast-2, eu-central-1, eu-west-1, sa-east-1, us-east-1, us-west-1, us-west-2):</b> <code> 12.1.0.1.v3 | 12.1.0.1.v4 | 12.1.0.1.v5</code> </p> </li> <li> <p> <b>Version 11.2 (available in all AWS regions):</b> <code> 11.2.0.4.v1 | 11.2.0.4.v3 | 11.2.0.4.v4</code> </p> </li> <li> <p> <b>Version 11.2 (available in all AWS regions except us-gov-west-1):</b> <code> 11.2.0.4.v5 | 11.2.0.4.v6 | 11.2.0.4.v7 | 11.2.0.4.v8</code> </p> </li> </ul> <p> <b>Oracle Database Standard Edition One (oracle-se1)</b> </p> <ul> <li> <p> <b>Version 12.1 (available in all AWS regions except ap-south-1, ap-northeast-2):</b> <code> 12.1.0.1.v1 | 12.1.0.1.v2</code> </p> </li> <li> <p> <b>Version 12.1 (only available in AWS regions ap-northeast-1, ap-southeast-1, ap-southeast-2, eu-central-1, eu-west-1, sa-east-1, us-east-1, us-west-1, us-west-2):</b> <code> 12.1.0.1.v3 | 12.1.0.1.v4 | 12.1.0.1.v5</code> </p> </li> <li> <p> <b>Version 11.2 (available in all AWS regions):</b> <code> 11.2.0.4.v1 | 11.2.0.4.v3 | 11.2.0.4.v4</code> </p> </li> <li> <p> <b>Version 11.2 (available in all AWS regions except us-gov-west-1):</b> <code> 11.2.0.4.v5 | 11.2.0.4.v6 | 11.2.0.4.v7 | 11.2.0.4.v8</code> </p> </li> </ul> <p> <b>Oracle Database Standard Edition Two (oracle-se2)</b> </p> <ul> <li> <p> <b>Version 12.1 (available in all AWS regions except us-gov-west-1):</b> <code> 12.1.0.2.v2 | 12.1.0.2.v3 | 12.1.0.2.v4</code> </p> </li> </ul> <p> <b>PostgreSQL</b> </p> <ul> <li> <p> <b>Version 9.5 (available in all AWS regions except us-gov-west-1):</b> <code> 9.5.2</code> </p> </li> <li> <p> <b>Version 9.4 (available in all AWS regions except ap-south-1):</b> <code> 9.4.1 | 9.4.4</code> </p> </li> <li> <p> <b>Version 9.4 (available in all AWS regions):</b> <code> 9.4.5</code> </p> </li> <li> <p> <b>Version 9.4 (available in all AWS regions except us-gov-west-1):</b> <code> 9.4.7</code> </p> </li> <li> <p> <b>Version 9.3 (only available in AWS regions ap-northeast-1, ap-southeast-1, ap-southeast-2, eu-west-1, sa-east-1, us-east-1, us-gov-west-1, us-west-1, us-west-2):</b> <code> 9.3.1 | 9.3.2</code> </p> </li> <li> <p> <b>Version 9.3 (available in all AWS regions except ap-south-1, ap-northeast-2):</b> <code> 9.3.10 | 9.3.3 | 9.3.5 | 9.3.6 | 9.3.9</code> </p> </li> <li> <p> <b>Version 9.3 (only available in AWS regions ap-northeast-1, ap-southeast-1, ap-southeast-2, eu-central-1, eu-west-1, sa-east-1, us-east-1, us-west-1, us-west-2):</b> <code> 9.3.12</code> </p> </li> </ul>"
+          "description": "<p>The version number of the database engine to use.</p> <p>The following are the database engines and major and minor versions that are available with Amazon RDS. Not every database engine is available for every AWS region.</p> <p> <b>Amazon Aurora</b> </p> <ul> <li> <p> <b>Version 5.6 (available in these AWS regions: ap-northeast-1, ap-northeast-2, ap-south-1, ap-southeast-2, eu-west-1, us-east-1, us-west-2):</b> <code> 5.6.10a</code> </p> </li> </ul> <p> <b>MariaDB</b> </p> <ul> <li> <p> <b>Version 10.1 (available in these AWS regions: ap-northeast-1, ap-northeast-2, ap-south-1, ap-southeast-1, ap-southeast-2, eu-central-1, eu-west-1, sa-east-1, us-east-1, us-west-1, us-west-2):</b> <code> 10.1.14</code> </p> </li> <li> <p> <b>Version 10.0 (available in all AWS regions):</b> <code> 10.0.17 | 10.0.24</code> </p> </li> </ul> <p> <b>MySQL</b> </p> <ul> <li> <p> <b>Version 5.7 (available in all AWS regions):</b> <code> 5.7.10 | 5.7.11</code> </p> </li> <li> <p> <b>Version 5.6 (available in all AWS regions):</b> <code> 5.6.27 | 5.6.29</code> </p> </li> <li> <p> <b>Version 5.6 (available in these AWS regions: ap-northeast-1, ap-northeast-2, ap-southeast-1, ap-southeast-2, eu-central-1, eu-west-1, sa-east-1, us-east-1, us-gov-west-1, us-west-1, us-west-2):</b> <code> 5.6.23</code> </p> </li> <li> <p> <b>Version 5.6 (available in these AWS regions: ap-northeast-1, ap-southeast-1, ap-southeast-2, eu-central-1, eu-west-1, sa-east-1, us-east-1, us-gov-west-1, us-west-1, us-west-2):</b> <code> 5.6.19a | 5.6.19b | 5.6.21 | 5.6.21b | 5.6.22</code> </p> </li> <li> <p> <b>Version 5.5 (available in all AWS regions):</b> <code> 5.5.46</code> </p> </li> <li> <p> <b>Version 5.5 (available in these AWS regions: ap-northeast-1, ap-northeast-2, ap-southeast-1, ap-southeast-2, eu-central-1, eu-west-1, sa-east-1, us-east-1, us-gov-west-1, us-west-1, us-west-2):</b> <code> 5.5.42</code> </p> </li> <li> <p> <b>Version 5.5 (available in these AWS regions: ap-northeast-1, ap-southeast-1, ap-southeast-2, eu-central-1, eu-west-1, sa-east-1, us-east-1, us-gov-west-1, us-west-1, us-west-2):</b> <code> 5.5.40b | 5.5.41</code> </p> </li> <li> <p> <b>Version 5.5 (available in these AWS regions: ap-northeast-1, ap-southeast-1, ap-southeast-2, eu-west-1, sa-east-1, us-east-1, us-gov-west-1, us-west-1, us-west-2):</b> <code> 5.5.40 | 5.5.40a</code> </p> </li> </ul> <p> <b>Oracle Database Enterprise Edition (oracle-ee)</b> </p> <ul> <li> <p> <b>Version 12.1.0.2 (available in these AWS regions: ap-northeast-1, ap-northeast-2, ap-south-1, ap-southeast-1, ap-southeast-2, eu-central-1, eu-west-1, sa-east-1, us-east-1, us-west-1, us-west-2):</b> <code> 12.1.0.2.v5</code> </p> </li> <li> <p> <b>Version 12.1.0.2 (available in all AWS regions):</b> <code> 12.1.0.2.v1 | 12.1.0.2.v2 | 12.1.0.2.v3 | 12.1.0.2.v4</code> </p> </li> <li> <p> <b>Version 12.1.0.1 (available in these AWS regions: ap-northeast-1, ap-southeast-1, ap-southeast-2, eu-central-1, eu-west-1, sa-east-1, us-east-1, us-west-1, us-west-2):</b> <code> 12.1.0.1.v6</code> </p> </li> <li> <p> <b>Version 12.1.0.1 (available in these AWS regions: ap-northeast-1, ap-southeast-1, ap-southeast-2, eu-central-1, eu-west-1, sa-east-1, us-east-1, us-gov-west-1, us-west-1, us-west-2):</b> <code> 12.1.0.1.v3 | 12.1.0.1.v4 | 12.1.0.1.v5</code> </p> </li> <li> <p> <b>Version 12.1.0.1 (available in these AWS regions: ap-northeast-1, ap-southeast-1, ap-southeast-2, eu-central-1, eu-west-1, sa-east-1, us-east-1, us-gov-west-1, us-gov-west-1, us-west-1, us-west-2):</b> <code> 12.1.0.1.v1 | 12.1.0.1.v2</code> </p> </li> <li> <p> <b>Version 11.2.0.4 (available in these AWS regions: ap-northeast-1, ap-northeast-2, ap-south-1, ap-southeast-1, ap-southeast-2, eu-central-1, eu-west-1, sa-east-1, us-east-1, us-west-1, us-west-2):</b> <code> 11.2.0.4.v6 | 11.2.0.4.v9</code> </p> </li> <li> <p> <b>Version 11.2.0.4 (available in all AWS regions):</b> <code> 11.2.0.4.v1 | 11.2.0.4.v3 | 11.2.0.4.v4 | 11.2.0.4.v5 | 11.2.0.4.v7 | 11.2.0.4.v8</code> </p> </li> </ul> <p> <b>Oracle Database Standard Edition Two (oracle-se2)</b> </p> <ul> <li> <p> <b>Version 12.1.0.2 (available in these AWS regions: ap-northeast-1, ap-northeast-2, ap-south-1, ap-southeast-1, ap-southeast-2, eu-central-1, eu-west-1, sa-east-1, us-east-1, us-west-1, us-west-2):</b> <code> 12.1.0.2.v5</code> </p> </li> <li> <p> <b>Version 12.1.0.2 (available in all AWS regions):</b> <code> 12.1.0.2.v2 | 12.1.0.2.v3 | 12.1.0.2.v4</code> </p> </li> </ul> <p> <b>Oracle Database Standard Edition One (oracle-se1)</b> </p> <ul> <li> <p> <b>Version 12.1.0.1 (available in these AWS regions: ap-northeast-1, ap-southeast-1, ap-southeast-2, eu-central-1, eu-west-1, sa-east-1, us-east-1, us-west-1, us-west-2):</b> <code> 12.1.0.1.v6</code> </p> </li> <li> <p> <b>Version 12.1.0.1 (available in these AWS regions: ap-northeast-1, ap-southeast-1, ap-southeast-2, eu-central-1, eu-west-1, sa-east-1, us-east-1, us-gov-west-1, us-west-1, us-west-2):</b> <code> 12.1.0.1.v3 | 12.1.0.1.v4 | 12.1.0.1.v5</code> </p> </li> <li> <p> <b>Version 12.1.0.1 (available in these AWS regions: ap-northeast-1, ap-southeast-1, ap-southeast-2, eu-central-1, eu-west-1, sa-east-1, us-east-1, us-gov-west-1, us-gov-west-1, us-west-1, us-west-2):</b> <code> 12.1.0.1.v1 | 12.1.0.1.v2</code> </p> </li> <li> <p> <b>Version 11.2.0.4 (available in these AWS regions: ap-northeast-1, ap-northeast-2, ap-south-1, ap-southeast-1, ap-southeast-2, eu-central-1, eu-west-1, sa-east-1, us-east-1, us-west-1, us-west-2):</b> <code> 11.2.0.4.v6 | 11.2.0.4.v9</code> </p> </li> <li> <p> <b>Version 11.2.0.4 (available in all AWS regions):</b> <code> 11.2.0.4.v1 | 11.2.0.4.v3 | 11.2.0.4.v4 | 11.2.0.4.v5 | 11.2.0.4.v7 | 11.2.0.4.v8</code> </p> </li> </ul> <p> <b>Oracle Database Standard Edition (oracle-se)</b> </p> <ul> <li> <p> <b>Version 12.1.0.1 (available in these AWS regions: ap-northeast-1, ap-southeast-1, ap-southeast-2, eu-central-1, eu-west-1, sa-east-1, us-east-1, us-west-1, us-west-2):</b> <code> 12.1.0.1.v6</code> </p> </li> <li> <p> <b>Version 12.1.0.1 (available in these AWS regions: ap-northeast-1, ap-southeast-1, ap-southeast-2, eu-central-1, eu-west-1, sa-east-1, us-east-1, us-gov-west-1, us-west-1, us-west-2):</b> <code> 12.1.0.1.v3 | 12.1.0.1.v4 | 12.1.0.1.v5</code> </p> </li> <li> <p> <b>Version 12.1.0.1 (available in these AWS regions: ap-northeast-1, ap-southeast-1, ap-southeast-2, eu-central-1, eu-west-1, sa-east-1, us-east-1, us-gov-west-1, us-gov-west-1, us-west-1, us-west-2):</b> <code> 12.1.0.1.v1 | 12.1.0.1.v2</code> </p> </li> <li> <p> <b>Version 11.2.0.4 (available in these AWS regions: ap-northeast-1, ap-northeast-2, ap-south-1, ap-southeast-1, ap-southeast-2, eu-central-1, eu-west-1, sa-east-1, us-east-1, us-west-1, us-west-2):</b> <code> 11.2.0.4.v6 | 11.2.0.4.v9</code> </p> </li> <li> <p> <b>Version 11.2.0.4 (available in all AWS regions):</b> <code> 11.2.0.4.v1 | 11.2.0.4.v3 | 11.2.0.4.v4 | 11.2.0.4.v5 | 11.2.0.4.v7 | 11.2.0.4.v8</code> </p> </li> </ul> <p> <b>PostgreSQL</b> </p> <ul> <li> <p> <b>Version 9.5 (available in these AWS regions: ap-northeast-1, ap-northeast-2, ap-south-1, ap-southeast-1, ap-southeast-2, eu-central-1, eu-west-1, sa-east-1, us-east-1, us-west-1, us-west-2):</b> <code> 9.5.2 | 9.5.4</code> </p> </li> <li> <p> <b>Version 9.4 (available in these AWS regions: ap-northeast-1, ap-northeast-2, ap-south-1, ap-southeast-1, ap-southeast-2, eu-central-1, eu-west-1, sa-east-1, us-east-1, us-west-1, us-west-2):</b> <code> 9.4.7 | 9.4.9</code> </p> </li> <li> <p> <b>Version 9.4 (available in all AWS regions):</b> <code> 9.4.5</code> </p> </li> <li> <p> <b>Version 9.4 (available in these AWS regions: ap-northeast-1, ap-northeast-2, ap-southeast-1, ap-southeast-2, eu-central-1, eu-west-1, sa-east-1, us-east-1, us-gov-west-1, us-west-1, us-west-2):</b> <code> 9.4.1 | 9.4.4</code> </p> </li> <li> <p> <b>Version 9.3 (available in these AWS regions: ap-northeast-1, ap-southeast-1, ap-southeast-2, eu-central-1, eu-west-1, sa-east-1, us-east-1, us-gov-west-1, us-west-1, us-west-2):</b> <code> 9.3.10 | 9.3.3 | 9.3.5 | 9.3.6 | 9.3.9</code> </p> </li> <li> <p> <b>Version 9.3 (available in these AWS regions: ap-northeast-1, ap-southeast-1, ap-southeast-2, eu-west-1, sa-east-1, us-east-1, us-gov-west-1, us-west-1, us-west-2):</b> <code> 9.3.1 | 9.3.2</code> </p> </li> <li> <p> <b>Version 9.3 (available in these AWS regions: ap-northeast-1, ap-southeast-1, ap-southeast-2, eu-central-1, eu-west-1, sa-east-1, us-east-1, us-west-1, us-west-2):</b> <code> 9.3.12 | 9.3.14</code> </p> </li> </ul> <p> <b>Microsoft SQL Server Enterprise Edition (sqlserver-ee)</b> </p> <ul> <li> <p> <b>Version 11.00 (available in all AWS regions):</b> <code> 11.00.2100.60.v1 | 11.00.5058.0.v1 | 11.00.6020.0.v1</code> </p> </li> <li> <p> <b>Version 10.50 (available in all AWS regions):</b> <code> 10.50.2789.0.v1 | 10.50.6000.34.v1 | 10.50.6529.0.v1</code> </p> </li> </ul> <p> <b>Microsoft SQL Server Express Edition (sqlserver-ex)</b> </p> <ul> <li> <p> <b>Version 12.00 (available in all AWS regions):</b> <code> 12.00.4422.0.v1</code> </p> </li> <li> <p> <b>Version 11.00 (available in all AWS regions):</b> <code> 11.00.2100.60.v1 | 11.00.5058.0.v1 | 11.00.6020.0.v1</code> </p> </li> <li> <p> <b>Version 10.50 (available in all AWS regions):</b> <code> 10.50.2789.0.v1 | 10.50.6000.34.v1 | 10.50.6529.0.v1</code> </p> </li> </ul> <p> <b>Microsoft SQL Server Standard Edition (sqlserver-se)</b> </p> <ul> <li> <p> <b>Version 12.00 (available in all AWS regions):</b> <code> 12.00.4422.0.v1</code> </p> </li> <li> <p> <b>Version 11.00 (available in all AWS regions):</b> <code> 11.00.2100.60.v1 | 11.00.5058.0.v1 | 11.00.6020.0.v1</code> </p> </li> <li> <p> <b>Version 10.50 (available in all AWS regions):</b> <code> 10.50.2789.0.v1 | 10.50.6000.34.v1 | 10.50.6529.0.v1</code> </p> </li> </ul> <p> <b>Microsoft SQL Server Web Edition (sqlserver-web)</b> </p> <ul> <li> <p> <b>Version 12.00 (available in all AWS regions):</b> <code> 12.00.4422.0.v1</code> </p> </li> <li> <p> <b>Version 11.00 (available in all AWS regions):</b> <code> 11.00.2100.60.v1 | 11.00.5058.0.v1 | 11.00.6020.0.v1</code> </p> </li> <li> <p> <b>Version 10.50 (available in all AWS regions):</b> <code> 10.50.2789.0.v1 | 10.50.6000.34.v1 | 10.50.6529.0.v1</code> </p> </li> </ul>"
         },
         "AutoMinorVersionUpgrade": {
           "$ref": "#/definitions/BooleanOptional",
@@ -7909,6 +8080,10 @@
         "DBClusterArn": {
           "$ref": "#/definitions/String",
           "description": "The Amazon Resource Name (ARN) for the DB cluster."
+        },
+        "AssociatedRoles": {
+          "$ref": "#/definitions/DBClusterRoles",
+          "description": "Provides a list of the AWS Identity and Access Management (IAM) roles that are associated with the DB cluster. IAM roles that are associated with a DB cluster grant permission for the DB cluster to access other AWS services on your behalf."
         }
       },
       "description": "<p>Contains the result of a successful invocation of the following actions:</p> <ul> <li> <p> <a>CreateDBCluster</a> </p> </li> <li> <p> <a>DeleteDBCluster</a> </p> </li> <li> <p> <a>FailoverDBCluster</a> </p> </li> <li> <p> <a>ModifyDBCluster</a> </p> </li> <li> <p> <a>RestoreDBClusterFromSnapshot</a> </p> </li> <li> <p> <a>RestoreDBClusterToPointInTime</a> </p> </li> </ul> <p>This data type is used as a response element in the <a>DescribeDBClusters</a> action.</p>"
@@ -8066,6 +8241,41 @@
       "type": "object",
       "properties": {},
       "description": "User attempted to create a new DB cluster and the user has already reached the maximum allowed DB cluster quota."
+    },
+    "DBClusterRole": {
+      "type": "object",
+      "properties": {
+        "RoleArn": {
+          "$ref": "#/definitions/String",
+          "description": "The Amazon Resource Name (ARN) of the IAM role that is associated with the DB cluster."
+        },
+        "Status": {
+          "$ref": "#/definitions/String",
+          "description": "<p>Describes the state of association between the IAM role and the DB cluster. The Status property returns one of the following values:</p> <ul> <li> <p> <code>ACTIVE</code> - the IAM role ARN is associated with the DB cluster and can be used to access other AWS services on your behalf.</p> </li> <li> <p> <code>PENDING</code> - the IAM role ARN is being associated with the DB cluster.</p> </li> <li> <p> <code>INVALID</code> - the IAM role ARN is associated with the DB cluster, but the DB cluster is unable to assume the IAM role in order to access other AWS services on your behalf.</p> </li> </ul>"
+        }
+      },
+      "description": "Describes an AWS Identity and Access Management (IAM) role that is associated with a DB cluster."
+    },
+    "DBClusterRoleAlreadyExistsFault": {
+      "type": "object",
+      "properties": {},
+      "description": "The specified IAM role Amazon Resource Name (ARN) is already associated with the specified DB cluster."
+    },
+    "DBClusterRoleNotFoundFault": {
+      "type": "object",
+      "properties": {},
+      "description": "The specified IAM role Amazon Resource Name (ARN) is not associated with the specified DB cluster."
+    },
+    "DBClusterRoleQuotaExceededFault": {
+      "type": "object",
+      "properties": {},
+      "description": "You have exceeded the maximum number of IAM roles that can be associated with the specified DB cluster."
+    },
+    "DBClusterRoles": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/DBClusterRole"
+      }
     },
     "DBClusterSnapshot": {
       "type": "object",
@@ -10636,7 +10846,7 @@
         },
         "DBSubnetGroupName": {
           "$ref": "#/definitions/String",
-          "description": "<p>The new DB subnet group for the DB instance. You can use this parameter to move your DB instance to a different VPC, or to a different subnet group in the same VPC. If your DB instance is not in a VPC, you can also use this parameter to move your DB instance into a VPC. For more information, see <a href=\"http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html#USER_VPC.Non-VPC2VPC\">Updating the VPC for a DB Instance</a>. </p> <p>Changing the subnet group causes an outage during the change. The change is applied during the next maintenance window, unless you specify <code>true</code> for the <code>ApplyImmediately</code> parameter. </p> <p>Constraints: Must contain no more than 255 alphanumeric characters, periods, underscores, spaces, or hyphens.</p> <p>Example: <code>mySubnetGroup</code> </p>"
+          "description": "<p>The new DB subnet group for the DB instance. You can use this parameter to move your DB instance to a different VPC. If your DB instance is not in a VPC, you can also use this parameter to move your DB instance into a VPC. For more information, see <a href=\"http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html#USER_VPC.Non-VPC2VPC\">Updating the VPC for a DB Instance</a>. </p> <p>Changing the subnet group causes an outage during the change. The change is applied during the next maintenance window, unless you specify <code>true</code> for the <code>ApplyImmediately</code> parameter. </p> <p>Constraints: Must contain no more than 255 alphanumeric characters, periods, underscores, spaces, or hyphens.</p> <p>Example: <code>mySubnetGroup</code> </p>"
         },
         "DBSecurityGroups": {
           "$ref": "#/definitions/DBSecurityGroupNameList",
@@ -11686,6 +11896,23 @@
       "type": "array",
       "items": {
         "$ref": "#/definitions/RecurringCharge"
+      }
+    },
+    "RemoveRoleFromDBClusterMessage": {
+      "type": "object",
+      "required": [
+        "DBClusterIdentifier",
+        "RoleArn"
+      ],
+      "properties": {
+        "DBClusterIdentifier": {
+          "$ref": "#/definitions/String",
+          "description": "The name of the DB cluster to disassociate the IAM role rom."
+        },
+        "RoleArn": {
+          "$ref": "#/definitions/String",
+          "description": "The Amazon Resource Name (ARN) of the IAM role to disassociate from the Aurora DB cluster, for example <code>arn:aws:iam::123456789012:role/AuroraAccessRole</code>."
+        }
       }
     },
     "RemoveSourceIdentifierFromSubscriptionMessage": {

@@ -1190,6 +1190,16 @@
         "AWSAccountIds",
         "Actions"
       ],
+      "example": {
+        "AWSAccountIds": [
+          "12345EXAMPLE"
+        ],
+        "Actions": [
+          "SendMessage"
+        ],
+        "Label": "SendMessagesFromMyQueue",
+        "QueueUrl": "https://sqs.us-east-1.amazonaws.com/80398EXAMPLE/MyQueue"
+      },
       "properties": {
         "QueueUrl": {
           "$ref": "#/definitions/String",
@@ -1300,6 +1310,21 @@
         "QueueUrl",
         "Entries"
       ],
+      "example": {
+        "Entries": [
+          {
+            "Id": "FirstMessage",
+            "ReceiptHandle": "AQEBhz2q...Jf3kaw==",
+            "VisibilityTimeout": 36000
+          },
+          {
+            "Id": "SecondMessage",
+            "ReceiptHandle": "AQEBkTUH...HifSnw==",
+            "VisibilityTimeout": 36000
+          }
+        ],
+        "QueueUrl": "https://sqs.us-east-1.amazonaws.com/80398EXAMPLE/MyQueue"
+      },
       "properties": {
         "QueueUrl": {
           "$ref": "#/definitions/String",
@@ -1349,6 +1374,10 @@
         "Successful",
         "Failed"
       ],
+      "example": {
+        "Failed": [],
+        "Successful": []
+      },
       "properties": {
         "Successful": {
           "$ref": "#/definitions/ChangeMessageVisibilityBatchResultEntryList",
@@ -1390,6 +1419,11 @@
         "ReceiptHandle",
         "VisibilityTimeout"
       ],
+      "example": {
+        "QueueUrl": "https://sqs.us-east-1.amazonaws.com/80398EXAMPLE/MyQueue",
+        "ReceiptHandle": "AQEBTpyI...t6HyQg==",
+        "VisibilityTimeout": 36000
+      },
       "properties": {
         "QueueUrl": {
           "$ref": "#/definitions/String",
@@ -1411,6 +1445,10 @@
         "QueueName"
       ],
       "example": {
+        "Attributes": {
+          "MessageRetentionPeriod": "259200",
+          "RedrivePolicy": "{\"deadLetterTargetArn\":\"arn:aws:sqs:us-east-1:80398EXAMPLE:MyDeadLetterQueue\",\"maxReceiveCount\":\"1000\"}"
+        },
         "QueueName": "MyQueue"
       },
       "properties": {
@@ -1428,7 +1466,7 @@
     "CreateQueueResult": {
       "type": "object",
       "example": {
-        "QueueUrl": "https://queue.amazonaws.com/012345678910/MyQueue"
+        "QueueUrl": "https://queue.amazonaws.com/80398EXAMPLE/MyQueue"
       },
       "properties": {
         "QueueUrl": {
@@ -1444,6 +1482,19 @@
         "QueueUrl",
         "Entries"
       ],
+      "example": {
+        "Entries": [
+          {
+            "Id": "FirstMessage",
+            "ReceiptHandle": "AQEB1mgl...Z4GuLw=="
+          },
+          {
+            "Id": "SecondMessage",
+            "ReceiptHandle": "AQEBLsYM...VQubAA=="
+          }
+        ],
+        "QueueUrl": "https://sqs.us-east-1.amazonaws.com/80398EXAMPLE/MyQueue"
+      },
       "properties": {
         "QueueUrl": {
           "$ref": "#/definitions/String",
@@ -1489,6 +1540,17 @@
         "Successful",
         "Failed"
       ],
+      "example": {
+        "Failed": [],
+        "Successful": [
+          {
+            "Id": "FirstMessage"
+          },
+          {
+            "Id": "SecondMessage"
+          }
+        ]
+      },
       "properties": {
         "Successful": {
           "$ref": "#/definitions/DeleteMessageBatchResultEntryList",
@@ -1529,6 +1591,10 @@
         "QueueUrl",
         "ReceiptHandle"
       ],
+      "example": {
+        "QueueUrl": "https://sqs.us-east-1.amazonaws.com/80398EXAMPLE/MyQueue",
+        "ReceiptHandle": "AQEBRXTo...q2doVA=="
+      },
       "properties": {
         "QueueUrl": {
           "$ref": "#/definitions/String",
@@ -1546,6 +1612,9 @@
       "required": [
         "QueueUrl"
       ],
+      "example": {
+        "QueueUrl": "https://sqs.us-east-1.amazonaws.com/80398EXAMPLE/MyNewerQueue"
+      },
       "properties": {
         "QueueUrl": {
           "$ref": "#/definitions/String",
@@ -1564,6 +1633,12 @@
       "required": [
         "QueueUrl"
       ],
+      "example": {
+        "AttributeNames": [
+          "MaximumMessageSize VisibilityTimeout"
+        ],
+        "QueueUrl": "https://sqs.us-east-1.amazonaws.com/80398EXAMPLE/MyNewQueue"
+      },
       "properties": {
         "QueueUrl": {
           "$ref": "#/definitions/String",
@@ -1578,6 +1653,12 @@
     },
     "GetQueueAttributesResult": {
       "type": "object",
+      "example": {
+        "Attributes": {
+          "MaximumMessageSize": "262144",
+          "VisibilityTimeout": "30"
+        }
+      },
       "properties": {
         "Attributes": {
           "$ref": "#/definitions/AttributeMap",
@@ -1593,7 +1674,7 @@
       ],
       "example": {
         "QueueName": "MyQueue",
-        "QueueOwnerAWSAccountId": "12345678910"
+        "QueueOwnerAWSAccountId": "123456789101"
       },
       "properties": {
         "QueueName": {
@@ -1610,7 +1691,7 @@
     "GetQueueUrlResult": {
       "type": "object",
       "example": {
-        "QueueUrl": "https://queue.amazonaws.com/12345678910/MyQueue"
+        "QueueUrl": "https://queue.amazonaws.com/123456789101/MyQueue"
       },
       "properties": {
         "QueueUrl": {
@@ -1648,6 +1729,9 @@
       "required": [
         "QueueUrl"
       ],
+      "example": {
+        "QueueUrl": "https://sqs.us-east-1.amazonaws.com/80398EXAMPLE/MyDeadLetterQueue"
+      },
       "properties": {
         "QueueUrl": {
           "$ref": "#/definitions/String",
@@ -1661,6 +1745,12 @@
       "required": [
         "queueUrls"
       ],
+      "example": {
+        "queueUrls": [
+          "https://queue.amazonaws.com/80398EXAMPLE/MyQueue",
+          "https://queue.amazonaws.com/80398EXAMPLE/MyOtherQueue"
+        ]
+      },
       "properties": {
         "queueUrls": {
           "$ref": "#/definitions/QueueUrlList",
@@ -1671,6 +1761,9 @@
     },
     "ListQueuesRequest": {
       "type": "object",
+      "example": {
+        "QueueNamePrefix": "My"
+      },
       "properties": {
         "QueueNamePrefix": {
           "$ref": "#/definitions/String",
@@ -1681,6 +1774,13 @@
     },
     "ListQueuesResult": {
       "type": "object",
+      "example": {
+        "QueueUrls": [
+          "https://queue.amazonaws.com/80398EXAMPLE/MyDeadLetterQueue",
+          "https://queue.amazonaws.com/80398EXAMPLE/MyQueue",
+          "https://queue.amazonaws.com/80398EXAMPLE/MyOtherQueue"
+        ]
+      },
       "properties": {
         "QueueUrls": {
           "$ref": "#/definitions/QueueUrlList",
@@ -1813,6 +1913,9 @@
       "required": [
         "QueueUrl"
       ],
+      "example": {
+        "QueueUrl": "https://sqs.us-east-1.amazonaws.com/80398EXAMPLE/MyNewQueue"
+      },
       "properties": {
         "QueueUrl": {
           "$ref": "#/definitions/String",
@@ -1873,6 +1976,18 @@
       "required": [
         "QueueUrl"
       ],
+      "example": {
+        "AttributeNames": [
+          "SenderId SentTimestamp"
+        ],
+        "MaxNumberOfMessages": 123,
+        "MessageAttributeNames": [
+          "PostalCode"
+        ],
+        "QueueUrl": "https://sqs.us-east-1.amazonaws.com/80398EXAMPLE/MyQueue",
+        "VisibilityTimeout": 123,
+        "WaitTimeSeconds": 123
+      },
       "properties": {
         "QueueUrl": {
           "$ref": "#/definitions/String",
@@ -1903,6 +2018,27 @@
     },
     "ReceiveMessageResult": {
       "type": "object",
+      "example": {
+        "Messages": [
+          {
+            "Attributes": {
+              "SenderId": "AIDAIAZKMSNQ7TEXAMPLE",
+              "SentTimestamp": "1442428276921"
+            },
+            "Body": "My first message.",
+            "MD5OfBody": "1000f835...a35411fa",
+            "MD5OfMessageAttributes": "b8e89563...e088e74f",
+            "MessageAttributes": {
+              "PostalCode": {
+                "DataType": "String",
+                "StringValue": "ABC123"
+              }
+            },
+            "MessageId": "d6790f8d-d575-4f01-bc51-40122EXAMPLE",
+            "ReceiptHandle": "AQEB6nR4...HzlvZQ=="
+          }
+        ]
+      },
       "properties": {
         "Messages": {
           "$ref": "#/definitions/MessageList",
@@ -1917,6 +2053,10 @@
         "QueueUrl",
         "Label"
       ],
+      "example": {
+        "Label": "SendMessagesFromMyQueue",
+        "QueueUrl": "https://sqs.us-east-1.amazonaws.com/80398EXAMPLE/MyQueue"
+      },
       "properties": {
         "QueueUrl": {
           "$ref": "#/definitions/String",
@@ -1935,6 +2075,65 @@
         "QueueUrl",
         "Entries"
       ],
+      "example": {
+        "Entries": [
+          {
+            "DelaySeconds": 10,
+            "Id": "FuelReport-0001-2015-09-16T140731Z",
+            "MessageAttributes": {
+              "City": {
+                "DataType": "String",
+                "StringValue": "Any City"
+              },
+              "PostalCode": {
+                "DataType": "String",
+                "StringValue": "99065"
+              },
+              "PricePerGallon": {
+                "DataType": "Number",
+                "StringValue": "1.99"
+              },
+              "Region": {
+                "DataType": "String",
+                "StringValue": "WA"
+              },
+              "SellerName": {
+                "DataType": "String",
+                "StringValue": "Example Store"
+              }
+            },
+            "MessageBody": "Fuel report for account 0001 on 2015-09-16 at 02:07:31 PM."
+          },
+          {
+            "DelaySeconds": 10,
+            "Id": "FuelReport-0002-2015-09-16T140930Z",
+            "MessageAttributes": {
+              "City": {
+                "DataType": "String",
+                "StringValue": "North Town"
+              },
+              "PostalCode": {
+                "DataType": "String",
+                "StringValue": "99123"
+              },
+              "PricePerGallon": {
+                "DataType": "Number",
+                "StringValue": "1.87"
+              },
+              "Region": {
+                "DataType": "String",
+                "StringValue": "WA"
+              },
+              "SellerName": {
+                "DataType": "String",
+                "StringValue": "Example Fuels"
+              }
+            },
+            "MessageBody": "Fuel report for account 0002 on 2015-09-16 at 02:09:30 PM."
+          }
+        ],
+        "QueueUrl": "https://sqs.us-east-1.amazonaws.com/80398EXAMPLE/MyQueue"
+      },
       "properties": {
         "QueueUrl": {
           "$ref": "#/definitions/String",
@@ -1988,6 +2187,23 @@
         "Successful",
         "Failed"
       ],
+      "example": {
+        "Failed": [],
+        "Successful": [
+          {
+            "Id": "FuelReport-0001-2015-09-16T140731Z",
+            "MD5OfMessageAttributes": "10809b55...baf283ef",
+            "MD5OfMessageBody": "203c4a38...7943237e",
+            "MessageId": "d175070c-d6b8-4101-861d-adeb3EXAMPLE"
+          },
+          {
+            "Id": "FuelReport-0002-2015-09-16T140930Z",
+            "MD5OfMessageAttributes": "55623928...ae354a25",
+            "MD5OfMessageBody": "2cf0159a...c1980595",
+            "MessageId": "f9b7d55d-0570-413e-b9c5-a9264EXAMPLE"
+          }
+        ]
+      },
       "properties": {
         "Successful": {
           "$ref": "#/definitions/SendMessageBatchResultEntryList",
@@ -2042,6 +2258,25 @@
         "QueueUrl",
         "MessageBody"
       ],
+      "example": {
+        "DelaySeconds": 10,
+        "MessageAttributes": {
+          "City": {
+            "DataType": "String",
+            "StringValue": "Any City"
+          },
+          "Greeting": {
+            "BinaryValue": "Hello, World!",
+            "DataType": "Binary"
+          },
+          "Population": {
+            "DataType": "Number",
+            "StringValue": "1250800"
+          }
+        },
+        "MessageBody": "Information about the largest city in Any Region.",
+        "QueueUrl": "https://sqs.us-east-1.amazonaws.com/80398EXAMPLE/MyQueue"
+      },
       "properties": {
         "QueueUrl": {
           "$ref": "#/definitions/String",
@@ -2064,6 +2299,11 @@
     },
     "SendMessageResult": {
       "type": "object",
+      "example": {
+        "MD5OfMessageAttributes": "00484c68...59e48f06",
+        "MD5OfMessageBody": "51b0a325...39163aa0",
+        "MessageId": "da68f62c-0c07-4bee-bf5f-7e856EXAMPLE"
+      },
       "properties": {
         "MD5OfMessageBody": {
           "$ref": "#/definitions/String",
@@ -2086,6 +2326,17 @@
         "QueueUrl",
         "Attributes"
       ],
+      "example": {
+        "Attributes": {
+          "DelaySeconds": "10",
+          "MaximumMessageSize": "131072",
+          "MessageRetentionPeriod": "259200",
+          "ReceiveMessageWaitTimeSeconds": "20",
+          "RedrivePolicy": "{\"deadLetterTargetArn\":\"arn:aws:sqs:us-east-1:80398EXAMPLE:MyDeadLetterQueue\",\"maxReceiveCount\":\"1000\"}",
+          "VisibilityTimeout": "60"
+        },
+        "QueueUrl": "https://sqs.us-east-1.amazonaws.com/80398EXAMPLE/MyNewQueue"
+      },
       "properties": {
         "QueueUrl": {
           "$ref": "#/definitions/String",

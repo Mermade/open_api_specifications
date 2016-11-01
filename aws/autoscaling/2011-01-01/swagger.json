@@ -3339,6 +3339,21 @@
       "required": [
         "Activities"
       ],
+      "example": {
+        "Activities": [
+          {
+            "ActivityId": "f9f2d65b-f1f2-43e7-b46d-d86756459699",
+            "AutoScalingGroupName": "my-auto-scaling-group",
+            "Cause": "At 2013-08-19T20:53:25Z a user request created an AutoScalingGroup changing the desired capacity from 0 to 1.  At 2013-08-19T20:53:29Z an instance was started in response to a difference between desired and actual capacity, increasing the capacity from 0 to 1.",
+            "Description": "Launching a new EC2 instance: i-4ba0837f",
+            "Details": "details",
+            "EndTime": "2013-08-19T20:54:02Z",
+            "Progress": 100,
+            "StartTime": "2013-08-19T20:53:29.930Z",
+            "StatusCode": "Successful"
+          }
+        ]
+      },
       "properties": {
         "Activities": {
           "$ref": "#/definitions/Activities",
@@ -3480,6 +3495,12 @@
       "required": [
         "AutoScalingGroupName"
       ],
+      "example": {
+        "AutoScalingGroupName": "my-auto-scaling-group",
+        "InstanceIds": [
+          "i-93633f9b"
+        ]
+      },
       "properties": {
         "InstanceIds": {
           "$ref": "#/definitions/InstanceIds",
@@ -3502,6 +3523,12 @@
         "AutoScalingGroupName",
         "TargetGroupARNs"
       ],
+      "example": {
+        "AutoScalingGroupName": "my-auto-scaling-group",
+        "TargetGroupARNs": [
+          "arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067"
+        ]
+      },
       "properties": {
         "AutoScalingGroupName": {
           "$ref": "#/definitions/ResourceName",
@@ -3525,6 +3552,12 @@
         "AutoScalingGroupName",
         "LoadBalancerNames"
       ],
+      "example": {
+        "AutoScalingGroupName": "my-auto-scaling-group",
+        "LoadBalancerNames": [
+          "my-load-balancer"
+        ]
+      },
       "properties": {
         "AutoScalingGroupName": {
           "$ref": "#/definitions/ResourceName",
@@ -3658,6 +3691,11 @@
     },
     "AutoScalingGroupNamesType": {
       "type": "object",
+      "example": {
+        "AutoScalingGroupNames": [
+          "my-auto-scaling-group"
+        ]
+      },
       "properties": {
         "AutoScalingGroupNames": {
           "$ref": "#/definitions/AutoScalingGroupNames",
@@ -3685,6 +3723,43 @@
       "required": [
         "AutoScalingGroups"
       ],
+      "example": {
+        "AutoScalingGroups": [
+          {
+            "AutoScalingGroupARN": "arn:aws:autoscaling:us-west-2:123456789012:autoScalingGroup:930d940e-891e-4781-a11a-7b0acd480f03:autoScalingGroupName/my-auto-scaling-group",
+            "AutoScalingGroupName": "my-auto-scaling-group",
+            "AvailabilityZones": [
+              "us-west-2c"
+            ],
+            "CreatedTime": "2013-08-19T20:53:25.584Z",
+            "DefaultCooldown": 300,
+            "DesiredCapacity": 1,
+            "EnabledMetrics": [],
+            "HealthCheckGracePeriod": 300,
+            "HealthCheckType": "EC2",
+            "Instances": [
+              {
+                "AvailabilityZone": "us-west-2c",
+                "HealthStatus": "Healthy",
+                "InstanceId": "i-4ba0837f",
+                "LaunchConfigurationName": "my-launch-config",
+                "LifecycleState": "InService"
+              }
+            ],
+            "LaunchConfigurationName": "my-launch-config",
+            "LoadBalancerNames": [],
+            "MaxSize": 1,
+            "MinSize": 0,
+            "NewInstancesProtectedFromScaleIn": false,
+            "SuspendedProcesses": [],
+            "Tags": [],
+            "TerminationPolicies": [
+              "Default"
+            ],
+            "VPCZoneIdentifier": "subnet-12345678"
+          }
+        ]
+      },
       "properties": {
         "AutoScalingGroups": {
           "$ref": "#/definitions/AutoScalingGroups",
@@ -3748,6 +3823,19 @@
     },
     "AutoScalingInstancesType": {
       "type": "object",
+      "example": {
+        "AutoScalingInstances": [
+          {
+            "AutoScalingGroupName": "my-auto-scaling-group",
+            "AvailabilityZone": "us-west-2c",
+            "HealthStatus": "HEALTHY",
+            "InstanceId": "i-4ba0837f",
+            "LaunchConfigurationName": "my-launch-config",
+            "LifecycleState": "InService",
+            "ProtectedFromScaleIn": false
+          }
+        ]
+      },
       "properties": {
         "AutoScalingInstances": {
           "$ref": "#/definitions/AutoScalingInstances",
@@ -3843,6 +3931,12 @@
         "AutoScalingGroupName",
         "LifecycleActionResult"
       ],
+      "example": {
+        "AutoScalingGroupName": "my-auto-scaling-group",
+        "LifecycleActionResult": "CONTINUE",
+        "LifecycleActionToken": "bcd2f1b8-9a78-44d3-8a7a-4dd07d7cf635",
+        "LifecycleHookName": "my-lifecycle-hook"
+      },
       "properties": {
         "LifecycleHookName": {
           "$ref": "#/definitions/AsciiStringMaxLen255",
@@ -3877,6 +3971,18 @@
         "MinSize",
         "MaxSize"
       ],
+      "example": {
+        "AutoScalingGroupName": "my-auto-scaling-group",
+        "HealthCheckGracePeriod": 120,
+        "HealthCheckType": "ELB",
+        "LaunchConfigurationName": "my-launch-config",
+        "MaxSize": 3,
+        "MinSize": 1,
+        "TargetGroupARNs": [
+          "arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067"
+        ],
+        "VPCZoneIdentifier": "subnet-4176792c, subnet-65ea5f08"
+      },
       "properties": {
         "AutoScalingGroupName": {
           "$ref": "#/definitions/XmlStringMaxLen255",
@@ -3954,6 +4060,15 @@
       "required": [
         "LaunchConfigurationName"
       ],
+      "example": {
+        "IamInstanceProfile": "my-iam-role",
+        "ImageId": "ami-12345678",
+        "InstanceType": "m3.medium",
+        "LaunchConfigurationName": "my-launch-config",
+        "SecurityGroups": [
+          "sg-eb2af88e"
+        ]
+      },
       "properties": {
         "LaunchConfigurationName": {
           "$ref": "#/definitions/XmlStringMaxLen255",
@@ -4035,6 +4150,24 @@
       "required": [
         "Tags"
       ],
+      "example": {
+        "Tags": [
+          {
+            "Key": "Role",
+            "PropagateAtLaunch": true,
+            "ResourceId": "my-auto-scaling-group",
+            "ResourceType": "auto-scaling-group",
+            "Value": "WebServer"
+          },
+          {
+            "Key": "Dept",
+            "PropagateAtLaunch": true,
+            "ResourceId": "my-auto-scaling-group",
+            "ResourceType": "auto-scaling-group",
+            "Value": "Research"
+          }
+        ]
+      },
       "properties": {
         "Tags": {
           "$ref": "#/definitions/Tags",
@@ -4048,6 +4181,10 @@
       "required": [
         "AutoScalingGroupName"
       ],
+      "example": {
+        "AutoScalingGroupName": "my-auto-scaling-group",
+        "ForceDelete": true
+      },
       "properties": {
         "AutoScalingGroupName": {
           "$ref": "#/definitions/ResourceName",
@@ -4071,6 +4208,10 @@
         "LifecycleHookName",
         "AutoScalingGroupName"
       ],
+      "example": {
+        "AutoScalingGroupName": "my-auto-scaling-group",
+        "LifecycleHookName": "my-lifecycle-hook"
+      },
       "properties": {
         "LifecycleHookName": {
           "$ref": "#/definitions/AsciiStringMaxLen255",
@@ -4089,6 +4230,10 @@
         "AutoScalingGroupName",
         "TopicARN"
       ],
+      "example": {
+        "AutoScalingGroupName": "my-auto-scaling-group",
+        "TopicARN": "arn:aws:sns:us-west-2:123456789012:my-sns-topic"
+      },
       "properties": {
         "AutoScalingGroupName": {
           "$ref": "#/definitions/ResourceName",
@@ -4106,6 +4251,10 @@
       "required": [
         "PolicyName"
       ],
+      "example": {
+        "AutoScalingGroupName": "my-auto-scaling-group",
+        "PolicyName": "ScaleIn"
+      },
       "properties": {
         "AutoScalingGroupName": {
           "$ref": "#/definitions/ResourceName",
@@ -4124,6 +4273,10 @@
         "AutoScalingGroupName",
         "ScheduledActionName"
       ],
+      "example": {
+        "AutoScalingGroupName": "my-auto-scaling-group",
+        "ScheduledActionName": "my-scheduled-action"
+      },
       "properties": {
         "AutoScalingGroupName": {
           "$ref": "#/definitions/ResourceName",
@@ -4141,6 +4294,16 @@
       "required": [
         "Tags"
       ],
+      "example": {
+        "Tags": [
+          {
+            "Key": "Dept",
+            "ResourceId": "my-auto-scaling-group",
+            "ResourceType": "auto-scaling-group",
+            "Value": "Research"
+          }
+        ]
+      },
       "properties": {
         "Tags": {
           "$ref": "#/definitions/Tags",
@@ -4151,6 +4314,12 @@
     },
     "DescribeAccountLimitsAnswer": {
       "type": "object",
+      "example": {
+        "MaxNumberOfAutoScalingGroups": 20,
+        "MaxNumberOfLaunchConfigurations": 100,
+        "NumberOfAutoScalingGroups": 3,
+        "NumberOfLaunchConfigurations": 5
+      },
       "properties": {
         "MaxNumberOfAutoScalingGroups": {
           "$ref": "#/definitions/MaxNumberOfAutoScalingGroups",
@@ -4173,6 +4342,19 @@
     },
     "DescribeAdjustmentTypesAnswer": {
       "type": "object",
+      "example": {
+        "AdjustmentTypes": [
+          {
+            "AdjustmentType": "ChangeInCapacity"
+          },
+          {
+            "AdjustmentType": "ExactCapcity"
+          },
+          {
+            "AdjustmentType": "PercentChangeInCapacity"
+          }
+        ]
+      },
       "properties": {
         "AdjustmentTypes": {
           "$ref": "#/definitions/AdjustmentTypes",
@@ -4183,6 +4365,11 @@
     },
     "DescribeAutoScalingInstancesType": {
       "type": "object",
+      "example": {
+        "InstanceIds": [
+          "i-4ba0837f"
+        ]
+      },
       "properties": {
         "InstanceIds": {
           "$ref": "#/definitions/InstanceIds",
@@ -4201,6 +4388,15 @@
     },
     "DescribeAutoScalingNotificationTypesAnswer": {
       "type": "object",
+      "example": {
+        "AutoScalingNotificationTypes": [
+          "autoscaling:EC2_INSTANCE_LAUNCH",
+          "autoscaling:EC2_INSTANCE_LAUNCH_ERROR",
+          "autoscaling:EC2_INSTANCE_TERMINATE",
+          "autoscaling:EC2_INSTANCE_TERMINATE_ERROR",
+          "autoscaling:TEST_NOTIFICATION"
+        ]
+      },
       "properties": {
         "AutoScalingNotificationTypes": {
           "$ref": "#/definitions/AutoScalingNotificationTypes",
@@ -4211,6 +4407,12 @@
     },
     "DescribeLifecycleHookTypesAnswer": {
       "type": "object",
+      "example": {
+        "LifecycleHookTypes": [
+          "autoscaling:EC2_INSTANCE_LAUNCHING",
+          "autoscaling:EC2_INSTANCE_TERMINATING"
+        ]
+      },
       "properties": {
         "LifecycleHookTypes": {
           "$ref": "#/definitions/AutoScalingNotificationTypes",
@@ -4221,6 +4423,20 @@
     },
     "DescribeLifecycleHooksAnswer": {
       "type": "object",
+      "example": {
+        "LifecycleHooks": [
+          {
+            "AutoScalingGroupName": "my-auto-scaling-group",
+            "DefaultResult": "ABANDON",
+            "GlobalTimeout": 172800,
+            "HeartbeatTimeout": 3600,
+            "LifecycleHookName": "my-lifecycle-hook",
+            "LifecycleTransition": "autoscaling:EC2_INSTANCE_LAUNCHING",
+            "NotificationTargetARN": "arn:aws:sns:us-west-2:123456789012:my-sns-topic",
+            "RoleARN": "arn:aws:iam::123456789012:role/my-auto-scaling-role"
+          }
+        ]
+      },
       "properties": {
         "LifecycleHooks": {
           "$ref": "#/definitions/LifecycleHooks",
@@ -4234,6 +4450,9 @@
       "required": [
         "AutoScalingGroupName"
       ],
+      "example": {
+        "AutoScalingGroupName": "my-auto-scaling-group"
+      },
       "properties": {
         "AutoScalingGroupName": {
           "$ref": "#/definitions/ResourceName",
@@ -4251,6 +4470,9 @@
       "required": [
         "AutoScalingGroupName"
       ],
+      "example": {
+        "AutoScalingGroupName": "my-auto-scaling-group"
+      },
       "properties": {
         "AutoScalingGroupName": {
           "$ref": "#/definitions/ResourceName",
@@ -4269,6 +4491,14 @@
     },
     "DescribeLoadBalancerTargetGroupsResponse": {
       "type": "object",
+      "example": {
+        "LoadBalancerTargetGroups": [
+          {
+            "LoadBalancerTargetGroupARN": "arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067",
+            "State": "Added"
+          }
+        ]
+      },
       "properties": {
         "LoadBalancerTargetGroups": {
           "$ref": "#/definitions/LoadBalancerTargetGroupStates",
@@ -4286,6 +4516,9 @@
       "required": [
         "AutoScalingGroupName"
       ],
+      "example": {
+        "AutoScalingGroupName": "my-auto-scaling-group"
+      },
       "properties": {
         "AutoScalingGroupName": {
           "$ref": "#/definitions/ResourceName",
@@ -4304,6 +4537,14 @@
     },
     "DescribeLoadBalancersResponse": {
       "type": "object",
+      "example": {
+        "LoadBalancers": [
+          {
+            "LoadBalancerName": "my-load-balancer",
+            "State": "Added"
+          }
+        ]
+      },
       "properties": {
         "LoadBalancers": {
           "$ref": "#/definitions/LoadBalancerStates",
@@ -4318,6 +4559,39 @@
     },
     "DescribeMetricCollectionTypesAnswer": {
       "type": "object",
+      "example": {
+        "Granularities": [
+          {
+            "Granularity": "1Minute"
+          }
+        ],
+        "Metrics": [
+          {
+            "Metric": "GroupMinSize"
+          },
+          {
+            "Metric": "GroupMaxSize"
+          },
+          {
+            "Metric": "GroupDesiredCapacity"
+          },
+          {
+            "Metric": "GroupInServiceInstances"
+          },
+          {
+            "Metric": "GroupPendingInstances"
+          },
+          {
+            "Metric": "GroupTerminatingInstances"
+          },
+          {
+            "Metric": "GroupStandbyInstances"
+          },
+          {
+            "Metric": "GroupTotalInstances"
+          }
+        ]
+      },
       "properties": {
         "Metrics": {
           "$ref": "#/definitions/MetricCollectionTypes",
@@ -4335,6 +4609,20 @@
       "required": [
         "NotificationConfigurations"
       ],
+      "example": {
+        "NotificationConfigurations": [
+          {
+            "AutoScalingGroupName": "my-auto-scaling-group",
+            "NotificationType": "autoscaling:TEST_NOTIFICATION",
+            "TopicARN": "arn:aws:sns:us-west-2:123456789012:my-sns-topic-2"
+          },
+          {
+            "AutoScalingGroupName": "my-auto-scaling-group",
+            "NotificationType": "autoscaling:TEST_NOTIFICATION",
+            "TopicARN": "arn:aws:sns:us-west-2:123456789012:my-sns-topic"
+          }
+        ]
+      },
       "properties": {
         "NotificationConfigurations": {
           "$ref": "#/definitions/NotificationConfigurations",
@@ -4349,6 +4637,11 @@
     },
     "DescribeNotificationConfigurationsType": {
       "type": "object",
+      "example": {
+        "AutoScalingGroupNames": [
+          "my-auto-scaling-group"
+        ]
+      },
       "properties": {
         "AutoScalingGroupNames": {
           "$ref": "#/definitions/AutoScalingGroupNames",
@@ -4367,6 +4660,9 @@
     },
     "DescribePoliciesType": {
       "type": "object",
+      "example": {
+        "AutoScalingGroupName": "my-auto-scaling-group"
+      },
       "properties": {
         "AutoScalingGroupName": {
           "$ref": "#/definitions/ResourceName",
@@ -4393,6 +4689,9 @@
     },
     "DescribeScalingActivitiesType": {
       "type": "object",
+      "example": {
+        "AutoScalingGroupName": "my-auto-scaling-group"
+      },
       "properties": {
         "ActivityIds": {
           "$ref": "#/definitions/ActivityIds",
@@ -4415,6 +4714,9 @@
     },
     "DescribeScheduledActionsType": {
       "type": "object",
+      "example": {
+        "AutoScalingGroupName": "my-auto-scaling-group"
+      },
       "properties": {
         "AutoScalingGroupName": {
           "$ref": "#/definitions/ResourceName",
@@ -4445,6 +4747,16 @@
     },
     "DescribeTagsType": {
       "type": "object",
+      "example": {
+        "Filters": [
+          {
+            "Name": "auto-scaling-group",
+            "Values": [
+              "my-auto-scaling-group"
+            ]
+          }
+        ]
+      },
       "properties": {
         "Filters": {
           "$ref": "#/definitions/Filters",
@@ -4463,6 +4775,15 @@
     },
     "DescribeTerminationPolicyTypesAnswer": {
       "type": "object",
+      "example": {
+        "TerminationPolicyTypes": [
+          "ClosestToNextInstanceHour",
+          "Default",
+          "NewestInstance",
+          "OldestInstance",
+          "OldestLaunchConfiguration"
+        ]
+      },
       "properties": {
         "TerminationPolicyTypes": {
           "$ref": "#/definitions/TerminationPolicies",
@@ -4473,6 +4794,20 @@
     },
     "DetachInstancesAnswer": {
       "type": "object",
+      "example": {
+        "Activities": [
+          {
+            "ActivityId": "5091cb52-547a-47ce-a236-c9ccbc2cb2c9",
+            "AutoScalingGroupName": "my-auto-scaling-group",
+            "Cause": "At 2015-04-12T15:02:16Z instance i-93633f9b was detached in response to a user request, shrinking the capacity from 2 to 1.",
+            "Description": "Detaching EC2 instance: i-93633f9b",
+            "Details": "details",
+            "Progress": 50,
+            "StartTime": "2015-04-12T15:02:16.179Z",
+            "StatusCode": "InProgress"
+          }
+        ]
+      },
       "properties": {
         "Activities": {
           "$ref": "#/definitions/Activities",
@@ -4487,6 +4822,13 @@
         "AutoScalingGroupName",
         "ShouldDecrementDesiredCapacity"
       ],
+      "example": {
+        "AutoScalingGroupName": "my-auto-scaling-group",
+        "InstanceIds": [
+          "i-93633f9b"
+        ],
+        "ShouldDecrementDesiredCapacity": true
+      },
       "properties": {
         "InstanceIds": {
           "$ref": "#/definitions/InstanceIds",
@@ -4513,6 +4855,12 @@
         "AutoScalingGroupName",
         "TargetGroupARNs"
       ],
+      "example": {
+        "AutoScalingGroupName": "my-auto-scaling-group",
+        "TargetGroupARNs": [
+          "arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067"
+        ]
+      },
       "properties": {
         "AutoScalingGroupName": {
           "$ref": "#/definitions/ResourceName",
@@ -4535,6 +4883,12 @@
         "AutoScalingGroupName",
         "LoadBalancerNames"
       ],
+      "example": {
+        "AutoScalingGroupName": "my-auto-scaling-group",
+        "LoadBalancerNames": [
+          "my-load-balancer"
+        ]
+      },
       "properties": {
         "AutoScalingGroupName": {
           "$ref": "#/definitions/ResourceName",
@@ -4552,6 +4906,12 @@
       "required": [
         "AutoScalingGroupName"
       ],
+      "example": {
+        "AutoScalingGroupName": "my-auto-scaling-group",
+        "Metrics": [
+          "GroupDesiredCapacity"
+        ]
+      },
       "properties": {
         "AutoScalingGroupName": {
           "$ref": "#/definitions/ResourceName",
@@ -4603,6 +4963,10 @@
         "AutoScalingGroupName",
         "Granularity"
       ],
+      "example": {
+        "AutoScalingGroupName": "my-auto-scaling-group",
+        "Granularity": "1Minute"
+      },
       "properties": {
         "AutoScalingGroupName": {
           "$ref": "#/definitions/ResourceName",
@@ -4641,6 +5005,20 @@
     },
     "EnterStandbyAnswer": {
       "type": "object",
+      "example": {
+        "Activities": [
+          {
+            "ActivityId": "ffa056b4-6ed3-41ba-ae7c-249dfae6eba1",
+            "AutoScalingGroupName": "my-auto-scaling-group",
+            "Cause": "At 2015-04-12T15:10:23Z instance i-93633f9b was moved to standby in response to a user request, shrinking the capacity from 2 to 1.",
+            "Description": "Moving EC2 instance to Standby: i-93633f9b",
+            "Details": "details",
+            "Progress": 50,
+            "StartTime": "2015-04-12T15:10:23.640Z",
+            "StatusCode": "InProgress"
+          }
+        ]
+      },
       "properties": {
         "Activities": {
           "$ref": "#/definitions/Activities",
@@ -4655,6 +5033,13 @@
         "AutoScalingGroupName",
         "ShouldDecrementDesiredCapacity"
       ],
+      "example": {
+        "AutoScalingGroupName": "my-auto-scaling-group",
+        "InstanceIds": [
+          "i-93633f9b"
+        ],
+        "ShouldDecrementDesiredCapacity": true
+      },
       "properties": {
         "InstanceIds": {
           "$ref": "#/definitions/InstanceIds",
@@ -4679,6 +5064,11 @@
       "required": [
         "PolicyName"
       ],
+      "example": {
+        "AutoScalingGroupName": "my-auto-scaling-group",
+        "HonorCooldown": true,
+        "PolicyName": "ScaleIn"
+      },
       "properties": {
         "AutoScalingGroupName": {
           "$ref": "#/definitions/ResourceName",
@@ -4705,6 +5095,20 @@
     },
     "ExitStandbyAnswer": {
       "type": "object",
+      "example": {
+        "Activities": [
+          {
+            "ActivityId": "142928e1-a2dc-453a-9b24-b85ad6735928",
+            "AutoScalingGroupName": "my-auto-scaling-group",
+            "Cause": "At 2015-04-12T15:14:29Z instance i-93633f9b was moved out of standby in response to a user request, increasing the capacity from 1 to 2.",
+            "Description": "Moving EC2 instance out of Standby: i-93633f9b",
+            "Details": "details",
+            "Progress": 30,
+            "StartTime": "2015-04-12T15:14:29.886Z",
+            "StatusCode": "PreInService"
+          }
+        ]
+      },
       "properties": {
         "Activities": {
           "$ref": "#/definitions/Activities",
@@ -4718,6 +5122,12 @@
       "required": [
         "AutoScalingGroupName"
       ],
+      "example": {
+        "AutoScalingGroupName": "my-auto-scaling-group",
+        "InstanceIds": [
+          "i-93633f9b"
+        ]
+      },
       "properties": {
         "InstanceIds": {
           "$ref": "#/definitions/InstanceIds",
@@ -4931,6 +5341,9 @@
       "required": [
         "LaunchConfigurationName"
       ],
+      "example": {
+        "LaunchConfigurationName": "my-launch-config"
+      },
       "properties": {
         "LaunchConfigurationName": {
           "$ref": "#/definitions/ResourceName",
@@ -4947,6 +5360,11 @@
     },
     "LaunchConfigurationNamesType": {
       "type": "object",
+      "example": {
+        "LaunchConfigurationNames": [
+          "my-launch-config"
+        ]
+      },
       "properties": {
         "LaunchConfigurationNames": {
           "$ref": "#/definitions/LaunchConfigurationNames",
@@ -4974,6 +5392,26 @@
       "required": [
         "LaunchConfigurations"
       ],
+      "example": {
+        "LaunchConfigurations": [
+          {
+            "AssociatePublicIpAddress": true,
+            "BlockDeviceMappings": [],
+            "CreatedTime": "2014-05-07T17:39:28.599Z",
+            "EbsOptimized": false,
+            "ImageId": "ami-043a5034",
+            "InstanceMonitoring": {
+              "Enabled": true
+            },
+            "InstanceType": "t1.micro",
+            "LaunchConfigurationARN": "arn:aws:autoscaling:us-west-2:123456789012:launchConfiguration:98d3b196-4cf9-4e88-8ca1-8547c24ced8b:launchConfigurationName/my-launch-config",
+            "LaunchConfigurationName": "my-launch-config",
+            "SecurityGroups": [
+              "sg-67ef0308"
+            ]
+          }
+        ]
+      },
       "properties": {
         "LaunchConfigurations": {
           "$ref": "#/definitions/LaunchConfigurations",
@@ -5226,6 +5664,28 @@
     },
     "PoliciesType": {
       "type": "object",
+      "example": {
+        "ScalingPolicies": [
+          {
+            "AdjustmentType": "ChangeInCapacity",
+            "Alarms": [],
+            "AutoScalingGroupName": "my-auto-scaling-group",
+            "PolicyARN": "arn:aws:autoscaling:us-west-2:123456789012:scalingPolicy:2233f3d7-6290-403b-b632-93c553560106:autoScalingGroupName/my-auto-scaling-group:policyName/ScaleIn",
+            "PolicyName": "ScaleIn",
+            "ScalingAdjustment": -1
+          },
+          {
+            "AdjustmentType": "PercentChangeInCapacity",
+            "Alarms": [],
+            "AutoScalingGroupName": "my-auto-scaling-group",
+            "Cooldown": 60,
+            "MinAdjustmentStep": 2,
+            "PolicyARN": "arn:aws:autoscaling:us-west-2:123456789012:scalingPolicy:2b435159-cf77-4e89-8c0e-d63b497baad7:autoScalingGroupName/my-auto-scaling-group:policyName/ScalePercentChange",
+            "PolicyName": "ScalePercentChange",
+            "ScalingAdjustment": 25
+          }
+        ]
+      },
       "properties": {
         "ScalingPolicies": {
           "$ref": "#/definitions/ScalingPolicies",
@@ -5240,6 +5700,9 @@
     },
     "PolicyARNType": {
       "type": "object",
+      "example": {
+        "PolicyARN": "arn:aws:autoscaling:us-west-2:123456789012:scalingPolicy:2233f3d7-6290-403b-b632-93c553560106:autoScalingGroupName/my-auto-scaling-group:policyName/ScaleIn"
+      },
       "properties": {
         "PolicyARN": {
           "$ref": "#/definitions/ResourceName",
@@ -5290,6 +5753,34 @@
     },
     "ProcessesType": {
       "type": "object",
+      "example": {
+        "Processes": [
+          {
+            "ProcessName": "AZRebalance"
+          },
+          {
+            "ProcessName": "AddToLoadBalancer"
+          },
+          {
+            "ProcessName": "AlarmNotification"
+          },
+          {
+            "ProcessName": "HealthCheck"
+          },
+          {
+            "ProcessName": "Launch"
+          },
+          {
+            "ProcessName": "ReplaceUnhealthy"
+          },
+          {
+            "ProcessName": "ScheduledActions"
+          },
+          {
+            "ProcessName": "Terminate"
+          }
+        ]
+      },
       "properties": {
         "Processes": {
           "$ref": "#/definitions/Processes",
@@ -5318,6 +5809,13 @@
         "LifecycleHookName",
         "AutoScalingGroupName"
       ],
+      "example": {
+        "AutoScalingGroupName": "my-auto-scaling-group",
+        "LifecycleHookName": "my-lifecycle-hook",
+        "LifecycleTransition": "autoscaling:EC2_INSTANCE_LAUNCHING",
+        "NotificationTargetARN": "arn:aws:sns:us-west-2:123456789012:my-sns-topic --role-arn",
+        "RoleARN": "arn:aws:iam::123456789012:role/my-auto-scaling-role"
+      },
       "properties": {
         "LifecycleHookName": {
           "$ref": "#/definitions/AsciiStringMaxLen255",
@@ -5361,6 +5859,13 @@
         "TopicARN",
         "NotificationTypes"
       ],
+      "example": {
+        "AutoScalingGroupName": "my-auto-scaling-group",
+        "NotificationTypes": [
+          "autoscaling:TEST_NOTIFICATION"
+        ],
+        "TopicARN": "arn:aws:sns:us-west-2:123456789012:my-sns-topic"
+      },
       "properties": {
         "AutoScalingGroupName": {
           "$ref": "#/definitions/ResourceName",
@@ -5384,6 +5889,12 @@
         "PolicyName",
         "AdjustmentType"
       ],
+      "example": {
+        "AdjustmentType": "ChangeInCapacity",
+        "AutoScalingGroupName": "my-auto-scaling-group",
+        "PolicyName": "ScaleIn",
+        "ScalingAdjustment": -1
+      },
       "properties": {
         "AutoScalingGroupName": {
           "$ref": "#/definitions/ResourceName",
@@ -5438,6 +5949,15 @@
         "AutoScalingGroupName",
         "ScheduledActionName"
       ],
+      "example": {
+        "AutoScalingGroupName": "my-auto-scaling-group",
+        "DesiredCapacity": 4,
+        "EndTime": "2014-05-12T08:00:00Z",
+        "MaxSize": 6,
+        "MinSize": 2,
+        "ScheduledActionName": "my-scheduled-action",
+        "StartTime": "2014-05-12T08:00:00Z"
+      },
       "properties": {
         "AutoScalingGroupName": {
           "$ref": "#/definitions/ResourceName",
@@ -5489,6 +6009,11 @@
         "LifecycleHookName",
         "AutoScalingGroupName"
       ],
+      "example": {
+        "AutoScalingGroupName": "my-auto-scaling-group",
+        "LifecycleActionToken": "bcd2f1b8-9a78-44d3-8a7a-4dd07d7cf635",
+        "LifecycleHookName": "my-lifecycle-hook"
+      },
       "properties": {
         "LifecycleHookName": {
           "$ref": "#/definitions/AsciiStringMaxLen255",
@@ -5631,6 +6156,12 @@
       "required": [
         "AutoScalingGroupName"
       ],
+      "example": {
+        "AutoScalingGroupName": "my-auto-scaling-group",
+        "ScalingProcesses": [
+          "AlarmNotification"
+        ]
+      },
       "properties": {
         "AutoScalingGroupName": {
           "$ref": "#/definitions/ResourceName",
@@ -5651,6 +6182,21 @@
     },
     "ScheduledActionsType": {
       "type": "object",
+      "example": {
+        "ScheduledUpdateGroupActions": [
+          {
+            "AutoScalingGroupName": "my-auto-scaling-group",
+            "DesiredCapacity": 4,
+            "MaxSize": 6,
+            "MinSize": 2,
+            "Recurrence": "30 0 1 12 0",
+            "ScheduledActionARN": "arn:aws:autoscaling:us-west-2:123456789012:scheduledUpdateGroupAction:8e86b655-b2e6-4410-8f29-b4f094d6871c:autoScalingGroupName/my-auto-scaling-group:scheduledActionName/my-scheduled-action",
+            "ScheduledActionName": "my-scheduled-action",
+            "StartTime": "2016-12-01T00:30:00Z",
+            "Time": "2016-12-01T00:30:00Z"
+          }
+        ]
+      },
       "properties": {
         "ScheduledUpdateGroupActions": {
           "$ref": "#/definitions/ScheduledUpdateGroupActions",
@@ -5727,6 +6273,11 @@
         "AutoScalingGroupName",
         "DesiredCapacity"
       ],
+      "example": {
+        "AutoScalingGroupName": "my-auto-scaling-group",
+        "DesiredCapacity": 2,
+        "HonorCooldown": true
+      },
       "properties": {
         "AutoScalingGroupName": {
           "$ref": "#/definitions/ResourceName",
@@ -5749,6 +6300,10 @@
         "InstanceId",
         "HealthStatus"
       ],
+      "example": {
+        "HealthStatus": "Unhealthy",
+        "InstanceId": "i-93633f9b"
+      },
       "properties": {
         "InstanceId": {
           "$ref": "#/definitions/XmlStringMaxLen19",
@@ -5777,6 +6332,13 @@
         "AutoScalingGroupName",
         "ProtectedFromScaleIn"
       ],
+      "example": {
+        "AutoScalingGroupName": "my-auto-scaling-group",
+        "InstanceIds": [
+          "i-93633f9b"
+        ],
+        "ProtectedFromScaleIn": false
+      },
       "properties": {
         "InstanceIds": {
           "$ref": "#/definitions/InstanceIds",
@@ -5932,6 +6494,24 @@
     },
     "TagsType": {
       "type": "object",
+      "example": {
+        "Tags": [
+          {
+            "Key": "Dept",
+            "PropagateAtLaunch": true,
+            "ResourceId": "my-auto-scaling-group",
+            "ResourceType": "auto-scaling-group",
+            "Value": "Research"
+          },
+          {
+            "Key": "Role",
+            "PropagateAtLaunch": true,
+            "ResourceId": "my-auto-scaling-group",
+            "ResourceType": "auto-scaling-group",
+            "Value": "WebServer"
+          }
+        ]
+      },
       "properties": {
         "Tags": {
           "$ref": "#/definitions/TagDescriptionList",
@@ -5956,6 +6536,10 @@
         "InstanceId",
         "ShouldDecrementDesiredCapacity"
       ],
+      "example": {
+        "InstanceId": "i-93633f9b",
+        "ShouldDecrementDesiredCapacity": false
+      },
       "properties": {
         "InstanceId": {
           "$ref": "#/definitions/XmlStringMaxLen19",
@@ -5983,6 +6567,10 @@
       "required": [
         "AutoScalingGroupName"
       ],
+      "example": {
+        "AutoScalingGroupName": "my-auto-scaling-group",
+        "NewInstancesProtectedFromScaleIn": true
+      },
       "properties": {
         "AutoScalingGroupName": {
           "$ref": "#/definitions/ResourceName",
