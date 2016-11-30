@@ -179,6 +179,41 @@
         }
       ]
     },
+    "/{Bucket}?analytics": {
+      "get": {
+        "operationId": "GetBucketAnalyticsConfiguration",
+        "description": "Gets an analytics configuration for the bucket (specified by the analytics configuration ID).",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetBucketAnalyticsConfigurationOutput"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetBucketAnalyticsConfigurationRequest"
+            }
+          },
+          {
+            "name": "Bucket",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/x-amz-security-token"
+        }
+      ]
+    },
     "/{Bucket}?cors": {
       "get": {
         "operationId": "GetBucketCors",
@@ -214,6 +249,41 @@
         }
       ]
     },
+    "/{Bucket}?inventory": {
+      "get": {
+        "operationId": "GetBucketInventoryConfiguration",
+        "description": "Returns an inventory configuration (identified by the inventory ID) from the bucket.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetBucketInventoryConfigurationOutput"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetBucketInventoryConfigurationRequest"
+            }
+          },
+          {
+            "name": "Bucket",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/x-amz-security-token"
+        }
+      ]
+    },
     "/{Bucket}?lifecycle": {
       "get": {
         "operationId": "GetBucketLifecycle",
@@ -233,6 +303,38 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/GetBucketLifecycleRequest"
+            }
+          },
+          {
+            "name": "Bucket",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/x-amz-security-token"
+        }
+      ]
+    },
+    "/{Bucket}?metrics": {
+      "delete": {
+        "operationId": "DeleteBucketMetricsConfiguration",
+        "description": "Deletes a metrics configuration (specified by the metrics configuration ID) from the bucket.",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteBucketMetricsConfigurationRequest"
             }
           },
           {
@@ -368,6 +470,51 @@
             "in": "path",
             "type": "string",
             "required": true
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/x-amz-security-token"
+        }
+      ]
+    },
+    "/{Bucket}/{Key}?tagging": {
+      "delete": {
+        "operationId": "DeleteObjectTagging",
+        "description": "Removes the tag-set from an existing object.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DeleteObjectTaggingOutput"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteObjectTaggingRequest"
+            }
+          },
+          {
+            "name": "Bucket",
+            "in": "path",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "Key",
+            "in": "path",
+            "type": "array",
+            "required": true,
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "csv"
           }
         ]
       },
@@ -571,6 +718,41 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/GetBucketLoggingRequest"
+            }
+          },
+          {
+            "name": "Bucket",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/x-amz-security-token"
+        }
+      ]
+    },
+    "/{Bucket}?metrics#GetBucketMetricsConfiguration": {
+      "get": {
+        "operationId": "GetBucketMetricsConfiguration",
+        "description": "Gets a metrics configuration (specified by the metrics configuration ID) from the bucket.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetBucketMetricsConfigurationOutput"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetBucketMetricsConfigurationRequest"
             }
           },
           {
@@ -961,6 +1143,47 @@
         }
       ]
     },
+    "/{Bucket}/{Key}?tagging#GetObjectTagging": {
+      "get": {
+        "operationId": "GetObjectTagging",
+        "description": "Returns the tag-set of an object.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetObjectTaggingOutput"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetObjectTaggingRequest"
+            }
+          },
+          {
+            "name": "Bucket",
+            "in": "path",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "Key",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/x-amz-security-token"
+        }
+      ]
+    },
     "/{Bucket}/{Key}?torrent#GetObjectTorrent": {
       "get": {
         "operationId": "GetObjectTorrent",
@@ -1150,6 +1373,111 @@
                 "state": "success"
               }
             ]
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/x-amz-security-token"
+        }
+      ]
+    },
+    "/{Bucket}?analytics#ListBucketAnalyticsConfigurations": {
+      "get": {
+        "operationId": "ListBucketAnalyticsConfigurations",
+        "description": "Lists the analytics configurations for the bucket.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ListBucketAnalyticsConfigurationsOutput"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ListBucketAnalyticsConfigurationsRequest"
+            }
+          },
+          {
+            "name": "Bucket",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/x-amz-security-token"
+        }
+      ]
+    },
+    "/{Bucket}?inventory#ListBucketInventoryConfigurations": {
+      "get": {
+        "operationId": "ListBucketInventoryConfigurations",
+        "description": "Returns a list of inventory configurations for the bucket.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ListBucketInventoryConfigurationsOutput"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ListBucketInventoryConfigurationsRequest"
+            }
+          },
+          {
+            "name": "Bucket",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/x-amz-security-token"
+        }
+      ]
+    },
+    "/{Bucket}?metrics#ListBucketMetricsConfigurations": {
+      "get": {
+        "operationId": "ListBucketMetricsConfigurations",
+        "description": "Lists the metrics configurations for the bucket.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ListBucketMetricsConfigurationsOutput"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ListBucketMetricsConfigurationsRequest"
+            }
+          },
+          {
+            "name": "Bucket",
+            "in": "path",
+            "type": "string",
+            "required": true
           }
         ]
       },
@@ -1519,6 +1847,38 @@
         }
       ]
     },
+    "/{Bucket}?analytics#PutBucketAnalyticsConfiguration": {
+      "put": {
+        "operationId": "PutBucketAnalyticsConfiguration",
+        "description": "Sets an analytics configuration for the bucket (specified by the analytics configuration ID).",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PutBucketAnalyticsConfigurationRequest"
+            }
+          },
+          {
+            "name": "Bucket",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/x-amz-security-token"
+        }
+      ]
+    },
     "/{Bucket}?cors#PutBucketCors": {
       "put": {
         "operationId": "PutBucketCors",
@@ -1535,6 +1895,38 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/PutBucketCorsRequest"
+            }
+          },
+          {
+            "name": "Bucket",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/x-amz-security-token"
+        }
+      ]
+    },
+    "/{Bucket}?inventory#PutBucketInventoryConfiguration": {
+      "put": {
+        "operationId": "PutBucketInventoryConfiguration",
+        "description": "Adds an inventory configuration (identified by the inventory ID) from the bucket.",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PutBucketInventoryConfigurationRequest"
             }
           },
           {
@@ -1631,6 +2023,38 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/PutBucketLoggingRequest"
+            }
+          },
+          {
+            "name": "Bucket",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/x-amz-security-token"
+        }
+      ]
+    },
+    "/{Bucket}?metrics#PutBucketMetricsConfiguration": {
+      "put": {
+        "operationId": "PutBucketMetricsConfiguration",
+        "description": "Sets a metrics configuration (specified by the metrics configuration ID) for the bucket.",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PutBucketMetricsConfigurationRequest"
             }
           },
           {
@@ -1991,6 +2415,47 @@
         }
       ]
     },
+    "/{Bucket}/{Key}?tagging#PutObjectTagging": {
+      "put": {
+        "operationId": "PutObjectTagging",
+        "description": "Sets the supplied tag-set to an object that already exists in a bucket",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/PutObjectTaggingOutput"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PutObjectTaggingRequest"
+            }
+          },
+          {
+            "name": "Bucket",
+            "in": "path",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "Key",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/x-amz-security-token"
+        }
+      ]
+    },
     "/{Bucket}/{Key}?restore#RestoreObject": {
       "post": {
         "operationId": "RestoreObject",
@@ -2171,6 +2636,9 @@
         }
       }
     },
+    "AccountId": {
+      "type": "string"
+    },
     "AllowedHeader": {
       "type": "string"
     },
@@ -2206,6 +2674,115 @@
       "xml": {
         "wrapped": false
       }
+    },
+    "AnalyticsAndOperator": {
+      "type": "object",
+      "properties": {
+        "Prefix": {
+          "$ref": "#/definitions/Prefix",
+          "description": "The prefix to use when evaluating an AND predicate."
+        },
+        "Tags": {
+          "$ref": "#/definitions/TagSet",
+          "description": "The list of tags to use when evaluating an AND predicate."
+        }
+      },
+      "xml": {
+        "wrapped": false
+      }
+    },
+    "AnalyticsConfiguration": {
+      "type": "object",
+      "required": [
+        "Id",
+        "StorageClassAnalysis"
+      ],
+      "properties": {
+        "Id": {
+          "$ref": "#/definitions/AnalyticsId",
+          "description": "The identifier used to represent an analytics configuration."
+        },
+        "Filter": {
+          "$ref": "#/definitions/AnalyticsFilter",
+          "description": "The filter used to describe a set of objects for analyses. A filter must have exactly one prefix, one tag, or one conjunction (AnalyticsAndOperator). If no filter is provided, all objects will be considered in any analysis."
+        },
+        "StorageClassAnalysis": {
+          "$ref": "#/definitions/StorageClassAnalysis",
+          "description": "If present, it indicates that data related to access patterns will be collected and made available to analyze the tradeoffs between different storage classes."
+        }
+      }
+    },
+    "AnalyticsConfigurationList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/AnalyticsConfiguration"
+      },
+      "xml": {
+        "wrapped": false
+      }
+    },
+    "AnalyticsExportDestination": {
+      "type": "object",
+      "required": [
+        "S3BucketDestination"
+      ],
+      "properties": {
+        "S3BucketDestination": {
+          "$ref": "#/definitions/AnalyticsS3BucketDestination",
+          "description": "A destination signifying output to an S3 bucket."
+        }
+      }
+    },
+    "AnalyticsFilter": {
+      "type": "object",
+      "properties": {
+        "Prefix": {
+          "$ref": "#/definitions/Prefix",
+          "description": "The prefix to use when evaluating an analytics filter."
+        },
+        "Tag": {
+          "$ref": "#/definitions/Tag",
+          "description": "The tag to use when evaluating an analytics filter."
+        },
+        "And": {
+          "$ref": "#/definitions/AnalyticsAndOperator",
+          "description": "A conjunction (logical AND) of predicates, which is used in evaluating an analytics filter. The operator must have at least two predicates."
+        }
+      }
+    },
+    "AnalyticsId": {
+      "type": "string"
+    },
+    "AnalyticsS3BucketDestination": {
+      "type": "object",
+      "required": [
+        "Format",
+        "Bucket"
+      ],
+      "properties": {
+        "Format": {
+          "$ref": "#/definitions/AnalyticsS3ExportFileFormat",
+          "description": "The file format used when exporting data to Amazon S3."
+        },
+        "BucketAccountId": {
+          "$ref": "#/definitions/AccountId",
+          "description": "The account ID that owns the destination bucket. If no account ID is provided, the owner will not be validated prior to exporting data."
+        },
+        "Bucket": {
+          "$ref": "#/definitions/BucketName",
+          "description": "The Amazon resource name (ARN) of the bucket to which data is exported."
+        },
+        "Prefix": {
+          "$ref": "#/definitions/Prefix",
+          "description": "The prefix to use when exporting data. The exported data begins with this prefix."
+        }
+      }
+    },
+    "AnalyticsS3ExportFileFormat": {
+      "type": "string",
+      "enum": [
+        "CSV"
+      ]
     },
     "Body": {
       "type": "string"
@@ -2642,11 +3219,23 @@
         }
       }
     },
+    "DeleteBucketAnalyticsConfigurationRequest": {
+      "type": "object",
+      "properties": {}
+    },
     "DeleteBucketCorsRequest": {
       "type": "object",
       "properties": {}
     },
+    "DeleteBucketInventoryConfigurationRequest": {
+      "type": "object",
+      "properties": {}
+    },
     "DeleteBucketLifecycleRequest": {
+      "type": "object",
+      "properties": {}
+    },
+    "DeleteBucketMetricsConfigurationRequest": {
       "type": "object",
       "properties": {}
     },
@@ -2714,6 +3303,14 @@
       "properties": {}
     },
     "DeleteObjectRequest": {
+      "type": "object",
+      "properties": {}
+    },
+    "DeleteObjectTaggingOutput": {
+      "type": "object",
+      "properties": {}
+    },
+    "DeleteObjectTaggingRequest": {
       "type": "object",
       "properties": {}
     },
@@ -2959,6 +3556,19 @@
       "type": "object",
       "properties": {}
     },
+    "GetBucketAnalyticsConfigurationOutput": {
+      "type": "object",
+      "properties": {
+        "AnalyticsConfiguration": {
+          "$ref": "#/definitions/AnalyticsConfiguration",
+          "description": "The configuration and any analyses for the analytics filter."
+        }
+      }
+    },
+    "GetBucketAnalyticsConfigurationRequest": {
+      "type": "object",
+      "properties": {}
+    },
     "GetBucketCorsOutput": {
       "type": "object",
       "properties": {
@@ -2968,6 +3578,19 @@
       }
     },
     "GetBucketCorsRequest": {
+      "type": "object",
+      "properties": {}
+    },
+    "GetBucketInventoryConfigurationOutput": {
+      "type": "object",
+      "properties": {
+        "InventoryConfiguration": {
+          "$ref": "#/definitions/InventoryConfiguration",
+          "description": "Specifies the inventory configuration."
+        }
+      }
+    },
+    "GetBucketInventoryConfigurationRequest": {
       "type": "object",
       "properties": {}
     },
@@ -3016,6 +3639,19 @@
       }
     },
     "GetBucketLoggingRequest": {
+      "type": "object",
+      "properties": {}
+    },
+    "GetBucketMetricsConfigurationOutput": {
+      "type": "object",
+      "properties": {
+        "MetricsConfiguration": {
+          "$ref": "#/definitions/MetricsConfiguration",
+          "description": "Specifies the metrics configuration."
+        }
+      }
+    },
+    "GetBucketMetricsConfigurationRequest": {
       "type": "object",
       "properties": {}
     },
@@ -3143,6 +3779,21 @@
       "type": "object",
       "properties": {}
     },
+    "GetObjectTaggingOutput": {
+      "type": "object",
+      "required": [
+        "TagSet"
+      ],
+      "properties": {
+        "TagSet": {
+          "$ref": "#/definitions/TagSet"
+        }
+      }
+    },
+    "GetObjectTaggingRequest": {
+      "type": "object",
+      "properties": {}
+    },
     "GetObjectTorrentOutput": {
       "type": "object",
       "properties": {
@@ -3154,6 +3805,18 @@
     "GetObjectTorrentRequest": {
       "type": "object",
       "properties": {}
+    },
+    "GlacierJobParameters": {
+      "type": "object",
+      "required": [
+        "Tier"
+      ],
+      "properties": {
+        "Tier": {
+          "$ref": "#/definitions/Tier",
+          "description": "Glacier retrieval tier at which the restore will be processed."
+        }
+      }
     },
     "Grant": {
       "type": "object",
@@ -3287,6 +3950,159 @@
         }
       }
     },
+    "InventoryConfiguration": {
+      "type": "object",
+      "required": [
+        "Destination",
+        "IsEnabled",
+        "Id",
+        "IncludedObjectVersions",
+        "Schedule"
+      ],
+      "properties": {
+        "Destination": {
+          "$ref": "#/definitions/InventoryDestination",
+          "description": "Contains information about where to publish the inventory results."
+        },
+        "IsEnabled": {
+          "$ref": "#/definitions/IsEnabled",
+          "description": "Specifies whether the inventory is enabled or disabled."
+        },
+        "Filter": {
+          "$ref": "#/definitions/InventoryFilter",
+          "description": "Specifies an inventory filter. The inventory only includes objects that meet the filter's criteria."
+        },
+        "Id": {
+          "$ref": "#/definitions/InventoryId",
+          "description": "The ID used to identify the inventory configuration."
+        },
+        "IncludedObjectVersions": {
+          "$ref": "#/definitions/InventoryIncludedObjectVersions",
+          "description": "Specifies which object version(s) to included in the inventory results."
+        },
+        "OptionalFields": {
+          "$ref": "#/definitions/InventoryOptionalFields",
+          "description": "Contains the optional fields that are included in the inventory results."
+        },
+        "Schedule": {
+          "$ref": "#/definitions/InventorySchedule",
+          "description": "Specifies the schedule for generating inventory results."
+        }
+      }
+    },
+    "InventoryConfigurationList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/InventoryConfiguration"
+      },
+      "xml": {
+        "wrapped": false
+      }
+    },
+    "InventoryDestination": {
+      "type": "object",
+      "required": [
+        "S3BucketDestination"
+      ],
+      "properties": {
+        "S3BucketDestination": {
+          "$ref": "#/definitions/InventoryS3BucketDestination",
+          "description": "Contains the bucket name, file format, bucket owner (optional), and prefix (optional) where inventory results are published."
+        }
+      }
+    },
+    "InventoryFilter": {
+      "type": "object",
+      "required": [
+        "Prefix"
+      ],
+      "properties": {
+        "Prefix": {
+          "$ref": "#/definitions/Prefix",
+          "description": "The prefix that an object must have to be included in the inventory results."
+        }
+      }
+    },
+    "InventoryFormat": {
+      "type": "string",
+      "enum": [
+        "CSV"
+      ]
+    },
+    "InventoryFrequency": {
+      "type": "string",
+      "enum": [
+        "Daily",
+        "Weekly"
+      ]
+    },
+    "InventoryId": {
+      "type": "string"
+    },
+    "InventoryIncludedObjectVersions": {
+      "type": "string",
+      "enum": [
+        "All",
+        "Current"
+      ]
+    },
+    "InventoryOptionalField": {
+      "type": "string",
+      "enum": [
+        "Size",
+        "LastModifiedDate",
+        "StorageClass",
+        "ETag",
+        "IsMultipartUploaded",
+        "ReplicationStatus"
+      ]
+    },
+    "InventoryOptionalFields": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/InventoryOptionalField"
+      }
+    },
+    "InventoryS3BucketDestination": {
+      "type": "object",
+      "required": [
+        "Bucket",
+        "Format"
+      ],
+      "properties": {
+        "AccountId": {
+          "$ref": "#/definitions/AccountId",
+          "description": "The ID of the account that owns the destination bucket."
+        },
+        "Bucket": {
+          "$ref": "#/definitions/BucketName",
+          "description": "The Amazon resource name (ARN) of the bucket where inventory results will be published."
+        },
+        "Format": {
+          "$ref": "#/definitions/InventoryFormat",
+          "description": "Specifies the output format of the inventory results."
+        },
+        "Prefix": {
+          "$ref": "#/definitions/Prefix",
+          "description": "The prefix that is prepended to all inventory results."
+        }
+      }
+    },
+    "InventorySchedule": {
+      "type": "object",
+      "required": [
+        "Frequency"
+      ],
+      "properties": {
+        "Frequency": {
+          "$ref": "#/definitions/InventoryFrequency",
+          "description": "Specifies how frequently inventory results are produced."
+        }
+      }
+    },
+    "IsEnabled": {
+      "type": "boolean"
+    },
     "IsLatest": {
       "type": "boolean"
     },
@@ -3372,7 +4188,6 @@
     "LifecycleRule": {
       "type": "object",
       "required": [
-        "Prefix",
         "Status"
       ],
       "properties": {
@@ -3385,7 +4200,10 @@
         },
         "Prefix": {
           "$ref": "#/definitions/Prefix",
-          "description": "Prefix identifying one or more objects to which the rule applies."
+          "description": "Prefix identifying one or more objects to which the rule applies. This is deprecated; use Filter instead."
+        },
+        "Filter": {
+          "$ref": "#/definitions/LifecycleRuleFilter"
         },
         "Status": {
           "$ref": "#/definitions/ExpirationStatus",
@@ -3405,6 +4223,39 @@
         }
       }
     },
+    "LifecycleRuleAndOperator": {
+      "type": "object",
+      "properties": {
+        "Prefix": {
+          "$ref": "#/definitions/Prefix"
+        },
+        "Tags": {
+          "$ref": "#/definitions/TagSet",
+          "description": "All of these tags must exist in the object's tag set in order for the rule to apply."
+        }
+      },
+      "description": "This is used in a Lifecycle Rule Filter to apply a logical AND to two or more predicates. The Lifecycle Rule will apply to any object matching all of the predicates configured inside the And operator.",
+      "xml": {
+        "wrapped": false
+      }
+    },
+    "LifecycleRuleFilter": {
+      "type": "object",
+      "properties": {
+        "Prefix": {
+          "$ref": "#/definitions/Prefix",
+          "description": "Prefix identifying one or more objects to which the rule applies."
+        },
+        "Tag": {
+          "$ref": "#/definitions/Tag",
+          "description": "This tag must exist in the object's tag set in order for the rule to apply."
+        },
+        "And": {
+          "$ref": "#/definitions/LifecycleRuleAndOperator"
+        }
+      },
+      "description": "The Filter is used to identify objects that a Lifecycle Rule applies to. A Filter must have exactly one of Prefix, Tag, or And specified."
+    },
     "LifecycleRules": {
       "type": "array",
       "items": {
@@ -3413,6 +4264,81 @@
       "xml": {
         "wrapped": false
       }
+    },
+    "ListBucketAnalyticsConfigurationsOutput": {
+      "type": "object",
+      "properties": {
+        "IsTruncated": {
+          "$ref": "#/definitions/IsTruncated",
+          "description": "Indicates whether the returned list of analytics configurations is complete. A value of true indicates that the list is not complete and the NextContinuationToken will be provided for a subsequent request."
+        },
+        "ContinuationToken": {
+          "$ref": "#/definitions/Token",
+          "description": "The ContinuationToken that represents where this request began."
+        },
+        "NextContinuationToken": {
+          "$ref": "#/definitions/NextToken",
+          "description": "NextContinuationToken is sent when isTruncated is true, which indicates that there are more analytics configurations to list. The next request must include this NextContinuationToken. The token is obfuscated and is not a usable value."
+        },
+        "AnalyticsConfigurationList": {
+          "$ref": "#/definitions/AnalyticsConfigurationList",
+          "description": "The list of analytics configurations for a bucket."
+        }
+      }
+    },
+    "ListBucketAnalyticsConfigurationsRequest": {
+      "type": "object",
+      "properties": {}
+    },
+    "ListBucketInventoryConfigurationsOutput": {
+      "type": "object",
+      "properties": {
+        "ContinuationToken": {
+          "$ref": "#/definitions/Token",
+          "description": "If sent in the request, the marker that is used as a starting point for this inventory configuration list response."
+        },
+        "InventoryConfigurationList": {
+          "$ref": "#/definitions/InventoryConfigurationList",
+          "description": "The list of inventory configurations for a bucket."
+        },
+        "IsTruncated": {
+          "$ref": "#/definitions/IsTruncated",
+          "description": "Indicates whether the returned list of inventory configurations is truncated in this response. A value of true indicates that the list is truncated."
+        },
+        "NextContinuationToken": {
+          "$ref": "#/definitions/NextToken",
+          "description": "The marker used to continue this inventory configuration listing. Use the NextContinuationToken from this response to continue the listing in a subsequent request. The continuation token is an opaque value that Amazon S3 understands."
+        }
+      }
+    },
+    "ListBucketInventoryConfigurationsRequest": {
+      "type": "object",
+      "properties": {}
+    },
+    "ListBucketMetricsConfigurationsOutput": {
+      "type": "object",
+      "properties": {
+        "IsTruncated": {
+          "$ref": "#/definitions/IsTruncated",
+          "description": "Indicates whether the returned list of metrics configurations is complete. A value of true indicates that the list is not complete and the NextContinuationToken will be provided for a subsequent request."
+        },
+        "ContinuationToken": {
+          "$ref": "#/definitions/Token",
+          "description": "The marker that is used as a starting point for this metrics configuration list response. This value is present if it was sent in the request."
+        },
+        "NextContinuationToken": {
+          "$ref": "#/definitions/NextToken",
+          "description": "The marker used to continue a metrics configuration listing that has been truncated. Use the NextContinuationToken from a previously truncated list response to continue the listing. The continuation token is an opaque value that Amazon S3 understands."
+        },
+        "MetricsConfigurationList": {
+          "$ref": "#/definitions/MetricsConfigurationList",
+          "description": "The list of metrics configurations for a bucket."
+        }
+      }
+    },
+    "ListBucketMetricsConfigurationsRequest": {
+      "type": "object",
+      "properties": {}
     },
     "ListBucketsOutput": {
       "type": "object",
@@ -3761,6 +4687,67 @@
       "type": "string"
     },
     "MetadataValue": {
+      "type": "string"
+    },
+    "MetricsAndOperator": {
+      "type": "object",
+      "properties": {
+        "Prefix": {
+          "$ref": "#/definitions/Prefix",
+          "description": "The prefix used when evaluating an AND predicate."
+        },
+        "Tags": {
+          "$ref": "#/definitions/TagSet",
+          "description": "The list of tags used when evaluating an AND predicate."
+        }
+      },
+      "xml": {
+        "wrapped": false
+      }
+    },
+    "MetricsConfiguration": {
+      "type": "object",
+      "required": [
+        "Id"
+      ],
+      "properties": {
+        "Id": {
+          "$ref": "#/definitions/MetricsId",
+          "description": "The ID used to identify the metrics configuration."
+        },
+        "Filter": {
+          "$ref": "#/definitions/MetricsFilter",
+          "description": "Specifies a metrics configuration filter. The metrics configuration will only include objects that meet the filter's criteria. A filter must be a prefix, a tag, or a conjunction (MetricsAndOperator)."
+        }
+      }
+    },
+    "MetricsConfigurationList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/MetricsConfiguration"
+      },
+      "xml": {
+        "wrapped": false
+      }
+    },
+    "MetricsFilter": {
+      "type": "object",
+      "properties": {
+        "Prefix": {
+          "$ref": "#/definitions/Prefix",
+          "description": "The prefix used when evaluating a metrics filter."
+        },
+        "Tag": {
+          "$ref": "#/definitions/Tag",
+          "description": "The tag used when evaluating a metrics filter."
+        },
+        "And": {
+          "$ref": "#/definitions/MetricsAndOperator",
+          "description": "A conjunction (logical AND) of predicates, which is used in evaluating a metrics filter. The operator must have at least two predicates, and an object must match all of the predicates in order for the filter to apply."
+        }
+      }
+    },
+    "MetricsId": {
       "type": "string"
     },
     "MissingMeta": {
@@ -4165,6 +5152,21 @@
         "namespace": "http://s3.amazonaws.com/doc/2006-03-01/"
       }
     },
+    "PutBucketAnalyticsConfigurationRequest": {
+      "type": "object",
+      "required": [
+        "AnalyticsConfiguration"
+      ],
+      "properties": {
+        "AnalyticsConfiguration": {
+          "$ref": "#/definitions/AnalyticsConfiguration",
+          "description": "The configuration and any analyses for the analytics filter."
+        }
+      },
+      "xml": {
+        "namespace": "http://s3.amazonaws.com/doc/2006-03-01/"
+      }
+    },
     "PutBucketCorsRequest": {
       "type": "object",
       "required": [
@@ -4173,6 +5175,21 @@
       "properties": {
         "CORSConfiguration": {
           "$ref": "#/definitions/CORSConfiguration"
+        }
+      },
+      "xml": {
+        "namespace": "http://s3.amazonaws.com/doc/2006-03-01/"
+      }
+    },
+    "PutBucketInventoryConfigurationRequest": {
+      "type": "object",
+      "required": [
+        "InventoryConfiguration"
+      ],
+      "properties": {
+        "InventoryConfiguration": {
+          "$ref": "#/definitions/InventoryConfiguration",
+          "description": "Specifies the inventory configuration."
         }
       },
       "xml": {
@@ -4209,6 +5226,21 @@
       "properties": {
         "BucketLoggingStatus": {
           "$ref": "#/definitions/BucketLoggingStatus"
+        }
+      },
+      "xml": {
+        "namespace": "http://s3.amazonaws.com/doc/2006-03-01/"
+      }
+    },
+    "PutBucketMetricsConfigurationRequest": {
+      "type": "object",
+      "required": [
+        "MetricsConfiguration"
+      ],
+      "properties": {
+        "MetricsConfiguration": {
+          "$ref": "#/definitions/MetricsConfiguration",
+          "description": "Specifies the metrics configuration."
         }
       },
       "xml": {
@@ -4351,6 +5383,24 @@
           "$ref": "#/definitions/Body",
           "description": "Object data."
         }
+      }
+    },
+    "PutObjectTaggingOutput": {
+      "type": "object",
+      "properties": {}
+    },
+    "PutObjectTaggingRequest": {
+      "type": "object",
+      "required": [
+        "Tagging"
+      ],
+      "properties": {
+        "Tagging": {
+          "$ref": "#/definitions/Tagging"
+        }
+      },
+      "xml": {
+        "namespace": "http://s3.amazonaws.com/doc/2006-03-01/"
       }
     },
     "QueueArn": {
@@ -4598,6 +5648,10 @@
         "Days": {
           "$ref": "#/definitions/Days",
           "description": "Lifetime of the active copy in days"
+        },
+        "GlacierJobParameters": {
+          "$ref": "#/definitions/GlacierJobParameters",
+          "description": "Glacier related prameters pertaining to this job."
         }
       }
     },
@@ -4715,6 +5769,38 @@
         "STANDARD_IA"
       ]
     },
+    "StorageClassAnalysis": {
+      "type": "object",
+      "properties": {
+        "DataExport": {
+          "$ref": "#/definitions/StorageClassAnalysisDataExport",
+          "description": "A container used to describe how data related to the storage class analysis should be exported."
+        }
+      }
+    },
+    "StorageClassAnalysisDataExport": {
+      "type": "object",
+      "required": [
+        "OutputSchemaVersion",
+        "Destination"
+      ],
+      "properties": {
+        "OutputSchemaVersion": {
+          "$ref": "#/definitions/StorageClassAnalysisSchemaVersion",
+          "description": "The version of the output schema to use when exporting data. Must be V_1."
+        },
+        "Destination": {
+          "$ref": "#/definitions/AnalyticsExportDestination",
+          "description": "The place to store the data for an analysis."
+        }
+      }
+    },
+    "StorageClassAnalysisSchemaVersion": {
+      "type": "string",
+      "enum": [
+        "V_1"
+      ]
+    },
     "Suffix": {
       "type": "string"
     },
@@ -4735,6 +5821,9 @@
         }
       }
     },
+    "TagCount": {
+      "type": "integer"
+    },
     "TagSet": {
       "type": "array",
       "items": {
@@ -4751,6 +5840,16 @@
           "$ref": "#/definitions/TagSet"
         }
       }
+    },
+    "TaggingDirective": {
+      "type": "string",
+      "enum": [
+        "COPY",
+        "REPLACE"
+      ]
+    },
+    "TaggingHeader": {
+      "type": "string"
     },
     "TargetBucket": {
       "type": "string"
@@ -4775,6 +5874,14 @@
     },
     "TargetPrefix": {
       "type": "string"
+    },
+    "Tier": {
+      "type": "string",
+      "enum": [
+        "Standard",
+        "Bulk",
+        "Expedited"
+      ]
     },
     "Token": {
       "type": "string"

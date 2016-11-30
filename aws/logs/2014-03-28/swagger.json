@@ -4,7 +4,7 @@
     "version": "2014-03-28",
     "x-release": "v4",
     "title": "Amazon CloudWatch Logs",
-    "description": "<p>You can use Amazon CloudWatch Logs to monitor, store, and access your log files from Amazon Elastic Compute Cloud (Amazon EC2) instances, Amazon CloudTrail, or other sources. You can then retrieve the associated log data from CloudWatch Logs using the Amazon CloudWatch console, the CloudWatch Logs commands in the AWS CLI, the CloudWatch Logs API, or the CloudWatch Logs SDK.</p> <p>You can use CloudWatch Logs to:</p> <ul> <li> <p> <b>Monitor Logs from Amazon EC2 Instances in Real-time</b>: You can use CloudWatch Logs to monitor applications and systems using log data. For example, CloudWatch Logs can track the number of errors that occur in your application logs and send you a notification whenever the rate of errors exceeds a threshold you specify. CloudWatch Logs uses your log data for monitoring; so, no code changes are required. For example, you can monitor application logs for specific literal terms (such as \"NullReferenceException\") or count the number of occurrences of a literal term at a particular position in log data (such as \"404\" status codes in an Apache access log). When the term you are searching for is found, CloudWatch Logs reports the data to a Amazon CloudWatch metric that you specify.</p> </li> <li> <p> <b>Monitor Amazon CloudTrail Logged Events</b>: You can create alarms in Amazon CloudWatch and receive notifications of particular API activity as captured by CloudTrail and use the notification to perform troubleshooting.</p> </li> <li> <p> <b>Archive Log Data</b>: You can use CloudWatch Logs to store your log data in highly durable storage. You can change the log retention setting so that any log events older than this setting are automatically deleted. The CloudWatch Logs agent makes it easy to quickly send both rotated and non-rotated log data off of a host and into the log service. You can then access the raw log data when you need it.</p> </li> </ul>",
+    "description": "<p>You can use Amazon CloudWatch Logs to monitor, store, and access your log files from EC2 instances, Amazon CloudTrail, or other sources. You can then retrieve the associated log data from CloudWatch Logs using the Amazon CloudWatch console, the CloudWatch Logs commands in the AWS CLI, the CloudWatch Logs API, or the CloudWatch Logs SDK.</p> <p>You can use CloudWatch Logs to:</p> <ul> <li> <p> <b>Monitor Logs from Amazon EC2 Instances in Real-time</b>: You can use CloudWatch Logs to monitor applications and systems using log data. For example, CloudWatch Logs can track the number of errors that occur in your application logs and send you a notification whenever the rate of errors exceeds a threshold you specify. CloudWatch Logs uses your log data for monitoring; so, no code changes are required. For example, you can monitor application logs for specific literal terms (such as \"NullReferenceException\") or count the number of occurrences of a literal term at a particular position in log data (such as \"404\" status codes in an Apache access log). When the term you are searching for is found, CloudWatch Logs reports the data to a Amazon CloudWatch metric that you specify.</p> </li> <li> <p> <b>Monitor Amazon CloudTrail Logged Events</b>: You can create alarms in Amazon CloudWatch and receive notifications of particular API activity as captured by CloudTrail and use the notification to perform troubleshooting.</p> </li> <li> <p> <b>Archive Log Data</b>: You can use CloudWatch Logs to store your log data in highly durable storage. You can change the log retention setting so that any log events older than this setting are automatically deleted. The CloudWatch Logs agent makes it easy to quickly send both rotated and non-rotated log data off of a host and into the log service. You can then access the raw log data when you need it.</p> </li> </ul>",
     "termsOfService": "https://aws.amazon.com/service-terms/",
     "contact": {
       "name": "Mike Ralphson",
@@ -109,7 +109,7 @@
     "/": {
       "post": {
         "operationId": "CancelExportTask",
-        "description": "Cancels an export task if it is in <code>PENDING</code> or <code>RUNNING</code> state.",
+        "description": "<p>Cancels the specified export task.</p> <p>The task must be in the <code>PENDING</code> or <code>RUNNING</code> state.</p>",
         "responses": {
           "200": {
             "description": "Success"
@@ -183,7 +183,7 @@
     "/#CreateExportTask": {
       "post": {
         "operationId": "CreateExportTask",
-        "description": "<p>Creates an <code>ExportTask</code> which allows you to efficiently export data from a Log Group to your Amazon S3 bucket.</p> <p>This is an asynchronous call. If all the required information is provided, this API will initiate an export task and respond with the task Id. Once started, <code>DescribeExportTasks</code> can be used to get the status of an export task. You can only have one active (<code>RUNNING</code> or <code>PENDING</code>) export task at a time, per account.</p> <p>You can export logs from multiple log groups or multiple time ranges to the same Amazon S3 bucket. To separate out log data for each export task, you can specify a prefix that will be used as the Amazon S3 key prefix for all exported objects.</p>",
+        "description": "<p>Creates an export task, which allows you to efficiently export data from a log group to an Amazon S3 bucket.</p> <p>This is an asynchronous call. If all the required information is provided, this operation initiates an export task and responds with the ID of the task. After the task has started, you can use <a>DescribeExportTasks</a> to get the status of the export task. Each account can only have one active (<code>RUNNING</code> or <code>PENDING</code>) export task at a time. To cancel an export task, use <a>CancelExportTask</a>.</p> <p>You can export logs from multiple log groups or multiple time ranges to the same S3 bucket. To separate out log data for each export task, you can specify a prefix that will be used as the Amazon S3 key prefix for all exported objects.</p>",
         "responses": {
           "200": {
             "description": "Success",
@@ -272,7 +272,7 @@
     "/#CreateLogGroup": {
       "post": {
         "operationId": "CreateLogGroup",
-        "description": "<p>Creates a new log group with the specified name. The name of the log group must be unique within a region for an AWS account. You can create up to 500 log groups per account.</p> <p>You must use the following guidelines when naming a log group:</p> <ul> <li> <p>Log group names can be between 1 and 512 characters long.</p> </li> <li> <p>Allowed characters are a-z, A-Z, 0-9, '_' (underscore), '-' (hyphen), '/' (forward slash), and '.' (period).</p> </li> </ul>",
+        "description": "<p>Creates a log group with the specified name.</p> <p>You can create up to 5000 log groups per account.</p> <p>You must use the following guidelines when naming a log group:</p> <ul> <li> <p>Log group names must be unique within a region for an AWS account.</p> </li> <li> <p>Log group names can be between 1 and 512 characters long.</p> </li> <li> <p>Log group names consist of the following characters: a-z, A-Z, 0-9, '_' (underscore), '-' (hyphen), '/' (forward slash), and '.' (period).</p> </li> </ul>",
         "responses": {
           "200": {
             "description": "Success"
@@ -352,7 +352,7 @@
     "/#CreateLogStream": {
       "post": {
         "operationId": "CreateLogStream",
-        "description": "<p>Creates a new log stream in the specified log group. The name of the log stream must be unique within the log group. There is no limit on the number of log streams that can exist in a log group.</p> <p>You must use the following guidelines when naming a log stream:</p> <ul> <li> <p>Log stream names can be between 1 and 512 characters long.</p> </li> <li> <p>The ':' colon character is not allowed.</p> </li> </ul>",
+        "description": "<p>Creates a log stream for the specified log group.</p> <p>There is no limit on the number of log streams that you can create for a log group.</p> <p>You must use the following guidelines when naming a log stream:</p> <ul> <li> <p>Log stream names must be unique within the log group.</p> </li> <li> <p>Log stream names can be between 1 and 512 characters long.</p> </li> <li> <p>The ':' (colon) and '*' (asterisk) characters are not allowed.</p> </li> </ul>",
         "responses": {
           "200": {
             "description": "Success"
@@ -426,7 +426,7 @@
     "/#DeleteDestination": {
       "post": {
         "operationId": "DeleteDestination",
-        "description": "Deletes the destination with the specified name and eventually disables all the subscription filters that publish to it. This will not delete the physical resource encapsulated by the destination.",
+        "description": "Deletes the specified destination, and eventually disables all the subscription filters that publish to it. This operation does not delete the physical resource encapsulated by the destination.",
         "responses": {
           "200": {
             "description": "Success"
@@ -500,7 +500,7 @@
     "/#DeleteLogGroup": {
       "post": {
         "operationId": "DeleteLogGroup",
-        "description": "Deletes the log group with the specified name and permanently deletes all the archived log events associated with it.",
+        "description": "Deletes the specified log group and permanently deletes all the archived log events associated with the log group.",
         "responses": {
           "200": {
             "description": "Success"
@@ -574,7 +574,7 @@
     "/#DeleteLogStream": {
       "post": {
         "operationId": "DeleteLogStream",
-        "description": "Deletes a log stream and permanently deletes all the archived log events associated with it.",
+        "description": "Deletes the specified log stream and permanently deletes all the archived log events associated with the log stream.",
         "responses": {
           "200": {
             "description": "Success"
@@ -648,7 +648,7 @@
     "/#DeleteMetricFilter": {
       "post": {
         "operationId": "DeleteMetricFilter",
-        "description": "Deletes a metric filter associated with the specified log group.",
+        "description": "Deletes the specified metric filter.",
         "responses": {
           "200": {
             "description": "Success"
@@ -722,7 +722,7 @@
     "/#DeleteRetentionPolicy": {
       "post": {
         "operationId": "DeleteRetentionPolicy",
-        "description": "Deletes the retention policy of the specified log group. Log events would not expire if they belong to log groups without a retention policy.",
+        "description": "<p>Deletes the specified retention policy.</p> <p>Log events do not expire if they belong to log groups without a retention policy.</p>",
         "responses": {
           "200": {
             "description": "Success"
@@ -796,7 +796,7 @@
     "/#DeleteSubscriptionFilter": {
       "post": {
         "operationId": "DeleteSubscriptionFilter",
-        "description": "Deletes a subscription filter associated with the specified log group.",
+        "description": "Deletes the specified subscription filter.",
         "responses": {
           "200": {
             "description": "Success"
@@ -870,7 +870,7 @@
     "/#DescribeDestinations": {
       "post": {
         "operationId": "DescribeDestinations",
-        "description": "<p>Returns all the destinations that are associated with the AWS account making the request. The list returned in the response is ASCII-sorted by destination name.</p> <p>By default, this operation returns up to 50 destinations. If there are more destinations to list, the response would contain a <code>nextToken</code> value in the response body. You can also limit the number of destinations returned in the response by specifying the <code>limit</code> parameter in the request.</p>",
+        "description": "Lists all your destinations. The results are ASCII-sorted by destination name.",
         "responses": {
           "200": {
             "description": "Success",
@@ -949,7 +949,7 @@
     "/#DescribeExportTasks": {
       "post": {
         "operationId": "DescribeExportTasks",
-        "description": "<p>Returns all the export tasks that are associated with the AWS account making the request. The export tasks can be filtered based on <code>TaskId</code> or <code>TaskStatus</code>.</p> <p>By default, this operation returns up to 50 export tasks that satisfy the specified filters. If there are more export tasks to list, the response would contain a <code>nextToken</code> value in the response body. You can also limit the number of export tasks returned in the response by specifying the <code>limit</code> parameter in the request.</p>",
+        "description": "Lists the specified export tasks. You can list all your export tasks or filter the results based on task ID or task status.",
         "responses": {
           "200": {
             "description": "Success",
@@ -1014,7 +1014,7 @@
     "/#DescribeLogGroups": {
       "post": {
         "operationId": "DescribeLogGroups",
-        "description": "<p>Returns all the log groups that are associated with the AWS account making the request. The list returned in the response is ASCII-sorted by log group name.</p> <p>By default, this operation returns up to 50 log groups. If there are more log groups to list, the response would contain a <code>nextToken</code> value in the response body. You can also limit the number of log groups returned in the response by specifying the <code>limit</code> parameter in the request.</p>",
+        "description": "Lists the specified log groups. You can list all your log groups or filter the results by prefix. The results are ASCII-sorted by log group name.",
         "responses": {
           "200": {
             "description": "Success",
@@ -1093,7 +1093,7 @@
     "/#DescribeLogStreams": {
       "post": {
         "operationId": "DescribeLogStreams",
-        "description": "<p>Returns all the log streams that are associated with the specified log group. The list returned in the response is ASCII-sorted by log stream name.</p> <p>By default, this operation returns up to 50 log streams. If there are more log streams to list, the response would contain a <code>nextToken</code> value in the response body. You can also limit the number of log streams returned in the response by specifying the <code>limit</code> parameter in the request. This operation has a limit of five transactions per second, after which transactions are throttled.</p>",
+        "description": "<p>Lists the log streams for the specified log group. You can list all the log streams or filter the results by prefix. You can also control how the results are ordered.</p> <p>This operation has a limit of five transactions per second, after which transactions are throttled.</p>",
         "responses": {
           "200": {
             "description": "Success",
@@ -1178,7 +1178,7 @@
     "/#DescribeMetricFilters": {
       "post": {
         "operationId": "DescribeMetricFilters",
-        "description": "<p>Returns all the metrics filters associated with the specified log group. The list returned in the response is ASCII-sorted by filter name.</p> <p>By default, this operation returns up to 50 metric filters. If there are more metric filters to list, the response would contain a <code>nextToken</code> value in the response body. You can also limit the number of metric filters returned in the response by specifying the <code>limit</code> parameter in the request.</p>",
+        "description": "Lists the specified metric filters. You can list all the metric filters or filter the results by log name, prefix, metric name, or metric namespace. The results are ASCII-sorted by filter name.",
         "responses": {
           "200": {
             "description": "Success",
@@ -1263,7 +1263,7 @@
     "/#DescribeSubscriptionFilters": {
       "post": {
         "operationId": "DescribeSubscriptionFilters",
-        "description": "<p>Returns all the subscription filters associated with the specified log group. The list returned in the response is ASCII-sorted by filter name.</p> <p>By default, this operation returns up to 50 subscription filters. If there are more subscription filters to list, the response would contain a <code>nextToken</code> value in the response body. You can also limit the number of subscription filters returned in the response by specifying the <code>limit</code> parameter in the request.</p>",
+        "description": "Lists the subscription filters for the specified log group. You can list all the subscription filters or filter the results by prefix. The results are ASCII-sorted by filter name.",
         "responses": {
           "200": {
             "description": "Success",
@@ -1348,7 +1348,7 @@
     "/#FilterLogEvents": {
       "post": {
         "operationId": "FilterLogEvents",
-        "description": "<p>Retrieves log events, optionally filtered by a filter pattern from the specified log group. You can provide an optional time range to filter the results on the event <code>timestamp</code>. You can limit the streams searched to an explicit list of <code>logStreamNames</code>.</p> <p>By default, this operation returns as much matching log events as can fit in a response size of 1MB, up to 10,000 log events, or all the events found within a time-bounded scan window. If the response includes a <code>nextToken</code>, then there is more data to search, and the search can be resumed with a new request providing the nextToken. The response will contain a list of <code>searchedLogStreams</code> that contains information about which streams were searched in the request and whether they have been searched completely or require further pagination. The <code>limit</code> parameter in the request can be used to specify the maximum number of events to return in a page.</p>",
+        "description": "<p>Lists log events from the specified log group. You can list all the log events or filter the results using a filter pattern, a time range, and the name of the log stream.</p> <p>By default, this operation returns as many log events as can fit in 1MB (up to 10,000 log events), or all the events found within the time range that you specify. If the results include a token, then there are more log events available, and you can get additional results by specifying the token in a subsequent call.</p>",
         "responses": {
           "200": {
             "description": "Success",
@@ -1433,7 +1433,7 @@
     "/#GetLogEvents": {
       "post": {
         "operationId": "GetLogEvents",
-        "description": "<p>Retrieves log events from the specified log stream. You can provide an optional time range to filter the results on the event <code>timestamp</code>.</p> <p>By default, this operation returns as much log events as can fit in a response size of 1MB, up to 10,000 log events. The response will always include a <code>nextForwardToken</code> and a <code>nextBackwardToken</code> in the response body. You can use any of these tokens in subsequent <code>GetLogEvents</code> requests to paginate through events in either forward or backward direction. You can also limit the number of log events returned in the response by specifying the <code>limit</code> parameter in the request.</p>",
+        "description": "<p>Lists log events from the specified log stream. You can list all the log events or filter using a time range.</p> <p>By default, this operation returns as many log events as can fit in a response size of 1MB (up to 10,000 log events). If the results include tokens, there are more log events available. You can get additional log events by specifying one of the tokens in a subsequent call.</p>",
         "responses": {
           "200": {
             "description": "Success",
@@ -1518,7 +1518,7 @@
     "/#PutDestination": {
       "post": {
         "operationId": "PutDestination",
-        "description": "<p>Creates or updates a <code>Destination</code>. A destination encapsulates a physical resource (such as a Kinesis stream) and allows you to subscribe to a real-time stream of log events of a different account, ingested through <code>PutLogEvents</code> requests. Currently, the only supported physical resource is a Amazon Kinesis stream belonging to the same account as the destination.</p> <p>A destination controls what is written to its Amazon Kinesis stream through an access policy. By default, PutDestination does not set any access policy with the destination, which means a cross-account user will not be able to call <code>PutSubscriptionFilter</code> against this destination. To enable that, the destination owner must call <code>PutDestinationPolicy</code> after PutDestination.</p>",
+        "description": "<p>Creates or updates a destination. A destination encapsulates a physical resource (such as a Kinesis stream) and enables you to subscribe to a real-time stream of log events of a different account, ingested using <a>PutLogEvents</a>. Currently, the only supported physical resource is a Amazon Kinesis stream belonging to the same account as the destination.</p> <p>A destination controls what is written to its Amazon Kinesis stream through an access policy. By default, <code>PutDestination</code> does not set any access policy with the destination, which means a cross-account user cannot call <a>PutSubscriptionFilter</a> against this destination. To enable this, the destination owner must call <a>PutDestinationPolicy</a> after <code>PutDestination</code>.</p>",
         "responses": {
           "200": {
             "description": "Success",
@@ -1589,7 +1589,7 @@
     "/#PutDestinationPolicy": {
       "post": {
         "operationId": "PutDestinationPolicy",
-        "description": "Creates or updates an access policy associated with an existing <code>Destination</code>. An access policy is an <a href=\"http://docs.aws.amazon.com/IAM/latest/UserGuide/policies_overview.html\">IAM policy document</a> that is used to authorize claims to register a subscription filter against a given destination.",
+        "description": "Creates or updates an access policy associated with an existing destination. An access policy is an <a href=\"http://docs.aws.amazon.com/IAM/latest/UserGuide/policies_overview.html\">IAM policy document</a> that is used to authorize claims to register a subscription filter against a given destination.",
         "responses": {
           "200": {
             "description": "Success"
@@ -1657,7 +1657,7 @@
     "/#PutLogEvents": {
       "post": {
         "operationId": "PutLogEvents",
-        "description": "<p>Uploads a batch of log events to the specified log stream.</p> <p>Every PutLogEvents request must include the <code>sequenceToken</code> obtained from the response of the previous request. An upload in a newly created log stream does not require a <code>sequenceToken</code>. You can also get the <code>sequenceToken</code> using <a>DescribeLogStreams</a>.</p> <p>The batch of events must satisfy the following constraints:</p> <ul> <li> <p>The maximum batch size is 1,048,576 bytes, and this size is calculated as the sum of all event messages in UTF-8, plus 26 bytes for each log event.</p> </li> <li> <p>None of the log events in the batch can be more than 2 hours in the future.</p> </li> <li> <p>None of the log events in the batch can be older than 14 days or the retention period of the log group.</p> </li> <li> <p>The log events in the batch must be in chronological ordered by their <code>timestamp</code>.</p> </li> <li> <p>The maximum number of log events in a batch is 10,000.</p> </li> <li> <p>A batch of log events in a single PutLogEvents request cannot span more than 24 hours. Otherwise, the PutLogEvents operation will fail.</p> </li> </ul>",
+        "description": "<p>Uploads a batch of log events to the specified log stream.</p> <p>You must include the sequence token obtained from the response of the previous call. An upload in a newly created log stream does not require a sequence token. You can also get the sequence token using <a>DescribeLogStreams</a>.</p> <p>The batch of events must satisfy the following constraints:</p> <ul> <li> <p>The maximum batch size is 1,048,576 bytes, and this size is calculated as the sum of all event messages in UTF-8, plus 26 bytes for each log event.</p> </li> <li> <p>None of the log events in the batch can be more than 2 hours in the future.</p> </li> <li> <p>None of the log events in the batch can be older than 14 days or the retention period of the log group.</p> </li> <li> <p>The log events in the batch must be in chronological ordered by their timestamp.</p> </li> <li> <p>The maximum number of log events in a batch is 10,000.</p> </li> <li> <p>A batch of log events in a single PutLogEvents request cannot span more than 24 hours. Otherwise, the PutLogEvents operation will fail.</p> </li> </ul>",
         "responses": {
           "200": {
             "description": "Success",
@@ -1740,7 +1740,7 @@
     "/#PutMetricFilter": {
       "post": {
         "operationId": "PutMetricFilter",
-        "description": "<p>Creates or updates a metric filter and associates it with the specified log group. Metric filters allow you to configure rules to extract metric data from log events ingested through <code>PutLogEvents</code> requests.</p> <p>The maximum number of metric filters that can be associated with a log group is 100.</p>",
+        "description": "<p>Creates or updates a metric filter and associates it with the specified log group. Metric filters allow you to configure rules to extract metric data from log events ingested through <a>PutLogEvents</a>.</p> <p>The maximum number of metric filters that can be associated with a log group is 100.</p>",
         "responses": {
           "200": {
             "description": "Success"
@@ -1894,7 +1894,7 @@
     "/#PutSubscriptionFilter": {
       "post": {
         "operationId": "PutSubscriptionFilter",
-        "description": "<p>Creates or updates a subscription filter and associates it with the specified log group. Subscription filters allow you to subscribe to a real-time stream of log events ingested through <code>PutLogEvents</code> requests and have them delivered to a specific destination. Currently, the supported destinations are:</p> <ul> <li> <p>An Amazon Kinesis stream belonging to the same account as the subscription filter, for same-account delivery.</p> </li> <li> <p> A logical destination (used via an ARN of <code>Destination</code>) belonging to a different account, for cross-account delivery.</p> </li> <li> <p>An Amazon Kinesis Firehose stream belonging to the same account as the subscription filter, for same-account delivery.</p> </li> <li> <p>An AWS Lambda function belonging to the same account as the subscription filter, for same-account delivery.</p> </li> </ul> <p>Currently there can only be one subscription filter associated with a log group.</p>",
+        "description": "<p>Creates or updates a subscription filter and associates it with the specified log group. Subscription filters allow you to subscribe to a real-time stream of log events ingested through <a>PutLogEvents</a> and have them delivered to a specific destination. Currently, the supported destinations are:</p> <ul> <li> <p>An Amazon Kinesis stream belonging to the same account as the subscription filter, for same-account delivery.</p> </li> <li> <p>A logical destination that belongs to a different account, for cross-account delivery.</p> </li> <li> <p>An Amazon Kinesis Firehose stream that belongs to the same account as the subscription filter, for same-account delivery.</p> </li> <li> <p>An AWS Lambda function that belongs to the same account as the subscription filter, for same-account delivery.</p> </li> </ul> <p>There can only be one subscription filter associated with a log group.</p>",
         "responses": {
           "200": {
             "description": "Success"
@@ -2053,7 +2053,7 @@
       "properties": {
         "taskId": {
           "$ref": "#/definitions/ExportTaskId",
-          "description": "Id of the export task to cancel."
+          "description": "The ID of the export task."
         }
       }
     },
@@ -2072,27 +2072,27 @@
         },
         "logGroupName": {
           "$ref": "#/definitions/LogGroupName",
-          "description": "The name of the log group to export."
+          "description": "The name of the log group."
         },
         "logStreamNamePrefix": {
           "$ref": "#/definitions/LogStreamName",
-          "description": "Will only export log streams that match the provided logStreamNamePrefix. If you don't specify a value, no prefix filter is applied."
+          "description": "Export only log streams that match the provided prefix. If you don't specify a value, no prefix filter is applied."
         },
         "from": {
           "$ref": "#/definitions/Timestamp",
-          "description": "A point in time expressed as the number of milliseconds since Jan 1, 1970 00:00:00 UTC. It indicates the start time of the range for the request. Events with a timestamp prior to this time will not be exported."
+          "description": "The start time of the range for the request, expressed as the number of milliseconds since Jan 1, 1970 00:00:00 UTC. Events with a timestamp earlier than this time are not exported."
         },
         "to": {
           "$ref": "#/definitions/Timestamp",
-          "description": "A point in time expressed as the number of milliseconds since Jan 1, 1970 00:00:00 UTC. It indicates the end time of the range for the request. Events with a timestamp later than this time will not be exported."
+          "description": "The end time of the range for the request, expressed as the number of milliseconds since Jan 1, 1970 00:00:00 UTC. Events with a timestamp later than this time are not exported."
         },
         "destination": {
           "$ref": "#/definitions/ExportDestinationBucket",
-          "description": "<p>Name of Amazon S3 bucket to which the log data will be exported.</p> <p> <b>Note:</b> Only buckets in the same AWS region are supported.</p>"
+          "description": "The name of S3 bucket for the exported log data. The bucket must be in the same AWS region."
         },
         "destinationPrefix": {
           "$ref": "#/definitions/ExportDestinationPrefix",
-          "description": "Prefix that will be used as the start of Amazon S3 key for every object exported. If not specified, this defaults to 'exportedlogs'."
+          "description": "The prefix used as the start of the key for every object exported. If you don't specify a value, the default is <code>exportedlogs</code>."
         }
       }
     },
@@ -2101,7 +2101,7 @@
       "properties": {
         "taskId": {
           "$ref": "#/definitions/ExportTaskId",
-          "description": "Id of the export task that got created."
+          "description": "The ID of the export task."
         }
       }
     },
@@ -2113,7 +2113,7 @@
       "properties": {
         "logGroupName": {
           "$ref": "#/definitions/LogGroupName",
-          "description": "The name of the log group to create."
+          "description": "The name of the log group."
         }
       }
     },
@@ -2126,11 +2126,11 @@
       "properties": {
         "logGroupName": {
           "$ref": "#/definitions/LogGroupName",
-          "description": "The name of the log group under which the log stream is to be created."
+          "description": "The name of the log group."
         },
         "logStreamName": {
           "$ref": "#/definitions/LogStreamName",
-          "description": "The name of the log stream to create."
+          "description": "The name of the log stream."
         }
       }
     },
@@ -2140,11 +2140,12 @@
         "expectedSequenceToken": {
           "$ref": "#/definitions/SequenceToken"
         }
-      }
+      },
+      "description": "The event was already logged."
     },
     "Days": {
       "type": "integer",
-      "description": "Specifies the number of days you want to retain log events in the specified log group. Possible values are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1827, 3653."
+      "description": "The number of days to retain the log events in the specified log group. Possible values are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1827, and 3653."
     },
     "DefaultValue": {
       "type": "number",
@@ -2158,7 +2159,7 @@
       "properties": {
         "destinationName": {
           "$ref": "#/definitions/DestinationName",
-          "description": "The name of destination to delete."
+          "description": "The name of the destination."
         }
       }
     },
@@ -2170,7 +2171,7 @@
       "properties": {
         "logGroupName": {
           "$ref": "#/definitions/LogGroupName",
-          "description": "The name of the log group to delete."
+          "description": "The name of the log group."
         }
       }
     },
@@ -2183,11 +2184,11 @@
       "properties": {
         "logGroupName": {
           "$ref": "#/definitions/LogGroupName",
-          "description": "The name of the log group under which the log stream to delete belongs."
+          "description": "The name of the log group."
         },
         "logStreamName": {
           "$ref": "#/definitions/LogStreamName",
-          "description": "The name of the log stream to delete."
+          "description": "The name of the log stream."
         }
       }
     },
@@ -2200,11 +2201,11 @@
       "properties": {
         "logGroupName": {
           "$ref": "#/definitions/LogGroupName",
-          "description": "The name of the log group that is associated with the metric filter to delete."
+          "description": "The name of the log group."
         },
         "filterName": {
           "$ref": "#/definitions/FilterName",
-          "description": "The name of the metric filter to delete."
+          "description": "The name of the metric filter."
         }
       }
     },
@@ -2216,7 +2217,7 @@
       "properties": {
         "logGroupName": {
           "$ref": "#/definitions/LogGroupName",
-          "description": "The name of the log group that is associated with the retention policy to delete."
+          "description": "The name of the log group."
         }
       }
     },
@@ -2229,11 +2230,11 @@
       "properties": {
         "logGroupName": {
           "$ref": "#/definitions/LogGroupName",
-          "description": "The name of the log group that is associated with the subscription filter to delete."
+          "description": "The name of the log group."
         },
         "filterName": {
           "$ref": "#/definitions/FilterName",
-          "description": "The name of the subscription filter to delete."
+          "description": "The name of the subscription filter."
         }
       }
     },
@@ -2245,13 +2246,15 @@
       "properties": {
         "DestinationNamePrefix": {
           "$ref": "#/definitions/DestinationName",
-          "description": "Will only return destinations that match the provided destinationNamePrefix. If you don't specify a value, no prefix is applied."
+          "description": "The prefix to match. If you don't specify a value, no prefix filter is applied."
         },
         "nextToken": {
-          "$ref": "#/definitions/NextToken"
+          "$ref": "#/definitions/NextToken",
+          "description": "The token for the next set of items to return. (You received this token from a previous call.)"
         },
         "limit": {
-          "$ref": "#/definitions/DescribeLimit"
+          "$ref": "#/definitions/DescribeLimit",
+          "description": "The maximum number of items returned. If you don't specify a value, the default is up to 50 items."
         }
       }
     },
@@ -2259,7 +2262,8 @@
       "type": "object",
       "properties": {
         "destinations": {
-          "$ref": "#/definitions/Destinations"
+          "$ref": "#/definitions/Destinations",
+          "description": "The destinations."
         },
         "nextToken": {
           "$ref": "#/definitions/NextToken"
@@ -2271,19 +2275,19 @@
       "properties": {
         "taskId": {
           "$ref": "#/definitions/ExportTaskId",
-          "description": "Export task that matches the specified task Id will be returned. This can result in zero or one export task."
+          "description": "The ID of the export task. Specifying a task ID filters the results to zero or one export tasks."
         },
         "statusCode": {
           "$ref": "#/definitions/ExportTaskStatusCode",
-          "description": "All export tasks that matches the specified status code will be returned. This can return zero or more export tasks."
+          "description": "The status code of the export task. Specifying a status code filters the results to zero or more export tasks."
         },
         "nextToken": {
           "$ref": "#/definitions/NextToken",
-          "description": "A string token used for pagination that points to the next page of results. It must be a value obtained from the response of the previous <code>DescribeExportTasks</code> request."
+          "description": "The token for the next set of items to return. (You received this token from a previous call.)"
         },
         "limit": {
           "$ref": "#/definitions/DescribeLimit",
-          "description": "The maximum number of items returned in the response. If you don't specify a value, the request would return up to 50 items."
+          "description": "The maximum number of items returned. If you don't specify a value, the default is up to 50 items."
         }
       }
     },
@@ -2291,7 +2295,8 @@
       "type": "object",
       "properties": {
         "exportTasks": {
-          "$ref": "#/definitions/ExportTasks"
+          "$ref": "#/definitions/ExportTasks",
+          "description": "The export tasks."
         },
         "nextToken": {
           "$ref": "#/definitions/NextToken"
@@ -2300,7 +2305,6 @@
     },
     "DescribeLimit": {
       "type": "integer",
-      "description": "The maximum number of results to return.",
       "minimum": 1,
       "maximum": 50
     },
@@ -2309,15 +2313,15 @@
       "properties": {
         "logGroupNamePrefix": {
           "$ref": "#/definitions/LogGroupName",
-          "description": "Will only return log groups that match the provided logGroupNamePrefix. If you don't specify a value, no prefix filter is applied."
+          "description": "The prefix to match."
         },
         "nextToken": {
           "$ref": "#/definitions/NextToken",
-          "description": "A string token used for pagination that points to the next page of results. It must be a value obtained from the response of the previous <code>DescribeLogGroups</code> request."
+          "description": "The token for the next set of items to return. (You received this token from a previous call.)"
         },
         "limit": {
           "$ref": "#/definitions/DescribeLimit",
-          "description": "The maximum number of items returned in the response. If you don't specify a value, the request would return up to 50 items."
+          "description": "The maximum number of items returned. If you don't specify a value, the default is up to 50 items."
         }
       }
     },
@@ -2325,7 +2329,8 @@
       "type": "object",
       "properties": {
         "logGroups": {
-          "$ref": "#/definitions/LogGroups"
+          "$ref": "#/definitions/LogGroups",
+          "description": "The log groups."
         },
         "nextToken": {
           "$ref": "#/definitions/NextToken"
@@ -2340,27 +2345,27 @@
       "properties": {
         "logGroupName": {
           "$ref": "#/definitions/LogGroupName",
-          "description": "The log group name for which log streams are to be listed."
+          "description": "The name of the log group."
         },
         "logStreamNamePrefix": {
           "$ref": "#/definitions/LogStreamName",
-          "description": "Will only return log streams that match the provided logStreamNamePrefix. If you don't specify a value, no prefix filter is applied."
+          "description": "<p>The prefix to match.</p> <p>You cannot specify this parameter if <code>orderBy</code> is <code>LastEventTime</code>.</p>"
         },
         "orderBy": {
           "$ref": "#/definitions/OrderBy",
-          "description": "Specifies what to order the returned log streams by. Valid arguments are 'LogStreamName' or 'LastEventTime'. If you don't specify a value, results are ordered by LogStreamName. If 'LastEventTime' is chosen, the request cannot also contain a logStreamNamePrefix."
+          "description": "<p>If the value is <code>LogStreamName</code>, the results are ordered by log stream name. If the value is <code>LastEventTime</code>, the results are ordered by the event time. The default value is <code>LogStreamName</code>.</p> <p>If you order the results by event time, you cannot specify the <code>logStreamNamePrefix</code> parameter.</p>"
         },
         "descending": {
           "$ref": "#/definitions/Descending",
-          "description": "If set to true, results are returned in descending order. If you don't specify a value or set it to false, results are returned in ascending order."
+          "description": "If the value is true, results are returned in descending order. If the value is to false, results are returned in ascending order. The default value is false."
         },
         "nextToken": {
           "$ref": "#/definitions/NextToken",
-          "description": "A string token used for pagination that points to the next page of results. It must be a value obtained from the response of the previous <code>DescribeLogStreams</code> request."
+          "description": "The token for the next set of items to return. (You received this token from a previous call.)"
         },
         "limit": {
           "$ref": "#/definitions/DescribeLimit",
-          "description": "The maximum number of items returned in the response. If you don't specify a value, the request would return up to 50 items."
+          "description": "The maximum number of items returned. If you don't specify a value, the default is up to 50 items."
         }
       }
     },
@@ -2368,7 +2373,8 @@
       "type": "object",
       "properties": {
         "logStreams": {
-          "$ref": "#/definitions/LogStreams"
+          "$ref": "#/definitions/LogStreams",
+          "description": "The log streams."
         },
         "nextToken": {
           "$ref": "#/definitions/NextToken"
@@ -2377,25 +2383,30 @@
     },
     "DescribeMetricFiltersRequest": {
       "type": "object",
-      "required": [
-        "logGroupName"
-      ],
       "properties": {
         "logGroupName": {
           "$ref": "#/definitions/LogGroupName",
-          "description": "The log group name for which metric filters are to be listed."
+          "description": "The name of the log group."
         },
         "filterNamePrefix": {
           "$ref": "#/definitions/FilterName",
-          "description": "Will only return metric filters that match the provided filterNamePrefix. If you don't specify a value, no prefix filter is applied."
+          "description": "The prefix to match."
         },
         "nextToken": {
           "$ref": "#/definitions/NextToken",
-          "description": "A string token used for pagination that points to the next page of results. It must be a value obtained from the response of the previous <code>DescribeMetricFilters</code> request."
+          "description": "The token for the next set of items to return. (You received this token from a previous call.)"
         },
         "limit": {
           "$ref": "#/definitions/DescribeLimit",
-          "description": "The maximum number of items returned in the response. If you don't specify a value, the request would return up to 50 items."
+          "description": "The maximum number of items returned. If you don't specify a value, the default is up to 50 items."
+        },
+        "metricName": {
+          "$ref": "#/definitions/MetricName",
+          "description": "The name of the CloudWatch metric."
+        },
+        "metricNamespace": {
+          "$ref": "#/definitions/MetricNamespace",
+          "description": "The namespace of the CloudWatch metric."
         }
       }
     },
@@ -2403,7 +2414,8 @@
       "type": "object",
       "properties": {
         "metricFilters": {
-          "$ref": "#/definitions/MetricFilters"
+          "$ref": "#/definitions/MetricFilters",
+          "description": "The metric filters."
         },
         "nextToken": {
           "$ref": "#/definitions/NextToken"
@@ -2418,17 +2430,19 @@
       "properties": {
         "logGroupName": {
           "$ref": "#/definitions/LogGroupName",
-          "description": "The log group name for which subscription filters are to be listed."
+          "description": "The name of the log group."
         },
         "filterNamePrefix": {
           "$ref": "#/definitions/FilterName",
-          "description": "Will only return subscription filters that match the provided filterNamePrefix. If you don't specify a value, no prefix filter is applied."
+          "description": "The prefix to match. If you don't specify a value, no prefix filter is applied."
         },
         "nextToken": {
-          "$ref": "#/definitions/NextToken"
+          "$ref": "#/definitions/NextToken",
+          "description": "The token for the next set of items to return. (You received this token from a previous call.)"
         },
         "limit": {
-          "$ref": "#/definitions/DescribeLimit"
+          "$ref": "#/definitions/DescribeLimit",
+          "description": "The maximum number of items returned. If you don't specify a value, the default is up to 50 items."
         }
       }
     },
@@ -2436,7 +2450,8 @@
       "type": "object",
       "properties": {
         "subscriptionFilters": {
-          "$ref": "#/definitions/SubscriptionFilters"
+          "$ref": "#/definitions/SubscriptionFilters",
+          "description": "The subscription filters."
         },
         "nextToken": {
           "$ref": "#/definitions/NextToken"
@@ -2448,15 +2463,15 @@
       "properties": {
         "destinationName": {
           "$ref": "#/definitions/DestinationName",
-          "description": "Name of the destination."
+          "description": "The name of the destination."
         },
         "targetArn": {
           "$ref": "#/definitions/TargetArn",
-          "description": "ARN of the physical target where the log events will be delivered (eg. ARN of a Kinesis stream)."
+          "description": "The Amazon Resource Name (ARN) of the physical target where the log events will be delivered (for example, a Kinesis stream)."
         },
         "roleArn": {
           "$ref": "#/definitions/RoleArn",
-          "description": "A role for impersonation for delivering log events to the target."
+          "description": "A role for impersonation, used when delivering log events to the target."
         },
         "accessPolicy": {
           "$ref": "#/definitions/AccessPolicy",
@@ -2464,14 +2479,14 @@
         },
         "arn": {
           "$ref": "#/definitions/Arn",
-          "description": "ARN of this destination."
+          "description": "The ARN of this destination."
         },
         "creationTime": {
           "$ref": "#/definitions/Timestamp",
-          "description": "A point in time expressed as the number of milliseconds since Jan 1, 1970 00:00:00 UTC specifying when this destination was created."
+          "description": "The creation time of the destination."
         }
       },
-      "description": "A cross account destination that is the recipient of subscription log events."
+      "description": "Represents a cross-account destination that receives subscription log events."
     },
     "DestinationArn": {
       "type": "string",
@@ -2501,7 +2516,6 @@
     },
     "EventsLimit": {
       "type": "integer",
-      "description": "The maximum number of events to return.",
       "minimum": 1,
       "maximum": 10000
     },
@@ -2518,7 +2532,7 @@
       "properties": {
         "taskId": {
           "$ref": "#/definitions/ExportTaskId",
-          "description": "Id of the export task."
+          "description": "The ID of the export task."
         },
         "taskName": {
           "$ref": "#/definitions/ExportTaskName",
@@ -2530,23 +2544,23 @@
         },
         "from": {
           "$ref": "#/definitions/Timestamp",
-          "description": "A point in time expressed as the number of milliseconds since Jan 1, 1970 00:00:00 UTC. Events with a timestamp prior to this time are not exported."
+          "description": "The start time. Events with a timestamp prior to this time are not exported."
         },
         "to": {
           "$ref": "#/definitions/Timestamp",
-          "description": "A point in time expressed as the number of milliseconds since Jan 1, 1970 00:00:00 UTC. Events with a timestamp later than this time are not exported."
+          "description": "The end time. Events with a timestamp later than this time are not exported."
         },
         "destination": {
           "$ref": "#/definitions/ExportDestinationBucket",
-          "description": "Name of Amazon S3 bucket to which the log data was exported."
+          "description": "The name of Amazon S3 bucket to which the log data was exported."
         },
         "destinationPrefix": {
           "$ref": "#/definitions/ExportDestinationPrefix",
-          "description": "Prefix that was used as the start of Amazon S3 key for every object exported."
+          "description": "The prefix that was used as the start of Amazon S3 key for every object exported."
         },
         "status": {
           "$ref": "#/definitions/ExportTaskStatus",
-          "description": "Status of the export task."
+          "description": "The status of the export task."
         },
         "executionInfo": {
           "$ref": "#/definitions/ExportTaskExecutionInfo",
@@ -2560,11 +2574,11 @@
       "properties": {
         "creationTime": {
           "$ref": "#/definitions/Timestamp",
-          "description": "A point in time when the export task got created."
+          "description": "The creation time of the export task."
         },
         "completionTime": {
           "$ref": "#/definitions/Timestamp",
-          "description": "A point in time when the export task got completed."
+          "description": "The completion time of the export task."
         }
       },
       "description": "Represents the status of an export task."
@@ -2584,11 +2598,11 @@
       "properties": {
         "code": {
           "$ref": "#/definitions/ExportTaskStatusCode",
-          "description": "Status code of the export task."
+          "description": "The status code of the export task."
         },
         "message": {
           "$ref": "#/definitions/ExportTaskStatusMessage",
-          "description": "Status message related to the <code>code</code>."
+          "description": "The status message related to the status code."
         }
       },
       "description": "Represents the status of an export task."
@@ -2609,7 +2623,6 @@
     },
     "ExportTasks": {
       "type": "array",
-      "description": "A list of export tasks.",
       "items": {
         "$ref": "#/definitions/ExportTask"
       }
@@ -2629,8 +2642,7 @@
       }
     },
     "FilterCount": {
-      "type": "integer",
-      "description": "The number of metric filters associated with the log group."
+      "type": "integer"
     },
     "FilterLogEventsRequest": {
       "type": "object",
@@ -2640,35 +2652,35 @@
       "properties": {
         "logGroupName": {
           "$ref": "#/definitions/LogGroupName",
-          "description": "The name of the log group to query."
+          "description": "The name of the log group."
         },
         "logStreamNames": {
           "$ref": "#/definitions/InputLogStreamNames",
-          "description": "Optional list of log stream names within the specified log group to search. Defaults to all the log streams in the log group."
+          "description": "Optional list of log stream names."
         },
         "startTime": {
           "$ref": "#/definitions/Timestamp",
-          "description": "A point in time expressed as the number of milliseconds since Jan 1, 1970 00:00:00 UTC. If provided, events with a timestamp prior to this time are not returned."
+          "description": "The start of the time range. Events with a timestamp prior to this time are not returned."
         },
         "endTime": {
           "$ref": "#/definitions/Timestamp",
-          "description": "A point in time expressed as the number of milliseconds since Jan 1, 1970 00:00:00 UTC. If provided, events with a timestamp later than this time are not returned."
+          "description": "The end of the time range. Events with a timestamp later than this time are not returned."
         },
         "filterPattern": {
           "$ref": "#/definitions/FilterPattern",
-          "description": "A valid CloudWatch Logs filter pattern to use for filtering the response. If not provided, all the events are matched."
+          "description": "The filter pattern to use. If not provided, all the events are matched."
         },
         "nextToken": {
           "$ref": "#/definitions/NextToken",
-          "description": "A pagination token obtained from a <code>FilterLogEvents</code> response to continue paginating the FilterLogEvents results. This token is omitted from the response when there are no other events to display."
+          "description": "The token for the next set of events to return. (You received this token from a previous call.)"
         },
         "limit": {
           "$ref": "#/definitions/EventsLimit",
-          "description": "The maximum number of events to return in a page of results. Default is 10,000 events."
+          "description": "The maximum number of events to return. The default is 10,000 events."
         },
         "interleaved": {
           "$ref": "#/definitions/Interleaved",
-          "description": "If provided, the API will make a best effort to provide responses that contain events from multiple log streams within the log group interleaved in a single response. If not provided, all the matched log events in the first log stream will be searched first, then those in the next log stream, etc."
+          "description": "If the value is true, the operation makes a best effort to provide responses that contain events from multiple log streams within the log group interleaved in a single response. If the value is false all the matched log events in the first log stream are searched first, then those in the next log stream, and so on. The default is false."
         }
       }
     },
@@ -2677,22 +2689,21 @@
       "properties": {
         "events": {
           "$ref": "#/definitions/FilteredLogEvents",
-          "description": "A list of <code>FilteredLogEvent</code> objects representing the matched events from the request."
+          "description": "The matched events."
         },
         "searchedLogStreams": {
           "$ref": "#/definitions/SearchedLogStreams",
-          "description": "A list of <code>SearchedLogStream</code> objects indicating which log streams have been searched in this request and whether each has been searched completely or still has more to be paginated."
+          "description": "Indicates which log streams have been searched and whether each has been searched completely."
         },
         "nextToken": {
           "$ref": "#/definitions/NextToken",
-          "description": "A pagination token obtained from a <code>FilterLogEvents</code> response to continue paginating the FilterLogEvents results. This token is omitted from the response when there are no other events to display."
+          "description": "The token to use when requesting the next set of items. The token expires after 24 hours."
         }
       }
     },
     "FilterName": {
       "type": "string",
       "pattern": "[^:*]*",
-      "description": "A name for a metric or subscription filter.",
       "minLength": 1,
       "maxLength": 512
     },
@@ -2710,25 +2721,26 @@
           "description": "The name of the log stream this event belongs to."
         },
         "timestamp": {
-          "$ref": "#/definitions/Timestamp"
+          "$ref": "#/definitions/Timestamp",
+          "description": "The time the event occurred."
         },
         "message": {
           "$ref": "#/definitions/EventMessage",
           "description": "The data contained in the log event."
         },
         "ingestionTime": {
-          "$ref": "#/definitions/Timestamp"
+          "$ref": "#/definitions/Timestamp",
+          "description": "The time the event was ingested."
         },
         "eventId": {
           "$ref": "#/definitions/EventId",
-          "description": "A unique identifier for this event."
+          "description": "The ID of the event."
         }
       },
-      "description": "Represents a matched event from a <code>FilterLogEvents</code> request."
+      "description": "Represents a matched event."
     },
     "FilteredLogEvents": {
       "type": "array",
-      "description": "A list of matched <code>FilteredLogEvent</code> objects returned from a <code>FilterLogEvents</code> request.",
       "items": {
         "$ref": "#/definitions/FilteredLogEvent"
       }
@@ -2742,29 +2754,31 @@
       "properties": {
         "logGroupName": {
           "$ref": "#/definitions/LogGroupName",
-          "description": "The name of the log group to query."
+          "description": "The name of the log group."
         },
         "logStreamName": {
           "$ref": "#/definitions/LogStreamName",
-          "description": "The name of the log stream to query."
+          "description": "The name of the log stream."
         },
         "startTime": {
-          "$ref": "#/definitions/Timestamp"
+          "$ref": "#/definitions/Timestamp",
+          "description": "The start of the time range. Events with a timestamp earlier than this time are not included."
         },
         "endTime": {
-          "$ref": "#/definitions/Timestamp"
+          "$ref": "#/definitions/Timestamp",
+          "description": "The end of the time range. Events with a timestamp later than this time are not included."
         },
         "nextToken": {
           "$ref": "#/definitions/NextToken",
-          "description": "A string token used for pagination that points to the next page of results. It must be a value obtained from the <code>nextForwardToken</code> or <code>nextBackwardToken</code> fields in the response of the previous <code>GetLogEvents</code> request."
+          "description": "The token for the next set of items to return. (You received this token from a previous call.)"
         },
         "limit": {
           "$ref": "#/definitions/EventsLimit",
-          "description": "The maximum number of log events returned in the response. If you don't specify a value, the request would return as many log events as can fit in a response size of 1MB, up to 10,000 log events."
+          "description": "The maximum number of log events returned. If you don't specify a value, the maximum is as many log events as can fit in a response size of 1MB, up to 10,000 log events."
         },
         "startFromHead": {
           "$ref": "#/definitions/StartFromHead",
-          "description": "If set to true, the earliest log events would be returned first. The default is false (the latest log events are returned first)."
+          "description": "If the value is true, the earliest log events are returned first. If the value is false, the latest log events are returned first. The default value is false."
         }
       }
     },
@@ -2772,13 +2786,16 @@
       "type": "object",
       "properties": {
         "events": {
-          "$ref": "#/definitions/OutputLogEvents"
+          "$ref": "#/definitions/OutputLogEvents",
+          "description": "The events."
         },
         "nextForwardToken": {
-          "$ref": "#/definitions/NextToken"
+          "$ref": "#/definitions/NextToken",
+          "description": "The token for the next set of items in the forward direction. The token expires after 24 hours."
         },
         "nextBackwardToken": {
-          "$ref": "#/definitions/NextToken"
+          "$ref": "#/definitions/NextToken",
+          "description": "The token for the next set of items in the backward direction. The token expires after 24 hours."
         }
       }
     },
@@ -2790,17 +2807,18 @@
       ],
       "properties": {
         "timestamp": {
-          "$ref": "#/definitions/Timestamp"
+          "$ref": "#/definitions/Timestamp",
+          "description": "The time the event occurred."
         },
         "message": {
-          "$ref": "#/definitions/EventMessage"
+          "$ref": "#/definitions/EventMessage",
+          "description": "The raw event message."
         }
       },
-      "description": "A log event is a record of some activity that was recorded by the application or resource being monitored. The log event record that CloudWatch Logs understands contains two properties: the timestamp of when the event occurred, and the raw event message."
+      "description": "Represents a log event, which is a record of activity that was recorded by the application or resource being monitored."
     },
     "InputLogEvents": {
       "type": "array",
-      "description": "A list of log events belonging to a log stream.",
       "items": {
         "$ref": "#/definitions/InputLogEvent"
       },
@@ -2809,7 +2827,6 @@
     },
     "InputLogStreamNames": {
       "type": "array",
-      "description": "A list of log stream names.",
       "items": {
         "$ref": "#/definitions/LogStreamName"
       },
@@ -2822,12 +2839,12 @@
     "InvalidOperationException": {
       "type": "object",
       "properties": {},
-      "description": "Returned if the operation is not valid on the specified resource"
+      "description": "The operation is not valid on the specified resource."
     },
     "InvalidParameterException": {
       "type": "object",
       "properties": {},
-      "description": "Returned if a parameter of the request is incorrectly specified."
+      "description": "A parameter is specified incorrectly."
     },
     "InvalidSequenceTokenException": {
       "type": "object",
@@ -2835,12 +2852,13 @@
         "expectedSequenceToken": {
           "$ref": "#/definitions/SequenceToken"
         }
-      }
+      },
+      "description": "The sequence token is not valid."
     },
     "LimitExceededException": {
       "type": "object",
       "properties": {},
-      "description": "Returned if you have reached the maximum number of resources that can be created."
+      "description": "You have reached the maximum number of resources that can be created."
     },
     "LogEventIndex": {
       "type": "integer"
@@ -2849,24 +2867,30 @@
       "type": "object",
       "properties": {
         "logGroupName": {
-          "$ref": "#/definitions/LogGroupName"
+          "$ref": "#/definitions/LogGroupName",
+          "description": "The name of the log group."
         },
         "creationTime": {
-          "$ref": "#/definitions/Timestamp"
+          "$ref": "#/definitions/Timestamp",
+          "description": "The creation time of the log group."
         },
         "retentionInDays": {
           "$ref": "#/definitions/Days"
         },
         "metricFilterCount": {
-          "$ref": "#/definitions/FilterCount"
+          "$ref": "#/definitions/FilterCount",
+          "description": "The number of metric filters."
         },
         "arn": {
-          "$ref": "#/definitions/Arn"
+          "$ref": "#/definitions/Arn",
+          "description": "The Amazon Resource Name (ARN) of the log group."
         },
         "storedBytes": {
-          "$ref": "#/definitions/StoredBytes"
+          "$ref": "#/definitions/StoredBytes",
+          "description": "The number of bytes stored."
         }
-      }
+      },
+      "description": "Represents a log group."
     },
     "LogGroupName": {
       "type": "string",
@@ -2876,7 +2900,6 @@
     },
     "LogGroups": {
       "type": "array",
-      "description": "A list of log groups.",
       "items": {
         "$ref": "#/definitions/LogGroup"
       }
@@ -2885,31 +2908,39 @@
       "type": "object",
       "properties": {
         "logStreamName": {
-          "$ref": "#/definitions/LogStreamName"
+          "$ref": "#/definitions/LogStreamName",
+          "description": "The name of the log stream."
         },
         "creationTime": {
-          "$ref": "#/definitions/Timestamp"
+          "$ref": "#/definitions/Timestamp",
+          "description": "The creation time of the stream."
         },
         "firstEventTimestamp": {
-          "$ref": "#/definitions/Timestamp"
+          "$ref": "#/definitions/Timestamp",
+          "description": "The time of the first event."
         },
         "lastEventTimestamp": {
-          "$ref": "#/definitions/Timestamp"
+          "$ref": "#/definitions/Timestamp",
+          "description": "The time of the last event."
         },
         "lastIngestionTime": {
-          "$ref": "#/definitions/Timestamp"
+          "$ref": "#/definitions/Timestamp",
+          "description": "The ingestion time."
         },
         "uploadSequenceToken": {
-          "$ref": "#/definitions/SequenceToken"
+          "$ref": "#/definitions/SequenceToken",
+          "description": "The sequence token."
         },
         "arn": {
-          "$ref": "#/definitions/Arn"
+          "$ref": "#/definitions/Arn",
+          "description": "The Amazon Resource Name (ARN) of the log stream."
         },
         "storedBytes": {
-          "$ref": "#/definitions/StoredBytes"
+          "$ref": "#/definitions/StoredBytes",
+          "description": "The number of bytes stored."
         }
       },
-      "description": "A log stream is sequence of log events from a single emitter of logs."
+      "description": "Represents a log stream, which is a sequence of log events from a single emitter of logs."
     },
     "LogStreamName": {
       "type": "string",
@@ -2922,7 +2953,6 @@
     },
     "LogStreams": {
       "type": "array",
-      "description": "A list of log streams.",
       "items": {
         "$ref": "#/definitions/LogStream"
       }
@@ -2931,33 +2961,44 @@
       "type": "object",
       "properties": {
         "filterName": {
-          "$ref": "#/definitions/FilterName"
+          "$ref": "#/definitions/FilterName",
+          "description": "The name of the metric filter."
         },
         "filterPattern": {
           "$ref": "#/definitions/FilterPattern"
         },
         "metricTransformations": {
-          "$ref": "#/definitions/MetricTransformations"
+          "$ref": "#/definitions/MetricTransformations",
+          "description": "The metric transformations."
         },
         "creationTime": {
-          "$ref": "#/definitions/Timestamp"
+          "$ref": "#/definitions/Timestamp",
+          "description": "The creation time of the metric filter."
+        },
+        "logGroupName": {
+          "$ref": "#/definitions/LogGroupName",
+          "description": "The name of the log group."
         }
       },
-      "description": "Metric filters can be used to express how CloudWatch Logs would extract metric observations from ingested log events and transform them to metric data in a CloudWatch metric."
+      "description": "Metric filters express how CloudWatch Logs would extract metric observations from ingested log events and transform them into metric data in a CloudWatch metric."
     },
     "MetricFilterMatchRecord": {
       "type": "object",
       "properties": {
         "eventNumber": {
-          "$ref": "#/definitions/EventNumber"
+          "$ref": "#/definitions/EventNumber",
+          "description": "The event number."
         },
         "eventMessage": {
-          "$ref": "#/definitions/EventMessage"
+          "$ref": "#/definitions/EventMessage",
+          "description": "The raw event data."
         },
         "extractedValues": {
-          "$ref": "#/definitions/ExtractedValues"
+          "$ref": "#/definitions/ExtractedValues",
+          "description": "The values extracted from the event data by the filter."
         }
-      }
+      },
+      "description": "Represents a matched event."
     },
     "MetricFilterMatches": {
       "type": "array",
@@ -2980,7 +3021,6 @@
     "MetricNamespace": {
       "type": "string",
       "pattern": "[^:*$]*",
-      "description": "The destination namespace of the new CloudWatch metric.",
       "maxLength": 255
     },
     "MetricTransformation": {
@@ -2993,21 +3033,22 @@
       "properties": {
         "metricName": {
           "$ref": "#/definitions/MetricName",
-          "description": "Name of the metric."
+          "description": "The name of the CloudWatch metric."
         },
         "metricNamespace": {
           "$ref": "#/definitions/MetricNamespace",
-          "description": "Namespace to which the metric belongs."
+          "description": "The namespace of the CloudWatch metric."
         },
         "metricValue": {
           "$ref": "#/definitions/MetricValue",
-          "description": " A string representing a value to publish to this metric when a filter pattern matches a log event. "
+          "description": "The value to publish to the CloudWatch metric when a filter pattern matches a log event."
         },
         "defaultValue": {
           "$ref": "#/definitions/DefaultValue",
-          "description": "(Optional) A default value to emit when a filter pattern does not match a log event. Can be null."
+          "description": "(Optional) The value to emit when a filter pattern does not match a log event. This value can be null."
         }
-      }
+      },
+      "description": "Indicates how to transform ingested log events into metric data in a CloudWatch metric."
     },
     "MetricTransformations": {
       "type": "array",
@@ -3019,18 +3060,18 @@
     },
     "MetricValue": {
       "type": "string",
-      "description": "What to publish to the metric. For example, if you're counting the occurrences of a particular term like \"Error\", the value will be \"1\" for each occurrence. If you're counting the bytes transferred the published value will be the value in the log event.",
+      "description": "The value to publish to the CloudWatch metric. For example, if you're counting the occurrences of a term like \"Error\", the value is \"1\" for each occurrence. If you're counting the bytes transferred, the value is the value in the log event.",
       "maxLength": 100
     },
     "NextToken": {
       "type": "string",
-      "description": "A string token used for pagination that points to the next page of results. It must be a value obtained from the response of the previous request. The token expires after 24 hours.",
+      "description": "The token for the next set of items to return. The token expires after 24 hours.",
       "minLength": 1
     },
     "OperationAbortedException": {
       "type": "object",
       "properties": {},
-      "description": "Returned if multiple requests to update the same resource were in conflict."
+      "description": "Multiple requests to update the same resource were in conflict."
     },
     "OrderBy": {
       "type": "string",
@@ -3043,15 +3084,19 @@
       "type": "object",
       "properties": {
         "timestamp": {
-          "$ref": "#/definitions/Timestamp"
+          "$ref": "#/definitions/Timestamp",
+          "description": "The time the event occurred."
         },
         "message": {
-          "$ref": "#/definitions/EventMessage"
+          "$ref": "#/definitions/EventMessage",
+          "description": "The data contained in the log event."
         },
         "ingestionTime": {
-          "$ref": "#/definitions/Timestamp"
+          "$ref": "#/definitions/Timestamp",
+          "description": "The time the event was ingested."
         }
-      }
+      },
+      "description": "Represents a log event."
     },
     "OutputLogEvents": {
       "type": "array",
@@ -3072,7 +3117,7 @@
         },
         "accessPolicy": {
           "$ref": "#/definitions/AccessPolicy",
-          "description": "An IAM policy document that authorizes cross-account users to deliver their log events to associated destination."
+          "description": "An IAM policy document that authorizes cross-account users to deliver their log events to the associated destination."
         }
       }
     },
@@ -3094,7 +3139,7 @@
         },
         "roleArn": {
           "$ref": "#/definitions/RoleArn",
-          "description": "The ARN of an IAM role that grants CloudWatch Logs permissions to do Amazon Kinesis PutRecord requests on the destination stream."
+          "description": "The ARN of an IAM role that grants CloudWatch Logs permissions to call Amazon Kinesis PutRecord on the destination stream."
         }
       }
     },
@@ -3102,7 +3147,8 @@
       "type": "object",
       "properties": {
         "destination": {
-          "$ref": "#/definitions/Destination"
+          "$ref": "#/definitions/Destination",
+          "description": "The destination."
         }
       }
     },
@@ -3116,18 +3162,19 @@
       "properties": {
         "logGroupName": {
           "$ref": "#/definitions/LogGroupName",
-          "description": "The name of the log group to put log events to."
+          "description": "The name of the log group."
         },
         "logStreamName": {
           "$ref": "#/definitions/LogStreamName",
-          "description": "The name of the log stream to put log events to."
+          "description": "The name of the log stream."
         },
         "logEvents": {
-          "$ref": "#/definitions/InputLogEvents"
+          "$ref": "#/definitions/InputLogEvents",
+          "description": "The log events."
         },
         "sequenceToken": {
           "$ref": "#/definitions/SequenceToken",
-          "description": "A string token that must be obtained from the response of the previous <code>PutLogEvents</code> request."
+          "description": "The sequence token."
         }
       }
     },
@@ -3135,10 +3182,12 @@
       "type": "object",
       "properties": {
         "nextSequenceToken": {
-          "$ref": "#/definitions/SequenceToken"
+          "$ref": "#/definitions/SequenceToken",
+          "description": "The next sequence token."
         },
         "rejectedLogEventsInfo": {
-          "$ref": "#/definitions/RejectedLogEventsInfo"
+          "$ref": "#/definitions/RejectedLogEventsInfo",
+          "description": "The rejected events."
         }
       }
     },
@@ -3153,7 +3202,7 @@
       "properties": {
         "logGroupName": {
           "$ref": "#/definitions/LogGroupName",
-          "description": "The name of the log group to associate the metric filter with."
+          "description": "The name of the log group."
         },
         "filterName": {
           "$ref": "#/definitions/FilterName",
@@ -3161,7 +3210,7 @@
         },
         "filterPattern": {
           "$ref": "#/definitions/FilterPattern",
-          "description": "A valid CloudWatch Logs filter pattern for extracting metric data out of ingested log events."
+          "description": "A filter pattern for extracting metric data out of ingested log events."
         },
         "metricTransformations": {
           "$ref": "#/definitions/MetricTransformations",
@@ -3178,7 +3227,7 @@
       "properties": {
         "logGroupName": {
           "$ref": "#/definitions/LogGroupName",
-          "description": "The name of the log group to associate the retention policy with."
+          "description": "The name of the log group."
         },
         "retentionInDays": {
           "$ref": "#/definitions/Days"
@@ -3196,7 +3245,7 @@
       "properties": {
         "logGroupName": {
           "$ref": "#/definitions/LogGroupName",
-          "description": "The name of the log group to associate the subscription filter with."
+          "description": "The name of the log group."
         },
         "filterName": {
           "$ref": "#/definitions/FilterName",
@@ -3204,15 +3253,15 @@
         },
         "filterPattern": {
           "$ref": "#/definitions/FilterPattern",
-          "description": "A valid CloudWatch Logs filter pattern for subscribing to a filtered stream of log events."
+          "description": "A filter pattern for subscribing to a filtered stream of log events."
         },
         "destinationArn": {
           "$ref": "#/definitions/DestinationArn",
-          "description": "<p>The ARN of the destination to deliver matching log events to. Currently, the supported destinations are:</p> <ul> <li> <p>An Amazon Kinesis stream belonging to the same account as the subscription filter, for same-account delivery.</p> </li> <li> <p>A logical destination (used via an ARN of <code>Destination</code>) belonging to a different account, for cross-account delivery.</p> </li> <li> <p>An Amazon Kinesis Firehose stream belonging to the same account as the subscription filter, for same-account delivery.</p> </li> <li> <p>An AWS Lambda function belonging to the same account as the subscription filter, for same-account delivery.</p> </li> </ul>"
+          "description": "<p>The ARN of the destination to deliver matching log events to. Currently, the supported destinations are:</p> <ul> <li> <p>An Amazon Kinesis stream belonging to the same account as the subscription filter, for same-account delivery.</p> </li> <li> <p>A logical destination (specified using an ARN) belonging to a different account, for cross-account delivery.</p> </li> <li> <p>An Amazon Kinesis Firehose stream belonging to the same account as the subscription filter, for same-account delivery.</p> </li> <li> <p>An AWS Lambda function belonging to the same account as the subscription filter, for same-account delivery.</p> </li> </ul>"
         },
         "roleArn": {
           "$ref": "#/definitions/RoleArn",
-          "description": "The ARN of an IAM role that grants CloudWatch Logs permissions to deliver ingested log events to the destination stream. You don't need to provide the ARN when you are working with a logical destination (used via an ARN of <code>Destination</code>) for cross-account delivery."
+          "description": "The ARN of an IAM role that grants CloudWatch Logs permissions to deliver ingested log events to the destination stream. You don't need to provide the ARN when you are working with a logical destination for cross-account delivery."
         }
       }
     },
@@ -3220,25 +3269,29 @@
       "type": "object",
       "properties": {
         "tooNewLogEventStartIndex": {
-          "$ref": "#/definitions/LogEventIndex"
+          "$ref": "#/definitions/LogEventIndex",
+          "description": "The log events that are too new."
         },
         "tooOldLogEventEndIndex": {
-          "$ref": "#/definitions/LogEventIndex"
+          "$ref": "#/definitions/LogEventIndex",
+          "description": "The log events that are too old."
         },
         "expiredLogEventEndIndex": {
-          "$ref": "#/definitions/LogEventIndex"
+          "$ref": "#/definitions/LogEventIndex",
+          "description": "The expired log events."
         }
-      }
+      },
+      "description": "Represents the rejected events."
     },
     "ResourceAlreadyExistsException": {
       "type": "object",
       "properties": {},
-      "description": "Returned if the specified resource already exists."
+      "description": "The specified resource already exists."
     },
     "ResourceNotFoundException": {
       "type": "object",
       "properties": {},
-      "description": "Returned if the specified resource does not exist."
+      "description": "The specified resource does not exist."
     },
     "RoleArn": {
       "type": "string",
@@ -3253,27 +3306,25 @@
         },
         "searchedCompletely": {
           "$ref": "#/definitions/LogStreamSearchedCompletely",
-          "description": "Indicates whether all the events in this log stream were searched or more data exists to search by paginating further."
+          "description": "Indicates whether all the events in this log stream were searched."
         }
       },
-      "description": "An object indicating the search status of a log stream in a <code>FilterLogEvents</code> request."
+      "description": "Represents the search status of a log stream."
     },
     "SearchedLogStreams": {
       "type": "array",
-      "description": "A list of <code>SearchedLogStream</code> objects indicating the search status for log streams in a <code>FilterLogEvents</code> request.",
       "items": {
         "$ref": "#/definitions/SearchedLogStream"
       }
     },
     "SequenceToken": {
       "type": "string",
-      "description": "A string token used for making PutLogEvents requests. A <code>sequenceToken</code> can only be used once, and PutLogEvents requests must include the <code>sequenceToken</code> obtained from the response of the previous request.",
       "minLength": 1
     },
     "ServiceUnavailableException": {
       "type": "object",
       "properties": {},
-      "description": "Returned if the service cannot complete the request."
+      "description": "The service cannot complete the request."
     },
     "StartFromHead": {
       "type": "boolean"
@@ -3286,24 +3337,30 @@
       "type": "object",
       "properties": {
         "filterName": {
-          "$ref": "#/definitions/FilterName"
+          "$ref": "#/definitions/FilterName",
+          "description": "The name of the subscription filter."
         },
         "logGroupName": {
-          "$ref": "#/definitions/LogGroupName"
+          "$ref": "#/definitions/LogGroupName",
+          "description": "The name of the log group."
         },
         "filterPattern": {
           "$ref": "#/definitions/FilterPattern"
         },
         "destinationArn": {
-          "$ref": "#/definitions/DestinationArn"
+          "$ref": "#/definitions/DestinationArn",
+          "description": "The Amazon Resource Name (ARN) of the destination."
         },
         "roleArn": {
-          "$ref": "#/definitions/RoleArn"
+          "$ref": "#/definitions/RoleArn",
+          "description": "<p/>"
         },
         "creationTime": {
-          "$ref": "#/definitions/Timestamp"
+          "$ref": "#/definitions/Timestamp",
+          "description": "The creation time of the subscription filter."
         }
-      }
+      },
+      "description": "Represents a subscription filter."
     },
     "SubscriptionFilters": {
       "type": "array",
@@ -3335,7 +3392,7 @@
         },
         "logEventMessages": {
           "$ref": "#/definitions/TestEventMessages",
-          "description": "A list of log event messages to test."
+          "description": "The log event messages to test."
         }
       }
     },
@@ -3343,13 +3400,13 @@
       "type": "object",
       "properties": {
         "matches": {
-          "$ref": "#/definitions/MetricFilterMatches"
+          "$ref": "#/definitions/MetricFilterMatches",
+          "description": "The matched events."
         }
       }
     },
     "Timestamp": {
       "type": "integer",
-      "description": "A point in time expressed as the number of milliseconds since Jan 1, 1970 00:00:00 UTC.",
       "minimum": 0
     },
     "Token": {

@@ -1331,6 +1331,71 @@
         }
       ]
     },
+    "/#DescribeTags": {
+      "post": {
+        "operationId": "DescribeTags",
+        "description": "Describes the tags associated with the specified Direct Connect resources.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DescribeTagsResponse"
+            }
+          },
+          "480": {
+            "description": "DirectConnectServerException",
+            "schema": {
+              "$ref": "#/definitions/DirectConnectServerException"
+            }
+          },
+          "481": {
+            "description": "DirectConnectClientException",
+            "schema": {
+              "$ref": "#/definitions/DirectConnectClientException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DescribeTagsRequest"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
     "/#DescribeVirtualGateways": {
       "post": {
         "operationId": "DescribeVirtualGateways",
@@ -1417,6 +1482,148 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/DescribeVirtualInterfacesRequest"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#TagResource": {
+      "post": {
+        "operationId": "TagResource",
+        "description": "<p>Adds the specified tags to the specified Direct Connect resource. Each Direct Connect resource can have a maximum of 50 tags.</p> <p>Each tag consists of a key and an optional value. If a tag with the same key is already associated with the Direct Connect resource, this action updates its value.</p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/TagResourceResponse"
+            }
+          },
+          "480": {
+            "description": "DuplicateTagKeysException",
+            "schema": {
+              "$ref": "#/definitions/DuplicateTagKeysException"
+            }
+          },
+          "481": {
+            "description": "TooManyTagsException",
+            "schema": {
+              "$ref": "#/definitions/TooManyTagsException"
+            }
+          },
+          "482": {
+            "description": "DirectConnectServerException",
+            "schema": {
+              "$ref": "#/definitions/DirectConnectServerException"
+            }
+          },
+          "483": {
+            "description": "DirectConnectClientException",
+            "schema": {
+              "$ref": "#/definitions/DirectConnectClientException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TagResourceRequest"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#UntagResource": {
+      "post": {
+        "operationId": "UntagResource",
+        "description": "Removes one or more tags from the specified Direct Connect resource.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/UntagResourceResponse"
+            }
+          },
+          "480": {
+            "description": "DirectConnectServerException",
+            "schema": {
+              "$ref": "#/definitions/DirectConnectServerException"
+            }
+          },
+          "481": {
+            "description": "DirectConnectClientException",
+            "schema": {
+              "$ref": "#/definitions/DirectConnectClientException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UntagResourceRequest"
             }
           }
         ]
@@ -1920,6 +2127,29 @@
       },
       "description": "Container for the parameters to the DescribeInterconnects operation."
     },
+    "DescribeTagsRequest": {
+      "type": "object",
+      "required": [
+        "resourceArns"
+      ],
+      "properties": {
+        "resourceArns": {
+          "$ref": "#/definitions/ResourceArnList",
+          "description": "The Amazon Resource Names (ARNs) of the Direct Connect resources."
+        }
+      },
+      "description": "Container for the parameters to the DescribeTags operation."
+    },
+    "DescribeTagsResponse": {
+      "type": "object",
+      "properties": {
+        "resourceTags": {
+          "$ref": "#/definitions/ResourceTagList",
+          "description": "Information about the tags."
+        }
+      },
+      "description": "The response received when DescribeTags is called."
+    },
     "DescribeVirtualInterfacesRequest": {
       "type": "object",
       "properties": {
@@ -1951,6 +2181,11 @@
         }
       },
       "description": "A server-side error occurred during the API call. The error message will contain additional details about the cause."
+    },
+    "DuplicateTagKeysException": {
+      "type": "object",
+      "properties": {},
+      "description": "A tag key was specified more than once."
     },
     "ErrorMessage": {
       "type": "string"
@@ -2225,6 +2460,35 @@
       "type": "string",
       "description": "<p>The AWS region where the connection is located.</p> <p>Example: us-east-1</p> <p>Default: None</p>"
     },
+    "ResourceArn": {
+      "type": "string"
+    },
+    "ResourceArnList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ResourceArn"
+      }
+    },
+    "ResourceTag": {
+      "type": "object",
+      "properties": {
+        "resourceArn": {
+          "$ref": "#/definitions/ResourceArn",
+          "description": "The Amazon Resource Name (ARN) of the Direct Connect resource."
+        },
+        "tags": {
+          "$ref": "#/definitions/TagList",
+          "description": "The tags."
+        }
+      },
+      "description": "The tags associated with a Direct Connect resource."
+    },
+    "ResourceTagList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ResourceTag"
+      }
+    },
     "RouteFilterPrefix": {
       "type": "object",
       "properties": {
@@ -2244,6 +2508,99 @@
     },
     "RouterConfig": {
       "type": "string"
+    },
+    "Tag": {
+      "type": "object",
+      "required": [
+        "key"
+      ],
+      "properties": {
+        "key": {
+          "$ref": "#/definitions/TagKey",
+          "description": "The key of the tag."
+        },
+        "value": {
+          "$ref": "#/definitions/TagValue",
+          "description": "The value of the tag."
+        }
+      },
+      "description": "Information about a tag."
+    },
+    "TagKey": {
+      "type": "string",
+      "pattern": "^([\\p{L}\\p{Z}\\p{N}_.:/=+\\-@]*)$",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "TagKeyList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/TagKey"
+      }
+    },
+    "TagList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Tag"
+      },
+      "minItems": 1
+    },
+    "TagResourceRequest": {
+      "type": "object",
+      "required": [
+        "resourceArn",
+        "tags"
+      ],
+      "properties": {
+        "resourceArn": {
+          "$ref": "#/definitions/ResourceArn",
+          "description": "<p>The Amazon Resource Name (ARN) of the Direct Connect resource.</p> <p>Example: arn:aws:directconnect:us-east-1:123456789012:dxcon/dxcon-fg5678gh</p>"
+        },
+        "tags": {
+          "$ref": "#/definitions/TagList",
+          "description": "The list of tags to add."
+        }
+      },
+      "description": "Container for the parameters to the TagResource operation."
+    },
+    "TagResourceResponse": {
+      "type": "object",
+      "properties": {},
+      "description": "The response received when TagResource is called."
+    },
+    "TagValue": {
+      "type": "string",
+      "pattern": "^([\\p{L}\\p{Z}\\p{N}_.:/=+\\-@]*)$",
+      "minLength": 0,
+      "maxLength": 256
+    },
+    "TooManyTagsException": {
+      "type": "object",
+      "properties": {},
+      "description": "You have reached the limit on the number of tags that can be assigned to a Direct Connect resource."
+    },
+    "UntagResourceRequest": {
+      "type": "object",
+      "required": [
+        "resourceArn",
+        "tagKeys"
+      ],
+      "properties": {
+        "resourceArn": {
+          "$ref": "#/definitions/ResourceArn",
+          "description": "The Amazon Resource Name (ARN) of the Direct Connect resource."
+        },
+        "tagKeys": {
+          "$ref": "#/definitions/TagKeyList",
+          "description": "The list of tag keys to remove."
+        }
+      },
+      "description": "Container for the parameters to the UntagResource operation."
+    },
+    "UntagResourceResponse": {
+      "type": "object",
+      "properties": {},
+      "description": "The response received when UntagResource is called."
     },
     "VLAN": {
       "type": "integer",

@@ -109,7 +109,7 @@
     "/": {
       "post": {
         "operationId": "AddIpRoutes",
-        "description": "If the DNS server for your on-premises domain uses a publicly addressable IP address, you must add a CIDR address block to correctly route traffic to and from your Microsoft AD on Amazon Web Services. <i>AddIpRoutes</i> adds this address block. You can also use <i>AddIpRoutes</i> to facilitate routing traffic that uses public IP ranges from your Microsoft AD on AWS to a peer VPC. ",
+        "description": "<p>If the DNS server for your on-premises domain uses a publicly addressable IP address, you must add a CIDR address block to correctly route traffic to and from your Microsoft AD on Amazon Web Services. <i>AddIpRoutes</i> adds this address block. You can also use <i>AddIpRoutes</i> to facilitate routing traffic that uses public IP ranges from your Microsoft AD on AWS to a peer VPC. </p> <p>Before you call <i>AddIpRoutes</i>, ensure that all of the required permissions have been explicitly granted through a policy. For details about what permissions are required to run the <i>AddIpRoutes</i> operation, see <a href=\"http://docs.aws.amazon.com/directoryservice/latest/admin-guide/UsingWithDS_IAM_ResourcePermissions.html\">AWS Directory Service API Permissions: Actions, Resources, and Conditions Reference</a>.</p>",
         "responses": {
           "200": {
             "description": "Success",
@@ -204,7 +204,7 @@
     "/#AddTagsToResource": {
       "post": {
         "operationId": "AddTagsToResource",
-        "description": "Adds or overwrites one or more tags for the specified Amazon Directory Services directory. Each directory can have a maximum of 10 tags. Each tag consists of a key and optional value. Tag keys must be unique to each resource.",
+        "description": "Adds or overwrites one or more tags for the specified Amazon Directory Services directory. Each directory can have a maximum of 50 tags. Each tag consists of a key and optional value. Tag keys must be unique to each resource.",
         "responses": {
           "200": {
             "description": "Success",
@@ -284,10 +284,81 @@
         }
       ]
     },
+    "/#CancelSchemaExtension": {
+      "post": {
+        "operationId": "CancelSchemaExtension",
+        "description": "Cancels an in-progress schema extension to a Microsoft AD directory. Once a schema extension has started replicating to all domain controllers, the task can no longer be canceled. A schema extension can be canceled during any of the following states; <code>Initializing</code>, <code>CreatingSnapshot</code>, and <code>UpdatingSchema</code>.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CancelSchemaExtensionResult"
+            }
+          },
+          "480": {
+            "description": "EntityDoesNotExistException",
+            "schema": {
+              "$ref": "#/definitions/EntityDoesNotExistException"
+            }
+          },
+          "481": {
+            "description": "ClientException",
+            "schema": {
+              "$ref": "#/definitions/ClientException"
+            }
+          },
+          "482": {
+            "description": "ServiceException",
+            "schema": {
+              "$ref": "#/definitions/ServiceException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CancelSchemaExtensionRequest"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
     "/#ConnectDirectory": {
       "post": {
         "operationId": "ConnectDirectory",
-        "description": "Creates an AD Connector to connect to an on-premises directory.",
+        "description": "<p>Creates an AD Connector to connect to an on-premises directory.</p> <p>Before you call <i>ConnectDirectory</i>, ensure that all of the required permissions have been explicitly granted through a policy. For details about what permissions are required to run the <i>ConnectDirectory</i> operation, see <a href=\"http://docs.aws.amazon.com/directoryservice/latest/admin-guide/UsingWithDS_IAM_ResourcePermissions.html\">AWS Directory Service API Permissions: Actions, Resources, and Conditions Reference</a>.</p>",
         "responses": {
           "200": {
             "description": "Success",
@@ -643,7 +714,7 @@
     "/#CreateDirectory": {
       "post": {
         "operationId": "CreateDirectory",
-        "description": "Creates a Simple AD directory.",
+        "description": "<p>Creates a Simple AD directory.</p> <p>Before you call <i>CreateDirectory</i>, ensure that all of the required permissions have been explicitly granted through a policy. For details about what permissions are required to run the <i>CreateDirectory</i> operation, see <a href=\"http://docs.aws.amazon.com/directoryservice/latest/admin-guide/UsingWithDS_IAM_ResourcePermissions.html\">AWS Directory Service API Permissions: Actions, Resources, and Conditions Reference</a>.</p>",
         "responses": {
           "200": {
             "description": "Success",
@@ -720,7 +791,7 @@
     "/#CreateMicrosoftAD": {
       "post": {
         "operationId": "CreateMicrosoftAD",
-        "description": "Creates a Microsoft AD in the AWS cloud.",
+        "description": "<p>Creates a Microsoft AD in the AWS cloud.</p> <p>Before you call <i>CreateMicrosoftAD</i>, ensure that all of the required permissions have been explicitly granted through a policy. For details about what permissions are required to run the <i>CreateMicrosoftAD</i> operation, see <a href=\"http://docs.aws.amazon.com/directoryservice/latest/admin-guide/UsingWithDS_IAM_ResourcePermissions.html\">AWS Directory Service API Permissions: Actions, Resources, and Conditions Reference</a>.</p>",
         "responses": {
           "200": {
             "description": "Success",
@@ -1064,7 +1135,7 @@
     "/#DeleteDirectory": {
       "post": {
         "operationId": "DeleteDirectory",
-        "description": "Deletes an AWS Directory Service directory.",
+        "description": "<p>Deletes an AWS Directory Service directory.</p> <p>Before you call <i>DeleteDirectory</i>, ensure that all of the required permissions have been explicitly granted through a policy. For details about what permissions are required to run the <i>DeleteDirectory</i> operation, see <a href=\"http://docs.aws.amazon.com/directoryservice/latest/admin-guide/UsingWithDS_IAM_ResourcePermissions.html\">AWS Directory Service API Permissions: Actions, Resources, and Conditions Reference</a>.</p>",
         "responses": {
           "200": {
             "description": "Success",
@@ -2335,6 +2406,83 @@
         }
       ]
     },
+    "/#ListSchemaExtensions": {
+      "post": {
+        "operationId": "ListSchemaExtensions",
+        "description": "Lists all schema extensions applied to a Microsoft AD Directory.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ListSchemaExtensionsResult"
+            }
+          },
+          "480": {
+            "description": "InvalidNextTokenException",
+            "schema": {
+              "$ref": "#/definitions/InvalidNextTokenException"
+            }
+          },
+          "481": {
+            "description": "EntityDoesNotExistException",
+            "schema": {
+              "$ref": "#/definitions/EntityDoesNotExistException"
+            }
+          },
+          "482": {
+            "description": "ClientException",
+            "schema": {
+              "$ref": "#/definitions/ClientException"
+            }
+          },
+          "483": {
+            "description": "ServiceException",
+            "schema": {
+              "$ref": "#/definitions/ServiceException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ListSchemaExtensionsRequest"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
     "/#ListTagsForResource": {
       "post": {
         "operationId": "ListTagsForResource",
@@ -2732,6 +2880,95 @@
         }
       ]
     },
+    "/#StartSchemaExtension": {
+      "post": {
+        "operationId": "StartSchemaExtension",
+        "description": "Applies a schema extension to a Microsoft AD directory.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/StartSchemaExtensionResult"
+            }
+          },
+          "480": {
+            "description": "DirectoryUnavailableException",
+            "schema": {
+              "$ref": "#/definitions/DirectoryUnavailableException"
+            }
+          },
+          "481": {
+            "description": "EntityDoesNotExistException",
+            "schema": {
+              "$ref": "#/definitions/EntityDoesNotExistException"
+            }
+          },
+          "482": {
+            "description": "InvalidParameterException",
+            "schema": {
+              "$ref": "#/definitions/InvalidParameterException"
+            }
+          },
+          "483": {
+            "description": "SnapshotLimitExceededException",
+            "schema": {
+              "$ref": "#/definitions/SnapshotLimitExceededException"
+            }
+          },
+          "484": {
+            "description": "ClientException",
+            "schema": {
+              "$ref": "#/definitions/ClientException"
+            }
+          },
+          "485": {
+            "description": "ServiceException",
+            "schema": {
+              "$ref": "#/definitions/ServiceException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/StartSchemaExtensionRequest"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
     "/#UpdateConditionalForwarder": {
       "post": {
         "operationId": "UpdateConditionalForwarder",
@@ -3094,6 +3331,27 @@
         "$ref": "#/definitions/AvailabilityZone"
       }
     },
+    "CancelSchemaExtensionRequest": {
+      "type": "object",
+      "required": [
+        "DirectoryId",
+        "SchemaExtensionId"
+      ],
+      "properties": {
+        "DirectoryId": {
+          "$ref": "#/definitions/DirectoryId",
+          "description": "The identifier of the directory whose schema extension will be canceled."
+        },
+        "SchemaExtensionId": {
+          "$ref": "#/definitions/SchemaExtensionId",
+          "description": "The identifier of the schema extension that will be canceled."
+        }
+      }
+    },
+    "CancelSchemaExtensionResult": {
+      "type": "object",
+      "properties": {}
+    },
     "CidrIp": {
       "type": "string",
       "pattern": "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\\/([1-9]|[1-2][0-9]|3[0-2]))$"
@@ -3413,6 +3671,9 @@
         }
       },
       "description": "Result of a CreateMicrosoftAD request."
+    },
+    "CreateSnapshotBeforeSchemaExtension": {
+      "type": "boolean"
     },
     "CreateSnapshotRequest": {
       "type": "object",
@@ -4172,6 +4433,10 @@
       "properties": {},
       "description": "Contains the results of the <a>EnableSso</a> operation."
     },
+    "EndDateTime": {
+      "type": "string",
+      "format": "date-time"
+    },
     "EntityAlreadyExistsException": {
       "type": "object",
       "properties": {
@@ -4406,6 +4671,11 @@
       "type": "string",
       "format": "date-time"
     },
+    "LdifContent": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500000
+    },
     "Limit": {
       "type": "integer",
       "minimum": 0
@@ -4440,6 +4710,39 @@
         "NextToken": {
           "$ref": "#/definitions/NextToken",
           "description": "If not null, more results are available. Pass this value for the <i>NextToken</i> parameter in a subsequent call to <a>ListIpRoutes</a> to retrieve the next set of items."
+        }
+      }
+    },
+    "ListSchemaExtensionsRequest": {
+      "type": "object",
+      "required": [
+        "DirectoryId"
+      ],
+      "properties": {
+        "DirectoryId": {
+          "$ref": "#/definitions/DirectoryId",
+          "description": "The identifier of the directory from which to retrieve the schema extension information."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NextToken",
+          "description": "The <code>ListSchemaExtensions.NextToken</code> value from a previous call to <code>ListSchemaExtensions</code>. Pass null if this is the first call."
+        },
+        "Limit": {
+          "$ref": "#/definitions/Limit",
+          "description": "The maximum number of items to return."
+        }
+      }
+    },
+    "ListSchemaExtensionsResult": {
+      "type": "object",
+      "properties": {
+        "SchemaExtensionsInfo": {
+          "$ref": "#/definitions/SchemaExtensionsInfo",
+          "description": "Information about the schema extensions applied to the directory."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NextToken",
+          "description": "If not null, more results are available. Pass this value for the <code>NextToken</code> parameter in a subsequent call to <code>ListSchemaExtensions</code> to retrieve the next set of items."
         }
       }
     },
@@ -4687,6 +4990,67 @@
       "minLength": 1,
       "maxLength": 256
     },
+    "SchemaExtensionId": {
+      "type": "string",
+      "pattern": "^e-[0-9a-f]{10}$"
+    },
+    "SchemaExtensionInfo": {
+      "type": "object",
+      "properties": {
+        "DirectoryId": {
+          "$ref": "#/definitions/DirectoryId",
+          "description": "The identifier of the directory to which the schema extension is applied."
+        },
+        "SchemaExtensionId": {
+          "$ref": "#/definitions/SchemaExtensionId",
+          "description": "The identifier of the schema extension."
+        },
+        "Description": {
+          "$ref": "#/definitions/Description",
+          "description": "A description of the schema extension."
+        },
+        "SchemaExtensionStatus": {
+          "$ref": "#/definitions/SchemaExtensionStatus",
+          "description": "The current status of the schema extension."
+        },
+        "SchemaExtensionStatusReason": {
+          "$ref": "#/definitions/SchemaExtensionStatusReason",
+          "description": "The reason for the <code>SchemaExtensionStatus</code>."
+        },
+        "StartDateTime": {
+          "$ref": "#/definitions/StartDateTime",
+          "description": "The date and time that the schema extension started being applied to the directory."
+        },
+        "EndDateTime": {
+          "$ref": "#/definitions/EndDateTime",
+          "description": "The date and time that the schema extension was completed."
+        }
+      },
+      "description": "Information about a schema extension."
+    },
+    "SchemaExtensionStatus": {
+      "type": "string",
+      "enum": [
+        "Initializing",
+        "CreatingSnapshot",
+        "UpdatingSchema",
+        "Replicating",
+        "CancelInProgress",
+        "RollbackInProgress",
+        "Cancelled",
+        "Failed",
+        "Completed"
+      ]
+    },
+    "SchemaExtensionStatusReason": {
+      "type": "string"
+    },
+    "SchemaExtensionsInfo": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/SchemaExtensionInfo"
+      }
+    },
     "SecurityGroupId": {
       "type": "string",
       "pattern": "^(sg-[0-9a-f]{8})$"
@@ -4818,6 +5182,46 @@
     },
     "StageReason": {
       "type": "string"
+    },
+    "StartDateTime": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "StartSchemaExtensionRequest": {
+      "type": "object",
+      "required": [
+        "DirectoryId",
+        "CreateSnapshotBeforeSchemaExtension",
+        "LdifContent",
+        "Description"
+      ],
+      "properties": {
+        "DirectoryId": {
+          "$ref": "#/definitions/DirectoryId",
+          "description": "The identifier of the directory for which the schema extension will be applied to."
+        },
+        "CreateSnapshotBeforeSchemaExtension": {
+          "$ref": "#/definitions/CreateSnapshotBeforeSchemaExtension",
+          "description": "If true, creates a snapshot of the directory before applying the schema extension."
+        },
+        "LdifContent": {
+          "$ref": "#/definitions/LdifContent",
+          "description": "The LDIF file represented as a string. The file size can be no larger than 1MB."
+        },
+        "Description": {
+          "$ref": "#/definitions/Description",
+          "description": "A description of the schema extension."
+        }
+      }
+    },
+    "StartSchemaExtensionResult": {
+      "type": "object",
+      "properties": {
+        "SchemaExtensionId": {
+          "$ref": "#/definitions/SchemaExtensionId",
+          "description": "The identifier of the schema extension that will be applied."
+        }
+      }
     },
     "StartTime": {
       "type": "string",

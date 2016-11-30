@@ -4,7 +4,7 @@
     "version": "2010-05-15",
     "x-release": "v4",
     "title": "AWS CloudFormation",
-    "description": "<fullname>AWS CloudFormation</fullname> <p>AWS CloudFormation enables you to create and manage AWS infrastructure deployments predictably and repeatedly. AWS CloudFormation helps you leverage AWS products such as Amazon EC2, EBS, Amazon SNS, ELB, and Auto Scaling to build highly-reliable, highly scalable, cost effective applications without worrying about creating and configuring the underlying AWS infrastructure.</p> <p>With AWS CloudFormation, you declare all of your resources and dependencies in a template file. The template defines a collection of resources as a single unit called a stack. AWS CloudFormation creates and deletes all member resources of the stack together and manages all dependencies between the resources for you.</p> <p>For more information about this product, go to the <a href=\"http://aws.amazon.com/cloudformation/\">CloudFormation Product Page</a>.</p> <p>Amazon CloudFormation makes use of other AWS products. If you need additional technical information about a specific AWS product, you can find the product's technical documentation at <a href=\"http://docs.aws.amazon.com/\">http://docs.aws.amazon.com/</a>.</p>",
+    "description": "<fullname>AWS CloudFormation</fullname> <p>AWS CloudFormation allows you to create and manage AWS infrastructure deployments predictably and repeatedly. You can use AWS CloudFormation to leverage AWS products, such as Amazon Elastic Compute Cloud, Amazon Elastic Block Store, Amazon Simple Notification Service, Elastic Load Balancing, and Auto Scaling to build highly-reliable, highly scalable, cost-effective applications without creating or configuring the underlying AWS infrastructure.</p> <p>With AWS CloudFormation, you declare all of your resources and dependencies in a template file. The template defines a collection of resources as a single unit called a stack. AWS CloudFormation creates and deletes all member resources of the stack together and manages all dependencies between the resources for you.</p> <p>For more information about AWS CloudFormation, see the <a href=\"http://aws.amazon.com/cloudformation/\">AWS CloudFormation Product Page</a>.</p> <p>Amazon CloudFormation makes use of other AWS products. If you need additional technical information about a specific AWS product, you can find the product's technical documentation at <a href=\"http://docs.aws.amazon.com/http:/docs.aws.amazon.com/\">http://docs.aws.amazon.com/</a>.</p>",
     "termsOfService": "https://aws.amazon.com/service-terms/",
     "contact": {
       "name": "Mike Ralphson",
@@ -208,7 +208,7 @@
     "/#CreateChangeSet": {
       "post": {
         "operationId": "CreateChangeSet",
-        "description": "<p>Creates a list of changes for a stack. AWS CloudFormation generates the change set by comparing the stack's information with the information that you submit. A change set can help you understand which resources AWS CloudFormation will change and how it will change them before you update your stack. Change sets allow you to check before you make a change so that you don't delete or replace critical resources.</p> <p>AWS CloudFormation doesn't make any changes to the stack when you create a change set. To make the specified changes, you must execute the change set by using the <a>ExecuteChangeSet</a> action.</p> <p>After the call successfully completes, AWS CloudFormation starts creating the change set. To check the status of the change set, use the <a>DescribeChangeSet</a> action.</p>",
+        "description": "<p>Creates a list of changes for a stack. AWS CloudFormation generates the change set by comparing the template's information with the information that you submit. A change set can help you understand which resources AWS CloudFormation will change, and how it will change them, before you update your stack. Change sets allow you to check before making a change to avoid deleting or replacing critical resources.</p> <p>AWS CloudFormation doesn't make any changes to the stack when you create a change set. To make the specified changes, you must execute the change set by using the <a>ExecuteChangeSet</a> action.</p> <p>After the call successfully completes, AWS CloudFormation starts creating the change set. To check the status of the change set, use the <a>DescribeChangeSet</a> action.</p>",
         "responses": {
           "200": {
             "description": "Success",
@@ -788,51 +788,39 @@
             "description": "Wait until stack status is CREATE_COMPLETE.",
             "acceptors": [
               {
+                "argument": "Stacks[].StackStatus",
                 "expected": "CREATE_COMPLETE",
                 "matcher": "pathAll",
-                "state": "success",
-                "argument": "Stacks[].StackStatus"
+                "state": "success"
               },
               {
+                "argument": "Stacks[].StackStatus",
                 "expected": "CREATE_FAILED",
                 "matcher": "pathAny",
-                "state": "failure",
-                "argument": "Stacks[].StackStatus"
+                "state": "failure"
               },
               {
+                "argument": "Stacks[].StackStatus",
                 "expected": "DELETE_COMPLETE",
                 "matcher": "pathAny",
-                "argument": "Stacks[].StackStatus",
                 "state": "failure"
               },
               {
-                "expected": "DELETE_IN_PROGRESS",
-                "matcher": "pathAny",
                 "argument": "Stacks[].StackStatus",
-                "state": "failure"
-              },
-              {
                 "expected": "DELETE_FAILED",
                 "matcher": "pathAny",
-                "argument": "Stacks[].StackStatus",
                 "state": "failure"
               },
               {
-                "expected": "ROLLBACK_COMPLETE",
-                "matcher": "pathAny",
-                "state": "failure",
-                "argument": "Stacks[].StackStatus"
-              },
-              {
+                "argument": "Stacks[].StackStatus",
                 "expected": "ROLLBACK_FAILED",
                 "matcher": "pathAny",
-                "state": "failure",
-                "argument": "Stacks[].StackStatus"
+                "state": "failure"
               },
               {
-                "expected": "ROLLBACK_IN_PROGRESS",
-                "matcher": "pathAny",
                 "argument": "Stacks[].StackStatus",
+                "expected": "ROLLBACK_COMPLETE",
+                "matcher": "pathAny",
                 "state": "failure"
               },
               {
@@ -849,10 +837,10 @@
             "description": "Wait until stack status is DELETE_COMPLETE.",
             "acceptors": [
               {
+                "argument": "Stacks[].StackStatus",
                 "expected": "DELETE_COMPLETE",
                 "matcher": "pathAll",
-                "state": "success",
-                "argument": "Stacks[].StackStatus"
+                "state": "success"
               },
               {
                 "expected": "ValidationError",
@@ -860,14 +848,8 @@
                 "state": "success"
               },
               {
-                "expected": "DELETE_FAILED",
-                "matcher": "pathAny",
-                "state": "failure",
-                "argument": "Stacks[].StackStatus"
-              },
-              {
                 "argument": "Stacks[].StackStatus",
-                "expected": "CREATE_COMPLETE",
+                "expected": "DELETE_FAILED",
                 "matcher": "pathAny",
                 "state": "failure"
               },
@@ -879,55 +861,7 @@
               },
               {
                 "argument": "Stacks[].StackStatus",
-                "expected": "CREATE_IN_PROGRESS",
-                "matcher": "pathAny",
-                "state": "failure"
-              },
-              {
-                "argument": "Stacks[].StackStatus",
-                "expected": "ROLLBACK_COMPLETE",
-                "matcher": "pathAny",
-                "state": "failure"
-              },
-              {
-                "argument": "Stacks[].StackStatus",
                 "expected": "ROLLBACK_FAILED",
-                "matcher": "pathAny",
-                "state": "failure"
-              },
-              {
-                "argument": "Stacks[].StackStatus",
-                "expected": "ROLLBACK_IN_PROGRESS",
-                "matcher": "pathAny",
-                "state": "failure"
-              },
-              {
-                "argument": "Stacks[].StackStatus",
-                "expected": "UPDATE_COMPLETE",
-                "matcher": "pathAny",
-                "state": "failure"
-              },
-              {
-                "argument": "Stacks[].StackStatus",
-                "expected": "UPDATE_COMPLETE_CLEANUP_IN_PROGRESS",
-                "matcher": "pathAny",
-                "state": "failure"
-              },
-              {
-                "argument": "Stacks[].StackStatus",
-                "expected": "UPDATE_IN_PROGRESS",
-                "matcher": "pathAny",
-                "state": "failure"
-              },
-              {
-                "argument": "Stacks[].StackStatus",
-                "expected": "UPDATE_ROLLBACK_COMPLETE",
-                "matcher": "pathAny",
-                "state": "failure"
-              },
-              {
-                "argument": "Stacks[].StackStatus",
-                "expected": "UPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESS",
                 "matcher": "pathAny",
                 "state": "failure"
               },
@@ -952,10 +886,10 @@
             "description": "Wait until stack status is UPDATE_COMPLETE.",
             "acceptors": [
               {
+                "argument": "Stacks[].StackStatus",
                 "expected": "UPDATE_COMPLETE",
                 "matcher": "pathAll",
-                "state": "success",
-                "argument": "Stacks[].StackStatus"
+                "state": "success"
               },
               {
                 "expected": "UPDATE_FAILED",
@@ -964,28 +898,16 @@
                 "argument": "Stacks[].StackStatus"
               },
               {
+                "argument": "Stacks[].StackStatus",
+                "expected": "UPDATE_ROLLBACK_FAILED",
+                "matcher": "pathAny",
+                "state": "failure"
+              },
+              {
                 "expected": "UPDATE_ROLLBACK_COMPLETE",
                 "matcher": "pathAny",
                 "state": "failure",
                 "argument": "Stacks[].StackStatus"
-              },
-              {
-                "expected": "UPDATE_ROLLBACK_FAILED",
-                "matcher": "pathAny",
-                "state": "failure",
-                "argument": "Stacks[].StackStatus"
-              },
-              {
-                "argument": "Stacks[].StackStatus",
-                "expected": "UPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESS",
-                "matcher": "pathAny",
-                "state": "failure"
-              },
-              {
-                "argument": "Stacks[].StackStatus",
-                "expected": "UPDATE_ROLLBACK_IN_PROGRESS",
-                "matcher": "pathAny",
-                "state": "failure"
               },
               {
                 "expected": "ValidationError",
@@ -1101,6 +1023,12 @@
             "schema": {
               "$ref": "#/definitions/ChangeSetNotFoundException"
             }
+          },
+          "482": {
+            "description": "InsufficientCapabilitiesException",
+            "schema": {
+              "$ref": "#/definitions/InsufficientCapabilitiesException"
+            }
           }
         },
         "parameters": [
@@ -1206,6 +1134,12 @@
             "description": "Success",
             "schema": {
               "$ref": "#/definitions/GetTemplateOutput"
+            }
+          },
+          "480": {
+            "description": "ChangeSetNotFoundException",
+            "schema": {
+              "$ref": "#/definitions/ChangeSetNotFoundException"
             }
           }
         },
@@ -1322,6 +1256,112 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/ListChangeSetsInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#ListExports": {
+      "post": {
+        "operationId": "ListExports",
+        "description": "<p>Lists all exported output values in the account and region in which you call this action. Use this action to see the exported output values that you can import into other stacks. To import values, use the <a href=\"http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-importvalue.html\"> <code>Fn::ImportValue</code> </a> function. </p> <p>For more information, see <a href=\"http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-exports.html\"> AWS CloudFormation Export Stack Output Values</a>.</p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ListExportsOutput"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ListExportsInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#ListImports": {
+      "post": {
+        "operationId": "ListImports",
+        "description": "<p>Lists all stacks that are importing an exported output value. To modify or remove an exported output value, first use this action to see which stacks are using it. To see the exported output values in your account, see <a>ListExports</a>. </p> <p>For more information about importing an exported output value, see the <a href=\"http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-importvalue.html\"> <code>Fn::ImportValue</code> </a> function. </p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ListImportsOutput"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ListImportsInput"
             }
           }
         ]
@@ -1729,6 +1769,9 @@
       "required": [
         "StackName"
       ],
+      "example": {
+        "StackName": "MyStack"
+      },
       "properties": {
         "StackName": {
           "$ref": "#/definitions/StackName",
@@ -1861,6 +1904,13 @@
       },
       "description": "The <code>ChangeSetSummary</code> structure describes a change set, its status, and the stack with which it's associated."
     },
+    "ChangeSetType": {
+      "type": "string",
+      "enum": [
+        "CREATE",
+        "UPDATE"
+      ]
+    },
     "ChangeSource": {
       "type": "string",
       "enum": [
@@ -1896,11 +1946,15 @@
       "properties": {
         "StackName": {
           "$ref": "#/definitions/StackNameOrId",
-          "description": "The name or the unique ID of the stack that you want to continue rolling back."
+          "description": "<p>The name or the unique ID of the stack that you want to continue rolling back.</p> <note> <p>Don't specify the name of a nested stack (a stack that was created by using the <code>AWS::CloudFormation::Stack</code> resource). Instead, use this operation on the parent stack (the stack that contains the <code>AWS::CloudFormation::Stack</code> resource).</p> </note>"
         },
         "RoleARN": {
           "$ref": "#/definitions/RoleARN",
           "description": "<p>The Amazon Resource Name (ARN) of an AWS Identity and Access Management (IAM) role that AWS CloudFormation assumes to roll back the stack. AWS CloudFormation uses the role's credentials to make calls on your behalf. AWS CloudFormation always uses this role for all future operations on the stack. As long as users have permission to operate on the stack, AWS CloudFormation uses this role even if the users don't have permission to pass it. Ensure that the role grants least privilege.</p> <p>If you don't specify a value, AWS CloudFormation uses the role that was previously associated with the stack. If no role is available, AWS CloudFormation uses a temporary session that is generated from your user credentials.</p>"
+        },
+        "ResourcesToSkip": {
+          "$ref": "#/definitions/ResourcesToSkip",
+          "description": "<p>A list of the logical IDs of the resources that AWS CloudFormation skips during the continue update rollback operation. You can specify only resources that are in the <code>UPDATE_FAILED</code> state because a rollback failed. You can't specify resources that are in the <code>UPDATE_FAILED</code> state for other reasons, for example, because an update was canceled. To check why a resource update failed, use the <a>DescribeStackResources</a> action, and view the resource status reason. </p> <important> <p>Specify this property to skip rolling back resources that AWS CloudFormation can't successfully roll back. We recommend that you <a href=\"http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html#troubleshooting-errors-update-rollback-failed\"> troubleshoot</a> resources before skipping them. AWS CloudFormation sets the status of the specified resources to <code>UPDATE_COMPLETE</code> and continues to roll back the stack. After the rollback is complete, the state of the skipped resources will be inconsistent with the state of the resources in the stack template. Before performing another stack update, you must update the stack or resources to be consistent with each other. If you don't, subsequent stack updates might fail, and the stack will become unrecoverable. </p> </important> <p>Specify the minimum number of resources required to successfully roll back your stack. For example, a failed resource update might cause dependent resources to fail. In this case, it might not be necessary to skip the dependent resources. </p> <p>To specify resources in a nested stack, use the following format: <code>NestedStackName.ResourceLogicalID</code>. You can specify a nested stack resource (the logical ID of an <code>AWS::CloudFormation::Stack</code> resource) only if it's in one of the following states: <code>DELETE_IN_PROGRESS</code>, <code>DELETE_COMPLETE</code>, or <code>DELETE_FAILED</code>. </p>"
         }
       },
       "description": "The input for the <a>ContinueUpdateRollback</a> action."
@@ -1947,7 +2001,7 @@
         },
         "RoleARN": {
           "$ref": "#/definitions/RoleARN",
-          "description": "<p>The Amazon Resource Name (ARN) of an AWS Identity and Access Management (IAM) role that AWS CloudFormation assumes when executing the change set. AWS CloudFormation uses the role's credentials to make calls on your behalf. AWS CloudFormation always uses this role for all future operations on the stack. As long as users have permission to operate on the stack, AWS CloudFormation uses this role even if the users don't have permission to pass it. Ensure that the role grants least privilege.</p> <p>If you don't specify a value, AWS CloudFormation uses the role that was previously associated with the stack. If no role is available, AWS CloudFormation uses a temporary session that is generated from your user credentials.</p>"
+          "description": "<p>The Amazon Resource Name (ARN) of an AWS Identity and Access Management (IAM) role that AWS CloudFormation assumes when executing the change set. AWS CloudFormation uses the role's credentials to make calls on your behalf. AWS CloudFormation uses this role for all future operations on the stack. As long as users have permission to operate on the stack, AWS CloudFormation uses this role even if the users don't have permission to pass it. Ensure that the role grants least privilege.</p> <p>If you don't specify a value, AWS CloudFormation uses the role that was previously associated with the stack. If no role is available, AWS CloudFormation uses a temporary session that is generated from your user credentials.</p>"
         },
         "NotificationARNs": {
           "$ref": "#/definitions/NotificationARNs",
@@ -1968,6 +2022,10 @@
         "Description": {
           "$ref": "#/definitions/Description",
           "description": "A description to help you identify this change set."
+        },
+        "ChangeSetType": {
+          "$ref": "#/definitions/ChangeSetType",
+          "description": "<p>The type of change set operation. To create a change set for a new stack, specify <code>CREATE</code>. To create a change set for an existing stack, specify <code>UPDATE</code>.</p> <p>If you create a change set for a new stack, AWS Cloudformation creates a stack with a unique stack ID, but no template or resources. The stack will be in the <a href=\"http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-describing-stacks.html#d0e11995\"> <code>REVIEW_IN_PROGRESS</code> </a> state until you execute the change set.</p> <p>By default, AWS CloudFormation specifies <code>UPDATE</code>. You can't use the <code>UPDATE</code> type to create a change set for a new stack or the <code>CREATE</code> type to create a change set for an existing stack.</p>"
         }
       },
       "description": "The input for the <a>CreateChangeSet</a> action."
@@ -1978,6 +2036,10 @@
         "Id": {
           "$ref": "#/definitions/ChangeSetId",
           "description": "The Amazon Resource Name (ARN) of the change set."
+        },
+        "StackId": {
+          "$ref": "#/definitions/StackId",
+          "description": "The unique ID of the stack."
         }
       },
       "description": "The output for the <a>CreateChangeSet</a> action."
@@ -2410,6 +2472,36 @@
         "OBSOLETE"
       ]
     },
+    "Export": {
+      "type": "object",
+      "properties": {
+        "ExportingStackId": {
+          "$ref": "#/definitions/StackId",
+          "description": "The stack that contains the exported output name and value."
+        },
+        "Name": {
+          "$ref": "#/definitions/ExportName",
+          "description": "The name of exported output value. Use this name and the <code>Fn::ImportValue</code> function to import the associated value into other stacks. The name is defined in the <code>Export</code> field in the associated stack's <code>Outputs</code> section."
+        },
+        "Value": {
+          "$ref": "#/definitions/ExportValue",
+          "description": "The value of the exported output, such as a resource physical ID. This value is defined in the <code>Export</code> field in the associated stack's <code>Outputs</code> section."
+        }
+      },
+      "description": "The <code>Export</code> structure describes the exported output values for a stack."
+    },
+    "ExportName": {
+      "type": "string"
+    },
+    "ExportValue": {
+      "type": "string"
+    },
+    "Exports": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Export"
+      }
+    },
     "GetStackPolicyInput": {
       "type": "object",
       "required": [
@@ -2435,13 +2527,18 @@
     },
     "GetTemplateInput": {
       "type": "object",
-      "required": [
-        "StackName"
-      ],
       "properties": {
         "StackName": {
           "$ref": "#/definitions/StackName",
           "description": "<p>The name or the unique stack ID that is associated with the stack, which are not always interchangeable:</p> <ul> <li> <p>Running stacks: You can specify either the stack's name or its unique stack ID.</p> </li> <li> <p>Deleted stacks: You must specify the unique stack ID.</p> </li> </ul> <p>Default: There is no default value.</p>"
+        },
+        "ChangeSetName": {
+          "$ref": "#/definitions/ChangeSetNameOrId",
+          "description": "The name or Amazon Resource Name (ARN) of a change set for which AWS CloudFormation returns the associated template. If you specify a name, you must also specify the <code>StackName</code>."
+        },
+        "TemplateStage": {
+          "$ref": "#/definitions/TemplateStage",
+          "description": "<p>For templates that include transforms, the stage of the template that AWS CloudFormation returns. To get the user-submitted template, specify <code>Original</code>. To get the template after AWS CloudFormation has processed all transforms, specify <code>Processed</code>. </p> <p>If the template doesn't include transforms, <code>Original</code> and <code>Processed</code> return the same template. By default, AWS CloudFormation specifies <code>Original</code>. </p>"
         }
       },
       "description": "The input for a <a>GetTemplate</a> action."
@@ -2452,6 +2549,10 @@
         "TemplateBody": {
           "$ref": "#/definitions/TemplateBody",
           "description": "<p>Structure containing the template body. (For more information, go to <a href=\"http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html\">Template Anatomy</a> in the AWS CloudFormation User Guide.)</p> <p>AWS CloudFormation returns the same template that was used when the stack was created.</p>"
+        },
+        "StagesAvailable": {
+          "$ref": "#/definitions/StageList",
+          "description": "The stage of the template that you can retrieve. For stacks, the <code>Original</code> and <code>Processed</code> templates are always available. For change sets, the <code>Original</code> template is always available. After AWS CloudFormation finishes creating the change set, the <code>Processed</code> template becomes available."
         }
       },
       "description": "The output for <a>GetTemplate</a> action."
@@ -2504,9 +2605,19 @@
         "Metadata": {
           "$ref": "#/definitions/Metadata",
           "description": "The value that is defined for the <code>Metadata</code> property of the template."
+        },
+        "DeclaredTransforms": {
+          "$ref": "#/definitions/TransformsList",
+          "description": "A list of the transforms that are declared in the template."
         }
       },
       "description": "The output for the <a>GetTemplateSummary</a> action."
+    },
+    "Imports": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/StackName"
+      }
     },
     "InsufficientCapabilitiesException": {
       "type": "object",
@@ -2563,6 +2674,57 @@
         }
       },
       "description": "The output for the <a>ListChangeSets</a> action."
+    },
+    "ListExportsInput": {
+      "type": "object",
+      "properties": {
+        "NextToken": {
+          "$ref": "#/definitions/NextToken",
+          "description": "A string (provided by the <a>ListExports</a> response output) that identifies the next page of exported output values that you asked to retrieve."
+        }
+      }
+    },
+    "ListExportsOutput": {
+      "type": "object",
+      "properties": {
+        "Exports": {
+          "$ref": "#/definitions/Exports",
+          "description": "The output for the <a>ListExports</a> action."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NextToken",
+          "description": "If the output exceeds 100 exported output values, a string that identifies the next page of exports. If there is no additional page, this value is null."
+        }
+      }
+    },
+    "ListImportsInput": {
+      "type": "object",
+      "required": [
+        "ExportName"
+      ],
+      "properties": {
+        "ExportName": {
+          "$ref": "#/definitions/ExportName",
+          "description": "The name of the exported output value. AWS CloudFormation returns the stack names that are importing this value. "
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NextToken",
+          "description": "A string (provided by the <a>ListImports</a> response output) that identifies the next page of stacks that are importing the specified exported output value. "
+        }
+      }
+    },
+    "ListImportsOutput": {
+      "type": "object",
+      "properties": {
+        "Imports": {
+          "$ref": "#/definitions/Imports",
+          "description": "A list of stack names that are importing the specified exported output value. "
+        },
+        "NextToken": {
+          "$ref": "#/definitions/NextToken",
+          "description": "A string that identifies the next page of exports. If there is no additional page, this value is null."
+        }
+      }
     },
     "ListStackResourcesInput": {
       "type": "object",
@@ -2910,6 +3072,10 @@
       },
       "description": "The field that AWS CloudFormation will change, such as the name of a resource's property, and whether the resource will be recreated."
     },
+    "ResourceToSkip": {
+      "type": "string",
+      "pattern": "[a-zA-Z0-9]+|[a-zA-Z][-a-zA-Z0-9]*\\.[a-zA-Z0-9]+"
+    },
     "ResourceType": {
       "type": "string",
       "minLength": 1,
@@ -2919,6 +3085,12 @@
       "type": "array",
       "items": {
         "$ref": "#/definitions/ResourceType"
+      }
+    },
+    "ResourcesToSkip": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ResourceToSkip"
       }
     },
     "RetainResources": {
@@ -3002,6 +3174,10 @@
         "StackName": {
           "$ref": "#/definitions/StackName",
           "description": "The name associated with the stack."
+        },
+        "ChangeSetId": {
+          "$ref": "#/definitions/ChangeSetId",
+          "description": "The unique ID of the change set."
         },
         "Description": {
           "$ref": "#/definitions/Description",
@@ -3313,7 +3489,8 @@
         "UPDATE_ROLLBACK_IN_PROGRESS",
         "UPDATE_ROLLBACK_FAILED",
         "UPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESS",
-        "UPDATE_ROLLBACK_COMPLETE"
+        "UPDATE_ROLLBACK_COMPLETE",
+        "REVIEW_IN_PROGRESS"
       ]
     },
     "StackStatusFilter": {
@@ -3380,6 +3557,12 @@
         "$ref": "#/definitions/Stack"
       }
     },
+    "StageList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/TemplateStage"
+      }
+    },
     "Tag": {
       "type": "object",
       "properties": {
@@ -3441,6 +3624,13 @@
         "$ref": "#/definitions/TemplateParameter"
       }
     },
+    "TemplateStage": {
+      "type": "string",
+      "enum": [
+        "Original",
+        "Processed"
+      ]
+    },
     "TemplateURL": {
       "type": "string",
       "minLength": 1,
@@ -3454,11 +3644,33 @@
       "type": "string",
       "format": "date-time"
     },
+    "TransformName": {
+      "type": "string"
+    },
+    "TransformsList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/TransformName"
+      }
+    },
     "UpdateStackInput": {
       "type": "object",
       "required": [
         "StackName"
       ],
+      "example": {
+        "Capabilities": [],
+        "NotificationARNs": [
+          "arn:aws:sns:use-east-1:123456789012:mytopic1",
+          "arn:aws:sns:us-east-1:123456789012:mytopic2"
+        ],
+        "Parameters": [],
+        "ResourceTypes": [],
+        "StackName": "MyStack",
+        "Tags": [],
+        "TemplateURL": "https://s3.amazonaws.com/example/updated.template",
+        "UsePreviousTemplate": true
+      },
       "properties": {
         "StackName": {
           "$ref": "#/definitions/StackName",
@@ -3521,6 +3733,9 @@
     },
     "UpdateStackOutput": {
       "type": "object",
+      "example": {
+        "StackId": ""
+      },
       "properties": {
         "StackId": {
           "$ref": "#/definitions/StackId",
@@ -3540,6 +3755,9 @@
     },
     "ValidateTemplateInput": {
       "type": "object",
+      "example": {
+        "TemplateBody": "MyTemplate.json"
+      },
       "properties": {
         "TemplateBody": {
           "$ref": "#/definitions/TemplateBody",
@@ -3554,6 +3772,12 @@
     },
     "ValidateTemplateOutput": {
       "type": "object",
+      "example": {
+        "Capabilities": [],
+        "CapabilitiesReason": "",
+        "Description": "AWS CloudFormation Example Template S3_Bucket: An example template that shows how to create a publicly-accessible S3 bucket. IMPORTANT: This template creates an S3 bucket. You will be billed for the AWS resources used if you create a stack from this template.",
+        "Parameters": []
+      },
       "properties": {
         "Parameters": {
           "$ref": "#/definitions/TemplateParameters",
@@ -3570,6 +3794,10 @@
         "CapabilitiesReason": {
           "$ref": "#/definitions/CapabilitiesReason",
           "description": "The list of resources that generated the values in the <code>Capabilities</code> response element."
+        },
+        "DeclaredTransforms": {
+          "$ref": "#/definitions/TransformsList",
+          "description": "A list of the transforms that are declared in the template."
         }
       },
       "description": "The output for <a>ValidateTemplate</a> action."

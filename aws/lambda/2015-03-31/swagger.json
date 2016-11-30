@@ -824,7 +824,7 @@
     "/2015-03-31/functions/{FunctionName}/invocations": {
       "post": {
         "operationId": "Invoke",
-        "description": "<p>Invokes a specific Lambda function.</p> <p>If you are using the versioning feature, you can invoke the specific function version by providing function version or alias name that is pointing to the function version using the <code>Qualifier</code> parameter in the request. If you don't provide the <code>Qualifier</code> parameter, the <code>$LATEST</code> version of the Lambda function is invoked. Invocations occur at least once in response to an event and functions must be idempotent to handle this. For information about the versioning feature, see <a href=\"http://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html\">AWS Lambda Function Versioning and Aliases</a>. </p> <p>This operation requires permission for the <code>lambda:InvokeFunction</code> action.</p>",
+        "description": "<p>Invokes a specific Lambda function. For an example, see <a href=\"http://docs.aws.amazon.com/lambda/latest/dg/with-dynamodb-create-function.html#with-dbb-invoke-manually\">Create the Lambda Function and Test It Manually</a>. </p> <p>If you are using the versioning feature, you can invoke the specific function version by providing function version or alias name that is pointing to the function version using the <code>Qualifier</code> parameter in the request. If you don't provide the <code>Qualifier</code> parameter, the <code>$LATEST</code> version of the Lambda function is invoked. Invocations occur at least once in response to an event and functions must be idempotent to handle this. For information about the versioning feature, see <a href=\"http://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html\">AWS Lambda Function Versioning and Aliases</a>. </p> <p>This operation requires permission for the <code>lambda:InvokeFunction</code> action.</p>",
         "responses": {
           "200": {
             "description": "Success",
@@ -920,6 +920,30 @@
             "description": "InvalidZipFileException",
             "schema": {
               "$ref": "#/definitions/InvalidZipFileException"
+            }
+          },
+          "495": {
+            "description": "KMSDisabledException",
+            "schema": {
+              "$ref": "#/definitions/KMSDisabledException"
+            }
+          },
+          "496": {
+            "description": "KMSInvalidStateException",
+            "schema": {
+              "$ref": "#/definitions/KMSInvalidStateException"
+            }
+          },
+          "497": {
+            "description": "KMSAccessDeniedException",
+            "schema": {
+              "$ref": "#/definitions/KMSAccessDeniedException"
+            }
+          },
+          "498": {
+            "description": "KMSNotFoundException",
+            "schema": {
+              "$ref": "#/definitions/KMSNotFoundException"
             }
           }
         },
@@ -1447,7 +1471,7 @@
         },
         "SourceAccount": {
           "$ref": "#/definitions/SourceOwner",
-          "description": "This parameter is used for S3 and SES only. The AWS account ID (without a hyphen) of the source owner. For example, if the <code>SourceArn</code> identifies a bucket, then this is the bucket owner's account ID. You can use this additional condition to ensure the bucket you specify is owned by a specific account (it is possible the bucket owner deleted the bucket and some other AWS account created the bucket). You can also use this condition to specify all sources (that is, you don't specify the <code>SourceArn</code>) owned by a specific account. "
+          "description": "This parameter is used for S3, SES, CloudWatch Logs and CloudWatch Rules only. The AWS account ID (without a hyphen) of the source owner. For example, if the <code>SourceArn</code> identifies a bucket, then this is the bucket owner's account ID. You can use this additional condition to ensure the bucket you specify is owned by a specific account (it is possible the bucket owner deleted the bucket and some other AWS account created the bucket). You can also use this condition to specify all sources (that is, you don't specify the <code>SourceArn</code>) owned by a specific account. "
         },
         "EventSourceToken": {
           "$ref": "#/definitions/EventSourceToken",
@@ -1632,6 +1656,13 @@
         "VpcConfig": {
           "$ref": "#/definitions/VpcConfig",
           "description": "If your Lambda function accesses resources in a VPC, you provide this parameter identifying the list of security group IDs and subnet IDs. These must belong to the same VPC. You must provide at least one security group and one subnet ID."
+        },
+        "Environment": {
+          "$ref": "#/definitions/Environment"
+        },
+        "KMSKeyArn": {
+          "$ref": "#/definitions/KMSKeyArn",
+          "description": "The Amazon Resource Name (ARN) of the KMS key used to encrypt your function's environment variables. If not provided, AWS Lambda will use a default service key."
         }
       },
       "description": "<p/>"
@@ -1711,6 +1742,65 @@
     },
     "Enabled": {
       "type": "boolean"
+    },
+    "Environment": {
+      "type": "object",
+      "properties": {
+        "Variables": {
+          "$ref": "#/definitions/EnvironmentVariables",
+          "description": "The key-value pairs that represent your environment's configuration settings. The value you specify cannot contain a \",\"."
+        }
+      },
+      "description": "The parent object that contains your environment's configuration settings."
+    },
+    "EnvironmentError": {
+      "type": "object",
+      "properties": {
+        "ErrorCode": {
+          "$ref": "#/definitions/String",
+          "description": "The error code returned by the environment error object."
+        },
+        "Message": {
+          "$ref": "#/definitions/String",
+          "description": "The message returned by the environment error object."
+        }
+      },
+      "description": "The parent object that contains error information associated with your configuration settings."
+    },
+    "EnvironmentResponse": {
+      "type": "object",
+      "properties": {
+        "Variables": {
+          "$ref": "#/definitions/EnvironmentVariables",
+          "description": "The key-value pairs returned that represent your environment's configuration settings or error information."
+        },
+        "Error": {
+          "$ref": "#/definitions/EnvironmentError"
+        }
+      },
+      "description": "The parent object returned that contains your environment's configuration settings or any error information associated with your configuration settings."
+    },
+    "EnvironmentVariableName": {
+      "type": "string",
+      "pattern": "[a-zA-Z]([a-zA-Z0-9_])+"
+    },
+    "EnvironmentVariableValue": {
+      "type": "string",
+      "pattern": "[^,]*"
+    },
+    "EnvironmentVariables": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "$ref": "#/definitions/EnvironmentVariableName"
+          },
+          "value": {
+            "$ref": "#/definitions/EnvironmentVariableValue"
+          }
+        }
+      }
     },
     "EventSourceMappingConfiguration": {
       "type": "object",
@@ -1863,6 +1953,14 @@
         "VpcConfig": {
           "$ref": "#/definitions/VpcConfigResponse",
           "description": "VPC configuration associated with your Lambda function."
+        },
+        "Environment": {
+          "$ref": "#/definitions/EnvironmentResponse",
+          "description": "The parent object that contains your environment's configuration settings."
+        },
+        "KMSKeyArn": {
+          "$ref": "#/definitions/KMSKeyArn",
+          "description": "The Amazon Resource Name (ARN) of the KMS key used to encrypt your function's environment variables. If empty, it means you are using the AWS Lambda default service key."
         }
       },
       "description": "A complex type that describes function metadata."
@@ -1908,7 +2006,7 @@
           "$ref": "#/definitions/FunctionCodeLocation"
         }
       },
-      "description": "This response contains the object for the Lambda function location (see ."
+      "description": "This response contains the object for the Lambda function location (see <a>FunctionCodeLocation</a>."
     },
     "GetPolicyRequest": {
       "type": "object",
@@ -2015,7 +2113,7 @@
       "properties": {
         "Payload": {
           "$ref": "#/definitions/Blob",
-          "description": "<p> It is the JSON representation of the object returned by the Lambda function. In This is present only if the invocation type is <code>RequestResponse</code>. </p> <p>In the event of a function error this field contains a message describing the error. For the <code>Handled</code> errors the Lambda function will report this message. For <code>Unhandled</code> errors AWS Lambda reports the message. </p>"
+          "description": "<p> It is the JSON representation of the object returned by the Lambda function. This is present only if the invocation type is <code>RequestResponse</code>. </p> <p>In the event of a function error this field contains a message describing the error. For the <code>Handled</code> errors the Lambda function will report this message. For <code>Unhandled</code> errors AWS Lambda reports the message. </p>"
         }
       },
       "description": "Upon success, returns an empty response. Otherwise, throws an exception."
@@ -2045,6 +2143,58 @@
       "type": "object",
       "properties": {},
       "description": "Upon success, it returns empty response. Otherwise, throws an exception."
+    },
+    "KMSAccessDeniedException": {
+      "type": "object",
+      "properties": {
+        "Type": {
+          "$ref": "#/definitions/String"
+        },
+        "Message": {
+          "$ref": "#/definitions/String"
+        }
+      },
+      "description": "Lambda was unable to decrypt the environment variables becauses KMS access was denied. Please check the Lambda function's KMS permissions."
+    },
+    "KMSDisabledException": {
+      "type": "object",
+      "properties": {
+        "Type": {
+          "$ref": "#/definitions/String"
+        },
+        "Message": {
+          "$ref": "#/definitions/String"
+        }
+      },
+      "description": "Lambda was unable to decrypt the environment variables because the KMS key used is disabled. Please check the Lambda function's KMS key settings."
+    },
+    "KMSInvalidStateException": {
+      "type": "object",
+      "properties": {
+        "Type": {
+          "$ref": "#/definitions/String"
+        },
+        "Message": {
+          "$ref": "#/definitions/String"
+        }
+      },
+      "description": "Lambda was unable to decrypt the environment variables because the KMS key used is in an invalid state for Decrypt. Please check the function's KMS key settings."
+    },
+    "KMSKeyArn": {
+      "type": "string",
+      "pattern": "(arn:aws:[a-z0-9-.]+:.*)|()"
+    },
+    "KMSNotFoundException": {
+      "type": "object",
+      "properties": {
+        "Type": {
+          "$ref": "#/definitions/String"
+        },
+        "Message": {
+          "$ref": "#/definitions/String"
+        }
+      },
+      "description": "Lambda was unable to decrypt the environment variables because the KMS key was not found. Please check the function's KMS key settings. "
     },
     "ListAliasesRequest": {
       "type": "object",
@@ -2080,7 +2230,7 @@
           "description": "An array of <code>EventSourceMappingConfiguration</code> objects."
         }
       },
-      "description": "Contains a list of event sources (see )"
+      "description": "Contains a list of event sources (see <a>EventSourceMappingConfiguration</a>)"
     },
     "ListFunctionsRequest": {
       "type": "object",
@@ -2429,6 +2579,14 @@
         },
         "VpcConfig": {
           "$ref": "#/definitions/VpcConfig"
+        },
+        "Environment": {
+          "$ref": "#/definitions/Environment",
+          "description": "The parent object that contains your environment's configuration settings."
+        },
+        "KMSKeyArn": {
+          "$ref": "#/definitions/KMSKeyArn",
+          "description": "The Amazon Resource Name (ARN) of the KMS key used to encrypt your function's environment variables. If you elect to use the AWS Lambda default service key, pass in an empty string (\"\") for this parameter."
         },
         "Runtime": {
           "$ref": "#/definitions/Runtime",
