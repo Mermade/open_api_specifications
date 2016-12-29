@@ -4,7 +4,7 @@
     "version": "2016-01-01",
     "x-release": "v4",
     "title": "AWS Database Migration Service",
-    "description": "<fullname>AWS Database Migration Service</fullname> <p>AWS Database Migration Service (AWS DMS) can migrate your data to and from the most widely used commercial and open-source databases such as Oracle, PostgreSQL, Microsoft SQL Server, Amazon Redshift, MariaDB, Amazon Aurora, and MySQL. The service supports homogeneous migrations such as Oracle to Oracle, as well as heterogeneous migrations between different database platforms, such as Oracle to MySQL or SQL Server to PostgreSQL.</p>",
+    "description": "<fullname>AWS Database Migration Service</fullname> <p>AWS Database Migration Service (AWS DMS) can migrate your data to and from the most widely used commercial and open-source databases such as Oracle, PostgreSQL, Microsoft SQL Server, Amazon Redshift, MariaDB, Amazon Aurora, MySQL, and SAP Adaptive Server Enterprise (ASE). The service supports homogeneous migrations such as Oracle to Oracle, as well as heterogeneous migrations between different database platforms, such as Oracle to MySQL or SQL Server to PostgreSQL.</p>",
     "termsOfService": "https://aws.amazon.com/service-terms/",
     "contact": {
       "name": "Mike Ralphson",
@@ -204,6 +204,12 @@
             "description": "ResourceNotFoundFault",
             "schema": {
               "$ref": "#/definitions/ResourceNotFoundFault"
+            }
+          },
+          "485": {
+            "description": "AccessDeniedFault",
+            "schema": {
+              "$ref": "#/definitions/AccessDeniedFault"
             }
           }
         },
@@ -1945,6 +1951,83 @@
         }
       ]
     },
+    "/#ModifyReplicationTask": {
+      "post": {
+        "operationId": "ModifyReplicationTask",
+        "description": "<p>Modifies the specified replication task.</p> <p>You can't modify the task endpoints. The task must be stopped before you can modify it. </p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ModifyReplicationTaskResponse"
+            }
+          },
+          "480": {
+            "description": "InvalidResourceStateFault",
+            "schema": {
+              "$ref": "#/definitions/InvalidResourceStateFault"
+            }
+          },
+          "481": {
+            "description": "ResourceNotFoundFault",
+            "schema": {
+              "$ref": "#/definitions/ResourceNotFoundFault"
+            }
+          },
+          "482": {
+            "description": "ResourceAlreadyExistsFault",
+            "schema": {
+              "$ref": "#/definitions/ResourceAlreadyExistsFault"
+            }
+          },
+          "483": {
+            "description": "KMSKeyNotAccessibleFault",
+            "schema": {
+              "$ref": "#/definitions/KMSKeyNotAccessibleFault"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ModifyReplicationTaskMessage"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
     "/#RefreshSchemas": {
       "post": {
         "operationId": "RefreshSchemas",
@@ -2368,15 +2451,19 @@
       "properties": {
         "CertificateIdentifier": {
           "$ref": "#/definitions/String",
-          "description": "The customer-assigned name of the certificate. Valid characters are [A-z_0-9]."
+          "description": "The customer-assigned name of the certificate. Valid characters are A-z and 0-9."
         },
         "CertificateCreationDate": {
           "$ref": "#/definitions/TStamp",
-          "description": "the date the certificate was created."
+          "description": "The date that the certificate was created."
         },
         "CertificatePem": {
           "$ref": "#/definitions/String",
-          "description": "The contents of the .pem X.509 certificate file."
+          "description": "The contents of the .pem X.509 certificate file for the certificate."
+        },
+        "CertificateWallet": {
+          "$ref": "#/definitions/CertificateWallet",
+          "description": "The location of the imported Oracle Wallet certificate for use with SSL."
         },
         "CertificateArn": {
           "$ref": "#/definitions/String",
@@ -2388,11 +2475,11 @@
         },
         "ValidFromDate": {
           "$ref": "#/definitions/TStamp",
-          "description": "The beginning date the certificate is valid."
+          "description": "The beginning date that the certificate is valid."
         },
         "ValidToDate": {
           "$ref": "#/definitions/TStamp",
-          "description": "the final date the certificate is valid."
+          "description": "The final date that the certificate is valid."
         },
         "SigningAlgorithm": {
           "$ref": "#/definitions/String",
@@ -2410,6 +2497,9 @@
       "items": {
         "$ref": "#/definitions/Certificate"
       }
+    },
+    "CertificateWallet": {
+      "type": "string"
     },
     "Connection": {
       "type": "object",
@@ -2452,11 +2542,7 @@
       "required": [
         "EndpointIdentifier",
         "EndpointType",
-        "EngineName",
-        "Username",
-        "Password",
-        "ServerName",
-        "Port"
+        "EngineName"
       ],
       "properties": {
         "EndpointIdentifier": {
@@ -2469,7 +2555,7 @@
         },
         "EngineName": {
           "$ref": "#/definitions/String",
-          "description": "The type of engine for the endpoint. Valid values include MYSQL, ORACLE, POSTGRES, MARIADB, AURORA, REDSHIFT, and SQLSERVER."
+          "description": "The type of engine for the endpoint. Valid values include MYSQL, ORACLE, POSTGRES, MARIADB, AURORA, REDSHIFT, SYBASE, and SQLSERVER."
         },
         "Username": {
           "$ref": "#/definitions/String",
@@ -2670,7 +2756,7 @@
         },
         "ReplicationTaskSettings": {
           "$ref": "#/definitions/String",
-          "description": "Settings for the task, such as target metadata settings."
+          "description": "Settings for the task, such as target metadata settings. For a complete list of task settings, see <a href=\"http://docs.aws.amazon.com/dms/latest/userguide/CHAP_Tasks.CustomizingTasks.TaskSettings.html\">Task Settings for AWS Database Migration Service Tasks</a>."
         },
         "CdcStartTime": {
           "$ref": "#/definitions/TStamp",
@@ -2701,7 +2787,7 @@
       "properties": {
         "CertificateArn": {
           "$ref": "#/definitions/String",
-          "description": "the Amazon Resource Name (ARN) of the deleted certificate."
+          "description": "The Amazon Resource Name (ARN) of the deleted certificate."
         }
       }
     },
@@ -2710,7 +2796,7 @@
       "properties": {
         "Certificate": {
           "$ref": "#/definitions/Certificate",
-          "description": "The SSL certificate."
+          "description": "The Secure Sockets Layer (SSL) certificate."
         }
       }
     },
@@ -2842,7 +2928,7 @@
         },
         "Certificates": {
           "$ref": "#/definitions/CertificateList",
-          "description": "The SSL certificates associated with the replication instance."
+          "description": "The Secure Sockets Layer (SSL) certificates associated with the replication instance."
         }
       }
     },
@@ -3185,7 +3271,7 @@
         },
         "EngineName": {
           "$ref": "#/definitions/String",
-          "description": "The database engine name."
+          "description": "The database engine name. Valid values include MYSQL, ORACLE, POSTGRES, MARIADB, AURORA, REDSHIFT, SYBASE, and SQLSERVER."
         },
         "Username": {
           "$ref": "#/definitions/String",
@@ -3277,11 +3363,15 @@
       "properties": {
         "CertificateIdentifier": {
           "$ref": "#/definitions/String",
-          "description": "The customer-assigned name of the certificate. Valid characters are [A-z_0-9]."
+          "description": "The customer-assigned name of the certificate. Valid characters are A-z and 0-9."
         },
         "CertificatePem": {
           "$ref": "#/definitions/String",
-          "description": "The contents of the .pem X.509 certificate file."
+          "description": "The contents of the .pem X.509 certificate file for the certificate."
+        },
+        "CertificateWallet": {
+          "$ref": "#/definitions/CertificateWallet",
+          "description": "The location of the imported Oracle Wallet certificate for use with SSL."
         }
       }
     },
@@ -3409,7 +3499,7 @@
         },
         "EngineName": {
           "$ref": "#/definitions/String",
-          "description": "The type of engine for the endpoint. Valid values include MYSQL, ORACLE, POSTGRES, MARIADB, AURORA, REDSHIFT, and SQLSERVER."
+          "description": "The type of engine for the endpoint. Valid values include MYSQL, ORACLE, POSTGRES, MARIADB, AURORA, REDSHIFT, SYBASE, and SQLSERVER."
         },
         "Username": {
           "$ref": "#/definitions/String",
@@ -3547,6 +3637,49 @@
         "ReplicationSubnetGroup": {
           "$ref": "#/definitions/ReplicationSubnetGroup",
           "description": "The modified replication subnet group."
+        }
+      },
+      "description": "<p/>"
+    },
+    "ModifyReplicationTaskMessage": {
+      "type": "object",
+      "required": [
+        "ReplicationTaskArn"
+      ],
+      "properties": {
+        "ReplicationTaskArn": {
+          "$ref": "#/definitions/String",
+          "description": "The Amazon Resource Name (ARN) of the replication task."
+        },
+        "ReplicationTaskIdentifier": {
+          "$ref": "#/definitions/String",
+          "description": "<p>The replication task identifier.</p> <p>Constraints:</p> <ul> <li> <p>Must contain from 1 to 63 alphanumeric characters or hyphens.</p> </li> <li> <p>First character must be a letter.</p> </li> <li> <p>Cannot end with a hyphen or contain two consecutive hyphens.</p> </li> </ul>"
+        },
+        "MigrationType": {
+          "$ref": "#/definitions/MigrationTypeValue",
+          "description": "<p>The migration type.</p> <p>Valid values: full-load | cdc | full-load-and-cdc</p>"
+        },
+        "TableMappings": {
+          "$ref": "#/definitions/String",
+          "description": "<p>The path of the JSON file that contains the table mappings. Preceed the path with \"file://\".</p> <p>For example, --table-mappings file://mappingfile.json</p>"
+        },
+        "ReplicationTaskSettings": {
+          "$ref": "#/definitions/String",
+          "description": "JSON file that contains settings for the task, such as target metadata settings."
+        },
+        "CdcStartTime": {
+          "$ref": "#/definitions/TStamp",
+          "description": "The start time for the Change Data Capture (CDC) operation."
+        }
+      },
+      "description": "<p/>"
+    },
+    "ModifyReplicationTaskResponse": {
+      "type": "object",
+      "properties": {
+        "ReplicationTask": {
+          "$ref": "#/definitions/ReplicationTask",
+          "description": "The replication task that was modified."
         }
       },
       "description": "<p/>"
@@ -3765,6 +3898,10 @@
         "PubliclyAccessible": {
           "$ref": "#/definitions/Boolean",
           "description": " Specifies the accessibility options for the replication instance. A value of <code>true</code> represents an instance with a public IP address. A value of <code>false</code> represents an instance with a private IP address. The default value is <code>true</code>. "
+        },
+        "SecondaryAvailabilityZone": {
+          "$ref": "#/definitions/String",
+          "description": "The availability zone of the standby replication instance in a Multi-AZ deployment."
         }
       },
       "description": "<p/>"
@@ -3889,6 +4026,10 @@
         "LastFailureMessage": {
           "$ref": "#/definitions/String",
           "description": "The last error (failure) message generated for the replication instance."
+        },
+        "StopReason": {
+          "$ref": "#/definitions/String",
+          "description": "The reason the replication task was stopped."
         },
         "ReplicationTaskCreationDate": {
           "$ref": "#/definitions/TStamp",
@@ -4106,7 +4247,7 @@
       "properties": {
         "EngineName": {
           "$ref": "#/definitions/String",
-          "description": "The database engine name."
+          "description": "The database engine name. Valid values include MYSQL, ORACLE, POSTGRES, MARIADB, AURORA, REDSHIFT, SYBASE, and SQLSERVER."
         },
         "SupportsCDC": {
           "$ref": "#/definitions/Boolean",

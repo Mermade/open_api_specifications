@@ -1178,7 +1178,7 @@
     "/#DescribeMetricFilters": {
       "post": {
         "operationId": "DescribeMetricFilters",
-        "description": "Lists the specified metric filters. You can list all the metric filters or filter the results by log name, prefix, metric name, or metric namespace. The results are ASCII-sorted by filter name.",
+        "description": "Lists the specified metric filters. You can list all the metric filters or filter the results by log name, prefix, metric name, and metric namespace. The results are ASCII-sorted by filter name.",
         "responses": {
           "200": {
             "description": "Success",
@@ -1515,6 +1515,71 @@
         }
       ]
     },
+    "/#ListTagsLogGroup": {
+      "post": {
+        "operationId": "ListTagsLogGroup",
+        "description": "<p>Lists the tags for the specified log group.</p> <p>To add tags, use <a>TagLogGroup</a>. To remove tags, use <a>UntagLogGroup</a>.</p>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ListTagsLogGroupResponse"
+            }
+          },
+          "480": {
+            "description": "ResourceNotFoundException",
+            "schema": {
+              "$ref": "#/definitions/ResourceNotFoundException"
+            }
+          },
+          "481": {
+            "description": "ServiceUnavailableException",
+            "schema": {
+              "$ref": "#/definitions/ServiceUnavailableException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ListTagsLogGroupRequest"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
     "/#PutDestination": {
       "post": {
         "operationId": "PutDestination",
@@ -1657,7 +1722,7 @@
     "/#PutLogEvents": {
       "post": {
         "operationId": "PutLogEvents",
-        "description": "<p>Uploads a batch of log events to the specified log stream.</p> <p>You must include the sequence token obtained from the response of the previous call. An upload in a newly created log stream does not require a sequence token. You can also get the sequence token using <a>DescribeLogStreams</a>.</p> <p>The batch of events must satisfy the following constraints:</p> <ul> <li> <p>The maximum batch size is 1,048,576 bytes, and this size is calculated as the sum of all event messages in UTF-8, plus 26 bytes for each log event.</p> </li> <li> <p>None of the log events in the batch can be more than 2 hours in the future.</p> </li> <li> <p>None of the log events in the batch can be older than 14 days or the retention period of the log group.</p> </li> <li> <p>The log events in the batch must be in chronological ordered by their timestamp.</p> </li> <li> <p>The maximum number of log events in a batch is 10,000.</p> </li> <li> <p>A batch of log events in a single PutLogEvents request cannot span more than 24 hours. Otherwise, the PutLogEvents operation will fail.</p> </li> </ul>",
+        "description": "<p>Uploads a batch of log events to the specified log stream.</p> <p>You must include the sequence token obtained from the response of the previous call. An upload in a newly created log stream does not require a sequence token. You can also get the sequence token using <a>DescribeLogStreams</a>.</p> <p>The batch of events must satisfy the following constraints:</p> <ul> <li> <p>The maximum batch size is 1,048,576 bytes, and this size is calculated as the sum of all event messages in UTF-8, plus 26 bytes for each log event.</p> </li> <li> <p>None of the log events in the batch can be more than 2 hours in the future.</p> </li> <li> <p>None of the log events in the batch can be older than 14 days or the retention period of the log group.</p> </li> <li> <p>The log events in the batch must be in chronological ordered by their timestamp (the time the event occurred, expressed as the number of milliseconds since Jan 1, 1970 00:00:00 UTC).</p> </li> <li> <p>The maximum number of log events in a batch is 10,000.</p> </li> <li> <p>A batch of log events in a single request cannot span more than 24 hours. Otherwise, the operation fails.</p> </li> </ul>",
         "responses": {
           "200": {
             "description": "Success",
@@ -1971,6 +2036,68 @@
         }
       ]
     },
+    "/#TagLogGroup": {
+      "post": {
+        "operationId": "TagLogGroup",
+        "description": "<p>Adds or updates the specified tags for the specified log group.</p> <p>To list the tags for a log group, use <a>ListTagsLogGroup</a>. To remove tags, use <a>UntagLogGroup</a>.</p> <p>For more information about tags, see <a href=\"http://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/log-group-tagging.html\">Tag Log Groups in Amazon CloudWatch Logs</a> in the <i>Amazon CloudWatch Logs User Guide</i>.</p>",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "480": {
+            "description": "ResourceNotFoundException",
+            "schema": {
+              "$ref": "#/definitions/ResourceNotFoundException"
+            }
+          },
+          "481": {
+            "description": "InvalidParameterException",
+            "schema": {
+              "$ref": "#/definitions/InvalidParameterException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TagLogGroupRequest"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
     "/#TestMetricFilter": {
       "post": {
         "operationId": "TestMetricFilter",
@@ -2002,6 +2129,62 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/TestMetricFilterRequest"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#UntagLogGroup": {
+      "post": {
+        "operationId": "UntagLogGroup",
+        "description": "<p>Removes the specified tags from the specified log group.</p> <p>To list the tags for a log group, use <a>ListTagsLogGroup</a>. To add tags, use <a>UntagLogGroup</a>.</p>",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "480": {
+            "description": "ResourceNotFoundException",
+            "schema": {
+              "$ref": "#/definitions/ResourceNotFoundException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UntagLogGroupRequest"
             }
           }
         ]
@@ -2114,6 +2297,10 @@
         "logGroupName": {
           "$ref": "#/definitions/LogGroupName",
           "description": "The name of the log group."
+        },
+        "tags": {
+          "$ref": "#/definitions/Tags",
+          "description": "The key-value pairs to use for the tags."
         }
       }
     },
@@ -2504,6 +2691,13 @@
         "$ref": "#/definitions/Destination"
       }
     },
+    "Distribution": {
+      "type": "string",
+      "enum": [
+        "Random",
+        "ByLogStream"
+      ]
+    },
     "EventId": {
       "type": "string"
     },
@@ -2544,11 +2738,11 @@
         },
         "from": {
           "$ref": "#/definitions/Timestamp",
-          "description": "The start time. Events with a timestamp prior to this time are not exported."
+          "description": "The start time, expressed as the number of milliseconds since Jan 1, 1970 00:00:00 UTC. Events with a timestamp prior to this time are not exported."
         },
         "to": {
           "$ref": "#/definitions/Timestamp",
-          "description": "The end time. Events with a timestamp later than this time are not exported."
+          "description": "The end time, expressed as the number of milliseconds since Jan 1, 1970 00:00:00 UTC. Events with a timestamp later than this time are not exported."
         },
         "destination": {
           "$ref": "#/definitions/ExportDestinationBucket",
@@ -2660,11 +2854,11 @@
         },
         "startTime": {
           "$ref": "#/definitions/Timestamp",
-          "description": "The start of the time range. Events with a timestamp prior to this time are not returned."
+          "description": "The start of the time range, expressed as the number of milliseconds since Jan 1, 1970 00:00:00 UTC. Events with a timestamp prior to this time are not returned."
         },
         "endTime": {
           "$ref": "#/definitions/Timestamp",
-          "description": "The end of the time range. Events with a timestamp later than this time are not returned."
+          "description": "The end of the time range, expressed as the number of milliseconds since Jan 1, 1970 00:00:00 UTC. Events with a timestamp later than this time are not returned."
         },
         "filterPattern": {
           "$ref": "#/definitions/FilterPattern",
@@ -2722,7 +2916,7 @@
         },
         "timestamp": {
           "$ref": "#/definitions/Timestamp",
-          "description": "The time the event occurred."
+          "description": "The time the event occurred, expressed as the number of milliseconds since Jan 1, 1970 00:00:00 UTC."
         },
         "message": {
           "$ref": "#/definitions/EventMessage",
@@ -2762,11 +2956,11 @@
         },
         "startTime": {
           "$ref": "#/definitions/Timestamp",
-          "description": "The start of the time range. Events with a timestamp earlier than this time are not included."
+          "description": "The start of the time range, expressed as the number of milliseconds since Jan 1, 1970 00:00:00 UTC. Events with a timestamp earlier than this time are not included."
         },
         "endTime": {
           "$ref": "#/definitions/Timestamp",
-          "description": "The end of the time range. Events with a timestamp later than this time are not included."
+          "description": "The end of the time range, expressed as the number of milliseconds since Jan 1, 1970 00:00:00 UTC. Events with a timestamp later than this time are not included."
         },
         "nextToken": {
           "$ref": "#/definitions/NextToken",
@@ -2808,7 +3002,7 @@
       "properties": {
         "timestamp": {
           "$ref": "#/definitions/Timestamp",
-          "description": "The time the event occurred."
+          "description": "The time the event occurred, expressed as the number of milliseconds since Jan 1, 1970 00:00:00 UTC."
         },
         "message": {
           "$ref": "#/definitions/EventMessage",
@@ -2859,6 +3053,27 @@
       "type": "object",
       "properties": {},
       "description": "You have reached the maximum number of resources that can be created."
+    },
+    "ListTagsLogGroupRequest": {
+      "type": "object",
+      "required": [
+        "logGroupName"
+      ],
+      "properties": {
+        "logGroupName": {
+          "$ref": "#/definitions/LogGroupName",
+          "description": "The name of the log group."
+        }
+      }
+    },
+    "ListTagsLogGroupResponse": {
+      "type": "object",
+      "properties": {
+        "tags": {
+          "$ref": "#/definitions/Tags",
+          "description": "The tags."
+        }
+      }
     },
     "LogEventIndex": {
       "type": "integer"
@@ -2917,11 +3132,11 @@
         },
         "firstEventTimestamp": {
           "$ref": "#/definitions/Timestamp",
-          "description": "The time of the first event."
+          "description": "The time of the first event, expressed as the number of milliseconds since Jan 1, 1970 00:00:00 UTC."
         },
         "lastEventTimestamp": {
           "$ref": "#/definitions/Timestamp",
-          "description": "The time of the last event."
+          "description": "The time of the last event, expressed as the number of milliseconds since Jan 1, 1970 00:00:00 UTC."
         },
         "lastIngestionTime": {
           "$ref": "#/definitions/Timestamp",
@@ -3085,7 +3300,7 @@
       "properties": {
         "timestamp": {
           "$ref": "#/definitions/Timestamp",
-          "description": "The time the event occurred."
+          "description": "The time the event occurred, expressed as the number of milliseconds since Jan 1, 1970 00:00:00 UTC."
         },
         "message": {
           "$ref": "#/definitions/EventMessage",
@@ -3262,6 +3477,10 @@
         "roleArn": {
           "$ref": "#/definitions/RoleArn",
           "description": "The ARN of an IAM role that grants CloudWatch Logs permissions to deliver ingested log events to the destination stream. You don't need to provide the ARN when you are working with a logical destination for cross-account delivery."
+        },
+        "distribution": {
+          "$ref": "#/definitions/Distribution",
+          "description": "The method used to distribute log data to the destination, when the destination is an Amazon Kinesis stream. By default, log data is grouped by log stream. For a more even distribution, you can group log data randomly."
         }
       }
     },
@@ -3355,6 +3574,10 @@
           "$ref": "#/definitions/RoleArn",
           "description": "<p/>"
         },
+        "distribution": {
+          "$ref": "#/definitions/Distribution",
+          "description": "The method used to distribute log data to the destination, when the destination is an Amazon Kinesis stream."
+        },
         "creationTime": {
           "$ref": "#/definitions/Timestamp",
           "description": "The creation time of the subscription filter."
@@ -3366,6 +3589,57 @@
       "type": "array",
       "items": {
         "$ref": "#/definitions/SubscriptionFilter"
+      }
+    },
+    "TagKey": {
+      "type": "string",
+      "pattern": "^([\\p{L}\\p{Z}\\p{N}_.:/=+\\-@]+)$",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "TagList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/TagKey"
+      },
+      "minItems": 1
+    },
+    "TagLogGroupRequest": {
+      "type": "object",
+      "required": [
+        "logGroupName",
+        "tags"
+      ],
+      "properties": {
+        "logGroupName": {
+          "$ref": "#/definitions/LogGroupName",
+          "description": "The name of the log group."
+        },
+        "tags": {
+          "$ref": "#/definitions/Tags",
+          "description": "The key-value pairs to use for the tags."
+        }
+      }
+    },
+    "TagValue": {
+      "type": "string",
+      "pattern": "^([\\p{L}\\p{Z}\\p{N}_.:/=+\\-@]*)$",
+      "maxLength": 256
+    },
+    "Tags": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 50,
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "$ref": "#/definitions/TagKey"
+          },
+          "value": {
+            "$ref": "#/definitions/TagValue"
+          }
+        }
       }
     },
     "TargetArn": {
@@ -3411,6 +3685,23 @@
     },
     "Token": {
       "type": "string"
+    },
+    "UntagLogGroupRequest": {
+      "type": "object",
+      "required": [
+        "logGroupName",
+        "tags"
+      ],
+      "properties": {
+        "logGroupName": {
+          "$ref": "#/definitions/LogGroupName",
+          "description": "The name of the log group."
+        },
+        "tags": {
+          "$ref": "#/definitions/TagList",
+          "description": "The tag keys. The corresponding tags are removed from the log group."
+        }
+      }
     },
     "Value": {
       "type": "string"
