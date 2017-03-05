@@ -4,7 +4,7 @@
     "version": "2015-03-31",
     "x-release": "v4",
     "title": "AWS Lambda",
-    "description": "<fullname>AWS Lambda</fullname> <p> <b>Overview</b> </p> <p>This is the <i>AWS Lambda API Reference</i>. The AWS Lambda Developer Guide provides additional information. For the service overview, go to <a href=\"http://docs.aws.amazon.com/lambda/latest/dg/welcome.html\">What is AWS Lambda</a>, and for information about how the service works, go to <a href=\"http://docs.aws.amazon.com/lambda/latest/dg/lambda-introduction.html\">AWS Lambda: How it Works</a> in the <i>AWS Lambda Developer Guide</i>.</p>",
+    "description": "<fullname>AWS Lambda</fullname> <p> <b>Overview</b> </p> <p>This is the <i>AWS Lambda API Reference</i>. The AWS Lambda Developer Guide provides additional information. For the service overview, see <a href=\"http://docs.aws.amazon.com/lambda/latest/dg/welcome.html\">What is AWS Lambda</a>, and for information about how the service works, see <a href=\"http://docs.aws.amazon.com/lambda/latest/dg/lambda-introduction.html\">AWS Lambda: How it Works</a> in the <i>AWS Lambda Developer Guide</i>.</p>",
     "termsOfService": "https://aws.amazon.com/service-terms/",
     "contact": {
       "name": "Mike Ralphson",
@@ -736,7 +736,7 @@
     "/2016-08-19/account-settings/": {
       "get": {
         "operationId": "GetAccountSettings",
-        "description": "<p>Returns a customer's account settings.</p> <p>You can use this operation to retrieve Lambda limit information such as code size and concurrency limits. For more information on limits, see <a href=\"http://docs.aws.amazon.com/lambda/latest/dg/limits.html\">AWS Lambda Limits</a>. You can also retrieve resource usage statistics such as code storage usage and function count.</p>",
+        "description": "<p>Returns a customer's account settings.</p> <p>You can use this operation to retrieve Lambda limits information, such as code size and concurrency limits. For more information about limits, see <a href=\"http://docs.aws.amazon.com/lambda/latest/dg/limits.html\">AWS Lambda Limits</a>. You can also retrieve resource usage statistics, such as code storage usage and function count.</p>",
         "responses": {
           "200": {
             "description": "Success",
@@ -1519,7 +1519,7 @@
         },
         "CodeSizeZipped": {
           "$ref": "#/definitions/Long",
-          "description": "Size, in bytes, of a single zipped code/dependencies package you can upload for your Lambda function(.zip/.jar file). Try using AWS S3 for uploading larger files. Default limit is 50 MB."
+          "description": "Size, in bytes, of a single zipped code/dependencies package you can upload for your Lambda function(.zip/.jar file). Try using Amazon S3 for uploading larger files. Default limit is 50 MB."
         },
         "ConcurrentExecutions": {
           "$ref": "#/definitions/Integer",
@@ -1533,7 +1533,7 @@
       "properties": {
         "TotalCodeSize": {
           "$ref": "#/definitions/Long",
-          "description": "Total size, in megabytes, of the account's deployment packages per region."
+          "description": "Total size, in bytes, of the account's deployment packages per region."
         },
         "FunctionCount": {
           "$ref": "#/definitions/Long",
@@ -1553,6 +1553,14 @@
         "Action",
         "Principal"
       ],
+      "example": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": "MyFunction",
+        "Principal": "s3.amazonaws.com",
+        "SourceAccount": "123456789012",
+        "SourceArn": "arn:aws:s3:::examplebucket/*",
+        "StatementId": "ID-1"
+      },
       "properties": {
         "StatementId": {
           "$ref": "#/definitions/StatementId",
@@ -1583,6 +1591,9 @@
     },
     "AddPermissionResponse": {
       "type": "object",
+      "example": {
+        "Statement": "ID-1"
+      },
       "properties": {
         "Statement": {
           "$ref": "#/definitions/String",
@@ -1599,6 +1610,12 @@
     },
     "AliasConfiguration": {
       "type": "object",
+      "example": {
+        "AliasArn": "arn:aws:lambda:us-west-2:123456789012:function:functionAlias",
+        "Description": "",
+        "FunctionVersion": "1",
+        "Name": "functionAlias"
+      },
       "properties": {
         "AliasArn": {
           "$ref": "#/definitions/FunctionArn",
@@ -1704,7 +1721,7 @@
         },
         "StartingPosition": {
           "$ref": "#/definitions/EventSourcePosition",
-          "description": "The position in the stream where AWS Lambda should start reading. Valid only for Kinesis streams. For more information, go to <a href=\"http://docs.aws.amazon.com/kinesis/latest/APIReference/API_GetShardIterator.html#Kinesis-GetShardIterator-request-ShardIteratorType\">ShardIteratorType</a> in the <i>Amazon Kinesis API Reference</i>. "
+          "description": "The position in the stream where AWS Lambda should start reading. Valid only for Kinesis streams. For more information, see <a href=\"http://docs.aws.amazon.com/kinesis/latest/APIReference/API_GetShardIterator.html#Kinesis-GetShardIterator-request-ShardIteratorType\">ShardIteratorType</a> in the <i>Amazon Kinesis API Reference</i>. "
         },
         "StartingPositionTimestamp": {
           "$ref": "#/definitions/Date",
@@ -1722,14 +1739,26 @@
         "Handler",
         "Code"
       ],
+      "example": {
+        "Code": {},
+        "Description": "",
+        "FunctionName": "MyFunction",
+        "Handler": "souce_file.handler_name",
+        "MemorySize": 128,
+        "Publish": true,
+        "Role": "arn:aws:iam::123456789012:role/service-role/role-name",
+        "Runtime": "nodejs4.3",
+        "Timeout": 15,
+        "VpcConfig": {}
+      },
       "properties": {
         "FunctionName": {
           "$ref": "#/definitions/FunctionName",
-          "description": "The name you want to assign to the function you are uploading. The function names appear in the console and are returned in the <a>ListFunctions</a> API. Function names are used to specify functions to other AWS Lambda APIs, such as <a>Invoke</a>. "
+          "description": "The name you want to assign to the function you are uploading. The function names appear in the console and are returned in the <a>ListFunctions</a> API. Function names are used to specify functions to other AWS Lambda API operations, such as <a>Invoke</a>. "
         },
         "Runtime": {
           "$ref": "#/definitions/Runtime",
-          "description": "<p>The runtime environment for the Lambda function you are uploading.</p> <p>To use the Node.js runtime v4.3, set the value to \"nodejs4.3\". To use earlier runtime (v0.10.42), set the value to \"nodejs\".</p> <note> <p>You can no longer create functions using the v0.10.42 runtime version as of November, 2016. Existing functions will be supported until early 2017 but we recommend you migrate them to nodejs4.3 runtime version as soon as possible.</p> </note>"
+          "description": "<p>The runtime environment for the Lambda function you are uploading.</p> <p>To use the Node.js runtime v4.3, set the value to \"nodejs4.3\". To use earlier runtime (v0.10.42), set the value to \"nodejs\".</p> <note> <p>You can no longer create functions using the v0.10.42 runtime version as of November, 2016. Existing functions will be supported until early 2017, but we recommend you migrate them to nodejs4.3 runtime version as soon as possible.</p> </note>"
         },
         "Role": {
           "$ref": "#/definitions/RoleArn",
@@ -1765,7 +1794,7 @@
         },
         "DeadLetterConfig": {
           "$ref": "#/definitions/DeadLetterConfig",
-          "description": "The parent object that contains the target ARN (Amazon Resource Name) of an Amazon SQS queue or Amazon SNS topic. "
+          "description": "The parent object that contains the target Amazon Resource Name (ARN) of an Amazon SQS queue or Amazon SNS topic. "
         },
         "Environment": {
           "$ref": "#/definitions/Environment"
@@ -1786,22 +1815,33 @@
       "properties": {
         "TargetArn": {
           "$ref": "#/definitions/ResourceArn",
-          "description": "The ARN (Amazon Resource Value) of an Amazon SQS queue or Amazon SNS topic you specify as your Dead Letter Queue (DLQ)."
+          "description": "The Amazon Resource Name (ARN) of an Amazon SQS queue or Amazon SNS topic you specify as your Dead Letter Queue (DLQ)."
         }
       },
-      "description": "The parent object that contains the target ARN (Amazon Resource Name) of an Amazon SQS queue or Amazon SNS topic."
+      "description": "The parent object that contains the target Amazon Resource Name (ARN) of an Amazon SQS queue or Amazon SNS topic."
     },
     "DeleteAliasRequest": {
       "type": "object",
+      "example": {
+        "FunctionName": "myFunction",
+        "Name": "alias"
+      },
       "properties": {}
     },
     "DeleteEventSourceMappingRequest": {
       "type": "object",
+      "example": {
+        "UUID": "12345kxodurf3443"
+      },
       "properties": {},
       "description": "<p/>"
     },
     "DeleteFunctionRequest": {
       "type": "object",
+      "example": {
+        "FunctionName": "myFunction",
+        "Qualifier": "1"
+      },
       "properties": {}
     },
     "Description": {
@@ -1926,6 +1966,16 @@
     },
     "EventSourceMappingConfiguration": {
       "type": "object",
+      "example": {
+        "BatchSize": 123,
+        "EventSourceArn": "arn:aws:s3:::examplebucket/*",
+        "FunctionArn": "arn:aws:lambda:us-west-2:123456789012:function:myFunction",
+        "LastModified": "2016-11-21T19:49:20.006+0000",
+        "LastProcessingResult": "",
+        "State": "",
+        "StateTransitionReason": "",
+        "UUID": "1234xCy789012"
+      },
       "properties": {
         "UUID": {
           "$ref": "#/definitions/String",
@@ -1991,7 +2041,7 @@
       "properties": {
         "ZipFile": {
           "$ref": "#/definitions/Blob",
-          "description": "The contents of your zip file containing your deployment package. If you are using the web API directly, the contents of the zip file must be base64-encoded. If you are using the AWS SDKs or the AWS CLI, the SDKs or CLI will do the encoding for you. For more information about creating a .zip file, go to <a href=\"http://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html#lambda-intro-execution-role.html\">Execution Permissions</a> in the <i>AWS Lambda Developer Guide</i>. "
+          "description": "The contents of your zip file containing your deployment package. If you are using the web API directly, the contents of the zip file must be base64-encoded. If you are using the AWS SDKs or the AWS CLI, the SDKs or CLI will do the encoding for you. For more information about creating a .zip file, see <a href=\"http://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html#lambda-intro-execution-role.html\">Execution Permissions</a> in the <i>AWS Lambda Developer Guide</i>. "
         },
         "S3Bucket": {
           "$ref": "#/definitions/S3Bucket",
@@ -2024,6 +2074,21 @@
     },
     "FunctionConfiguration": {
       "type": "object",
+      "example": {
+        "CodeSha256": "LQT+0DHxxxxcfwLyQjzoEFKZtdqQjHXanlSdfXBlEW0VA=",
+        "CodeSize": 123,
+        "Description": "",
+        "FunctionArn": "arn:aws:lambda:us-west-2:123456789012:function:myFunction",
+        "FunctionName": "myFunction",
+        "Handler": "index.handler",
+        "LastModified": "2016-11-21T19:49:20.006+0000",
+        "MemorySize": 128,
+        "Role": "arn:aws:iam::123456789012:role/lambda_basic_execution",
+        "Runtime": "python2.7",
+        "Timeout": 123,
+        "Version": "1",
+        "VpcConfig": {}
+      },
       "properties": {
         "FunctionName": {
           "$ref": "#/definitions/FunctionName",
@@ -2079,7 +2144,7 @@
         },
         "DeadLetterConfig": {
           "$ref": "#/definitions/DeadLetterConfig",
-          "description": "The parent object that contains the target ARN (Amazon Resource Name) of an Amazon SQS queue or Amazon SNS topic."
+          "description": "The parent object that contains the target Amazon Resource Name (ARN) of an Amazon SQS queue or Amazon SNS topic."
         },
         "Environment": {
           "$ref": "#/definitions/EnvironmentResponse",
@@ -2106,10 +2171,15 @@
     },
     "GetAccountSettingsRequest": {
       "type": "object",
+      "example": {},
       "properties": {}
     },
     "GetAccountSettingsResponse": {
       "type": "object",
+      "example": {
+        "AccountLimit": {},
+        "AccountUsage": {}
+      },
       "properties": {
         "AccountLimit": {
           "$ref": "#/definitions/AccountLimit"
@@ -2121,25 +2191,69 @@
     },
     "GetAliasRequest": {
       "type": "object",
+      "example": {
+        "FunctionName": "myFunction",
+        "Name": "myFunctionAlias"
+      },
       "properties": {}
     },
     "GetEventSourceMappingRequest": {
       "type": "object",
+      "example": {
+        "UUID": "123489-xxxxx-kdla8d89d7"
+      },
       "properties": {},
       "description": "<p/>"
     },
     "GetFunctionConfigurationRequest": {
       "type": "object",
+      "example": {
+        "FunctionName": "myFunction",
+        "Qualifier": "1"
+      },
       "properties": {},
       "description": "<p/>"
     },
     "GetFunctionRequest": {
       "type": "object",
+      "example": {
+        "FunctionName": "myFunction",
+        "Qualifier": "1"
+      },
       "properties": {},
       "description": "<p/>"
     },
     "GetFunctionResponse": {
       "type": "object",
+      "example": {
+        "Code": {
+          "Location": "somelocation",
+          "RepositoryType": "S3"
+        },
+        "Configuration": {
+          "CodeSha256": "LQT+0DHxxxxcfwLyQjzoEFKZtdqQjHXanlSdfXBlEW0VA=",
+          "CodeSize": 262,
+          "Description": "A starter AWS Lambda function.",
+          "Environment": {
+            "Variables": {
+              "S3_BUCKET": "test"
+            }
+          },
+          "FunctionArn": "arn:aws:lambda:us-west-2:123456789012:function:myFunction",
+          "FunctionName": "myFunction",
+          "Handler": "index.handler",
+          "LastModified": "2016-11-21T19:49:20.006+0000",
+          "MemorySize": 128,
+          "Role": "arn:aws:iam::123456789012:role/lambda_basic_execution",
+          "Runtime": "nodejs4.3",
+          "Timeout": 3,
+          "Version": "$LATEST",
+          "VpcConfig": {
+            "SecurityGroupIds": [],
+            "SubnetIds": []
+          }
+        }
+      },
       "properties": {
         "Configuration": {
           "$ref": "#/definitions/FunctionConfiguration"
@@ -2152,11 +2266,18 @@
     },
     "GetPolicyRequest": {
       "type": "object",
+      "example": {
+        "FunctionName": "myFunction",
+        "Qualifier": "1"
+      },
       "properties": {},
       "description": "<p/>"
     },
     "GetPolicyResponse": {
       "type": "object",
+      "example": {
+        "Policy": ""
+      },
       "properties": {
         "Policy": {
           "$ref": "#/definitions/String",
@@ -2242,6 +2363,14 @@
     },
     "InvocationRequest": {
       "type": "object",
+      "example": {
+        "ClientContext": "MyApp",
+        "FunctionName": "MyFunction",
+        "InvocationType": "Event",
+        "LogType": "Tail",
+        "Payload": "fileb://file-path/input.json",
+        "Qualifier": "1"
+      },
       "properties": {
         "Payload": {
           "$ref": "#/definitions/Blob",
@@ -2252,6 +2381,12 @@
     },
     "InvocationResponse": {
       "type": "object",
+      "example": {
+        "FunctionError": "",
+        "LogResult": "",
+        "Payload": "?",
+        "StatusCode": 123
+      },
       "properties": {
         "Payload": {
           "$ref": "#/definitions/Blob",
@@ -2273,6 +2408,10 @@
       "required": [
         "InvokeArgs"
       ],
+      "example": {
+        "FunctionName": "myFunction",
+        "InvokeArgs": "fileb://file-path/input.json"
+      },
       "properties": {
         "InvokeArgs": {
           "$ref": "#/definitions/BlobStream",
@@ -2283,6 +2422,9 @@
     },
     "InvokeAsyncResponse": {
       "type": "object",
+      "example": {
+        "Status": 123
+      },
       "properties": {},
       "description": "Upon success, it returns empty response. Otherwise, throws an exception."
     },
@@ -2296,7 +2438,7 @@
           "$ref": "#/definitions/String"
         }
       },
-      "description": "Lambda was unable to decrypt the environment variables because KMS access was denied. Please check the Lambda function's KMS permissions."
+      "description": "Lambda was unable to decrypt the environment variables because KMS access was denied. Check the Lambda function's KMS permissions."
     },
     "KMSDisabledException": {
       "type": "object",
@@ -2308,7 +2450,7 @@
           "$ref": "#/definitions/String"
         }
       },
-      "description": "Lambda was unable to decrypt the environment variables because the KMS key used is disabled. Please check the Lambda function's KMS key settings."
+      "description": "Lambda was unable to decrypt the environment variables because the KMS key used is disabled. Check the Lambda function's KMS key settings."
     },
     "KMSInvalidStateException": {
       "type": "object",
@@ -2320,7 +2462,7 @@
           "$ref": "#/definitions/String"
         }
       },
-      "description": "Lambda was unable to decrypt the environment variables because the KMS key used is in an invalid state for Decrypt. Please check the function's KMS key settings."
+      "description": "Lambda was unable to decrypt the environment variables because the KMS key used is in an invalid state for Decrypt. Check the function's KMS key settings."
     },
     "KMSKeyArn": {
       "type": "string",
@@ -2336,14 +2478,24 @@
           "$ref": "#/definitions/String"
         }
       },
-      "description": "Lambda was unable to decrypt the environment variables because the KMS key was not found. Please check the function's KMS key settings. "
+      "description": "Lambda was unable to decrypt the environment variables because the KMS key was not found. Check the function's KMS key settings. "
     },
     "ListAliasesRequest": {
       "type": "object",
+      "example": {
+        "FunctionName": "myFunction",
+        "FunctionVersion": "1",
+        "Marker": "",
+        "MaxItems": 123
+      },
       "properties": {}
     },
     "ListAliasesResponse": {
       "type": "object",
+      "example": {
+        "Aliases": [],
+        "NextMarker": ""
+      },
       "properties": {
         "NextMarker": {
           "$ref": "#/definitions/String",
@@ -2376,11 +2528,19 @@
     },
     "ListFunctionsRequest": {
       "type": "object",
+      "example": {
+        "Marker": "",
+        "MaxItems": 123
+      },
       "properties": {},
       "description": "<p/>"
     },
     "ListFunctionsResponse": {
       "type": "object",
+      "example": {
+        "Functions": [],
+        "NextMarker": ""
+      },
       "properties": {
         "NextMarker": {
           "$ref": "#/definitions/String",
@@ -2395,11 +2555,20 @@
     },
     "ListVersionsByFunctionRequest": {
       "type": "object",
+      "example": {
+        "FunctionName": "myFunction",
+        "Marker": "",
+        "MaxItems": 123
+      },
       "properties": {},
       "description": "<p/>"
     },
     "ListVersionsByFunctionResponse": {
       "type": "object",
+      "example": {
+        "NextMarker": "",
+        "Versions": []
+      },
       "properties": {
         "NextMarker": {
           "$ref": "#/definitions/String",
@@ -2450,6 +2619,11 @@
     },
     "PublishVersionRequest": {
       "type": "object",
+      "example": {
+        "CodeSha256": "",
+        "Description": "",
+        "FunctionName": "myFunction"
+      },
       "properties": {
         "CodeSha256": {
           "$ref": "#/definitions/String",
@@ -2470,6 +2644,11 @@
     },
     "RemovePermissionRequest": {
       "type": "object",
+      "example": {
+        "FunctionName": "myFunction",
+        "Qualifier": "1",
+        "StatementId": "role-statement-id"
+      },
       "properties": {},
       "description": "<p/>"
     },
@@ -2651,6 +2830,12 @@
     },
     "UpdateAliasRequest": {
       "type": "object",
+      "example": {
+        "Description": "",
+        "FunctionName": "myFunction",
+        "FunctionVersion": "1",
+        "Name": "functionAlias"
+      },
       "properties": {
         "FunctionVersion": {
           "$ref": "#/definitions/Version",
@@ -2664,6 +2849,12 @@
     },
     "UpdateEventSourceMappingRequest": {
       "type": "object",
+      "example": {
+        "BatchSize": 123,
+        "Enabled": true,
+        "FunctionName": "myFunction",
+        "UUID": "1234xCy789012"
+      },
       "properties": {
         "FunctionName": {
           "$ref": "#/definitions/FunctionName",
@@ -2682,14 +2873,22 @@
     },
     "UpdateFunctionCodeRequest": {
       "type": "object",
+      "example": {
+        "FunctionName": "myFunction",
+        "Publish": true,
+        "S3Bucket": "myBucket",
+        "S3Key": "myKey",
+        "S3ObjectVersion": "1",
+        "ZipFile": "fileb://file-path/file.zip"
+      },
       "properties": {
         "ZipFile": {
           "$ref": "#/definitions/Blob",
-          "description": "The contents of your zip file containing your deployment package. If you are using the web API directly, the contents of the zip file must be base64-encoded. If you are using the AWS SDKs or the AWS CLI, the SDKs or CLI will do the encoding for you. For more information about creating a .zip file, go to <a href=\"http://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html#lambda-intro-execution-role.html\">Execution Permissions</a> in the <i>AWS Lambda Developer Guide</i>. "
+          "description": "The contents of your zip file containing your deployment package. If you are using the web API directly, the contents of the zip file must be base64-encoded. If you are using the AWS SDKs or the AWS CLI, the SDKs or CLI will do the encoding for you. For more information about creating a .zip file, see <a href=\"http://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html#lambda-intro-execution-role.html\">Execution Permissions</a> in the <i>AWS Lambda Developer Guide</i>. "
         },
         "S3Bucket": {
           "$ref": "#/definitions/S3Bucket",
-          "description": "Amazon S3 bucket name where the .zip file containing your deployment package is stored. This bucket must reside in the same AWS region where you are creating the Lambda function."
+          "description": "Amazon S3 bucket name where the .zip file containing your deployment package is stored. This bucket must reside in the same AWS Region where you are creating the Lambda function."
         },
         "S3Key": {
           "$ref": "#/definitions/S3Key",
@@ -2708,6 +2907,16 @@
     },
     "UpdateFunctionConfigurationRequest": {
       "type": "object",
+      "example": {
+        "Description": "",
+        "FunctionName": "myFunction",
+        "Handler": "index.handler",
+        "MemorySize": 128,
+        "Role": "arn:aws:iam::123456789012:role/lambda_basic_execution",
+        "Runtime": "python2.7",
+        "Timeout": 123,
+        "VpcConfig": {}
+      },
       "properties": {
         "Role": {
           "$ref": "#/definitions/RoleArn",
@@ -2742,7 +2951,7 @@
         },
         "DeadLetterConfig": {
           "$ref": "#/definitions/DeadLetterConfig",
-          "description": "The parent object that contains the target ARN (Amazon Resource Name) of an Amazon SQS queue or Amazon SNS topic."
+          "description": "The parent object that contains the target Amazon Resource Name (ARN) of an Amazon SQS queue or Amazon SNS topic."
         },
         "KMSKeyArn": {
           "$ref": "#/definitions/KMSKeyArn",

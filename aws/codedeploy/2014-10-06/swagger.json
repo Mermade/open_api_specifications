@@ -361,7 +361,7 @@
     "/#BatchGetDeploymentGroups": {
       "post": {
         "operationId": "BatchGetDeploymentGroups",
-        "description": "Get information about one or more deployment groups.",
+        "description": "Gets information about one or more deployment groups.",
         "responses": {
           "200": {
             "description": "Success",
@@ -678,6 +678,92 @@
         }
       ]
     },
+    "/#ContinueDeployment": {
+      "post": {
+        "operationId": "ContinueDeployment",
+        "description": "Starts the process of rerouting traffic from instances in the original environment to instances in thereplacement environment without waiting for a specified wait time to elapse. (Traffic rerouting, which is achieved by registering instances in the replacement environment with the load balancer, can start as soon as all instances have a status of Ready.) ",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "480": {
+            "description": "DeploymentIdRequiredException",
+            "schema": {
+              "$ref": "#/definitions/DeploymentIdRequiredException"
+            }
+          },
+          "481": {
+            "description": "DeploymentDoesNotExistException",
+            "schema": {
+              "$ref": "#/definitions/DeploymentDoesNotExistException"
+            }
+          },
+          "482": {
+            "description": "DeploymentAlreadyCompletedException",
+            "schema": {
+              "$ref": "#/definitions/DeploymentAlreadyCompletedException"
+            }
+          },
+          "483": {
+            "description": "InvalidDeploymentIdException",
+            "schema": {
+              "$ref": "#/definitions/InvalidDeploymentIdException"
+            }
+          },
+          "484": {
+            "description": "DeploymentIsNotInReadyStateException",
+            "schema": {
+              "$ref": "#/definitions/DeploymentIsNotInReadyStateException"
+            }
+          },
+          "485": {
+            "description": "UnsupportedActionForDeploymentTypeException",
+            "schema": {
+              "$ref": "#/definitions/UnsupportedActionForDeploymentTypeException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ContinueDeploymentInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
     "/#CreateApplication": {
       "post": {
         "operationId": "CreateApplication",
@@ -845,9 +931,21 @@
             }
           },
           "493": {
+            "description": "InvalidTargetInstancesException",
+            "schema": {
+              "$ref": "#/definitions/InvalidTargetInstancesException"
+            }
+          },
+          "494": {
             "description": "InvalidAutoRollbackConfigException",
             "schema": {
               "$ref": "#/definitions/InvalidAutoRollbackConfigException"
+            }
+          },
+          "495": {
+            "description": "InvalidLoadBalancerInfoException",
+            "schema": {
+              "$ref": "#/definitions/InvalidLoadBalancerInfoException"
             }
           }
         },
@@ -1104,6 +1202,24 @@
             "description": "InvalidAutoRollbackConfigException",
             "schema": {
               "$ref": "#/definitions/InvalidAutoRollbackConfigException"
+            }
+          },
+          "500": {
+            "description": "InvalidLoadBalancerInfoException",
+            "schema": {
+              "$ref": "#/definitions/InvalidLoadBalancerInfoException"
+            }
+          },
+          "501": {
+            "description": "InvalidDeploymentStyleException",
+            "schema": {
+              "$ref": "#/definitions/InvalidDeploymentStyleException"
+            }
+          },
+          "502": {
+            "description": "InvalidBlueGreenDeploymentConfigurationException",
+            "schema": {
+              "$ref": "#/definitions/InvalidBlueGreenDeploymentConfigurationException"
             }
           }
         },
@@ -2087,13 +2203,6 @@
             "schema": {
               "$ref": "#/definitions/ListApplicationRevisionsInput"
             }
-          },
-          {
-            "name": "nextToken",
-            "type": "string",
-            "in": "query",
-            "description": "Pagination token",
-            "required": false
           }
         ]
       },
@@ -2153,13 +2262,6 @@
             "schema": {
               "$ref": "#/definitions/ListApplicationsInput"
             }
-          },
-          {
-            "name": "nextToken",
-            "type": "string",
-            "in": "query",
-            "description": "Pagination token",
-            "required": false
           }
         ]
       },
@@ -2219,13 +2321,6 @@
             "schema": {
               "$ref": "#/definitions/ListDeploymentConfigsInput"
             }
-          },
-          {
-            "name": "nextToken",
-            "type": "string",
-            "in": "query",
-            "description": "Pagination token",
-            "required": false
           }
         ]
       },
@@ -2303,13 +2398,6 @@
             "schema": {
               "$ref": "#/definitions/ListDeploymentGroupsInput"
             }
-          },
-          {
-            "name": "nextToken",
-            "type": "string",
-            "in": "query",
-            "description": "Pagination token",
-            "required": false
           }
         ]
       },
@@ -2389,6 +2477,12 @@
             "schema": {
               "$ref": "#/definitions/InvalidInstanceStatusException"
             }
+          },
+          "486": {
+            "description": "InvalidInstanceTypeException",
+            "schema": {
+              "$ref": "#/definitions/InvalidInstanceTypeException"
+            }
           }
         },
         "parameters": [
@@ -2399,13 +2493,6 @@
             "schema": {
               "$ref": "#/definitions/ListDeploymentInstancesInput"
             }
-          },
-          {
-            "name": "nextToken",
-            "type": "string",
-            "in": "query",
-            "description": "Pagination token",
-            "required": false
           }
         ]
       },
@@ -2513,13 +2600,6 @@
             "schema": {
               "$ref": "#/definitions/ListDeploymentsInput"
             }
-          },
-          {
-            "name": "nextToken",
-            "type": "string",
-            "in": "query",
-            "description": "Pagination token",
-            "required": false
           }
         ]
       },
@@ -2713,7 +2793,7 @@
     "/#RegisterOnPremisesInstance": {
       "post": {
         "operationId": "RegisterOnPremisesInstance",
-        "description": "Registers an on-premises instance.",
+        "description": "<p>Registers an on-premises instance.</p> <note> <p>Only one IAM ARN (an IAM session ARN or IAM user ARN) is supported in the request. You cannot use both.</p> </note>",
         "responses": {
           "200": {
             "description": "Success"
@@ -2725,33 +2805,57 @@
             }
           },
           "481": {
+            "description": "IamArnRequiredException",
+            "schema": {
+              "$ref": "#/definitions/IamArnRequiredException"
+            }
+          },
+          "482": {
+            "description": "IamSessionArnAlreadyRegisteredException",
+            "schema": {
+              "$ref": "#/definitions/IamSessionArnAlreadyRegisteredException"
+            }
+          },
+          "483": {
             "description": "IamUserArnAlreadyRegisteredException",
             "schema": {
               "$ref": "#/definitions/IamUserArnAlreadyRegisteredException"
             }
           },
-          "482": {
+          "484": {
             "description": "InstanceNameRequiredException",
             "schema": {
               "$ref": "#/definitions/InstanceNameRequiredException"
             }
           },
-          "483": {
+          "485": {
             "description": "IamUserArnRequiredException",
             "schema": {
               "$ref": "#/definitions/IamUserArnRequiredException"
             }
           },
-          "484": {
+          "486": {
             "description": "InvalidInstanceNameException",
             "schema": {
               "$ref": "#/definitions/InvalidInstanceNameException"
             }
           },
-          "485": {
+          "487": {
+            "description": "InvalidIamSessionArnException",
+            "schema": {
+              "$ref": "#/definitions/InvalidIamSessionArnException"
+            }
+          },
+          "488": {
             "description": "InvalidIamUserArnException",
             "schema": {
               "$ref": "#/definitions/InvalidIamUserArnException"
+            }
+          },
+          "489": {
+            "description": "MultipleIamArnsProvidedException",
+            "schema": {
+              "$ref": "#/definitions/MultipleIamArnsProvidedException"
             }
           }
         },
@@ -2848,6 +2952,92 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/RemoveTagsFromOnPremisesInstancesInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#SkipWaitTimeForInstanceTermination": {
+      "post": {
+        "operationId": "SkipWaitTimeForInstanceTermination",
+        "description": "In a blue/green deployment, overrides any specified wait time and starts terminating instances immediately after the traffic routing is completed.",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "480": {
+            "description": "DeploymentIdRequiredException",
+            "schema": {
+              "$ref": "#/definitions/DeploymentIdRequiredException"
+            }
+          },
+          "481": {
+            "description": "DeploymentDoesNotExistException",
+            "schema": {
+              "$ref": "#/definitions/DeploymentDoesNotExistException"
+            }
+          },
+          "482": {
+            "description": "DeploymentAlreadyCompletedException",
+            "schema": {
+              "$ref": "#/definitions/DeploymentAlreadyCompletedException"
+            }
+          },
+          "483": {
+            "description": "InvalidDeploymentIdException",
+            "schema": {
+              "$ref": "#/definitions/InvalidDeploymentIdException"
+            }
+          },
+          "484": {
+            "description": "DeploymentNotStartedException",
+            "schema": {
+              "$ref": "#/definitions/DeploymentNotStartedException"
+            }
+          },
+          "485": {
+            "description": "UnsupportedActionForDeploymentTypeException",
+            "schema": {
+              "$ref": "#/definitions/UnsupportedActionForDeploymentTypeException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SkipWaitTimeForInstanceTerminationInput"
             }
           }
         ]
@@ -3157,6 +3347,24 @@
             "schema": {
               "$ref": "#/definitions/InvalidAutoRollbackConfigException"
             }
+          },
+          "499": {
+            "description": "InvalidLoadBalancerInfoException",
+            "schema": {
+              "$ref": "#/definitions/InvalidLoadBalancerInfoException"
+            }
+          },
+          "500": {
+            "description": "InvalidDeploymentStyleException",
+            "schema": {
+              "$ref": "#/definitions/InvalidDeploymentStyleException"
+            }
+          },
+          "501": {
+            "description": "InvalidBlueGreenDeploymentConfigurationException",
+            "schema": {
+              "$ref": "#/definitions/InvalidBlueGreenDeploymentConfigurationException"
+            }
           }
         },
         "parameters": [
@@ -3219,6 +3427,9 @@
         }
       },
       "description": "Represents the input of, and adds tags to, an on-premises instance operation."
+    },
+    "AdditionalDeploymentStatusInfo": {
+      "type": "string"
     },
     "Alarm": {
       "type": "object",
@@ -3557,6 +3768,38 @@
       "properties": {},
       "description": "The maximum number of names or IDs allowed for this request (100) was exceeded."
     },
+    "BlueGreenDeploymentConfiguration": {
+      "type": "object",
+      "properties": {
+        "terminateBlueInstancesOnDeploymentSuccess": {
+          "$ref": "#/definitions/BlueInstanceTerminationOption",
+          "description": "Information about whether to terminate instances in the original fleet during a blue/green deployment."
+        },
+        "deploymentReadyOption": {
+          "$ref": "#/definitions/DeploymentReadyOption",
+          "description": "Information about the action to take when newly provisioned instances are ready to receive traffic in a blue/green deployment."
+        },
+        "greenFleetProvisioningOption": {
+          "$ref": "#/definitions/GreenFleetProvisioningOption",
+          "description": "Information about how instances are provisioned for a replacement environment in a blue/green deployment."
+        }
+      },
+      "description": "Information about blue/green deployment options for a deployment group."
+    },
+    "BlueInstanceTerminationOption": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "$ref": "#/definitions/InstanceAction",
+          "description": "<p>The action to take on instances in the original environment after a successful blue/green deployment.</p> <ul> <li> <p>TERMINATE: Instances are terminated after a specified wait time.</p> </li> <li> <p>KEEP_ALIVE: Instances are left running after they are deregistered from the load balancer and removed from the deployment group.</p> </li> </ul>"
+        },
+        "terminationWaitTimeInMinutes": {
+          "$ref": "#/definitions/Duration",
+          "description": "The number of minutes to wait after a successful blue/green deployment before terminating instances from the original environment."
+        }
+      },
+      "description": "Information about whether instances in the original environment are terminated when a blue/green deployment is successful."
+    },
     "Boolean": {
       "type": "boolean"
     },
@@ -3575,6 +3818,15 @@
     },
     "CommitId": {
       "type": "string"
+    },
+    "ContinueDeploymentInput": {
+      "type": "object",
+      "properties": {
+        "deploymentId": {
+          "$ref": "#/definitions/DeploymentId",
+          "description": "The deployment ID of the blue/green deployment for which you want to start rerouting traffic to the replacement environment."
+        }
+      }
     },
     "CreateApplicationInput": {
       "type": "object",
@@ -3644,7 +3896,7 @@
         },
         "deploymentConfigName": {
           "$ref": "#/definitions/DeploymentConfigName",
-          "description": "<p>If specified, the deployment configuration name can be either one of the predefined configurations provided with AWS CodeDeploy or a custom deployment configuration that you create by calling the create deployment configuration operation.</p> <note> <p>CodeDeployDefault.OneAtATime is the default deployment configuration. It is used if a configuration isn't specified for the deployment or the deployment group.</p> </note> <p>The predefined deployment configurations include the following:</p> <ul> <li> <p> <b>CodeDeployDefault.AllAtOnce</b> attempts to deploy an application revision to as many instances as possible at once. The status of the overall deployment will be displayed as <b>Succeeded</b> if the application revision is deployed to one or more of the instances. The status of the overall deployment will be displayed as <b>Failed</b> if the application revision is not deployed to any of the instances. Using an example of nine instances, CodeDeployDefault.AllAtOnce will attempt to deploy to all nine instances at once. The overall deployment will succeed if deployment to even a single instance is successful; it will fail only if deployments to all nine instances fail. </p> </li> <li> <p> <b>CodeDeployDefault.HalfAtATime</b> deploys to up to half of the instances at a time (with fractions rounded down). The overall deployment succeeds if the application revision is deployed to at least half of the instances (with fractions rounded up); otherwise, the deployment fails. In the example of nine instances, it will deploy to up to four instances at a time. The overall deployment succeeds if deployment to five or more instances succeed; otherwise, the deployment fails. The deployment may be successfully deployed to some instances even if the overall deployment fails.</p> </li> <li> <p> <b>CodeDeployDefault.OneAtATime</b> deploys the application revision to only one instance at a time.</p> <p>For deployment groups that contain more than one instance:</p> <ul> <li> <p>The overall deployment succeeds if the application revision is deployed to all of the instances. The exception to this rule is if deployment to the last instance fails, the overall deployment still succeeds. This is because AWS CodeDeploy allows only one instance at a time to be taken offline with the CodeDeployDefault.OneAtATime configuration.</p> </li> <li> <p>The overall deployment fails as soon as the application revision fails to be deployed to any but the last instance. The deployment may be successfully deployed to some instances even if the overall deployment fails.</p> </li> <li> <p>In an example using nine instances, it will deploy to one instance at a time. The overall deployment succeeds if deployment to the first eight instances is successful; the overall deployment fails if deployment to any of the first eight instances fails.</p> </li> </ul> <p>For deployment groups that contain only one instance, the overall deployment is successful only if deployment to the single instance is successful</p> </li> </ul>"
+          "description": "<p>If specified, the deployment configuration name can be either one of the predefined configurations provided with AWS CodeDeploy or a custom deployment configuration that you create by calling the create deployment configuration operation.</p> <p>CodeDeployDefault.OneAtATime is the default deployment configuration. It is used if a configuration isn't specified for the deployment or the deployment group.</p> <p>For more information about the predefined deployment configurations in AWS CodeDeploy, see see <a href=\"http://docs.aws.amazon.com/codedeploy/latest/userguide/deployment-configurations.html\">Working with Deployment Groups in AWS CodeDeploy</a> in the AWS CodeDeploy User Guide.</p>"
         },
         "ec2TagFilters": {
           "$ref": "#/definitions/EC2TagFilterList",
@@ -3673,6 +3925,18 @@
         "autoRollbackConfiguration": {
           "$ref": "#/definitions/AutoRollbackConfiguration",
           "description": "Configuration information for an automatic rollback that is added when a deployment group is created."
+        },
+        "deploymentStyle": {
+          "$ref": "#/definitions/DeploymentStyle",
+          "description": "Information about the type of deployment, standard or blue/green, that you want to run and whether to route deployment traffic behind a load balancer."
+        },
+        "blueGreenDeploymentConfiguration": {
+          "$ref": "#/definitions/BlueGreenDeploymentConfiguration",
+          "description": "Information about blue/green deployment options for a deployment group."
+        },
+        "loadBalancerInfo": {
+          "$ref": "#/definitions/LoadBalancerInfo",
+          "description": "Information about the load balancer used in a blue/green deployment."
         }
       },
       "description": "Represents the input of a create deployment group operation."
@@ -3716,6 +3980,10 @@
         "ignoreApplicationStopFailures": {
           "$ref": "#/definitions/Boolean",
           "description": "<p>If set to true, then if the deployment causes the ApplicationStop deployment lifecycle event to an instance to fail, the deployment to that instance will not be considered to have failed at that point and will continue on to the BeforeInstall deployment lifecycle event.</p> <p>If set to false or not specified, then if the deployment causes the ApplicationStop deployment lifecycle event to fail to an instance, the deployment to that instance will stop, and the deployment to that instance will be considered to have failed.</p>"
+        },
+        "targetInstances": {
+          "$ref": "#/definitions/TargetInstances",
+          "description": "Information about the instances that will belong to the replacement environment in a blue/green deployment."
         },
         "autoRollbackConfiguration": {
           "$ref": "#/definitions/AutoRollbackConfiguration",
@@ -3934,6 +4202,18 @@
         "autoRollbackConfiguration": {
           "$ref": "#/definitions/AutoRollbackConfiguration",
           "description": "Information about the automatic rollback configuration associated with the deployment group."
+        },
+        "deploymentStyle": {
+          "$ref": "#/definitions/DeploymentStyle",
+          "description": "Information about the type of deployment, either standard or blue/green, you want to run and whether to route deployment traffic behind a load balancer."
+        },
+        "blueGreenDeploymentConfiguration": {
+          "$ref": "#/definitions/BlueGreenDeploymentConfiguration",
+          "description": "Information about blue/green deployment options for a deployment group."
+        },
+        "loadBalancerInfo": {
+          "$ref": "#/definitions/LoadBalancerInfo",
+          "description": "Information about the load balancer to use in a blue/green deployment."
         }
       },
       "description": "Information about a deployment group."
@@ -4043,9 +4323,38 @@
         "rollbackInfo": {
           "$ref": "#/definitions/RollbackInfo",
           "description": "Information about a deployment rollback."
+        },
+        "deploymentStyle": {
+          "$ref": "#/definitions/DeploymentStyle",
+          "description": "Information about the type of deployment, either standard or blue/green, you want to run and whether to route deployment traffic behind a load balancer."
+        },
+        "targetInstances": {
+          "$ref": "#/definitions/TargetInstances",
+          "description": "Information about the instances that belong to the replacement environment in a blue/green deployment."
+        },
+        "instanceTerminationWaitTimeStarted": {
+          "$ref": "#/definitions/Boolean",
+          "description": "Indicates whether the wait period set for the termination of instances in the original environment has started. Status is 'false' if the KEEP_ALIVE option is specified; otherwise, 'true' as soon as the termination wait period starts."
+        },
+        "blueGreenDeploymentConfiguration": {
+          "$ref": "#/definitions/BlueGreenDeploymentConfiguration",
+          "description": "Information about blue/green deployment options for this deployment."
+        },
+        "loadBalancerInfo": {
+          "$ref": "#/definitions/LoadBalancerInfo",
+          "description": "Information about the load balancer used in this blue/green deployment."
+        },
+        "additionalDeploymentStatusInfo": {
+          "$ref": "#/definitions/AdditionalDeploymentStatusInfo",
+          "description": "Provides information about the results of a deployment, such as whether instances in the original environment in a blue/green deployment were not terminated."
         }
       },
       "description": "Information about a deployment."
+    },
+    "DeploymentIsNotInReadyStateException": {
+      "type": "object",
+      "properties": {},
+      "description": "The deployment does not have a status of Ready and can't continue yet."
     },
     "DeploymentLimitExceededException": {
       "type": "object",
@@ -4056,6 +4365,13 @@
       "type": "object",
       "properties": {},
       "description": "The specified deployment has not started."
+    },
+    "DeploymentOption": {
+      "type": "string",
+      "enum": [
+        "WITH_TRAFFIC_CONTROL",
+        "WITHOUT_TRAFFIC_CONTROL"
+      ]
     },
     "DeploymentOverview": {
       "type": "object",
@@ -4079,9 +4395,34 @@
         "Skipped": {
           "$ref": "#/definitions/InstanceCount",
           "description": "The number of instances in the deployment in a skipped state."
+        },
+        "Ready": {
+          "$ref": "#/definitions/InstanceCount",
+          "description": "The number of instances in a replacement environment ready to receive traffic in a blue/green deployment."
         }
       },
       "description": "Information about the deployment status of the instances in the deployment."
+    },
+    "DeploymentReadyAction": {
+      "type": "string",
+      "enum": [
+        "CONTINUE_DEPLOYMENT",
+        "STOP_DEPLOYMENT"
+      ]
+    },
+    "DeploymentReadyOption": {
+      "type": "object",
+      "properties": {
+        "actionOnTimeout": {
+          "$ref": "#/definitions/DeploymentReadyAction",
+          "description": "<p>Information about when to reroute traffic from an original environment to a replacement environment in a blue/green deployment.</p> <ul> <li> <p>CONTINUE_DEPLOYMENT: Register new instances with the load balancer immediately after the new application revision is installed on the instances in the replacement environment.</p> </li> <li> <p>STOP_DEPLOYMENT: Do not register new instances with load balancer unless traffic is rerouted manually. If traffic is not rerouted manually before the end of the specified wait period, the deployment status is changed to Stopped.</p> </li> </ul>"
+        },
+        "waitTimeInMinutes": {
+          "$ref": "#/definitions/Duration",
+          "description": "The number of minutes to wait before the status of a blue/green deployment changed to Stopped if rerouting is not started manually. Applies only to the STOP_DEPLOYMENT option for actionOnTimeout"
+        }
+      },
+      "description": "Information about how traffic is rerouted to instances in a replacement environment in a blue/green deployment."
     },
     "DeploymentStatus": {
       "type": "string",
@@ -4091,7 +4432,8 @@
         "InProgress",
         "Succeeded",
         "Failed",
-        "Stopped"
+        "Stopped",
+        "Ready"
       ]
     },
     "DeploymentStatusList": {
@@ -4099,6 +4441,27 @@
       "items": {
         "$ref": "#/definitions/DeploymentStatus"
       }
+    },
+    "DeploymentStyle": {
+      "type": "object",
+      "properties": {
+        "deploymentType": {
+          "$ref": "#/definitions/DeploymentType",
+          "description": "Indicates whether to run a standard deployment or a blue/green deployment."
+        },
+        "deploymentOption": {
+          "$ref": "#/definitions/DeploymentOption",
+          "description": "Indicates whether to route deployment traffic behind a load balancer."
+        }
+      },
+      "description": "Information about the type of deployment, either standard or blue/green, you want to run and whether to route deployment traffic behind a load balancer."
+    },
+    "DeploymentType": {
+      "type": "string",
+      "enum": [
+        "IN_PLACE",
+        "BLUE_GREEN"
+      ]
     },
     "DeploymentsInfoList": {
       "type": "array",
@@ -4155,6 +4518,9 @@
       },
       "description": "Diagnostic information about executable scripts that are part of a deployment."
     },
+    "Duration": {
+      "type": "integer"
+    },
     "EC2TagFilter": {
       "type": "object",
       "properties": {
@@ -4187,6 +4553,25 @@
         "KEY_AND_VALUE"
       ]
     },
+    "ELBInfo": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/ELBName",
+          "description": "The name of the load balancer that will be used to route traffic from original instances to replacement instances in a blue/green deployment."
+        }
+      },
+      "description": "Information about a load balancer in Elastic Load Balancing to use in a blue/green deployment."
+    },
+    "ELBInfoList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ELBInfo"
+      }
+    },
+    "ELBName": {
+      "type": "string"
+    },
     "ETag": {
       "type": "string"
     },
@@ -4218,7 +4603,7 @@
       "properties": {
         "code": {
           "$ref": "#/definitions/ErrorCode",
-          "description": "<p>The error code:</p> <ul> <li> <p>APPLICATION_MISSING: The application was missing. This error code will most likely be raised if the application is deleted after the deployment is created but before it is started.</p> </li> <li> <p>DEPLOYMENT_GROUP_MISSING: The deployment group was missing. This error code will most likely be raised if the deployment group is deleted after the deployment is created but before it is started.</p> </li> <li> <p>HEALTH_CONSTRAINTS: The deployment failed on too many instances to be successfully deployed within the instance health constraints specified.</p> </li> <li> <p>HEALTH_CONSTRAINTS_INVALID: The revision cannot be successfully deployed within the instance health constraints specified.</p> </li> <li> <p>IAM_ROLE_MISSING: The service role cannot be accessed.</p> </li> <li> <p>IAM_ROLE_PERMISSIONS: The service role does not have the correct permissions.</p> </li> <li> <p>INTERNAL_ERROR: There was an internal error.</p> </li> <li> <p>NO_EC2_SUBSCRIPTION: The calling account is not subscribed to the Amazon EC2 service.</p> </li> <li> <p>NO_INSTANCES: No instance were specified, or no instance can be found.</p> </li> <li> <p>OVER_MAX_INSTANCES: The maximum number of instance was exceeded.</p> </li> <li> <p>THROTTLED: The operation was throttled because the calling account exceeded the throttling limits of one or more AWS services.</p> </li> <li> <p>TIMEOUT: The deployment has timed out.</p> </li> <li> <p>REVISION_MISSING: The revision ID was missing. This error code will most likely be raised if the revision is deleted after the deployment is created but before it is started.</p> </li> </ul>"
+          "description": "<p>For information about additional error codes, see <a href=\"http://docs.aws.amazon.com/codedeploy/latest/userguide/error-codes.html\">Error Codes for AWS CodeDeploy</a> in the <a href=\"http://docs.aws.amazon.com/codedeploy/latest/userguide\">AWS CodeDeploy User Guide</a>.</p> <p>The error code:</p> <ul> <li> <p>APPLICATION_MISSING: The application was missing. This error code will most likely be raised if the application is deleted after the deployment is created but before it is started.</p> </li> <li> <p>DEPLOYMENT_GROUP_MISSING: The deployment group was missing. This error code will most likely be raised if the deployment group is deleted after the deployment is created but before it is started.</p> </li> <li> <p>HEALTH_CONSTRAINTS: The deployment failed on too many instances to be successfully deployed within the instance health constraints specified.</p> </li> <li> <p>HEALTH_CONSTRAINTS_INVALID: The revision cannot be successfully deployed within the instance health constraints specified.</p> </li> <li> <p>IAM_ROLE_MISSING: The service role cannot be accessed.</p> </li> <li> <p>IAM_ROLE_PERMISSIONS: The service role does not have the correct permissions.</p> </li> <li> <p>INTERNAL_ERROR: There was an internal error.</p> </li> <li> <p>NO_EC2_SUBSCRIPTION: The calling account is not subscribed to the Amazon EC2 service.</p> </li> <li> <p>NO_INSTANCES: No instance were specified, or no instance can be found.</p> </li> <li> <p>OVER_MAX_INSTANCES: The maximum number of instance was exceeded.</p> </li> <li> <p>THROTTLED: The operation was throttled because the calling account exceeded the throttling limits of one or more AWS services.</p> </li> <li> <p>TIMEOUT: The deployment has timed out.</p> </li> <li> <p>REVISION_MISSING: The revision ID was missing. This error code will most likely be raised if the revision is deleted after the deployment is created but before it is started.</p> </li> </ul>"
         },
         "message": {
           "$ref": "#/definitions/ErrorMessage",
@@ -4454,6 +4839,36 @@
       },
       "description": "Information about the location of application artifacts stored in GitHub."
     },
+    "GreenFleetProvisioningAction": {
+      "type": "string",
+      "enum": [
+        "DISCOVER_EXISTING",
+        "COPY_AUTO_SCALING_GROUP"
+      ]
+    },
+    "GreenFleetProvisioningOption": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "$ref": "#/definitions/GreenFleetProvisioningAction",
+          "description": "<p>The method used to add instances to a replacement environment.</p> <ul> <li> <p>DISCOVER_EXISTING: Use instances that already exist or will be created manually.</p> </li> <li> <p>COPY_AUTO_SCALING_GROUP: Use settings from a specified Auto Scaling group to define and create instances in a new Auto Scaling group.</p> </li> </ul>"
+        }
+      },
+      "description": "Information about the instances that belong to the replacement environment in a blue/green deployment."
+    },
+    "IamArnRequiredException": {
+      "type": "object",
+      "properties": {},
+      "description": "No IAM ARN was included in the request. You must use an IAM session ARN or IAM user ARN in the request."
+    },
+    "IamSessionArn": {
+      "type": "string"
+    },
+    "IamSessionArnAlreadyRegisteredException": {
+      "type": "object",
+      "properties": {},
+      "description": "The request included an IAM session ARN that has already been used to register a different instance."
+    },
     "IamUserArn": {
       "type": "string"
     },
@@ -4466,6 +4881,13 @@
       "type": "object",
       "properties": {},
       "description": "An IAM user ARN was not specified."
+    },
+    "InstanceAction": {
+      "type": "string",
+      "enum": [
+        "TERMINATE",
+        "KEEP_ALIVE"
+      ]
     },
     "InstanceArn": {
       "type": "string"
@@ -4492,6 +4914,10 @@
         "instanceName": {
           "$ref": "#/definitions/InstanceName",
           "description": "The name of the on-premises instance."
+        },
+        "iamSessionArn": {
+          "$ref": "#/definitions/IamSessionArn",
+          "description": "The ARN of the IAM session associated with the on-premises instance."
         },
         "iamUserArn": {
           "$ref": "#/definitions/IamUserArn",
@@ -4559,7 +4985,8 @@
         "Succeeded",
         "Failed",
         "Skipped",
-        "Unknown"
+        "Unknown",
+        "Ready"
       ]
     },
     "InstanceStatusList": {
@@ -4590,6 +5017,10 @@
         "lifecycleEvents": {
           "$ref": "#/definitions/LifecycleEventList",
           "description": "A list of lifecycle events for this instance."
+        },
+        "instanceType": {
+          "$ref": "#/definitions/InstanceType",
+          "description": "<p>Information about which environment an instance belongs to in a blue/green deployment.</p> <ul> <li> <p>BLUE: The instance is part of the original environment.</p> </li> <li> <p>GREEN: The instance is part of the replacement environment.</p> </li> </ul>"
         }
       },
       "description": "Information about an instance in a deployment."
@@ -4598,6 +5029,19 @@
       "type": "array",
       "items": {
         "$ref": "#/definitions/InstanceSummary"
+      }
+    },
+    "InstanceType": {
+      "type": "string",
+      "enum": [
+        "Blue",
+        "Green"
+      ]
+    },
+    "InstanceTypeList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/InstanceType"
       }
     },
     "InstancesList": {
@@ -4625,6 +5069,11 @@
       "type": "object",
       "properties": {},
       "description": "The Auto Scaling group was specified in an invalid format or does not exist."
+    },
+    "InvalidBlueGreenDeploymentConfigurationException": {
+      "type": "object",
+      "properties": {},
+      "description": "The configuration for the blue/green deployment group was provided in an invalid format. For information about deployment configuration format, see <a>CreateDeploymentConfig</a>."
     },
     "InvalidBucketNameFilterException": {
       "type": "object",
@@ -4656,10 +5105,20 @@
       "properties": {},
       "description": "The specified deployment status doesn't exist or cannot be determined."
     },
+    "InvalidDeploymentStyleException": {
+      "type": "object",
+      "properties": {},
+      "description": "An invalid deployment style was specified. Valid deployment types include \"IN_PLACE\" and \"BLUE_GREEN\". Valid deployment options for blue/green deployments include \"WITH_TRAFFIC_CONTROL\" and \"WITHOUT_TRAFFIC_CONTROL\"."
+    },
     "InvalidEC2TagException": {
       "type": "object",
       "properties": {},
       "description": "The tag was specified in an invalid format."
+    },
+    "InvalidIamSessionArnException": {
+      "type": "object",
+      "properties": {},
+      "description": "The IAM session ARN was specified in an invalid format."
     },
     "InvalidIamUserArnException": {
       "type": "object",
@@ -4676,10 +5135,20 @@
       "properties": {},
       "description": "The specified instance status does not exist."
     },
+    "InvalidInstanceTypeException": {
+      "type": "object",
+      "properties": {},
+      "description": "An invalid instance type was specified for instances in a blue/green deployment. Valid values include \"Blue\" for an original environment and \"Green\" for a replacement environment."
+    },
     "InvalidKeyPrefixFilterException": {
       "type": "object",
       "properties": {},
       "description": "The specified key prefix filter was specified in an invalid format."
+    },
+    "InvalidLoadBalancerInfoException": {
+      "type": "object",
+      "properties": {},
+      "description": "An invalid load balancer name, or no load balancer name, was specified."
     },
     "InvalidMinimumHealthyHostValueException": {
       "type": "object",
@@ -4730,6 +5199,11 @@
       "type": "object",
       "properties": {},
       "description": "The specified tag filter was specified in an invalid format."
+    },
+    "InvalidTargetInstancesException": {
+      "type": "object",
+      "properties": {},
+      "description": "<p>The target instance configuration is invalid. Possible causes include:</p> <ul> <li> <p>Configuration data for target instances was entered for an in-place deployment.</p> </li> <li> <p>The limit of 10 tags for a tag type was exceeded.</p> </li> <li> <p>The combined length of the tag names exceeded the limit. </p> </li> <li> <p>A specified tag is not currently applied to any instances.</p> </li> </ul>"
     },
     "InvalidTimeRangeException": {
       "type": "object",
@@ -4960,6 +5434,10 @@
         "instanceStatusFilter": {
           "$ref": "#/definitions/InstanceStatusList",
           "description": "<p>A subset of instances to list by status:</p> <ul> <li> <p>Pending: Include those instance with pending deployments.</p> </li> <li> <p>InProgress: Include those instance where deployments are still in progress.</p> </li> <li> <p>Succeeded: Include those instances with successful deployments.</p> </li> <li> <p>Failed: Include those instance with failed deployments.</p> </li> <li> <p>Skipped: Include those instance with skipped deployments.</p> </li> <li> <p>Unknown: Include those instance with deployments in an unknown state.</p> </li> </ul>"
+        },
+        "instanceTypeFilter": {
+          "$ref": "#/definitions/InstanceTypeList",
+          "description": "The set of instances in a blue/green deployment, either those in the original environment (\"BLUE\") or those in the replacement environment (\"GREEN\"), for which you want to view instance information."
         }
       },
       "description": "Represents the input of a list deployment instances operation."
@@ -5058,6 +5536,16 @@
         "ignore"
       ]
     },
+    "LoadBalancerInfo": {
+      "type": "object",
+      "properties": {
+        "elbInfoList": {
+          "$ref": "#/definitions/ELBInfoList",
+          "description": "An array containing information about the load balancer in Elastic Load Balancing to use in a blue/green deployment."
+        }
+      },
+      "description": "Information about the load balancer used in a blue/green deployment."
+    },
     "LogTail": {
       "type": "string"
     },
@@ -5087,6 +5575,11 @@
     },
     "MinimumHealthyHostsValue": {
       "type": "integer"
+    },
+    "MultipleIamArnsProvidedException": {
+      "type": "object",
+      "properties": {},
+      "description": "Both an IAM user ARN and an IAM session ARN were included in the request. Use only one ARN type."
     },
     "NextToken": {
       "type": "string"
@@ -5119,13 +5612,16 @@
     "RegisterOnPremisesInstanceInput": {
       "type": "object",
       "required": [
-        "instanceName",
-        "iamUserArn"
+        "instanceName"
       ],
       "properties": {
         "instanceName": {
           "$ref": "#/definitions/InstanceName",
           "description": "The name of the on-premises instance to register."
+        },
+        "iamSessionArn": {
+          "$ref": "#/definitions/IamSessionArn",
+          "description": "The ARN of the IAM session to associate with the on-premises instance."
         },
         "iamUserArn": {
           "$ref": "#/definitions/IamUserArn",
@@ -5171,10 +5667,12 @@
       "type": "object",
       "properties": {
         "revisionLocation": {
-          "$ref": "#/definitions/RevisionLocation"
+          "$ref": "#/definitions/RevisionLocation",
+          "description": "Information about the location and type of an application revision."
         },
         "genericRevisionInfo": {
-          "$ref": "#/definitions/GenericRevisionInfo"
+          "$ref": "#/definitions/GenericRevisionInfo",
+          "description": "Information about an application revision, including usage details and associated deployment groups."
         }
       },
       "description": "Information about an application revision."
@@ -5193,10 +5691,12 @@
           "description": "<p>The type of application revision:</p> <ul> <li> <p>S3: An application revision stored in Amazon S3.</p> </li> <li> <p>GitHub: An application revision stored in GitHub.</p> </li> </ul>"
         },
         "s3Location": {
-          "$ref": "#/definitions/S3Location"
+          "$ref": "#/definitions/S3Location",
+          "description": "Information about the location of application artifacts stored in Amazon S3. "
         },
         "gitHubLocation": {
-          "$ref": "#/definitions/GitHubLocation"
+          "$ref": "#/definitions/GitHubLocation",
+          "description": "Information about the location of application artifacts stored in GitHub."
         }
       },
       "description": "Information about the location of an application revision."
@@ -5279,6 +5779,15 @@
     },
     "ScriptName": {
       "type": "string"
+    },
+    "SkipWaitTimeForInstanceTerminationInput": {
+      "type": "object",
+      "properties": {
+        "deploymentId": {
+          "$ref": "#/definitions/DeploymentId",
+          "description": "The ID of the blue/green deployment for which you want to skip the instance termination wait time."
+        }
+      }
     },
     "SortOrder": {
       "type": "string",
@@ -5387,6 +5896,20 @@
       "properties": {},
       "description": "A tag was not specified."
     },
+    "TargetInstances": {
+      "type": "object",
+      "properties": {
+        "tagFilters": {
+          "$ref": "#/definitions/EC2TagFilterList",
+          "description": "The tag filter key, type, and value used to identify Amazon EC2 instances in a replacement environment for a blue/green deployment."
+        },
+        "autoScalingGroups": {
+          "$ref": "#/definitions/AutoScalingGroupNameList",
+          "description": "The names of one or more Auto Scaling groups to identify a replacement environment for a blue/green deployment."
+        }
+      },
+      "description": "Information about the instances to be used in the replacement environment in a blue/green deployment."
+    },
     "TimeRange": {
       "type": "object",
       "properties": {
@@ -5437,9 +5960,11 @@
         "DeploymentFailure",
         "DeploymentStop",
         "DeploymentRollback",
+        "DeploymentReady",
         "InstanceStart",
         "InstanceSuccess",
-        "InstanceFailure"
+        "InstanceFailure",
+        "InstanceReady"
       ]
     },
     "TriggerEventTypeList": {
@@ -5458,6 +5983,11 @@
       "type": "object",
       "properties": {},
       "description": "The maximum allowed number of triggers was exceeded."
+    },
+    "UnsupportedActionForDeploymentTypeException": {
+      "type": "object",
+      "properties": {},
+      "description": "A call was submitted that is not supported for the specified deployment type."
     },
     "UpdateApplicationInput": {
       "type": "object",
@@ -5523,6 +6053,18 @@
         "autoRollbackConfiguration": {
           "$ref": "#/definitions/AutoRollbackConfiguration",
           "description": "Information for an automatic rollback configuration that is added or changed when a deployment group is updated."
+        },
+        "deploymentStyle": {
+          "$ref": "#/definitions/DeploymentStyle",
+          "description": "Information about the type of deployment, either standard or blue/green, you want to run and whether to route deployment traffic behind a load balancer."
+        },
+        "blueGreenDeploymentConfiguration": {
+          "$ref": "#/definitions/BlueGreenDeploymentConfiguration",
+          "description": "Information about blue/green deployment options for a deployment group."
+        },
+        "loadBalancerInfo": {
+          "$ref": "#/definitions/LoadBalancerInfo",
+          "description": "Information about the load balancer used in a blue/green deployment."
         }
       },
       "description": "Represents the input of an update deployment group operation."

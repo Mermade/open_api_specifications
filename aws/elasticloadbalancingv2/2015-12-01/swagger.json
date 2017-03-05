@@ -307,7 +307,7 @@
     "/#CreateLoadBalancer": {
       "post": {
         "operationId": "CreateLoadBalancer",
-        "description": "<p>Creates an Application Load Balancer.</p> <p>To create listeners for your load balancer, use <a>CreateListener</a>. You can add security groups, subnets, and tags when you create your load balancer, or you can add them later using <a>SetSecurityGroups</a>, <a>SetSubnets</a>, and <a>AddTags</a>.</p> <p>To describe your current load balancers, see <a>DescribeLoadBalancers</a>. When you are finished with a load balancer, you can delete it using <a>DeleteLoadBalancer</a>.</p> <p>You can create up to 20 load balancers per region per account. You can request an increase for the number of load balancers for your account. For more information, see <a href=\"http://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-limits.html\">Limits for Your Application Load Balancer</a> in the <i>Application Load Balancers Guide</i>.</p> <p>For more information, see <a href=\"http://docs.aws.amazon.com/elasticloadbalancing/latest/application/application-load-balancers.html\">Application Load Balancers</a> in the <i>Application Load Balancers Guide</i>.</p>",
+        "description": "<p>Creates an Application Load Balancer.</p> <p>When you create a load balancer, you can specify security groups, subnets, IP address type, and tags. Otherwise, you could do so later using <a>SetSecurityGroups</a>, <a>SetSubnets</a>, <a>SetIpAddressType</a>, and <a>AddTags</a>.</p> <p>To create listeners for your load balancer, use <a>CreateListener</a>. To describe your current load balancers, see <a>DescribeLoadBalancers</a>. When you are finished with a load balancer, you can delete it using <a>DeleteLoadBalancer</a>.</p> <p>You can create up to 20 load balancers per region per account. You can request an increase for the number of load balancers for your account. For more information, see <a href=\"http://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-limits.html\">Limits for Your Application Load Balancer</a> in the <i>Application Load Balancers Guide</i>.</p> <p>For more information, see <a href=\"http://docs.aws.amazon.com/elasticloadbalancing/latest/application/application-load-balancers.html\">Application Load Balancers</a> in the <i>Application Load Balancers Guide</i>.</p>",
         "responses": {
           "200": {
             "description": "Success",
@@ -1878,7 +1878,7 @@
     "/#RegisterTargets": {
       "post": {
         "operationId": "RegisterTargets",
-        "description": "<p>Registers the specified targets with the specified target group.</p> <p>By default, the load balancer routes requests to registered targets using the protocol and port number for the target group. Alternatively, you can override the port for a target when you register it.</p> <p>The target must be in the virtual private cloud (VPC) that you specified for the target group. If the target is an EC2 instance, it can't be in the <code>stopped</code> or <code>running</code> state when you register it.</p> <p>To remove a target from a target group, use <a>DeregisterTargets</a>.</p>",
+        "description": "<p>Registers the specified targets with the specified target group.</p> <p>By default, the load balancer routes requests to registered targets using the protocol and port number for the target group. Alternatively, you can override the port for a target when you register it.</p> <p>The target must be in the virtual private cloud (VPC) that you specified for the target group. If the target is an EC2 instance, it must be in the <code>running</code> state when you register it.</p> <p>To remove a target from a target group, use <a>DeregisterTargets</a>.</p>",
         "responses": {
           "200": {
             "description": "Success",
@@ -2001,6 +2001,77 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/RemoveTagsInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#SetIpAddressType": {
+      "post": {
+        "operationId": "SetIpAddressType",
+        "description": "Sets the type of IP addresses used by the subnets of the specified Application Load Balancer.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SetIpAddressTypeOutput"
+            }
+          },
+          "480": {
+            "description": "LoadBalancerNotFoundException",
+            "schema": {
+              "$ref": "#/definitions/LoadBalancerNotFoundException"
+            }
+          },
+          "481": {
+            "description": "InvalidConfigurationRequestException",
+            "schema": {
+              "$ref": "#/definitions/InvalidConfigurationRequestException"
+            }
+          },
+          "482": {
+            "description": "InvalidSubnetException",
+            "schema": {
+              "$ref": "#/definitions/InvalidSubnetException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SetIpAddressTypeInput"
             }
           }
         ]
@@ -2316,13 +2387,11 @@
           "$ref": "#/definitions/TagList",
           "description": "The tags. Each resource can have a maximum of 10 tags."
         }
-      },
-      "description": "Contains the parameters for AddTags."
+      }
     },
     "AddTagsOutput": {
       "type": "object",
-      "properties": {},
-      "description": "Contains the output of AddTags."
+      "properties": {}
     },
     "AvailabilityZone": {
       "type": "object",
@@ -2451,8 +2520,7 @@
           "$ref": "#/definitions/Actions",
           "description": "The default action for the listener."
         }
-      },
-      "description": "Contains the parameters for CreateListener."
+      }
     },
     "CreateListenerOutput": {
       "type": "object",
@@ -2483,8 +2551,7 @@
           "$ref": "#/definitions/Listeners",
           "description": "Information about the listener."
         }
-      },
-      "description": "Contains the output of CreateListener."
+      }
     },
     "CreateLoadBalancerInput": {
       "type": "object",
@@ -2521,9 +2588,12 @@
         "Tags": {
           "$ref": "#/definitions/TagList",
           "description": "One or more tags to assign to the load balancer."
+        },
+        "IpAddressType": {
+          "$ref": "#/definitions/IpAddressType",
+          "description": "The type of IP addresses used by the subnets for your load balancer. The possible values are <code>ipv4</code> (for IPv4 addresses) and <code>dualstack</code> (for IPv4 and IPv6 addresses). Internal load balancers must use <code>ipv4</code>."
         }
-      },
-      "description": "Contains the parameters for CreateLoadBalancer."
+      }
     },
     "CreateLoadBalancerOutput": {
       "type": "object",
@@ -2562,8 +2632,7 @@
           "$ref": "#/definitions/LoadBalancers",
           "description": "Information about the load balancer."
         }
-      },
-      "description": "Contains the output of CreateLoadBalancer."
+      }
     },
     "CreateRuleInput": {
       "type": "object",
@@ -2598,7 +2667,7 @@
         },
         "Conditions": {
           "$ref": "#/definitions/RuleConditionList",
-          "description": "<p>A condition. Each condition has the field <code>path-pattern</code> and specifies one path pattern. A path pattern is case sensitive, can be up to 255 characters in length, and can contain any of the following characters:</p> <ul> <li> <p>A-Z, a-z, 0-9</p> </li> <li> <p>_ - . $ / ~ \" ' @ : +</p> </li> <li> <p>&amp; (using &amp;amp;)</p> </li> <li> <p>* (matches 0 or more characters)</p> </li> <li> <p>? (matches exactly 1 character)</p> </li> </ul>"
+          "description": "<p>A condition. Each condition has the field <code>path-pattern</code> and specifies one path pattern. A path pattern is case sensitive, can be up to 128 characters in length, and can contain any of the following characters. Note that you can include up to three wildcard characters in a path pattern.</p> <ul> <li> <p>A-Z, a-z, 0-9</p> </li> <li> <p>_ - . $ / ~ \" ' @ : +</p> </li> <li> <p>&amp; (using &amp;amp;)</p> </li> <li> <p>* (matches 0 or more characters)</p> </li> <li> <p>? (matches exactly 1 character)</p> </li> </ul>"
         },
         "Priority": {
           "$ref": "#/definitions/RulePriority",
@@ -2608,8 +2677,7 @@
           "$ref": "#/definitions/Actions",
           "description": "An action. Each action has the type <code>forward</code> and specifies a target group."
         }
-      },
-      "description": "Contains the parameters for CreateRule."
+      }
     },
     "CreateRuleOutput": {
       "type": "object",
@@ -2641,8 +2709,7 @@
           "$ref": "#/definitions/Rules",
           "description": "Information about the rule."
         }
-      },
-      "description": "Contains the output of CreateRule."
+      }
     },
     "CreateTargetGroupInput": {
       "type": "object",
@@ -2707,8 +2774,7 @@
           "$ref": "#/definitions/Matcher",
           "description": "The HTTP codes to use when checking for a successful response from a target. The default is 200."
         }
-      },
-      "description": "Contains the parameters for CreateTargetGroup."
+      }
     },
     "CreateTargetGroupOutput": {
       "type": "object",
@@ -2738,8 +2804,7 @@
           "$ref": "#/definitions/TargetGroups",
           "description": "Information about the target group."
         }
-      },
-      "description": "Contains the output of CreateTargetGroup."
+      }
     },
     "CreatedTime": {
       "type": "string",
@@ -2761,13 +2826,11 @@
           "$ref": "#/definitions/ListenerArn",
           "description": "The Amazon Resource Name (ARN) of the listener."
         }
-      },
-      "description": "Contains the parameters for DeleteListener."
+      }
     },
     "DeleteListenerOutput": {
       "type": "object",
-      "properties": {},
-      "description": "Contains the output of DeleteListener."
+      "properties": {}
     },
     "DeleteLoadBalancerInput": {
       "type": "object",
@@ -2782,13 +2845,11 @@
           "$ref": "#/definitions/LoadBalancerArn",
           "description": "The Amazon Resource Name (ARN) of the load balancer."
         }
-      },
-      "description": "Contains the parameters for DeleteLoadBalancer."
+      }
     },
     "DeleteLoadBalancerOutput": {
       "type": "object",
-      "properties": {},
-      "description": "Contains the output of DeleteLoadBalancer."
+      "properties": {}
     },
     "DeleteRuleInput": {
       "type": "object",
@@ -2803,13 +2864,11 @@
           "$ref": "#/definitions/RuleArn",
           "description": "The Amazon Resource Name (ARN) of the rule."
         }
-      },
-      "description": "Contains the parameters for DeleteRule."
+      }
     },
     "DeleteRuleOutput": {
       "type": "object",
-      "properties": {},
-      "description": "Contains the output of DeleteRule."
+      "properties": {}
     },
     "DeleteTargetGroupInput": {
       "type": "object",
@@ -2824,13 +2883,11 @@
           "$ref": "#/definitions/TargetGroupArn",
           "description": "The Amazon Resource Name (ARN) of the target group."
         }
-      },
-      "description": "Contains the parameters for DeleteTargetGroup."
+      }
     },
     "DeleteTargetGroupOutput": {
       "type": "object",
-      "properties": {},
-      "description": "Contains the output of DeleteTargetGroup."
+      "properties": {}
     },
     "DeregisterTargetsInput": {
       "type": "object",
@@ -2855,13 +2912,11 @@
           "$ref": "#/definitions/TargetDescriptions",
           "description": "The targets. If you specified a port override when you registered a target, you must specify both the target ID and the port when you deregister it."
         }
-      },
-      "description": "Contains the parameters for DeregisterTargets."
+      }
     },
     "DeregisterTargetsOutput": {
       "type": "object",
-      "properties": {},
-      "description": "Contains the output of DeregisterTargets."
+      "properties": {}
     },
     "DescribeListenersInput": {
       "type": "object",
@@ -2887,8 +2942,7 @@
           "$ref": "#/definitions/PageSize",
           "description": "The maximum number of results to return with this call."
         }
-      },
-      "description": "Contains the parameters for DescribeListeners."
+      }
     },
     "DescribeListenersOutput": {
       "type": "object",
@@ -2917,8 +2971,7 @@
           "$ref": "#/definitions/Marker",
           "description": "The marker to use when requesting the next set of results. If there are no additional results, the string is empty."
         }
-      },
-      "description": "Contains the output of DescribeListeners."
+      }
     },
     "DescribeLoadBalancerAttributesInput": {
       "type": "object",
@@ -2933,8 +2986,7 @@
           "$ref": "#/definitions/LoadBalancerArn",
           "description": "The Amazon Resource Name (ARN) of the load balancer."
         }
-      },
-      "description": "Contains the parameters for DescribeLoadBalancerAttributes."
+      }
     },
     "DescribeLoadBalancerAttributesOutput": {
       "type": "object",
@@ -2967,8 +3019,7 @@
           "$ref": "#/definitions/LoadBalancerAttributes",
           "description": "Information about the load balancer attributes."
         }
-      },
-      "description": "Contains the output of DescribeLoadBalancerAttributes."
+      }
     },
     "DescribeLoadBalancersInput": {
       "type": "object",
@@ -2994,8 +3045,7 @@
           "$ref": "#/definitions/PageSize",
           "description": "The maximum number of results to return with this call."
         }
-      },
-      "description": "Contains the parameters for DescribeLoadBalancers."
+      }
     },
     "DescribeLoadBalancersOutput": {
       "type": "object",
@@ -3038,8 +3088,7 @@
           "$ref": "#/definitions/Marker",
           "description": "The marker to use when requesting the next set of results. If there are no additional results, the string is empty."
         }
-      },
-      "description": "Contains the output of DescribeLoadBalancers."
+      }
     },
     "DescribeRulesInput": {
       "type": "object",
@@ -3057,8 +3106,7 @@
           "$ref": "#/definitions/RuleArns",
           "description": "The Amazon Resource Names (ARN) of the rules."
         }
-      },
-      "description": "Contains the parameters for DescribeRules."
+      }
     },
     "DescribeRulesOutput": {
       "type": "object",
@@ -3090,8 +3138,7 @@
           "$ref": "#/definitions/Rules",
           "description": "Information about the rules."
         }
-      },
-      "description": "Contains the output of DescribeRules."
+      }
     },
     "DescribeSSLPoliciesInput": {
       "type": "object",
@@ -3113,8 +3160,7 @@
           "$ref": "#/definitions/PageSize",
           "description": "The maximum number of results to return with this call."
         }
-      },
-      "description": "Contains the parameters for DescribeSSLPolicies."
+      }
     },
     "DescribeSSLPoliciesOutput": {
       "type": "object",
@@ -3217,8 +3263,7 @@
           "$ref": "#/definitions/Marker",
           "description": "The marker to use when requesting the next set of results. If there are no additional results, the string is empty."
         }
-      },
-      "description": "Contains the output of DescribeSSLPolicies."
+      }
     },
     "DescribeTagsInput": {
       "type": "object",
@@ -3235,8 +3280,7 @@
           "$ref": "#/definitions/ResourceArns",
           "description": "The Amazon Resource Names (ARN) of the resources."
         }
-      },
-      "description": "Contains the parameters for DescribeTags."
+      }
     },
     "DescribeTagsOutput": {
       "type": "object",
@@ -3262,8 +3306,7 @@
           "$ref": "#/definitions/TagDescriptions",
           "description": "Information about the tags."
         }
-      },
-      "description": "Contains the output of DescribeTags."
+      }
     },
     "DescribeTargetGroupAttributesInput": {
       "type": "object",
@@ -3278,8 +3321,7 @@
           "$ref": "#/definitions/TargetGroupArn",
           "description": "The Amazon Resource Name (ARN) of the target group."
         }
-      },
-      "description": "Contains the parameters for DescribeTargetGroupAttributes."
+      }
     },
     "DescribeTargetGroupAttributesOutput": {
       "type": "object",
@@ -3308,8 +3350,7 @@
           "$ref": "#/definitions/TargetGroupAttributes",
           "description": "Information about the target group attributes"
         }
-      },
-      "description": "Contains the output of DescribeTargetGroupAttributes."
+      }
     },
     "DescribeTargetGroupsInput": {
       "type": "object",
@@ -3339,8 +3380,7 @@
           "$ref": "#/definitions/PageSize",
           "description": "The maximum number of results to return with this call."
         }
-      },
-      "description": "Contains the parameters for DescribeTargetGroups."
+      }
     },
     "DescribeTargetGroupsOutput": {
       "type": "object",
@@ -3377,8 +3417,7 @@
           "$ref": "#/definitions/Marker",
           "description": "The marker to use when requesting the next set of results. If there are no additional results, the string is empty."
         }
-      },
-      "description": "Contains the output of DescribeTargetGroups."
+      }
     },
     "DescribeTargetHealthInput": {
       "type": "object",
@@ -3403,8 +3442,7 @@
           "$ref": "#/definitions/TargetDescriptions",
           "description": "The targets."
         }
-      },
-      "description": "Contains the parameters for DescribeTargetHealth."
+      }
     },
     "DescribeTargetHealthOutput": {
       "type": "object",
@@ -3427,8 +3465,7 @@
           "$ref": "#/definitions/TargetHealthDescriptions",
           "description": "Information about the health of the targets."
         }
-      },
-      "description": "Contains the output of DescribeTargetHealth."
+      }
     },
     "Description": {
       "type": "string"
@@ -3508,6 +3545,13 @@
       "type": "object",
       "properties": {},
       "description": "The specified target does not exist or is not in the same VPC as the target group."
+    },
+    "IpAddressType": {
+      "type": "string",
+      "enum": [
+        "ipv4",
+        "dualstack"
+      ]
     },
     "IsDefault": {
       "type": "boolean"
@@ -3618,6 +3662,10 @@
         "SecurityGroups": {
           "$ref": "#/definitions/SecurityGroups",
           "description": "The IDs of the security groups for the load balancer."
+        },
+        "IpAddressType": {
+          "$ref": "#/definitions/IpAddressType",
+          "description": "The type of IP addresses used by the subnets for your load balancer. The possible values are <code>ipv4</code> (for IPv4 addresses) and <code>dualstack</code> (for IPv4 and IPv6 addresses)."
         }
       },
       "description": "Information about a load balancer."
@@ -3770,8 +3818,7 @@
           "$ref": "#/definitions/Actions",
           "description": "The default actions."
         }
-      },
-      "description": "Contains the parameters for ModifyListener."
+      }
     },
     "ModifyListenerOutput": {
       "type": "object",
@@ -3802,8 +3849,7 @@
           "$ref": "#/definitions/Listeners",
           "description": "Information about the modified listeners."
         }
-      },
-      "description": "Contains the output of ModifyListener."
+      }
     },
     "ModifyLoadBalancerAttributesInput": {
       "type": "object",
@@ -3837,8 +3883,7 @@
           "$ref": "#/definitions/LoadBalancerAttributes",
           "description": "The load balancer attributes."
         }
-      },
-      "description": "Contains the parameters for ModifyLoadBalancerAttributes."
+      }
     },
     "ModifyLoadBalancerAttributesOutput": {
       "type": "object",
@@ -3871,8 +3916,7 @@
           "$ref": "#/definitions/LoadBalancerAttributes",
           "description": "Information about the load balancer attributes."
         }
-      },
-      "description": "Contains the output of ModifyLoadBalancerAttributes."
+      }
     },
     "ModifyRuleInput": {
       "type": "object",
@@ -3903,8 +3947,7 @@
           "$ref": "#/definitions/Actions",
           "description": "The actions."
         }
-      },
-      "description": "Contains the parameters for ModifyRules."
+      }
     },
     "ModifyRuleOutput": {
       "type": "object",
@@ -3936,8 +3979,7 @@
           "$ref": "#/definitions/Rules",
           "description": "Information about the rule."
         }
-      },
-      "description": "Contains the output of ModifyRules."
+      }
     },
     "ModifyTargetGroupAttributesInput": {
       "type": "object",
@@ -3963,8 +4005,7 @@
           "$ref": "#/definitions/TargetGroupAttributes",
           "description": "The attributes."
         }
-      },
-      "description": "Contains the parameters for ModifyTargetGroupAttributes."
+      }
     },
     "ModifyTargetGroupAttributesOutput": {
       "type": "object",
@@ -3993,8 +4034,7 @@
           "$ref": "#/definitions/TargetGroupAttributes",
           "description": "Information about the attributes."
         }
-      },
-      "description": "Contains the output of ModifyTargetGroupAttributes."
+      }
     },
     "ModifyTargetGroupInput": {
       "type": "object",
@@ -4043,8 +4083,7 @@
           "$ref": "#/definitions/Matcher",
           "description": "The HTTP codes to use when checking for a successful response from a target."
         }
-      },
-      "description": "Contains the parameters for ModifyTargetGroup."
+      }
     },
     "ModifyTargetGroupOutput": {
       "type": "object",
@@ -4076,8 +4115,7 @@
           "$ref": "#/definitions/TargetGroups",
           "description": "Information about the target group."
         }
-      },
-      "description": "Contains the output of ModifyTargetGroup."
+      }
     },
     "OperationNotPermittedException": {
       "type": "object",
@@ -4139,13 +4177,11 @@
           "$ref": "#/definitions/TargetDescriptions",
           "description": "The targets. The default port for a target is the port for the target group. You can specify a port override. If a target is already registered, you can register it again using a different port."
         }
-      },
-      "description": "Contains the parameters for RegisterTargets."
+      }
     },
     "RegisterTargetsOutput": {
       "type": "object",
-      "properties": {},
-      "description": "Contains the output of RegisterTargets."
+      "properties": {}
     },
     "RemoveTagsInput": {
       "type": "object",
@@ -4171,13 +4207,11 @@
           "$ref": "#/definitions/TagKeys",
           "description": "The tag keys for the tags to remove."
         }
-      },
-      "description": "Contains the parameters for RemoveTags."
+      }
     },
     "RemoveTagsOutput": {
       "type": "object",
-      "properties": {},
-      "description": "Contains the output of RemoveTags."
+      "properties": {}
     },
     "ResourceArn": {
       "type": "string"
@@ -4237,7 +4271,7 @@
         },
         "Values": {
           "$ref": "#/definitions/ListOfString",
-          "description": "<p>The path pattern. You can specify a single path pattern.</p> <p>A path pattern is case sensitive, can be up to 255 characters in length, and can contain any of the following characters:</p> <ul> <li> <p>A-Z, a-z, 0-9</p> </li> <li> <p>_ - . $ / ~ \" ' @ : +</p> </li> <li> <p>&amp; (using &amp;amp;)</p> </li> <li> <p>* (matches 0 or more characters)</p> </li> <li> <p>? (matches exactly 1 character)</p> </li> </ul>"
+          "description": "<p>The path pattern. You can specify a single path pattern.</p> <p>A path pattern is case sensitive, can be up to 128 characters in length, and can contain any of the following characters. Note that you can include up to three wildcard characters in a path pattern.</p> <ul> <li> <p>A-Z, a-z, 0-9</p> </li> <li> <p>_ - . $ / ~ \" ' @ : +</p> </li> <li> <p>&amp; (using &amp;amp;)</p> </li> <li> <p>* (matches 0 or more characters)</p> </li> <li> <p>? (matches exactly 1 character)</p> </li> </ul>"
         }
       },
       "description": "Information about a condition for a rule."
@@ -4298,6 +4332,32 @@
         "$ref": "#/definitions/SecurityGroupId"
       }
     },
+    "SetIpAddressTypeInput": {
+      "type": "object",
+      "required": [
+        "LoadBalancerArn",
+        "IpAddressType"
+      ],
+      "properties": {
+        "LoadBalancerArn": {
+          "$ref": "#/definitions/LoadBalancerArn",
+          "description": "The Amazon Resource Name (ARN) of the load balancer."
+        },
+        "IpAddressType": {
+          "$ref": "#/definitions/IpAddressType",
+          "description": "The IP address type. The possible values are <code>ipv4</code> (for IPv4 addresses) and <code>dualstack</code> (for IPv4 and IPv6 addresses). Internal load balancers must use <code>ipv4</code>."
+        }
+      }
+    },
+    "SetIpAddressTypeOutput": {
+      "type": "object",
+      "properties": {
+        "IpAddressType": {
+          "$ref": "#/definitions/IpAddressType",
+          "description": "The IP address type."
+        }
+      }
+    },
     "SetRulePrioritiesInput": {
       "type": "object",
       "required": [
@@ -4316,8 +4376,7 @@
           "$ref": "#/definitions/RulePriorityList",
           "description": "The rule priorities."
         }
-      },
-      "description": "Contains the parameters for SetRulePriorities."
+      }
     },
     "SetRulePrioritiesOutput": {
       "type": "object",
@@ -4349,8 +4408,7 @@
           "$ref": "#/definitions/Rules",
           "description": "Information about the rules."
         }
-      },
-      "description": "Contains the output of SetRulePriorities."
+      }
     },
     "SetSecurityGroupsInput": {
       "type": "object",
@@ -4373,8 +4431,7 @@
           "$ref": "#/definitions/SecurityGroups",
           "description": "The IDs of the security groups."
         }
-      },
-      "description": "Contains the parameters for SetSecurityGroups."
+      }
     },
     "SetSecurityGroupsOutput": {
       "type": "object",
@@ -4388,8 +4445,7 @@
           "$ref": "#/definitions/SecurityGroups",
           "description": "The IDs of the security groups associated with the load balancer."
         }
-      },
-      "description": "Contains the output of SetSecurityGroups."
+      }
     },
     "SetSubnetsInput": {
       "type": "object",
@@ -4413,8 +4469,7 @@
           "$ref": "#/definitions/Subnets",
           "description": "The IDs of the subnets. You must specify at least two subnets. You can add only one subnet per Availability Zone."
         }
-      },
-      "description": "Contains the parameters for SetSubnets."
+      }
     },
     "SetSubnetsOutput": {
       "type": "object",
@@ -4435,8 +4490,7 @@
           "$ref": "#/definitions/AvailabilityZones",
           "description": "Information about the subnet and Availability Zone."
         }
-      },
-      "description": "Contains the output of SetSubnets."
+      }
     },
     "SslPolicies": {
       "type": "array",

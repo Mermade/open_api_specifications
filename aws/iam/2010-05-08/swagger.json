@@ -8483,7 +8483,7 @@
     "/#UploadServerCertificate": {
       "post": {
         "operationId": "UploadServerCertificate",
-        "description": "<p>Uploads a server certificate entity for the AWS account. The server certificate entity includes a public key certificate, a private key, and an optional certificate chain, which should all be PEM-encoded.</p> <p>For more information about working with server certificates, including a list of AWS services that can use the server certificates that you manage with IAM, go to <a href=\"http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_server-certs.html\">Working with Server Certificates</a> in the <i>IAM User Guide</i>.</p> <p>For information about the number of server certificates you can upload, see <a href=\"http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-limits.html\">Limitations on IAM Entities and Objects</a> in the <i>IAM User Guide</i>.</p> <note> <p>Because the body of the public key certificate, private key, and the certificate chain can be large, you should use POST rather than GET when calling <code>UploadServerCertificate</code>. For information about setting up signatures and authorization through the API, go to <a href=\"http://docs.aws.amazon.com/general/latest/gr/signing_aws_api_requests.html\">Signing AWS API Requests</a> in the <i>AWS General Reference</i>. For general information about using the Query API with IAM, go to <a href=\"http://docs.aws.amazon.com/IAM/latest/UserGuide/programming.html\">Calling the API by Making HTTP Query Requests</a> in the <i>IAM User Guide</i>.</p> </note>",
+        "description": "<p>Uploads a server certificate entity for the AWS account. The server certificate entity includes a public key certificate, a private key, and an optional certificate chain, which should all be PEM-encoded.</p> <p>We recommend that you use <a href=\"https://aws.amazon.com/certificate-manager/\">AWS Certificate Manager</a> to provision, manage, and deploy your server certificates. With ACM you can request a certificate, deploy it to AWS resources, and let ACM handle certificate renewals for you. Certificates provided by ACM are free. For more information about using ACM, see the <a href=\"http://docs.aws.amazon.com/acm/latest/userguide/\">AWS Certificate Manager User Guide</a>.</p> <p>For more information about working with server certificates, including a list of AWS services that can use the server certificates that you manage with IAM, go to <a href=\"http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_server-certs.html\">Working with Server Certificates</a> in the <i>IAM User Guide</i>.</p> <p>For information about the number of server certificates you can upload, see <a href=\"http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-limits.html\">Limitations on IAM Entities and Objects</a> in the <i>IAM User Guide</i>.</p> <note> <p>Because the body of the public key certificate, private key, and the certificate chain can be large, you should use POST rather than GET when calling <code>UploadServerCertificate</code>. For information about setting up signatures and authorization through the API, go to <a href=\"http://docs.aws.amazon.com/general/latest/gr/signing_aws_api_requests.html\">Signing AWS API Requests</a> in the <i>AWS General Reference</i>. For general information about using the Query API with IAM, go to <a href=\"http://docs.aws.amazon.com/IAM/latest/UserGuide/programming.html\">Calling the API by Making HTTP Query Requests</a> in the <i>IAM User Guide</i>.</p> </note>",
         "responses": {
           "200": {
             "description": "Success",
@@ -8754,6 +8754,10 @@
         "OpenIDConnectProviderArn",
         "ClientID"
       ],
+      "example": {
+        "ClientID": "my-application-ID",
+        "OpenIDConnectProviderArn": "arn:aws:iam::123456789012:oidc-provider/server.example.com"
+      },
       "properties": {
         "OpenIDConnectProviderArn": {
           "$ref": "#/definitions/arnType",
@@ -8771,6 +8775,10 @@
         "InstanceProfileName",
         "RoleName"
       ],
+      "example": {
+        "InstanceProfileName": "Webserver",
+        "RoleName": "S3Access"
+      },
       "properties": {
         "InstanceProfileName": {
           "$ref": "#/definitions/instanceProfileNameType",
@@ -8788,6 +8796,10 @@
         "GroupName",
         "UserName"
       ],
+      "example": {
+        "GroupName": "Admins",
+        "UserName": "Bob"
+      },
       "properties": {
         "GroupName": {
           "$ref": "#/definitions/groupNameType",
@@ -8805,6 +8817,10 @@
         "GroupName",
         "PolicyArn"
       ],
+      "example": {
+        "GroupName": "Finance",
+        "PolicyArn": "arn:aws:iam::aws:policy/ReadOnlyAccess"
+      },
       "properties": {
         "GroupName": {
           "$ref": "#/definitions/groupNameType",
@@ -8822,6 +8838,10 @@
         "RoleName",
         "PolicyArn"
       ],
+      "example": {
+        "PolicyArn": "arn:aws:iam::aws:policy/ReadOnlyAccess",
+        "RoleName": "ReadOnlyRole"
+      },
       "properties": {
         "RoleName": {
           "$ref": "#/definitions/roleNameType",
@@ -8839,6 +8859,10 @@
         "UserName",
         "PolicyArn"
       ],
+      "example": {
+        "PolicyArn": "arn:aws:iam::aws:policy/AdministratorAccess",
+        "UserName": "Alice"
+      },
       "properties": {
         "UserName": {
           "$ref": "#/definitions/userNameType",
@@ -8873,6 +8897,10 @@
         "OldPassword",
         "NewPassword"
       ],
+      "example": {
+        "NewPassword": "]35d/{pB9Fo9wJ",
+        "OldPassword": "3s0K_;xh4~8XXI"
+      },
       "properties": {
         "OldPassword": {
           "$ref": "#/definitions/passwordType",
@@ -8880,7 +8908,7 @@
         },
         "NewPassword": {
           "$ref": "#/definitions/passwordType",
-          "description": "<p>The new password. The new password must conform to the AWS account's password policy, if one exists.</p> <p>This parameter allows (per its <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a>) a string of characters consisting of almost any printable ASCII character from the space (\\u0020) through the end of the ASCII character range (\\u00FF). You can also include the tab (\\u0009), line feed (\\u000A), and carriage return (\\u000D) characters. Although any of these characters are valid in a password, note that many tools, such as the AWS Management Console, might restrict the ability to enter certain characters because they have special meaning within that tool.</p>"
+          "description": "<p>The new password. The new password must conform to the AWS account's password policy, if one exists.</p> <p>The <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a> used to validate this parameter is a string of characters consisting of almost any printable ASCII character from the space (\\u0020) through the end of the ASCII character range (\\u00FF). You can also include the tab (\\u0009), line feed (\\u000A), and carriage return (\\u000D) characters. Although any of these characters are valid in a password, note that many tools, such as the AWS Management Console, might restrict the ability to enter certain characters because they have special meaning within that tool.</p>"
         }
       }
     },
@@ -8950,6 +8978,9 @@
     },
     "CreateAccessKeyRequest": {
       "type": "object",
+      "example": {
+        "UserName": "Bob"
+      },
       "properties": {
         "UserName": {
           "$ref": "#/definitions/existingUserNameType",
@@ -8962,6 +8993,15 @@
       "required": [
         "AccessKey"
       ],
+      "example": {
+        "AccessKey": {
+          "AccessKeyId": "AKIAIOSFODNN7EXAMPLE",
+          "CreateDate": "2015-03-09T18:39:23.411Z",
+          "SecretAccessKey": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYzEXAMPLEKEY",
+          "Status": "Active",
+          "UserName": "Bob"
+        }
+      },
       "properties": {
         "AccessKey": {
           "$ref": "#/definitions/AccessKey",
@@ -8975,6 +9015,9 @@
       "required": [
         "AccountAlias"
       ],
+      "example": {
+        "AccountAlias": "examplecorp"
+      },
       "properties": {
         "AccountAlias": {
           "$ref": "#/definitions/accountAliasType",
@@ -8987,6 +9030,9 @@
       "required": [
         "GroupName"
       ],
+      "example": {
+        "GroupName": "Admins"
+      },
       "properties": {
         "Path": {
           "$ref": "#/definitions/pathType",
@@ -9003,6 +9049,15 @@
       "required": [
         "Group"
       ],
+      "example": {
+        "Group": {
+          "Arn": "arn:aws:iam::123456789012:group/Admins",
+          "CreateDate": "2015-03-09T20:30:24.940Z",
+          "GroupId": "AIDGPMS9RO4H3FEXAMPLE",
+          "GroupName": "Admins",
+          "Path": "/"
+        }
+      },
       "properties": {
         "Group": {
           "$ref": "#/definitions/Group",
@@ -9016,6 +9071,9 @@
       "required": [
         "InstanceProfileName"
       ],
+      "example": {
+        "InstanceProfileName": "Webserver"
+      },
       "properties": {
         "InstanceProfileName": {
           "$ref": "#/definitions/instanceProfileNameType",
@@ -9032,6 +9090,16 @@
       "required": [
         "InstanceProfile"
       ],
+      "example": {
+        "InstanceProfile": {
+          "Arn": "arn:aws:iam::123456789012:instance-profile/Webserver",
+          "CreateDate": "2015-03-09T20:33:19.626Z",
+          "InstanceProfileId": "AIPAJMBYC7DLSPEXAMPLE",
+          "InstanceProfileName": "Webserver",
+          "Path": "/",
+          "Roles": []
+        }
+      },
       "properties": {
         "InstanceProfile": {
           "$ref": "#/definitions/InstanceProfile",
@@ -9046,6 +9114,11 @@
         "UserName",
         "Password"
       ],
+      "example": {
+        "Password": "h]6EszR}vJ*m",
+        "PasswordResetRequired": true,
+        "UserName": "Bob"
+      },
       "properties": {
         "UserName": {
           "$ref": "#/definitions/userNameType",
@@ -9053,7 +9126,7 @@
         },
         "Password": {
           "$ref": "#/definitions/passwordType",
-          "description": "<p>The new password for the user.</p> <p>This parameter allows (per its <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a>) a string of characters consisting of almost any printable ASCII character from the space (\\u0020) through the end of the ASCII character range (\\u00FF). You can also include the tab (\\u0009), line feed (\\u000A), and carriage return (\\u000D) characters. Although any of these characters are valid in a password, note that many tools, such as the AWS Management Console, might restrict the ability to enter certain characters because they have special meaning within that tool.</p>"
+          "description": "<p>The new password for the user.</p> <p>The <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a> used to validate this parameter is a string of characters consisting of almost any printable ASCII character from the space (\\u0020) through the end of the ASCII character range (\\u00FF). You can also include the tab (\\u0009), line feed (\\u000A), and carriage return (\\u000D) characters. Although any of these characters are valid in a password, note that many tools, such as the AWS Management Console, might restrict the ability to enter certain characters because they have special meaning within that tool.</p>"
         },
         "PasswordResetRequired": {
           "$ref": "#/definitions/booleanType",
@@ -9066,6 +9139,13 @@
       "required": [
         "LoginProfile"
       ],
+      "example": {
+        "LoginProfile": {
+          "CreateDate": "2015-03-10T20:55:40.274Z",
+          "PasswordResetRequired": true,
+          "UserName": "Bob"
+        }
+      },
       "properties": {
         "LoginProfile": {
           "$ref": "#/definitions/LoginProfile",
@@ -9080,6 +9160,15 @@
         "Url",
         "ThumbprintList"
       ],
+      "example": {
+        "ClientIDList": [
+          "my-application-id"
+        ],
+        "ThumbprintList": [
+          "3768084dfb3d2b68b7897bf5f565da8efEXAMPLE"
+        ],
+        "Url": "https://server.example.com"
+      },
       "properties": {
         "Url": {
           "$ref": "#/definitions/OpenIDConnectProviderUrlType",
@@ -9097,6 +9186,9 @@
     },
     "CreateOpenIDConnectProviderResponse": {
       "type": "object",
+      "example": {
+        "OpenIDConnectProviderArn": "arn:aws:iam::123456789012:oidc-provider/server.example.com"
+      },
       "properties": {
         "OpenIDConnectProviderArn": {
           "$ref": "#/definitions/arnType",
@@ -9122,7 +9214,7 @@
         },
         "PolicyDocument": {
           "$ref": "#/definitions/policyDocumentType",
-          "description": "<p>The JSON policy document that you want to use as the content for the new policy.</p> <p>This parameter allows (per its <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a>) a string of characters consisting of any printable ASCII character ranging from the space character (\\u0020) through end of the ASCII character range (\\u00FF). It also includes the special characters tab (\\u0009), line feed (\\u000A), and carriage return (\\u000D).</p>"
+          "description": "<p>The JSON policy document that you want to use as the content for the new policy.</p> <p>The <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a> used to validate this parameter is a string of characters consisting of any printable ASCII character ranging from the space character (\\u0020) through end of the ASCII character range as well as the printable characters in the Basic Latin and Latin-1 Supplement character set (through \\u00FF). It also includes the special characters tab (\\u0009), line feed (\\u000A), and carriage return (\\u000D).</p>"
         },
         "Description": {
           "$ref": "#/definitions/policyDescriptionType",
@@ -9153,7 +9245,7 @@
         },
         "PolicyDocument": {
           "$ref": "#/definitions/policyDocumentType",
-          "description": "<p>The JSON policy document that you want to use as the content for this new version of the policy.</p> <p>This parameter allows (per its <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a>) a string of characters consisting of any printable ASCII character ranging from the space character (\\u0020) through end of the ASCII character range (\\u00FF). It also includes the special characters tab (\\u0009), line feed (\\u000A), and carriage return (\\u000D).</p>"
+          "description": "<p>The JSON policy document that you want to use as the content for this new version of the policy.</p> <p>The <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a> used to validate this parameter is a string of characters consisting of any printable ASCII character ranging from the space character (\\u0020) through end of the ASCII character range as well as the printable characters in the Basic Latin and Latin-1 Supplement character set (through \\u00FF). It also includes the special characters tab (\\u0009), line feed (\\u000A), and carriage return (\\u000D).</p>"
         },
         "SetAsDefault": {
           "$ref": "#/definitions/booleanType",
@@ -9177,6 +9269,11 @@
         "RoleName",
         "AssumeRolePolicyDocument"
       ],
+      "example": {
+        "AssumeRolePolicyDocument": "<URL-encoded-JSON>",
+        "Path": "/",
+        "RoleName": "Test-Role"
+      },
       "properties": {
         "Path": {
           "$ref": "#/definitions/pathType",
@@ -9188,7 +9285,7 @@
         },
         "AssumeRolePolicyDocument": {
           "$ref": "#/definitions/policyDocumentType",
-          "description": "<p>The trust relationship policy document that grants an entity permission to assume the role.</p> <p>This parameter allows (per its <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a>) a string of characters consisting of any printable ASCII character ranging from the space character (\\u0020) through end of the ASCII character range (\\u00FF). It also includes the special characters tab (\\u0009), line feed (\\u000A), and carriage return (\\u000D).</p>"
+          "description": "<p>The trust relationship policy document that grants an entity permission to assume the role.</p> <p>The <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a> used to validate this parameter is a string of characters consisting of any printable ASCII character ranging from the space character (\\u0020) through end of the ASCII character range as well as the printable characters in the Basic Latin and Latin-1 Supplement character set (through \\u00FF). It also includes the special characters tab (\\u0009), line feed (\\u000A), and carriage return (\\u000D).</p>"
         }
       }
     },
@@ -9197,6 +9294,16 @@
       "required": [
         "Role"
       ],
+      "example": {
+        "Role": {
+          "Arn": "arn:aws:iam::123456789012:role/Test-Role",
+          "AssumeRolePolicyDocument": "<URL-encoded-JSON>",
+          "CreateDate": "2013-06-07T20:43:32.821Z",
+          "Path": "/",
+          "RoleId": "AKIAIOSFODNN7EXAMPLE",
+          "RoleName": "Test-Role"
+        }
+      },
       "properties": {
         "Role": {
           "$ref": "#/definitions/Role",
@@ -9263,6 +9370,9 @@
       "required": [
         "UserName"
       ],
+      "example": {
+        "UserName": "Bob"
+      },
       "properties": {
         "Path": {
           "$ref": "#/definitions/pathType",
@@ -9276,6 +9386,15 @@
     },
     "CreateUserResponse": {
       "type": "object",
+      "example": {
+        "User": {
+          "Arn": "arn:aws:iam::123456789012:user/Bob",
+          "CreateDate": "2013-06-08T03:20:41.270Z",
+          "Path": "/",
+          "UserId": "AKIAIOSFODNN7EXAMPLE",
+          "UserName": "Bob"
+        }
+      },
       "properties": {
         "User": {
           "$ref": "#/definitions/User",
@@ -9362,6 +9481,10 @@
       "required": [
         "AccessKeyId"
       ],
+      "example": {
+        "AccessKeyId": "AKIDPMS9RO4H3FEXAMPLE",
+        "UserName": "Bob"
+      },
       "properties": {
         "UserName": {
           "$ref": "#/definitions/existingUserNameType",
@@ -9378,6 +9501,9 @@
       "required": [
         "AccountAlias"
       ],
+      "example": {
+        "AccountAlias": "mycompany"
+      },
       "properties": {
         "AccountAlias": {
           "$ref": "#/definitions/accountAliasType",
@@ -9400,6 +9526,10 @@
         "GroupName",
         "PolicyName"
       ],
+      "example": {
+        "GroupName": "Admins",
+        "PolicyName": "ExamplePolicy"
+      },
       "properties": {
         "GroupName": {
           "$ref": "#/definitions/groupNameType",
@@ -9428,6 +9558,9 @@
       "required": [
         "InstanceProfileName"
       ],
+      "example": {
+        "InstanceProfileName": "ExampleInstanceProfile"
+      },
       "properties": {
         "InstanceProfileName": {
           "$ref": "#/definitions/instanceProfileNameType",
@@ -9440,6 +9573,9 @@
       "required": [
         "UserName"
       ],
+      "example": {
+        "UserName": "Bob"
+      },
       "properties": {
         "UserName": {
           "$ref": "#/definitions/userNameType",
@@ -9494,6 +9630,10 @@
         "RoleName",
         "PolicyName"
       ],
+      "example": {
+        "PolicyName": "ExamplePolicy",
+        "RoleName": "Test-Role"
+      },
       "properties": {
         "RoleName": {
           "$ref": "#/definitions/roleNameType",
@@ -9510,6 +9650,9 @@
       "required": [
         "RoleName"
       ],
+      "example": {
+        "RoleName": "Test-Role"
+      },
       "properties": {
         "RoleName": {
           "$ref": "#/definitions/roleNameType",
@@ -9579,6 +9722,10 @@
       "required": [
         "CertificateId"
       ],
+      "example": {
+        "CertificateId": "TA7SMP42TDN5Z26OBPJE7EXAMPLE",
+        "UserName": "Anika"
+      },
       "properties": {
         "UserName": {
           "$ref": "#/definitions/existingUserNameType",
@@ -9596,6 +9743,10 @@
         "UserName",
         "PolicyName"
       ],
+      "example": {
+        "PolicyName": "ExamplePolicy",
+        "UserName": "Juan"
+      },
       "properties": {
         "UserName": {
           "$ref": "#/definitions/existingUserNameType",
@@ -9612,6 +9763,9 @@
       "required": [
         "UserName"
       ],
+      "example": {
+        "UserName": "Bob"
+      },
       "properties": {
         "UserName": {
           "$ref": "#/definitions/existingUserNameType",
@@ -9624,6 +9778,9 @@
       "required": [
         "SerialNumber"
       ],
+      "example": {
+        "SerialNumber": "arn:aws:iam::123456789012:mfa/ExampleName"
+      },
       "properties": {
         "SerialNumber": {
           "$ref": "#/definitions/serialNumberType",
@@ -9801,6 +9958,10 @@
           "$ref": "#/definitions/ContextKeyNamesResultListType",
           "description": "A list of context keys that are required by the included input policies but that were not provided by one of the input parameters. This list is used when the resource in a simulation is \"*\", either explicitly, or when the <code>ResourceArns</code> parameter blank. If you include a list of resources, then any missing context values are instead included under the <code>ResourceSpecificResults</code> section. To discover the context keys used by a set of policies, you can call <a>GetContextKeysForCustomPolicy</a> or <a>GetContextKeysForPrincipalPolicy</a>."
         },
+        "OrganizationsDecisionDetail": {
+          "$ref": "#/definitions/OrganizationsDecisionDetail",
+          "description": "A structure that details how AWS Organizations and its service control policies affect the results of the simulation. Only applies if the simulated user's account is part of an organization."
+        },
         "EvalDecisionDetails": {
           "$ref": "#/definitions/EvalDecisionDetailsType",
           "description": "Additional details about the results of the evaluation decision. When there are both IAM policies and resource policies, this parameter explains how each set of policies contributes to the final evaluation decision. When simulating cross-account access to a resource, both the resource-based policy and the caller's IAM policy must grant access. See <a href=\"http://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_compare-resource-policies.html\">How IAM Roles Differ from Resource-based Policies</a> "
@@ -9910,6 +10071,20 @@
       "required": [
         "PasswordPolicy"
       ],
+      "example": {
+        "PasswordPolicy": {
+          "AllowUsersToChangePassword": false,
+          "ExpirePasswords": false,
+          "HardExpiry": false,
+          "MaxPasswordAge": 90,
+          "MinimumPasswordLength": 8,
+          "PasswordReusePrevention": 12,
+          "RequireLowercaseCharacters": false,
+          "RequireNumbers": true,
+          "RequireSymbols": true,
+          "RequireUppercaseCharacters": false
+        }
+      },
       "properties": {
         "PasswordPolicy": {
           "$ref": "#/definitions/PasswordPolicy",
@@ -9920,6 +10095,35 @@
     },
     "GetAccountSummaryResponse": {
       "type": "object",
+      "example": {
+        "SummaryMap": {
+          "AccessKeysPerUserQuota": 2,
+          "AccountAccessKeysPresent": 1,
+          "AccountMFAEnabled": 0,
+          "AccountSigningCertificatesPresent": 0,
+          "AttachedPoliciesPerGroupQuota": 10,
+          "AttachedPoliciesPerRoleQuota": 10,
+          "AttachedPoliciesPerUserQuota": 10,
+          "GroupPolicySizeQuota": 5120,
+          "Groups": 15,
+          "GroupsPerUserQuota": 10,
+          "GroupsQuota": 100,
+          "MFADevices": 6,
+          "MFADevicesInUse": 3,
+          "Policies": 8,
+          "PoliciesQuota": 1000,
+          "PolicySizeQuota": 5120,
+          "PolicyVersionsInUse": 22,
+          "PolicyVersionsInUseQuota": 10000,
+          "ServerCertificates": 1,
+          "ServerCertificatesQuota": 20,
+          "SigningCertificatesPerUserQuota": 2,
+          "UserPolicySizeQuota": 2048,
+          "Users": 27,
+          "UsersQuota": 5000,
+          "VersionsPerPolicyQuota": 5
+        }
+      },
       "properties": {
         "SummaryMap": {
           "$ref": "#/definitions/summaryMapType",
@@ -9936,7 +10140,7 @@
       "properties": {
         "PolicyInputList": {
           "$ref": "#/definitions/SimulationPolicyListType",
-          "description": "<p>A list of policies for which you want the list of context keys referenced in those policies. Each document is specified as a string containing the complete, valid JSON text of an IAM policy.</p> <p>This parameter allows (per its <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a>) a string of characters consisting of any printable ASCII character ranging from the space character (\\u0020) through end of the ASCII character range (\\u00FF). It also includes the special characters tab (\\u0009), line feed (\\u000A), and carriage return (\\u000D).</p>"
+          "description": "<p>A list of policies for which you want the list of context keys referenced in those policies. Each document is specified as a string containing the complete, valid JSON text of an IAM policy.</p> <p>The <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a> used to validate this parameter is a string of characters consisting of any printable ASCII character ranging from the space character (\\u0020) through end of the ASCII character range as well as the printable characters in the Basic Latin and Latin-1 Supplement character set (through \\u00FF). It also includes the special characters tab (\\u0009), line feed (\\u000A), and carriage return (\\u000D).</p>"
         }
       }
     },
@@ -9962,7 +10166,7 @@
         },
         "PolicyInputList": {
           "$ref": "#/definitions/SimulationPolicyListType",
-          "description": "<p>An optional list of additional policies for which you want the list of context keys that are referenced.</p> <p>This parameter allows (per its <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a>) a string of characters consisting of any printable ASCII character ranging from the space character (\\u0020) through end of the ASCII character range (\\u00FF). It also includes the special characters tab (\\u0009), line feed (\\u000A), and carriage return (\\u000D).</p>"
+          "description": "<p>An optional list of additional policies for which you want the list of context keys that are referenced.</p> <p>The <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a> used to validate this parameter is a string of characters consisting of any printable ASCII character ranging from the space character (\\u0020) through end of the ASCII character range as well as the printable characters in the Basic Latin and Latin-1 Supplement character set (through \\u00FF). It also includes the special characters tab (\\u0009), line feed (\\u000A), and carriage return (\\u000D).</p>"
         }
       }
     },
@@ -10075,6 +10279,9 @@
       "required": [
         "InstanceProfileName"
       ],
+      "example": {
+        "InstanceProfileName": "ExampleInstanceProfile"
+      },
       "properties": {
         "InstanceProfileName": {
           "$ref": "#/definitions/instanceProfileNameType",
@@ -10087,6 +10294,25 @@
       "required": [
         "InstanceProfile"
       ],
+      "example": {
+        "InstanceProfile": {
+          "Arn": "arn:aws:iam::336924118301:instance-profile/ExampleInstanceProfile",
+          "CreateDate": "2013-06-12T23:52:02Z",
+          "InstanceProfileId": "AID2MAB8DPLSRHEXAMPLE",
+          "InstanceProfileName": "ExampleInstanceProfile",
+          "Path": "/",
+          "Roles": [
+            {
+              "Arn": "arn:aws:iam::336924118301:role/Test-Role",
+              "AssumeRolePolicyDocument": "<URL-encoded-JSON>",
+              "CreateDate": "2013-01-09T06:33:26Z",
+              "Path": "/",
+              "RoleId": "AIDGPMS9RO4H3FEXAMPLE",
+              "RoleName": "Test-Role"
+            }
+          ]
+        }
+      },
       "properties": {
         "InstanceProfile": {
           "$ref": "#/definitions/InstanceProfile",
@@ -10100,6 +10326,9 @@
       "required": [
         "UserName"
       ],
+      "example": {
+        "UserName": "Anika"
+      },
       "properties": {
         "UserName": {
           "$ref": "#/definitions/userNameType",
@@ -10112,6 +10341,12 @@
       "required": [
         "LoginProfile"
       ],
+      "example": {
+        "LoginProfile": {
+          "CreateDate": "2012-09-21T23:03:39Z",
+          "UserName": "Anika"
+        }
+      },
       "properties": {
         "LoginProfile": {
           "$ref": "#/definitions/LoginProfile",
@@ -10248,6 +10483,9 @@
       "required": [
         "RoleName"
       ],
+      "example": {
+        "RoleName": "Test-Role"
+      },
       "properties": {
         "RoleName": {
           "$ref": "#/definitions/roleNameType",
@@ -10260,6 +10498,16 @@
       "required": [
         "Role"
       ],
+      "example": {
+        "Role": {
+          "Arn": "arn:aws:iam::123456789012:role/Test-Role",
+          "AssumeRolePolicyDocument": "<URL-encoded-JSON>",
+          "CreateDate": "2013-04-18T05:01:58Z",
+          "Path": "/",
+          "RoleId": "AIDIODR4TAW7CSEXAMPLE",
+          "RoleName": "Test-Role"
+        }
+      },
       "properties": {
         "Role": {
           "$ref": "#/definitions/Role",
@@ -10397,6 +10645,9 @@
     },
     "GetUserRequest": {
       "type": "object",
+      "example": {
+        "UserName": "Bob"
+      },
       "properties": {
         "UserName": {
           "$ref": "#/definitions/existingUserNameType",
@@ -10409,6 +10660,15 @@
       "required": [
         "User"
       ],
+      "example": {
+        "User": {
+          "Arn": "arn:aws:iam::123456789012:user/Bob",
+          "CreateDate": "2012-09-21T23:03:13Z",
+          "Path": "/",
+          "UserId": "AKIAIOSFODNN7EXAMPLE",
+          "UserName": "Bob"
+        }
+      },
       "properties": {
         "User": {
           "$ref": "#/definitions/User",
@@ -10589,6 +10849,9 @@
     },
     "ListAccessKeysRequest": {
       "type": "object",
+      "example": {
+        "UserName": "Alice"
+      },
       "properties": {
         "UserName": {
           "$ref": "#/definitions/existingUserNameType",
@@ -10609,6 +10872,22 @@
       "required": [
         "AccessKeyMetadata"
       ],
+      "example": {
+        "AccessKeyMetadata": [
+          {
+            "AccessKeyId": "AKIA111111111EXAMPLE",
+            "CreateDate": "2016-12-01T22:19:58Z",
+            "Status": "Active",
+            "UserName": "Alice"
+          },
+          {
+            "AccessKeyId": "AKIA222222222EXAMPLE",
+            "CreateDate": "2016-12-01T22:20:01Z",
+            "Status": "Active",
+            "UserName": "Alice"
+          }
+        ]
+      },
       "properties": {
         "AccessKeyMetadata": {
           "$ref": "#/definitions/accessKeyMetadataListType",
@@ -10627,6 +10906,7 @@
     },
     "ListAccountAliasesRequest": {
       "type": "object",
+      "example": {},
       "properties": {
         "Marker": {
           "$ref": "#/definitions/markerType",
@@ -10643,6 +10923,11 @@
       "required": [
         "AccountAliases"
       ],
+      "example": {
+        "AccountAliases": [
+          "exmaple-corporation"
+        ]
+      },
       "properties": {
         "AccountAliases": {
           "$ref": "#/definitions/accountAliasListType",
@@ -10844,6 +11129,9 @@
       "required": [
         "GroupName"
       ],
+      "example": {
+        "GroupName": "Admins"
+      },
       "properties": {
         "GroupName": {
           "$ref": "#/definitions/groupNameType",
@@ -10864,6 +11152,12 @@
       "required": [
         "PolicyNames"
       ],
+      "example": {
+        "PolicyNames": [
+          "AdminRoot",
+          "KeyPolicy"
+        ]
+      },
       "properties": {
         "PolicyNames": {
           "$ref": "#/definitions/policyNameListType",
@@ -10885,6 +11179,9 @@
       "required": [
         "UserName"
       ],
+      "example": {
+        "UserName": "Bob"
+      },
       "properties": {
         "UserName": {
           "$ref": "#/definitions/existingUserNameType",
@@ -10905,6 +11202,24 @@
       "required": [
         "Groups"
       ],
+      "example": {
+        "Groups": [
+          {
+            "Arn": "arn:aws:iam::123456789012:group/division_abc/subdivision_xyz/product_1234/engineering/Test",
+            "CreateDate": "2016-11-30T14:10:01.156Z",
+            "GroupId": "AGP2111111111EXAMPLE",
+            "GroupName": "Test",
+            "Path": "/division_abc/subdivision_xyz/product_1234/engineering/"
+          },
+          {
+            "Arn": "arn:aws:iam::123456789012:group/division_abc/subdivision_xyz/product_1234/Managers",
+            "CreateDate": "2016-06-12T20:14:52.032Z",
+            "GroupId": "AGPI222222222SEXAMPLE",
+            "GroupName": "Managers",
+            "Path": "/division_abc/subdivision_xyz/product_1234/"
+          }
+        ]
+      },
       "properties": {
         "Groups": {
           "$ref": "#/definitions/groupListType",
@@ -10923,6 +11238,7 @@
     },
     "ListGroupsRequest": {
       "type": "object",
+      "example": {},
       "properties": {
         "PathPrefix": {
           "$ref": "#/definitions/pathPrefixType",
@@ -10943,6 +11259,31 @@
       "required": [
         "Groups"
       ],
+      "example": {
+        "Groups": [
+          {
+            "Arn": "arn:aws:iam::123456789012:group/Admins",
+            "CreateDate": "2016-12-15T21:40:08.121Z",
+            "GroupId": "AGPA1111111111EXAMPLE",
+            "GroupName": "Admins",
+            "Path": "/division_abc/subdivision_xyz/"
+          },
+          {
+            "Arn": "arn:aws:iam::123456789012:group/division_abc/subdivision_xyz/product_1234/engineering/Test",
+            "CreateDate": "2016-11-30T14:10:01.156Z",
+            "GroupId": "AGP22222222222EXAMPLE",
+            "GroupName": "Test",
+            "Path": "/division_abc/subdivision_xyz/product_1234/engineering/"
+          },
+          {
+            "Arn": "arn:aws:iam::123456789012:group/division_abc/subdivision_xyz/product_1234/Managers",
+            "CreateDate": "2016-06-12T20:14:52.032Z",
+            "GroupId": "AGPI3333333333EXAMPLE",
+            "GroupName": "Managers",
+            "Path": "/division_abc/subdivision_xyz/product_1234/"
+          }
+        ]
+      },
       "properties": {
         "Groups": {
           "$ref": "#/definitions/groupListType",
@@ -11361,6 +11702,9 @@
     },
     "ListSigningCertificatesRequest": {
       "type": "object",
+      "example": {
+        "UserName": "Bob"
+      },
       "properties": {
         "UserName": {
           "$ref": "#/definitions/existingUserNameType",
@@ -11381,6 +11725,17 @@
       "required": [
         "Certificates"
       ],
+      "example": {
+        "Certificates": [
+          {
+            "CertificateBody": "-----BEGIN CERTIFICATE-----<certificate-body>-----END CERTIFICATE-----",
+            "CertificateId": "TA7SMP42TDN5Z26OBPJE7EXAMPLE",
+            "Status": "Active",
+            "UploadDate": "2013-06-06T21:40:08Z",
+            "UserName": "Bob"
+          }
+        ]
+      },
       "properties": {
         "Certificates": {
           "$ref": "#/definitions/certificateListType",
@@ -11440,6 +11795,7 @@
     },
     "ListUsersRequest": {
       "type": "object",
+      "example": {},
       "properties": {
         "PathPrefix": {
           "$ref": "#/definitions/pathPrefixType",
@@ -11460,6 +11816,26 @@
       "required": [
         "Users"
       ],
+      "example": {
+        "Users": [
+          {
+            "Arn": "arn:aws:iam::123456789012:user/division_abc/subdivision_xyz/engineering/Juan",
+            "CreateDate": "2012-09-05T19:38:48Z",
+            "PasswordLastUsed": "2016-09-08T21:47:36Z",
+            "Path": "/division_abc/subdivision_xyz/engineering/",
+            "UserId": "AID2MAB8DPLSRHEXAMPLE",
+            "UserName": "Juan"
+          },
+          {
+            "Arn": "arn:aws:iam::123456789012:user/division_abc/subdivision_xyz/engineering/Anika",
+            "CreateDate": "2014-04-09T15:43:45Z",
+            "PasswordLastUsed": "2016-09-24T16:18:07Z",
+            "Path": "/division_abc/subdivision_xyz/engineering/",
+            "UserId": "AIDIODR4TAW7CSEXAMPLE",
+            "UserName": "Anika"
+          }
+        ]
+      },
       "properties": {
         "Users": {
           "$ref": "#/definitions/userListType",
@@ -11478,6 +11854,7 @@
     },
     "ListVirtualMFADevicesRequest": {
       "type": "object",
+      "example": {},
       "properties": {
         "AssignmentStatus": {
           "$ref": "#/definitions/assignmentStatusType",
@@ -11498,6 +11875,16 @@
       "required": [
         "VirtualMFADevices"
       ],
+      "example": {
+        "VirtualMFADevices": [
+          {
+            "SerialNumber": "arn:aws:iam::123456789012:mfa/ExampleMFADevice"
+          },
+          {
+            "SerialNumber": "arn:aws:iam::123456789012:mfa/Juan"
+          }
+        ]
+      },
       "properties": {
         "VirtualMFADevices": {
           "$ref": "#/definitions/virtualMFADeviceListType",
@@ -11662,6 +12049,16 @@
       "description": "Contains a URL that specifies the endpoint for an OpenID Connect provider.",
       "minLength": 1,
       "maxLength": 255
+    },
+    "OrganizationsDecisionDetail": {
+      "type": "object",
+      "properties": {
+        "AllowedByOrganizations": {
+          "$ref": "#/definitions/booleanType",
+          "description": "Specifies whether the simulated action is allowed by the AWS Organizations service control policies that impact the simulated user's account."
+        }
+      },
+      "description": "Contains information about AWS Organizations's affect on a policy simulation."
     },
     "PasswordPolicy": {
       "type": "object",
@@ -11912,6 +12309,11 @@
         "PolicyName",
         "PolicyDocument"
       ],
+      "example": {
+        "GroupName": "Admins",
+        "PolicyDocument": "{\"Version\":\"2012-10-17\",\"Statement\":{\"Effect\":\"Allow\",\"Action\":\"*\",\"Resource\":\"*\"}}",
+        "PolicyName": "AllPerms"
+      },
       "properties": {
         "GroupName": {
           "$ref": "#/definitions/groupNameType",
@@ -11923,7 +12325,7 @@
         },
         "PolicyDocument": {
           "$ref": "#/definitions/policyDocumentType",
-          "description": "<p>The policy document.</p> <p>This parameter allows (per its <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a>) a string of characters consisting of any printable ASCII character ranging from the space character (\\u0020) through end of the ASCII character range (\\u00FF). It also includes the special characters tab (\\u0009), line feed (\\u000A), and carriage return (\\u000D).</p>"
+          "description": "<p>The policy document.</p> <p>The <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a> used to validate this parameter is a string of characters consisting of any printable ASCII character ranging from the space character (\\u0020) through end of the ASCII character range as well as the printable characters in the Basic Latin and Latin-1 Supplement character set (through \\u00FF). It also includes the special characters tab (\\u0009), line feed (\\u000A), and carriage return (\\u000D).</p>"
         }
       }
     },
@@ -11934,6 +12336,11 @@
         "PolicyName",
         "PolicyDocument"
       ],
+      "example": {
+        "PolicyDocument": "{\"Version\":\"2012-10-17\",\"Statement\":{\"Effect\":\"Allow\",\"Action\":\"s3:*\",\"Resource\":\"*\"}}",
+        "PolicyName": "S3AccessPolicy",
+        "RoleName": "S3Access"
+      },
       "properties": {
         "RoleName": {
           "$ref": "#/definitions/roleNameType",
@@ -11945,7 +12352,7 @@
         },
         "PolicyDocument": {
           "$ref": "#/definitions/policyDocumentType",
-          "description": "<p>The policy document.</p> <p>This parameter allows (per its <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a>) a string of characters consisting of any printable ASCII character ranging from the space character (\\u0020) through end of the ASCII character range (\\u00FF). It also includes the special characters tab (\\u0009), line feed (\\u000A), and carriage return (\\u000D).</p>"
+          "description": "<p>The policy document.</p> <p>The <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a> used to validate this parameter is a string of characters consisting of any printable ASCII character ranging from the space character (\\u0020) through end of the ASCII character range as well as the printable characters in the Basic Latin and Latin-1 Supplement character set (through \\u00FF). It also includes the special characters tab (\\u0009), line feed (\\u000A), and carriage return (\\u000D).</p>"
         }
       }
     },
@@ -11956,6 +12363,11 @@
         "PolicyName",
         "PolicyDocument"
       ],
+      "example": {
+        "PolicyDocument": "{\"Version\":\"2012-10-17\",\"Statement\":{\"Effect\":\"Allow\",\"Action\":\"*\",\"Resource\":\"*\"}}",
+        "PolicyName": "AllAccessPolicy",
+        "UserName": "Bob"
+      },
       "properties": {
         "UserName": {
           "$ref": "#/definitions/existingUserNameType",
@@ -11967,7 +12379,7 @@
         },
         "PolicyDocument": {
           "$ref": "#/definitions/policyDocumentType",
-          "description": "<p>The policy document.</p> <p>This parameter allows (per its <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a>) a string of characters consisting of any printable ASCII character ranging from the space character (\\u0020) through end of the ASCII character range (\\u00FF). It also includes the special characters tab (\\u0009), line feed (\\u000A), and carriage return (\\u000D).</p>"
+          "description": "<p>The policy document.</p> <p>The <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a> used to validate this parameter is a string of characters consisting of any printable ASCII character ranging from the space character (\\u0020) through end of the ASCII character range as well as the printable characters in the Basic Latin and Latin-1 Supplement character set (through \\u00FF). It also includes the special characters tab (\\u0009), line feed (\\u000A), and carriage return (\\u000D).</p>"
         }
       }
     },
@@ -11994,6 +12406,10 @@
         "InstanceProfileName",
         "RoleName"
       ],
+      "example": {
+        "InstanceProfileName": "ExampleInstanceProfile",
+        "RoleName": "Test-Role"
+      },
       "properties": {
         "InstanceProfileName": {
           "$ref": "#/definitions/instanceProfileNameType",
@@ -12011,6 +12427,10 @@
         "GroupName",
         "UserName"
       ],
+      "example": {
+        "GroupName": "Admins",
+        "UserName": "Bob"
+      },
       "properties": {
         "GroupName": {
           "$ref": "#/definitions/groupNameType",
@@ -12551,7 +12971,7 @@
       "properties": {
         "PolicyInputList": {
           "$ref": "#/definitions/SimulationPolicyListType",
-          "description": "<p>A list of policy documents to include in the simulation. Each document is specified as a string containing the complete, valid JSON text of an IAM policy. Do not include any resource-based policies in this parameter. Any resource-based policy must be submitted with the <code>ResourcePolicy</code> parameter. The policies cannot be \"scope-down\" policies, such as you could include in a call to <a href=\"http://docs.aws.amazon.com/IAM/latest/APIReference/API_GetFederationToken.html\">GetFederationToken</a> or one of the <a href=\"http://docs.aws.amazon.com/IAM/latest/APIReference/API_AssumeRole.html\">AssumeRole</a> APIs to restrict what a user can do while using the temporary credentials.</p> <p>This parameter allows (per its <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a>) a string of characters consisting of any printable ASCII character ranging from the space character (\\u0020) through end of the ASCII character range (\\u00FF). It also includes the special characters tab (\\u0009), line feed (\\u000A), and carriage return (\\u000D).</p>"
+          "description": "<p>A list of policy documents to include in the simulation. Each document is specified as a string containing the complete, valid JSON text of an IAM policy. Do not include any resource-based policies in this parameter. Any resource-based policy must be submitted with the <code>ResourcePolicy</code> parameter. The policies cannot be \"scope-down\" policies, such as you could include in a call to <a href=\"http://docs.aws.amazon.com/IAM/latest/APIReference/API_GetFederationToken.html\">GetFederationToken</a> or one of the <a href=\"http://docs.aws.amazon.com/IAM/latest/APIReference/API_AssumeRole.html\">AssumeRole</a> APIs to restrict what a user can do while using the temporary credentials.</p> <p>The <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a> used to validate this parameter is a string of characters consisting of any printable ASCII character ranging from the space character (\\u0020) through end of the ASCII character range as well as the printable characters in the Basic Latin and Latin-1 Supplement character set (through \\u00FF). It also includes the special characters tab (\\u0009), line feed (\\u000A), and carriage return (\\u000D).</p>"
         },
         "ActionNames": {
           "$ref": "#/definitions/ActionNameListType",
@@ -12563,7 +12983,7 @@
         },
         "ResourcePolicy": {
           "$ref": "#/definitions/policyDocumentType",
-          "description": "<p>A resource-based policy to include in the simulation provided as a string. Each resource in the simulation is treated as if it had this policy attached. You can include only one resource-based policy in a simulation.</p> <p>This parameter allows (per its <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a>) a string of characters consisting of any printable ASCII character ranging from the space character (\\u0020) through end of the ASCII character range (\\u00FF). It also includes the special characters tab (\\u0009), line feed (\\u000A), and carriage return (\\u000D).</p>"
+          "description": "<p>A resource-based policy to include in the simulation provided as a string. Each resource in the simulation is treated as if it had this policy attached. You can include only one resource-based policy in a simulation.</p> <p>The <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a> used to validate this parameter is a string of characters consisting of any printable ASCII character ranging from the space character (\\u0020) through end of the ASCII character range as well as the printable characters in the Basic Latin and Latin-1 Supplement character set (through \\u00FF). It also includes the special characters tab (\\u0009), line feed (\\u000A), and carriage return (\\u000D).</p>"
         },
         "ResourceOwner": {
           "$ref": "#/definitions/ResourceNameType",
@@ -12622,7 +13042,7 @@
         },
         "PolicyInputList": {
           "$ref": "#/definitions/SimulationPolicyListType",
-          "description": "<p>An optional list of additional policy documents to include in the simulation. Each document is specified as a string containing the complete, valid JSON text of an IAM policy.</p> <p>This parameter allows (per its <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a>) a string of characters consisting of any printable ASCII character ranging from the space character (\\u0020) through end of the ASCII character range (\\u00FF). It also includes the special characters tab (\\u0009), line feed (\\u000A), and carriage return (\\u000D).</p>"
+          "description": "<p>An optional list of additional policy documents to include in the simulation. Each document is specified as a string containing the complete, valid JSON text of an IAM policy.</p> <p>The <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a> used to validate this parameter is a string of characters consisting of any printable ASCII character ranging from the space character (\\u0020) through end of the ASCII character range as well as the printable characters in the Basic Latin and Latin-1 Supplement character set (through \\u00FF). It also includes the special characters tab (\\u0009), line feed (\\u000A), and carriage return (\\u000D).</p>"
         },
         "ActionNames": {
           "$ref": "#/definitions/ActionNameListType",
@@ -12634,7 +13054,7 @@
         },
         "ResourcePolicy": {
           "$ref": "#/definitions/policyDocumentType",
-          "description": "<p>A resource-based policy to include in the simulation provided as a string. Each resource in the simulation is treated as if it had this policy attached. You can include only one resource-based policy in a simulation.</p> <p>This parameter allows (per its <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a>) a string of characters consisting of any printable ASCII character ranging from the space character (\\u0020) through end of the ASCII character range (\\u00FF). It also includes the special characters tab (\\u0009), line feed (\\u000A), and carriage return (\\u000D).</p>"
+          "description": "<p>A resource-based policy to include in the simulation provided as a string. Each resource in the simulation is treated as if it had this policy attached. You can include only one resource-based policy in a simulation.</p> <p>The <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a> used to validate this parameter is a string of characters consisting of any printable ASCII character ranging from the space character (\\u0020) through end of the ASCII character range as well as the printable characters in the Basic Latin and Latin-1 Supplement character set (through \\u00FF). It also includes the special characters tab (\\u0009), line feed (\\u000A), and carriage return (\\u000D).</p>"
         },
         "ResourceOwner": {
           "$ref": "#/definitions/ResourceNameType",
@@ -12711,6 +13131,11 @@
         "AccessKeyId",
         "Status"
       ],
+      "example": {
+        "AccessKeyId": "AKIAIOSFODNN7EXAMPLE",
+        "Status": "Inactive",
+        "UserName": "Bob"
+      },
       "properties": {
         "UserName": {
           "$ref": "#/definitions/existingUserNameType",
@@ -12728,6 +13153,10 @@
     },
     "UpdateAccountPasswordPolicyRequest": {
       "type": "object",
+      "example": {
+        "MinimumPasswordLength": 8,
+        "RequireNumbers": true
+      },
       "properties": {
         "MinimumPasswordLength": {
           "$ref": "#/definitions/minimumPasswordLengthType",
@@ -12773,6 +13202,10 @@
         "RoleName",
         "PolicyDocument"
       ],
+      "example": {
+        "PolicyDocument": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Principal\":{\"Service\":[\"ec2.amazonaws.com\"]},\"Action\":[\"sts:AssumeRole\"]}]}",
+        "RoleName": "S3AccessForEC2Instances"
+      },
       "properties": {
         "RoleName": {
           "$ref": "#/definitions/roleNameType",
@@ -12780,7 +13213,7 @@
         },
         "PolicyDocument": {
           "$ref": "#/definitions/policyDocumentType",
-          "description": "<p>The policy that grants an entity permission to assume the role.</p> <p>This parameter allows (per its <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a>) a string of characters consisting of any printable ASCII character ranging from the space character (\\u0020) through end of the ASCII character range (\\u00FF). It also includes the special characters tab (\\u0009), line feed (\\u000A), and carriage return (\\u000D).</p>"
+          "description": "<p>The policy that grants an entity permission to assume the role.</p> <p>The <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a> used to validate this parameter is a string of characters consisting of any printable ASCII character ranging from the space character (\\u0020) through end of the ASCII character range as well as the printable characters in the Basic Latin and Latin-1 Supplement character set (through \\u00FF). It also includes the special characters tab (\\u0009), line feed (\\u000A), and carriage return (\\u000D).</p>"
         }
       }
     },
@@ -12789,6 +13222,10 @@
       "required": [
         "GroupName"
       ],
+      "example": {
+        "GroupName": "Test",
+        "NewGroupName": "Test-1"
+      },
       "properties": {
         "GroupName": {
           "$ref": "#/definitions/groupNameType",
@@ -12809,6 +13246,10 @@
       "required": [
         "UserName"
       ],
+      "example": {
+        "Password": "SomeKindOfPassword123!@#",
+        "UserName": "Bob"
+      },
       "properties": {
         "UserName": {
           "$ref": "#/definitions/userNameType",
@@ -12816,7 +13257,7 @@
         },
         "Password": {
           "$ref": "#/definitions/passwordType",
-          "description": "<p>The new password for the specified IAM user.</p> <p>This parameter allows (per its <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a>) a string of characters consisting of any printable ASCII character ranging from the space character (\\u0020) through end of the ASCII character range (\\u00FF). It also includes the special characters tab (\\u0009), line feed (\\u000A), and carriage return (\\u000D). However, the format can be further restricted by the account administrator by setting a password policy on the AWS account. For more information, see <a>UpdateAccountPasswordPolicy</a>.</p>"
+          "description": "<p>The new password for the specified IAM user.</p> <p>The <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a> used to validate this parameter is a string of characters consisting of any printable ASCII character ranging from the space character (\\u0020) through end of the ASCII character range as well as the printable characters in the Basic Latin and Latin-1 Supplement character set (through \\u00FF). It also includes the special characters tab (\\u0009), line feed (\\u000A), and carriage return (\\u000D). However, the format can be further restricted by the account administrator by setting a password policy on the AWS account. For more information, see <a>UpdateAccountPasswordPolicy</a>.</p>"
         },
         "PasswordResetRequired": {
           "$ref": "#/definitions/booleanObjectType",
@@ -12937,6 +13378,11 @@
         "CertificateId",
         "Status"
       ],
+      "example": {
+        "CertificateId": "TA7SMP42TDN5Z26OBPJE7EXAMPLE",
+        "Status": "Inactive",
+        "UserName": "Bob"
+      },
       "properties": {
         "UserName": {
           "$ref": "#/definitions/existingUserNameType",
@@ -12957,6 +13403,10 @@
       "required": [
         "UserName"
       ],
+      "example": {
+        "NewUserName": "Robert",
+        "UserName": "Bob"
+      },
       "properties": {
         "UserName": {
           "$ref": "#/definitions/existingUserNameType",
@@ -12985,7 +13435,7 @@
         },
         "SSHPublicKeyBody": {
           "$ref": "#/definitions/publicKeyMaterialType",
-          "description": "<p>The SSH public key. The public key must be encoded in ssh-rsa format or PEM format.</p> <p>This parameter allows (per its <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a>) a string of characters consisting of any printable ASCII character ranging from the space character (\\u0020) through end of the ASCII character range (\\u00FF). It also includes the special characters tab (\\u0009), line feed (\\u000A), and carriage return (\\u000D).</p>"
+          "description": "<p>The SSH public key. The public key must be encoded in ssh-rsa format or PEM format.</p> <p>The <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a> used to validate this parameter is a string of characters consisting of any printable ASCII character ranging from the space character (\\u0020) through end of the ASCII character range as well as the printable characters in the Basic Latin and Latin-1 Supplement character set (through \\u00FF). It also includes the special characters tab (\\u0009), line feed (\\u000A), and carriage return (\\u000D).</p>"
         }
       }
     },
@@ -13006,6 +13456,12 @@
         "CertificateBody",
         "PrivateKey"
       ],
+      "example": {
+        "CertificateBody": "-----BEGIN CERTIFICATE-----<a very long certificate text string>-----END CERTIFICATE-----",
+        "Path": "/company/servercerts/",
+        "PrivateKey": "-----BEGIN DSA PRIVATE KEY-----<a very long private key string>-----END DSA PRIVATE KEY-----",
+        "ServerCertificateName": "ProdServerCert"
+      },
       "properties": {
         "Path": {
           "$ref": "#/definitions/pathType",
@@ -13017,20 +13473,30 @@
         },
         "CertificateBody": {
           "$ref": "#/definitions/certificateBodyType",
-          "description": "<p>The contents of the public key certificate in PEM-encoded format.</p> <p>This parameter allows (per its <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a>) a string of characters consisting of any printable ASCII character ranging from the space character (\\u0020) through end of the ASCII character range (\\u00FF). It also includes the special characters tab (\\u0009), line feed (\\u000A), and carriage return (\\u000D).</p>"
+          "description": "<p>The contents of the public key certificate in PEM-encoded format.</p> <p>The <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a> used to validate this parameter is a string of characters consisting of any printable ASCII character ranging from the space character (\\u0020) through end of the ASCII character range as well as the printable characters in the Basic Latin and Latin-1 Supplement character set (through \\u00FF). It also includes the special characters tab (\\u0009), line feed (\\u000A), and carriage return (\\u000D).</p>"
         },
         "PrivateKey": {
           "$ref": "#/definitions/privateKeyType",
-          "description": "<p>The contents of the private key in PEM-encoded format.</p> <p>This parameter allows (per its <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a>) a string of characters consisting of any printable ASCII character ranging from the space character (\\u0020) through end of the ASCII character range (\\u00FF). It also includes the special characters tab (\\u0009), line feed (\\u000A), and carriage return (\\u000D).</p>"
+          "description": "<p>The contents of the private key in PEM-encoded format.</p> <p>The <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a> used to validate this parameter is a string of characters consisting of any printable ASCII character ranging from the space character (\\u0020) through end of the ASCII character range as well as the printable characters in the Basic Latin and Latin-1 Supplement character set (through \\u00FF). It also includes the special characters tab (\\u0009), line feed (\\u000A), and carriage return (\\u000D).</p>"
         },
         "CertificateChain": {
           "$ref": "#/definitions/certificateChainType",
-          "description": "<p>The contents of the certificate chain. This is typically a concatenation of the PEM-encoded public key certificates of the chain.</p> <p>This parameter allows (per its <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a>) a string of characters consisting of any printable ASCII character ranging from the space character (\\u0020) through end of the ASCII character range (\\u00FF). It also includes the special characters tab (\\u0009), line feed (\\u000A), and carriage return (\\u000D).</p>"
+          "description": "<p>The contents of the certificate chain. This is typically a concatenation of the PEM-encoded public key certificates of the chain.</p> <p>The <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a> used to validate this parameter is a string of characters consisting of any printable ASCII character ranging from the space character (\\u0020) through end of the ASCII character range as well as the printable characters in the Basic Latin and Latin-1 Supplement character set (through \\u00FF). It also includes the special characters tab (\\u0009), line feed (\\u000A), and carriage return (\\u000D).</p>"
         }
       }
     },
     "UploadServerCertificateResponse": {
       "type": "object",
+      "example": {
+        "ServerCertificateMetadata": {
+          "Arn": "arn:aws:iam::123456789012:server-certificate/company/servercerts/ProdServerCert",
+          "Expiration": "2012-05-08T01:02:03.004Z",
+          "Path": "/company/servercerts/",
+          "ServerCertificateId": "ASCA1111111111EXAMPLE",
+          "ServerCertificateName": "ProdServerCert",
+          "UploadDate": "2010-05-08T01:02:03.004Z"
+        }
+      },
       "properties": {
         "ServerCertificateMetadata": {
           "$ref": "#/definitions/ServerCertificateMetadata",
@@ -13044,6 +13510,10 @@
       "required": [
         "CertificateBody"
       ],
+      "example": {
+        "CertificateBody": "-----BEGIN CERTIFICATE-----<certificate-body>-----END CERTIFICATE-----",
+        "UserName": "Bob"
+      },
       "properties": {
         "UserName": {
           "$ref": "#/definitions/existingUserNameType",
@@ -13051,7 +13521,7 @@
         },
         "CertificateBody": {
           "$ref": "#/definitions/certificateBodyType",
-          "description": "<p>The contents of the signing certificate.</p> <p>This parameter allows (per its <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a>) a string of characters consisting of any printable ASCII character ranging from the space character (\\u0020) through end of the ASCII character range (\\u00FF). It also includes the special characters tab (\\u0009), line feed (\\u000A), and carriage return (\\u000D).</p>"
+          "description": "<p>The contents of the signing certificate.</p> <p>The <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a> used to validate this parameter is a string of characters consisting of any printable ASCII character ranging from the space character (\\u0020) through end of the ASCII character range as well as the printable characters in the Basic Latin and Latin-1 Supplement character set (through \\u00FF). It also includes the special characters tab (\\u0009), line feed (\\u000A), and carriage return (\\u000D).</p>"
         }
       }
     },
@@ -13060,6 +13530,15 @@
       "required": [
         "Certificate"
       ],
+      "example": {
+        "Certificate": {
+          "CertificateBody": "-----BEGIN CERTIFICATE-----<certificate-body>-----END CERTIFICATE-----",
+          "CertificateId": "ID123456789012345EXAMPLE",
+          "Status": "Active",
+          "UploadDate": "2015-06-06T21:40:08.121Z",
+          "UserName": "Bob"
+        }
+      },
       "properties": {
         "Certificate": {
           "$ref": "#/definitions/SigningCertificate",
@@ -13154,7 +13633,7 @@
         },
         "Base32StringSeed": {
           "$ref": "#/definitions/BootstrapDatum",
-          "description": " The Base32 seed defined as specified in <a href=\"http://www.ietf.org/rfc/rfc3548.txt\">RFC3548</a>. The <code>Base32StringSeed</code> is Base64-encoded. "
+          "description": " The Base32 seed defined as specified in <a href=\"https://tools.ietf.org/html/rfc3548.txt\">RFC3548</a>. The <code>Base32StringSeed</code> is Base64-encoded. "
         },
         "QRCodePNG": {
           "$ref": "#/definitions/BootstrapDatum",

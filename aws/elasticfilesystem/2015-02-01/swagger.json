@@ -786,6 +786,10 @@
       "required": [
         "CreationToken"
       ],
+      "example": {
+        "CreationToken": "tokenstring",
+        "PerformanceMode": "generalPurpose"
+      },
       "properties": {
         "CreationToken": {
           "$ref": "#/definitions/CreationToken",
@@ -803,6 +807,10 @@
         "FileSystemId",
         "SubnetId"
       ],
+      "example": {
+        "FileSystemId": "fs-01234567",
+        "SubnetId": "subnet-1234abcd"
+      },
       "properties": {
         "FileSystemId": {
           "$ref": "#/definitions/FileSystemId",
@@ -828,6 +836,15 @@
       "required": [
         "Tags"
       ],
+      "example": {
+        "FileSystemId": "fs-01234567",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "MyFileSystem"
+          }
+        ]
+      },
       "properties": {
         "Tags": {
           "$ref": "#/definitions/Tags",
@@ -843,11 +860,17 @@
     },
     "DeleteFileSystemRequest": {
       "type": "object",
+      "example": {
+        "FileSystemId": "fs-01234567"
+      },
       "properties": {},
       "description": "<p/>"
     },
     "DeleteMountTargetRequest": {
       "type": "object",
+      "example": {
+        "MountTargetId": "fsmt-12340abc"
+      },
       "properties": {},
       "description": "<p/>"
     },
@@ -856,6 +879,12 @@
       "required": [
         "TagKeys"
       ],
+      "example": {
+        "FileSystemId": "fs-01234567",
+        "TagKeys": [
+          "Name"
+        ]
+      },
       "properties": {
         "TagKeys": {
           "$ref": "#/definitions/TagKeys",
@@ -881,11 +910,29 @@
     },
     "DescribeFileSystemsRequest": {
       "type": "object",
+      "example": {},
       "properties": {},
       "description": "<p/>"
     },
     "DescribeFileSystemsResponse": {
       "type": "object",
+      "example": {
+        "FileSystems": [
+          {
+            "CreationTime": "1481841524.0",
+            "CreationToken": "tokenstring",
+            "FileSystemId": "fs-01234567",
+            "LifeCycleState": "available",
+            "Name": "MyFileSystem",
+            "NumberOfMountTargets": 1,
+            "OwnerId": "012345678912",
+            "PerformanceMode": "generalPurpose",
+            "SizeInBytes": {
+              "Value": 6144
+            }
+          }
+        ]
+      },
       "properties": {
         "Marker": {
           "$ref": "#/definitions/Marker",
@@ -903,6 +950,9 @@
     },
     "DescribeMountTargetSecurityGroupsRequest": {
       "type": "object",
+      "example": {
+        "MountTargetId": "fsmt-12340abc"
+      },
       "properties": {},
       "description": "<p/>"
     },
@@ -911,6 +961,11 @@
       "required": [
         "SecurityGroups"
       ],
+      "example": {
+        "SecurityGroups": [
+          "sg-fghi4567"
+        ]
+      },
       "properties": {
         "SecurityGroups": {
           "$ref": "#/definitions/SecurityGroups",
@@ -920,11 +975,27 @@
     },
     "DescribeMountTargetsRequest": {
       "type": "object",
+      "example": {
+        "FileSystemId": "fs-01234567"
+      },
       "properties": {},
       "description": "<p/>"
     },
     "DescribeMountTargetsResponse": {
       "type": "object",
+      "example": {
+        "MountTargets": [
+          {
+            "FileSystemId": "fs-01234567",
+            "IpAddress": "192.0.0.2",
+            "LifeCycleState": "available",
+            "MountTargetId": "fsmt-12340abc",
+            "NetworkInterfaceId": "eni-cedf6789",
+            "OwnerId": "012345678912",
+            "SubnetId": "subnet-1234abcd"
+          }
+        ]
+      },
       "properties": {
         "Marker": {
           "$ref": "#/definitions/Marker",
@@ -943,6 +1014,9 @@
     },
     "DescribeTagsRequest": {
       "type": "object",
+      "example": {
+        "FileSystemId": "fs-01234567"
+      },
       "properties": {},
       "description": "<p/>"
     },
@@ -951,6 +1025,14 @@
       "required": [
         "Tags"
       ],
+      "example": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "MyFileSystem"
+          }
+        ]
+      },
       "properties": {
         "Marker": {
           "$ref": "#/definitions/Marker",
@@ -1005,6 +1087,18 @@
         "SizeInBytes",
         "PerformanceMode"
       ],
+      "example": {
+        "CreationTime": "1481841524.0",
+        "CreationToken": "tokenstring",
+        "FileSystemId": "fs-01234567",
+        "LifeCycleState": "creating",
+        "NumberOfMountTargets": 0,
+        "OwnerId": "012345678912",
+        "PerformanceMode": "generalPurpose",
+        "SizeInBytes": {
+          "Value": 0
+        }
+      },
       "properties": {
         "OwnerId": {
           "$ref": "#/definitions/AwsAccountId",
@@ -1201,6 +1295,12 @@
     },
     "ModifyMountTargetSecurityGroupsRequest": {
       "type": "object",
+      "example": {
+        "MountTargetId": "fsmt-12340abc",
+        "SecurityGroups": [
+          "sg-abcd1234"
+        ]
+      },
       "properties": {
         "SecurityGroups": {
           "$ref": "#/definitions/SecurityGroups",
@@ -1236,6 +1336,15 @@
         "SubnetId",
         "LifeCycleState"
       ],
+      "example": {
+        "FileSystemId": "fs-01234567",
+        "IpAddress": "192.0.0.2",
+        "LifeCycleState": "creating",
+        "MountTargetId": "fsmt-12340abc",
+        "NetworkInterfaceId": "eni-cedf6789",
+        "OwnerId": "012345678912",
+        "SubnetId": "subnet-1234abcd"
+      },
       "properties": {
         "OwnerId": {
           "$ref": "#/definitions/AwsAccountId",
@@ -1445,7 +1554,8 @@
         "Message": {
           "$ref": "#/definitions/ErrorMessage"
         }
-      }
+      },
+      "description": ""
     }
   }
 }

@@ -444,6 +444,12 @@
             "schema": {
               "$ref": "#/definitions/NoSuchConfigRuleException"
             }
+          },
+          "482": {
+            "description": "InvalidNextTokenException",
+            "schema": {
+              "$ref": "#/definitions/InvalidNextTokenException"
+            }
           }
         },
         "parameters": [
@@ -574,6 +580,12 @@
             "schema": {
               "$ref": "#/definitions/InvalidParameterValueException"
             }
+          },
+          "482": {
+            "description": "InvalidNextTokenException",
+            "schema": {
+              "$ref": "#/definitions/InvalidNextTokenException"
+            }
           }
         },
         "parameters": [
@@ -632,6 +644,12 @@
             "description": "NoSuchConfigRuleException",
             "schema": {
               "$ref": "#/definitions/NoSuchConfigRuleException"
+            }
+          },
+          "481": {
+            "description": "InvalidNextTokenException",
+            "schema": {
+              "$ref": "#/definitions/InvalidNextTokenException"
             }
           }
         },
@@ -2268,7 +2286,7 @@
           "description": "Configuration attributes that AWS Config returns for certain resource types to supplement the information returned for the <code>configuration</code> parameter."
         }
       },
-      "description": "<p>A list that contains detailed configurations of a specified resource.</p> <note> <p>Currently, the list does not contain information about non-AWS components (for example, applications on your Amazon EC2 instances).</p> </note>"
+      "description": "A list that contains detailed configurations of a specified resource."
     },
     "ConfigurationItemCaptureTime": {
       "type": "string",
@@ -2539,7 +2557,7 @@
         },
         "NextToken": {
           "$ref": "#/definitions/String",
-          "description": "The <code>nextToken</code> string returned on a previous page that you use to get the next page of results in a paginated response."
+          "description": "The <code>NextToken</code> string returned on a previous page that you use to get the next page of results in a paginated response."
         }
       },
       "description": "<p/>"
@@ -2579,7 +2597,7 @@
         },
         "NextToken": {
           "$ref": "#/definitions/NextToken",
-          "description": "The <code>nextToken</code> string returned on a previous page that you use to get the next page of results in a paginated response."
+          "description": "The <code>NextToken</code> string returned on a previous page that you use to get the next page of results in a paginated response."
         }
       },
       "description": "<p/>"
@@ -2639,7 +2657,7 @@
         },
         "NextToken": {
           "$ref": "#/definitions/String",
-          "description": "The <code>nextToken</code> string returned on a previous page that you use to get the next page of results in a paginated response."
+          "description": "The <code>NextToken</code> string returned on a previous page that you use to get the next page of results in a paginated response."
         }
       },
       "description": "<p/>"
@@ -2881,7 +2899,7 @@
         },
         "NextToken": {
           "$ref": "#/definitions/NextToken",
-          "description": "The <code>nextToken</code> string returned on a previous page that you use to get the next page of results in a paginated response."
+          "description": "The <code>NextToken</code> string returned on a previous page that you use to get the next page of results in a paginated response."
         }
       },
       "description": "<p/>"
@@ -2921,7 +2939,7 @@
         },
         "NextToken": {
           "$ref": "#/definitions/String",
-          "description": "The <code>nextToken</code> string returned on a previous page that you use to get the next page of results in a paginated response."
+          "description": "The <code>NextToken</code> string returned on a previous page that you use to get the next page of results in a paginated response."
         }
       },
       "description": "<p/>"
@@ -3056,7 +3074,7 @@
     "InvalidNextTokenException": {
       "type": "object",
       "properties": {},
-      "description": "The specified next token is invalid. Specify the <code>nextToken</code> string that was returned in the previous response to get the next page of results."
+      "description": "The specified next token is invalid. Specify the <code>NextToken</code> string that was returned in the previous response to get the next page of results."
     },
     "InvalidParameterValueException": {
       "type": "object",
@@ -3071,7 +3089,7 @@
     "InvalidResultTokenException": {
       "type": "object",
       "properties": {},
-      "description": "The speNexcified token is invalid."
+      "description": "The specified <code>ResultToken</code> is invalid."
     },
     "InvalidRoleException": {
       "type": "object",
@@ -3189,7 +3207,8 @@
       "enum": [
         "ConfigurationItemChangeNotification",
         "ConfigurationSnapshotDeliveryCompleted",
-        "ScheduledNotification"
+        "ScheduledNotification",
+        "OversizedConfigurationItemChangeNotification"
       ]
     },
     "Name": {
@@ -3295,6 +3314,10 @@
         "ResultToken": {
           "$ref": "#/definitions/String",
           "description": "An encrypted token that associates an evaluation with an AWS Config rule. Identifies the rule and the event that triggered the evaluation"
+        },
+        "TestMode": {
+          "$ref": "#/definitions/Boolean",
+          "description": "<p>Use this parameter to specify a test run for <code>PutEvaluations</code>. You can verify whether your AWS Lambda function will deliver evaluation results to AWS Config. No updates occur to your existing evaluations, and evaluation results are not sent to AWS Config.</p> <note> <p>When <code>TestMode</code> is <code>true</code>, <code>PutEvaluations</code> doesn't require a valid value for the <code>ResultToken</code> parameter, but the value cannot be null.</p> </note>"
         }
       },
       "description": "<p/>"
@@ -3557,7 +3580,7 @@
         },
         "MessageType": {
           "$ref": "#/definitions/MessageType",
-          "description": "<p>The type of notification that triggers AWS Config to run an evaluation. You can specify the following notification types:</p> <p> <code>ConfigurationItemChangeNotification</code> - Triggers an evaluation when AWS Config delivers a configuration item change notification.</p> <p> <code>ScheduledNotification</code> - Triggers a periodic evaluation at the frequency specified for <code>MaximumExecutionFrequency</code>.</p> <p> <code>ConfigurationSnapshotDeliveryCompleted</code> - Triggers a periodic evaluation when AWS Config delivers a configuration snapshot.</p>"
+          "description": "<p>The type of notification that triggers AWS Config to run an evaluation for a rule. You can specify the following notification types:</p> <ul> <li> <p> <code>ConfigurationItemChangeNotification</code> - Triggers an evaluation when AWS Config delivers a configuration item as a result of a resource change.</p> </li> <li> <p> <code>OversizedConfigurationItemChangeNotification</code> - Triggers an evaluation when AWS Config delivers an oversized configuration item. AWS Config may generate this notification type when a resource changes and the notification exceeds the maximum size allowed by Amazon SNS.</p> </li> <li> <p> <code>ScheduledNotification</code> - Triggers a periodic evaluation at the frequency specified for <code>MaximumExecutionFrequency</code>.</p> </li> <li> <p> <code>ConfigurationSnapshotDeliveryCompleted</code> - Triggers a periodic evaluation when AWS Config delivers a configuration snapshot.</p> </li> </ul> <p>If you want your custom rule to be triggered by configuration changes, specify both <code>ConfigurationItemChangeNotification</code> and <code>OversizedConfigurationItemChangeNotification</code>. </p>"
         },
         "MaximumExecutionFrequency": {
           "$ref": "#/definitions/MaximumExecutionFrequency",
