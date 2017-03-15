@@ -4256,11 +4256,11 @@
         },
         "createdDate": {
           "$ref": "#/definitions/Timestamp",
-          "description": "The date when the API Key was created, in <a href=\"http://www.iso.org/iso/home/standards/iso8601.htm\" target=\"_blank\">ISO 8601 format</a>."
+          "description": "The timestamp when the API Key was created."
         },
         "lastUpdatedDate": {
           "$ref": "#/definitions/Timestamp",
-          "description": "When the API Key was last updated, in ISO 8601 format."
+          "description": "The timestamp when the API Key was last updated."
         },
         "stageKeys": {
           "$ref": "#/definitions/ListOfString",
@@ -4474,11 +4474,11 @@
         },
         "createdDate": {
           "$ref": "#/definitions/Timestamp",
-          "description": "The date when the client certificate was created, in <a href=\"http://www.iso.org/iso/home/standards/iso8601.htm\" target=\"_blank\">ISO 8601 format</a>."
+          "description": "The timestamp when the client certificate was created."
         },
         "expirationDate": {
           "$ref": "#/definitions/Timestamp",
-          "description": "The date when the client certificate will expire, in <a href=\"http://www.iso.org/iso/home/standards/iso8601.htm\" target=\"_blank\">ISO 8601 format</a>."
+          "description": "The timestamp when the client certificate will expire."
         }
       },
       "description": "<p>Represents a client certificate used to configure client-side SSL authentication while sending requests to the integration endpoint.</p> <div class=\"remarks\">Client certificates are used authenticate an API by the back-end server. To authenticate an API client (or user), use a custom <a>Authorizer</a>.</div> <div class=\"seeAlso\"> <a href=\"http://docs.aws.amazon.com/apigateway/latest/developerguide/getting-started-client-side-ssl-authentication.html\">Use Client-Side Certificate</a> </div>"
@@ -4685,32 +4685,32 @@
     "CreateDomainNameRequest": {
       "type": "object",
       "required": [
-        "domainName",
-        "certificateName",
-        "certificateBody",
-        "certificatePrivateKey",
-        "certificateChain"
+        "domainName"
       ],
       "properties": {
         "domainName": {
           "$ref": "#/definitions/String",
-          "description": "The name of the <a>DomainName</a> resource."
+          "description": "(Required) The name of the <a>DomainName</a> resource."
         },
         "certificateName": {
           "$ref": "#/definitions/String",
-          "description": "The name of the certificate."
+          "description": "The user-friendly name of the certificate."
         },
         "certificateBody": {
           "$ref": "#/definitions/String",
-          "description": "The body of the server certificate provided by your certificate authority."
+          "description": "[Deprecated] The body of the server certificate provided by your certificate authority."
         },
         "certificatePrivateKey": {
           "$ref": "#/definitions/String",
-          "description": "Your certificate's private key."
+          "description": "[Deprecated] Your certificate's private key."
         },
         "certificateChain": {
           "$ref": "#/definitions/String",
-          "description": "The intermediate certificates and optionally the root certificate, one after the other without any blank lines. If you include the root certificate, your certificate chain must start with intermediate certificates and end with the root certificate. Use the intermediate certificates that were provided by your certificate authority. Do not include any intermediaries that are not in the chain of trust path."
+          "description": "[Deprecated] The intermediate certificates and optionally the root certificate, one after the other without any blank lines. If you include the root certificate, your certificate chain must start with intermediate certificates and end with the root certificate. Use the intermediate certificates that were provided by your certificate authority. Do not include any intermediaries that are not in the chain of trust path."
+        },
+        "certificateArn": {
+          "$ref": "#/definitions/String",
+          "description": "The reference to an AWS-managed certificate. AWS Certificate Manager is the only supported source."
         }
       },
       "description": "A request to create a new domain name."
@@ -5033,7 +5033,7 @@
       "properties": {
         "type": {
           "$ref": "#/definitions/DocumentationPartType",
-          "description": "The type of API entity to which the documentation content applies. It is a valid and required field for API entity types of <code>API</code>, <code>AUTHORIZER</code>, <code>MODEL</code>, <code>RESOURCE</code>, <code>METHOD</code>, <code>PATH_PARAMETER</code>, <code>QUERY_PARAMETER</code>, <code>REQUEST_HEADER</code>, <code>REQUEST_BODY</code>, <code>RESPONSE</code>, <code>RESPONSE_HEADER</code>, and <code>RESPONSE_BODY</code>. Content inheritance does not apply to any entity of the <code>API</code>, <code>AUTHROZER</code>, <code>MODEL</code>, or <code>RESOURCE</code> type."
+          "description": "The type of API entity to which the documentation content applies. It is a valid and required field for API entity types of <code>API</code>, <code>AUTHORIZER</code>, <code>MODEL</code>, <code>RESOURCE</code>, <code>METHOD</code>, <code>PATH_PARAMETER</code>, <code>QUERY_PARAMETER</code>, <code>REQUEST_HEADER</code>, <code>REQUEST_BODY</code>, <code>RESPONSE</code>, <code>RESPONSE_HEADER</code>, and <code>RESPONSE_BODY</code>. Content inheritance does not apply to any entity of the <code>API</code>, <code>AUTHROZER</code>, <code>METHOD</code>, <code>MODEL</code>, <code>REQUEST_BODY</code>, or <code>RESOURCE</code> type."
         },
         "path": {
           "$ref": "#/definitions/String",
@@ -5130,9 +5130,13 @@
           "$ref": "#/definitions/String",
           "description": "The name of the certificate."
         },
+        "certificateArn": {
+          "$ref": "#/definitions/String",
+          "description": "The reference to an AWS-managed certificate. AWS Certificate Manager is the only supported source."
+        },
         "certificateUploadDate": {
           "$ref": "#/definitions/Timestamp",
-          "description": "The date when the certificate was uploaded, in <a href=\"http://www.iso.org/iso/home/standards/iso8601.htm\" target=\"_blank\">ISO 8601 format</a>."
+          "description": "The timestamp when the certificate was uploaded."
         },
         "distributionDomainName": {
           "$ref": "#/definitions/String",
@@ -6245,7 +6249,7 @@
         },
         "createdDate": {
           "$ref": "#/definitions/Timestamp",
-          "description": "The date when the API was created, in <a href=\"http://www.iso.org/iso/home/standards/iso8601.htm\" target=\"_blank\">ISO 8601 format</a>."
+          "description": "The timestamp when the API was created."
         },
         "version": {
           "$ref": "#/definitions/String",
@@ -6399,11 +6403,11 @@
         },
         "createdDate": {
           "$ref": "#/definitions/Timestamp",
-          "description": "The date and time that the stage was created, in <a href=\"http://www.iso.org/iso/home/standards/iso8601.htm\" target=\"_blank\">ISO 8601 format</a>."
+          "description": "The timestamp when the stage was created."
         },
         "lastUpdatedDate": {
           "$ref": "#/definitions/Timestamp",
-          "description": "The date and time that information about the stage was last updated, in <a href=\"http://www.iso.org/iso/home/standards/iso8601.htm\" target=\"_blank\">ISO 8601 format</a>."
+          "description": "The timestamp when the stage last updated."
         }
       },
       "description": "<p>Represents a unique identifier for a version of a deployed <a>RestApi</a> that is callable by users.</p> <div class=\"seeAlso\"> <a href=\"http://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-deploy-api.html\">Deploy an API</a> </div>"

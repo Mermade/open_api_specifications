@@ -108,6 +108,71 @@
   "paths": {
     "/": {
       "post": {
+        "operationId": "AddInstanceFleet",
+        "description": "<p>Adds an instance fleet to a running cluster.</p> <note> <p>The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x.</p> </note>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/AddInstanceFleetOutput"
+            }
+          },
+          "480": {
+            "description": "InternalServerException",
+            "schema": {
+              "$ref": "#/definitions/InternalServerException"
+            }
+          },
+          "481": {
+            "description": "InvalidRequestException",
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddInstanceFleetInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/#AddInstanceGroups": {
+      "post": {
         "operationId": "AddInstanceGroups",
         "description": "Adds one or more instance groups to a running cluster.",
         "responses": {
@@ -168,7 +233,7 @@
     "/#AddJobFlowSteps": {
       "post": {
         "operationId": "AddJobFlowSteps",
-        "description": "<p>AddJobFlowSteps adds new steps to a running job flow. A maximum of 256 steps are allowed in each job flow.</p> <p>If your job flow is long-running (such as a Hive data warehouse) or complex, you may require more than 256 steps to process your data. You can bypass the 256-step limitation in various ways, including using the SSH shell to connect to the master node and submitting queries directly to the software running on the master node, such as Hive and Hadoop. For more information on how to do this, see <a href=\"http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/AddMoreThan256Steps.html\">Add More than 256 Steps to a Job Flow</a> in the <i>Amazon EMR Developer's Guide</i>.</p> <p>A step specifies the location of a JAR file stored either on the master node of the job flow or in Amazon S3. Each step is performed by the main function of the main class of the JAR file. The main class can be specified either in the manifest of the JAR or by using the MainFunction parameter of the step.</p> <p>Amazon EMR executes each step in the order listed. For a step to be considered complete, the main function must exit with a zero exit code and all Hadoop jobs started while the step was running must have completed and run successfully.</p> <p>You can only add steps to a job flow that is in one of the following states: STARTING, BOOTSTRAPPING, RUNNING, or WAITING.</p>",
+        "description": "<p>AddJobFlowSteps adds new steps to a running cluster. A maximum of 256 steps are allowed in each job flow.</p> <p>If your cluster is long-running (such as a Hive data warehouse) or complex, you may require more than 256 steps to process your data. You can bypass the 256-step limitation in various ways, including using SSH to connect to the master node and submitting queries directly to the software running on the master node, such as Hive and Hadoop. For more information on how to do this, see <a href=\"http://docs.aws.amazon.com/ElasticMapReduce/latest/ManagementGuide/AddMoreThan256Steps.html\">Add More than 256 Steps to a Cluster</a> in the <i>Amazon EMR Management Guide</i>.</p> <p>A step specifies the location of a JAR file stored either on the master node of the cluster or in Amazon S3. Each step is performed by the main function of the main class of the JAR file. The main class can be specified either in the manifest of the JAR or by using the MainFunction parameter of the step.</p> <p>Amazon EMR executes each step in the order listed. For a step to be considered complete, the main function must exit with a zero exit code and all Hadoop jobs started while the step was running must have completed and run successfully.</p> <p>You can only add steps to a cluster that is in one of the following states: STARTING, BOOTSTRAPPING, RUNNING, or WAITING.</p>",
         "responses": {
           "200": {
             "description": "Success",
@@ -544,6 +609,25 @@
               },
               {
                 "state": "failure",
+                "matcher": "path",
+                "argument": "Cluster.Status.State",
+                "expected": "TERMINATED"
+              },
+              {
+                "state": "failure",
+                "matcher": "path",
+                "argument": "Cluster.Status.State",
+                "expected": "TERMINATED_WITH_ERRORS"
+              }
+            ]
+          },
+          {
+            "delay": 30,
+            "operation": "DescribeCluster",
+            "maxAttempts": 60,
+            "acceptors": [
+              {
+                "state": "success",
                 "matcher": "path",
                 "argument": "Cluster.Status.State",
                 "expected": "TERMINATED"
@@ -948,6 +1032,78 @@
         }
       ]
     },
+    "/#ListInstanceFleets": {
+      "post": {
+        "operationId": "ListInstanceFleets",
+        "description": "<p>Lists all available details about the instance fleets in a cluster.</p> <note> <p>The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x versions.</p> </note>",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ListInstanceFleetsOutput"
+            }
+          },
+          "480": {
+            "description": "InternalServerException",
+            "schema": {
+              "$ref": "#/definitions/InternalServerException"
+            }
+          },
+          "481": {
+            "description": "InvalidRequestException",
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ListInstanceFleetsInput"
+            }
+          },
+          {
+            "name": "Marker",
+            "type": "string",
+            "in": "query",
+            "description": "Pagination token",
+            "required": false
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
     "/#ListInstanceGroups": {
       "post": {
         "operationId": "ListInstanceGroups",
@@ -1229,6 +1385,68 @@
         }
       ]
     },
+    "/#ModifyInstanceFleet": {
+      "post": {
+        "operationId": "ModifyInstanceFleet",
+        "description": "<p>Modifies the target On-Demand and target Spot capacities for the instance fleet with the specified InstanceFleetID within the cluster specified using ClusterID. The call either succeeds or fails atomically.</p> <note> <p>The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x versions.</p> </note>",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "480": {
+            "description": "InternalServerException",
+            "schema": {
+              "$ref": "#/definitions/InternalServerException"
+            }
+          },
+          "481": {
+            "description": "InvalidRequestException",
+            "schema": {
+              "$ref": "#/definitions/InvalidRequestException"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ModifyInstanceFleetInput"
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
     "/#ModifyInstanceGroups": {
       "post": {
         "operationId": "ModifyInstanceGroups",
@@ -1459,7 +1677,7 @@
     "/#RunJobFlow": {
       "post": {
         "operationId": "RunJobFlow",
-        "description": "<p>RunJobFlow creates and starts running a new job flow. The job flow will run the steps specified. After the job flow completes, the cluster is stopped and the HDFS partition is lost. To prevent loss of data, configure the last step of the job flow to store results in Amazon S3. If the <a>JobFlowInstancesConfig</a> <code>KeepJobFlowAliveWhenNoSteps</code> parameter is set to <code>TRUE</code>, the job flow will transition to the WAITING state rather than shutting down after the steps have completed. </p> <p>For additional protection, you can set the <a>JobFlowInstancesConfig</a> <code>TerminationProtected</code> parameter to <code>TRUE</code> to lock the job flow and prevent it from being terminated by API call, user intervention, or in the event of a job flow error.</p> <p>A maximum of 256 steps are allowed in each job flow.</p> <p>If your job flow is long-running (such as a Hive data warehouse) or complex, you may require more than 256 steps to process your data. You can bypass the 256-step limitation in various ways, including using the SSH shell to connect to the master node and submitting queries directly to the software running on the master node, such as Hive and Hadoop. For more information on how to do this, see <a href=\"http://docs.aws.amazon.com/ElasticMapReduce/latest/Management/Guide/AddMoreThan256Steps.html\">Add More than 256 Steps to a Job Flow</a> in the <i>Amazon EMR Management Guide</i>.</p> <p>For long running job flows, we recommend that you periodically store your results.</p>",
+        "description": "<p>RunJobFlow creates and starts running a new cluster (job flow). The cluster runs the steps specified. After the steps complete, the cluster stops and the HDFS partition is lost. To prevent loss of data, configure the last step of the job flow to store results in Amazon S3. If the <a>JobFlowInstancesConfig</a> <code>KeepJobFlowAliveWhenNoSteps</code> parameter is set to <code>TRUE</code>, the cluster transitions to the WAITING state rather than shutting down after the steps have completed. </p> <p>For additional protection, you can set the <a>JobFlowInstancesConfig</a> <code>TerminationProtected</code> parameter to <code>TRUE</code> to lock the cluster and prevent it from being terminated by API call, user intervention, or in the event of a job flow error.</p> <p>A maximum of 256 steps are allowed in each job flow.</p> <p>If your cluster is long-running (such as a Hive data warehouse) or complex, you may require more than 256 steps to process your data. You can bypass the 256-step limitation in various ways, including using the SSH shell to connect to the master node and submitting queries directly to the software running on the master node, such as Hive and Hadoop. For more information on how to do this, see <a href=\"http://docs.aws.amazon.com/ElasticMapReduce/latest/Management/Guide/AddMoreThan256Steps.html\">Add More than 256 Steps to a Cluster</a> in the <i>Amazon EMR Management Guide</i>.</p> <p>For long running clusters, we recommend that you periodically store your results.</p> <note> <p>The instance fleets configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x versions. The RunJobFlow request can contain InstanceFleets parameters or InstanceGroups parameters, but not both.</p> </note>",
         "responses": {
           "200": {
             "description": "Success",
@@ -1518,7 +1736,7 @@
     "/#SetTerminationProtection": {
       "post": {
         "operationId": "SetTerminationProtection",
-        "description": "<p>SetTerminationProtection locks a job flow so the EC2 instances in the cluster cannot be terminated by user intervention, an API call, or in the event of a job-flow error. The cluster still terminates upon successful completion of the job flow. Calling SetTerminationProtection on a job flow is analogous to calling the Amazon EC2 DisableAPITermination API on all of the EC2 instances in a cluster.</p> <p>SetTerminationProtection is used to prevent accidental termination of a job flow and to ensure that in the event of an error, the instances will persist so you can recover any data stored in their ephemeral instance storage.</p> <p> To terminate a job flow that has been locked by setting SetTerminationProtection to <code>true</code>, you must first unlock the job flow by a subsequent call to SetTerminationProtection in which you set the value to <code>false</code>. </p> <p> For more information, see<a href=\"http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/UsingEMR_TerminationProtection.html\">Protecting a Job Flow from Termination</a> in the <i>Amazon EMR Guide.</i> </p>",
+        "description": "<p>SetTerminationProtection locks a cluster (job flow) so the EC2 instances in the cluster cannot be terminated by user intervention, an API call, or in the event of a job-flow error. The cluster still terminates upon successful completion of the job flow. Calling <code>SetTerminationProtection</code> on a cluster is similar to calling the Amazon EC2 <code>DisableAPITermination</code> API on all EC2 instances in a cluster.</p> <p> <code>SetTerminationProtection</code> is used to prevent accidental termination of a cluster and to ensure that in the event of an error, the instances persist so that you can recover any data stored in their ephemeral instance storage.</p> <p> To terminate a cluster that has been locked by setting <code>SetTerminationProtection</code> to <code>true</code>, you must first unlock the job flow by a subsequent call to <code>SetTerminationProtection</code> in which you set the value to <code>false</code>. </p> <p> For more information, see<a href=\"http://docs.aws.amazon.com/emr/latest/ManagementGuide/UsingEMR_TerminationProtection.html\">Managing Cluster Termination</a> in the <i>Amazon EMR Management Guide</i>. </p>",
         "responses": {
           "200": {
             "description": "Success"
@@ -1574,7 +1792,7 @@
     "/#SetVisibleToAllUsers": {
       "post": {
         "operationId": "SetVisibleToAllUsers",
-        "description": "Sets whether all AWS Identity and Access Management (IAM) users under your account can access the specified job flows. This action works on running job flows. You can also set the visibility of a job flow when you launch it using the <code>VisibleToAllUsers</code> parameter of <a>RunJobFlow</a>. The SetVisibleToAllUsers action can be called only by an IAM user who created the job flow or the AWS account that owns the job flow.",
+        "description": "Sets whether all AWS Identity and Access Management (IAM) users under your account can access the specified clusters (job flows). This action works on running clusters. You can also set the visibility of a cluster when you launch it using the <code>VisibleToAllUsers</code> parameter of <a>RunJobFlow</a>. The SetVisibleToAllUsers action can be called only by an IAM user who created the cluster or the AWS account that owns the cluster.",
         "responses": {
           "200": {
             "description": "Success"
@@ -1630,7 +1848,7 @@
     "/#TerminateJobFlows": {
       "post": {
         "operationId": "TerminateJobFlows",
-        "description": "<p>TerminateJobFlows shuts a list of job flows down. When a job flow is shut down, any step not yet completed is canceled and the EC2 instances on which the job flow is running are stopped. Any log files not already saved are uploaded to Amazon S3 if a LogUri was specified when the job flow was created.</p> <p>The maximum number of JobFlows allowed is 10. The call to TerminateJobFlows is asynchronous. Depending on the configuration of the job flow, it may take up to 1-5 minutes for the job flow to completely terminate and release allocated resources, such as Amazon EC2 instances.</p>",
+        "description": "<p>TerminateJobFlows shuts a list of clusters (job flows) down. When a job flow is shut down, any step not yet completed is canceled and the EC2 instances on which the cluster is running are stopped. Any log files not already saved are uploaded to Amazon S3 if a LogUri was specified when the cluster was created.</p> <p>The maximum number of clusters allowed is 10. The call to <code>TerminateJobFlows</code> is asynchronous. Depending on the configuration of the cluster, it may take up to 1-5 minutes for the cluster to completely terminate and release allocated resources, such as Amazon EC2 instances.</p>",
         "responses": {
           "200": {
             "description": "Success"
@@ -1693,6 +1911,36 @@
         "CANCEL_AND_WAIT",
         "CONTINUE"
       ]
+    },
+    "AddInstanceFleetInput": {
+      "type": "object",
+      "required": [
+        "ClusterId",
+        "InstanceFleet"
+      ],
+      "properties": {
+        "ClusterId": {
+          "$ref": "#/definitions/XmlStringMaxLen256",
+          "description": "The unique identifier of the cluster."
+        },
+        "InstanceFleet": {
+          "$ref": "#/definitions/InstanceFleetConfig",
+          "description": "Specifies the configuration of the instance fleet."
+        }
+      }
+    },
+    "AddInstanceFleetOutput": {
+      "type": "object",
+      "properties": {
+        "ClusterId": {
+          "$ref": "#/definitions/XmlStringMaxLen256",
+          "description": "The unique identifier of the cluster."
+        },
+        "InstanceFleetId": {
+          "$ref": "#/definitions/InstanceFleetId",
+          "description": "The unique identifier of the instance fleet."
+        }
+      }
     },
     "AddInstanceGroupsInput": {
       "type": "object",
@@ -1805,7 +2053,7 @@
           "description": "This option is for advanced users only. This is meta information about third-party applications that third-party vendors use for testing purposes."
         }
       },
-      "description": "<p>An application is any Amazon or third-party software that you can add to the cluster. This structure contains a list of strings that indicates the software to use with the cluster and accepts a user argument list. Amazon EMR accepts and forwards the argument list to the corresponding installation script as bootstrap action argument. For more information, see <a href=\"http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/emr-mapr.html\">Launch a Job Flow on the MapR Distribution for Hadoop</a>. Currently supported values are:</p> <ul> <li> <p>\"mapr-m3\" - launch the job flow using MapR M3 Edition.</p> </li> <li> <p>\"mapr-m5\" - launch the job flow using MapR M5 Edition.</p> </li> <li> <p>\"mapr\" with the user arguments specifying \"--edition,m3\" or \"--edition,m5\" - launch the job flow using MapR M3 or M5 Edition, respectively.</p> </li> </ul> <note> <p>In Amazon EMR releases 4.0 and greater, the only accepted parameter is the application name. To pass arguments to applications, you supply a configuration for each application.</p> </note>"
+      "description": "<p>An application is any Amazon or third-party software that you can add to the cluster. This structure contains a list of strings that indicates the software to use with the cluster and accepts a user argument list. Amazon EMR accepts and forwards the argument list to the corresponding installation script as bootstrap action argument. For more information, see <a href=\"http://docs.aws.amazon.com/ElasticMapReduce/latest/ManagementGuide/emr-mapr.html\">Using the MapR Distribution for Hadoop</a>. Currently supported values are:</p> <ul> <li> <p>\"mapr-m3\" - launch the cluster using MapR M3 Edition.</p> </li> <li> <p>\"mapr-m5\" - launch the cluster using MapR M5 Edition.</p> </li> <li> <p>\"mapr\" with the user arguments specifying \"--edition,m3\" or \"--edition,m5\" - launch the cluster using MapR M3 or M5 Edition, respectively.</p> </li> </ul> <note> <p>In Amazon EMR releases 4.0 and greater, the only accepted parameter is the application name. To pass arguments to applications, you supply a configuration for each application.</p> </note>"
     },
     "ApplicationList": {
       "type": "array",
@@ -1865,7 +2113,7 @@
       "properties": {
         "Code": {
           "$ref": "#/definitions/AutoScalingPolicyStateChangeReasonCode",
-          "description": "The code indicating the reason for the change in status.<code>USER_REQUEST</code> indicates that the scaling policy status was changed by a user. <code>PROVISION_FAILURE</code> indicates that the status change was because the policy failed to provision. <code>CLEANUP_FAILURE</code> indicates something unclean happened.--&gt;"
+          "description": "The code indicating the reason for the change in status.<code>USER_REQUEST</code> indicates that the scaling policy status was changed by a user. <code>PROVISION_FAILURE</code> indicates that the status change was because the policy failed to provision. <code>CLEANUP_FAILURE</code> indicates an error."
         },
         "Message": {
           "$ref": "#/definitions/String",
@@ -1887,7 +2135,7 @@
       "properties": {
         "State": {
           "$ref": "#/definitions/AutoScalingPolicyState",
-          "description": ""
+          "description": "Indicates the status of the automatic scaling policy."
         },
         "StateChangeReason": {
           "$ref": "#/definitions/AutoScalingPolicyStateChangeReason",
@@ -1934,7 +2182,7 @@
           "description": "A description of the bootstrap action."
         }
       },
-      "description": "Reports the configuration of a bootstrap action in a job flow."
+      "description": "Reports the configuration of a bootstrap action in a cluster (job flow)."
     },
     "BootstrapActionDetailList": {
       "type": "array",
@@ -1946,15 +2194,19 @@
       "type": "object",
       "properties": {
         "StepId": {
-          "$ref": "#/definitions/StepId"
+          "$ref": "#/definitions/StepId",
+          "description": "The encrypted StepId of a step."
         },
         "Status": {
-          "$ref": "#/definitions/CancelStepsRequestStatus"
+          "$ref": "#/definitions/CancelStepsRequestStatus",
+          "description": "The status of a CancelSteps Request. The value may be SUBMITTED or FAILED."
         },
         "Reason": {
-          "$ref": "#/definitions/String"
+          "$ref": "#/definitions/String",
+          "description": "The reason for the failure if the CancelSteps request fails."
         }
-      }
+      },
+      "description": "Specification of the status of a CancelSteps request. Available only in Amazon EMR version 4.8.0 and later, excluding version 5.0.0."
     },
     "CancelStepsInfoList": {
       "type": "array",
@@ -2060,6 +2312,10 @@
           "$ref": "#/definitions/Ec2InstanceAttributes",
           "description": "Provides information about the EC2 instances in a cluster grouped by category. For example, key name, subnet ID, IAM instance profile, and so on."
         },
+        "InstanceCollectionType": {
+          "$ref": "#/definitions/InstanceCollectionType",
+          "description": "<note> <p>The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x versions.</p> </note> <p>The instance group configuration of the cluster. A value of <code>INSTANCE_GROUP</code> indicates a uniform instance group configuration. A value of <code>INSTANCE_FLEET</code> indicates an instance fleets configuration.</p>"
+        },
         "LogUri": {
           "$ref": "#/definitions/String",
           "description": "The path to the Amazon S3 location where logs for this cluster are stored."
@@ -2086,7 +2342,7 @@
         },
         "VisibleToAllUsers": {
           "$ref": "#/definitions/Boolean",
-          "description": "Indicates whether the job flow is visible to all IAM users of the AWS account associated with the job flow. If this value is set to <code>true</code>, all IAM users of that AWS account can view and manage the job flow if they have the proper policy permissions set. If this value is <code>false</code>, only the IAM user that created the cluster can view and manage it. This value can be changed using the <a>SetVisibleToAllUsers</a> action."
+          "description": "Indicates whether the cluster is visible to all IAM users of the AWS account associated with the cluster. If this value is set to <code>true</code>, all IAM users of that AWS account can view and manage the cluster if they have the proper policy permissions set. If this value is <code>false</code>, only the IAM user that created the cluster can view and manage it. This value can be changed using the <a>SetVisibleToAllUsers</a> action."
         },
         "Applications": {
           "$ref": "#/definitions/ApplicationList",
@@ -2102,7 +2358,7 @@
         },
         "NormalizedInstanceHours": {
           "$ref": "#/definitions/Integer",
-          "description": "An approximation of the cost of the job flow, represented in m1.small/hours. This value is incremented one time for every hour an m1.small instance runs. Larger instances are weighted more, so an EC2 instance that is roughly four times more expensive would result in the normalized instance hours being incremented by four. This result is only an approximation and does not reflect the actual billing rate."
+          "description": "An approximation of the cost of the cluster, represented in m1.small/hours. This value is incremented one time for every hour an m1.small instance runs. Larger instances are weighted more, so an EC2 instance that is roughly four times more expensive would result in the normalized instance hours being incremented by four. This result is only an approximation and does not reflect the actual billing rate."
         },
         "MasterPublicDnsName": {
           "$ref": "#/definitions/String",
@@ -2209,7 +2465,7 @@
         },
         "NormalizedInstanceHours": {
           "$ref": "#/definitions/Integer",
-          "description": "An approximation of the cost of the job flow, represented in m1.small/hours. This value is incremented one time for every hour an m1.small instance runs. Larger instances are weighted more, so an EC2 instance that is roughly four times more expensive would result in the normalized instance hours being incremented by four. This result is only an approximation and does not reflect the actual billing rate."
+          "description": "An approximation of the cost of the cluster, represented in m1.small/hours. This value is incremented one time for every hour an m1.small instance runs. Larger instances are weighted more, so an EC2 instance that is roughly four times more expensive would result in the normalized instance hours being incremented by four. This result is only an approximation and does not reflect the actual billing rate."
         }
       },
       "description": "The summary description of the cluster."
@@ -2276,18 +2532,18 @@
       "properties": {
         "Classification": {
           "$ref": "#/definitions/String",
-          "description": "The classification of a configuration. For more information see, <a href=\"http://docs.aws.amazon.com/ElasticMapReduce/latest/API/EmrConfigurations.html\">Amazon EMR Configurations</a>. "
+          "description": "The classification within a configuration."
         },
         "Configurations": {
           "$ref": "#/definitions/ConfigurationList",
-          "description": "A list of configurations you apply to this configuration object."
+          "description": "A list of additional configurations to apply within a configuration object."
         },
         "Properties": {
           "$ref": "#/definitions/StringMap",
-          "description": "A set of properties supplied to the Configuration object."
+          "description": "A set of properties specified within a configuration classification."
         }
       },
-      "description": "<note> <p>Amazon EMR releases 4.x or later.</p> </note> <p>Specifies a hardware and software configuration of the EMR cluster. This includes configurations for applications and software bundled with Amazon EMR. The Configuration object is a JSON object which is defined by a classification and a set of properties. Configurations can be nested, so a configuration may have its own Configuration objects listed.</p>"
+      "description": "<note> <p>Amazon EMR releases 4.x or later.</p> </note> <p>An optional configuration specification to be used when provisioning cluster instances, which can include configurations for applications and software bundled with Amazon EMR. A configuration consists of a classification, properties, and optional nested configurations. A classification refers to an application-specific configuration file. Properties are the settings you want to change in that file. For more information, see <a href=\"http://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-configure-apps.html\">Configuring Applications</a>.</p>"
     },
     "ConfigurationList": {
       "type": "array",
@@ -2559,15 +2815,23 @@
         },
         "Ec2SubnetId": {
           "$ref": "#/definitions/String",
-          "description": "<p>To launch the job flow in Amazon VPC, set this parameter to the identifier of the Amazon VPC subnet where you want the job flow to launch. If you do not specify this value, the job flow is launched in the normal AWS cloud, outside of a VPC.</p> <p>Amazon VPC currently does not support cluster compute quadruple extra large (cc1.4xlarge) instances. Thus, you cannot specify the cc1.4xlarge instance type for nodes of a job flow launched in a VPC.</p>"
+          "description": "<p>To launch the cluster in Amazon VPC, set this parameter to the identifier of the Amazon VPC subnet where you want the cluster to launch. If you do not specify this value, the cluster is launched in the normal AWS cloud, outside of a VPC.</p> <p>Amazon VPC currently does not support cluster compute quadruple extra large (cc1.4xlarge) instances. Thus, you cannot specify the cc1.4xlarge instance type for nodes of a cluster launched in a VPC.</p>"
+        },
+        "RequestedEc2SubnetIds": {
+          "$ref": "#/definitions/XmlStringMaxLen256List",
+          "description": "Applies to clusters configured with the instance fleets option. Specifies the unique identifier of one or more Amazon EC2 subnets in which to launch EC2 cluster instances. Amazon EMR chooses the EC2 subnet with the best performance and cost characteristics from among the list of RequestedEc2SubnetIds and launches all cluster instances within that subnet. If this value is not specified, and the account supports EC2-Classic networks, the cluster launches instances in the EC2-Classic network and uses Requested"
         },
         "Ec2AvailabilityZone": {
           "$ref": "#/definitions/String",
-          "description": "The Availability Zone in which the cluster will run."
+          "description": "The Availability Zone in which the cluster will run. "
+        },
+        "RequestedEc2AvailabilityZones": {
+          "$ref": "#/definitions/XmlStringMaxLen256List",
+          "description": "Applies to clusters configured with the The list of availability zones to choose from. The service will choose the availability zone with the best mix of available capacity and lowest cost to launch the cluster. If you do not specify this value, the cluster is launched in any availability zone that the customer account has access to."
         },
         "IamInstanceProfile": {
           "$ref": "#/definitions/String",
-          "description": "The IAM role that was specified when the job flow was launched. The EC2 instances of the job flow assume this role."
+          "description": "The IAM role that was specified when the cluster was launched. The EC2 instances of the cluster assume this role."
         },
         "EmrManagedMasterSecurityGroup": {
           "$ref": "#/definitions/String",
@@ -2700,12 +2964,238 @@
           "$ref": "#/definitions/String",
           "description": "The identifier of the instance group to which this instance belongs."
         },
+        "InstanceFleetId": {
+          "$ref": "#/definitions/InstanceFleetId",
+          "description": "The unique identifier of the instance fleet to which an EC2 instance belongs."
+        },
+        "Market": {
+          "$ref": "#/definitions/MarketType",
+          "description": "The instance purchasing option. Valid values are <code>ON_DEMAND</code> or <code>SPOT</code>. "
+        },
+        "InstanceType": {
+          "$ref": "#/definitions/InstanceType",
+          "description": "The EC2 instance type, for example <code>m3.xlarge</code>."
+        },
         "EbsVolumes": {
           "$ref": "#/definitions/EbsVolumeList",
           "description": "The list of EBS volumes that are attached to this instance."
         }
       },
       "description": "Represents an EC2 instance provisioned as part of cluster."
+    },
+    "InstanceCollectionType": {
+      "type": "string",
+      "enum": [
+        "INSTANCE_FLEET",
+        "INSTANCE_GROUP"
+      ]
+    },
+    "InstanceFleet": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "$ref": "#/definitions/InstanceFleetId",
+          "description": "The unique identifier of the instance fleet."
+        },
+        "Name": {
+          "$ref": "#/definitions/XmlStringMaxLen256",
+          "description": "A friendly name for the instance fleet."
+        },
+        "Status": {
+          "$ref": "#/definitions/InstanceFleetStatus",
+          "description": "The current status of the instance fleet. "
+        },
+        "InstanceFleetType": {
+          "$ref": "#/definitions/InstanceFleetType",
+          "description": "The node type that the instance fleet hosts. Valid values are MASTER, CORE, or TASK. "
+        },
+        "TargetOnDemandCapacity": {
+          "$ref": "#/definitions/WholeNumber",
+          "description": "<p>The target capacity of On-Demand units for the instance fleet, which determines how many On-Demand instances to provision. When the instance fleet launches, Amazon EMR tries to provision On-Demand instances as specified by <a>InstanceTypeConfig</a>. Each instance configuration has a specified <code>WeightedCapacity</code>. When an On-Demand instance is provisioned, the <code>WeightedCapacity</code> units count toward the target capacity. Amazon EMR provisions instances until the target capacity is totally fulfilled, even if this results in an overage. For example, if there are 2 units remaining to fulfill capacity, and Amazon EMR can only provision an instance with a <code>WeightedCapacity</code> of 5 units, the instance is provisioned, and the target capacity is exceeded by 3 units. You can use <a>InstanceFleet$ProvisionedOnDemandCapacity</a> to determine the Spot capacity units that have been provisioned for the instance fleet.</p> <note> <p>If not specified or set to 0, only Spot instances are provisioned for the instance fleet using <code>TargetSpotCapacity</code>. At least one of <code>TargetSpotCapacity</code> and <code>TargetOnDemandCapacity</code> should be greater than 0. For a master instance fleet, only one of <code>TargetSpotCapacity</code> and <code>TargetOnDemandCapacity</code> can be specified, and its value must be 1.</p> </note>"
+        },
+        "TargetSpotCapacity": {
+          "$ref": "#/definitions/WholeNumber",
+          "description": "<p>The target capacity of Spot units for the instance fleet, which determines how many Spot instances to provision. When the instance fleet launches, Amazon EMR tries to provision Spot instances as specified by <a>InstanceTypeConfig</a>. Each instance configuration has a specified <code>WeightedCapacity</code>. When a Spot instance is provisioned, the <code>WeightedCapacity</code> units count toward the target capacity. Amazon EMR provisions instances until the target capacity is totally fulfilled, even if this results in an overage. For example, if there are 2 units remaining to fulfill capacity, and Amazon EMR can only provision an instance with a <code>WeightedCapacity</code> of 5 units, the instance is provisioned, and the target capacity is exceeded by 3 units. You can use <a>InstanceFleet$ProvisionedSpotCapacity</a> to determine the Spot capacity units that have been provisioned for the instance fleet.</p> <note> <p>If not specified or set to 0, only On-Demand instances are provisioned for the instance fleet. At least one of <code>TargetSpotCapacity</code> and <code>TargetOnDemandCapacity</code> should be greater than 0. For a master instance fleet, only one of <code>TargetSpotCapacity</code> and <code>TargetOnDemandCapacity</code> can be specified, and its value must be 1.</p> </note>"
+        },
+        "ProvisionedOnDemandCapacity": {
+          "$ref": "#/definitions/WholeNumber",
+          "description": "The number of On-Demand units that have been provisioned for the instance fleet to fulfill <code>TargetOnDemandCapacity</code>. This provisioned capacity might be less than or greater than <code>TargetOnDemandCapacity</code>."
+        },
+        "ProvisionedSpotCapacity": {
+          "$ref": "#/definitions/WholeNumber",
+          "description": "The number of Spot units that have been provisioned for this instance fleet to fulfill <code>TargetSpotCapacity</code>. This provisioned capacity might be less than or greater than <code>TargetSpotCapacity</code>."
+        },
+        "InstanceTypeSpecifications": {
+          "$ref": "#/definitions/InstanceTypeSpecificationList",
+          "description": "The specification for the instance types that comprise an instance fleet. Up to five unique instance specifications may be defined for each instance fleet. "
+        },
+        "LaunchSpecifications": {
+          "$ref": "#/definitions/InstanceFleetProvisioningSpecifications",
+          "description": "Describes the launch specification for an instance fleet. "
+        }
+      },
+      "description": "<p>Describes an instance fleet, which is a group of EC2 instances that host a particular node type (master, core, or task) in an Amazon EMR cluster. Instance fleets can consist of a mix of instance types and On-Demand and Spot instances, which are provisioned to meet a defined target capacity. </p> <note> <p>The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x versions.</p> </note>"
+    },
+    "InstanceFleetConfig": {
+      "type": "object",
+      "required": [
+        "InstanceFleetType"
+      ],
+      "properties": {
+        "Name": {
+          "$ref": "#/definitions/XmlStringMaxLen256",
+          "description": "The friendly name of the instance fleet."
+        },
+        "InstanceFleetType": {
+          "$ref": "#/definitions/InstanceFleetType",
+          "description": "The node type that the instance fleet hosts. Valid values are MASTER,CORE,and TASK."
+        },
+        "TargetOnDemandCapacity": {
+          "$ref": "#/definitions/WholeNumber",
+          "description": "<p>The target capacity of On-Demand units for the instance fleet, which determines how many On-Demand instances to provision. When the instance fleet launches, Amazon EMR tries to provision On-Demand instances as specified by <a>InstanceTypeConfig</a>. Each instance configuration has a specified <code>WeightedCapacity</code>. When an On-Demand instance is provisioned, the <code>WeightedCapacity</code> units count toward the target capacity. Amazon EMR provisions instances until the target capacity is totally fulfilled, even if this results in an overage. For example, if there are 2 units remaining to fulfill capacity, and Amazon EMR can only provision an instance with a <code>WeightedCapacity</code> of 5 units, the instance is provisioned, and the target capacity is exceeded by 3 units.</p> <note> <p>If not specified or set to 0, only Spot instances are provisioned for the instance fleet using <code>TargetSpotCapacity</code>. At least one of <code>TargetSpotCapacity</code> and <code>TargetOnDemandCapacity</code> should be greater than 0. For a master instance fleet, only one of <code>TargetSpotCapacity</code> and <code>TargetOnDemandCapacity</code> can be specified, and its value must be 1.</p> </note>"
+        },
+        "TargetSpotCapacity": {
+          "$ref": "#/definitions/WholeNumber",
+          "description": "<p>The target capacity of Spot units for the instance fleet, which determines how many Spot instances to provision. When the instance fleet launches, Amazon EMR tries to provision Spot instances as specified by <a>InstanceTypeConfig</a>. Each instance configuration has a specified <code>WeightedCapacity</code>. When a Spot instance is provisioned, the <code>WeightedCapacity</code> units count toward the target capacity. Amazon EMR provisions instances until the target capacity is totally fulfilled, even if this results in an overage. For example, if there are 2 units remaining to fulfill capacity, and Amazon EMR can only provision an instance with a <code>WeightedCapacity</code> of 5 units, the instance is provisioned, and the target capacity is exceeded by 3 units.</p> <note> <p>If not specified or set to 0, only On-Demand instances are provisioned for the instance fleet. At least one of <code>TargetSpotCapacity</code> and <code>TargetOnDemandCapacity</code> should be greater than 0. For a master instance fleet, only one of <code>TargetSpotCapacity</code> and <code>TargetOnDemandCapacity</code> can be specified, and its value must be 1.</p> </note>"
+        },
+        "InstanceTypeConfigs": {
+          "$ref": "#/definitions/InstanceTypeConfigList",
+          "description": "The instance type configurations that define the EC2 instances in the instance fleet."
+        },
+        "LaunchSpecifications": {
+          "$ref": "#/definitions/InstanceFleetProvisioningSpecifications",
+          "description": "The launch specification for the instance fleet."
+        }
+      },
+      "description": "<p>The configuration that defines an instance fleet.</p> <note> <p>The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x versions.</p> </note>"
+    },
+    "InstanceFleetConfigList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/InstanceFleetConfig"
+      }
+    },
+    "InstanceFleetId": {
+      "type": "string"
+    },
+    "InstanceFleetList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/InstanceFleet"
+      }
+    },
+    "InstanceFleetModifyConfig": {
+      "type": "object",
+      "required": [
+        "InstanceFleetId"
+      ],
+      "properties": {
+        "InstanceFleetId": {
+          "$ref": "#/definitions/InstanceFleetId",
+          "description": "A unique identifier for the instance fleet."
+        },
+        "TargetOnDemandCapacity": {
+          "$ref": "#/definitions/WholeNumber",
+          "description": "The target capacity of On-Demand units for the instance fleet. For more information see <a>InstanceFleetConfig$TargetOnDemandCapacity</a>."
+        },
+        "TargetSpotCapacity": {
+          "$ref": "#/definitions/WholeNumber",
+          "description": "The target capacity of Spot units for the instance fleet. For more information, see <a>InstanceFleetConfig$TargetSpotCapacity</a>."
+        }
+      },
+      "description": "<p>Configuration parameters for an instance fleet modification request.</p> <note> <p>The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x versions.</p> </note>"
+    },
+    "InstanceFleetProvisioningSpecifications": {
+      "type": "object",
+      "required": [
+        "SpotSpecification"
+      ],
+      "properties": {
+        "SpotSpecification": {
+          "$ref": "#/definitions/SpotProvisioningSpecification",
+          "description": "The launch specification for Spot instances in the fleet, which determines the defined duration and provisioning timeout behavior."
+        }
+      },
+      "description": "<p>The launch specification for Spot instances in the fleet, which determines the defined duration and provisioning timeout behavior.</p> <note> <p>The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x versions.</p> </note>"
+    },
+    "InstanceFleetState": {
+      "type": "string",
+      "enum": [
+        "PROVISIONING",
+        "BOOTSTRAPPING",
+        "RUNNING",
+        "RESIZING",
+        "SUSPENDED",
+        "TERMINATING",
+        "TERMINATED"
+      ]
+    },
+    "InstanceFleetStateChangeReason": {
+      "type": "object",
+      "properties": {
+        "Code": {
+          "$ref": "#/definitions/InstanceFleetStateChangeReasonCode",
+          "description": "A code corresponding to the reason the state change occurred."
+        },
+        "Message": {
+          "$ref": "#/definitions/String",
+          "description": "An explanatory message."
+        }
+      },
+      "description": "<p>Provides status change reason details for the instance fleet.</p> <note> <p>The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x versions.</p> </note>"
+    },
+    "InstanceFleetStateChangeReasonCode": {
+      "type": "string",
+      "enum": [
+        "INTERNAL_ERROR",
+        "VALIDATION_ERROR",
+        "INSTANCE_FAILURE",
+        "CLUSTER_TERMINATED"
+      ]
+    },
+    "InstanceFleetStatus": {
+      "type": "object",
+      "properties": {
+        "State": {
+          "$ref": "#/definitions/InstanceFleetState",
+          "description": "A code representing the instance fleet status."
+        },
+        "StateChangeReason": {
+          "$ref": "#/definitions/InstanceFleetStateChangeReason",
+          "description": "Provides status change reason details for the instance fleet."
+        },
+        "Timeline": {
+          "$ref": "#/definitions/InstanceFleetTimeline",
+          "description": "Provides historical timestamps for the instance fleet, including the time of creation, the time it became ready to run jobs, and the time of termination."
+        }
+      },
+      "description": "<p>The status of the instance fleet.</p> <note> <p>The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x versions.</p> </note>"
+    },
+    "InstanceFleetTimeline": {
+      "type": "object",
+      "properties": {
+        "CreationDateTime": {
+          "$ref": "#/definitions/Date",
+          "description": "The time and date the instance fleet was created."
+        },
+        "ReadyDateTime": {
+          "$ref": "#/definitions/Date",
+          "description": "The time and date the instance fleet was ready to run jobs."
+        },
+        "EndDateTime": {
+          "$ref": "#/definitions/Date",
+          "description": "The time and date the instance fleet terminated."
+        }
+      },
+      "description": "<p>Provides historical timestamps for the instance fleet, including the time of creation, the time it became ready to run jobs, and the time of termination.</p> <note> <p>The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x versions.</p> </note>"
+    },
+    "InstanceFleetType": {
+      "type": "string",
+      "enum": [
+        "MASTER",
+        "CORE",
+        "TASK"
+      ]
     },
     "InstanceGroup": {
       "type": "object",
@@ -3150,6 +3640,85 @@
       "maxLength": 256,
       "x-pattern": "[\\u0020-\\uD7FF\\uE000-\\uFFFD\\uD800\\uDC00-\\uDBFF\\uDFFF\\r\\n\\t]*"
     },
+    "InstanceTypeConfig": {
+      "type": "object",
+      "required": [
+        "InstanceType"
+      ],
+      "properties": {
+        "InstanceType": {
+          "$ref": "#/definitions/InstanceType",
+          "description": "An EC2 instance type, such as <code>m3.xlarge</code>. "
+        },
+        "WeightedCapacity": {
+          "$ref": "#/definitions/WholeNumber",
+          "description": "The number of units that a provisioned instance of this type provides toward fulfilling the target capacities defined in <a>InstanceFleetConfig</a>. This value is 1 for a master instance fleet, and must be greater than 0 for core and task instance fleets. "
+        },
+        "BidPrice": {
+          "$ref": "#/definitions/XmlStringMaxLen256",
+          "description": "The bid price for each EC2 Spot instance type as defined by <code>InstanceType</code>. Expressed in USD. If neither <code>BidPrice</code> nor <code>BidPriceAsPercentageOfOnDemandPrice</code> is provided, <code>BidPriceAsPercentageOfOnDemandPrice</code> defaults to 100%. "
+        },
+        "BidPriceAsPercentageOfOnDemandPrice": {
+          "$ref": "#/definitions/NonNegativeDouble",
+          "description": "The bid price, as a percentage of On-Demand price, for each EC2 Spot instance as defined by <code>InstanceType</code>. Expressed as a number between 0 and 1000 (for example, 20 specifies 20%). If neither <code>BidPrice</code> nor <code>BidPriceAsPercentageOfOnDemandPrice</code> is provided, <code>BidPriceAsPercentageOfOnDemandPrice</code> defaults to 100%."
+        },
+        "EbsConfiguration": {
+          "$ref": "#/definitions/EbsConfiguration",
+          "description": "The configuration of Amazon Elastic Block Storage (EBS) attached to each instance as defined by <code>InstanceType</code>. "
+        },
+        "Configurations": {
+          "$ref": "#/definitions/ConfigurationList",
+          "description": "A configuration classification that applies when provisioning cluster instances, which can include configurations for applications and software that run on the cluster."
+        }
+      },
+      "description": "<p>An instance type configuration for each instance type in an instance fleet, which determines the EC2 instances Amazon EMR attempts to provision to fulfill On-Demand and Spot target capacities. There can be a maximum of 5 instance type configurations in a fleet.</p> <note> <p>The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x versions.</p> </note>"
+    },
+    "InstanceTypeConfigList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/InstanceTypeConfig"
+      }
+    },
+    "InstanceTypeSpecification": {
+      "type": "object",
+      "properties": {
+        "InstanceType": {
+          "$ref": "#/definitions/InstanceType",
+          "description": "The EC2 instance type, for example <code>m3.xlarge</code>."
+        },
+        "WeightedCapacity": {
+          "$ref": "#/definitions/WholeNumber",
+          "description": "The number of units that a provisioned instance of this type provides toward fulfilling the target capacities defined in <a>InstanceFleetConfig</a>. Capacity values represent performance characteristics such as vCPUs, memory, or I/O. If not specified, the default value is 1."
+        },
+        "BidPrice": {
+          "$ref": "#/definitions/XmlStringMaxLen256",
+          "description": "The bid price for each EC2 Spot instance type as defined by <code>InstanceType</code>. Expressed in USD."
+        },
+        "BidPriceAsPercentageOfOnDemandPrice": {
+          "$ref": "#/definitions/NonNegativeDouble",
+          "description": "The bid price, as a percentage of On-Demand price, for each EC2 Spot instance as defined by <code>InstanceType</code>. Expressed as a number (for example, 20 specifies 20%)."
+        },
+        "Configurations": {
+          "$ref": "#/definitions/ConfigurationList",
+          "description": "A configuration classification that applies when provisioning cluster instances, which can include configurations for applications and software bundled with Amazon EMR."
+        },
+        "EbsBlockDevices": {
+          "$ref": "#/definitions/EbsBlockDeviceList",
+          "description": "The configuration of Amazon Elastic Block Storage (EBS) attached to each instance as defined by <code>InstanceType</code>."
+        },
+        "EbsOptimized": {
+          "$ref": "#/definitions/BooleanObject",
+          "description": "Evaluates to <code>TRUE</code> when the specified <code>InstanceType</code> is EBS-optimized."
+        }
+      },
+      "description": "<p>The configuration specification for each instance type in an instance fleet.</p> <note> <p>The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x versions.</p> </note>"
+    },
+    "InstanceTypeSpecificationList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/InstanceTypeSpecification"
+      }
+    },
     "Integer": {
       "type": "integer"
     },
@@ -3229,7 +3798,7 @@
         },
         "VisibleToAllUsers": {
           "$ref": "#/definitions/Boolean",
-          "description": "Specifies whether the job flow is visible to all IAM users of the AWS account associated with the job flow. If this value is set to <code>true</code>, all IAM users of that AWS account can view and (if they have the proper policy permissions set) manage the job flow. If it is set to <code>false</code>, only the IAM user that created the job flow can view and manage it. This value can be changed using the <a>SetVisibleToAllUsers</a> action."
+          "description": "Specifies whether the cluster is visible to all IAM users of the AWS account associated with the cluster. If this value is set to <code>true</code>, all IAM users of that AWS account can view and (if they have the proper policy permissions set) manage the cluster. If it is set to <code>false</code>, only the IAM user that created the cluster can view and manage it. This value can be changed using the <a>SetVisibleToAllUsers</a> action."
         },
         "JobFlowRole": {
           "$ref": "#/definitions/XmlString",
@@ -3248,7 +3817,7 @@
           "description": "The way that individual Amazon EC2 instances terminate when an automatic scale-in activity occurs or an instance group is resized. <code>TERMINATE_AT_INSTANCE_HOUR</code> indicates that Amazon EMR terminates nodes at the instance-hour boundary, regardless of when the request to terminate the instance was submitted. This option is only available with Amazon EMR 5.1.0 and later and is the default for clusters created using that version. <code>TERMINATE_AT_TASK_COMPLETION</code> indicates that Amazon EMR blacklists and drains tasks from nodes before terminating the Amazon EC2 instances, regardless of the instance-hour boundary. With either behavior, Amazon EMR removes the least active nodes first and blocks instance termination if it could lead to HDFS corruption. <code>TERMINATE_AT_TASK_COMPLETION</code> available only in Amazon EMR version 4.1.0 and later, and is the default for versions of Amazon EMR earlier than 5.1.0."
         }
       },
-      "description": "A description of a job flow."
+      "description": "A description of a cluster (job flow)."
     },
     "JobFlowDetailList": {
       "type": "array",
@@ -3308,7 +3877,7 @@
           "description": "Description of the job flow last changed state."
         }
       },
-      "description": "Describes the status of the job flow."
+      "description": "Describes the status of the cluster (job flow)."
     },
     "JobFlowInstancesConfig": {
       "type": "object",
@@ -3323,11 +3892,15 @@
         },
         "InstanceCount": {
           "$ref": "#/definitions/Integer",
-          "description": "The number of EC2 instances used to execute the job flow."
+          "description": "The number of EC2 instances in the cluster."
         },
         "InstanceGroups": {
           "$ref": "#/definitions/InstanceGroupConfigList",
-          "description": "Configuration for the job flow's instance groups."
+          "description": "Configuration for the instance groups in a cluster."
+        },
+        "InstanceFleets": {
+          "$ref": "#/definitions/InstanceFleetConfigList",
+          "description": "<note> <p>The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x versions.</p> </note> <p>Describes the EC2 instances and instance configurations for clusters that use the instance fleet configuration.</p>"
         },
         "Ec2KeyName": {
           "$ref": "#/definitions/XmlStringMaxLen256",
@@ -3335,23 +3908,27 @@
         },
         "Placement": {
           "$ref": "#/definitions/PlacementType",
-          "description": "The Availability Zone the job flow will run in."
+          "description": "The Availability Zone in which the cluster runs."
         },
         "KeepJobFlowAliveWhenNoSteps": {
           "$ref": "#/definitions/Boolean",
-          "description": "Specifies whether the job flow should be kept alive after completing all steps."
+          "description": "Specifies whether the cluster should remain available after completing all steps."
         },
         "TerminationProtected": {
           "$ref": "#/definitions/Boolean",
-          "description": "Specifies whether to lock the job flow to prevent the Amazon EC2 instances from being terminated by API call, user intervention, or in the event of a job flow error."
+          "description": "Specifies whether to lock the cluster to prevent the Amazon EC2 instances from being terminated by API call, user intervention, or in the event of a job-flow error."
         },
         "HadoopVersion": {
           "$ref": "#/definitions/XmlStringMaxLen256",
-          "description": "The Hadoop version for the job flow. Valid inputs are \"0.18\" (deprecated), \"0.20\" (deprecated), \"0.20.205\" (deprecated), \"1.0.3\", \"2.2.0\", or \"2.4.0\". If you do not set this value, the default of 0.18 is used, unless the AmiVersion parameter is set in the RunJobFlow call, in which case the default version of Hadoop for that AMI version is used."
+          "description": "The Hadoop version for the cluster. Valid inputs are \"0.18\" (deprecated), \"0.20\" (deprecated), \"0.20.205\" (deprecated), \"1.0.3\", \"2.2.0\", or \"2.4.0\". If you do not set this value, the default of 0.18 is used, unless the AmiVersion parameter is set in the RunJobFlow call, in which case the default version of Hadoop for that AMI version is used."
         },
         "Ec2SubnetId": {
           "$ref": "#/definitions/XmlStringMaxLen256",
-          "description": "<p>To launch the job flow in Amazon Virtual Private Cloud (Amazon VPC), set this parameter to the identifier of the Amazon VPC subnet where you want the job flow to launch. If you do not specify this value, the job flow is launched in the normal Amazon Web Services cloud, outside of an Amazon VPC.</p> <p>Amazon VPC currently does not support cluster compute quadruple extra large (cc1.4xlarge) instances. Thus you cannot specify the cc1.4xlarge instance type for nodes of a job flow launched in a Amazon VPC.</p>"
+          "description": "<p>Applies to clusters that use the uniform instance group configuration. To launch the cluster in Amazon Virtual Private Cloud (Amazon VPC), set this parameter to the identifier of the Amazon VPC subnet where you want the cluster to launch. If you do not specify this value, the cluster launches in the normal Amazon Web Services cloud, outside of an Amazon VPC, if the account launching the cluster supports EC2 Classic networks in the region where the cluster launches.</p> <p>Amazon VPC currently does not support cluster compute quadruple extra large (cc1.4xlarge) instances. Thus you cannot specify the cc1.4xlarge instance type for clusters launched in an Amazon VPC.</p>"
+        },
+        "Ec2SubnetIds": {
+          "$ref": "#/definitions/XmlStringMaxLen256List",
+          "description": "<p>Applies to clusters that use the instance fleet configuration. When multiple EC2 subnet IDs are specified, Amazon EMR evaluates them and launches instances in the optimal subnet.</p> <note> <p>The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x versions.</p> </note>"
         },
         "EmrManagedMasterSecurityGroup": {
           "$ref": "#/definitions/XmlStringMaxLen256",
@@ -3374,7 +3951,7 @@
           "description": "A list of additional Amazon EC2 security group IDs for the slave nodes."
         }
       },
-      "description": "A description of the Amazon EC2 instance running the job flow. A valid JobFlowInstancesConfig must contain at least InstanceGroups, which is the recommended configuration. However, a valid alternative is to have MasterInstanceType, SlaveInstanceType, and InstanceCount (all three must be present)."
+      "description": "A description of the Amazon EC2 instance on which the cluster (job flow) runs. A valid JobFlowInstancesConfig must contain either InstanceGroups or InstanceFleets, which is the recommended configuration. They cannot be used together. You may also have MasterInstanceType, SlaveInstanceType, and InstanceCount (all three must be present), but we don't recommend this configuration."
     },
     "JobFlowInstancesDetail": {
       "type": "object",
@@ -3406,38 +3983,38 @@
         },
         "InstanceGroups": {
           "$ref": "#/definitions/InstanceGroupDetailList",
-          "description": "Details about the job flow's instance groups."
+          "description": "Details about the instance groups in a cluster."
         },
         "NormalizedInstanceHours": {
           "$ref": "#/definitions/Integer",
-          "description": "An approximation of the cost of the job flow, represented in m1.small/hours. This value is incremented one time for every hour that an m1.small runs. Larger instances are weighted more, so an Amazon EC2 instance that is roughly four times more expensive would result in the normalized instance hours being incremented by four. This result is only an approximation and does not reflect the actual billing rate."
+          "description": "An approximation of the cost of the cluster, represented in m1.small/hours. This value is incremented one time for every hour that an m1.small runs. Larger instances are weighted more, so an Amazon EC2 instance that is roughly four times more expensive would result in the normalized instance hours being incremented by four. This result is only an approximation and does not reflect the actual billing rate."
         },
         "Ec2KeyName": {
           "$ref": "#/definitions/XmlStringMaxLen256",
-          "description": "The name of an Amazon EC2 key pair that can be used to ssh to the master node of job flow."
+          "description": "The name of an Amazon EC2 key pair that can be used to ssh to the master node."
         },
         "Ec2SubnetId": {
           "$ref": "#/definitions/XmlStringMaxLen256",
-          "description": "For job flows launched within Amazon Virtual Private Cloud, this value specifies the identifier of the subnet where the job flow was launched."
+          "description": "For clusters launched within Amazon Virtual Private Cloud, this is the identifier of the subnet where the cluster was launched."
         },
         "Placement": {
           "$ref": "#/definitions/PlacementType",
-          "description": "The Amazon EC2 Availability Zone for the job flow."
+          "description": "The Amazon EC2 Availability Zone for the cluster."
         },
         "KeepJobFlowAliveWhenNoSteps": {
           "$ref": "#/definitions/Boolean",
-          "description": "Specifies whether the job flow should terminate after completing all steps."
+          "description": "Specifies whether the cluster should remain available after completing all steps."
         },
         "TerminationProtected": {
           "$ref": "#/definitions/Boolean",
-          "description": "Specifies whether the Amazon EC2 instances in the cluster are protected from termination by API calls, user intervention, or in the event of a job flow error."
+          "description": "Specifies whether the Amazon EC2 instances in the cluster are protected from termination by API calls, user intervention, or in the event of a job-flow error."
         },
         "HadoopVersion": {
           "$ref": "#/definitions/XmlStringMaxLen256",
-          "description": "The Hadoop version for the job flow."
+          "description": "The Hadoop version for the cluster."
         }
       },
-      "description": "Specify the type of Amazon EC2 instances to run the job flow on."
+      "description": "Specify the type of Amazon EC2 instances that the cluster (job flow) runs on."
     },
     "KeyValue": {
       "type": "object",
@@ -3526,6 +4103,35 @@
       },
       "description": "This contains a ClusterSummaryList with the cluster details; for example, the cluster IDs, names, and status."
     },
+    "ListInstanceFleetsInput": {
+      "type": "object",
+      "required": [
+        "ClusterId"
+      ],
+      "properties": {
+        "ClusterId": {
+          "$ref": "#/definitions/ClusterId",
+          "description": "The unique identifier of the cluster."
+        },
+        "Marker": {
+          "$ref": "#/definitions/Marker",
+          "description": "The pagination token that indicates the next set of results to retrieve."
+        }
+      }
+    },
+    "ListInstanceFleetsOutput": {
+      "type": "object",
+      "properties": {
+        "InstanceFleets": {
+          "$ref": "#/definitions/InstanceFleetList",
+          "description": "The list of instance fleets for the cluster and given filters."
+        },
+        "Marker": {
+          "$ref": "#/definitions/Marker",
+          "description": "The pagination token that indicates the next set of results to retrieve."
+        }
+      }
+    },
     "ListInstanceGroupsInput": {
       "type": "object",
       "required": [
@@ -3574,6 +4180,14 @@
         "InstanceGroupTypes": {
           "$ref": "#/definitions/InstanceGroupTypeList",
           "description": "The type of instance group for which to list the instances."
+        },
+        "InstanceFleetId": {
+          "$ref": "#/definitions/InstanceFleetId",
+          "description": "The unique identifier of the instance fleet."
+        },
+        "InstanceFleetType": {
+          "$ref": "#/definitions/InstanceFleetType",
+          "description": "The node type of the instance fleet. For example MASTER, CORE, or TASK."
         },
         "InstanceStates": {
           "$ref": "#/definitions/InstanceStateList",
@@ -3683,12 +4297,29 @@
           "description": "The dimension value."
         }
       },
-      "description": "A CloudWatch dimension, which is specified using a <code>Key</code> (known as a <code>Name</code> in CloudWatch), Value pair. By default, Amazon EMR uses one dimension whose <code>Key</code> is <code>JobFlowID</code> and <code>Value</code> is a variable representing the cluster ID, which is <code>${emr:cluster_id}</code>. This enables the rule to bootstrap when the cluster ID becomes available, and also enables a single automatic scaling policy to be reused for multiple clusters and instance groups."
+      "description": "A CloudWatch dimension, which is specified using a <code>Key</code> (known as a <code>Name</code> in CloudWatch), <code>Value</code> pair. By default, Amazon EMR uses one dimension whose <code>Key</code> is <code>JobFlowID</code> and <code>Value</code> is a variable representing the cluster ID, which is <code>${emr.clusterId}</code>. This enables the rule to bootstrap when the cluster ID becomes available."
     },
     "MetricDimensionList": {
       "type": "array",
       "items": {
         "$ref": "#/definitions/MetricDimension"
+      }
+    },
+    "ModifyInstanceFleetInput": {
+      "type": "object",
+      "required": [
+        "ClusterId",
+        "InstanceFleet"
+      ],
+      "properties": {
+        "ClusterId": {
+          "$ref": "#/definitions/ClusterId",
+          "description": "The unique identifier of the cluster."
+        },
+        "InstanceFleet": {
+          "$ref": "#/definitions/InstanceFleetModifyConfig",
+          "description": "The unique identifier of the instance fleet."
+        }
       }
     },
     "ModifyInstanceGroupsInput": {
@@ -3718,16 +4349,17 @@
     },
     "PlacementType": {
       "type": "object",
-      "required": [
-        "AvailabilityZone"
-      ],
       "properties": {
         "AvailabilityZone": {
           "$ref": "#/definitions/XmlString",
-          "description": "The Amazon EC2 Availability Zone for the job flow."
+          "description": "The Amazon EC2 Availability Zone for the cluster. <code>AvailabilityZone</code> is used for uniform instance groups, while <code>AvailabilityZones</code> (plural) is used for instance fleets."
+        },
+        "AvailabilityZones": {
+          "$ref": "#/definitions/XmlStringMaxLen256List",
+          "description": "<p>When multiple Availability Zones are specified, Amazon EMR evaluates them and launches instances in the optimal Availability Zone. <code>AvailabilityZones</code> is used for instance fleets, while <code>AvailabilityZone</code> (singular) is used for uniform instance groups.</p> <note> <p>The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x versions.</p> </note>"
         }
       },
-      "description": "The Amazon EC2 location for the job flow."
+      "description": "The Amazon EC2 Availability Zone configuration of the cluster (job flow)."
     },
     "PutAutoScalingPolicyInput": {
       "type": "object",
@@ -3844,23 +4476,23 @@
         },
         "Instances": {
           "$ref": "#/definitions/JobFlowInstancesConfig",
-          "description": "A specification of the number and type of Amazon EC2 instances on which to run the job flow."
+          "description": "A specification of the number and type of Amazon EC2 instances."
         },
         "Steps": {
           "$ref": "#/definitions/StepConfigList",
-          "description": "A list of steps to be executed by the job flow."
+          "description": "A list of steps to run."
         },
         "BootstrapActions": {
           "$ref": "#/definitions/BootstrapActionConfigList",
-          "description": "A list of bootstrap actions that will be run before Hadoop is started on the cluster nodes."
+          "description": "A list of bootstrap actions to run before Hadoop starts on the cluster nodes."
         },
         "SupportedProducts": {
           "$ref": "#/definitions/SupportedProductsList",
-          "description": "<note> <p>For Amazon EMR releases 3.x and 2.x. For Amazon EMR releases 4.x and greater, use Applications.</p> </note> <p>A list of strings that indicates third-party software to use with the job flow. For more information, see <a href=\"http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/emr-supported-products.html\">Use Third Party Applications with Amazon EMR</a>. Currently supported values are:</p> <ul> <li> <p>\"mapr-m3\" - launch the job flow using MapR M3 Edition.</p> </li> <li> <p>\"mapr-m5\" - launch the job flow using MapR M5 Edition.</p> </li> </ul>"
+          "description": "<note> <p>For Amazon EMR releases 3.x and 2.x. For Amazon EMR releases 4.x and greater, use Applications.</p> </note> <p>A list of strings that indicates third-party software to use. For more information, see <a href=\"http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/emr-supported-products.html\">Use Third Party Applications with Amazon EMR</a>. Currently supported values are:</p> <ul> <li> <p>\"mapr-m3\" - launch the job flow using MapR M3 Edition.</p> </li> <li> <p>\"mapr-m5\" - launch the job flow using MapR M5 Edition.</p> </li> </ul>"
         },
         "NewSupportedProducts": {
           "$ref": "#/definitions/NewSupportedProductsList",
-          "description": "<note> <p>For Amazon EMR releases 3.x and 2.x. For Amazon EMR releases 4.x and greater, use Applications.</p> </note> <p>A list of strings that indicates third-party software to use with the job flow that accepts a user argument list. EMR accepts and forwards the argument list to the corresponding installation script as bootstrap action arguments. For more information, see <a href=\"http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/emr-mapr.html\">Launch a Job Flow on the MapR Distribution for Hadoop</a>. Currently supported values are:</p> <ul> <li> <p>\"mapr-m3\" - launch the cluster using MapR M3 Edition.</p> </li> <li> <p>\"mapr-m5\" - launch the cluster using MapR M5 Edition.</p> </li> <li> <p>\"mapr\" with the user arguments specifying \"--edition,m3\" or \"--edition,m5\" - launch the job flow using MapR M3 or M5 Edition respectively.</p> </li> <li> <p>\"mapr-m7\" - launch the cluster using MapR M7 Edition.</p> </li> <li> <p>\"hunk\" - launch the cluster with the Hunk Big Data Analtics Platform.</p> </li> <li> <p>\"hue\"- launch the cluster with Hue installed.</p> </li> <li> <p>\"spark\" - launch the cluster with Apache Spark installed.</p> </li> <li> <p>\"ganglia\" - launch the cluster with the Ganglia Monitoring System installed.</p> </li> </ul>"
+          "description": "<note> <p>For Amazon EMR releases 3.x and 2.x. For Amazon EMR releases 4.x and greater, use Applications.</p> </note> <p>A list of strings that indicates third-party software to use with the job flow that accepts a user argument list. EMR accepts and forwards the argument list to the corresponding installation script as bootstrap action arguments. For more information, see \"Launch a Job Flow on the MapR Distribution for Hadoop\" in the <a href=\"http://docs.aws.amazon.com/http:/docs.aws.amazon.com/emr/latest/DeveloperGuide/emr-dg.pdf\">Amazon EMR Developer Guide</a>. Supported values are:</p> <ul> <li> <p>\"mapr-m3\" - launch the cluster using MapR M3 Edition.</p> </li> <li> <p>\"mapr-m5\" - launch the cluster using MapR M5 Edition.</p> </li> <li> <p>\"mapr\" with the user arguments specifying \"--edition,m3\" or \"--edition,m5\" - launch the job flow using MapR M3 or M5 Edition respectively.</p> </li> <li> <p>\"mapr-m7\" - launch the cluster using MapR M7 Edition.</p> </li> <li> <p>\"hunk\" - launch the cluster with the Hunk Big Data Analtics Platform.</p> </li> <li> <p>\"hue\"- launch the cluster with Hue installed.</p> </li> <li> <p>\"spark\" - launch the cluster with Apache Spark installed.</p> </li> <li> <p>\"ganglia\" - launch the cluster with the Ganglia Monitoring System installed.</p> </li> </ul>"
         },
         "Applications": {
           "$ref": "#/definitions/ApplicationList",
@@ -3872,7 +4504,7 @@
         },
         "VisibleToAllUsers": {
           "$ref": "#/definitions/Boolean",
-          "description": "Whether the job flow is visible to all IAM users of the AWS account associated with the job flow. If this value is set to <code>true</code>, all IAM users of that AWS account can view and (if they have the proper policy permissions set) manage the job flow. If it is set to <code>false</code>, only the IAM user that created the job flow can view and manage it."
+          "description": "Whether the cluster is visible to all IAM users of the AWS account associated with the cluster. If this value is set to <code>true</code>, all IAM users of that AWS account can view and (if they have the proper policy permissions set) manage the cluster. If it is set to <code>false</code>, only the IAM user that created the cluster can view and manage it."
         },
         "JobFlowRole": {
           "$ref": "#/definitions/XmlString",
@@ -4051,11 +4683,11 @@
       "properties": {
         "JobFlowIds": {
           "$ref": "#/definitions/XmlStringList",
-          "description": " A list of strings that uniquely identify the job flows to protect. This identifier is returned by <a>RunJobFlow</a> and can also be obtained from <a>DescribeJobFlows</a> . "
+          "description": " A list of strings that uniquely identify the clusters to protect. This identifier is returned by <a>RunJobFlow</a> and can also be obtained from <a>DescribeJobFlows</a> . "
         },
         "TerminationProtected": {
           "$ref": "#/definitions/Boolean",
-          "description": "A Boolean that indicates whether to protect the job flow and prevent the Amazon EC2 instances in the cluster from shutting down due to API calls, user intervention, or job-flow error."
+          "description": "A Boolean that indicates whether to protect the cluster and prevent the Amazon EC2 instances in the cluster from shutting down due to API calls, user intervention, or job-flow error."
         }
       },
       "description": " The input argument to the <a>TerminationProtection</a> operation. "
@@ -4073,7 +4705,7 @@
         },
         "VisibleToAllUsers": {
           "$ref": "#/definitions/Boolean",
-          "description": "Whether the specified job flows are visible to all IAM users of the AWS account associated with the job flow. If this value is set to True, all IAM users of that AWS account can view and, if they have the proper IAM policy permissions set, manage the job flows. If it is set to False, only the IAM user that created a job flow can view and manage it."
+          "description": "Whether the specified clusters are visible to all IAM users of the AWS account associated with the cluster. If this value is set to True, all IAM users of that AWS account can view and, if they have the proper IAM policy permissions set, manage the clusters. If it is set to False, only the IAM user that created a cluster can view and manage it."
         }
       },
       "description": "The input to the SetVisibleToAllUsers action."
@@ -4100,7 +4732,7 @@
       "properties": {
         "AdjustmentType": {
           "$ref": "#/definitions/AdjustmentType",
-          "description": "The way in which EC2 instances are added (if <code>ScalingAdjustment</code> is a positive number) or terminated (if <code>ScalingAdjustment</code> is a negative number) each time the scaling activity is triggered. <code>CHANGE_IN_CAPACITY</code> is the default. <code>CHANGE_IN_CAPACITY</code> indicates that the EC2 instance count increments or decrements by <code>ScalingAdjustment</code>, which should be expressed as an integer. <code>PERCENT_CHANGE_IN_CAPACITY</code> indicates the instance count increments or decrements by the percentage specified by <code>ScalingAdjustment</code>, which should be expressed as a decimal, for example, 0.20 indicates an increase in 20% increments of cluster capacity. <code>EXACT_CAPACITY</code> indicates the scaling activity results in an instance group with the number of EC2 instances specified by <code>ScalingAdjustment</code>, which should be expressed as a positive integer."
+          "description": "The way in which EC2 instances are added (if <code>ScalingAdjustment</code> is a positive number) or terminated (if <code>ScalingAdjustment</code> is a negative number) each time the scaling activity is triggered. <code>CHANGE_IN_CAPACITY</code> is the default. <code>CHANGE_IN_CAPACITY</code> indicates that the EC2 instance count increments or decrements by <code>ScalingAdjustment</code>, which should be expressed as an integer. <code>PERCENT_CHANGE_IN_CAPACITY</code> indicates the instance count increments or decrements by the percentage specified by <code>ScalingAdjustment</code>, which should be expressed as a decimal. For example, 0.20 indicates an increase in 20% increments of cluster capacity. <code>EXACT_CAPACITY</code> indicates the scaling activity results in an instance group with the number of EC2 instances specified by <code>ScalingAdjustment</code>, which should be expressed as a positive integer."
         },
         "ScalingAdjustment": {
           "$ref": "#/definitions/Integer",
@@ -4112,6 +4744,35 @@
         }
       },
       "description": "An automatic scaling configuration, which describes how the policy adds or removes instances, the cooldown period, and the number of EC2 instances that will be added each time the CloudWatch metric alarm condition is satisfied."
+    },
+    "SpotProvisioningSpecification": {
+      "type": "object",
+      "required": [
+        "TimeoutDurationMinutes",
+        "TimeoutAction"
+      ],
+      "properties": {
+        "TimeoutDurationMinutes": {
+          "$ref": "#/definitions/WholeNumber",
+          "description": "The spot provisioning timeout period in minutes. If Spot instances are not provisioned within this time period, the <code>TimeOutAction</code> is taken. Minimum value is 5 and maximum value is 1440. The timeout applies only during initial provisioning, when the cluster is first created."
+        },
+        "TimeoutAction": {
+          "$ref": "#/definitions/SpotProvisioningTimeoutAction",
+          "description": "The action to take when <code>TargetSpotCapacity</code> has not been fulfilled when the <code>TimeoutDurationMinutes</code> has expired. Spot instances are not uprovisioned within the Spot provisioining timeout. Valid values are <code>TERMINATE_CLUSTER</code> and <code>SWITCH_TO_ON_DEMAND</code> to fulfill the remaining capacity."
+        },
+        "BlockDurationMinutes": {
+          "$ref": "#/definitions/WholeNumber",
+          "description": "The defined duration for Spot instances (also known as Spot blocks) in minutes. When specified, the Spot instance does not terminate before the defined duration expires, and defined duration pricing for Spot instances applies. Valid values are 60, 120, 180, 240, 300, or 360. The duration period starts as soon as a Spot instance receives its instance ID. At the end of the duration, Amazon EC2 marks the Spot instance for termination and provides a Spot instance termination notice, which gives the instance a two-minute warning before it terminates. "
+        }
+      },
+      "description": "<p>The launch specification for Spot instances in the instance fleet, which determines the defined duration and provisioning timeout behavior.</p> <note> <p>The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x versions.</p> </note>"
+    },
+    "SpotProvisioningTimeoutAction": {
+      "type": "string",
+      "enum": [
+        "SWITCH_TO_ON_DEMAND",
+        "TERMINATE_CLUSTER"
+      ]
     },
     "Statistic": {
       "type": "string",
@@ -4158,18 +4819,18 @@
       "properties": {
         "Name": {
           "$ref": "#/definitions/XmlStringMaxLen256",
-          "description": "The name of the job flow step."
+          "description": "The name of the step."
         },
         "ActionOnFailure": {
           "$ref": "#/definitions/ActionOnFailure",
-          "description": "The action to take if the job flow step fails."
+          "description": "The action to take if the step fails."
         },
         "HadoopJarStep": {
           "$ref": "#/definitions/HadoopJarStepConfig",
-          "description": "The JAR file used for the job flow step."
+          "description": "The JAR file used for the step."
         }
       },
-      "description": "Specification of a job flow step."
+      "description": "Specification of a cluster (job flow) step."
     },
     "StepConfigList": {
       "type": "array",
@@ -4222,7 +4883,7 @@
       "properties": {
         "State": {
           "$ref": "#/definitions/StepExecutionState",
-          "description": "The state of the job flow step."
+          "description": "The state of the step."
         },
         "CreationDateTime": {
           "$ref": "#/definitions/Date",
@@ -4492,6 +5153,10 @@
       },
       "description": "EBS volume specifications such as volume type, IOPS, and size (GiB) that will be requested for the EBS volume attached to an EC2 instance in the cluster."
     },
+    "WholeNumber": {
+      "type": "integer",
+      "minimum": 0
+    },
     "XmlString": {
       "type": "string",
       "minLength": 0,
@@ -4509,6 +5174,12 @@
       "minLength": 0,
       "maxLength": 256,
       "x-pattern": "[\\u0020-\\uD7FF\\uE000-\\uFFFD\\uD800\\uDC00-\\uDBFF\\uDFFF\\r\\n\\t]*"
+    },
+    "XmlStringMaxLen256List": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/XmlStringMaxLen256"
+      }
     }
   }
 }
