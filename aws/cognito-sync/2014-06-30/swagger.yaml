@@ -3,27 +3,7 @@ info:
   version: '2014-06-30'
   x-release: v4
   title: Amazon Cognito Sync
-  description: >-
-    <fullname>Amazon Cognito Sync</fullname> <p>Amazon Cognito Sync provides an
-    AWS service and client library that enable cross-device syncing of
-    application-related user data. High-level client libraries are available for
-    both iOS and Android. You can use these libraries to persist data locally so
-    that it's available even if the device is offline. Developer credentials
-    don't need to be stored on the mobile device to access the service. You can
-    use Amazon Cognito to obtain a normalized user ID and credentials. User data
-    is persisted in a dataset that can store up to 1 MB of key-value pairs, and
-    you can have up to 20 datasets per user identity.</p> <p>With Amazon Cognito
-    Sync, the data stored for each identity is accessible only to credentials
-    assigned to that identity. In order to use the Cognito Sync service, you
-    need to make API calls using credentials retrieved with <a
-    href="http://docs.aws.amazon.com/cognitoidentity/latest/APIReference/Welcome.html">Amazon
-    Cognito Identity service</a>.</p> <p>If you want to use Cognito Sync in an
-    Android or iOS application, you will probably want to make API calls via the
-    AWS Mobile SDK. To learn more, see the <a
-    href="http://docs.aws.amazon.com/mobile/sdkforandroid/developerguide/cognito-sync.html">Developer
-    Guide for Android</a> and the <a
-    href="http://docs.aws.amazon.com/mobile/sdkforios/developerguide/cognito-sync.html">Developer
-    Guide for iOS</a>.</p>
+  description: '<fullname>Amazon Cognito Sync</fullname> <p>Amazon Cognito Sync provides an AWS service and client library that enable cross-device syncing of application-related user data. High-level client libraries are available for both iOS and Android. You can use these libraries to persist data locally so that it''s available even if the device is offline. Developer credentials don''t need to be stored on the mobile device to access the service. You can use Amazon Cognito to obtain a normalized user ID and credentials. User data is persisted in a dataset that can store up to 1 MB of key-value pairs, and you can have up to 20 datasets per user identity.</p> <p>With Amazon Cognito Sync, the data stored for each identity is accessible only to credentials assigned to that identity. In order to use the Cognito Sync service, you need to make API calls using credentials retrieved with <a href="http://docs.aws.amazon.com/cognitoidentity/latest/APIReference/Welcome.html">Amazon Cognito Identity service</a>.</p> <p>If you want to use Cognito Sync in an Android or iOS application, you will probably want to make API calls via the AWS Mobile SDK. To learn more, see the <a href="http://docs.aws.amazon.com/mobile/sdkforandroid/developerguide/cognito-sync.html">Developer Guide for Android</a> and the <a href="http://docs.aws.amazon.com/mobile/sdkforios/developerguide/cognito-sync.html">Developer Guide for iOS</a>.</p>'
   termsOfService: 'https://aws.amazon.com/service-terms/'
   contact:
     name: Mike Ralphson
@@ -32,6 +12,20 @@ info:
   license:
     name: Apache 2.0 License
     url: 'http://www.apache.org/licenses/'
+  x-providerName: aws.amazon.com
+  x-serviceName: cognito-sync
+  x-origin:
+    format: swagger
+    version: '2.0'
+    url: 'https://raw.githubusercontent.com/aws/aws-sdk-js/master/apis/cognito-sync-2014-06-30.normal.json'
+    converter:
+      url: 'https://github.com/mermade/aws2openapi'
+      version: 1.0.0
+      x-apisguru-direct: true
+  x-apiClientRegistration:
+    url: 'https://portal.aws.amazon.com/gp/aws/developer/registration/index.html?nc2=h_ct'
+  x-apisguru-categories:
+    - cloud
 x-logo:
   url: 'https://media.amazonwebservices.com/blog/2007/big_pbaws_logo_300px.jpg'
   backgroundColor: '#FFFFFF'
@@ -105,14 +99,7 @@ paths:
   '/identitypools/{IdentityPoolId}/bulkpublish':
     post:
       operationId: BulkPublish
-      description: >-
-        <p>Initiates a bulk publish of all existing datasets for an Identity
-        Pool to the configured stream. Customers are limited to one successful
-        bulk publish per 24 hours. Bulk publish is an asynchronous request,
-        customers can see the status of the request via the
-        GetBulkPublishDetails operation.</p> <p>This API can only be called with
-        developer credentials. You cannot call this API with the temporary user
-        credentials provided by Cognito Identity.</p>
+      description: '<p>Initiates a bulk publish of all existing datasets for an Identity Pool to the configured stream. Customers are limited to one successful bulk publish per 24 hours. Bulk publish is an asynchronous request, customers can see the status of the request via the GetBulkPublishDetails operation.</p> <p>This API can only be called with developer credentials. You cannot call this API with the temporary user credentials provided by Cognito Identity.</p>'
       responses:
         '200':
           description: Success
@@ -161,21 +148,7 @@ paths:
   '/identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}':
     post:
       operationId: UpdateRecords
-      description: >-
-        <p>Posts updates to records and adds and deletes records for a dataset
-        and user.</p> <p>The sync count in the record patch is your last known
-        sync count for that record. The server will reject an UpdateRecords
-        request with a ResourceConflictException if you try to patch a record
-        with a new value but a stale sync count.</p> <p>For example, if the sync
-        count on the server is 5 for a key called highScore and you try and
-        submit a new highScore with sync count of 4, the request will be
-        rejected. To obtain the current sync count for a record, call
-        ListRecords. On a successful update of the record, the response returns
-        the new sync count for that record. You should present that sync count
-        the next time you try to update that same record. When the record does
-        not exist, specify the sync count as 0.</p> <p>This API can be called
-        with temporary user credentials provided by Cognito Identity or with
-        developer credentials.</p>
+      description: '<p>Posts updates to records and adds and deletes records for a dataset and user.</p> <p>The sync count in the record patch is your last known sync count for that record. The server will reject an UpdateRecords request with a ResourceConflictException if you try to patch a record with a new value but a stale sync count.</p> <p>For example, if the sync count on the server is 5 for a key called highScore and you try and submit a new highScore with sync count of 4, the request will be rejected. To obtain the current sync count for a record, call ListRecords. On a successful update of the record, the response returns the new sync count for that record. You should present that sync count the next time you try to update that same record. When the record does not exist, specify the sync count as 0.</p> <p>This API can be called with temporary user credentials provided by Cognito Identity or with developer credentials.</p>'
       responses:
         '200':
           description: Success
@@ -242,11 +215,7 @@ paths:
   '/identitypools/{IdentityPoolId}':
     get:
       operationId: DescribeIdentityPoolUsage
-      description: >-
-        <p>Gets usage details (for example, data storage) about a particular
-        identity pool.</p> <p>This API can only be called with developer
-        credentials. You cannot call this API with the temporary user
-        credentials provided by Cognito Identity.</p>
+      description: '<p>Gets usage details (for example, data storage) about a particular identity pool.</p> <p>This API can only be called with developer credentials. You cannot call this API with the temporary user credentials provided by Cognito Identity.</p>'
       responses:
         '200':
           description: Success
@@ -300,11 +269,7 @@ paths:
   '/identitypools/{IdentityPoolId}/identities/{IdentityId}':
     get:
       operationId: DescribeIdentityUsage
-      description: >-
-        <p>Gets usage information for an identity, including number of datasets
-        and data usage.</p> <p>This API can be called with temporary user
-        credentials provided by Cognito Identity or with developer
-        credentials.</p>
+      description: '<p>Gets usage information for an identity, including number of datasets and data usage.</p> <p>This API can be called with temporary user credentials provided by Cognito Identity or with developer credentials.</p>'
       responses:
         '200':
           description: Success
@@ -362,11 +327,7 @@ paths:
   '/identitypools/{IdentityPoolId}/getBulkPublishDetails':
     post:
       operationId: GetBulkPublishDetails
-      description: >-
-        <p>Get the status of the last BulkPublish operation for an identity
-        pool.</p> <p>This API can only be called with developer credentials. You
-        cannot call this API with the temporary user credentials provided by
-        Cognito Identity.</p>
+      description: <p>Get the status of the last BulkPublish operation for an identity pool.</p> <p>This API can only be called with developer credentials. You cannot call this API with the temporary user credentials provided by Cognito Identity.</p>
       responses:
         '200':
           description: Success
@@ -415,13 +376,7 @@ paths:
   '/identitypools/{IdentityPoolId}/events':
     post:
       operationId: SetCognitoEvents
-      description: >-
-        <p>Sets the AWS Lambda function for a given event type for an identity
-        pool. This request only updates the key/value pair specified. Other
-        key/values pairs are not updated. To remove a key value pair, pass a
-        empty value for the particular key.</p> <p>This API can only be called
-        with developer credentials. You cannot call this API with the temporary
-        user credentials provided by Cognito Identity.</p>
+      description: '<p>Sets the AWS Lambda function for a given event type for an identity pool. This request only updates the key/value pair specified. Other key/values pairs are not updated. To remove a key value pair, pass a empty value for the particular key.</p> <p>This API can only be called with developer credentials. You cannot call this API with the temporary user credentials provided by Cognito Identity.</p>'
       responses:
         '200':
           description: Success
@@ -473,10 +428,7 @@ paths:
   '/identitypools/{IdentityPoolId}/configuration':
     post:
       operationId: SetIdentityPoolConfiguration
-      description: >-
-        <p>Sets the necessary configuration for push sync.</p> <p>This API can
-        only be called with developer credentials. You cannot call this API with
-        the temporary user credentials provided by Cognito Identity.</p>
+      description: <p>Sets the necessary configuration for push sync.</p> <p>This API can only be called with developer credentials. You cannot call this API with the temporary user credentials provided by Cognito Identity.</p>
       responses:
         '200':
           description: Success
@@ -530,13 +482,7 @@ paths:
   '/identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets':
     get:
       operationId: ListDatasets
-      description: >-
-        <p>Lists datasets for an identity. With Amazon Cognito Sync, each
-        identity has access only to its own data. Thus, the credentials used to
-        make this API call need to have access to the identity data.</p>
-        <p>ListDatasets can be called with temporary user credentials provided
-        by Cognito Identity or with developer credentials. You should use the
-        Cognito Identity credentials to make this API call.</p>
+      description: '<p>Lists datasets for an identity. With Amazon Cognito Sync, each identity has access only to its own data. Thus, the credentials used to make this API call need to have access to the identity data.</p> <p>ListDatasets can be called with temporary user credentials provided by Cognito Identity or with developer credentials. You should use the Cognito Identity credentials to make this API call.</p>'
       responses:
         '200':
           description: Success
@@ -589,11 +535,7 @@ paths:
   /identitypools:
     get:
       operationId: ListIdentityPoolUsage
-      description: >-
-        <p>Gets a list of identity pools registered with Cognito.</p>
-        <p>ListIdentityPoolUsage can only be called with developer credentials.
-        You cannot make this API call with the temporary user credentials
-        provided by Cognito Identity.</p>
+      description: <p>Gets a list of identity pools registered with Cognito.</p> <p>ListIdentityPoolUsage can only be called with developer credentials. You cannot make this API call with the temporary user credentials provided by Cognito Identity.</p>
       responses:
         '200':
           description: Success
@@ -638,14 +580,7 @@ paths:
   '/identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/records':
     get:
       operationId: ListRecords
-      description: >-
-        <p>Gets paginated records, optionally changed after a particular sync
-        count for a dataset and identity. With Amazon Cognito Sync, each
-        identity has access only to its own data. Thus, the credentials used to
-        make this API call need to have access to the identity data.</p>
-        <p>ListRecords can be called with temporary user credentials provided by
-        Cognito Identity or with developer credentials. You should use Cognito
-        Identity credentials to make this API call.</p>
+      description: '<p>Gets paginated records, optionally changed after a particular sync count for a dataset and identity. With Amazon Cognito Sync, each identity has access only to its own data. Thus, the credentials used to make this API call need to have access to the identity data.</p> <p>ListRecords can be called with temporary user credentials provided by Cognito Identity or with developer credentials. You should use Cognito Identity credentials to make this API call.</p>'
       responses:
         '200':
           description: Success
@@ -702,10 +637,7 @@ paths:
   '/identitypools/{IdentityPoolId}/identity/{IdentityId}/device':
     post:
       operationId: RegisterDevice
-      description: >-
-        <p>Registers a device to receive push sync notifications.</p> <p>This
-        API can only be called with temporary credentials provided by Cognito
-        Identity. You cannot call this API with developer credentials.</p>
+      description: <p>Registers a device to receive push sync notifications.</p> <p>This API can only be called with temporary credentials provided by Cognito Identity. You cannot call this API with developer credentials.</p>
       responses:
         '200':
           description: Success
@@ -763,11 +695,7 @@ paths:
   '/identitypools/{IdentityPoolId}/identities/{IdentityId}/datasets/{DatasetName}/subscriptions/{DeviceId}':
     delete:
       operationId: UnsubscribeFromDataset
-      description: >-
-        <p>Unsubscribes from receiving notifications when a dataset is modified
-        by another device.</p> <p>This API can only be called with temporary
-        credentials provided by Cognito Identity. You cannot call this API with
-        developer credentials.</p>
+      description: <p>Unsubscribes from receiving notifications when a dataset is modified by another device.</p> <p>This API can only be called with temporary credentials provided by Cognito Identity. You cannot call this API with developer credentials.</p>
       responses:
         '200':
           description: Success
@@ -839,9 +767,7 @@ definitions:
       message:
         $ref: '#/definitions/ExceptionMessage'
         description: The message associated with the AlreadyStreamedException exception.
-    description: >-
-      An exception thrown when a bulk publish operation is requested less than
-      24 hours after a previous bulk publish operation completed successfully.
+    description: An exception thrown when a bulk publish operation is requested less than 24 hours after a previous bulk publish operation completed successfully.
   ApplicationArn:
     type: string
     pattern: 'arn:aws:sns:[-0-9a-z]+:\d+:app/[A-Z_]+/[a-zA-Z0-9_.-]+'
@@ -865,10 +791,7 @@ definitions:
     properties:
       IdentityPoolId:
         $ref: '#/definitions/IdentityPoolId'
-        description: >-
-          A name-spaced GUID (for example,
-          us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
-          Cognito. GUID generation is unique within a region.
+        description: 'A name-spaced GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito. GUID generation is unique within a region.'
     description: The output for the BulkPublish operation.
   BulkPublishStatus:
     type: string
@@ -886,22 +809,13 @@ definitions:
     properties:
       StreamName:
         $ref: '#/definitions/StreamName'
-        description: >-
-          The name of the Cognito stream to receive updates. This stream must be
-          in the developers account and in the same region as the identity pool.
+        description: The name of the Cognito stream to receive updates. This stream must be in the developers account and in the same region as the identity pool.
       RoleArn:
         $ref: '#/definitions/AssumeRoleArn'
-        description: >-
-          The ARN of the role Amazon Cognito can assume in order to publish to
-          the stream. This role must grant access to Amazon Cognito
-          (cognito-sync) to invoke PutRecord on your Cognito stream.
+        description: The ARN of the role Amazon Cognito can assume in order to publish to the stream. This role must grant access to Amazon Cognito (cognito-sync) to invoke PutRecord on your Cognito stream.
       StreamingStatus:
         $ref: '#/definitions/StreamingStatus'
-        description: >-
-          Status of the Cognito streams. Valid values are: <p>ENABLED -
-          Streaming of updates to identity pool is enabled.</p> <p>DISABLED -
-          Streaming of updates to identity pool is disabled. Bulk publish will
-          also fail if StreamingStatus is DISABLED.</p>
+        description: 'Status of the Cognito streams. Valid values are: <p>ENABLED - Streaming of updates to identity pool is enabled.</p> <p>DISABLED - Streaming of updates to identity pool is disabled. Bulk publish will also fail if StreamingStatus is DISABLED.</p>'
     description: Configuration options for configure Cognito streams.
   ConcurrentModificationException:
     type: object
@@ -917,15 +831,10 @@ definitions:
     properties:
       IdentityId:
         $ref: '#/definitions/IdentityId'
-        description: >-
-          A name-spaced GUID (for example,
-          us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
-          Cognito. GUID generation is unique within a region.
+        description: 'A name-spaced GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito. GUID generation is unique within a region.'
       DatasetName:
         $ref: '#/definitions/DatasetName'
-        description: >-
-          A string of up to 128 characters. Allowed characters are a-z, A-Z,
-          0-9, '_' (underscore), '-' (dash), and '.' (dot).
+        description: 'A string of up to 128 characters. Allowed characters are a-z, A-Z, 0-9, ''_'' (underscore), ''-'' (dash), and ''.'' (dot).'
       CreationDate:
         $ref: '#/definitions/Date'
         description: Date on which the dataset was created.
@@ -941,12 +850,7 @@ definitions:
       NumRecords:
         $ref: '#/definitions/Long'
         description: Number of records in this dataset.
-    description: >-
-      A collection of data for an identity pool. An identity pool can have
-      multiple datasets. A dataset is per identity and can be general or
-      associated with a particular entity in an application (like a saved game).
-      Datasets are automatically created if they don't exist. Data is synced by
-      dataset, and a dataset can hold up to 1MB of key-value pairs.
+    description: 'A collection of data for an identity pool. An identity pool can have multiple datasets. A dataset is per identity and can be general or associated with a particular entity in an application (like a saved game). Datasets are automatically created if they don''t exist. Data is synced by dataset, and a dataset can hold up to 1MB of key-value pairs.'
   DatasetList:
     type: array
     items:
@@ -968,31 +872,18 @@ definitions:
     properties:
       Dataset:
         $ref: '#/definitions/Dataset'
-        description: >-
-          A collection of data for an identity pool. An identity pool can have
-          multiple datasets. A dataset is per identity and can be general or
-          associated with a particular entity in an application (like a saved
-          game). Datasets are automatically created if they don't exist. Data is
-          synced by dataset, and a dataset can hold up to 1MB of key-value
-          pairs.
+        description: 'A collection of data for an identity pool. An identity pool can have multiple datasets. A dataset is per identity and can be general or associated with a particular entity in an application (like a saved game). Datasets are automatically created if they don''t exist. Data is synced by dataset, and a dataset can hold up to 1MB of key-value pairs.'
     description: Response to a successful DeleteDataset request.
   DescribeDatasetRequest:
     type: object
     properties: {}
-    description: >-
-      A request for meta data about a dataset (creation date, number of records,
-      size) by owner and dataset name.
+    description: 'A request for meta data about a dataset (creation date, number of records, size) by owner and dataset name.'
   DescribeDatasetResponse:
     type: object
     properties:
       Dataset:
         $ref: '#/definitions/Dataset'
-        description: >-
-          Meta data for a collection of data for an identity. An identity can
-          have multiple datasets. A dataset can be general or associated with a
-          particular entity in an application (like a saved game). Datasets are
-          automatically created if they don't exist. Data is synced by dataset,
-          and a dataset can hold up to 1MB of key-value pairs.
+        description: 'Meta data for a collection of data for an identity. An identity can have multiple datasets. A dataset can be general or associated with a particular entity in an application (like a saved game). Datasets are automatically created if they don''t exist. Data is synced by dataset, and a dataset can hold up to 1MB of key-value pairs.'
     description: Response to a successful DescribeDataset request.
   DescribeIdentityPoolUsageRequest:
     type: object
@@ -1028,9 +919,7 @@ definitions:
       message:
         $ref: '#/definitions/ExceptionMessage'
         description: The message associated with the DuplicateRequestException exception.
-    description: >-
-      An exception thrown when there is an IN_PROGRESS bulk publish operation
-      for the given identity pool.
+    description: An exception thrown when there is an IN_PROGRESS bulk publish operation for the given identity pool.
   Events:
     type: array
     maxItems: 1
@@ -1052,32 +941,19 @@ definitions:
     properties:
       IdentityPoolId:
         $ref: '#/definitions/IdentityPoolId'
-        description: >-
-          A name-spaced GUID (for example,
-          us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
-          Cognito. GUID generation is unique within a region.
+        description: 'A name-spaced GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito. GUID generation is unique within a region.'
       BulkPublishStartTime:
         $ref: '#/definitions/Date'
         description: The date/time at which the last bulk publish was initiated.
       BulkPublishCompleteTime:
         $ref: '#/definitions/Date'
-        description: >-
-          If BulkPublishStatus is SUCCEEDED, the time the last bulk publish
-          operation completed.
+        description: 'If BulkPublishStatus is SUCCEEDED, the time the last bulk publish operation completed.'
       BulkPublishStatus:
         $ref: '#/definitions/BulkPublishStatus'
-        description: >-
-          Status of the last bulk publish operation, valid values are:
-          <p>NOT_STARTED - No bulk publish has been requested for this identity
-          pool</p> <p>IN_PROGRESS - Data is being published to the configured
-          stream</p> <p>SUCCEEDED - All data for the identity pool has been
-          published to the configured stream</p> <p>FAILED - Some portion of the
-          data has failed to publish, check FailureMessage for the cause.</p>
+        description: 'Status of the last bulk publish operation, valid values are: <p>NOT_STARTED - No bulk publish has been requested for this identity pool</p> <p>IN_PROGRESS - Data is being published to the configured stream</p> <p>SUCCEEDED - All data for the identity pool has been published to the configured stream</p> <p>FAILED - Some portion of the data has failed to publish, check FailureMessage for the cause.</p>'
       FailureMessage:
         $ref: '#/definitions/String'
-        description: >-
-          If BulkPublishStatus is FAILED this field will contain the error
-          message that caused the bulk publish to fail.
+        description: If BulkPublishStatus is FAILED this field will contain the error message that caused the bulk publish to fail.
     description: The output for the GetBulkPublishDetails operation.
   GetCognitoEventsRequest:
     type: object
@@ -1099,10 +975,7 @@ definitions:
     properties:
       IdentityPoolId:
         $ref: '#/definitions/IdentityPoolId'
-        description: >-
-          A name-spaced GUID (for example,
-          us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
-          Cognito.
+        description: 'A name-spaced GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito.'
       PushSync:
         $ref: '#/definitions/PushSync'
         description: Options to apply to this identity pool for push synchronization.
@@ -1125,10 +998,7 @@ definitions:
     properties:
       IdentityPoolId:
         $ref: '#/definitions/IdentityPoolId'
-        description: >-
-          A name-spaced GUID (for example,
-          us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
-          Cognito. GUID generation is unique within a region.
+        description: 'A name-spaced GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito. GUID generation is unique within a region.'
       SyncSessionsCount:
         $ref: '#/definitions/Long'
         description: Number of sync sessions for the identity pool.
@@ -1148,16 +1018,10 @@ definitions:
     properties:
       IdentityId:
         $ref: '#/definitions/IdentityId'
-        description: >-
-          A name-spaced GUID (for example,
-          us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
-          Cognito. GUID generation is unique within a region.
+        description: 'A name-spaced GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito. GUID generation is unique within a region.'
       IdentityPoolId:
         $ref: '#/definitions/IdentityPoolId'
-        description: >-
-          A name-spaced GUID (for example,
-          us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
-          Cognito. GUID generation is unique within a region.
+        description: 'A name-spaced GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito. GUID generation is unique within a region.'
       LastModifiedDate:
         $ref: '#/definitions/Date'
         description: Date on which the identity was last modified.
@@ -1206,9 +1070,7 @@ definitions:
       message:
         $ref: '#/definitions/ExceptionMessage'
         description: Message returned by InvalidParameterException.
-    description: >-
-      Thrown when a request parameter does not comply with the associated
-      constraints.
+    description: Thrown when a request parameter does not comply with the associated constraints.
   LambdaFunctionArn:
     type: string
   LambdaThrottledException:
@@ -1228,9 +1090,7 @@ definitions:
       message:
         $ref: '#/definitions/ExceptionMessage'
         description: Message returned by LimitExceededException.
-    description: >-
-      Thrown when the limit on the number of objects or operations has been
-      exceeded.
+    description: Thrown when the limit on the number of objects or operations has been exceeded.
   ListDatasetsRequest:
     type: object
     properties: {}
@@ -1338,9 +1198,7 @@ definitions:
         description: List of SNS platform application ARNs that could be used by clients.
       RoleArn:
         $ref: '#/definitions/AssumeRoleArn'
-        description: >-
-          A role configured to allow Cognito to call SNS on behalf of the
-          developer.
+        description: A role configured to allow Cognito to call SNS on behalf of the developer.
     description: Configuration options to be applied to the identity pool.
   PushToken:
     type: string
@@ -1432,9 +1290,7 @@ definitions:
       message:
         $ref: '#/definitions/ExceptionMessage'
         description: The message returned by a ResourceConflictException.
-    description: >-
-      Thrown if an update can't be applied because the resource was changed by
-      another call and this would result in a conflict.
+    description: Thrown if an update can't be applied because the resource was changed by another call and this would result in a conflict.
   ResourceNotFoundException:
     type: object
     required:
@@ -1468,10 +1324,7 @@ definitions:
     properties:
       IdentityPoolId:
         $ref: '#/definitions/IdentityPoolId'
-        description: >-
-          A name-spaced GUID (for example,
-          us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
-          Cognito.
+        description: 'A name-spaced GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito.'
       PushSync:
         $ref: '#/definitions/PushSync'
         description: Options to apply to this identity pool for push synchronization.
@@ -1530,12 +1383,8 @@ definitions:
         description: A list of patch operations.
       SyncSessionToken:
         $ref: '#/definitions/SyncSessionToken'
-        description: >-
-          The SyncSessionToken returned by a previous call to ListRecords for
-          this dataset and identity.
-    description: >-
-      A request to post updates to records or add and delete records for a
-      dataset and user.
+        description: The SyncSessionToken returned by a previous call to ListRecords for this dataset and identity.
+    description: A request to post updates to records or add and delete records for a dataset and user.
   UpdateRecordsResponse:
     type: object
     properties:

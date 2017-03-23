@@ -3,14 +3,7 @@ info:
   version: '2010-06-01'
   x-release: v2
   title: AWS Import/Export
-  description: >-
-    <fullname>AWS Import/Export Service</fullname> AWS Import/Export accelerates
-    transferring large amounts of data between the AWS cloud and portable
-    storage devices that you mail to us. AWS Import/Export transfers data
-    directly onto and off of your storage devices using Amazon's high-speed
-    internal network and bypassing the Internet. For large data sets, AWS
-    Import/Export is often faster than Internet transfer and more cost effective
-    than upgrading your connectivity.
+  description: '<fullname>AWS Import/Export Service</fullname> AWS Import/Export accelerates transferring large amounts of data between the AWS cloud and portable storage devices that you mail to us. AWS Import/Export transfers data directly onto and off of your storage devices using Amazon''s high-speed internal network and bypassing the Internet. For large data sets, AWS Import/Export is often faster than Internet transfer and more cost effective than upgrading your connectivity.'
   termsOfService: 'https://aws.amazon.com/service-terms/'
   contact:
     name: Mike Ralphson
@@ -19,6 +12,20 @@ info:
   license:
     name: Apache 2.0 License
     url: 'http://www.apache.org/licenses/'
+  x-providerName: aws.amazon.com
+  x-serviceName: importexport
+  x-origin:
+    format: swagger
+    version: '2.0'
+    url: 'https://raw.githubusercontent.com/aws/aws-sdk-js/master/apis/importexport-2010-06-01.normal.json'
+    converter:
+      url: 'https://github.com/mermade/aws2openapi'
+      version: 1.0.0
+      x-apisguru-direct: true
+  x-apiClientRegistration:
+    url: 'https://portal.aws.amazon.com/gp/aws/developer/registration/index.html?nc2=h_ct'
+  x-apisguru-categories:
+    - cloud
 x-logo:
   url: 'https://media.amazonwebservices.com/blog/2007/big_pbaws_logo_300px.jpg'
   backgroundColor: '#FFFFFF'
@@ -80,9 +87,7 @@ paths:
   /?Operation=CancelJob:
     post:
       operationId: CancelJob
-      description: >-
-        This operation cancels a specified job. Only the job owner can cancel
-        it. The operation fails if the job has already started or is complete.
+      description: This operation cancels a specified job. Only the job owner can cancel it. The operation fails if the job has already started or is complete.
       responses:
         '200':
           description: Success
@@ -135,13 +140,7 @@ paths:
   /?Operation=CreateJob:
     post:
       operationId: CreateJob
-      description: >-
-        This operation initiates the process of scheduling an upload or download
-        of your data. You include in the request a manifest that describes the
-        data transfer specifics. The response to the request includes a job ID,
-        which you can use in other operations, a signature that you use to
-        identify your storage device, and the address where you should ship your
-        storage device.
+      description: 'This operation initiates the process of scheduling an upload or download of your data. You include in the request a manifest that describes the data transfer specifics. The response to the request includes a job ID, which you can use in other operations, a signature that you use to identify your storage device, and the address where you should ship your storage device.'
       responses:
         '200':
           description: Success
@@ -244,9 +243,7 @@ paths:
   /?Operation=GetShippingLabel:
     post:
       operationId: GetShippingLabel
-      description: >-
-        This operation generates a pre-paid UPS shipping label that you will use
-        to ship your device to AWS for processing.
+      description: This operation generates a pre-paid UPS shipping label that you will use to ship your device to AWS for processing.
       responses:
         '200':
           description: Success
@@ -304,11 +301,7 @@ paths:
   /?Operation=GetStatus:
     post:
       operationId: GetStatus
-      description: >-
-        This operation returns information about a job, including where the job
-        is in the processing pipeline, the status of the results, and the
-        signature value associated with the job. You can only return information
-        about jobs you own.
+      description: 'This operation returns information about a job, including where the job is in the processing pipeline, the status of the results, and the signature value associated with the job. You can only return information about jobs you own.'
       responses:
         '200':
           description: Success
@@ -356,12 +349,7 @@ paths:
   /?Operation=ListJobs:
     post:
       operationId: ListJobs
-      description: >-
-        This operation returns the jobs associated with the requester. AWS
-        Import/Export lists the jobs in reverse chronological order based on the
-        date of creation. For example if Job Test1 was created 2009Dec30 and
-        Test2 was created 2010Feb05, the ListJobs operation would return Test2
-        followed by Test1.
+      description: 'This operation returns the jobs associated with the requester. AWS Import/Export lists the jobs in reverse chronological order based on the date of creation. For example if Job Test1 was created 2009Dec30 and Test2 was created 2010Feb05, the ListJobs operation would return Test2 followed by Test1.'
       responses:
         '200':
           description: Success
@@ -409,12 +397,7 @@ paths:
   /?Operation=UpdateJob:
     post:
       operationId: UpdateJob
-      description: >-
-        You use this operation to change the parameters specified in the
-        original manifest file by supplying a new manifest file. The manifest
-        file attached to this request replaces the original manifest file. You
-        can only use the operation after a CreateJob request but before the data
-        transfer starts and you can only use it on jobs you own.
+      description: You use this operation to change the parameters specified in the original manifest file by supplying a new manifest file. The manifest file attached to this request replaces the original manifest file. You can only use the operation after a CreateJob request but before the data transfer starts and you can only use it on jobs you own.
       responses:
         '200':
           description: Success
@@ -535,9 +518,7 @@ definitions:
         $ref: '#/definitions/Description'
       URL:
         $ref: '#/definitions/URL'
-    description: >-
-      A discrete item that contains the description and URL of an artifact (such
-      as a PDF).
+    description: A discrete item that contains the description and URL of an artifact (such as a PDF).
   ArtifactList:
     type: array
     description: A collection of artifacts.
@@ -573,9 +554,7 @@ definitions:
     description: The specified job ID has been canceled and is no longer valid.
   Carrier:
     type: string
-    description: >-
-      Name of the shipping company. This value is included when the LocationCode
-      is "Returned".
+    description: Name of the shipping company. This value is included when the LocationCode is "Returned".
   CreateJobInput:
     type: object
     required:
@@ -615,15 +594,10 @@ definitions:
     properties:
       message:
         $ref: '#/definitions/ErrorMessage'
-    description: >-
-      Each account can create only a certain number of jobs per day. If you need
-      to create more than this, please contact awsimportexport@amazon.com to
-      explain your particular use case.
+    description: 'Each account can create only a certain number of jobs per day. If you need to create more than this, please contact awsimportexport@amazon.com to explain your particular use case.'
   CreationDate:
     type: string
-    description: >-
-      Timestamp of the CreateJob request in ISO8601 date format. For example
-      "2010-03-28T20:27:35Z".
+    description: 'Timestamp of the CreateJob request in ISO8601 date format. For example "2010-03-28T20:27:35Z".'
     format: date-time
   CurrentManifest:
     type: string
@@ -633,9 +607,7 @@ definitions:
     description: The associated description for this object.
   ErrorCount:
     type: integer
-    description: >-
-      Number of errors. We return this value when the ProgressCode is Success or
-      SuccessWithErrors.
+    description: Number of errors. We return this value when the ProgressCode is Success or SuccessWithErrors.
   ErrorMessage:
     type: string
     description: The human-readable description of a particular error.
@@ -734,10 +706,7 @@ definitions:
     properties:
       message:
         $ref: '#/definitions/ErrorMessage'
-    description: >-
-      The AWS Access Key ID specified in the request did not match the
-      manifest's accessKeyId value. The manifest and the request authentication
-      must use the same AWS Access Key ID.
+    description: The AWS Access Key ID specified in the request did not match the manifest's accessKeyId value. The manifest and the request authentication must use the same AWS Access Key ID.
   InvalidAddressException:
     type: object
     properties:
@@ -785,9 +754,7 @@ definitions:
     description: Indicates whether the job was canceled.
   IsTruncated:
     type: boolean
-    description: >-
-      Indicates whether the list of jobs was truncated. If true, then call
-      ListJobs again using the last JobId element as the marker.
+    description: 'Indicates whether the list of jobs was truncated. If true, then call ListJobs again using the last JobId element as the marker.'
   Job:
     type: object
     properties:
@@ -862,17 +829,10 @@ definitions:
     description: For internal use only.
   Marker:
     type: string
-    description: >-
-      Specifies the JOBID to start after when listing the jobs created with your
-      account. AWS Import/Export lists your jobs in reverse chronological order.
-      See MaxJobs.
+    description: Specifies the JOBID to start after when listing the jobs created with your account. AWS Import/Export lists your jobs in reverse chronological order. See MaxJobs.
   MaxJobs:
     type: integer
-    description: >-
-      Sets the maximum number of jobs returned in the response. If there are
-      additional jobs that were not returned because MaxJobs was exceeded, the
-      response contains &lt;IsTruncated&gt;true&lt;/IsTruncated&gt;. To return
-      the additional jobs, see Marker.
+    description: 'Sets the maximum number of jobs returned in the response. If there are additional jobs that were not returned because MaxJobs was exceeded, the response contains &lt;IsTruncated&gt;true&lt;/IsTruncated&gt;. To return the additional jobs, see Marker.'
   MissingCustomsException:
     type: object
     properties:
@@ -884,9 +844,7 @@ definitions:
     properties:
       message:
         $ref: '#/definitions/ErrorMessage'
-    description: >-
-      One or more required fields were missing from the manifest file. Please
-      correct and resubmit.
+    description: One or more required fields were missing from the manifest file. Please correct and resubmit.
   MissingParameterException:
     type: object
     properties:
@@ -898,19 +856,13 @@ definitions:
     properties:
       message:
         $ref: '#/definitions/ErrorMessage'
-    description: >-
-      Your manifest file contained buckets from multiple regions. A job is
-      restricted to buckets from one region. Please correct and resubmit.
+    description: Your manifest file contained buckets from multiple regions. A job is restricted to buckets from one region. Please correct and resubmit.
   NoSuchBucketException:
     type: object
     properties:
       message:
         $ref: '#/definitions/ErrorMessage'
-    description: >-
-      The specified bucket does not exist. Create the specified bucket or change
-      the manifest's bucket, exportBucket, or logBucket field to a bucket that
-      the account, as specified by the manifest's Access Key ID, has write
-      permissions to.
+    description: 'The specified bucket does not exist. Create the specified bucket or change the manifest''s bucket, exportBucket, or logBucket field to a bucket that the account, as specified by the manifest''s Access Key ID, has write permissions to.'
   ProgressCode:
     type: string
     description: 'A token representing the state of the job, such as "Started".'
@@ -919,25 +871,16 @@ definitions:
     description: A more human readable form of the job status.
   Signature:
     type: string
-    description: >-
-      An encrypted code used to authenticate the request and response, for
-      example, "DV+TpDfx1/TdSE9ktyK9k/bDTVI=". Only use this value is you want
-      to create the signature file yourself. Generally you should use the
-      SignatureFileContents value.
+    description: 'An encrypted code used to authenticate the request and response, for example, "DV+TpDfx1/TdSE9ktyK9k/bDTVI=". Only use this value is you want to create the signature file yourself. Generally you should use the SignatureFileContents value.'
   SignatureFileContents:
     type: string
     description: The actual text of the SIGNATURE file to be written to disk.
   Success:
     type: boolean
-    description: >-
-      Specifies whether (true) or not (false) AWS Import/Export updated your
-      job.
+    description: Specifies whether (true) or not (false) AWS Import/Export updated your job.
   TrackingNumber:
     type: string
-    description: >-
-      The shipping tracking number assigned by AWS Import/Export to the storage
-      device when it's returned to you. We return this value when the
-      LocationCode is "Returned".
+    description: The shipping tracking number assigned by AWS Import/Export to the storage device when it's returned to you. We return this value when the LocationCode is "Returned".
   URL:
     type: string
     description: The URL for a given Artifact.
@@ -984,14 +927,10 @@ definitions:
     description: Output structure for the UpateJob operation.
   ValidateOnly:
     type: boolean
-    description: >-
-      Validate the manifest and parameter values in the request but do not
-      actually create a job.
+    description: Validate the manifest and parameter values in the request but do not actually create a job.
   WarningMessage:
     type: string
-    description: >-
-      An optional message notifying you of non-fatal issues with the job, such
-      as use of an incompatible Amazon S3 bucket name.
+    description: 'An optional message notifying you of non-fatal issues with the job, such as use of an incompatible Amazon S3 bucket name.'
   city:
     type: string
     description: Specifies the name of your city for the return address.
@@ -1006,9 +945,7 @@ definitions:
     description: Specifies the name of the person responsible for shipping this package.
   phoneNumber:
     type: string
-    description: >-
-      Specifies the phone number of the person responsible for shipping this
-      package.
+    description: Specifies the phone number of the person responsible for shipping this package.
   postalCode:
     type: string
     description: Specifies the postal code for the return address.
@@ -1017,16 +954,10 @@ definitions:
     description: Specifies the name of your state or your province for the return address.
   street1:
     type: string
-    description: >-
-      Specifies the first part of the street address for the return address, for
-      example 1234 Main Street.
+    description: 'Specifies the first part of the street address for the return address, for example 1234 Main Street.'
   street2:
     type: string
-    description: >-
-      Specifies the optional second part of the street address for the return
-      address, for example Suite 100.
+    description: 'Specifies the optional second part of the street address for the return address, for example Suite 100.'
   street3:
     type: string
-    description: >-
-      Specifies the optional third part of the street address for the return
-      address, for example c/o Jane Doe.
+    description: 'Specifies the optional third part of the street address for the return address, for example c/o Jane Doe.'
