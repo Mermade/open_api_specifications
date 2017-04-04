@@ -15,12 +15,14 @@ info:
   x-providerName: aws.amazon.com
   x-serviceName: cloudformation
   x-origin:
-    format: swagger
-    version: '2.0'
-    url: 'https://raw.githubusercontent.com/aws/aws-sdk-js/master/apis/cloudformation-2010-05-15.normal.json'
-    converter:
-      url: 'https://github.com/mermade/aws2openapi'
-      version: 1.0.0
+    - contentType: application/json
+      url: 'https://raw.githubusercontent.com/aws/aws-sdk-js/master/apis/cloudformation-2010-05-15.normal.json'
+      converter:
+        url: 'https://github.com/mermade/aws2openapi'
+        version: 1.0.0
+    - format: swagger
+      version: '2.0'
+      url: 'https://raw.githubusercontent.com/mermade/openapi-definitions/master/aws/cloudformation/2010-05-15/swagger.yaml'
       x-apisguru-direct: true
   x-apiClientRegistration:
     url: 'https://portal.aws.amazon.com/gp/aws/developer/registration/index.html?nc2=h_ct'
@@ -314,6 +316,23 @@ paths:
           required: true
           schema:
             $ref: '#/definitions/DescribeChangeSetInput'
+      x-waiters:
+        - delay: 30
+          operation: DescribeChangeSet
+          maxAttempts: 120
+          description: Wait until change set status is CREATE_COMPLETE.
+          acceptors:
+            - argument: Status
+              expected: CREATE_COMPLETE
+              matcher: path
+              state: success
+            - argument: Status
+              expected: FAILED
+              matcher: path
+              state: failure
+            - expected: ValidationError
+              matcher: error
+              state: failure
     parameters:
       - $ref: '#/parameters/Action'
       - $ref: '#/parameters/Version'
@@ -714,6 +733,11 @@ paths:
           required: true
           schema:
             $ref: '#/definitions/ListExportsInput'
+        - name: NextToken
+          type: string
+          in: query
+          description: Pagination token
+          required: false
     parameters:
       - $ref: '#/parameters/Action'
       - $ref: '#/parameters/Version'
@@ -739,6 +763,11 @@ paths:
           required: true
           schema:
             $ref: '#/definitions/ListImportsInput'
+        - name: NextToken
+          type: string
+          in: query
+          description: Pagination token
+          required: false
     parameters:
       - $ref: '#/parameters/Action'
       - $ref: '#/parameters/Version'

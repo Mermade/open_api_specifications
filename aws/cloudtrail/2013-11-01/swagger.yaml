@@ -15,12 +15,14 @@ info:
   x-providerName: aws.amazon.com
   x-serviceName: cloudtrail
   x-origin:
-    format: swagger
-    version: '2.0'
-    url: 'https://raw.githubusercontent.com/aws/aws-sdk-js/master/apis/cloudtrail-2013-11-01.normal.json'
-    converter:
-      url: 'https://github.com/mermade/aws2openapi'
-      version: 1.0.0
+    - contentType: application/json
+      url: 'https://raw.githubusercontent.com/aws/aws-sdk-js/master/apis/cloudtrail-2013-11-01.normal.json'
+      converter:
+        url: 'https://github.com/mermade/aws2openapi'
+        version: 1.0.0
+    - format: swagger
+      version: '2.0'
+      url: 'https://raw.githubusercontent.com/mermade/openapi-definitions/master/aws/cloudtrail/2013-11-01/swagger.yaml'
       x-apisguru-direct: true
   x-apiClientRegistration:
     url: 'https://portal.aws.amazon.com/gp/aws/developer/registration/index.html?nc2=h_ct'
@@ -1043,6 +1045,8 @@ definitions:
       $ref: '#/definitions/Event'
   GetEventSelectorsRequest:
     type: object
+    required:
+      - TrailName
     properties:
       TrailName:
         $ref: '#/definitions/String'
@@ -1248,6 +1252,7 @@ definitions:
     properties:
       ResourceTagList:
         $ref: '#/definitions/ResourceTagList'
+        description: A list of resource tags.
       NextToken:
         $ref: '#/definitions/String'
         description: Reserved for future use.
@@ -1343,6 +1348,9 @@ definitions:
       $ref: '#/definitions/PublicKey'
   PutEventSelectorsRequest:
     type: object
+    required:
+      - TrailName
+      - EventSelectors
     properties:
       TrailName:
         $ref: '#/definitions/String'
@@ -1412,10 +1420,10 @@ definitions:
         description: Specifies the ARN of the resource.
       TagsList:
         $ref: '#/definitions/TagsList'
+        description: A list of tags.
     description: A resource tag.
   ResourceTagList:
     type: array
-    description: A list of resource tags.
     items:
       $ref: '#/definitions/ResourceTag'
   ResourceTypeNotSupportedException:

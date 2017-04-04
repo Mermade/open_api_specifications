@@ -3,7 +3,7 @@ info:
   version: '2014-11-06'
   x-release: v4
   title: Amazon Simple Systems Manager (SSM)
-  description: '<p>Amazon EC2 Systems Manager is a collection of capabilities that helps you automate management tasks such as collecting system inventory, applying operating system (OS) patches, automating the creation of Amazon Machine Images (AMIs), and configuring operating systems (OSs) and applications at scale. Systems Manager works with managed instances: Amazon EC2 instances and servers or virtual machines (VMs) in your on-premises environment that are configured for Systems Manager. </p> <p>This references is intended to be used with the EC2 Systems Manager User Guide (<a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/systems-manager.html">Linux</a>) (<a href="http://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/systems-manager.html">Windows</a>).</p> <p>To get started, verify prerequisites and configure managed instances (<a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/systems-manager-prereqs.html">Linux</a>) (<a href="http://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/systems-manager-prereqs.html">Windows</a>).</p>'
+  description: '<fullname>Amazon EC2 Systems Manager</fullname> <p>Amazon EC2 Systems Manager is a collection of capabilities that helps you automate management tasks such as collecting system inventory, applying operating system (OS) patches, automating the creation of Amazon Machine Images (AMIs), and configuring operating systems (OSs) and applications at scale. Systems Manager lets you remotely and securely manage the configuration of your managed instances. A <i>managed instance</i> is any Amazon EC2 instance or on-premises machine in your hybrid environment that has been configured for Systems Manager.</p> <p>This reference is intended to be used with the <a href="http://docs.aws.amazon.com/systems-manager/latest/userguide/">Amazon EC2 Systems Manager User Guide</a>.</p> <p>To get started, verify prerequisites and configure managed instances. For more information, see <a href="http://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-prereqs.html">Systems Manager Prerequisites</a>.</p>'
   termsOfService: 'https://aws.amazon.com/service-terms/'
   contact:
     name: Mike Ralphson
@@ -15,12 +15,14 @@ info:
   x-providerName: aws.amazon.com
   x-serviceName: ssm
   x-origin:
-    format: swagger
-    version: '2.0'
-    url: 'https://raw.githubusercontent.com/aws/aws-sdk-js/master/apis/ssm-2014-11-06.normal.json'
-    converter:
-      url: 'https://github.com/mermade/aws2openapi'
-      version: 1.0.0
+    - contentType: application/json
+      url: 'https://raw.githubusercontent.com/aws/aws-sdk-js/master/apis/ssm-2014-11-06.normal.json'
+      converter:
+        url: 'https://github.com/mermade/aws2openapi'
+        version: 1.0.0
+    - format: swagger
+      version: '2.0'
+      url: 'https://raw.githubusercontent.com/mermade/openapi-definitions/master/aws/ssm/2014-11-06/swagger.yaml'
       x-apisguru-direct: true
   x-apiClientRegistration:
     url: 'https://portal.aws.amazon.com/gp/aws/developer/registration/index.html?nc2=h_ct'
@@ -101,7 +103,7 @@ paths:
   /:
     post:
       operationId: AddTagsToResource
-      description: '<p>Adds or overwrites one or more tags for the specified resource. Tags are metadata that you assign to your managed instances. Tags enable you to categorize your managed instances in different ways, for example, by purpose, owner, or environment. Each tag consists of a key and an optional value, both of which you define. For example, you could define a set of tags for your account''s managed instances that helps you track each instance''s owner and stack level. For example: Key=Owner and Value=DbAdmin, SysAdmin, or Dev. Or Key=Stack and Value=Production, Pre-Production, or Test. Each resource can have a maximum of 10 tags. </p> <p>We recommend that you devise a set of tag keys that meets your needs for each resource type. Using a consistent set of tag keys makes it easier for you to manage your resources. You can search and filter the resources based on the tags you add. Tags don''t have any semantic meaning to Amazon EC2 and are interpreted strictly as a string of characters. </p> <p>For more information about tags, see <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html">Tagging Your Amazon EC2 Resources</a> in the Amazon EC2 User Guide. </p>'
+      description: '<p>Adds or overwrites one or more tags for the specified resource. Tags are metadata that you assign to your managed instances. Tags enable you to categorize your managed instances in different ways, for example, by purpose, owner, or environment. Each tag consists of a key and an optional value, both of which you define. For example, you could define a set of tags for your account''s managed instances that helps you track each instance''s owner and stack level. For example: Key=Owner and Value=DbAdmin, SysAdmin, or Dev. Or Key=Stack and Value=Production, Pre-Production, or Test. Each resource can have a maximum of 10 tags. </p> <p>We recommend that you devise a set of tag keys that meets your needs for each resource type. Using a consistent set of tag keys makes it easier for you to manage your resources. You can search and filter the resources based on the tags you add. Tags don''t have any semantic meaning to Amazon EC2 and are interpreted strictly as a string of characters. </p> <p>For more information about tags, see <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html">Tagging Your Amazon EC2 Resources</a> in the <i>Amazon EC2 User Guide</i>.</p>'
       responses:
         '200':
           description: Success
@@ -183,7 +185,7 @@ paths:
   '/#CreateActivation':
     post:
       operationId: CreateActivation
-      description: 'Registers your on-premises server or virtual machine with Amazon EC2 so that you can manage these resources using Run Command. An on-premises server or virtual machine that has been registered with EC2 is called a managed instance. For more information about activations, see <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/managed-instances.html">Setting Up Managed Instances (Linux)</a> or <a href="http://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/managed-instances.html">Setting Up Managed Instances (Windows)</a> in the Amazon EC2 User Guide. '
+      description: 'Registers your on-premises server or virtual machine with Amazon EC2 so that you can manage these resources using Run Command. An on-premises server or virtual machine that has been registered with EC2 is called a managed instance. For more information about activations, see <a href="http://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-managedinstances.html">Setting Up Systems Manager in Hybrid Environments</a>.'
       responses:
         '200':
           description: Success
@@ -212,7 +214,7 @@ paths:
   '/#CreateAssociation':
     post:
       operationId: CreateAssociation
-      description: '<p>Associates the specified SSM document with the specified instances or targets.</p> <p>When you associate an SSM document with one or more instances using instance IDs or tags, the SSM agent running on the instance processes the document and configures the instance as specified.</p> <p>If you associate a document with an instance that already has an associated document, the system throws the AssociationAlreadyExists exception.</p>'
+      description: '<p>Associates the specified Systems Manager document with the specified instances or targets.</p> <p>When you associate a document with one or more instances using instance IDs or tags, the SSM Agent running on the instance processes the document and configures the instance as specified.</p> <p>If you associate a document with an instance that already has an associated document, the system throws the AssociationAlreadyExists exception.</p>'
       responses:
         '200':
           description: Success
@@ -281,7 +283,7 @@ paths:
   '/#CreateAssociationBatch':
     post:
       operationId: CreateAssociationBatch
-      description: '<p>Associates the specified SSM document with the specified instances or targets.</p> <p>When you associate an SSM document with one or more instances using instance IDs or tags, the SSM agent running on the instance processes the document and configures the instance as specified.</p> <p>If you associate a document with an instance that already has an associated document, the system throws the AssociationAlreadyExists exception.</p>'
+      description: '<p>Associates the specified Systems Manager document with the specified instances or targets.</p> <p>When you associate a document with one or more instances using instance IDs or tags, the SSM Agent running on the instance processes the document and configures the instance as specified.</p> <p>If you associate a document with an instance that already has an associated document, the system throws the AssociationAlreadyExists exception.</p>'
       responses:
         '200':
           description: Success
@@ -350,7 +352,7 @@ paths:
   '/#CreateDocument':
     post:
       operationId: CreateDocument
-      description: '<p>Creates an SSM document.</p> <p>After you create an SSM document, you can use CreateAssociation to associate it with one or more running instances.</p>'
+      description: '<p>Creates a Systems Manager document.</p> <p>After you create a document, you can use CreateAssociation to associate it with one or more running instances.</p>'
       responses:
         '200':
           description: Success
@@ -510,7 +512,7 @@ paths:
   '/#DeleteAssociation':
     post:
       operationId: DeleteAssociation
-      description: '<p>Disassociates the specified SSM document from the specified instance.</p> <p>When you disassociate an SSM document from an instance, it does not change the configuration of the instance. To change the configuration state of an instance after you disassociate a document, you must create a new document with the desired configuration and associate it with the instance.</p>'
+      description: '<p>Disassociates the specified Systems Manager document from the specified instance.</p> <p>When you disassociate a document from an instance, it does not change the configuration of the instance. To change the configuration state of an instance after you disassociate a document, you must create a new document with the desired configuration and associate it with the instance.</p>'
       responses:
         '200':
           description: Success
@@ -555,7 +557,7 @@ paths:
   '/#DeleteDocument':
     post:
       operationId: DeleteDocument
-      description: '<p>Deletes the SSM document and all instance associations to the document.</p> <p>Before you delete the SSM document, we recommend that you use DeleteAssociation to disassociate all instances that are associated with the document.</p>'
+      description: '<p>Deletes the Systems Manager document and all instance associations to the document.</p> <p>Before you delete the document, we recommend that you use <a>DeleteAssociation</a> to disassociate all instances that are associated with the document.</p>'
       responses:
         '200':
           description: Success
@@ -691,7 +693,7 @@ paths:
   '/#DeregisterManagedInstance':
     post:
       operationId: DeregisterManagedInstance
-      description: 'Removes the server or virtual machine from the list of registered servers. You can reregister the instance again at any time. If you don’t plan to use Run Command on the server, we suggest uninstalling the SSM agent first.'
+      description: 'Removes the server or virtual machine from the list of registered servers. You can reregister the instance again at any time. If you don’t plan to use Run Command on the server, we suggest uninstalling the SSM Agent first.'
       responses:
         '200':
           description: Success
@@ -870,7 +872,7 @@ paths:
   '/#DescribeAssociation':
     post:
       operationId: DescribeAssociation
-      description: Describes the associations for the specified SSM document or instance.
+      description: Describes the associations for the specified Systems Manager document or instance.
       responses:
         '200':
           description: Success
@@ -1010,7 +1012,7 @@ paths:
   '/#DescribeDocumentPermission':
     post:
       operationId: DescribeDocumentPermission
-      description: 'Describes the permissions for an SSM document. If you created the document, you are the owner. If a document is shared, it can either be shared privately (by specifying a user’s AWS account ID) or publicly (<i>All</i>). '
+      description: 'Describes the permissions for a Systems Manager document. If you created the document, you are the owner. If a document is shared, it can either be shared privately (by specifying a user’s AWS account ID) or publicly (<i>All</i>). '
       responses:
         '200':
           description: Success
@@ -1158,7 +1160,7 @@ paths:
   '/#DescribeInstanceInformation':
     post:
       operationId: DescribeInstanceInformation
-      description: 'Describes one or more of your instances. You can use this to get information about instances like the operating system platform, the SSM agent version (Linux), status etc. If you specify one or more instance IDs, it returns information for those instances. If you do not specify instance IDs, it returns information for all your instances. If you specify an instance ID that is not valid or an instance that you do not own, you receive an error. '
+      description: 'Describes one or more of your instances. You can use this to get information about instances like the operating system platform, the SSM Agent version (Linux), status etc. If you specify one or more instance IDs, it returns information for those instances. If you do not specify instance IDs, it returns information for all your instances. If you specify an instance ID that is not valid or an instance that you do not own, you receive an error. '
       responses:
         '200':
           description: Success
@@ -2033,7 +2035,7 @@ paths:
   '/#GetParameters':
     post:
       operationId: GetParameters
-      description: Get a list of parameters used by the AWS account.&gt;
+      description: Get details of a parameter.
       responses:
         '200':
           description: Success
@@ -2128,7 +2130,7 @@ paths:
   '/#ListAssociations':
     post:
       operationId: ListAssociations
-      description: Lists the associations for the specified SSM document or instance.
+      description: Lists the associations for the specified Systems Manager document or instance.
       responses:
         '200':
           description: Success
@@ -2447,7 +2449,7 @@ paths:
   '/#ModifyDocumentPermission':
     post:
       operationId: ModifyDocumentPermission
-      description: 'Share a document publicly or privately. If you share a document privately, you must specify the AWS user account IDs for those people who can use the document. If you share a document publicly, you must specify <i>All</i> as the account ID.'
+      description: 'Shares a Systems Manager document publicly or privately. If you share a document privately, you must specify the AWS user account IDs for those people who can use the document. If you share a document publicly, you must specify <i>All</i> as the account ID.'
       responses:
         '200':
           description: Success
@@ -3003,7 +3005,7 @@ paths:
   '/#UpdateAssociationStatus':
     post:
       operationId: UpdateAssociationStatus
-      description: Updates the status of the SSM document associated with the specified instance.
+      description: Updates the status of the Systems Manager document associated with the specified instance.
       responses:
         '200':
           description: Success
@@ -3336,7 +3338,7 @@ definitions:
   AssociatedInstances:
     type: object
     properties: {}
-    description: You must disassociate an SSM document from all instances before you can delete it.
+    description: You must disassociate a document from all instances before you can delete it.
   Association:
     type: object
     properties:
@@ -3364,7 +3366,7 @@ definitions:
       ScheduleExpression:
         $ref: '#/definitions/ScheduleExpression'
         description: A cron expression that specifies a schedule when the association runs.
-    description: Describes an association of an SSM document and an instance.
+    description: Describes an association of a Systems Manager document and an instance.
   AssociationAlreadyExists:
     type: object
     properties: {}
@@ -3738,7 +3740,7 @@ definitions:
         description: A unique identifier for this command.
       DocumentName:
         $ref: '#/definitions/DocumentName'
-        description: The name of the SSM document requested for execution.
+        description: The name of the document requested for execution.
       Comment:
         $ref: '#/definitions/Comment'
         description: 'User-specified information about the command, such as a brief description of what the command should do.'
@@ -3747,13 +3749,13 @@ definitions:
         description: 'If this time is reached and the command has not already started executing, it will not execute. Calculated based on the ExpiresAfter user input provided as part of the SendCommand API.'
       Parameters:
         $ref: '#/definitions/Parameters'
-        description: The parameter values to be inserted in the SSM document when executing the command.
+        description: The parameter values to be inserted in the document when executing the command.
       InstanceIds:
         $ref: '#/definitions/InstanceIdList'
         description: The instance IDs against which this command was requested.
       Targets:
         $ref: '#/definitions/Targets'
-        description: An array of search criteria that targets instances using a <code>Key</code>;<code>Value</code> combination that you specify. <code>Targets</code> is required if you don't provide one or more instance IDs in the call.
+        description: 'An array of search criteria that targets instances using a <code>Key</code>,<code>Value</code> combination that you specify. <code>Targets</code> is required if you don''t provide one or more instance IDs in the call.'
       RequestedDateTime:
         $ref: '#/definitions/DateTime'
         description: The date and time the command was requested.
@@ -3762,7 +3764,7 @@ definitions:
         description: The status of the command.
       StatusDetails:
         $ref: '#/definitions/StatusDetails'
-        description: '<p>A detailed status of the command execution. <code>StatusDetails</code> includes more information than <code>Status</code> because it includes states resulting from error and concurrency control parameters. <code>StatusDetails</code> can show different results than <code>Status</code>. For more information about these statuses, see <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/monitor-commands.html">Monitor Commands</a> (Linux) or <a href="http://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/monitor-commands.html">Monitor Commands</a> (Windows). <code>StatusDetails</code> can be one of the following values:</p> <ul> <li> <p>Pending – The command has not been sent to any instances.</p> </li> <li> <p>In Progress – The command has been sent to at least one instance but has not reached a final state on all instances.</p> </li> <li> <p>Success – The command successfully executed on all invocations. This is a terminal state.</p> </li> <li> <p>Delivery Timed Out – The value of <code>MaxErrors</code> or more command invocations shows a status of <code>Delivery Timed Out</code>. This is a terminal state.</p> </li> <li> <p>Execution Timed Out – The value of <code>MaxErrors</code> or more command invocations shows a status of <code>Execution Timed Out</code>. This is a terminal state.</p> </li> <li> <p>Failed – The value of <code>MaxErrors</code> or more command invocations shows a status of <code>Failed</code>. This is a terminal state.</p> </li> <li> <p>Incomplete – The command was attempted on all instances and one or more invocations does not have a value of <code>Success</code> but not enough invocations failed for the status to be <code>Failed</code>. This is a terminal state.</p> </li> <li> <p>Canceled – The command was terminated before it was completed. This is a terminal state.</p> </li> <li> <p>Rate Exceeded – The number of instances targeted by the command exceeded the account limit for pending invocations. The system has canceled the command before executing it on any instance. This is a terminal state.</p> </li> </ul>'
+        description: '<p>A detailed status of the command execution. <code>StatusDetails</code> includes more information than <code>Status</code> because it includes states resulting from error and concurrency control parameters. <code>StatusDetails</code> can show different results than <code>Status</code>. For more information about these statuses, see <a href="http://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-about-status.html">Run Command Status</a>. <code>StatusDetails</code> can be one of the following values:</p> <ul> <li> <p>Pending – The command has not been sent to any instances.</p> </li> <li> <p>In Progress – The command has been sent to at least one instance but has not reached a final state on all instances.</p> </li> <li> <p>Success – The command successfully executed on all invocations. This is a terminal state.</p> </li> <li> <p>Delivery Timed Out – The value of <code>MaxErrors</code> or more command invocations shows a status of <code>Delivery Timed Out</code>. This is a terminal state.</p> </li> <li> <p>Execution Timed Out – The value of <code>MaxErrors</code> or more command invocations shows a status of <code>Execution Timed Out</code>. This is a terminal state.</p> </li> <li> <p>Failed – The value of <code>MaxErrors</code> or more command invocations shows a status of <code>Failed</code>. This is a terminal state.</p> </li> <li> <p>Incomplete – The command was attempted on all instances and one or more invocations does not have a value of <code>Success</code> but not enough invocations failed for the status to be <code>Failed</code>. This is a terminal state.</p> </li> <li> <p>Canceled – The command was terminated before it was completed. This is a terminal state.</p> </li> <li> <p>Rate Exceeded – The number of instances targeted by the command exceeded the account limit for pending invocations. The system has canceled the command before executing it on any instance. This is a terminal state.</p> </li> </ul>'
       OutputS3Region:
         $ref: '#/definitions/S3Region'
         description: The region where the Amazon Simple Storage Service (Amazon S3) output bucket is located. The default value is the region where Run Command is being called.
@@ -3773,11 +3775,11 @@ definitions:
         $ref: '#/definitions/S3KeyPrefix'
         description: The S3 directory path inside the bucket where the responses to the command executions should be stored. This was requested when issuing the command.
       MaxConcurrency:
-        $ref: '#/definitions/VelocityConstraint'
-        description: 'The maximum number of instances that are allowed to execute the command at the same time. You can specify a number of instances, such as 10, or a percentage of instances, such as 10%. The default value is 50. For more information about how to use <code>MaxConcurrency</code>, see <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/run-command.html">Executing a Command Using Amazon EC2 Run Command</a> (Linux) or <a href="http://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/run-command.html">Executing a Command Using Amazon EC2 Run Command</a> (Windows). '
+        $ref: '#/definitions/MaxConcurrency'
+        description: 'The maximum number of instances that are allowed to execute the command at the same time. You can specify a number of instances, such as 10, or a percentage of instances, such as 10%. The default value is 50. For more information about how to use <code>MaxConcurrency</code>, see <a href="http://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html">Executing a Command Using Systems Manager Run Command</a>.'
       MaxErrors:
-        $ref: '#/definitions/VelocityConstraint'
-        description: 'The maximum number of errors allowed before the system stops sending the command to additional targets. You can specify a number of errors, such as 10, or a percentage or errors, such as 10%. The default value is 50. For more information about how to use <code>MaxErrors</code>, see <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/run-command.html">Executing a Command Using Amazon EC2 Run Command</a> (Linux) or <a href="http://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/run-command.html">Executing a Command Using Amazon EC2 Run Command</a> (Windows).'
+        $ref: '#/definitions/MaxErrors'
+        description: 'The maximum number of errors allowed before the system stops sending the command to additional targets. You can specify a number of errors, such as 10, or a percentage or errors, such as 10%. The default value is 50. For more information about how to use <code>MaxErrors</code>, see <a href="http://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html">Executing a Command Using Systems Manager Run Command</a>.'
       TargetCount:
         $ref: '#/definitions/TargetCount'
         description: The number of targets for the command.
@@ -3852,7 +3854,7 @@ definitions:
         description: 'Whether or not the invocation succeeded, failed, or is pending.'
       StatusDetails:
         $ref: '#/definitions/StatusDetails'
-        description: '<p>A detailed status of the command execution for each invocation (each instance targeted by the command). <code>StatusDetails</code> includes more information than <code>Status</code> because it includes states resulting from error and concurrency control parameters. <code>StatusDetails</code> can show different results than <code>Status</code>. For more information about these statuses, see <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/monitor-commands.html">Monitor Commands</a> (Linux) or <a href="http://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/monitor-commands.html">Monitor Commands</a> (Windows). <code>StatusDetails</code> can be one of the following values: </p> <ul> <li> <p>Pending – The command has not been sent to the instance.</p> </li> <li> <p>In Progress – The command has been sent to the instance but has not reached a terminal state.</p> </li> <li> <p>Success – The execution of the command or plugin was successfully completed. This is a terminal state.</p> </li> <li> <p>Delivery Timed Out – The command was not delivered to the instance before the delivery timeout expired. Delivery timeouts do not count against the parent command’s <code>MaxErrors</code> limit, but they do contribute to whether the parent command status is <code>Success</code> or <code>Incomplete</code>. This is a terminal state.</p> </li> <li> <p>Execution Timed Out – Command execution started on the instance, but the execution was not complete before the execution timeout expired. Execution timeouts count against the <code>MaxErrors</code> limit of the parent command. This is a terminal state.</p> </li> <li> <p>Failed – The command was not successful on the instance. For a plugin, this indicates that the result code was not zero. For a command invocation, this indicates that the result code for one or more plugins was not zero. Invocation failures count against the <code>MaxErrors</code> limit of the parent command. This is a terminal state.</p> </li> <li> <p>Canceled – The command was terminated before it was completed. This is a terminal state.</p> </li> <li> <p>Undeliverable – The command can''t be delivered to the instance. The instance might not exist or might not be responding. Undeliverable invocations don''t count against the parent command’s <code>MaxErrors</code> limit and don''t contribute to whether the parent command status is <code>Success</code> or <code>Incomplete</code>. This is a terminal state.</p> </li> <li> <p>Terminated – The parent command exceeded its <code>MaxErrors</code> limit and subsequent command invocations were canceled by the system. This is a terminal state.</p> </li> </ul>'
+        description: '<p>A detailed status of the command execution for each invocation (each instance targeted by the command). <code>StatusDetails</code> includes more information than <code>Status</code> because it includes states resulting from error and concurrency control parameters. <code>StatusDetails</code> can show different results than <code>Status</code>. For more information about these statuses, see <a href="http://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-about-status.html">Run Command Status</a>. <code>StatusDetails</code> can be one of the following values:</p> <ul> <li> <p>Pending – The command has not been sent to the instance.</p> </li> <li> <p>In Progress – The command has been sent to the instance but has not reached a terminal state.</p> </li> <li> <p>Success – The execution of the command or plugin was successfully completed. This is a terminal state.</p> </li> <li> <p>Delivery Timed Out – The command was not delivered to the instance before the delivery timeout expired. Delivery timeouts do not count against the parent command’s <code>MaxErrors</code> limit, but they do contribute to whether the parent command status is <code>Success</code> or <code>Incomplete</code>. This is a terminal state.</p> </li> <li> <p>Execution Timed Out – Command execution started on the instance, but the execution was not complete before the execution timeout expired. Execution timeouts count against the <code>MaxErrors</code> limit of the parent command. This is a terminal state.</p> </li> <li> <p>Failed – The command was not successful on the instance. For a plugin, this indicates that the result code was not zero. For a command invocation, this indicates that the result code for one or more plugins was not zero. Invocation failures count against the <code>MaxErrors</code> limit of the parent command. This is a terminal state.</p> </li> <li> <p>Canceled – The command was terminated before it was completed. This is a terminal state.</p> </li> <li> <p>Undeliverable – The command can''t be delivered to the instance. The instance might not exist or might not be responding. Undeliverable invocations don''t count against the parent command’s <code>MaxErrors</code> limit and don''t contribute to whether the parent command status is <code>Success</code> or <code>Incomplete</code>. This is a terminal state.</p> </li> <li> <p>Terminated – The parent command exceeded its <code>MaxErrors</code> limit and subsequent command invocations were canceled by the system. This is a terminal state.</p> </li> </ul>'
       TraceOutput:
         $ref: '#/definitions/InvocationTraceOutput'
         description: ' Gets the trace output sent by the agent. '
@@ -3905,7 +3907,7 @@ definitions:
         description: The status of this plugin. You can execute a document with multiple plugins.
       StatusDetails:
         $ref: '#/definitions/StatusDetails'
-        description: '<p>A detailed status of the plugin execution. <code>StatusDetails</code> includes more information than <code>Status</code> because it includes states resulting from error and concurrency control parameters. <code>StatusDetails</code> can show different results than <code>Status</code>. For more information about these statuses, see <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/monitor-commands.html">Monitor Commands</a> (Linux) or <a href="http://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/monitor-commands.html">Monitor Commands</a> (Windows). <code>StatusDetails</code> can be one of the following values:</p> <ul> <li> <p>Pending – The command has not been sent to the instance.</p> </li> <li> <p>In Progress – The command has been sent to the instance but has not reached a terminal state.</p> </li> <li> <p>Success – The execution of the command or plugin was successfully completed. This is a terminal state.</p> </li> <li> <p>Delivery Timed Out – The command was not delivered to the instance before the delivery timeout expired. Delivery timeouts do not count against the parent command’s <code>MaxErrors</code> limit, but they do contribute to whether the parent command status is <code>Success</code> or <code>Incomplete</code>. This is a terminal state.</p> </li> <li> <p>Execution Timed Out – Command execution started on the instance, but the execution was not complete before the execution timeout expired. Execution timeouts count against the <code>MaxErrors</code> limit of the parent command. This is a terminal state.</p> </li> <li> <p>Failed – The command was not successful on the instance. For a plugin, this indicates that the result code was not zero. For a command invocation, this indicates that the result code for one or more plugins was not zero. Invocation failures count against the <code>MaxErrors</code> limit of the parent command. This is a terminal state.</p> </li> <li> <p>Canceled – The command was terminated before it was completed. This is a terminal state.</p> </li> <li> <p>Undeliverable – The command can''t be delivered to the instance. The instance might not exist, or it might not be responding. Undeliverable invocations don''t count against the parent command’s <code>MaxErrors</code> limit, and they don''t contribute to whether the parent command status is <code>Success</code> or <code>Incomplete</code>. This is a terminal state.</p> </li> <li> <p>Terminated – The parent command exceeded its <code>MaxErrors</code> limit and subsequent command invocations were canceled by the system. This is a terminal state.</p> </li> </ul>'
+        description: '<p>A detailed status of the plugin execution. <code>StatusDetails</code> includes more information than <code>Status</code> because it includes states resulting from error and concurrency control parameters. <code>StatusDetails</code> can show different results than <code>Status</code>. For more information about these statuses, see <a href="http://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-about-status.html">Run Command Status</a>. <code>StatusDetails</code> can be one of the following values:</p> <ul> <li> <p>Pending – The command has not been sent to the instance.</p> </li> <li> <p>In Progress – The command has been sent to the instance but has not reached a terminal state.</p> </li> <li> <p>Success – The execution of the command or plugin was successfully completed. This is a terminal state.</p> </li> <li> <p>Delivery Timed Out – The command was not delivered to the instance before the delivery timeout expired. Delivery timeouts do not count against the parent command’s <code>MaxErrors</code> limit, but they do contribute to whether the parent command status is <code>Success</code> or <code>Incomplete</code>. This is a terminal state.</p> </li> <li> <p>Execution Timed Out – Command execution started on the instance, but the execution was not complete before the execution timeout expired. Execution timeouts count against the <code>MaxErrors</code> limit of the parent command. This is a terminal state.</p> </li> <li> <p>Failed – The command was not successful on the instance. For a plugin, this indicates that the result code was not zero. For a command invocation, this indicates that the result code for one or more plugins was not zero. Invocation failures count against the <code>MaxErrors</code> limit of the parent command. This is a terminal state.</p> </li> <li> <p>Canceled – The command was terminated before it was completed. This is a terminal state.</p> </li> <li> <p>Undeliverable – The command can''t be delivered to the instance. The instance might not exist, or it might not be responding. Undeliverable invocations don''t count against the parent command’s <code>MaxErrors</code> limit, and they don''t contribute to whether the parent command status is <code>Success</code> or <code>Incomplete</code>. This is a terminal state.</p> </li> <li> <p>Terminated – The parent command exceeded its <code>MaxErrors</code> limit and subsequent command invocations were canceled by the system. This is a terminal state.</p> </li> </ul>'
       ResponseCode:
         $ref: '#/definitions/ResponseCode'
         description: 'A numeric response code generated after executing the plugin. '
@@ -4040,7 +4042,7 @@ definitions:
       OutputLocation:
         $ref: '#/definitions/InstanceAssociationOutputLocation'
         description: An Amazon S3 bucket where you want to store the results of this request.
-    description: ' Describes the association of an SSM document and an instance. '
+    description: ' Describes the association of a Systems Manager document and an instance.'
   CreateAssociationBatchResult:
     type: object
     properties:
@@ -4057,7 +4059,7 @@ definitions:
     properties:
       Name:
         $ref: '#/definitions/DocumentName'
-        description: The name of the SSM document.
+        description: The name of the Systems Manager document.
       DocumentVersion:
         $ref: '#/definitions/DocumentVersion'
         description: The document version you want to associate with the target(s). Can be a specific version or the default version.
@@ -4093,7 +4095,7 @@ definitions:
         description: A valid JSON string.
       Name:
         $ref: '#/definitions/DocumentName'
-        description: A name for the SSM document.
+        description: A name for the Systems Manager document.
       DocumentType:
         $ref: '#/definitions/DocumentType'
         description: 'The type of document to create. Valid document types include: Policy, Automation, and Command.'
@@ -4102,7 +4104,7 @@ definitions:
     properties:
       DocumentDescription:
         $ref: '#/definitions/DocumentDescription'
-        description: Information about the SSM document.
+        description: Information about the Systems Manager document.
   CreateMaintenanceWindowRequest:
     type: object
     required:
@@ -4203,7 +4205,7 @@ definitions:
     properties:
       Name:
         $ref: '#/definitions/DocumentName'
-        description: The name of the SSM document.
+        description: The name of the Systems Manager document.
       InstanceId:
         $ref: '#/definitions/InstanceId'
         description: The ID of the instance.
@@ -4220,7 +4222,7 @@ definitions:
     properties:
       Name:
         $ref: '#/definitions/DocumentName'
-        description: The name of the SSM document.
+        description: The name of the document.
   DeleteDocumentResult:
     type: object
     properties: {}
@@ -4895,7 +4897,7 @@ definitions:
     properties:
       Message:
         $ref: '#/definitions/String'
-    description: The specified SSM document already exists.
+    description: The specified document already exists.
   DocumentContent:
     type: string
     minLength: 1
@@ -4929,7 +4931,7 @@ definitions:
         description: The AWS user account of the person who created the document.
       CreatedDate:
         $ref: '#/definitions/DateTime'
-        description: ' The date when the SSM document was created. '
+        description: ' The date when the document was created.'
       Status:
         $ref: '#/definitions/DocumentStatus'
         description: The status of the SSM document.
@@ -5046,7 +5048,7 @@ definitions:
       DefaultValue:
         $ref: '#/definitions/DocumentParameterDefaultValue'
         description: 'If specified, the default values for the parameters. Parameters without a default value are required. Parameters with a default value are optional.'
-    description: 'Parameters specified in the SSM document that execute on the server when the command is run. '
+    description: 'Parameters specified in a System Manager document that execute on the server when the command is run. '
   DocumentParameterDefaultValue:
     type: string
   DocumentParameterDescrption:
@@ -5213,7 +5215,7 @@ definitions:
         description: (Required) The ID of the managed instance targeted by the command. A managed instance can be an Amazon EC2 instance or an instance in your hybrid environment that is configured for Systems Manager.
       PluginName:
         $ref: '#/definitions/CommandPluginName'
-        description: '(Optional) The name of the plugin for which you want detailed results. If the SSM document contains only one plugin, the name can be omitted and the details will be returned.'
+        description: '(Optional) The name of the plugin for which you want detailed results. If the document contains only one plugin, the name can be omitted and the details will be returned.'
   GetCommandInvocationResult:
     type: object
     properties:
@@ -5228,7 +5230,7 @@ definitions:
         description: The comment text for the command.
       DocumentName:
         $ref: '#/definitions/DocumentName'
-        description: 'The name of the SSM document that was executed. For example, AWS-RunShellScript is an SSM document.'
+        description: 'The name of the document that was executed. For example, AWS-RunShellScript.'
       PluginName:
         $ref: '#/definitions/CommandPluginName'
         description: 'The name of the plugin for which you want detailed results. For example, aws:RunShellScript is a plugin.'
@@ -5249,7 +5251,7 @@ definitions:
         description: The status of the parent command for this invocation. This status can be different than <code>StatusDetails</code>.
       StatusDetails:
         $ref: '#/definitions/StatusDetails'
-        description: '<p>A detailed status of the command execution for an invocation. <code>StatusDetails</code> includes more information than <code>Status</code> because it includes states resulting from error and concurrency control parameters. <code>StatusDetails</code> can show different results than <code>Status</code>. For more information about these statuses, see <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/monitor-commands.html">Monitor Commands</a> (Linux) or <a href="http://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/monitor-commands.html">Monitor Commands</a> (Windows). <code>StatusDetails</code> can be one of the following values: </p> <ul> <li> <p>Pending – The command has not been sent to the instance.</p> </li> <li> <p>In Progress – The command has been sent to the instance but has not reached a terminal state.</p> </li> <li> <p>Delayed – The system attempted to send the command to the target, but the target was not available. The instance might not be available because of network issues, the instance was stopped, etc. The system will try to deliver the command again.</p> </li> <li> <p>Success – The command or plugin was executed successfully. This is a terminal state.</p> </li> <li> <p>Delivery Timed Out – The command was not delivered to the instance before the delivery timeout expired. Delivery timeouts do not count against the parent command’s <code>MaxErrors</code> limit, but they do contribute to whether the parent command status is <code>Success</code> or <code>Incomplete</code>. This is a terminal state.</p> </li> <li> <p>Execution Timed Out – The command started to execute on the instance, but the execution was not complete before the timeout expired. Execution timeouts count against the <code>MaxErrors</code> limit of the parent command. This is a terminal state.</p> </li> <li> <p>Failed – The command wasn''t executed successfully on the instance. For a plugin, this indicates that the result code was not zero. For a command invocation, this indicates that the result code for one or more plugins was not zero. Invocation failures count against the <code>MaxErrors</code> limit of the parent command. This is a terminal state.</p> </li> <li> <p>Canceled – The command was terminated before it was completed. This is a terminal state.</p> </li> <li> <p>Undeliverable – The command can''t be delivered to the instance. The instance might not exist or might not be responding. Undeliverable invocations don''t count against the parent command’s <code>MaxErrors</code> limit and don''t contribute to whether the parent command status is <code>Success</code> or <code>Incomplete</code>. This is a terminal state.</p> </li> <li> <p>Terminated – The parent command exceeded its <code>MaxErrors</code> limit and subsequent command invocations were canceled by the system. This is a terminal state.</p> </li> </ul>'
+        description: '<p>A detailed status of the command execution for an invocation. <code>StatusDetails</code> includes more information than <code>Status</code> because it includes states resulting from error and concurrency control parameters. <code>StatusDetails</code> can show different results than <code>Status</code>. For more information about these statuses, see <a href="http://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-about-status.html">Run Command Status</a>. <code>StatusDetails</code> can be one of the following values:</p> <ul> <li> <p>Pending – The command has not been sent to the instance.</p> </li> <li> <p>In Progress – The command has been sent to the instance but has not reached a terminal state.</p> </li> <li> <p>Delayed – The system attempted to send the command to the target, but the target was not available. The instance might not be available because of network issues, the instance was stopped, etc. The system will try to deliver the command again.</p> </li> <li> <p>Success – The command or plugin was executed successfully. This is a terminal state.</p> </li> <li> <p>Delivery Timed Out – The command was not delivered to the instance before the delivery timeout expired. Delivery timeouts do not count against the parent command’s <code>MaxErrors</code> limit, but they do contribute to whether the parent command status is <code>Success</code> or <code>Incomplete</code>. This is a terminal state.</p> </li> <li> <p>Execution Timed Out – The command started to execute on the instance, but the execution was not complete before the timeout expired. Execution timeouts count against the <code>MaxErrors</code> limit of the parent command. This is a terminal state.</p> </li> <li> <p>Failed – The command wasn''t executed successfully on the instance. For a plugin, this indicates that the result code was not zero. For a command invocation, this indicates that the result code for one or more plugins was not zero. Invocation failures count against the <code>MaxErrors</code> limit of the parent command. This is a terminal state.</p> </li> <li> <p>Canceled – The command was terminated before it was completed. This is a terminal state.</p> </li> <li> <p>Undeliverable – The command can''t be delivered to the instance. The instance might not exist or might not be responding. Undeliverable invocations don''t count against the parent command’s <code>MaxErrors</code> limit and don''t contribute to whether the parent command status is <code>Success</code> or <code>Incomplete</code>. This is a terminal state.</p> </li> <li> <p>Terminated – The parent command exceeded its <code>MaxErrors</code> limit and subsequent command invocations were canceled by the system. This is a terminal state.</p> </li> </ul>'
       StandardOutputContent:
         $ref: '#/definitions/StandardOutputContent'
         description: 'The first 24,000 characters written by the plugin to stdout. If the command has not finished executing, if <code>ExecutionStatus</code> is neither <code>Succeeded</code> nor <code>Failed</code>, then this string is empty.'
@@ -5436,10 +5438,10 @@ definitions:
         $ref: '#/definitions/MaintenanceWindowTaskPriority'
         description: The priority of the task.
       MaxConcurrency:
-        $ref: '#/definitions/VelocityConstraint'
+        $ref: '#/definitions/MaxConcurrency'
         description: The defined maximum number of task executions that could be run in parallel.
       MaxErrors:
-        $ref: '#/definitions/VelocityConstraint'
+        $ref: '#/definitions/MaxErrors'
         description: The defined maximum number of task execution errors allowed before scheduling of the task execution would have been stopped.
       Status:
         $ref: '#/definitions/MaintenanceWindowExecutionStatus'
@@ -5533,7 +5535,7 @@ definitions:
     properties:
       Parameters:
         $ref: '#/definitions/ParameterList'
-        description: A list of parameters used by the AWS account.
+        description: A list of details for a parameter.
       InvalidParameters:
         $ref: '#/definitions/ParameterNameList'
         description: A list of parameters that are not formatted correctly or do not run when executed.
@@ -5719,16 +5721,16 @@ definitions:
         description: 'The instance ID. '
       PingStatus:
         $ref: '#/definitions/PingStatus'
-        description: 'Connection status of the SSM agent. '
+        description: 'Connection status of the SSM Agent. '
       LastPingDateTime:
         $ref: '#/definitions/DateTime'
         description: 'The date and time when agent last pinged Systems Manager service. '
       AgentVersion:
         $ref: '#/definitions/Version'
-        description: 'The version of the SSM agent running on your Linux instance. '
+        description: 'The version of the SSM Agent running on your Linux instance. '
       IsLatestVersion:
         $ref: '#/definitions/Boolean'
-        description: 'Indicates whether latest version of the SSM agent is running on your instance. '
+        description: 'Indicates whether latest version of the SSM Agent is running on your instance. '
       PlatformType:
         $ref: '#/definitions/PlatformType'
         description: 'The operating system platform type. '
@@ -5974,7 +5976,7 @@ definitions:
     properties:
       Message:
         $ref: '#/definitions/String'
-        description: 'The SSM document does not exist or the document is not available to the user. This exception can be issued by CreateAssociation, CreateAssociationBatch, DeleteAssociation, DeleteDocument, DescribeAssociation, DescribeDocument, GetDocument, SendCommand, or UpdateAssociationStatus. '
+        description: 'The document does not exist or the document is not available to the user. This exception can be issued by CreateAssociation, CreateAssociationBatch, DeleteAssociation, DeleteDocument, DescribeAssociation, DescribeDocument, GetDocument, SendCommand, or UpdateAssociationStatus. '
     description: The specified document does not exist.
   InvalidDocumentContent:
     type: object
@@ -5982,7 +5984,7 @@ definitions:
       Message:
         $ref: '#/definitions/String'
         description: A description of the validation error.
-    description: The content for the SSM document is not valid.
+    description: The content for the document is not valid.
   InvalidDocumentOperation:
     type: object
     properties:
@@ -6022,7 +6024,7 @@ definitions:
     properties:
       Message:
         $ref: '#/definitions/String'
-    description: '<p>The following problems can cause this exception:</p> <p>You do not have permission to access the instance.</p> <p>The SSM agent is not running. On managed instances and Linux instances, verify that the SSM agent is running. On EC2 Windows instances, verify that the EC2Config service is running.</p> <p>The SSM agent or EC2Config service is not registered to the SSM endpoint. Try reinstalling the SSM agent or EC2Config service.</p> <p>The instance is not in valid state. Valid states are: Running, Pending, Stopped, Stopping. Invalid states are: Shutting-down and Terminated.</p>'
+    description: '<p>The following problems can cause this exception:</p> <p>You do not have permission to access the instance.</p> <p>The SSM Agent is not running. On managed instances and Linux instances, verify that the SSM Agent is running. On EC2 Windows instances, verify that the EC2Config service is running.</p> <p>The SSM Agent or EC2Config service is not registered to the SSM endpoint. Try reinstalling the SSM Agent or EC2Config service.</p> <p>The instance is not in valid state. Valid states are: Running, Pending, Stopped, Stopping. Invalid states are: Shutting-down and Terminated.</p>'
   InvalidInstanceInformationFilterValue:
     type: object
     properties:
@@ -6045,7 +6047,9 @@ definitions:
     description: The query key ID is not valid.
   InvalidNextToken:
     type: object
-    properties: {}
+    properties:
+      Message:
+        $ref: '#/definitions/String'
     description: The specified token is not valid.
   InvalidNotificationConfig:
     type: object
@@ -6096,7 +6100,7 @@ definitions:
     properties:
       Message:
         $ref: '#/definitions/String'
-    description: 'The role name can''t contain invalid characters. Also verify that you specified an IAM role for notifications that includes the required trust policy. For information about configuring the IAM role for Run Command notifications, see <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/rc-sns.html">Getting Amazon SNS Notifications When a Command Changes Status</a> in the <i>Amazon Elastic Compute Cloud User Guide </i>.'
+    description: 'The role name can''t contain invalid characters. Also verify that you specified an IAM role for notifications that includes the required trust policy. For information about configuring the IAM role for Run Command notifications, see <a href="http://docs.aws.amazon.com/systems-manager/latest/userguide/rc-sns-notifications.html">Configuring Amazon SNS Notifications for Run Command</a> in the <i>Amazon EC2 Systems Manager User Guide</i>.'
   InvalidSchedule:
     type: object
     properties:
@@ -6830,10 +6834,10 @@ definitions:
         $ref: '#/definitions/ServiceRole'
         description: The role that should be assumed when executing the task
       MaxConcurrency:
-        $ref: '#/definitions/VelocityConstraint'
+        $ref: '#/definitions/MaxConcurrency'
         description: The maximum number of targets this task can be run for in parallel.
       MaxErrors:
-        $ref: '#/definitions/VelocityConstraint'
+        $ref: '#/definitions/MaxErrors'
         description: The maximum number of errors allowed before this task stops being scheduled.
     description: Information about a task defined for a Maintenance Window.
   MaintenanceWindowTaskArn:
@@ -6895,12 +6899,22 @@ definitions:
   ManagedInstanceId:
     type: string
     pattern: '^mi-[0-9a-f]{17}$'
+  MaxConcurrency:
+    type: string
+    pattern: '^([1-9][0-9]*|[1-9][0-9]%|[1-9]%|100%)$'
+    minLength: 1
+    maxLength: 7
   MaxDocumentSizeExceeded:
     type: object
     properties:
       Message:
         $ref: '#/definitions/String'
-    description: The size limit of an SSM document is 64 KB.
+    description: The size limit of a document is 64 KB.
+  MaxErrors:
+    type: string
+    pattern: '^([1-9][0-9]*|[0]|[1-9][0-9]%|[0-9]%|100%)$'
+    minLength: 1
+    maxLength: 7
   MaxResults:
     type: integer
     minimum: 1
@@ -6951,7 +6965,7 @@ definitions:
         description: An Amazon Resource Name (ARN) for a Simple Notification Service (SNS) topic. Run Command pushes notifications about command status changes to this topic.
       NotificationEvents:
         $ref: '#/definitions/NotificationEventList'
-        description: 'The different events for which you can receive notifications. These events include the following: All (events), InProgress, Success, TimedOut, Cancelled, Failed. To learn more about these events, see <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/monitor-commands.html">Monitoring Commands</a> in the <i>Amazon Elastic Compute Cloud User Guide </i>.'
+        description: 'The different events for which you can receive notifications. These events include the following: All (events), InProgress, Success, TimedOut, Cancelled, Failed. To learn more about these events, see <a href="http://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html">Setting Up Events and Notifications</a> in the <i>Amazon EC2 Systems Manager User Guide</i>.'
       NotificationType:
         $ref: '#/definitions/NotificationType'
         description: 'Command: Receive notification when the status of a command changes. Invocation: For commands sent to multiple instances, receive notification on a per-instance basis when the status of a command changes. '
@@ -6988,7 +7002,7 @@ definitions:
     type: string
     pattern: '^(?:(?!(\{\{.*\}\})).)*$'
     minLength: 1
-    maxLength: 1024
+    maxLength: 4096
   Parameter:
     type: object
     properties:
@@ -7517,7 +7531,7 @@ definitions:
         description: The parameter key ID that you want to add to the system.
       Overwrite:
         $ref: '#/definitions/Boolean'
-        description: Overwrite an existing parameter.
+        description: 'Overwrite an existing parameter. If not specified, will default to "false".'
   PutParameterResult:
     type: object
     properties: {}
@@ -7617,10 +7631,10 @@ definitions:
         $ref: '#/definitions/MaintenanceWindowTaskPriority'
         description: 'The priority of the task in the Maintenance Window, the lower the number the higher the priority. Tasks in a Maintenance Window are scheduled in priority order with tasks that have the same priority scheduled in parallel.'
       MaxConcurrency:
-        $ref: '#/definitions/VelocityConstraint'
+        $ref: '#/definitions/MaxConcurrency'
         description: The maximum number of targets this task can be run for in parallel.
       MaxErrors:
-        $ref: '#/definitions/VelocityConstraint'
+        $ref: '#/definitions/MaxErrors'
         description: The maximum number of errors allowed before this task stops being scheduled.
       LoggingInfo:
         $ref: '#/definitions/LoggingInfo'
@@ -7749,10 +7763,10 @@ definitions:
         description: Required. The instance IDs where the command should execute. You can specify a maximum of 50 IDs.
       Targets:
         $ref: '#/definitions/Targets'
-        description: '(Optional) An array of search criteria that targets instances using a <code>Key</code>;<code>Value</code> combination that you specify. <code>Targets</code> is required if you don''t provide one or more instance IDs in the call. For more information about how to use <code>Targets</code>, see <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/run-command.html">Executing a Command Using Amazon EC2 Run Command</a> (Linux) or <a href="http://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/run-command.html">Executing a Command Using Amazon EC2 Run Command</a> (Windows).'
+        description: '(Optional) An array of search criteria that targets instances using a <code>Key</code>,<code>Value</code> combination that you specify. <code>Targets</code> is required if you don''t provide one or more instance IDs in the call. For more information about how to use <code>Targets</code>, see <a href="http://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html">Executing a Command Using Systems Manager Run Command</a>.'
       DocumentName:
         $ref: '#/definitions/DocumentARN'
-        description: Required. The name of the SSM document to execute. This can be an SSM public document or a custom document.
+        description: Required. The name of the Systems Manager document to execute. This can be a public document or a custom document.
       DocumentHash:
         $ref: '#/definitions/DocumentHash'
         description: <p>The Sha256 or Sha1 hash created by the system when the document was created. </p> <note> <p>Sha1 hashes have been deprecated.</p> </note>
@@ -7767,7 +7781,7 @@ definitions:
         description: 'User-specified information about the command, such as a brief description of what the command should do.'
       Parameters:
         $ref: '#/definitions/Parameters'
-        description: The required and optional parameters specified in the SSM document being executed.
+        description: The required and optional parameters specified in the document being executed.
       OutputS3Region:
         $ref: '#/definitions/S3Region'
         description: (Optional) The region where the Amazon Simple Storage Service (Amazon S3) output bucket is located. The default value is the region where Run Command is being called.
@@ -7778,11 +7792,11 @@ definitions:
         $ref: '#/definitions/S3KeyPrefix'
         description: The directory structure within the S3 bucket where the responses should be stored.
       MaxConcurrency:
-        $ref: '#/definitions/VelocityConstraint'
-        description: '(Optional) The maximum number of instances that are allowed to execute the command at the same time. You can specify a number such as “10” or a percentage such as “10%”. The default value is 50. For more information about how to use <code>MaxConcurrency</code>, see <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/run-command.html">Executing a Command Using Amazon EC2 Run Command</a> (Linux) or <a href="http://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/run-command.html">Executing a Command Using Amazon EC2 Run Command</a> (Windows).'
+        $ref: '#/definitions/MaxConcurrency'
+        description: '(Optional) The maximum number of instances that are allowed to execute the command at the same time. You can specify a number such as “10” or a percentage such as “10%”. The default value is 50. For more information about how to use <code>MaxConcurrency</code>, see <a href="http://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html">Executing a Command Using Systems Manager Run Command</a>.'
       MaxErrors:
-        $ref: '#/definitions/VelocityConstraint'
-        description: 'The maximum number of errors allowed without the command failing. When the command fails one more time beyond the value of <code>MaxErrors</code>, the systems stops sending the command to additional targets. You can specify a number like “10” or a percentage like “10%”. The default value is 50. For more information about how to use <code>MaxErrors</code>, see <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/run-command.html">Executing a Command Using Amazon EC2 Run Command</a> (Linux) or <a href="http://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/run-command.html">Executing a Command Using Amazon EC2 Run Command</a> (Windows).'
+        $ref: '#/definitions/MaxErrors'
+        description: 'The maximum number of errors allowed without the command failing. When the command fails one more time beyond the value of <code>MaxErrors</code>, the systems stops sending the command to additional targets. You can specify a number like “10” or a percentage like “10%”. The default value is 50. For more information about how to use <code>MaxErrors</code>, see <a href="http://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html">Executing a Command Using Systems Manager Run Command</a>.'
       ServiceRoleArn:
         $ref: '#/definitions/ServiceRole'
         description: 'The IAM role that Systems Manager uses to send notifications. '
@@ -7939,11 +7953,11 @@ definitions:
     properties:
       Key:
         $ref: '#/definitions/TargetKey'
-        description: 'User-defined criteria for sending commands that target instances that meet the criteria. <code>Key</code> can be <code>tag:&lt;Amazon EC2 tag&gt;</code> or <code>name:&lt;Amazon EC2 instance ID&gt;</code>. For example, <code>tag:ServerRole</code> or <code>name:0123456789012345</code>. For more information about how to send commands that target instances using <code>Key</code>;<code>Value</code> parameters, see <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/run-command.html">Executing a Command Using Amazon EC2 Run Command</a> (Linux) or <a href="http://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/run-command.html">Executing a Command Using Amazon EC2 Run Command</a> (Windows).'
+        description: 'User-defined criteria for sending commands that target instances that meet the criteria. <code>Key</code> can be <code>tag:&lt;Amazon EC2 tag&gt;</code> or <code>InstanceIds</code>. For more information about how to send commands that target instances using <code>Key</code>,<code>Value</code> parameters, see <a href="http://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html">Executing a Command Using Systems Manager Run Command</a>.'
       Values:
         $ref: '#/definitions/TargetValues'
-        description: 'User-defined criteria that maps to <code>Key</code>. For example, if you specified <code>tag:ServerRole</code>, you could specify <code>value:WebServer</code> to execute a command on instances that include Amazon EC2 tags of ServerRole;WebServer. For more information about how to send commands that target instances using <code>Key</code>;<code>Value</code> parameters, see <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/run-command.html">Executing a Command Using Amazon EC2 Run Command</a> (Linux) or <a href="http://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/run-command.html">Executing a Command Using Amazon EC2 Run Command</a> (Windows).'
-    description: An array of search criteria that targets instances using a <code>Key</code>;<code>Value</code> combination that you specify. <code>Targets</code> is required if you don't provide one or more instance IDs in the call.
+        description: 'User-defined criteria that maps to <code>Key</code>. For example, if you specified <code>tag:ServerRole</code>, you could specify <code>value:WebServer</code> to execute a command on instances that include Amazon EC2 tags of ServerRole,WebServer. For more information about how to send commands that target instances using <code>Key</code>,<code>Value</code> parameters, see <a href="http://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html">Executing a Command Using Systems Manager Run Command</a>.'
+    description: 'An array of search criteria that targets instances using a <code>Key</code>,<code>Value</code> combination that you specify. <code>Targets</code> is required if you don''t provide one or more instance IDs in the call.'
   TargetCount:
     type: integer
   TargetKey:
@@ -7975,7 +7989,9 @@ definitions:
     description: The <code>Targets</code> parameter includes too many tags. Remove one or more tags and try the command again.
   TooManyUpdates:
     type: object
-    properties: {}
+    properties:
+      Message:
+        $ref: '#/definitions/String'
     description: There are concurrent updates for a resource that supports one update at a time.
   TotalSizeLimitExceededException:
     type: object
@@ -8000,7 +8016,7 @@ definitions:
     properties:
       Message:
         $ref: '#/definitions/String'
-    description: 'The document does not support the platform type of the given instance ID(s). For example, you sent an SSM document for a Windows instance to a Linux instance.'
+    description: 'The document does not support the platform type of the given instance ID(s). For example, you sent an document for a Windows instance to a Linux instance.'
   UpdateAssociationRequest:
     type: object
     required:
@@ -8211,11 +8227,6 @@ definitions:
         description: A description of the Patch Baseline.
   Url:
     type: string
-  VelocityConstraint:
-    type: string
-    pattern: '^[1-9]\d*$|[0-9][%]|[1-9][0-9][%]|[1][0][0][%]|[0-9]?'
-    minLength: 1
-    maxLength: 7
   Version:
     type: string
     pattern: '^[0-9]{1,6}(\.[0-9]{1,6}){2,3}$'
