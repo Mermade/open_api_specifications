@@ -3,6 +3,8 @@
 This repository is a staging-ground for [APIs.guru OpenAPI directory](https://github.com/APIs-guru/openapi-directory) 
 and/or [APIs.guru unofficial OpenAPI collection](https://github.com/APIs-guru/unofficial_openapi_specs).
 
+#### Amazon AWS APIs moved to the main APIs.guru repository on 2017/05/02.
+
 It is maintained by [Mike Ralphson](https://github.com/MikeRalphson) of [Mermade Software](https://github.com/mermade) who is also
 currently the maintainer of those projects.
 
