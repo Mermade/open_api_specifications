@@ -1,0 +1,905 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Press Association TV API (UAT)",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "x-origin": [
+      {
+        "url": "http://developer.press.net/io-docs",
+        "format": "io_docs"
+      }
+    ],
+    "description": "Test our API services using I/O Docs. Welcome to the IO Docs page for the Press Association TV API - UAT.",
+    "x-mashery-id": "3227"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.press.net",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "http://developer.press.net/io-docs/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Platform"
+    },
+    {
+      "name": "Channel"
+    },
+    {
+      "name": "Schedule"
+    },
+    {
+      "name": "Asset"
+    },
+    {
+      "name": "Feature"
+    },
+    {
+      "name": "Contributor"
+    },
+    {
+      "name": "Tag"
+    }
+  ],
+  "paths": {
+    "/platform": {
+      "get": {
+        "operationId": "PlatformCollectionPlatform",
+        "summary": "Return a list of available platforms.",
+        "tags": [
+          "Platform"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The response format.",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          },
+          {
+            "name": "query",
+            "type": "string",
+            "description": "Search string to query the objects and return matching results.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Limit the the number of items to be returned per page. For example: 5.\n\nThe 'limit' parameter is typically used with the 'offset' parameter to facilitate pagination.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "integer",
+            "description": "The page offset of the first item to be returned. For example: 2.\n\nThe 'offset' parameter is typically used with the 'limit' parameter to facilitate pagination.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/platform/{platformId}": {
+      "get": {
+        "operationId": "PlatformDetailPlatform",
+        "summary": "Return the content of the selected platform.",
+        "tags": [
+          "Platform"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The response format.",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          },
+          {
+            "name": "platformId",
+            "type": "string",
+            "description": "The identifier for the selected platform.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/platform/{platformId}/region": {
+      "get": {
+        "operationId": "PlatformRegionCollectionPlatform",
+        "summary": "Return a list of regions for a platform.",
+        "tags": [
+          "Platform"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The response format.",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          },
+          {
+            "name": "platformId",
+            "type": "string",
+            "description": "The identifier for the selected platform.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "query",
+            "type": "string",
+            "description": "Search string to query the objects and return matching results.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Limit the the number of items to be returned per page. For example: 5.\n\nThe 'limit' parameter is typically used with the 'offset' parameter to facilitate pagination.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "integer",
+            "description": "The page offset of the first item to be returned. For example: 2.\n\nThe 'offset' parameter is typically used with the 'limit' parameter to facilitate pagination.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/channel": {
+      "get": {
+        "operationId": "ChannelCollectionChannel",
+        "summary": "Return a collection of channels.",
+        "tags": [
+          "Channel"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The response format to return.",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          },
+          {
+            "name": "platformId",
+            "type": "string",
+            "description": "The platform ID for the channel selection.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "regionId",
+            "type": "string",
+            "description": "The platform region ID for the channel selection.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "query",
+            "type": "string",
+            "description": "Limit the asset collection to items containing the provided string. For example: BBC",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Limit the the number of items to be returned per page. For example: 5.\n\nThe 'limit' parameter is typically used with the 'offset' parameter to facilitate pagination.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "integer",
+            "description": "The page offset of the first item to be returned. For example: 2.\n\nThe 'offset' parameter is typically used with the 'limit' parameter to facilitate pagination.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/channel/{channelId}": {
+      "get": {
+        "operationId": "ChannelDetailChannel",
+        "summary": "Return the content of the selected asset.",
+        "tags": [
+          "Channel"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The response format.",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          },
+          {
+            "name": "channelId",
+            "type": "string",
+            "description": "The identifier for the selected channel.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/schedule": {
+      "get": {
+        "operationId": "ScheduleCollectionSchedule",
+        "summary": "Return a collection of schedule items. It is requi...",
+        "description": "Return a collection of schedule items. It is required that a request must contain either a channelId or a combination or platformId and RegionId.",
+        "tags": [
+          "Schedule"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The response format.",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          },
+          {
+            "name": "channelId",
+            "type": "string",
+            "description": "The channel ID for the schedule selection.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "platformId",
+            "type": "string",
+            "description": "The platform ID for the schedule selection.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "regionId",
+            "type": "string",
+            "description": "The platform region ID for the channel selection.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "start",
+            "type": "string",
+            "format": "date",
+            "description": "Limit the schedule to ones scheduled from the selected date provided. For example 2014-04-14.\n\nThe 'end' parameter is typically used in combination with the 'start' param to form a date range.\n\nFormats Supported:\n\n\nyyyy/MM/dd \nyyyy/MM/ddThh:mm \nnow.plus.{nHours?} \nnow.minus.{nHours?} \ntomorrow",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "end",
+            "type": "string",
+            "format": "date",
+            "description": "Limit the schedule to ones scheduled to the selected date provided. For example: 2014-04-17.\n\nThe 'end' parameter is typically used in combination with the 'start' param to form a date range.\n\nFormats Supported:\n\n\nyyyy/MM/dd \nyyyy/MM/ddThh:mm \nnow.plus.{nHours?} \nnow.minus.{nHours?} \ntomorrow",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "assetId",
+            "type": "string",
+            "description": "A asset ID filter for the schedule collection. This can be a reference to any type of asset i.e. movie, season, series or episode.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "contributorId",
+            "type": "string",
+            "description": "Filter the schedule items by contributor ID",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Limit the the number of items to be returned per page. For example: 5.\n\nThe 'limit' parameter is typically used with the 'offset' parameter to facilitate pagination.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "integer",
+            "description": "The page offset of the first item to be returned. For example: 2.\n\nThe 'offset' parameter is typically used with the 'limit' parameter to facilitate pagination.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/asset": {
+      "get": {
+        "operationId": "AssetCollectionAsset",
+        "summary": "Return a collection of Assets.",
+        "tags": [
+          "Asset"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The response format to return.",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          },
+          {
+            "name": "contributorId",
+            "type": "string",
+            "description": "Contributor filter for the Assets.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "description": "Type filter for the assets.i.e episode, movie, season or series",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "tag",
+            "type": "string",
+            "description": "Tag filter for the assets",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "query",
+            "type": "string",
+            "description": "Limit the asset collection to items containing the provided string. For example: BBC",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Limit the the number of items to be returned per page. For example: 5.\n\nThe 'limit' parameter is typically used with the 'offset' parameter to facilitate pagination.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "integer",
+            "description": "The page offset of the first item to be returned. For example: 2.\n\nThe 'offset' parameter is typically used with the 'limit' parameter to facilitate pagination.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/asset/{assetId}": {
+      "get": {
+        "operationId": "AssetDetailAsset",
+        "summary": "Return the content of the selected asset.",
+        "tags": [
+          "Asset"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The response format.",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          },
+          {
+            "name": "assetId",
+            "type": "string",
+            "description": "The identifier for the selected asset.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/asset/{assetId}/contributor": {
+      "get": {
+        "operationId": "AssetContributorCollectionAsset",
+        "summary": "Return a collection of Contributors for given Asse...",
+        "description": "Return a collection of Contributors for given Asset.",
+        "tags": [
+          "Asset"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The response format to return.",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          },
+          {
+            "name": "assetId",
+            "type": "string",
+            "description": "The identifier for the selected asset.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "description": "Type filter for the assets. i.e. cast, director or producer",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "query",
+            "type": "string",
+            "description": "Limit the asset collection to items containing the provided string. For example: BBC",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Limit the the number of items to be returned per page. For example: 5.\n\nThe 'limit' parameter is typically used with the 'offset' parameter to facilitate pagination.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "integer",
+            "description": "The page offset of the first item to be returned. For example: 2.\n\nThe 'offset' parameter is typically used with the 'limit' parameter to facilitate pagination.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/feature": {
+      "get": {
+        "operationId": "FeatureCollectionFeature",
+        "summary": "Return a collection of channels.",
+        "tags": [
+          "Feature"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The response format to return.",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          },
+          {
+            "name": "tag",
+            "type": "string",
+            "description": "Feature tag category",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "start",
+            "type": "string",
+            "format": "date",
+            "description": "Limit the features to ones scheduled from the selected date provided. For example 2014-04-14.\n\nThe 'end' parameter is typically used in combination with the 'start' param to form a date range.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "end",
+            "type": "string",
+            "format": "date",
+            "description": "Limit the feature to ones scheduled to the selected date provided. For example: 2014-04-17.\n\nThe 'end' parameter is typically used in combination with the 'start' param to form a date range.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Limit the the number of items to be returned per page. For example: 5.\n\nThe 'limit' parameter is typically used with the 'offset' parameter to facilitate pagination.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "integer",
+            "description": "The page offset of the first item to be returned. For example: 2.\n\nThe 'offset' parameter is typically used with the 'limit' parameter to facilitate pagination.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/feature/{featureId}": {
+      "get": {
+        "operationId": "FeatureDetailFeature",
+        "summary": "Return the content of the selected feature.",
+        "tags": [
+          "Feature"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The response format.",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          },
+          {
+            "name": "featureId",
+            "type": "string",
+            "description": "The identifier for the selected feature.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/contributor": {
+      "get": {
+        "operationId": "ContributorCollectionContributor",
+        "summary": "Return a collection of contributors.",
+        "tags": [
+          "Contributor"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The response format to return.",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          },
+          {
+            "name": "query",
+            "type": "string",
+            "description": "Limit the contributor collection to items containing the provided string. For example: Jon",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Limit the the number of items to be returned per page. For example: 5.\n\nThe 'limit' parameter is typically used with the 'offset' parameter to facilitate pagination.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "integer",
+            "description": "The page offset of the first item to be returned. For example: 2.\n\nThe 'offset' parameter is typically used with the 'limit' parameter to facilitate pagination.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/contributor/{contributorId}": {
+      "get": {
+        "operationId": "ContributorDetailContributor",
+        "summary": "Return the content of the selected feature.",
+        "tags": [
+          "Contributor"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The response format.",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          },
+          {
+            "name": "contributorId",
+            "type": "string",
+            "description": "The identifier for the selected contributor.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/tag": {
+      "get": {
+        "operationId": "TagCollectionTag",
+        "summary": "Return a collection of Tags.",
+        "tags": [
+          "Tag"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The response format to return.",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          },
+          {
+            "name": "query",
+            "type": "string",
+            "description": "Limit the contributor collection to items containing the provided string. For example: horro",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Limit the the number of items to be returned per page. For example: 5.\n\nThe 'limit' parameter is typically used with the 'offset' parameter to facilitate pagination.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "integer",
+            "description": "The page offset of the first item to be returned. For example: 2.\n\nThe 'offset' parameter is typically used with the 'limit' parameter to facilitate pagination.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

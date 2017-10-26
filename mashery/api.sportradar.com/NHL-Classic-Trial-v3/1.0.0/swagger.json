@@ -1,0 +1,1008 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "NHL Classic Trial v3",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "x-origin": [
+      {
+        "url": "http://developer.sportradar.com/io-docs",
+        "format": "io_docs"
+      }
+    ],
+    "description": "Test our API services using our API Sandbox!    Enter your sport specific TRIAL KEY in the box below. Sportradar's NHL Classic API           ******** PLEASE NOTE**********  With the new application for the 2013 season, limited pre-season test data is available.",
+    "x-mashery-id": "1148"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.sportradar.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "Note: For seasons which span multiple calendar years (e.g. 2015-16), use the earlier year as the season parameter (e.g. 2015).  The Golf API season parameter is based on the PGA official season year.",
+    "url": "http://developer.sportradar.com/io-docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "NHL"
+    }
+  ],
+  "paths": {
+    "/nhl-t3/games/{season_id}/{nhl_season}/schedule{format}": {
+      "get": {
+        "operationId": "ScheduleNHL",
+        "summary": "Get full season schedules for the NHL.",
+        "tags": [
+          "NHL"
+        ],
+        "parameters": [
+          {
+            "name": "season_id",
+            "type": "number",
+            "description": "The year of the season (year season starts in)",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "2013",
+              "2014",
+              "2015"
+            ]
+          },
+          {
+            "name": "nhl_season",
+            "type": "string",
+            "description": "The part of the season, (REG, PST, PRE)",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "REG",
+              "PST",
+              "PRE"
+            ]
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Desired Output Format",
+            "in": "path",
+            "required": true,
+            "enum": [
+              ".xml",
+              ".json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/nhl-t3/games/{year}/{month}/{day}/schedule{format}": {
+      "get": {
+        "operationId": "DailyScheduleNHL",
+        "summary": "Get single day schedules for the NHL.",
+        "tags": [
+          "NHL"
+        ],
+        "parameters": [
+          {
+            "name": "year",
+            "type": "number",
+            "description": "The calendar year of the season",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "2013",
+              "2014",
+              "2015",
+              "2016",
+              "2017"
+            ]
+          },
+          {
+            "name": "month",
+            "type": "number",
+            "description": "The calendar month of the season",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "01",
+              "02",
+              "03",
+              "04",
+              "05",
+              "06",
+              "10",
+              "11",
+              "12"
+            ]
+          },
+          {
+            "name": "day",
+            "type": "number",
+            "description": "The calendar day of the month",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "01",
+              "02",
+              "03",
+              "04",
+              "05",
+              "06",
+              "07",
+              "08",
+              "09",
+              "10",
+              "11",
+              "12",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Desired Output Format",
+            "in": "path",
+            "required": true,
+            "enum": [
+              ".xml",
+              ".json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/nhl-t3/series/{season_id}/{nhl_season}/schedule{format}": {
+      "get": {
+        "operationId": "SeriesSchedulesNHL",
+        "summary": "Get post season series information for the NHL.",
+        "tags": [
+          "NHL"
+        ],
+        "parameters": [
+          {
+            "name": "season_id",
+            "type": "number",
+            "description": "The year of the season (year season starts in)",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "2012",
+              "2013",
+              "2014",
+              "2015"
+            ]
+          },
+          {
+            "name": "nhl_season",
+            "type": "string",
+            "description": "The part of the season, Post-season (PST)",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "PST"
+            ]
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Desired Output Format",
+            "in": "path",
+            "required": true,
+            "enum": [
+              ".xml",
+              ".json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/nhl-t3/games/{game_id}/boxscore{format}": {
+      "get": {
+        "operationId": "GameBoxscoreNHL",
+        "summary": "Get boxscore data for NHL games.",
+        "tags": [
+          "NHL"
+        ],
+        "parameters": [
+          {
+            "name": "game_id",
+            "type": "string",
+            "description": "The ID of a given game, found in the schedule feed",
+            "in": "path",
+            "required": true,
+            "default": "005f6753-cd99-4b43-9ec4-790f9e0c3e09"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Desired Output Format",
+            "in": "path",
+            "required": true,
+            "enum": [
+              ".xml",
+              ".json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/nhl-t3/seasontd/{season_id}/{nhl_season}/standings{format}": {
+      "get": {
+        "operationId": "StandingsNHL",
+        "summary": "Get standings information for the NHL.",
+        "tags": [
+          "NHL"
+        ],
+        "parameters": [
+          {
+            "name": "season_id",
+            "type": "number",
+            "description": "The year of the season (year season starts in)",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "2013",
+              "2014",
+              "2015",
+              "2016"
+            ]
+          },
+          {
+            "name": "nhl_season",
+            "type": "string",
+            "description": "The part of the season, Post-season (REG, PST)",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "REG",
+              "PST"
+            ]
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Desired Output Format",
+            "in": "path",
+            "required": true,
+            "enum": [
+              ".xml",
+              ".json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/nhl-t3/seasontd/{season_id}/{nhl_season}/rankings{format}": {
+      "get": {
+        "operationId": "RankingsNHL",
+        "summary": "Get rankings information for the NHL.",
+        "tags": [
+          "NHL"
+        ],
+        "parameters": [
+          {
+            "name": "season_id",
+            "type": "number",
+            "description": "The year of the season (year season starts in)",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "2013",
+              "2014",
+              "2015",
+              "2016"
+            ]
+          },
+          {
+            "name": "nhl_season",
+            "type": "string",
+            "description": "The part of the season (REG)",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "REG"
+            ]
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Desired Output Format",
+            "in": "path",
+            "required": true,
+            "enum": [
+              ".xml",
+              ".json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/nhl-t3/league/hierarchy{format}": {
+      "get": {
+        "operationId": "LeagueHierarchyNHL",
+        "summary": "Get the league hierarchy information for the NHL.",
+        "tags": [
+          "NHL"
+        ],
+        "parameters": [
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Desired Output Format",
+            "in": "path",
+            "required": true,
+            "enum": [
+              ".xml",
+              ".json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/nhl-t3/teams/{team_id}/profile{format}": {
+      "get": {
+        "operationId": "TeamProfile(Rosters)NHL",
+        "summary": "Get team rosters for the NHL.",
+        "tags": [
+          "NHL"
+        ],
+        "parameters": [
+          {
+            "name": "team_id",
+            "type": "string",
+            "description": "The ID of a given team, found in the league hierarchy feed",
+            "in": "path",
+            "required": true,
+            "default": "4416272f-0f24-11e2-8525-18a905767e44"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Desired Output Format",
+            "in": "path",
+            "required": true,
+            "enum": [
+              ".xml",
+              ".json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/nhl-t3/players/{player_id}/profile{format}": {
+      "get": {
+        "operationId": "PlayerProfileNHL",
+        "summary": "Get player profiles for the NHL.",
+        "tags": [
+          "NHL"
+        ],
+        "parameters": [
+          {
+            "name": "player_id",
+            "type": "string",
+            "description": "The ID of a given player, found in the Rosters feed",
+            "in": "path",
+            "required": true,
+            "default": "e6fc4e06-9c16-11e2-a01b-f4ce4684ea4c"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Desired Output Format",
+            "in": "path",
+            "required": true,
+            "enum": [
+              ".xml",
+              ".json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/nhl-t3/league/injuries{format}": {
+      "get": {
+        "operationId": "InjuriesNHL",
+        "summary": "Get injury feeds for the NHL.",
+        "tags": [
+          "NHL"
+        ],
+        "parameters": [
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Desired Output Format",
+            "in": "path",
+            "required": true,
+            "enum": [
+              ".xml",
+              ".json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/nhl-t3/games/{game_id}/summary{format}": {
+      "get": {
+        "operationId": "GameSummaryNHL",
+        "summary": "Obtain game summaries for the NHL.",
+        "tags": [
+          "NHL"
+        ],
+        "parameters": [
+          {
+            "name": "game_id",
+            "type": "string",
+            "description": "The ID of a given game, found in the schedule feed",
+            "in": "path",
+            "required": true,
+            "default": "005f6753-cd99-4b43-9ec4-790f9e0c3e09"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Desired Output Format",
+            "in": "path",
+            "required": true,
+            "enum": [
+              ".xml",
+              ".json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/nhl-t3/games/{game_id}/pbp{format}": {
+      "get": {
+        "operationId": "Play-By-PlayNHL",
+        "summary": "Get play-by-play detail for NHL games.",
+        "tags": [
+          "NHL"
+        ],
+        "parameters": [
+          {
+            "name": "game_id",
+            "type": "string",
+            "description": "The ID of a given game, found in the schedule feed",
+            "in": "path",
+            "required": true,
+            "default": "005f6753-cd99-4b43-9ec4-790f9e0c3e09"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Desired Output Format",
+            "in": "path",
+            "required": true,
+            "enum": [
+              ".xml",
+              ".json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/nhl-t3/seasontd/{season_id}/{nhl_season}/teams/{team_id}/statistics{format}": {
+      "get": {
+        "operationId": "SeasonalStatisticsNHL",
+        "summary": "Get standings information for the NHL.",
+        "tags": [
+          "NHL"
+        ],
+        "parameters": [
+          {
+            "name": "season_id",
+            "type": "number",
+            "description": "The year of the season (year season starts in)",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "2013",
+              "2014",
+              "2015",
+              "2016"
+            ]
+          },
+          {
+            "name": "nhl_season",
+            "type": "string",
+            "description": "The part of the season, Post-season (REG, PST)",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "REG",
+              "PST"
+            ]
+          },
+          {
+            "name": "team_id",
+            "type": "string",
+            "description": "The ID of a given team, found in the schedule feed",
+            "in": "path",
+            "required": true,
+            "default": "44151f7a-0f24-11e2-8525-18a905767e44"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Desired Output Format",
+            "in": "path",
+            "required": true,
+            "enum": [
+              ".xml",
+              ".json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/nhl-t3/seasontd/{season_id}/{nhl_season}/leaders/{leader_type}{format}": {
+      "get": {
+        "operationId": "LeagueLeadersNHL",
+        "summary": "Get rankings information for the NHL.",
+        "tags": [
+          "NHL"
+        ],
+        "parameters": [
+          {
+            "name": "season_id",
+            "type": "number",
+            "description": "The year of the season (year season starts in)",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "2013",
+              "2014",
+              "2015",
+              "2016"
+            ]
+          },
+          {
+            "name": "nhl_season",
+            "type": "string",
+            "description": "The part of the season, Post-season (REG, PST)",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "REG",
+              "PST"
+            ]
+          },
+          {
+            "name": "leader_type",
+            "type": "string",
+            "description": "The type of leader (offense, goaltending)",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "offense",
+              "goaltending"
+            ]
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Desired Output Format",
+            "in": "path",
+            "required": true,
+            "enum": [
+              ".xml",
+              ".json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/nhl-t3/league/{year}/{month}/{day}/changes{format}": {
+      "get": {
+        "operationId": "DailyChangeLogNHL",
+        "summary": "information on any changes made to teams, players,...",
+        "description": "information on any changes made to teams, players, game statistics, and standings",
+        "tags": [
+          "NHL"
+        ],
+        "parameters": [
+          {
+            "name": "year",
+            "type": "number",
+            "description": "The calendar year",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "2013",
+              "2014",
+              "2015",
+              "2016",
+              "2017"
+            ]
+          },
+          {
+            "name": "month",
+            "type": "number",
+            "description": "The calendar month",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "01",
+              "02",
+              "03",
+              "04",
+              "05",
+              "06",
+              "07",
+              "08",
+              "09",
+              "10",
+              "11",
+              "12"
+            ]
+          },
+          {
+            "name": "day",
+            "type": "number",
+            "description": "The calendar day",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "01",
+              "02",
+              "03",
+              "04",
+              "05",
+              "06",
+              "07",
+              "08",
+              "09",
+              "10",
+              "11",
+              "12",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Desired Output Format",
+            "in": "path",
+            "required": true,
+            "enum": [
+              ".xml",
+              ".json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/nhl-t3/league/{year}/{month}/{day}/transfers{format}": {
+      "get": {
+        "operationId": "DailyTransfersNHL",
+        "summary": "information for all transfers added or edited duri...",
+        "description": "information for all transfers added or edited during the league defined day",
+        "tags": [
+          "NHL"
+        ],
+        "parameters": [
+          {
+            "name": "year",
+            "type": "number",
+            "description": "The calendar year",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "2013",
+              "2014",
+              "2015",
+              "2016",
+              "2017"
+            ]
+          },
+          {
+            "name": "month",
+            "type": "number",
+            "description": "The calendar month",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "01",
+              "02",
+              "03",
+              "04",
+              "05",
+              "06",
+              "07",
+              "08",
+              "09",
+              "10",
+              "11",
+              "12"
+            ]
+          },
+          {
+            "name": "day",
+            "type": "number",
+            "description": "The calendar day",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "01",
+              "02",
+              "03",
+              "04",
+              "05",
+              "06",
+              "07",
+              "08",
+              "09",
+              "10",
+              "11",
+              "12",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Desired Output Format",
+            "in": "path",
+            "required": true,
+            "enum": [
+              ".xml",
+              ".json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

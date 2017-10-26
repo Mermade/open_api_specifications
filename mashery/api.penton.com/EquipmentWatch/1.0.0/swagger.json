@@ -12,6 +12,12 @@
       "name": "MIT",
       "url": "https://opensource.org/licenses/MIT"
     },
+    "x-origin": [
+      {
+        "url": "https://api.penton.com/io-docs",
+        "format": "io_docs"
+      }
+    ],
     "description": "Test our API services using I/O Docs. ",
     "x-mashery-id": "4214"
   },
@@ -22,7 +28,7 @@
   "basePath": "/",
   "externalDocs": {
     "description": "You can also view our written documentation.",
-    "url": "https://api.penton.com/io-docs/docs"
+    "url": "https://api.penton.com/io-docs"
   },
   "consumes": [],
   "produces": [],
@@ -167,7 +173,7 @@
     "/taxonomy/manufacturers": {
       "get": {
         "operationId": "GETManufacturersTaxonomy",
-        "summary": "Get models",
+        "summary": "Get manufacturers",
         "tags": [
           "Taxonomy"
         ],
@@ -256,7 +262,15 @@
         "tags": [
           "Taxonomy"
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "product_code",
+            "type": "string",
+            "description": "Product code. Use following notation to search by multiple product codes: \"CG,VG,SNG,RR,M&S,AG\"",
+            "in": "query",
+            "required": false
+          }
+        ],
         "responses": {
           "200": {
             "description": "Success"
@@ -1744,6 +1758,53 @@
       "get": {
         "operationId": "GETMarketDataParticipantsMarketData",
         "summary": "Get market data participants",
+        "tags": [
+          "Market Data"
+        ],
+        "parameters": [
+          {
+            "name": "sale_type",
+            "type": "string",
+            "description": "Sale Type",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "Auction",
+              "Resale"
+            ]
+          },
+          {
+            "name": "limit",
+            "type": "string",
+            "description": "Parameter is used to limit the number of results returned in the responce (max 1000). If limit is not specified, 1000 items will be returned in the result by default.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "string",
+            "description": "Offset is used to skip some number of items before beginning to return results. If offset is not specified, 0 items will be skipped in the result by default",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/marketdata/participants/count": {
+      "get": {
+        "operationId": "GETMarketDataParticipantsCountMarketData",
+        "summary": "Get count of market data participants",
         "tags": [
           "Market Data"
         ],

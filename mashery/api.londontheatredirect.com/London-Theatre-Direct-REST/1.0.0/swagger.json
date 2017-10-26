@@ -13,6 +13,12 @@
       "name": "MIT",
       "url": "https://opensource.org/licenses/MIT"
     },
+    "x-origin": [
+      {
+        "url": "https://developer.londontheatredirect.com/io-docs",
+        "format": "io_docs"
+      }
+    ],
     "description": "Test our API services using I/O Docs. ",
     "x-mashery-id": "3838"
   },
@@ -683,6 +689,45 @@
         }
       }
     },
+    "/Performances/{id}/FullAvailability": {
+      "get": {
+        "operationId": "Performances/{id}/FullAvailabilityTicketingDataAPI",
+        "summary": "Returns performance full availability",
+        "tags": [
+          "Ticketing Data API"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          },
+          {
+            "name": "id",
+            "type": "integer",
+            "description": "PerformanceId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
     "/Baskets": {
       "post": {
         "operationId": "BasketsBookingAPI",
@@ -1040,6 +1085,86 @@
         }
       }
     },
+    "/Baskets/{id}/AvailableDeliveries": {
+      "get": {
+        "operationId": "Baskets/{id}/AvailableDeliveriesBookingAPI",
+        "summary": "Returns available deliveries for the current baske...",
+        "description": "Returns available deliveries for the current basket",
+        "tags": [
+          "Booking API"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          },
+          {
+            "name": "id",
+            "type": "string",
+            "description": "BasketId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/Baskets/{id}/PrintAtHomeTickets": {
+      "get": {
+        "operationId": "Baskets/{id}/PrintAtHomeTicketsBookingAPI",
+        "summary": "Returns available Print-At-Home tickets for the cu...",
+        "description": "Returns available Print-At-Home tickets for the current basket",
+        "tags": [
+          "Booking API"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          },
+          {
+            "name": "id",
+            "type": "string",
+            "description": "BasketId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
     "/System/EventTypes": {
       "get": {
         "operationId": "EventTypesSystemAPI",
@@ -1314,7 +1439,7 @@
         },
         "RequireTicketPlan": {
           "title": "RequireTicketPlan",
-          "default": "",
+          "default": false,
           "type": "boolean",
           "description": "Require ticket plan"
         },
@@ -1332,7 +1457,7 @@
         },
         "SendConfirmationEmail": {
           "title": "SendConfirmationEmail",
-          "default": "",
+          "default": false,
           "type": "boolean",
           "description": "Send confirmation email"
         },

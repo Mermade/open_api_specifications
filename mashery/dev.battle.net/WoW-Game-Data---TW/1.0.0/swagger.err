@@ -1,0 +1,806 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "WoW Game Data - TW",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "x-origin": [
+      {
+        "url": "https://dev.battle.net/io-docs",
+        "format": "io_docs"
+      }
+    ],
+    "description": "Test our game APIs and check out real results below! Documentation supporting the World of Warcraft Community API",
+    "x-mashery-id": "11573"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "dev.battle.net",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "Note: Before you can use the APIs you need to register to get an API key.",
+    "url": "https://dev.battle.net/member/register"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "oauth2": {
+      "type": "oauth2",
+      "flow": "accessCode",
+      "authorizationUrl": "/",
+      "tokenUrl": "/",
+      "scopes": {}
+    }
+  },
+  "security": [
+    {
+      "oauth2": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Connected Realm API"
+    },
+    {
+      "name": "Mythic Keystone Leaderboard API"
+    },
+    {
+      "name": "Realm API"
+    },
+    {
+      "name": "Region API"
+    },
+    {
+      "name": "WoW Token API"
+    }
+  ],
+  "paths": {
+    "/data/wow/connected-realm/": {
+      "get": {
+        "operationId": "getConnectedRealmIndexConnectedRealmAPI",
+        "summary": "Get an index of connected-realms",
+        "tags": [
+          "Connected Realm API"
+        ],
+        "parameters": [
+          {
+            "name": "namespace",
+            "type": "string",
+            "description": "The namespace that should be used to locate this document",
+            "in": "query",
+            "required": false,
+            "default": "dynamic-tw"
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "The locale that should be reflected in localized data",
+            "in": "query",
+            "required": false,
+            "default": "zh_TW"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/data/wow/connected-realm/{connectedRealmId}": {
+      "get": {
+        "operationId": "getConnectedRealmConnectedRealmAPI",
+        "summary": "Get a single connected-realm by id",
+        "tags": [
+          "Connected Realm API"
+        ],
+        "parameters": [
+          {
+            "name": "connectedRealmId",
+            "type": "integer",
+            "description": "The id of the connected realm",
+            "in": "path",
+            "required": true,
+            "default": 963
+          },
+          {
+            "name": "namespace",
+            "type": "string",
+            "description": "The namespace that should be used to locate this document",
+            "in": "query",
+            "required": false,
+            "default": "dynamic-tw"
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "The locale that should be reflected in localized data",
+            "in": "query",
+            "required": false,
+            "default": "zh_TW"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/data/wow/connected-realm/{connectedRealmId}/mythic-leaderboard/": {
+      "get": {
+        "operationId": "getMythicLeaderboardIndexMythicKeystoneLeaderboardAPI",
+        "summary": "Get an index of Mythic Keystone Leaderboard dungeo...",
+        "description": "Get an index of Mythic Keystone Leaderboard dungeon instances for a connected-realm",
+        "tags": [
+          "Mythic Keystone Leaderboard API"
+        ],
+        "parameters": [
+          {
+            "name": "connectedRealmId",
+            "type": "integer",
+            "description": "The id of the connected realm",
+            "in": "path",
+            "required": true,
+            "default": 963
+          },
+          {
+            "name": "namespace",
+            "type": "string",
+            "description": "The namespace that should be used to locate this document",
+            "in": "query",
+            "required": false,
+            "default": "dynamic-tw"
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "The locale that should be reflected in localized data",
+            "in": "query",
+            "required": false,
+            "default": "zh_TW"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/data/wow/connected-realm/{connectedRealmId}/mythic-leaderboard/{dungeonId}/period/{period}": {
+      "get": {
+        "operationId": "getMythicLeaderboardMythicKeystoneLeaderboardAPI",
+        "summary": "Get a weekly Mythic Keystone Leaderboard by period...",
+        "description": "Get a weekly Mythic Keystone Leaderboard by period",
+        "tags": [
+          "Mythic Keystone Leaderboard API"
+        ],
+        "parameters": [
+          {
+            "name": "connectedRealmId",
+            "type": "integer",
+            "description": "The id of the connected realm",
+            "in": "path",
+            "required": true,
+            "default": 963
+          },
+          {
+            "name": "dungeonId",
+            "type": "integer",
+            "description": "The id of the dungeon",
+            "in": "path",
+            "required": true,
+            "default": 197
+          },
+          {
+            "name": "period",
+            "type": "integer",
+            "description": "The unique identifier for the leaderboard period",
+            "in": "path",
+            "required": true,
+            "default": 602
+          },
+          {
+            "name": "namespace",
+            "type": "string",
+            "description": "The namespace that should be used to locate this document",
+            "in": "query",
+            "required": false,
+            "default": "dynamic-tw"
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "The locale that should be reflected in localized data",
+            "in": "query",
+            "required": false,
+            "default": "zh_TW"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/data/wow/realm/": {
+      "get": {
+        "operationId": "getRealmIndexRealmAPI",
+        "summary": "Get an index of realms",
+        "tags": [
+          "Realm API"
+        ],
+        "parameters": [
+          {
+            "name": "namespace",
+            "type": "string",
+            "description": "The namespace that should be used to locate this document",
+            "in": "query",
+            "required": false,
+            "default": "dynamic-tw"
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "The locale that should be reflected in localized data",
+            "in": "query",
+            "required": false,
+            "default": "zh_TW"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/data/wow/realm/{realmSlug}": {
+      "get": {
+        "operationId": "getRealmRealmAPI",
+        "summary": "Get a single realm by slug or id",
+        "tags": [
+          "Realm API"
+        ],
+        "parameters": [
+          {
+            "name": "realmSlug",
+            "type": "string",
+            "description": "The slug of the realm",
+            "in": "path",
+            "required": true,
+            "default": "shadowmoon"
+          },
+          {
+            "name": "namespace",
+            "type": "string",
+            "description": "The namespace that should be used to locate this document",
+            "in": "query",
+            "required": false,
+            "default": "dynamic-tw"
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "The locale that should be reflected in localized data",
+            "in": "query",
+            "required": false,
+            "default": "zh_TW"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/data/wow/region/": {
+      "get": {
+        "operationId": "getRegionIndexRegionAPI",
+        "summary": "Get an index of regions",
+        "tags": [
+          "Region API"
+        ],
+        "parameters": [
+          {
+            "name": "namespace",
+            "type": "string",
+            "description": "The namespace that should be used to locate this document",
+            "in": "query",
+            "required": false,
+            "default": "dynamic-tw"
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "The locale that should be reflected in localized data",
+            "in": "query",
+            "required": false,
+            "default": "zh_TW"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/data/wow/region/{regionId}": {
+      "get": {
+        "operationId": "getRegionRegionAPI",
+        "summary": "Get a single region by id",
+        "tags": [
+          "Region API"
+        ],
+        "parameters": [
+          {
+            "name": "regionId",
+            "type": "integer",
+            "description": "The id of the region",
+            "in": "path",
+            "required": true,
+            "default": 4
+          },
+          {
+            "name": "namespace",
+            "type": "string",
+            "description": "The namespace that should be used to locate this document",
+            "in": "query",
+            "required": false,
+            "default": "dynamic-tw"
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "The locale that should be reflected in localized data",
+            "in": "query",
+            "required": false,
+            "default": "zh_TW"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/data/wow/token/": {
+      "get": {
+        "operationId": "getTokenIndexWoWTokenAPI",
+        "summary": "Get the WoW Token index",
+        "tags": [
+          "WoW Token API"
+        ],
+        "parameters": [
+          {
+            "name": "namespace",
+            "type": "string",
+            "description": "The namespace that should be used to locate this document",
+            "in": "query",
+            "required": false,
+            "default": "dynamic-tw"
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "description": "The locale that should be reflected in localized data",
+            "in": "query",
+            "required": false,
+            "default": "zh_TW"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ConnectedRealm": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The numeric id of this connected realm",
+          "readOnly": {}
+        },
+        "realms": {
+          "type": "array",
+          "description": "The list of realms belonging to this connected realm",
+          "readOnly": {}
+        },
+        "queue": {
+          "type": "boolean",
+          "description": "Is this connected realm currently queuing?",
+          "default": {}
+        }
+      },
+      "description": "A group of realms in which residing characters can interact",
+      "required": [
+        "id",
+        "population",
+        "status",
+        "realms",
+        "queue",
+        "mythicLeaderboards"
+      ]
+    },
+    "ConnectedRealms": {
+      "type": "object",
+      "properties": {
+        "connectedRealms": {
+          "type": "array",
+          "description": "A list of all connected realms"
+        }
+      },
+      "description": "An index of all connected realms",
+      "required": [
+        "connectedRealms"
+      ]
+    },
+    "KeyConnectedRealm": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The url of the linked document",
+          "readOnly": {}
+        }
+      },
+      "description": "A link to another document",
+      "required": [
+        "href"
+      ]
+    },
+    "KeyMythicLeaderboards": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The url of the linked document",
+          "readOnly": {}
+        }
+      },
+      "description": "A link to another document",
+      "required": [
+        "href"
+      ]
+    },
+    "KeyRealm": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The url of the linked document",
+          "readOnly": {}
+        }
+      },
+      "description": "A link to another document",
+      "required": [
+        "href"
+      ]
+    },
+    "KeyRegion": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "The url of the linked document",
+          "readOnly": {}
+        }
+      },
+      "description": "A link to another document",
+      "required": [
+        "href"
+      ]
+    },
+    "LocalizedLinkRealm": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The id of the linked document",
+          "readOnly": {}
+        },
+        "slug": {
+          "type": "string",
+          "description": "The slug used to identify and represent the document",
+          "readOnly": {}
+        }
+      },
+      "description": "A reference that provides the localized name and link of another document",
+      "required": [
+        "key",
+        "name",
+        "id",
+        "slug"
+      ]
+    },
+    "LocalizedLinkRegion": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The id of the linked document",
+          "readOnly": {}
+        },
+        "slug": {
+          "type": "string",
+          "description": "The slug used to identify and represent the document",
+          "readOnly": {}
+        }
+      },
+      "description": "A reference that provides the localized name and link of another document",
+      "required": [
+        "key",
+        "name",
+        "id",
+        "slug"
+      ]
+    },
+    "LocalizedString": {
+      "type": "object",
+      "description": "A string that has been localized in all supported game locales"
+    },
+    "LocalizedTypeRealmAvailability": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The id of this type",
+          "readOnly": {}
+        },
+        "type": {
+          "type": "string",
+          "description": "The constant value representing this type",
+          "readOnly": {},
+          "enum": [
+            "UP",
+            "DOWN"
+          ]
+        }
+      },
+      "description": "A type representing constant game values (e.g. 'ItemQuality' or 'PlayerFaction') that includes a localized name",
+      "required": [
+        "id",
+        "type",
+        "name"
+      ]
+    },
+    "LocalizedTypeRealmPopulation": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The id of this type",
+          "readOnly": {}
+        },
+        "type": {
+          "type": "string",
+          "description": "The constant value representing this type",
+          "readOnly": {},
+          "enum": [
+            "UNKNOWN",
+            "LOW",
+            "MEDIUM",
+            "HIGH",
+            "FULL",
+            "NEW",
+            "OFFLINE",
+            "LOCKED",
+            "RECOMMENDED"
+          ]
+        }
+      },
+      "description": "A type representing constant game values (e.g. 'ItemQuality' or 'PlayerFaction') that includes a localized name",
+      "required": [
+        "id",
+        "type",
+        "name"
+      ]
+    },
+    "LocalizedTypeRealmType": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The id of this type",
+          "readOnly": {}
+        },
+        "type": {
+          "type": "string",
+          "description": "The constant value representing this type",
+          "readOnly": {},
+          "enum": [
+            "NORMAL",
+            "PVP",
+            "RP",
+            "PVP_RP"
+          ]
+        }
+      },
+      "description": "A type representing constant game values (e.g. 'ItemQuality' or 'PlayerFaction') that includes a localized name",
+      "required": [
+        "id",
+        "type",
+        "name"
+      ]
+    },
+    "Realm": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The numeric id of the realm",
+          "readOnly": {}
+        },
+        "locale": {
+          "type": "string",
+          "description": "The default locale of this realm",
+          "readOnly": {}
+        },
+        "timezone": {
+          "type": "string",
+          "description": "The default timezone of this realm",
+          "readOnly": {}
+        },
+        "slug": {
+          "type": "string",
+          "description": "The slug used to represent or identify this realm",
+          "readOnly": {}
+        },
+        "tournament": {
+          "type": "boolean",
+          "description": "Is this a designated tournament realm?",
+          "default": {}
+        },
+        "openDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date that this realm came online"
+        }
+      },
+      "description": "A single instance of the World of Warcraft game world",
+      "required": [
+        "id",
+        "region",
+        "name",
+        "category",
+        "locale",
+        "timezone",
+        "type",
+        "slug",
+        "connectedRealm",
+        "tournament",
+        "openDate"
+      ]
+    },
+    "Realms": {
+      "type": "object",
+      "properties": {
+        "realms": {
+          "type": "array",
+          "description": "A list of all realms",
+          "readOnly": {}
+        }
+      },
+      "description": "An index of all realms",
+      "required": [
+        "realms"
+      ]
+    },
+    "Region": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The numeric id of the region",
+          "readOnly": {}
+        },
+        "tag": {
+          "type": "string",
+          "description": "An abbreviation used for this region",
+          "readOnly": {}
+        }
+      },
+      "description": "A grouping of game realms by geographic location",
+      "required": [
+        "id",
+        "name",
+        "tag"
+      ]
+    },
+    "Regions": {
+      "type": "object",
+      "properties": {
+        "regions": {
+          "type": "array",
+          "description": "A list of all game regions",
+          "readOnly": {}
+        }
+      },
+      "description": "An index of all game regions",
+      "required": [
+        "regions"
+      ]
+    }
+  }
+}

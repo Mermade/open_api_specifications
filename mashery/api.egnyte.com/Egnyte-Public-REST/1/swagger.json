@@ -12,13 +12,19 @@
       "name": "MIT",
       "url": "https://opensource.org/licenses/MIT"
     },
+    "x-origin": [
+      {
+        "url": "https://developers.egnyte.com/io-docs",
+        "format": "io_docs"
+      }
+    ],
     "description": "Take our API for an interactive test drive using our developer console below. You can also view our comprehensive documentation. ",
     "x-mashery-id": "410"
   },
   "schemes": [
     "http"
   ],
-  "host": "apis.egnyte.com",
+  "host": "api.egnyte.com",
   "basePath": "/pubapi/v1",
   "externalDocs": {
     "description": "Follow the steps below to start using the console. Note that this console uses a shared demo account. Outside of the console, you'll want to use your own API key and Egnyte account.\nIf logged into the portal, choose \"Manual Input\" for the \"Existing Client Credentials\" dropdown (only necessary if you are logged into this portal).\nPaste one of the following demo keys into the \"Client ID\" field -  \n\nx2g35g8gynb5cedas649m4h4 (for \"Implicit/ Javascript Client\" OAuth flow)\ncba97f3apst9eqzdr5hskggx (for \"Password Credentials\" OAuth flow)\nFor the \"Implicit/ Javascript Client\" OAuth flow, click \"Get Access Token\" to proceed. You'll need to enter user credentials after this.    \n\nFor the \"Password Credentials\" flow, you will need to enter user credentials before clicking \"Get Access Token\".    \n\nYou must use the following credentials for our Egnyte test account:    \n\nusername:  test\npassword:  password\nThat's it — you can proceed to test our API methods below!\n\nThe Permissions API and Audit Reporting API are currently unavailable on the console.\nCurrently only files with fixed placeholder text contents can be created using the Create File endpoint on this console. \nThe Update Single User endpoint in the User Management API is not available in this console. Refer to the written documentation for more details on this method.\n",
@@ -30,7 +36,7 @@
     "oauth2": {
       "type": "oauth2",
       "flow": "implicit",
-      "authorizationUrl": "",
+      "authorizationUrl": "/",
       "scopes": {}
     }
   },
@@ -68,8 +74,7 @@
             "type": "string",
             "description": "The full absolute path of the file or folder.",
             "in": "path",
-            "required": true,
-            "default": "Shared/Documents"
+            "required": true
           }
         ],
         "responses": {
@@ -103,16 +108,14 @@
             "type": "string",
             "description": "The full absolute path of the file or folder.",
             "in": "path",
-            "required": true,
-            "default": "/Shared/Documents/example.txt"
+            "required": true
           },
           {
             "name": "Content-Type",
             "type": "string",
             "description": "Content type of the payload",
             "in": "header",
-            "required": true,
-            "default": "application/json"
+            "required": true
           },
           {
             "name": "body",
@@ -155,8 +158,48 @@
             "type": "string",
             "description": "The full absolute path of the file.",
             "in": "path",
-            "required": true,
-            "default": "Shared/Documents/example.txt"
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "operationId": "CreateFileEgnyteFilesystemAPI",
+        "summary": "Creates or updates a file",
+        "tags": [
+          "Egnyte Filesystem API"
+        ],
+        "parameters": [
+          {
+            "name": "Path",
+            "type": "string",
+            "description": "The full absolute path of the file.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "type": "string",
+            "description": "OAuth2 access token",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content type of the payload",
+            "in": "header",
+            "required": true
           }
         ],
         "responses": {
@@ -185,24 +228,21 @@
             "type": "string",
             "description": "OAuth2 access token",
             "in": "header",
-            "required": true,
-            "default": "/Shared/Documents/example.txt"
+            "required": true
           },
           {
             "name": "Path",
             "type": "string",
             "description": "The full absolute path of the file or folder.",
             "in": "path",
-            "required": true,
-            "default": "/Shared/Documents/example.txt"
+            "required": true
           },
           {
             "name": "Content-Type",
             "type": "string",
             "description": "Content type of the payload",
             "in": "header",
-            "required": true,
-            "default": "application/json"
+            "required": true
           },
           {
             "name": "body",
@@ -236,8 +276,7 @@
             "type": "string",
             "description": "The full absolute path of the file or folder.",
             "in": "path",
-            "required": true,
-            "default": "/Shared/Documents/example.txt"
+            "required": true
           }
         ],
         "responses": {
@@ -253,44 +292,7 @@
         }
       }
     },
-    "/fs-content{Path}": {
-      "post": {
-        "operationId": "CreateFileEgnyteFilesystemAPI",
-        "summary": "Creates or updates a file",
-        "tags": [
-          "Egnyte Filesystem API"
-        ],
-        "parameters": [
-          {
-            "name": "Path",
-            "type": "string",
-            "description": "The full absolute path of the file.",
-            "in": "path",
-            "required": true,
-            "default": "Shared/Documents/example.txt"
-          },
-          {
-            "name": "Content-Type",
-            "type": "string",
-            "description": "Content type of the payload",
-            "in": "header",
-            "required": true,
-            "default": "text/plain"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "403": {
-            "description": "Forbidden"
-          }
-        }
-      }
-    },
+    "/fs-content/Path": {},
     "/fs/Path": {},
     "/fsPath": {},
     "/links": {
@@ -313,8 +315,7 @@
             "type": "string",
             "description": "Content type of the payload",
             "in": "header",
-            "required": true,
-            "default": "application/json"
+            "required": true
           },
           {
             "name": "body",
@@ -440,7 +441,7 @@
           {
             "name": "LinkID",
             "type": "string",
-            "description": "Link identifier",
+            "description": "Link identifier.  For an example, grab it from the one you created above.",
             "in": "path",
             "required": true
           }
@@ -545,7 +546,7 @@
       "properties": {
         "path": {
           "type": "string",
-          "description": "The absolute path of the destination file or folder. A target file must include the filename.",
+          "description": "The absolute path of the destination file or folder. A target file must include the filename. If this didn't work because the file did not exist, copy the file path from here and create the file in the example above using this path",
           "default": "/Shared/Documents/Links/links.txt"
         },
         "type": {
@@ -597,7 +598,7 @@
         "expiry_clicks": {
           "type": "integer",
           "description": "The number of clicks the link is valid for. Value must be between 1 and 10.",
-          "default": "3"
+          "default": 3
         }
       },
       "required": [
@@ -637,12 +638,12 @@
         "active": {
           "type": "boolean",
           "description": "Determines whether the user is active or inactive.",
-          "default": "true"
+          "default": true
         },
         "sendInvite": {
           "type": "boolean",
           "description": "If set to true when creating a user, an invitation email will be sent (if the user is created as 'active').",
-          "default": "true"
+          "default": true
         },
         "authType": {
           "type": "string",

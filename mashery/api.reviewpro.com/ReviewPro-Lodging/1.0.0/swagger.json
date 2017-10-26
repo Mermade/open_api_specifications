@@ -12,6 +12,12 @@
       "name": "MIT",
       "url": "https://opensource.org/licenses/MIT"
     },
+    "x-origin": [
+      {
+        "url": "http://developer.reviewpro.com/io-docs",
+        "format": "io_docs"
+      }
+    ],
     "description": "IMPORTANT: The IO-DOCS cosole currently does not support UTF-8 encoding - this an issue reported to Mashery.  However, if you call our endpoints directly the output will be correctly encoded. All calls require you to log in or provide an API key.",
     "x-mashery-id": "469"
   },
@@ -288,9 +294,9 @@
         ],
         "parameters": [
           {
-            "name": "pid",
+            "name": "gid",
             "type": "integer",
-            "description": "The lodging's product id",
+            "description": "The group's product id",
             "in": "query",
             "required": true
           },
@@ -953,19 +959,12 @@
     "/lodging/semantic/concepts": {
       "get": {
         "operationId": "SemanticConceptsSemantic",
-        "summary": "Fetch id to semantic concept in the desired langua...",
-        "description": "Fetch id to semantic concept in the desired languages.  Available languages are en, de, es, fr, it,nl and pt",
+        "summary": "Fetch ids and names of semantic concepts in the de...",
+        "description": "Fetch ids and names of semantic concepts in the desired language. Available languages are: en, de, es, fr, pt, it, nl, zh, ru, th, id, ja, tr",
         "tags": [
           "Semantic"
         ],
         "parameters": [
-          {
-            "name": "pid",
-            "type": "integer",
-            "description": "The lodging's product id",
-            "in": "query",
-            "required": true
-          },
           {
             "name": "lang",
             "type": "string",
@@ -991,8 +990,8 @@
     "/lodging/semantic/mentions": {
       "get": {
         "operationId": "SemanticMentionsSemantic",
-        "summary": "Fetch id to semantic concept in the desired langua...",
-        "description": "Fetch id to semantic concept in the desired languages.  Available languages are en, es, fr and de",
+        "summary": "Fetch number of positive and negative mentions for...",
+        "description": "Fetch number of positive and negative mentions for each concept",
         "tags": [
           "Semantic"
         ],
@@ -1021,6 +1020,69 @@
             "in": "query",
             "required": true,
             "default": "2013-02-01"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/lodging/semantic/mentions/details": {
+      "get": {
+        "operationId": "SemanticMentionsDetailsSemantic",
+        "summary": "Fetch mentions with full details",
+        "tags": [
+          "Semantic"
+        ],
+        "parameters": [
+          {
+            "name": "pid",
+            "type": "integer",
+            "description": "The lodging's product id",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "fd",
+            "type": "string",
+            "format": "date",
+            "description": "The from date in the format yyyy-mm-dd e.g 2012-02-07",
+            "in": "query",
+            "required": true,
+            "default": "2012-08-01"
+          },
+          {
+            "name": "td",
+            "type": "string",
+            "format": "date",
+            "description": "The to date in the format yyyy-mm-dd e.g 2013-02-07",
+            "in": "query",
+            "required": true,
+            "default": "2013-02-01"
+          },
+          {
+            "name": "offset",
+            "type": "integer",
+            "description": "Index of the first response to be returned. Indexes start at 0.",
+            "in": "query",
+            "required": true,
+            "default": 0
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Number of responses to return. Must be greater than 0 and lesser than 1000.",
+            "in": "query",
+            "required": true,
+            "default": 100
           }
         ],
         "responses": {
@@ -1200,7 +1262,7 @@
             "description": "The max number of values to return in this query (100 max per request)",
             "in": "query",
             "required": true,
-            "default": "10"
+            "default": 10
           },
           {
             "name": "st",
@@ -1208,7 +1270,7 @@
             "description": "The offset of values to return, used for paging over results",
             "in": "query",
             "required": true,
-            "default": "0"
+            "default": 0
           }
         ],
         "responses": {
@@ -1264,7 +1326,7 @@
             "description": "The max number of values to return in this query (100 max per request)",
             "in": "query",
             "required": true,
-            "default": "10"
+            "default": 10
           },
           {
             "name": "st",
@@ -1272,7 +1334,7 @@
             "description": "The offset of values to return, used for paging over results",
             "in": "query",
             "required": true,
-            "default": "0"
+            "default": 0
           }
         ],
         "responses": {
@@ -1313,8 +1375,8 @@
     "/account/lodgings/competitors": {
       "get": {
         "operationId": "CompetitorsforAccountAccount",
-        "summary": "Lookup competitors (id and name) for one or severa...",
-        "description": "Lookup competitors (id and name) for one or several pids of your account",
+        "summary": "Look up competitors (id and name) for one or sever...",
+        "description": "Look up competitors (id and name) for one or several pids of your account",
         "tags": [
           "Account"
         ],
@@ -1327,6 +1389,58 @@
             "required": true
           }
         ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/account/groups/{gid}": {
+      "get": {
+        "operationId": "GroupsforAccountAccount",
+        "summary": "Look up all pids of one or several groups related ...",
+        "description": "Look up all pids of one or several groups related to your account",
+        "tags": [
+          "Account"
+        ],
+        "parameters": [
+          {
+            "name": "gid",
+            "type": "string",
+            "description": "The list of group ids",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/account/groups": {
+      "get": {
+        "operationId": "AllGroupsforAccountAccount",
+        "summary": "Look up all pids of all groups related to your acc...",
+        "description": "Look up all pids of all groups related to your account",
+        "tags": [
+          "Account"
+        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "Success"
@@ -1390,8 +1504,7 @@
           },
           {
             "name": "gid",
-            "type": "string",
-            "format": "date",
+            "type": "integer",
             "description": "The product group id",
             "in": "query",
             "required": true
@@ -1413,6 +1526,72 @@
             "in": "query",
             "required": true,
             "default": "2015-05-01"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/surveys/{surveyId}/score/{scoreType}": {
+      "get": {
+        "operationId": "GSSOverallScoreforProductSurveys",
+        "summary": "Lookup GSS Overall Score for Product",
+        "tags": [
+          "Surveys"
+        ],
+        "parameters": [
+          {
+            "name": "surveyId",
+            "type": "string",
+            "description": "Survey id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "scoreType",
+            "type": "string",
+            "description": "The score type",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "rating",
+              "customscore",
+              "nps"
+            ]
+          },
+          {
+            "name": "pid",
+            "type": "integer",
+            "description": "The product id for which to pull the survey data",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "fd",
+            "type": "string",
+            "format": "date",
+            "description": "The from date-time in the format yyyy-MM-dd 2012-08-01",
+            "in": "query",
+            "required": true,
+            "default": "2016-10-01"
+          },
+          {
+            "name": "td",
+            "type": "string",
+            "format": "date",
+            "description": "The to date-time in the format yyyy-mm-dd e.g 2013-02-01",
+            "in": "query",
+            "required": true,
+            "default": "2016-10-31"
           }
         ],
         "responses": {
@@ -1482,6 +1661,57 @@
             "description": "Number of responses to return. Must be greater than 0 and lesser than 100. If not provided, the default is 100",
             "in": "query",
             "required": false
+          },
+          {
+            "name": "flagged",
+            "type": "boolean",
+            "description": "if you want to query for flagged mentions",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "0"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/pms/guests/{surveyId}": {
+      "post": {
+        "operationId": "Importguests(PMS)Surveys",
+        "summary": "Add a list of guests to ReviewPro survey system (d...",
+        "description": "Add a list of guests to ReviewPro survey system (documentation)",
+        "tags": [
+          "Surveys"
+        ],
+        "parameters": [
+          {
+            "name": "surveyId",
+            "type": "string",
+            "description": "Survey id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "json",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
           }
         ],
         "responses": {

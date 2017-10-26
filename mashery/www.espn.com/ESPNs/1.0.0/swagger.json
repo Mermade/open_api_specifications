@@ -1,0 +1,1191 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "ESPN APIs",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "x-origin": [
+      {
+        "url": "http://www.espn.com/static/apis/devcenter/io-docs.html",
+        "format": "io_docs"
+      }
+    ],
+    "description": "Explore the ESPN API by making live calls. ",
+    "x-mashery-id": "123"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "www.espn.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "http://www.espn.com/static/apis/devcenter/io-docs.html"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Sports API"
+    },
+    {
+      "name": "Headlines API"
+    },
+    {
+      "name": "Athletes API"
+    },
+    {
+      "name": "Teams API"
+    },
+    {
+      "name": "ESPN Now API"
+    },
+    {
+      "name": "Standings API"
+    },
+    {
+      "name": "Research Notes API"
+    },
+    {
+      "name": "Medals API"
+    },
+    {
+      "name": "Audio API"
+    },
+    {
+      "name": "Video API"
+    },
+    {
+      "name": "Score & Schedules API"
+    }
+  ],
+  "paths": {
+    "/sports/{sportName}/{leagueName}/": {
+      "get": {
+        "operationId": "SportsSportsAPI",
+        "summary": "Sports and leagues supported in the ESPN API.",
+        "tags": [
+          "Sports API"
+        ],
+        "parameters": [
+          {
+            "name": "sportName",
+            "type": "string",
+            "description": "Sport name",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "/",
+              "baseball",
+              "basketball",
+              "boxing",
+              "football",
+              "golf",
+              "hockey",
+              "horse-racing",
+              "mma",
+              "olympics",
+              "racing",
+              "soccer",
+              "tennis"
+            ]
+          },
+          {
+            "name": "leagueName",
+            "type": "string",
+            "description": "League / organizing body within the sport.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "/"
+            ]
+          },
+          {
+            "name": "_accept",
+            "type": "string",
+            "description": "Payload output format",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "text/xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/{newsSection}/{sportName}/{leagueName}/news/{method}/{headlineId}": {
+      "get": {
+        "operationId": "HeadlinesHeadlinesAPI",
+        "summary": "Latest sports news and analysis from ESPN.",
+        "tags": [
+          "Headlines API"
+        ],
+        "parameters": [
+          {
+            "name": "newsSection",
+            "type": "string",
+            "description": "News section",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "sports",
+              "cities",
+              "espnw",
+              "fantasy",
+              "magazine"
+            ]
+          },
+          {
+            "name": "sportName",
+            "type": "string",
+            "description": "Sport name",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "/",
+              "baseball",
+              "basketball",
+              "boxing",
+              "football",
+              "golf",
+              "hockey",
+              "horse-racing",
+              "mma",
+              "olympics",
+              "racing",
+              "soccer",
+              "tennis",
+              "action-sports"
+            ]
+          },
+          {
+            "name": "leagueName",
+            "type": "string",
+            "description": "League / organizing body within the sport.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "/"
+            ]
+          },
+          {
+            "name": "method",
+            "type": "string",
+            "description": "Type of stories to retrieve.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "/",
+              "headlines",
+              "headlines/featured",
+              "headlines/top"
+            ]
+          },
+          {
+            "name": "headlineId",
+            "type": "integer",
+            "description": "ID of specific story to retrieve.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "dates",
+            "type": "string",
+            "format": "date-time",
+            "description": "Used to retrieve stories from a specific date, in YYYYMMDD format.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "teams",
+            "type": "string",
+            "description": "Retrieve stories about a particular team (teamId)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "athletes",
+            "type": "string",
+            "description": "Retrieves stories about a particular player/athlete (athleteId)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "events",
+            "type": "string",
+            "description": "Retrieves stories about a particular event (eventId)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "enable",
+            "type": "string",
+            "description": "Comma separated list of node names to enable. Currently supports 'inlines' (access tier permitting).",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "disable",
+            "type": "string",
+            "description": "Comma separated list of node names to disable. Currently supports these values: audio, categories, keywords, mobileStory, related, and story.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "insider",
+            "type": "string",
+            "description": "Toggles whether or not to include premium (ESPN Insider) content.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "no",
+              "only"
+            ]
+          },
+          {
+            "name": "lang",
+            "type": "string",
+            "description": "Language to receive content in.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "es"
+            ]
+          },
+          {
+            "name": "region",
+            "type": "string",
+            "description": "Region of editorial focus. Only applicable for soccer and spanish language content.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "ar",
+              "co",
+              "gb",
+              "mx"
+            ]
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Limits the number of results returned.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "integer",
+            "description": "Offset from zero of where to start results.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "_accept",
+            "type": "string",
+            "description": "Payload output format",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "text/xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/sports/{sportName}/{leagueName}/athletes/{athleteId}": {
+      "get": {
+        "operationId": "AthletesAthletesAPI",
+        "summary": "Athlete stats and information from ESPN.",
+        "tags": [
+          "Athletes API"
+        ],
+        "parameters": [
+          {
+            "name": "sportName",
+            "type": "string",
+            "description": "Sport name",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "baseball",
+              "basketball",
+              "football",
+              "golf",
+              "hockey",
+              "racing",
+              "soccer",
+              "tennis"
+            ]
+          },
+          {
+            "name": "leagueName",
+            "type": "string",
+            "description": "League / organizing body within the sport.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "mlb"
+            ]
+          },
+          {
+            "name": "athleteId",
+            "type": "integer",
+            "description": "Specific athlete ID.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "groups",
+            "type": "integer",
+            "description": "Used to specify a specific group or division within the league/organizing body.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "enable",
+            "type": "string",
+            "description": "Comma separated list of node names to enable. Currently supports stats, logos, flags, notes, and competitors, subject to access tier.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "lang",
+            "type": "string",
+            "description": "Language to receive content in.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "es"
+            ]
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Limits the number of results returned.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "integer",
+            "description": "Offset from zero of where to start results.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "_accept",
+            "type": "string",
+            "description": "Payload output format.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "text/xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/sports/{sportName}/{leagueName}/teams/{teamId}": {
+      "get": {
+        "operationId": "TeamsTeamsAPI",
+        "summary": "Sports team stats and information from ESPN.",
+        "tags": [
+          "Teams API"
+        ],
+        "parameters": [
+          {
+            "name": "sportName",
+            "type": "string",
+            "description": "Sport name",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "baseball",
+              "basketball",
+              "football",
+              "hockey"
+            ]
+          },
+          {
+            "name": "leagueName",
+            "type": "string",
+            "description": "League / organizing body within the sport.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "mlb"
+            ]
+          },
+          {
+            "name": "teamId",
+            "type": "integer",
+            "description": "Specific team ID.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "enable",
+            "type": "string",
+            "description": "Comma separated list of node names to enable. Currently supports venues, stats, roster, and leaders, subject to access tier.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "groups",
+            "type": "integer",
+            "description": "Used to specify a specific group or division within the league/organizing body.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "rostertype",
+            "type": "string",
+            "description": "Can be used to specify full or active roster. Only applicable to MLB. Subject to access tier.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "full",
+              "active"
+            ]
+          },
+          {
+            "name": "dates",
+            "type": "string",
+            "description": "Used to retrieve members of the team for a particular year, in YYYY format.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "lang",
+            "type": "string",
+            "description": "Language to receive content in.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "es"
+            ]
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Limits the number of results returned.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "integer",
+            "description": "Offset from zero of where to start results.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "_accept",
+            "type": "string",
+            "description": "Payload output format.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "text/xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/now/{method}": {
+      "get": {
+        "operationId": "NowESPNNowAPI",
+        "summary": "Stream of the latest content published on ESPN.com...",
+        "description": "Stream of the latest content published on ESPN.com .",
+        "tags": [
+          "ESPN Now API"
+        ],
+        "parameters": [
+          {
+            "name": "method",
+            "type": "string",
+            "description": "Type of content to retrieve.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "/",
+              "top",
+              "popular"
+            ]
+          },
+          {
+            "name": "leagues",
+            "type": "string",
+            "description": "String denoting a particular sport category or sports league/organizing body. Not applicable to /top and /popular methods.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "mens-college-basketball",
+              "mlb",
+              "mma",
+              "nascar",
+              "nba",
+              "nfl",
+              "nhl",
+              "olympics",
+              "racing",
+              "soccer",
+              "tennis",
+              "wnba",
+              "womens-college-basketball"
+            ]
+          },
+          {
+            "name": "content",
+            "type": "string",
+            "description": "Content types to retrieve. Not applicable to /top and /popular methods.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "video"
+            ]
+          },
+          {
+            "name": "teams",
+            "type": "string",
+            "description": "Retrieve content about a particular team (teamId). Not applicable with /top and /popular methods.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "_accept",
+            "type": "string",
+            "description": "Payload output format.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "text/xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/sports/{sportName}/{leagueName}/standings": {
+      "get": {
+        "operationId": "StandingsStandingsAPI",
+        "summary": "The latest league and divisional standings from ES...",
+        "description": "The latest league and divisional standings from ESPN.",
+        "tags": [
+          "Standings API"
+        ],
+        "parameters": [
+          {
+            "name": "sportName",
+            "type": "string",
+            "description": "Sport name",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "baseball",
+              "basketball",
+              "football",
+              "golf",
+              "hockey",
+              "racing",
+              "soccer",
+              "tennis"
+            ]
+          },
+          {
+            "name": "leagueName",
+            "type": "string",
+            "description": "League / organizing body within the sport.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "mlb"
+            ]
+          },
+          {
+            "name": "enable",
+            "type": "string",
+            "description": "Comma separated list of node names to enable. Currently supports logos, subject to access tier.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "groups",
+            "type": "integer",
+            "description": "Used to specify a specific group or division within the league/organizing body.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "dates",
+            "type": "string",
+            "description": "The year to retrive standings for. Defaults to current year.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "seasontype",
+            "type": "string",
+            "description": "Value corresponding to either preseason, regular season, or postseason games. Accepts string (pre/reg/post) values.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "pre",
+              "reg",
+              "post"
+            ]
+          },
+          {
+            "name": "flat",
+            "type": "boolean",
+            "description": "Returns a flattened result set in order to show all teams ranked from first to last without breaking them out into divisions. Only valid with team-based sports.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "true"
+            ]
+          },
+          {
+            "name": "lang",
+            "type": "string",
+            "description": "Language to receive content in.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "es"
+            ]
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Limits the number of results returned.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "integer",
+            "description": "Offset from zero of where to start results.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "_accept",
+            "type": "string",
+            "description": "Payload output format.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "text/xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/sports/{sportName}/{leagueName}/news/notes/{noteId}": {
+      "get": {
+        "operationId": "ResearchNotesResearchNotesAPI",
+        "summary": "Exclusive factoids produced by ESPN's Stats and In...",
+        "description": "Exclusive factoids produced by ESPN's Stats and Information Group.",
+        "tags": [
+          "Research Notes API"
+        ],
+        "parameters": [
+          {
+            "name": "sportName",
+            "type": "string",
+            "description": "Sport name",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "/",
+              "baseball",
+              "basketball",
+              "football",
+              "hockey"
+            ]
+          },
+          {
+            "name": "leagueName",
+            "type": "string",
+            "description": "League / organizing body within the sport.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "/"
+            ]
+          },
+          {
+            "name": "teams",
+            "type": "integer",
+            "description": "Retrieve notes about a particular team (teamId).",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "athletes",
+            "type": "integer",
+            "description": "Retrieve notes about a particular athlete (athleteId).",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "events",
+            "type": "integer",
+            "description": "Retrieve notes about a particular event (eventId).",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "noteId",
+            "type": "integer",
+            "description": "Retrieve content for a specific note.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "dates",
+            "type": "string",
+            "format": "date-time",
+            "description": "Retrieve notes for a specific date in YYYYMMDD format.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Limits the number of results returned.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "integer",
+            "description": "Offset from zero of where to start results.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "_accept",
+            "type": "string",
+            "description": "Payload output format",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "text/xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/sports/olympics/medals": {
+      "get": {
+        "operationId": "MedalsMedalsAPI",
+        "summary": "Medal counts and competition information from the ...",
+        "description": "Medal counts and competition information from the Olympic Games.",
+        "tags": [
+          "Medals API"
+        ],
+        "parameters": [
+          {
+            "name": "dates",
+            "type": "string",
+            "description": "The year of the Olympic Games in YYYY format.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "string",
+            "description": "The season of the Olympic Games. Supported values are summer or winter.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "enable",
+            "type": "string",
+            "description": "Comma separated list of node names to enable. Currently supports flags and competition information (including final scores), subject to access tier.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "lang",
+            "type": "string",
+            "description": "Language to receive content in.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "es"
+            ]
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Limits the number of results returned.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "integer",
+            "description": "Offset from zero of where to start results.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "_accept",
+            "type": "string",
+            "description": "Payload output format.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "text/xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/audio/{method}/{podcastId}/{recordingId}": {
+      "get": {
+        "operationId": "AudioAudioAPI",
+        "summary": "Audio podcasts and clips from ESPN.",
+        "tags": [
+          "Audio API"
+        ],
+        "parameters": [
+          {
+            "name": "method",
+            "type": "string",
+            "description": "Audio content to grab.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "podcasts",
+              "recordings",
+              "podcasts/recordings"
+            ]
+          },
+          {
+            "name": "podcastId",
+            "type": "integer",
+            "description": "Specific Podcast ID.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "recordingId",
+            "type": "integer",
+            "description": "Specific audio recording (clip) ID.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "insider",
+            "type": "string",
+            "description": "Toggles whether or not to include premium (ESPN Insider) content.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "no",
+              "only"
+            ]
+          },
+          {
+            "name": "_accept",
+            "type": "string",
+            "description": "Payload output format.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "text/xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/video/channels/{categoryId}/clips/{clipId}": {
+      "get": {
+        "operationId": "VideoVideoAPI",
+        "summary": "Video clip and channel information from ESPN.",
+        "tags": [
+          "Video API"
+        ],
+        "parameters": [
+          {
+            "name": "categoryId",
+            "type": "integer",
+            "description": "Specific video channel ID.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "clipId",
+            "type": "integer",
+            "description": "Specific video clip ID.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "_accept",
+            "type": "string",
+            "description": "Payload output format.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "text/xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/sports/{sportName}/{leagueName}/events/{eventId}": {
+      "get": {
+        "operationId": "EventsScore&SchedulesAPI",
+        "summary": "Returns schedule and scores information.",
+        "tags": [
+          "Score & Schedules API"
+        ],
+        "parameters": [
+          {
+            "name": "sportName",
+            "type": "string",
+            "description": "Sport name",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "/",
+              "baseball",
+              "basketball",
+              "football",
+              "golf",
+              "hockey",
+              "lacrosse",
+              "mma",
+              "olympics",
+              "racing",
+              "soccer",
+              "softball",
+              "tennis",
+              "volleyball",
+              "water-polo"
+            ]
+          },
+          {
+            "name": "leagueName",
+            "type": "string",
+            "description": "League / organizing body within the sport.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "/"
+            ]
+          },
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Specific event ID.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "seasontype",
+            "type": "string",
+            "description": "Value corresponding to either preseason, regular season, or postseason games. Accepts string (pre/reg/post) values. If not passed will default to the season type corresponding to the current date. Not applicable to golf, tennis, or racing.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "weeks",
+            "type": "integer",
+            "description": "Integer. Only applicable to college and NFL football. When used with dates parameter, returns games for that particular week.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "enable",
+            "type": "string",
+            "description": "Comma separated list of node names to enable. Currently supports odds, logos, broadcasts, flags, weather, series,and ranks, subject to data availability and method being used.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "disable",
+            "type": "string",
+            "description": "Comma separated list of node names to disable. Currently supports links, venues, stats, season, sports, leagues, team,  athletes, and linescores, subject to data availability and method being used.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "dates",
+            "type": "string",
+            "format": "date-time",
+            "description": "Retrieve notes for a specific date in YYYY, YYMM, or YYMMDD format, subject to data availability and method being used.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "lang",
+            "type": "string",
+            "description": "Language to receive content in.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "es"
+            ]
+          },
+          {
+            "name": "_accept",
+            "type": "string",
+            "description": "Payload output format",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "text/xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

@@ -1,0 +1,744 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Car Parking Netherlands",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "x-origin": [
+      {
+        "url": "https://developer.monotch.com/io-docs",
+        "format": "io_docs"
+      }
+    ],
+    "description": "Test our API services using I/O Docs. ",
+    "x-mashery-id": "6779"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.monotch.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "https://developer.monotch.com/io-docs/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Car Parking Netherlands v6"
+    }
+  ],
+  "paths": {
+    "/rates": {
+      "get": {
+        "operationId": "ratesCarParkingNetherlandsv6",
+        "summary": "Return the rates for a given eid or zonecode. When...",
+        "description": "Return the rates for a given eid or zonecode. When both eid and zonecode are given, the result is a combination of both lists. When neither eid nor zonecode are given, an empty array is returned.",
+        "tags": [
+          "Car Parking Netherlands v6"
+        ],
+        "parameters": [
+          {
+            "name": "eid",
+            "type": "string",
+            "description": "Optional: Parking (parking_[id]) or sector (sector_[id]) entity id. It is possible to specify more then one using the ';' as separator.",
+            "in": "query",
+            "required": false,
+            "default": "sector_12633;parking_1731"
+          },
+          {
+            "name": "zonecode",
+            "type": "string",
+            "description": "Optional: The zone code for which rates will be included. Note: The accessibility of this option depends on your subscription.",
+            "in": "query",
+            "required": false,
+            "default": "130"
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "Optional: Javascript callback to call with the results.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/advice": {
+      "get": {
+        "operationId": "adviceCarParkingNetherlandsv6",
+        "summary": "Returnes the parking possibilities closest to the ...",
+        "description": "Returnes the parking possibilities closest to the given longitude and latitude. The first in the alternatives array is the closest to the given coordinates. The next alternatives are cheaper options than free options, when such alternatives were found.",
+        "tags": [
+          "Car Parking Netherlands v6"
+        ],
+        "parameters": [
+          {
+            "name": "lat",
+            "type": "string",
+            "description": "The latitude of the destination",
+            "in": "query",
+            "required": true,
+            "default": "52.163420"
+          },
+          {
+            "name": "lng",
+            "type": "string",
+            "description": "The longitude of the destination",
+            "in": "query",
+            "required": true,
+            "default": "4.527997"
+          },
+          {
+            "name": "wd",
+            "type": "string",
+            "description": "Optional: The day of the week for which the advice is. 1 is Monday and 7 is Sunday. When not given, set to 0 or bigger than 7, the current day of the week is used.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "h",
+            "type": "string",
+            "description": "Optional: The hour of the day for which the advice is ranges from 0 to 23. When not given or outside of the 0-23 range, the hour is 0.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "m",
+            "type": "string",
+            "description": "Optional: The minutes of the hour for which the advice is ranges from 0 to 59. When not given or outside of the 0-59 range, the minutes are 0.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "includeTypePartnerMobypark",
+            "type": "string",
+            "description": "Optional: Maximum number of moby park pois to include in the response. When not given, no moby park pois will be included. The mobyparkMaxDistance and lat, lng are used to determine which pois are to be included. Note: The accessibility of this option depends on your subscription.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "mobyparkMaxDistance",
+            "type": "string",
+            "description": "Optional: When not given and includeTypePartnerMobypark is bigger than 0, a distance of 2500 meters will be used. Distance is in meters.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "includeZoneCode",
+            "type": "string",
+            "description": "Optional: Maximum number of zone codes to include in the response. The lat and lng are used to determine which zones to include. The zone codes will be included for the 'destination' and 'cheaper' options only if any are found. Note: The accessibility of this option depends on your subscription.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "includeRates",
+            "type": "string",
+            "description": "Optional: When set to 1, rates will be included using the wd, h and minutes. When not given or set to 0, a rate having cents, status and text is included using the wd, h and minutes. Note: The accessibility of this option depends on your subscription.",
+            "in": "query",
+            "required": false,
+            "default": "0"
+          },
+          {
+            "name": "extraParkingPOI",
+            "type": "string",
+            "description": "Optional: Maximum number of extra parking garages to be included in the response. There will always be one parking garages included when there is one in the vicinity of the given lat, lng. The maximum distance used to determine which parking garages to include is 2 km.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "extraPRPOI",
+            "type": "string",
+            "description": "Optional: Maximum number of parking p+r to be included in the response. When not given, no parking p+rs are included. The maximum distance used to determine which parking p+r to include is 10 km.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "excludeRemark",
+            "type": "string",
+            "description": "Optional: When set to 1, the description field will be removed from the alternatives. Some descriptive fields from the moby_park pois will also be removed when includeTypePartnerMobypark is set to 1. When not given or set to 0, the fields will not be removed.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "Javascript callback to call with the results.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/city": {
+      "get": {
+        "operationId": "cityCarParkingNetherlandsv6",
+        "summary": "Returns the name, bounding box, minimum rate, maxi...",
+        "description": "Returns the name, bounding box, minimum rate, maximum rate and a poi list of the city matching the given id. The given types determine which pois are included in the poi list. A poi is included when it is 'registered' to the given city, this includes pois that fall outside of the city's bounding box but are 'registered' to it.",
+        "tags": [
+          "Car Parking Netherlands v6"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "The id of the city.",
+            "in": "query",
+            "required": true,
+            "default": "city_20"
+          },
+          {
+            "name": "types",
+            "type": "string",
+            "description": "The following types are supported: freespot, parking_unknown, parking_garage, parking_area, parking_carpool, parking_transfer, parking_pr, poi_evse (electronic vehicle supply equipment), sector, sector_entrypoint. It is possible to specify more then one type using the ';' as separator.",
+            "in": "query",
+            "required": true,
+            "default": "parking_garage;sector"
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "Optional: Javascript callback to call with the results.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/cities": {
+      "get": {
+        "operationId": "citiesCarParkingNetherlandsv6",
+        "summary": "Returns a list of cities that have parking informa...",
+        "description": "Returns a list of cities that have parking information and are within the given bounding box.",
+        "tags": [
+          "Car Parking Netherlands v6"
+        ],
+        "parameters": [
+          {
+            "name": "n",
+            "type": "string",
+            "description": "The latitude of the nw bounding box coordinates.",
+            "in": "query",
+            "required": true,
+            "default": "54"
+          },
+          {
+            "name": "e",
+            "type": "string",
+            "description": "The longitude of the se bounding box coordinates.",
+            "in": "query",
+            "required": true,
+            "default": "7.5"
+          },
+          {
+            "name": "s",
+            "type": "string",
+            "description": "The latitude of the se bounding box coordinates.",
+            "in": "query",
+            "required": true,
+            "default": "50.5"
+          },
+          {
+            "name": "w",
+            "type": "string",
+            "description": "The longitude of the nw bounding box coordinates.",
+            "in": "query",
+            "required": true,
+            "default": "3"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/list": {
+      "get": {
+        "operationId": "listCarParkingNetherlandsv6",
+        "summary": "Returns a list of pois of the given types, that ar...",
+        "description": "Returns a list of pois of the given types, that are within the given bounding box. In case of the type sector, it's polygon should at least intersect. When city_id is also given, the resulting list will only contain pois that fall in the bounding box AND are 'registered' to the given city.",
+        "tags": [
+          "Car Parking Netherlands v6"
+        ],
+        "parameters": [
+          {
+            "name": "n",
+            "type": "string",
+            "description": "The latitude of the nw bounding box coordinates.",
+            "in": "query",
+            "required": true,
+            "default": "52.8"
+          },
+          {
+            "name": "e",
+            "type": "string",
+            "description": "The longitude of the se bounding box coordinates.",
+            "in": "query",
+            "required": true,
+            "default": "5"
+          },
+          {
+            "name": "s",
+            "type": "string",
+            "description": "The latitude of the se bounding box coordinates.",
+            "in": "query",
+            "required": true,
+            "default": "52.6"
+          },
+          {
+            "name": "w",
+            "type": "string",
+            "description": "The longitude of the nw bounding box coordinates.",
+            "in": "query",
+            "required": true,
+            "default": "4"
+          },
+          {
+            "name": "types",
+            "type": "string",
+            "description": "The following types are supported: city, freespot, parking_unknown, parking_garage, parking_area, parking_carpool, parking_transfer, parking_pr, poi_evse (electronic vehicle supply equipment), sector, sector_entrypoint, zonesign. It is possible to specify more then one type using the ';' as separator. Note: The accessibility of the type 'zonesign' depends on your subscription.",
+            "in": "query",
+            "required": true,
+            "default": "city;parking_garage;zonesign"
+          },
+          {
+            "name": "city_id",
+            "type": "string",
+            "description": "Optional: The city id of the pois. When not given, all pois that are within the given bounding box are included.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "wd",
+            "type": "string",
+            "description": "Optional: The day of the week of the included rate. 1 is Monday and 8 is shopping Sunday. When not given and includeRates=1, the current day of the week is used.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "h",
+            "type": "string",
+            "description": "Optional: The hour of the day of the included rate. Ranges from 0 to 23. When not given and includeRates=1, the current hour is used.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "m",
+            "type": "string",
+            "description": "Optional: The minutes of the hour of the included rate. Ranges from 0 to 59. When not given and includeRates=1, the current minutes are used.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "includeRates",
+            "type": "string",
+            "description": "Optional: Includes the rate for the given wd, h, m per list item when set to 1 or true. When not given, rates are not be included. Note: The accessibility of this option depends on your subscription.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "excludeRemark",
+            "type": "string",
+            "description": "Optional: Removes the field 'remark' from the response when set to 1. When not given the 'remark' will not be removed.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "Optional: Javascript callback to call with the results.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/detail": {
+      "get": {
+        "operationId": "detailCarParkingNetherlandsv6",
+        "summary": "Returns details for the given poi id. It is possib...",
+        "description": "Returns details for the given poi id. It is possible to include the rates of the poi, if applicable.",
+        "tags": [
+          "Car Parking Netherlands v6"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "The poi id for which details will be included in the response. Possible poi id's are: parking_[id], sector_[id], city_[id], zonesign_[id], sector_entrypoint_[id], freespot_[id], poi_[id].",
+            "in": "query",
+            "required": true,
+            "default": "city_20"
+          },
+          {
+            "name": "includeRates",
+            "type": "string",
+            "description": "Optional: Includes the rates when set to 1. When not given rates will not be included. The result of the rates depends on the given wd, h and m. When none of these three are defined, all rates are included. IncludeRates does nothing for the poi id's city_[id] and poi_[id]. When zonesign_[id] is chosen, additional 'rate_day' and 'description' fields are returned when data is available for them. Note: The accessibility of this option depends on your subscription.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "wd",
+            "type": "string",
+            "description": "Optional: The day of the week of the included rate. 1 is Monday and 8 is shopping Sunday. When given all rates of given wd are included including 'padded' rates for the time periods no rates are available for. These 'padded' rates have a rate_1st_hour of zero.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "h",
+            "type": "string",
+            "description": "Optional: The hour of the day of the included rate. Ranges from 0 to 23. When given all rates that match the given hour will be marked as 'is_current'.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "m",
+            "type": "string",
+            "description": "Optional: The minutes of the hour of the included rate. Ranges from 0 to 59. When m and h are given all rates that match the given hour will be marked as 'is_current'. When only m and not h is given, m is ignored.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "excludeExtraMobyparkRemarks",
+            "type": "string",
+            "description": "Optional: When set to 1 and a poi_[id] is given, the fields 'access_type_description' and 'shuttle_description' will be removed, when the poi is of type 'poi_mobypark'. When not given these fields wil not be removed. Note: The accessibility of poi type 'poi_mobypark' depends on your subscription.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "Optional: Javascript callback to call with the results.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/zone": {
+      "get": {
+        "operationId": "zoneCarParkingNetherlandsv6",
+        "summary": "Returns the zones who's zone sign's location are t...",
+        "description": "Returns the zones who's zone sign's location are the closest to the given coordinates. The zones are ordered, with the zone closest to the given coordinates is the first. Note: The accessibility of this endpoint depends on your subscription.",
+        "tags": [
+          "Car Parking Netherlands v6"
+        ],
+        "parameters": [
+          {
+            "name": "lat",
+            "type": "string",
+            "description": "The latitude of the coordinates for which the nearest zones will be included.",
+            "in": "query",
+            "required": true,
+            "default": "52.16"
+          },
+          {
+            "name": "lng",
+            "type": "string",
+            "description": "The longitude of the coordinates for which the nearest zones will be included.",
+            "in": "query",
+            "required": true,
+            "default": "4.51"
+          },
+          {
+            "name": "includeRates",
+            "type": "string",
+            "description": "Optional: Includes the rates of the zone when set to 1. When not given the rates are not be included. Rates are only available for the Netherlands. Note: The accessibility of this option depends on your subscription.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "type": "string",
+            "description": "Optional: The amount of zones to be included for given coordinates. When not given, the limit is set to 1. The maximum limit is 20.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "country_code",
+            "type": "string",
+            "description": "Optional: When not given NL is used",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "Optional: Javascript callback to call with the results.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/zoneBySector": {
+      "get": {
+        "operationId": "zoneBySectorCarParkingNetherlandsv6",
+        "summary": "Returns the zone of the sector, in which the coord...",
+        "description": "Returns the zone of the sector, in which the coordinates fall. When multiple sectors correspond to the given coordinates, the smallest sector (by polygon area size) is used to determine the returned zone. When the sector has multiple zone signs, the zone sign closest to the given coordinates is returned. Note: The accessibility of this endpoint depends on your subscription.",
+        "tags": [
+          "Car Parking Netherlands v6"
+        ],
+        "parameters": [
+          {
+            "name": "lat",
+            "type": "string",
+            "description": "The latitude of the coordinates which determines the sector and by that sector the zone that is included.",
+            "in": "query",
+            "required": true,
+            "default": "52.16"
+          },
+          {
+            "name": "lng",
+            "type": "string",
+            "description": "The longitude of the coordinates which determines the sector and by that sector the zone that is included.",
+            "in": "query",
+            "required": true,
+            "default": "4.51"
+          },
+          {
+            "name": "includeRates",
+            "type": "string",
+            "description": "Optional: Includes the rates of the zone when set to 1. When not given the rates are not be included. Note: The accessibility of this option depends on your subscription.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "Optional: Javascript callback to call with the results.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/searchZoneSign": {
+      "get": {
+        "operationId": "searchZoneSignCarParkingNetherlandsv6",
+        "summary": "Returns details for the zone sign for the given zo...",
+        "description": "Returns details for the zone sign for the given zone code. When multiple zone signs are found for the zone code, one is selected randomly, however when next to the zone code a latitude and longitude are given, the zone sign closest to these coordinates is returned.",
+        "tags": [
+          "Car Parking Netherlands v6"
+        ],
+        "parameters": [
+          {
+            "name": "zonecode",
+            "type": "string",
+            "description": "The zonecode for which a zone sign will be searched and included.",
+            "in": "query",
+            "required": true,
+            "default": "7108"
+          },
+          {
+            "name": "lat",
+            "type": "string",
+            "description": "Optional: When multiple zone signs are found for given zone code, the latitude is used to determine which zone sign to include. Namely the closest one to it. When no latitude and longitude are given, a zone sign is selected randomly when more than one was found for the zone code.",
+            "in": "query",
+            "required": false,
+            "default": "52.163420"
+          },
+          {
+            "name": "lng",
+            "type": "string",
+            "description": "Optional: When multiple zone signs are found for given zone code, the longitude is used to determine which zone sign to include. Namely the closest one to it. When no latitude and longitude are given, a zone sign is selected randomly when more than one was found for the zone code.",
+            "in": "query",
+            "required": false,
+            "default": "4.527997"
+          },
+          {
+            "name": "includeRates",
+            "type": "string",
+            "description": "Optional: Includes the rates when set to 1. When not given rates will not be included. The result of the rates depends on the given wd, h and m. When none of these three are defined, all rates are included. Note: The accessibility of this option depends on your subscription.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "wd",
+            "type": "string",
+            "description": "Optional: The day of the week of the included rate. 1 is Monday and 8 is shopping Sunday. When given all rates of given wd are included including 'padded' rates for the time periods no rates are available for. These 'padded' rates have a rate_1st_hour of zero.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "h",
+            "type": "string",
+            "description": "Optional: The hour of the day of the included rate. Ranges from 0 to 23. When given all rates that match the given hour will be marked as 'is_current'.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "m",
+            "type": "string",
+            "description": "Optional: The minutes of the hour of the included rate. Ranges from 0 to 59. When m and h are given all rates that match the given hour will be marked as 'is_current'. When only m and not h is given, m is ignored.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "Optional: Javascript callback to call with the results.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/polygons": {
+      "get": {
+        "operationId": "polygonsCarParkingNetherlandsv6",
+        "summary": "Returns google maps encoded polygons for the given...",
+        "description": "Returns google maps encoded polygons for the given eids.",
+        "tags": [
+          "Car Parking Netherlands v6"
+        ],
+        "parameters": [
+          {
+            "name": "eid",
+            "type": "string",
+            "description": "The eid sector_[id] is supported. It is possible to specify more then one eid using the ';' as separator.",
+            "in": "query",
+            "required": true,
+            "default": "sector_81;sector_82"
+          },
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "Optional: Javascript callback to call with the results.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

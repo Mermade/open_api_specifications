@@ -1,0 +1,532 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Returns API",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "x-origin": [
+      {
+        "url": "https://developer.fandango.com/io-docs",
+        "format": "io_docs"
+      }
+    ],
+    "description": "If you have been assigned an API Key, you can test Fandango's API services here. You can also view written documentation for information on methods available via the Fandango API and definitions of the output associated with each. ",
+    "x-mashery-id": "11536"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.fandango.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "For details about the response elements, please see the specific API section page below:\nTheater Methods\nMovie Methods \nShowtime Methods\nEditorial Methods\nCity Search Method\n",
+    "url": "https://developer.fandango.com/io-docs/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "reason-codes v1"
+    },
+    {
+      "name": "transactions v1 refund"
+    },
+    {
+      "name": "transactions v1"
+    }
+  ],
+  "paths": {
+    "/reason-codes/v1": {
+      "get": {
+        "operationId": "reasoncodesreason-codesv1",
+        "summary": "Get list of reasons for return",
+        "tags": [
+          "reason-codes v1"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Content type of the response payload",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/transactions/v1/{transactionId}/refund": {
+      "post": {
+        "operationId": "createtransactionsv1refundtransactionsv1refund",
+        "summary": "Refund a transaction",
+        "tags": [
+          "transactions v1 refund"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Content type of the response payload",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          },
+          {
+            "name": "transactionId",
+            "type": "string",
+            "description": "Pass a value for looking up transaction",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Refund"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/transactions/v1": {
+      "get": {
+        "operationId": "searchtransactionsv1",
+        "summary": "Search for transactions to refund",
+        "tags": [
+          "transactions v1"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Content type of the response payload",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          },
+          {
+            "name": "email",
+            "type": "string",
+            "description": "Customer's email address to search",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "confirmationCode",
+            "type": "string",
+            "description": "Customer's confirmation number for ticket purchase",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "chainSiteId",
+            "type": "string",
+            "description": "This is the chain's site Id and is required if the caller is a theater",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "integer",
+            "description": "Record to start search from",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Number of records to return per request",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "transactionCutoffDate",
+            "type": "string",
+            "description": "The date limit for the current search",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Refund": {
+      "title": "Refund",
+      "type": "object",
+      "required": [
+        "refundReasonCode",
+        "returnType",
+        "chainSiteId",
+        "chainCode",
+        "userAccountId",
+        "affiliateId"
+      ],
+      "properties": {
+        "refundReasonCode": {
+          "type": "string"
+        },
+        "returnType": {
+          "type": "string"
+        },
+        "chainSiteId": {
+          "type": "string"
+        },
+        "chainCode": {
+          "type": "string"
+        },
+        "userAccountId": {
+          "type": "string"
+        },
+        "affiliateId": {
+          "type": "string"
+        }
+      }
+    },
+    "ReasonCodes": {
+      "title": "ReasonCodes",
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "reason": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "data"
+      ]
+    },
+    "ReasonCodesFailure": {
+      "title": "ReasonCodesFailure",
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "errors"
+      ]
+    },
+    "RefundResponse": {
+      "title": "RefundResponse",
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "properties": {
+            "confirmationCode": {
+              "type": "string"
+            },
+            "returnTransactionId": {
+              "type": "string"
+            },
+            "inventoryReturned": {
+              "type": "boolean"
+            }
+          }
+        }
+      },
+      "required": [
+        "data"
+      ]
+    },
+    "RefundResponseFailure": {
+      "title": "RefundResponseFailure",
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "ruleErrors": {
+          "type": "array",
+          "items": {
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "errors",
+        "ruleErrors"
+      ]
+    },
+    "SearchResult": {
+      "title": "SearchResult",
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "object",
+          "properties": {
+            "limit": {
+              "type": "integer"
+            },
+            "offset": {
+              "type": "integer"
+            }
+          }
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "confirmationCode": {
+                "type": "string"
+              },
+              "purchaseDate": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "cardFee": {
+                "type": "number"
+              },
+              "salesFee": {
+                "type": "number"
+              },
+              "surchargeFee": {
+                "type": "number"
+              },
+              "reservedFee": {
+                "type": "number"
+              },
+              "shippingFee": {
+                "type": "number"
+              },
+              "tax": {
+                "type": "number"
+              },
+              "totalFees": {
+                "type": "number"
+              },
+              "subtotal": {
+                "type": "number"
+              },
+              "total": {
+                "type": "number"
+              },
+              "tickets": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "quantity": {
+                      "type": "integer"
+                    },
+                    "price": {
+                      "type": "number"
+                    }
+                  }
+                }
+              },
+              "payments": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "method": {
+                      "type": "string"
+                    },
+                    "amount": {
+                      "type": "number"
+                    },
+                    "card": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string"
+                        },
+                        "lastFour": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "performance": {
+                "type": "object",
+                "properties": {
+                  "movieTitle": {
+                    "type": "string"
+                  },
+                  "auditoriumId": {
+                    "type": "integer"
+                  },
+                  "dateTime": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "performanceId ": {},
+                  "runtime": {
+                    "type": "integer"
+                  },
+                  "posMovieId": {
+                    "type": "string"
+                  },
+                  "movieRating": {
+                    "type": "string"
+                  }
+                }
+              },
+              "theater": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "chainSiteId": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "page",
+        "data"
+      ]
+    },
+    "CoreError": {
+      "title": "CoreError",
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "error"
+      ]
+    }
+  }
+}

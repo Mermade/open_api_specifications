@@ -1,0 +1,220 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Railway Travelplanner Netherlands",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "x-origin": [
+      {
+        "url": "https://developer.monotch.com/io-docs",
+        "format": "io_docs"
+      }
+    ],
+    "description": "Test our API services using I/O Docs. ",
+    "x-mashery-id": "5905"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.monotch.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "https://developer.monotch.com/io-docs/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "NS API Prijzen"
+    },
+    {
+      "name": "NS API Stationslijst"
+    },
+    {
+      "name": "NS API Actuele Vertrektijden"
+    },
+    {
+      "name": "NS API Storingen"
+    }
+  ],
+  "paths": {
+    "/prijzen": {
+      "get": {
+        "operationId": "prijzenNSAPIPrijzen",
+        "summary": "",
+        "tags": [
+          "NS API Prijzen"
+        ],
+        "parameters": [
+          {
+            "name": "from",
+            "type": "string",
+            "description": "De code (afkorting) of korte naam of middellange naam of volledige naam of synoniem van het vertrekstation",
+            "in": "query",
+            "required": true,
+            "default": "ASD"
+          },
+          {
+            "name": "to",
+            "type": "string",
+            "description": "De code (afkorting) of korte naam of middellange naam of volledige naam of synoniem van het aankomststation",
+            "in": "query",
+            "required": true,
+            "default": "LEDN"
+          },
+          {
+            "name": "via",
+            "type": "string",
+            "description": "De code (afkorting) of korte naam of middellange naam of volledige naam of synoniem van het tussenstation",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "datetime",
+            "type": "string",
+            "description": "De datum in ddMMyyyy formaat",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stationslijst": {
+      "get": {
+        "operationId": "stationslijstNSAPIStationslijst",
+        "summary": "",
+        "tags": [
+          "NS API Stationslijst"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/avt": {
+      "get": {
+        "operationId": "avtNSAPIActueleVertrektijden",
+        "summary": "",
+        "tags": [
+          "NS API Actuele Vertrektijden"
+        ],
+        "parameters": [
+          {
+            "name": "station",
+            "type": "string",
+            "description": "De code (afkorting) of korte naam of middellange naam of volledige naam of synoniem van de stationsnaam",
+            "in": "query",
+            "required": true,
+            "default": "LEDN"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/storingen": {
+      "get": {
+        "operationId": "storingenNSAPIStoringen",
+        "summary": "De volgende informatie kan worden opgevraagd:<p>ac...",
+        "description": "De volgende informatie kan worden opgevraagd:<p>actuele storingen  (=ongeplande storingen + actuele werkzaamheden)</p>    geplande werkzaamheden (=geplande werkzaamheden)<br>    actuele storingen voor een gespecificeerd station (=ongeplande storingen + actuele werkzaamheden)",
+        "tags": [
+          "NS API Storingen"
+        ],
+        "parameters": [
+          {
+            "name": "station",
+            "type": "string",
+            "description": "De code (afkorting) of korte naam of middellange naam of volledige naam of synoniem van de stationsnaam. Deze parameter levert de informatie zoals hierboven beschreven in punt 3.",
+            "in": "query",
+            "required": false,
+            "default": "LEDN"
+          },
+          {
+            "name": "actual",
+            "type": "boolean",
+            "description": "Boolean (true or false) indicator of de actuele storingen moeten worden geretourneerd. Dit betreft zowel de ongeplande storingen die op het moment van de request actueel zijn, als de geplande werkzaamheden die binnen twee uur van het request plaatsvinden. Deze parameter levert de informatie zoals hierboven beschreven in punt 1.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "0"
+            ]
+          },
+          {
+            "name": "unplanned",
+            "type": "boolean",
+            "description": "Boolean (true or false) indicator of de geplande werkzaamheden voor de komende 2 weken moeten worden geretourneerd. Deze parameter levert de informatie zoals hierboven beschreven in punt 2. Let op: bij unplanned=true worden de geplande werkzaamheden geretourneerd. Dit is dus net andersom dan wat de parameternaam doet vermoeden.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "0"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

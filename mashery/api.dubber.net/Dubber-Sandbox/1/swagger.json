@@ -12,6 +12,12 @@
       "name": "MIT",
       "url": "https://opensource.org/licenses/MIT"
     },
+    "x-origin": [
+      {
+        "url": "https://developer.dubber.net/io-docs",
+        "format": "io_docs"
+      }
+    ],
     "description": "Your a Developer, so we know you think like a Developer!   The best form of Documentation is the code -- right!   It's living documentation and always up-to-date.   Test our API services using I/O Docs.  \"Yes, you code to see how it works and whether its right for you\". To help you out, we've even got some sample code that uses our APIs, just like how you would put together a real 'client' application. Dubber IODocs Sandbox features OAuth 2.0 as well as the full set of endpoints",
     "x-mashery-id": "1300"
   },
@@ -30,7 +36,7 @@
     "oauth2": {
       "type": "oauth2",
       "flow": "implicit",
-      "authorizationUrl": "",
+      "authorizationUrl": "/",
       "scopes": {}
     }
   },
@@ -50,6 +56,9 @@
       "name": "Recording Methods"
     },
     {
+      "name": "Multipart Recording Methods"
+    },
+    {
       "name": "User Methods"
     },
     {
@@ -59,7 +68,7 @@
       "name": "Notification (Rest Hook) Methods"
     },
     {
-      "name": "External Identifier Methods (Group Authentication Required)"
+      "name": "Dub.Point (Group Authentication Required)"
     },
     {
       "name": "OAuth 2 Methods"
@@ -95,6 +104,43 @@
         }
       }
     },
+    "/groups/{group_id}/groups": {
+      "post": {
+        "operationId": "CreateChildGroupGroupMethods(GroupAuthenticationRequired)",
+        "summary": "Creates a child group under the given group_id.",
+        "tags": [
+          "Group Methods (Group Authentication Required)"
+        ],
+        "parameters": [
+          {
+            "name": "group_id",
+            "type": "string",
+            "description": "The group ID.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content type of the payload",
+            "in": "header",
+            "required": true,
+            "default": "application/json"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
     "/accounts": {
       "post": {
         "operationId": "CreateAccountGroupMethods(GroupAuthenticationRequired)",
@@ -104,6 +150,105 @@
           "Group Methods (Group Authentication Required)"
         ],
         "parameters": [
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content type of the payload",
+            "in": "header",
+            "required": true,
+            "default": "application/json"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/groups/{group_id}/unidentified_recordings": {
+      "get": {
+        "operationId": "GetGroupUnidentifiedRecordingsGroupMethods(GroupAuthenticationRequired)",
+        "summary": "Get group unidentified recordings.",
+        "tags": [
+          "Group Methods (Group Authentication Required)"
+        ],
+        "parameters": [
+          {
+            "name": "group_id",
+            "type": "string",
+            "description": "The group ID.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "before_id",
+            "type": "string",
+            "description": "Return recordings before this recording ID",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "after_id",
+            "type": "string",
+            "description": "Return recordings after this recording ID",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "count",
+            "type": "integer",
+            "description": "Total recordings to return. Maximum 100",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "query",
+            "type": "string",
+            "description": "String to search",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "page",
+            "type": "integer",
+            "description": "Page number to return. Can't be used when sending before_id and after_id",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "operationId": "CreateGroupUnidentifiedRecordingGroupMethods(GroupAuthenticationRequired)",
+        "summary": "Creates an unidentified recording in the grouo.",
+        "tags": [
+          "Group Methods (Group Authentication Required)"
+        ],
+        "parameters": [
+          {
+            "name": "group_id",
+            "type": "string",
+            "description": "The group ID.",
+            "in": "path",
+            "required": true
+          },
           {
             "name": "Content-Type",
             "type": "string",
@@ -254,10 +399,10 @@
         }
       },
       "post": {
-        "operationId": "CreateRecordingRecordingMethods",
+        "operationId": "CreateMultipartRecordingMultipartRecordingMethods",
         "summary": "Creates a recording in the account.",
         "tags": [
-          "Recording Methods"
+          "Multipart Recording Methods"
         ],
         "parameters": [
           {
@@ -310,6 +455,13 @@
             "description": "Username (email) of the user making the call. Providing this value will return a link to the recording.",
             "in": "query",
             "required": false
+          },
+          {
+            "name": "content_disposition",
+            "type": "string",
+            "description": "The content disposition for the recording_url (is not provided defaults to inline)",
+            "in": "query",
+            "required": false
           }
         ],
         "responses": {
@@ -325,8 +477,38 @@
         }
       },
       "delete": {
-        "operationId": "DeleteRecordingRecordingMethods",
-        "summary": "Deletes a specified recording.",
+        "operationId": "AbortMultipartRecordingUploadMultipartRecordingMethods",
+        "summary": "Deletes a specified recording/Aborts the multipart...",
+        "description": "Deletes a specified recording/Aborts the multipart upload.",
+        "tags": [
+          "Multipart Recording Methods"
+        ],
+        "parameters": [
+          {
+            "name": "recording_id",
+            "type": "string",
+            "description": "The recording ID",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/recordings/{recording_id}/waveform": {
+      "get": {
+        "operationId": "GetRecordingWaveformRecordingMethods",
+        "summary": "Gets the waveform link for a specified recording.",
         "tags": [
           "Recording Methods"
         ],
@@ -438,6 +620,94 @@
             "description": "The recording ID",
             "in": "path",
             "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/recordings/{recording_id}/upload": {
+      "get": {
+        "operationId": "GetRecordingUploadPartMultipartRecordingMethods",
+        "summary": "Gets the details to upload a part of a recording.",
+        "tags": [
+          "Multipart Recording Methods"
+        ],
+        "parameters": [
+          {
+            "name": "recording_id",
+            "type": "string",
+            "description": "The recording ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "part_number",
+            "type": "string",
+            "description": "The part_number to get upload details for",
+            "in": "query",
+            "required": true,
+            "default": "1"
+          },
+          {
+            "name": "content_md5",
+            "type": "string",
+            "description": "The MD5 digest of the content for the part. This value must also be Base64 encoded",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "content_sha256",
+            "type": "string",
+            "description": "The SHA256 hex digest of the content for the part",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/recordings/{recording_id}/complete_upload": {
+      "put": {
+        "operationId": "PutCompleteMultipartRecordingUploadMultipartRecordingMethods",
+        "summary": "Completes the multipart upload for a recording",
+        "tags": [
+          "Multipart Recording Methods"
+        ],
+        "parameters": [
+          {
+            "name": "recording_id",
+            "type": "string",
+            "description": "The recording ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content type of the payload",
+            "in": "header",
+            "required": true,
+            "default": "application/json"
           }
         ],
         "responses": {
@@ -926,19 +1196,45 @@
         }
       }
     },
-    "/users/{user_id}/external_identifiers": {
-      "post": {
-        "operationId": "CreateUserExternalIdentifierExternalIdentifierMethods(GroupAuthenticationRequired)",
-        "summary": "Creates an external identifier for the given user....",
-        "description": "Creates an external identifier for the given user.",
+    "/accounts/{account_id}/dub_points": {
+      "get": {
+        "operationId": "GetAccountdub.pointsDub.Point(GroupAuthenticationRequired)",
+        "summary": "Get account dub.points.",
         "tags": [
-          "External Identifier Methods (Group Authentication Required)"
+          "Dub.Point (Group Authentication Required)"
         ],
         "parameters": [
           {
-            "name": "user_id",
+            "name": "account_id",
             "type": "string",
-            "description": "The user ID.",
+            "description": "The account ID.",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "operationId": "CreateAccountdub.pointDub.Point(GroupAuthenticationRequired)",
+        "summary": "Creates a dub.point for the given account.",
+        "tags": [
+          "Dub.Point (Group Authentication Required)"
+        ],
+        "parameters": [
+          {
+            "name": "account_id",
+            "type": "string",
+            "description": "The account ID.",
             "in": "path",
             "required": true
           },
@@ -964,19 +1260,18 @@
         }
       }
     },
-    "/external_identifiers/{external_identifier_id}": {
+    "/dub_points/{dub_point_id}": {
       "get": {
-        "operationId": "GetExternalIdentifierDetailsExternalIdentifierMethods(GroupAuthenticationRequired)",
-        "summary": "Gets information about a given external identifier...",
-        "description": "Gets information about a given external identifier",
+        "operationId": "Getdub.pointDetailsDub.Point(GroupAuthenticationRequired)",
+        "summary": "Gets information about a given dub.point",
         "tags": [
-          "External Identifier Methods (Group Authentication Required)"
+          "Dub.Point (Group Authentication Required)"
         ],
         "parameters": [
           {
-            "name": "external_identifier_id",
+            "name": "dub_point_id",
             "type": "string",
-            "description": "The external identifier ID.",
+            "description": "The dub.point ID.",
             "in": "path",
             "required": true
           }
@@ -994,12 +1289,12 @@
         }
       }
     },
-    "/external_identifiers/find": {
+    "/dub_points/find": {
       "get": {
-        "operationId": "FindExternalIdentifierExternalIdentifierMethods(GroupAuthenticationRequired)",
-        "summary": "Finds a matching external identifier",
+        "operationId": "Finddub.pointDub.Point(GroupAuthenticationRequired)",
+        "summary": "Finds a matching dub.points",
         "tags": [
-          "External Identifier Methods (Group Authentication Required)"
+          "Dub.Point (Group Authentication Required)"
         ],
         "parameters": [
           {

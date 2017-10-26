@@ -12,6 +12,12 @@
       "name": "MIT",
       "url": "https://opensource.org/licenses/MIT"
     },
+    "x-origin": [
+      {
+        "url": "https://developer.lufthansa.com/io-docs",
+        "format": "io_docs"
+      }
+    ],
     "description": "Test our API services using our API Playground (aka I/O Docs). ",
     "x-mashery-id": "3166"
   },
@@ -30,7 +36,7 @@
     "oauth2": {
       "type": "oauth2",
       "flow": "application",
-      "tokenUrl": "",
+      "tokenUrl": "/",
       "scopes": {}
     }
   },
@@ -48,14 +54,17 @@
     },
     {
       "name": "Operations"
+    },
+    {
+      "name": "Cargo"
     }
   ],
   "paths": {
     "/references/countries/{countryCode}": {
       "get": {
         "operationId": "CountriesReferenceData",
-        "summary": "Retrieve a list of all countries or details of one...",
-        "description": "Retrieve a list of all countries or details of one specific country. If a country is specified, there is an option to limit the response to a given language.",
+        "summary": "List all countries or one specific country. It is ...",
+        "description": "List all countries or one specific country. It is possible to request the response in a specific language.",
         "tags": [
           "Reference Data"
         ],
@@ -63,7 +72,7 @@
           {
             "name": "countryCode",
             "type": "string",
-            "description": "Optional 2 letter ISO 3166-1 country code.",
+            "description": "2-letter ISO 3166-1 country code",
             "in": "path",
             "required": true,
             "default": "DK"
@@ -71,14 +80,14 @@
           {
             "name": "lang",
             "type": "string",
-            "description": "Optional query parameter. 2 letter ISO 3166-1 language code.",
+            "description": "2 letter ISO 3166-1 language code",
             "in": "query",
             "required": false
           },
           {
             "name": "limit",
             "type": "string",
-            "description": "Optional query parameter. Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken)",
+            "description": "Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken)",
             "in": "query",
             "required": false,
             "default": "20"
@@ -86,7 +95,7 @@
           {
             "name": "offset",
             "type": "string",
-            "description": "Optional query parameter. Number of records skipped. Defaults to 0.",
+            "description": "Number of records skipped. Defaults to 0",
             "in": "query",
             "required": false,
             "default": "0"
@@ -94,11 +103,18 @@
           {
             "name": "Accept",
             "type": "string",
-            "description": "Optional http header: application/xml or application/json",
+            "description": "http header: application/json or application/xml",
             "in": "header",
-            "required": true,
-            "default": "application/json"
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
           }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
         ],
         "responses": {
           "200": {
@@ -116,8 +132,8 @@
     "/references/cities/{cityCode}": {
       "get": {
         "operationId": "CitiesReferenceData",
-        "summary": "Retreive a list of all city or details of one spec...",
-        "description": "Retreive a list of all city or details of one specific city. If a city is specified, there is an option to limit the response to a given language.",
+        "summary": "List all cities or one specific city. It is possib...",
+        "description": "List all cities or one specific city. It is possible to request the response in a specific language.",
         "tags": [
           "Reference Data"
         ],
@@ -125,7 +141,7 @@
           {
             "name": "cityCode",
             "type": "string",
-            "description": "Optional 3 letter IATA city code",
+            "description": "3-letter IATA city code",
             "in": "path",
             "required": true,
             "default": "BER"
@@ -133,14 +149,14 @@
           {
             "name": "lang",
             "type": "string",
-            "description": "Optional query parameter. 2 letter ISO 3166-1 language code.",
+            "description": "2 letter ISO 3166-1 language code",
             "in": "query",
             "required": false
           },
           {
             "name": "limit",
             "type": "string",
-            "description": "Optional query parameter. Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken)",
+            "description": "Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken)",
             "in": "query",
             "required": false,
             "default": "20"
@@ -148,7 +164,7 @@
           {
             "name": "offset",
             "type": "string",
-            "description": "Optional query parameter. Number of records skipped. Defaults to 0.",
+            "description": "Number of records skipped. Defaults to 0",
             "in": "query",
             "required": false,
             "default": "0"
@@ -156,11 +172,18 @@
           {
             "name": "Accept",
             "type": "string",
-            "description": "Optional http header: application/xml or application/json",
+            "description": "http header: application/json or application/xml",
             "in": "header",
-            "required": true,
-            "default": "application/json"
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
           }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
         ],
         "responses": {
           "200": {
@@ -178,8 +201,8 @@
     "/references/airports/{airportCode}": {
       "get": {
         "operationId": "AirportsReferenceData",
-        "summary": "Reference data about airports. With no parameters,...",
-        "description": "Reference data about airports. With no parameters, all airports are returned in all languages. This is a large data set. If an airport code is specified there is the option to receive the description in a single language.",
+        "summary": "List all airports or one specific airport. All air...",
+        "description": "List all airports or one specific airport. All airports response is very large. It is possible to request the response in a specific language.",
         "tags": [
           "Reference Data"
         ],
@@ -187,7 +210,7 @@
           {
             "name": "airportCode",
             "type": "string",
-            "description": "Optional 3 letter IATA airport code",
+            "description": "3-letter IATA airport code",
             "in": "path",
             "required": true,
             "default": "TXL"
@@ -195,14 +218,14 @@
           {
             "name": "lang",
             "type": "string",
-            "description": "Optional query parameter. 2 letter ISO 3166-1 language code.",
+            "description": "2-letter ISO 3166-1 language code",
             "in": "query",
             "required": false
           },
           {
             "name": "limit",
             "type": "string",
-            "description": "Optional query parameter. Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken)",
+            "description": "Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken)",
             "in": "query",
             "required": false,
             "default": "20"
@@ -210,27 +233,37 @@
           {
             "name": "offset",
             "type": "string",
-            "description": "Optional query parameter. Number of records skipped. Defaults to 0ord.",
+            "description": "Number of records skipped. Defaults to 0",
             "in": "query",
             "required": false,
             "default": "0"
           },
           {
             "name": "LHoperated",
-            "type": "string",
-            "description": "Optional query parameter. Restrict the results to locations with flights operated by LH (true, false).",
+            "type": "boolean",
+            "description": "Restrict the results to locations with flights operated by LH (false=0, true=1)",
             "in": "query",
             "required": false,
-            "default": "true"
+            "enum": [
+              "1",
+              "0"
+            ]
           },
           {
             "name": "Accept",
             "type": "string",
-            "description": "Optional http header: application/xml or application/json",
+            "description": "http header: application/json or application/xml",
             "in": "header",
-            "required": true,
-            "default": "application/json"
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
           }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
         ],
         "responses": {
           "200": {
@@ -248,8 +281,8 @@
     "/references/airports/nearest/{latitude},{longitude}": {
       "get": {
         "operationId": "NearestAirportsReferenceData",
-        "summary": "Find the 5 closest airports to the given latitude ...",
-        "description": "Find the 5 closest airports to the given latitude and longitude, irrespective of the radius of the reference point.",
+        "summary": "List the 5 closest airports to the given latitude ...",
+        "description": "List the 5 closest airports to the given latitude and longitude, irrespective of the radius of the reference point.",
         "tags": [
           "Reference Data"
         ],
@@ -260,7 +293,7 @@
             "description": "Latitude in decimal format to at most 3 decimal places",
             "in": "path",
             "required": true,
-            "default": "51.5"
+            "default": 51.5
           },
           {
             "name": "longitude",
@@ -268,23 +301,30 @@
             "description": "Longitude in decimal format to at most 3 decimal places",
             "in": "path",
             "required": true,
-            "default": "-0.142"
+            "default": -0.142
           },
           {
             "name": "lang",
             "type": "string",
-            "description": "Optional query parameter. 2 letter ISO 3166-1 language code",
+            "description": "2 letter ISO 3166-1 language code",
             "in": "query",
             "required": false
           },
           {
             "name": "Accept",
             "type": "string",
-            "description": "Optional http header: application/xml or application/json",
+            "description": "http header: application/json or application/xml",
             "in": "header",
-            "required": true,
-            "default": "application/json"
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
           }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
         ],
         "responses": {
           "200": {
@@ -302,8 +342,7 @@
     "/references/airlines/{airlineCode}": {
       "get": {
         "operationId": "AirlinesReferenceData",
-        "summary": "Reference data about airlines. With no parameters,...",
-        "description": "Reference data about airlines. With no parameters, all airlines are returned.",
+        "summary": "List all airlines or one specific airline.",
         "tags": [
           "Reference Data"
         ],
@@ -311,7 +350,7 @@
           {
             "name": "airlineCode",
             "type": "string",
-            "description": "Optional 2-character IATA airline/carrier code",
+            "description": "2-character IATA airline/carrier code",
             "in": "path",
             "required": true,
             "default": "LH"
@@ -319,7 +358,7 @@
           {
             "name": "limit",
             "type": "string",
-            "description": "Optional query parameter. Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken)",
+            "description": "Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken)",
             "in": "query",
             "required": false,
             "default": "20"
@@ -327,7 +366,7 @@
           {
             "name": "offset",
             "type": "string",
-            "description": "Optional query parameter. Number of records skipped. Defaults to 0.",
+            "description": "Number of records skipped. Defaults to 0",
             "in": "query",
             "required": false,
             "default": "0"
@@ -335,11 +374,18 @@
           {
             "name": "Accept",
             "type": "string",
-            "description": "Optional http header: application/xml or application/json",
+            "description": "http header: application/json or application/xml",
             "in": "header",
-            "required": true,
-            "default": "application/json"
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
           }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
         ],
         "responses": {
           "200": {
@@ -357,8 +403,8 @@
     "/references/aircraft/{aircraftCode}": {
       "get": {
         "operationId": "AircraftReferenceData",
-        "summary": "Reference data about aircraft. With no parameters,...",
-        "description": "Reference data about aircraft. With no parameters, all aircraft types are returned.",
+        "summary": "List all aircraft types or one specific aircraft t...",
+        "description": "List all aircraft types or one specific aircraft type.",
         "tags": [
           "Reference Data"
         ],
@@ -366,7 +412,7 @@
           {
             "name": "aircraftCode",
             "type": "string",
-            "description": "Optional 3-character IATA aircraft code.",
+            "description": "3-character IATA aircraft code",
             "in": "path",
             "required": true,
             "default": "33P"
@@ -374,7 +420,7 @@
           {
             "name": "limit",
             "type": "string",
-            "description": "Optional query parameter. Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken)",
+            "description": "Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken)",
             "in": "query",
             "required": false,
             "default": "20"
@@ -382,7 +428,7 @@
           {
             "name": "offset",
             "type": "string",
-            "description": "Optional query parameter. Number of records skipped. Defaults to 0.",
+            "description": "Number of records skipped. Defaults to 0",
             "in": "query",
             "required": false,
             "default": "0"
@@ -390,11 +436,18 @@
           {
             "name": "Accept",
             "type": "string",
-            "description": "Optional http header: application/xml or application/json",
+            "description": "http header: application/json or application/xml",
             "in": "header",
-            "required": true,
-            "default": "application/json"
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
           }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
         ],
         "responses": {
           "200": {
@@ -420,21 +473,21 @@
           {
             "name": "flightNumber",
             "type": "string",
-            "description": "The flight number including carrier code and any suffix (e.g. LH2037)",
+            "description": "Flight number including carrier code and any suffix (e.g. 'LH2037')",
             "in": "path",
             "required": true
           },
           {
             "name": "origin",
             "type": "string",
-            "description": "IATA airport code of departure point (e.g. TXL)",
+            "description": "Departure airport. 3-letter IATA airport code (e.g. 'TXL')",
             "in": "path",
             "required": true
           },
           {
             "name": "destination",
             "type": "string",
-            "description": "IATA airport code of destination (e.g. MUC)",
+            "description": "Destination airport. 3-letter IATA airport code (e.g. 'MUC')",
             "in": "path",
             "required": true
           },
@@ -442,25 +495,38 @@
             "name": "date",
             "type": "string",
             "format": "date",
-            "description": "The departure date (YYYY-MM-DD)",
+            "description": "Departure date (YYYY-MM-DD)",
             "in": "path",
             "required": true
           },
           {
             "name": "cabinClass",
             "type": "string",
-            "description": "The required cabin class ('F', 'C', 'E', 'M'). Some flights have fewer classes",
+            "description": "Cabin class: 'M', 'E', 'C', 'F'. Some flights have fewer classes",
             "in": "path",
-            "required": true
+            "required": true,
+            "enum": [
+              "M",
+              "E",
+              "C",
+              "F"
+            ]
           },
           {
             "name": "Accept",
             "type": "string",
-            "description": "Optional http header: application/xml or application/json",
+            "description": "http header: application/json or application/xml",
             "in": "header",
-            "required": true,
-            "default": "application/json"
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
           }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
         ],
         "responses": {
           "200": {
@@ -486,23 +552,36 @@
           {
             "name": "location",
             "type": "string",
-            "description": "IATA airport or city code (e.g. ZRH)",
+            "description": "3-leter IATA airport or city code (e.g. 'ZRH')",
             "in": "path",
-            "required": true
+            "required": true,
+            "default": "ZRH"
           },
           {
             "name": "cabinClass",
             "type": "string",
-            "description": "Limit to this cabin class ('F', 'C', 'E', 'M')",
+            "description": "Cabin class: 'M', 'E', 'C', 'F'",
             "in": "query",
-            "required": false
+            "required": false,
+            "enum": [
+              "M",
+              "E",
+              "C",
+              "F"
+            ]
           },
           {
             "name": "tierCode",
             "type": "string",
-            "description": "Frequent flyer level ('HON', 'SEN', 'SGC', 'FTL')",
+            "description": "Frequent flyer level ('FTL', 'SGC', 'SEN', 'HON')",
             "in": "query",
-            "required": false
+            "required": false,
+            "enum": [
+              "FTL",
+              "SGC",
+              "SEN",
+              "HON"
+            ]
           },
           {
             "name": "lang",
@@ -514,11 +593,18 @@
           {
             "name": "Accept",
             "type": "string",
-            "description": "Optional http header: application/xml or application/json",
+            "description": "http header: application/json or application/xml",
             "in": "header",
-            "required": true,
-            "default": "application/json"
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
           }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
         ],
         "responses": {
           "200": {
@@ -536,8 +622,8 @@
     "/operations/flightstatus/{flightNumber}/{date}": {
       "get": {
         "operationId": "FlightStatusOperations",
-        "summary": "Get the status of a particular flight (on time, la...",
-        "description": "Get the status of a particular flight (on time, landed, etc.).",
+        "summary": "Status of a particular flight (boarding, delayed, ...",
+        "description": "Status of a particular flight (boarding, delayed, etc.).",
         "tags": [
           "Operations"
         ],
@@ -545,7 +631,7 @@
           {
             "name": "flightNumber",
             "type": "string",
-            "description": "The flight number including carrier code and any suffix, e.g. LH400",
+            "description": "Flight number including carrier code and any suffix (e.g. 'LH400')",
             "in": "path",
             "required": true
           },
@@ -553,18 +639,39 @@
             "name": "date",
             "type": "string",
             "format": "date",
-            "description": "The departure date (YYYY-MM-DD) in the local time of the departure airport.",
+            "description": "The departure date (YYYY-MM-DD) in the local time of the departure airport",
             "in": "path",
             "required": true
           },
           {
+            "name": "limit",
+            "type": "string",
+            "description": "Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "string",
+            "description": "Number of records skipped. Defaults to 0",
+            "in": "query",
+            "required": false
+          },
+          {
             "name": "Accept",
             "type": "string",
-            "description": "Optional http header: application/xml or application/json",
+            "description": "http header: application/json or application/xml",
             "in": "header",
-            "required": true,
-            "default": "application/json"
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
           }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
         ],
         "responses": {
           "200": {
@@ -591,32 +698,53 @@
           {
             "name": "origin",
             "type": "string",
-            "description": "The IATA code of the departure airport (e.g. FRA)",
+            "description": "3-letter IATA airport (e.g. 'FRA')",
             "in": "path",
             "required": true
           },
           {
             "name": "destination",
             "type": "string",
-            "description": "The IATA code of the destination airport (e.g. JFK)",
+            "description": "3-letter IATA airport code (e.g. 'JFK')",
             "in": "path",
             "required": true
           },
           {
             "name": "date",
             "type": "string",
-            "description": "Departure date in local time of departure airport (YYYY-MM-DD)",
+            "description": "Departure date (YYYY-MM-DD) in local time of departure airport",
             "in": "path",
             "required": true
           },
           {
+            "name": "limit",
+            "type": "string",
+            "description": "Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "string",
+            "description": "Number of records skipped. Defaults to 0",
+            "in": "query",
+            "required": false
+          },
+          {
             "name": "Accept",
             "type": "string",
-            "description": "Optional http header:  application/xml or application/json",
+            "description": "http header: application/json or application/xml",
             "in": "header",
-            "required": true,
-            "default": "application/json"
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
           }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
         ],
         "responses": {
           "200": {
@@ -631,11 +759,11 @@
         }
       }
     },
-    "/operations/flightstatus/arrivals/{airportCode}/{from}/{until}": {
+    "/operations/flightstatus/arrivals/{airportCode}/{fromDateTime}": {
       "get": {
-        "operationId": "ArrivalsStatusOperations",
-        "summary": "The status of all arrivals at a given airport with...",
-        "description": "The status of all arrivals at a given airport within a specific time range",
+        "operationId": "FlightStatusatArrivalAirportOperations",
+        "summary": "Status of all arrivals at a given airport up to 4 ...",
+        "description": "Status of all arrivals at a given airport up to 4 hours from the provided date time.",
         "tags": [
           "Operations"
         ],
@@ -643,32 +771,46 @@
           {
             "name": "airportCode",
             "type": "string",
-            "description": "The IATA code of the arrival airport (e.g. ZRH).",
+            "description": "3-letter IATA aiport code (e.g. 'ZRH')",
             "in": "path",
             "required": true
           },
           {
-            "name": "from",
+            "name": "fromDateTime",
             "type": "string",
-            "description": "Start of time range in local time of arrival airport (e.g. 2014-11-18T10:30)",
+            "description": "Start of time range in local time of arrival airport (YYYY-MM-DDTHH:mm)",
             "in": "path",
             "required": true
           },
           {
-            "name": "until",
+            "name": "limit",
             "type": "string",
-            "description": "End of time range in local time of arrival airport (e.g. 2014-11-18T12:30)",
-            "in": "path",
-            "required": true
+            "description": "Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "string",
+            "description": "Number of records skipped. Defaults to 0",
+            "in": "query",
+            "required": false
           },
           {
             "name": "Accept",
             "type": "string",
-            "description": "Optional http header:  application/xml or application/json",
+            "description": "http header: application/json or application/xml",
             "in": "header",
-            "required": true,
-            "default": "application/json"
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
           }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
         ],
         "responses": {
           "200": {
@@ -683,11 +825,11 @@
         }
       }
     },
-    "/operations/flightstatus/departures/{airportCode}/{from}/{until}": {
+    "/operations/flightstatus/departures/{airportCode}/{fromDateTime}": {
       "get": {
-        "operationId": "DeparturesStatusOperations",
-        "summary": "The status of all departures from a given airport ...",
-        "description": "The status of all departures from a given airport within a specific time range",
+        "operationId": "FlightStatusatDepartureAirportOperations",
+        "summary": "Status of all departures from a given airport up t...",
+        "description": "Status of all departures from a given airport up to 4 hours from the provided date time.",
         "tags": [
           "Operations"
         ],
@@ -695,32 +837,46 @@
           {
             "name": "airportCode",
             "type": "string",
-            "description": "The IATA code of the departure airport (e.g. HAM)",
+            "description": "Departure airport. 3-letter IATA airport code (e.g. 'HAM')",
             "in": "path",
             "required": true
           },
           {
-            "name": "from",
+            "name": "fromDateTime",
             "type": "string",
-            "description": "Start of time range in local time of departure airport (e.g. 2014-11-18T10:30)",
+            "description": "Start of time range in local time of departure airport (YYYY-MM-DDTHH:mm)",
             "in": "path",
             "required": true
           },
           {
-            "name": "until",
+            "name": "limit",
             "type": "string",
-            "description": "End of time range in local time of departure airport (e.g. 2014-11-18T12:30)",
-            "in": "path",
-            "required": true
+            "description": "Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "string",
+            "description": "Number of records skipped. Defaults to 0",
+            "in": "query",
+            "required": false
           },
           {
             "name": "Accept",
             "type": "string",
-            "description": "Optional http header:  application/xml or application/json",
+            "description": "http header: application/json or application/xml",
             "in": "header",
-            "required": true,
-            "default": "application/json"
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
           }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
         ],
         "responses": {
           "200": {
@@ -735,11 +891,11 @@
         }
       }
     },
-    "/operations/schedules/{origin}/{destination}/{dateTime}": {
+    "/operations/schedules/{origin}/{destination}/{fromDateTime}": {
       "get": {
-        "operationId": "SchedulesOperations",
-        "summary": "Find scheduled flights between given airports on a...",
-        "description": "Find scheduled flights between given airports on a given date.",
+        "operationId": "FlightSchedulesOperations",
+        "summary": "Scheduled flights between given airports on a give...",
+        "description": "Scheduled flights between given airports on a given date.",
         "tags": [
           "Operations"
         ],
@@ -747,7 +903,7 @@
           {
             "name": "origin",
             "type": "string",
-            "description": "The IATA code of the departure airport",
+            "description": "Departure airport. 3-letter IATA airport code (e.g. 'ZRH')",
             "in": "path",
             "required": true,
             "default": "ZRH"
@@ -755,22 +911,22 @@
           {
             "name": "destination",
             "type": "string",
-            "description": "The IATA code of the destination airport",
+            "description": "Destination airport. 3-letter IATA airport code (e.g. 'FRA')",
             "in": "path",
             "required": true,
             "default": "FRA"
           },
           {
-            "name": "dateTime",
+            "name": "fromDateTime",
             "type": "string",
-            "description": "Local departure date and optionally departure time (YYYY-MM-DD or YYYY-MM-DDTHH:mm)",
+            "description": "Local departure date and optionally departure time (YYYY-MM-DD or YYYY-MM-DDTHH:mm). When not provided, time is assumed to be 00:01",
             "in": "path",
             "required": true
           },
           {
             "name": "directFlights",
             "type": "boolean",
-            "description": "Optional query parameter. Show only direct flights (1=true, 0=false).",
+            "description": "Show only direct flights (false=0, true=1). Default is false",
             "in": "query",
             "required": false,
             "enum": [
@@ -779,13 +935,176 @@
             ]
           },
           {
+            "name": "limit",
+            "type": "string",
+            "description": "Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "string",
+            "description": "Number of records skipped. Defaults to 0",
+            "in": "query",
+            "required": false
+          },
+          {
             "name": "Accept",
             "type": "string",
-            "description": "Optional http header:  application/xml or application/json",
+            "description": "http header: application/json or application/xml",
             "in": "header",
-            "required": true,
-            "default": "application/json"
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
           }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/cargo/shipmentTracking/{aWBPrefix}-{aWBNumber}": {
+      "get": {
+        "operationId": "ShipmentTrackingCargo",
+        "summary": "With this tracking service you can easily retrieve...",
+        "description": "With this tracking service you can easily retrieve your shipment or flight status information.",
+        "tags": [
+          "Cargo"
+        ],
+        "parameters": [
+          {
+            "name": "aWBPrefix",
+            "type": "string",
+            "description": "aWBPrefix : Represents the airline that is the owner of this AWB, i.e. \"020\" = Lufthansa Cargo, format : [0-9]{3} e.g. 020",
+            "in": "path",
+            "required": true,
+            "default": "020"
+          },
+          {
+            "name": "aWBNumber",
+            "type": "string",
+            "description": "aWBNumber : The Air Waybill Number , format : [0-9]{8} e.g. 08002050",
+            "in": "path",
+            "required": true,
+            "default": "08002050"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "http header: application/json or application/xml",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/cargo/getRoute/{origin}-{destination}/{fromDate}/{productCode}": {
+      "get": {
+        "operationId": "RetrieveallflightsCargo",
+        "summary": "Retrieve a list of all possible flights (both dire...",
+        "description": "Retrieve a list of all possible flights (both direct and connecting) between two airports on a given date. Routes are available for today and up to days in the future.",
+        "tags": [
+          "Cargo"
+        ],
+        "parameters": [
+          {
+            "name": "origin",
+            "type": "string",
+            "description": "Departure Airport : 3-letter IATA airport code, e.g. FRA.",
+            "in": "path",
+            "required": true,
+            "default": "FRA"
+          },
+          {
+            "name": "destination",
+            "type": "string",
+            "description": "Arrival airport : 3-letter IATA airport code, e.g. HKG.",
+            "in": "path",
+            "required": true,
+            "default": "HKG"
+          },
+          {
+            "name": "fromDate",
+            "type": "string",
+            "description": "Departure date in the local time of the departure airport. Based on LAT (Latest Acceptance Time). format : yyyy-MM-dd eg : 2017-07-15",
+            "in": "path",
+            "required": true,
+            "default": "2017-07-15"
+          },
+          {
+            "name": "productCode",
+            "type": "string",
+            "description": "Product code for requested service and specials : 3-letter eg: YNZ",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "FAN",
+              "FCO",
+              "FCP",
+              "FDG",
+              "FTF",
+              "FUN",
+              "FWN",
+              "YCO",
+              "YCP",
+              "YDG",
+              "YNB",
+              "YNZ",
+              "YTF",
+              "YUN",
+              "ZXB",
+              "ZXF",
+              "ZXR"
+            ]
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "http header: application/json or application/xml",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
         ],
         "responses": {
           "200": {

@@ -12,6 +12,12 @@
       "name": "MIT",
       "url": "https://opensource.org/licenses/MIT"
     },
+    "x-origin": [
+      {
+        "url": "http://developer.stats.com/io-docs",
+        "format": "io_docs"
+      }
+    ],
     "description": "The API calls below can be used to test the Input and Output of our API endpoints.  You'll need an API key and an assigned secret to access the live data and so if you haven't contacted us yet, now is the time!  Our sales staff would be happy to set you up with trial access so you can begin to evaluate the product. NFL - National Football League",
     "x-mashery-id": "1438"
   },
@@ -43,7 +49,7 @@
       "name": "NFL - Teams"
     },
     {
-      "name": "NFL - Schedules, scores, box scores, play-by-play, drive charts"
+      "name": "NFL - Schedules, scores, box scores, play-by-play, drive charts, and insights"
     },
     {
       "name": "NFL - Bye Weeks"
@@ -198,13 +204,177 @@
         }
       }
     },
+    "/stats/football/nfl/insights/{eventId}": {
+      "get": {
+        "operationId": "NFL-Ifpermissionedforthe/insights/endpoint(alleventinfo,uptoInsights)NFL-Schedules,scores,boxscores,play-by-play,drivecharts,andinsights",
+        "summary": "Access to the insights endpoint will provide you w...",
+        "description": "Access to the insights endpoint will provide you with the highest level of game data including live scores, box scores, play-by-plays, drive charts, and reporter insights. The box, pbp, driveCharts, and insights parameters are only available when a single game is selected.\n  Simple schedules are also available via the insights endpoint.",
+        "tags": [
+          "NFL - Schedules, scores, box scores, play-by-play, drive charts, and insights"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "type": "integer",
+            "description": "Provide a specific eventID when you want information on a single game.  Must be populated to use the box, pbp (play-by-play), driveCharts, and insights parameters.\n Default - Basic score & schedule data for the data will be returned using date or season, if entered, else the current days events will be returned",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "box",
+            "type": "boolean",
+            "description": "Returns the box score for a specific in-progress or concluded event.  An eventId must also be entered in conjunction with 'box=true'.\n  Default - box score data will not be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "pbp",
+            "type": "boolean",
+            "description": "Returns the play-by-play for a specific in-progress or concluded event.  An eventId must also be entered in conjunction with 'pbp=true'.\n  Default - pbp data will not be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "driveCharts",
+            "type": "boolean",
+            "description": "Returns the drive charts for a specific in-progress or concluded event.  An eventId must also be entered in conjunction with 'driveCharts=true'.\n  Default - drive chart data will not be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "linescore",
+            "type": "boolean",
+            "description": "Linescores are only returned when requested and will be returned for all events in the results.\n  Default - false, line score data will not be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "insights",
+            "type": "boolean",
+            "description": "Returns reporter insights, when available, for a specific in-progress or concluded event.  An eventId must also be entered in conjunction with 'insights=true'.\n  Default - Insights will not be returned",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "startDate",
+            "type": "string",
+            "description": "If used, startDate and endDate must both be entered.  All items between the two dates (inclusive) will be returned.\n  Format: YYYYMMDD or YYYY-MM-DD.\n  Default - If not used, the last 7 days items will be returned.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "endDate",
+            "type": "string",
+            "description": "If used, startDate and endDate must both be entered.  All items between the two dates (inclusive) will be returned.\n  Format: YYYYMMDD or YYYY-MM-DD.\n  Default - If not used, the last 7 days items will be returned.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "description": "Will return all games from a specific date.\n This parameter is ignored in an eventId is used.\n Format: YYYYMMDD or YYYY-MM-DD.\n  Default - All the games for the current week.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "week",
+            "type": "integer",
+            "description": "To get all the games for the selected week.\n Default - The current week.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get scores for a different season, enter the year as YYYY.\n Note: Seasons that span years like NFL 2013-2014 would be entered as 2013.\n Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Schedule will be returned for games included in the specified eventType.\n  Default - All event types",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "0",
+              "1",
+              "2",
+              "3"
+            ]
+          },
+          {
+            "name": "languageId",
+            "type": "string",
+            "description": "Select ID to change language of player, team, and venue names. Not all languages available for every name.\n  Default - English is returned when no ID is selected.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "-1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
     "/stats/football/nfl/events/{eventId}": {
       "get": {
-        "operationId": "NFL-IfpermissionedforalleventinformationNFL-Schedules,scores,boxscores,play-by-play,drivecharts",
+        "operationId": "NFL-Ifpermissionedforalleventinformation(exceptinsights)NFL-Schedules,scores,boxscores,play-by-play,drivecharts,andinsights",
         "summary": "Access to this events endpoint will provide you wi...",
         "description": "Access to this events endpoint will provide you with the highest level of game data including live scores, box scores, play-by-plays, and drive charts. The box, pbp, & driveCharts parameters are only available when a single game is selected.\n  Simple schedules are also available via the events endpoint.",
         "tags": [
-          "NFL - Schedules, scores, box scores, play-by-play, drive charts"
+          "NFL - Schedules, scores, box scores, play-by-play, drive charts, and insights"
         ],
         "parameters": [
           {
@@ -357,11 +527,11 @@
     },
     "/stats/football/nfl/events/teams/{teamId}": {
       "get": {
-        "operationId": "NFL-Ifpermissionedforalleventinformation-foroneteamonlyNFL-Schedules,scores,boxscores,play-by-play,drivecharts",
+        "operationId": "NFL-Ifpermissionedforalleventinformation-foroneteamonlyNFL-Schedules,scores,boxscores,play-by-play,drivecharts,andinsights",
         "summary": "Access to this events endpoint will provide you wi...",
         "description": "Access to this events endpoint will provide you with the highest level of game data including live scores, box scores, play-by-plays, and drive charts. However box scores, play-by-play, and drive charts are available for a single game only, and so cannot be accessed here when all events for a single team are returned. This endpoint should be used for team schedules & scores only.",
         "tags": [
-          "NFL - Schedules, scores, box scores, play-by-play, drive charts"
+          "NFL - Schedules, scores, box scores, play-by-play, drive charts, and insights"
         ],
         "parameters": [
           {
@@ -486,11 +656,11 @@
     },
     "/stats/football/nfl/box/{eventId}": {
       "get": {
-        "operationId": "NFL-Ifpermissionedforjustschedules,scoresandboxscoresNFL-Schedules,scores,boxscores,play-by-play,drivecharts",
+        "operationId": "NFL-Ifpermissionedforjustschedules,scoresandboxscoresNFL-Schedules,scores,boxscores,play-by-play,drivecharts,andinsights",
         "summary": "The box/ resource provides scores/schedules and bo...",
         "description": "The box/ resource provides scores/schedules and box score information for NFL events. (Play-by-play and Drive Charts are not available in the box endpoint.)",
         "tags": [
-          "NFL - Schedules, scores, box scores, play-by-play, drive charts"
+          "NFL - Schedules, scores, box scores, play-by-play, drive charts, and insights"
         ],
         "parameters": [
           {
@@ -615,11 +785,11 @@
     },
     "/stats/football/nfl/box/teams/{teamId}": {
       "get": {
-        "operationId": "NFL-Ifpermissionedforjustschedules,scoresandboxscores-foroneteamonlyNFL-Schedules,scores,boxscores,play-by-play,drivecharts",
+        "operationId": "NFL-Ifpermissionedforjustschedules,scoresandboxscores-foroneteamonlyNFL-Schedules,scores,boxscores,play-by-play,drivecharts,andinsights",
         "summary": "The box/ resource provides scores/schedules and bo...",
         "description": "The box/ resource provides scores/schedules and box score information for NFL events. However, box scores are available for a single game only, and so cannot be accessed here when all events for a single team are returned. This endpoint should be used for team schedules & scores only.",
         "tags": [
-          "NFL - Schedules, scores, box scores, play-by-play, drive charts"
+          "NFL - Schedules, scores, box scores, play-by-play, drive charts, and insights"
         ],
         "parameters": [
           {
@@ -737,11 +907,11 @@
     },
     "/stats/football/nfl/scores/{eventId}": {
       "get": {
-        "operationId": "NFL-IfpermissionedforjustschedulesandscoresNFL-Schedules,scores,boxscores,play-by-play,drivecharts",
+        "operationId": "NFL-IfpermissionedforjustschedulesandscoresNFL-Schedules,scores,boxscores,play-by-play,drivecharts,andinsights",
         "summary": "The scores/ resource provides score and schedule i...",
         "description": "The scores/ resource provides score and schedule information for NFL events. (Boxscores, Play-by-play, and Shot Charts are not available in the scores endpoint.)",
         "tags": [
-          "NFL - Schedules, scores, box scores, play-by-play, drive charts"
+          "NFL - Schedules, scores, box scores, play-by-play, drive charts, and insights"
         ],
         "parameters": [
           {
@@ -859,11 +1029,11 @@
     },
     "/stats/football/nfl/scores/teams/{teamId}": {
       "get": {
-        "operationId": "NFL-Ifpermissionedforjustschedulesandscores-foroneteamonlyNFL-Schedules,scores,boxscores,play-by-play,drivecharts",
+        "operationId": "NFL-Ifpermissionedforjustschedulesandscores-foroneteamonlyNFL-Schedules,scores,boxscores,play-by-play,drivecharts,andinsights",
         "summary": "The scores/ resource provides score and schedule i...",
         "description": "The scores/ resource provides score and schedule information for NFL events.",
         "tags": [
-          "NFL - Schedules, scores, box scores, play-by-play, drive charts"
+          "NFL - Schedules, scores, box scores, play-by-play, drive charts, and insights"
         ],
         "parameters": [
           {
@@ -1091,6 +1261,19 @@
             "required": false
           },
           {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Schedule will be returned for games included in the specified eventType.\n  Default - All event types",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "0",
+              "1",
+              "2",
+              "3"
+            ]
+          },
+          {
             "name": "conference",
             "type": "boolean",
             "description": "Conference returns teams ranked by conference instead of division.\n Default - false",
@@ -1198,6 +1381,19 @@
             "description": "Expanded includes additional data points for each team.\n Default - false",
             "in": "query",
             "required": false
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Schedule will be returned for games included in the specified eventType.\n  Default - All event types",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "0",
+              "1",
+              "2",
+              "3"
+            ]
           },
           {
             "name": "conference",
@@ -6011,8 +6207,7 @@
             "type": "integer",
             "description": "Photo ID",
             "in": "path",
-            "required": true,
-            "default": "abcdefg"
+            "required": true
           },
           {
             "name": "accept",
@@ -6065,8 +6260,7 @@
             "type": "integer",
             "description": "Photo ID",
             "in": "path",
-            "required": true,
-            "default": "abcdefg"
+            "required": true
           },
           {
             "name": "accept",

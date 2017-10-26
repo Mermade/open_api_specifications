@@ -12,6 +12,12 @@
       "name": "MIT",
       "url": "https://opensource.org/licenses/MIT"
     },
+    "x-origin": [
+      {
+        "url": "http://developer.bibliocommons.com/io-docs",
+        "format": "io_docs"
+      }
+    ],
     "description": "Test our API services using I/O Docs. This API is used by libraries to access BiblioCommons services programmatically.",
     "x-mashery-id": "599"
   },
@@ -53,6 +59,9 @@
     },
     {
       "name": "User Content"
+    },
+    {
+      "name": "Sessions"
     }
   ],
   "paths": {
@@ -133,6 +142,45 @@
               "ru-RU",
               "zh-CN"
             ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/libraries/{library_id}/borrowers/{id}": {
+      "get": {
+        "operationId": "ShowBorrowerLibraries",
+        "summary": "Returns a borrower for a given library, specified ...",
+        "description": "Returns a borrower for a given library, specified by library ID, with basic information on the account, preferred branch and user associated with the account.",
+        "tags": [
+          "Libraries"
+        ],
+        "parameters": [
+          {
+            "name": "library_id",
+            "type": "string",
+            "description": "The library ID.  Each library's BiblioCommons catalog will have a hostname of the form {library_id}.bibliocommons.com.  The {library_id} portion of the hostname is the library's ID.",
+            "in": "path",
+            "required": true,
+            "default": "ottawa"
+          },
+          {
+            "name": "id",
+            "type": "string",
+            "description": "The borrower ID to look up, as remembered or returned by the /sessions/ API.",
+            "in": "path",
+            "required": true,
+            "default": "141097321"
           }
         ],
         "responses": {
@@ -822,6 +870,36 @@
               "ru-RU",
               "zh-CN"
             ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/sessions/{id}": {
+      "get": {
+        "operationId": "ShowSessionSessions",
+        "summary": "Returns basic information about a given session, s...",
+        "description": "Returns basic information about a given session, specified by an opaque, random session ID, which is unique only until the session expires.",
+        "tags": [
+          "Sessions"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "The session ID.",
+            "in": "path",
+            "required": true
           }
         ],
         "responses": {

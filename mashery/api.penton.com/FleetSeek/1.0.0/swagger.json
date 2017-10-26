@@ -12,8 +12,14 @@
       "name": "MIT",
       "url": "https://opensource.org/licenses/MIT"
     },
+    "x-origin": [
+      {
+        "url": "https://api.penton.com/io-docs",
+        "format": "io_docs"
+      }
+    ],
     "description": "Test our API services using I/O Docs. FleetSeek API for Sales",
-    "x-mashery-id": "4990"
+    "x-mashery-id": "10217"
   },
   "schemes": [
     "http"
@@ -22,7 +28,7 @@
   "basePath": "/",
   "externalDocs": {
     "description": "You can also view our written documentation.",
-    "url": "https://api.penton.com/io-docs/docs"
+    "url": "https://api.penton.com/io-docs"
   },
   "consumes": [],
   "produces": [],
@@ -72,7 +78,7 @@
             "description": "Offset is used to skip some number of items before beginning to return results",
             "in": "query",
             "required": false,
-            "default": "0"
+            "default": 0
           },
           {
             "name": "sort",
@@ -208,7 +214,7 @@
           {
             "name": "insurances",
             "type": "string",
-            "description": "Syntax: insurance_types:from_date,to_date. Example: 2,3,4:05/04/2016,05/20/2016. Possible insurance types: 0 - ALL, 1 - BIPD, 2 - BOND, 3- CARGO, 4 - TRUST.",
+            "description": "Syntax: insurance_types:from_date,to_date:insurance_effective_months:insurance_companies_ids. Example: 2,3,4:05/04/2016,05/20/2016:1,12:3,4,5. Possible insurance types: 0 - ALL, 1 - BIPD, 2 - BOND, 3- CARGO, 4 - TRUST. Possible insurance effective months: 0- ALL, 1- January, 2 - February, 3 - March, 4 - April, 5 - May, 6 - June, 7 - July, 8 - August, 9 - September, 10 - October, 11 - November, 12 - December.",
             "in": "query",
             "required": false
           },
@@ -362,21 +368,28 @@
           {
             "name": "manufacturers",
             "type": "string",
-            "description": "Example: Volvo,Dodge. Possible values: Use \"GET All Manufacturer\" endpoint to get all possible values",
+            "description": "Syntax: manufacturer_name||percentage_from||percentage_to. Format example: Volvo||||75 (less or equal than 75%), Volvo||10|| (greater or equal than 10%), Volvo||10||50 (from 10% to 50%). Parameter example: Volvo,Dodge||10||,Ford||50||75. Possible percentage values: integer from 0 to 100. From and To values are optional both. Possible name values: Use \"GET All Manufacturer\" endpoint to get all possible values",
             "in": "query",
             "required": false
           },
           {
             "name": "engines",
             "type": "string",
-            "description": "Example: Caterpillar,Volvo. Possible values: Use \"GET All Engines\" endpoint to get all possible values",
+            "description": "Syntax: engine_manufacturer_name||percentage_from||percentage_to. Format example: Volvo||||75 (less or equal than 75%), Volvo||10|| (greater or equal than 10%), Volvo||10||50 (from 10% to 50%). Parameter example: Caterpillar,Volvo||10||,Ford||50||75. Possible percentage values: integer from 0 to 100. From and To values are optional both. Possible name values: Use \"GET All Engines\" endpoint to get all possible values",
             "in": "query",
             "required": false
           },
           {
             "name": "years",
             "type": "number",
-            "description": "Example: 2015,2016",
+            "description": "Syntax: year||percentage_from||percentage_to. Format example: 2016||||75 (less or equal than 75%), 2016||10|| (greater or equal than 10%), 2016||10||50 (from 10% to 50%). Parameter example: 2014,2015||10||,2016||50||75. Possible percentage values: integer from 0 to 100. From and To values are optional both. Possible year values: Use \"GET All Brand Years\" endpoint to get all possible values",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "smartway",
+            "type": "string",
+            "description": "Possible values: true, empty value. Use \"true\" value to get SmartWay Partner fleets only",
             "in": "query",
             "required": false
           }
@@ -419,7 +432,7 @@
             "description": "Offset is used to skip some number of items before beginning to return results",
             "in": "query",
             "required": false,
-            "default": "0"
+            "default": 0
           },
           {
             "name": "sort",
@@ -558,7 +571,7 @@
             "description": "Offset is used to skip some number of items before beginning to return results",
             "in": "query",
             "required": false,
-            "default": "0"
+            "default": 0
           }
         ],
         "responses": {
@@ -606,7 +619,7 @@
             "description": "Offset is used to skip some number of items before beginning to return results",
             "in": "query",
             "required": false,
-            "default": "0"
+            "default": 0
           }
         ],
         "responses": {
@@ -772,6 +785,27 @@
     "/allEngineManufacturers": {
       "get": {
         "operationId": "GetEnginesTaxonomy",
+        "summary": "",
+        "tags": [
+          "Taxonomy"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/allBrandYears": {
+      "get": {
+        "operationId": "GetBrandYearsTaxonomy",
         "summary": "",
         "tags": [
           "Taxonomy"

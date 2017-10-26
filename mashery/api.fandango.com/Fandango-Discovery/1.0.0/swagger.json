@@ -1,0 +1,1880 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Fandango Discovery",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "x-origin": [
+      {
+        "url": "https://developer.fandango.com/io-docs",
+        "format": "io_docs"
+      }
+    ],
+    "description": "If you have been assigned an API Key, you can test Fandango's API services here. You can also view written documentation for information on methods available via the Fandango API and definitions of the output associated with each. ",
+    "x-mashery-id": "7849"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.fandango.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "For details about the response elements, please see the specific API section page below:\nTheater Methods\nMovie Methods \nShowtime Methods\nEditorial Methods\nCity Search Method\n",
+    "url": "https://developer.fandango.com/io-docs/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "autocomplete v2"
+    },
+    {
+      "name": "geolocation v2 countries states cities"
+    },
+    {
+      "name": "geolocation v2 countries postalcodes"
+    },
+    {
+      "name": "movies v2"
+    },
+    {
+      "name": "movies v2 display-dates"
+    },
+    {
+      "name": "movies v2 showtime-groupings"
+    },
+    {
+      "name": "showtimes v2"
+    },
+    {
+      "name": "theaters v2"
+    },
+    {
+      "name": "theaters v2 display-dates"
+    },
+    {
+      "name": "theaters v2 showtime-groupings"
+    }
+  ],
+  "paths": {
+    "/autocomplete/v2": {
+      "get": {
+        "operationId": "listautocompletev2autocompletev2",
+        "summary": "",
+        "tags": [
+          "autocomplete v2"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Content type of the response payload",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          },
+          {
+            "name": "searchText",
+            "type": "string",
+            "description": "",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "latitude",
+            "type": "number",
+            "description": "Latitude of the user's location",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "longitude",
+            "type": "number",
+            "description": "Longitude of the user's location",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "zipCode",
+            "type": "string",
+            "description": "Zip code of the user's location",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "type": "number",
+            "description": "Number of items to return",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/geolocation/v2/countries/{country}/states/{state}/cities/{city}": {
+      "get": {
+        "operationId": "getCitygeolocationv2countriesstatescities",
+        "summary": "",
+        "tags": [
+          "geolocation v2 countries states cities"
+        ],
+        "parameters": [
+          {
+            "name": "country",
+            "type": "string",
+            "description": "2-Letter country code",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "state",
+            "type": "string",
+            "description": "State code",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "city",
+            "type": "string",
+            "description": "Name of city",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/geolocation/v2/countries/{country}/postalcodes/{postalcode}": {
+      "get": {
+        "operationId": "getPostalCodegeolocationv2countriespostalcodes",
+        "summary": "",
+        "tags": [
+          "geolocation v2 countries postalcodes"
+        ],
+        "parameters": [
+          {
+            "name": "country",
+            "type": "string",
+            "description": "",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "postalcode",
+            "type": "string",
+            "description": "",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/movies/v2": {
+      "get": {
+        "operationId": "listmoviesv2moviesv2",
+        "summary": "",
+        "tags": [
+          "movies v2"
+        ],
+        "parameters": [
+          {
+            "name": "type",
+            "type": "string",
+            "description": "movie type",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "latitude",
+            "type": "number",
+            "description": "Latitude of the user's location",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "longitude",
+            "type": "number",
+            "description": "Longitude of the user's location",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "zipCode",
+            "type": "string",
+            "description": "Zip code of the user's location",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "radius",
+            "type": "number",
+            "description": "Search radius in miles around the user's location",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Number of items to return. Used in pagination.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "integer",
+            "description": "Offset index of the first item to return. Used in pagination.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/movies/v2/{movieId}": {
+      "get": {
+        "operationId": "getmoviesv2moviesv2",
+        "summary": "",
+        "tags": [
+          "movies v2"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Content type of the response payload",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          },
+          {
+            "name": "movieId",
+            "type": "string",
+            "description": "The ID of the movie",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/movies/v2/{movieId}/display-dates": {
+      "get": {
+        "operationId": "listmoviesv2display-datesmoviesv2display-dates",
+        "summary": "",
+        "tags": [
+          "movies v2 display-dates"
+        ],
+        "parameters": [
+          {
+            "name": "movieId",
+            "type": "string",
+            "description": "Movie ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "latitude",
+            "type": "number",
+            "description": "Latitude of the user's location",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "longitude",
+            "type": "number",
+            "description": "Longitude of the user's location",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "zipCode",
+            "type": "string",
+            "description": "Zip code of the user's location",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "radius",
+            "type": "number",
+            "description": "Search radius in miles around the user's location",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "startDateTime",
+            "type": "string",
+            "description": "Start datetime (ISO-8601) for the display date range. Defaults to UTC now.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "endDateTime",
+            "type": "string",
+            "description": "End datetime (ISO-8601) for the display date range. Defaults to no end datetime.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/movies/v2/{movieId}/showtime-groupings": {
+      "get": {
+        "operationId": "getMovieShowtimeGroupingsmoviesv2showtime-groupings",
+        "summary": "",
+        "tags": [
+          "movies v2 showtime-groupings"
+        ],
+        "parameters": [
+          {
+            "name": "movieId",
+            "type": "string",
+            "description": "Movie Id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "startDisplayDate",
+            "type": "string",
+            "description": "",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "endDisplayDate",
+            "type": "string",
+            "description": "End display date. Defaults to start display date.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "latitude",
+            "type": "number",
+            "description": "Latitude of the user's location",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "longitude",
+            "type": "number",
+            "description": "Longitude of the user's location",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "zipCode",
+            "type": "string",
+            "description": "Zip code of the user's location",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "radius",
+            "type": "number",
+            "description": "Search radius in miles around the user's location",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/showtimes/v2": {
+      "get": {
+        "operationId": "listshowtimesv2showtimesv2",
+        "summary": "",
+        "tags": [
+          "showtimes v2"
+        ],
+        "parameters": [
+          {
+            "name": "latitude",
+            "type": "number",
+            "description": "Latitude of the user's location",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "longitude",
+            "type": "number",
+            "description": "Longitude of the user's location",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "zipCode",
+            "type": "string",
+            "description": "Zip code of the user's location",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "radius",
+            "type": "number",
+            "description": "Search radius in miles around the user's location",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "startDateTime",
+            "type": "string",
+            "description": "Start datetime (ISO-8601) for the showtime datetime range",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "endDateTime",
+            "type": "string",
+            "description": "End datetime (ISO-8601) for the showtime datetime range. Defaults to the end of the day from the startDateTime value",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "movieTitle",
+            "type": "string",
+            "description": "Filter showtimes by movie title",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "theaterName",
+            "type": "string",
+            "description": "Filter showtimes by theater name",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "integer",
+            "description": "Offset index of the first item to return. Used in pagination.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Number of items to return. Used in pagination.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/theaters/v2": {
+      "get": {
+        "operationId": "listtheatersv2theatersv2",
+        "summary": "",
+        "tags": [
+          "theaters v2"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Content type of the response payload",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          },
+          {
+            "name": "latitude",
+            "type": "number",
+            "description": "Latitude of the user's location",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "longitude",
+            "type": "number",
+            "description": "Longitude of the user's location",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "zipCode",
+            "type": "string",
+            "description": "zipCode",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "radius",
+            "type": "number",
+            "description": "Search radius in miles around the user's location",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "isTicketing",
+            "type": "string",
+            "description": "Filter by ticketing or non-ticketing theaters",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "Number of items to return. Used in pagination.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "integer",
+            "description": "Offset index of the first item to return. Used in pagination.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/theaters/v2/{theaterId}": {
+      "get": {
+        "operationId": "gettheatersv2theatersv2",
+        "summary": "",
+        "tags": [
+          "theaters v2"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Content type of the response payload",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          },
+          {
+            "name": "theaterId",
+            "type": "string",
+            "description": "The ID of the theater",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/theaters/v2/{theaterId}/display-dates": {
+      "get": {
+        "operationId": "listtheatersv2display-datestheatersv2display-dates",
+        "summary": "",
+        "tags": [
+          "theaters v2 display-dates"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Content type of the response payload",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          },
+          {
+            "name": "theaterId",
+            "type": "string",
+            "description": "The ID of the theater",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "startDateTime",
+            "type": "string",
+            "description": "Start datetime (ISO-8601) for the display date range. Defaults to UTC now.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "endDateTime",
+            "type": "string",
+            "description": "End datetime (ISO-8601) for the display date range. Defaults to no end datetime.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/theaters/v2/{theaterId}/showtime-groupings": {
+      "get": {
+        "operationId": "listtheatersv2showtime-groupingstheatersv2showtime-groupings",
+        "summary": "",
+        "tags": [
+          "theaters v2 showtime-groupings"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Content type of the response payload",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          },
+          {
+            "name": "theaterId",
+            "type": "string",
+            "description": "The ID of the theater",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "startDisplayDate",
+            "type": "string",
+            "description": "Start display date for the showtime date range.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "endDisplayDate",
+            "type": "string",
+            "description": "End display date for the showtime date range. Defaults to start display date.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "SearchResultResponse": {
+      "title": "SearchResultResponse",
+      "type": "object",
+      "properties": {
+        "zipcode": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number"
+            },
+            "link": {
+              "type": "string"
+            }
+          }
+        },
+        "cities": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "link": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "movies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "link": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "theaters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "link": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "people": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "link": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "zipcode",
+        "cities",
+        "movies",
+        "theaters",
+        "people"
+      ]
+    },
+    "MovieListItem": {
+      "title": "MovieListItem",
+      "required": [
+        "id",
+        "title",
+        "mpaaRating",
+        "runtime",
+        "cast",
+        "releaseDate",
+        "posterThumbnailUrl"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "mpaaRating": {
+          "type": "string"
+        },
+        "runtime": {
+          "type": "integer",
+          "description": "Runtime of the movie in minutes"
+        },
+        "cast": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Person"
+          }
+        },
+        "releaseDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "posterThumbnailUrl": {
+          "type": "string",
+          "description": "URL for the movie poster thumbnail"
+        }
+      },
+      "type": "object"
+    },
+    "MovieListResponse": {
+      "title": "MovieListResponse",
+      "required": [
+        "data",
+        "page"
+      ],
+      "properties": {
+        "data": {
+          "properties": {
+            "movies": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/MovieListItem"
+              }
+            }
+          }
+        },
+        "page": {
+          "$ref": "#/definitions/PaginationData"
+        }
+      },
+      "type": "object"
+    },
+    "PaginationData": {
+      "title": "PaginationData",
+      "required": [
+        "limit",
+        "offset",
+        "totalCount"
+      ],
+      "properties": {
+        "limit": {
+          "type": "integer"
+        },
+        "offset": {
+          "type": "integer"
+        },
+        "totalCount": {
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "Person": {
+      "title": "Person",
+      "required": [
+        "id",
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "CityV2": {
+      "title": "CityV2",
+      "type": "object",
+      "properties": {
+        "country": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "latitude": {
+          "type": "number"
+        },
+        "longitude": {
+          "type": "number"
+        },
+        "radius": {
+          "type": "integer",
+          "description": "Default search radius in miles for the city"
+        }
+      },
+      "required": [
+        "country",
+        "city",
+        "state",
+        "latitude",
+        "longitude",
+        "radius"
+      ]
+    },
+    "CityResponseV2": {
+      "title": "CityResponseV2",
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/CityV2"
+        }
+      },
+      "required": [
+        "data"
+      ]
+    },
+    "PostalCodeV2": {
+      "title": "PostalCodeV2",
+      "type": "object",
+      "properties": {
+        "postalCode": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "latitude": {
+          "type": "number"
+        },
+        "longitude": {
+          "type": "number"
+        },
+        "radius": {
+          "type": "integer",
+          "description": "Default search radius in miles for the postal code"
+        }
+      },
+      "required": [
+        "postalCode",
+        "country",
+        "city",
+        "state",
+        "latitude",
+        "longitude",
+        "radius"
+      ]
+    },
+    "PostalCodeResponseV2": {
+      "title": "PostalCodeResponseV2",
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/PostalCodeV2"
+        }
+      },
+      "required": [
+        "data"
+      ]
+    },
+    "MovieDisplayDateArrayResponse": {
+      "title": "MovieDisplayDateArrayResponse",
+      "type": "object",
+      "properties": {
+        "displayDates": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "date"
+          }
+        }
+      },
+      "required": [
+        "displayDates"
+      ]
+    },
+    "LocalMoviesResponseV2": {
+      "title": "LocalMoviesResponseV2",
+      "type": "object",
+      "properties": {
+        "movies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "mpaaRating": {
+                "type": "string"
+              },
+              "runtime": {
+                "description": "The movie runtime in minutes",
+                "type": "integer"
+              },
+              "cast": {
+                "type": "array",
+                "items": {
+                  "title": "Cast",
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "releaseDate": {
+                "type": "string",
+                "format": "date"
+              },
+              "poster": {
+                "$ref": "#/definitions/PosterResponse"
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "movies"
+      ]
+    },
+    "MovieResponse": {
+      "title": "MovieResponse",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "mpaaRating": {
+          "type": "string"
+        },
+        "releaseDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "runtime": {
+          "description": "The movie runtime in minutes",
+          "type": "integer"
+        },
+        "mediumSynopsis": {
+          "type": "string"
+        },
+        "synopsis": {
+          "type": "string"
+        },
+        "poster": {
+          "$ref": "#/definitions/PosterResponse"
+        },
+        "directors": {
+          "type": "array",
+          "items": {
+            "title": "Directors",
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "cast": {
+          "type": "array",
+          "items": {
+            "title": "Cast",
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "genres": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "images": {
+          "type": "array",
+          "items": {
+            "title": "Image",
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "imageUrl": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "copyright": {
+                "type": "string"
+              },
+              "caption": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "mpaaRating",
+        "releaseDate",
+        "runtime",
+        "mediumSynopsis",
+        "synopsis",
+        "poster",
+        "directors",
+        "cast",
+        "genres",
+        "images"
+      ]
+    },
+    "PaginationResponse": {
+      "title": "PaginationResponse",
+      "type": "object",
+      "properties": {
+        "limit": {
+          "type": "integer"
+        },
+        "offset": {
+          "type": "integer"
+        },
+        "totalCount": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "limit",
+        "offset",
+        "totalCount"
+      ]
+    },
+    "PosterResponse": {
+      "title": "PosterResponse",
+      "type": "object",
+      "properties": {
+        "contentUrl": {
+          "type": "string"
+        },
+        "thumbnailUrl": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "contentUrl",
+        "thumbnailUrl"
+      ]
+    },
+    "MovieShowtimeGroupingsResponseV2": {
+      "title": "MovieShowtimeGroupingsResponseV2",
+      "type": "object",
+      "properties": {
+        "displayDates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "displayDate": {
+                "type": "string"
+              },
+              "theaters": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "distance": {
+                      "type": "number"
+                    },
+                    "isTicketing": {
+                      "type": "boolean"
+                    },
+                    "movieVariants": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "formatId": {
+                            "type": "string"
+                          },
+                          "formatName": {
+                            "type": "string"
+                          },
+                          "movieVariantId": {
+                            "type": "string"
+                          },
+                          "amenityGroups": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "amenities": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "string"
+                                      },
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "shortDescription": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  }
+                                },
+                                "showtimes": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "string"
+                                      },
+                                      "type": {
+                                        "type": "string",
+                                        "enum": [
+                                          "Available",
+                                          "Restricted",
+                                          "Soldout"
+                                        ]
+                                      },
+                                      "message": {
+                                        "type": "string"
+                                      },
+                                      "dateTime": {
+                                        "type": "object",
+                                        "properties": {
+                                          "local": {
+                                            "type": "string"
+                                          },
+                                          "utc": {
+                                            "type": "string"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "displayDates"
+      ]
+    },
+    "PaginatedShowtimesResponse": {
+      "title": "PaginatedShowtimesResponse",
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "properties": {
+            "showtimes": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "movieId": {
+                    "type": "string"
+                  },
+                  "movieTitle": {
+                    "type": "string"
+                  },
+                  "theaterId": {
+                    "type": "string"
+                  },
+                  "theaterName": {
+                    "type": "string"
+                  },
+                  "isTicketing": {
+                    "type": "boolean"
+                  },
+                  "distance": {
+                    "type": "number"
+                  },
+                  "dateTime": {
+                    "type": "object",
+                    "properties": {
+                      "utc": {
+                        "type": "string"
+                      },
+                      "local": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "amenities": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "page": {
+          "type": "object",
+          "properties": {
+            "offset": {
+              "type": "integer"
+            },
+            "limit": {
+              "type": "integer"
+            },
+            "totalCount": {
+              "type": "integer"
+            }
+          }
+        }
+      },
+      "required": [
+        "data",
+        "page"
+      ]
+    },
+    "TheaterDisplayDatesResponse": {
+      "title": "TheaterDisplayDatesResponse",
+      "type": "object",
+      "properties": {
+        "displayDates": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "date"
+          }
+        }
+      },
+      "required": [
+        "displayDates"
+      ]
+    },
+    "TheaterShowtimeGroupingsResponse": {
+      "title": "TheaterShowtimeGroupingsResponse",
+      "type": "object",
+      "properties": {
+        "displayDates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "displayDate": {
+                "type": "string"
+              },
+              "movies": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "mpaaRating": {
+                      "type": "string"
+                    },
+                    "runtime": {
+                      "type": "integer"
+                    },
+                    "releaseDate": {
+                      "type": "string"
+                    },
+                    "poster": {
+                      "$ref": "#/definitions/PosterResponse"
+                    },
+                    "cast": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "movieVariants": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "formatId": {
+                            "type": "string"
+                          },
+                          "formatName": {
+                            "type": "string"
+                          },
+                          "movieVariantId": {
+                            "type": "string"
+                          },
+                          "amenityGroups": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "amenities": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "string"
+                                      },
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "shortDescription": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  }
+                                },
+                                "showtimes": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "string"
+                                      },
+                                      "type": {
+                                        "type": "string"
+                                      },
+                                      "message": {
+                                        "type": "string"
+                                      },
+                                      "dateTime": {
+                                        "type": "object",
+                                        "properties": {
+                                          "local": {
+                                            "type": "string"
+                                          },
+                                          "utc": {
+                                            "type": "string"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "displayDates"
+      ]
+    },
+    "TheaterResponse": {
+      "title": "TheaterResponse",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "address1": {
+          "type": "string"
+        },
+        "address2": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "city": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "zipCode": {
+          "type": "string"
+        },
+        "chainCode": {
+          "type": "string"
+        },
+        "chainName": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "geo": {
+          "type": "object",
+          "properties": {
+            "lat": {
+              "type": "number"
+            },
+            "lon": {
+              "type": "number"
+            }
+          }
+        },
+        "distance": {
+          "type": "number"
+        },
+        "isTicketing": {
+          "type": "boolean"
+        },
+        "amenities": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "shortDescription": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "id",
+        "address1",
+        "address2",
+        "city",
+        "state",
+        "name",
+        "zipCode",
+        "chainCode",
+        "chainName",
+        "phone",
+        "geo",
+        "distance",
+        "isTicketing",
+        "amenities"
+      ]
+    },
+    "PaginatedTheatersResponse": {
+      "title": "PaginatedTheatersResponse",
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "properties": {
+            "theaters": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "address1": {
+                    "type": "string"
+                  },
+                  "address2": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "city": {
+                    "type": "string"
+                  },
+                  "state": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "zipCode": {
+                    "type": "string"
+                  },
+                  "chainCode": {
+                    "type": "string"
+                  },
+                  "chainName": {
+                    "type": "string"
+                  },
+                  "phone": {
+                    "type": "string"
+                  },
+                  "geo": {
+                    "type": "object",
+                    "properties": {
+                      "lat": {
+                        "type": "number"
+                      },
+                      "lon": {
+                        "type": "number"
+                      }
+                    }
+                  },
+                  "distance": {
+                    "type": "number"
+                  },
+                  "isTicketing": {
+                    "type": "boolean"
+                  },
+                  "amenities": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "shortDescription": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "page": {
+          "type": "object",
+          "properties": {
+            "limit": {
+              "type": "number"
+            },
+            "offset": {
+              "type": "number"
+            },
+            "totalCount": {
+              "type": "number"
+            }
+          }
+        }
+      },
+      "required": [
+        "data",
+        "page"
+      ]
+    },
+    "CoreError": {
+      "title": "CoreError",
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "error"
+      ]
+    }
+  }
+}

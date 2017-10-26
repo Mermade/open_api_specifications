@@ -1,0 +1,336 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Sensis API",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "x-origin": [
+      {
+        "url": "http://developers.sensis.com.au/io-docs",
+        "format": "io_docs"
+      }
+    ],
+    "description": "Test our API services using I/O Docs. ",
+    "x-mashery-id": "439"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.sensis.com.au",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "For more information on the data returned by these API calls, please refer to our schema documentation:\nhttp://developers.sensis.com.au/docs/reference/Listing_Schema",
+    "url": "http://developers.sensis.com.au/io-docs/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Search"
+    },
+    {
+      "name": "Get by Listing ID"
+    },
+    {
+      "name": "Reviews"
+    }
+  ],
+  "paths": {
+    "/ob-20110511/test/search": {
+      "get": {
+        "operationId": "QuerySearch",
+        "summary": "This method allows you to search Sensis.",
+        "tags": [
+          "Search"
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "type": "string",
+            "description": "What to search for. Required unless location is used",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "location",
+            "type": "string",
+            "description": "Location to search in. Can be in the following formats: Suburb or Locality, Postcode, Geographical coordinates, State or Territory. Required unless query is used.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "page",
+            "type": "number",
+            "description": "Page number to return",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "rows",
+            "type": "number",
+            "description": "Number of listings to return per page",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "sortBy",
+            "type": "string",
+            "description": "Listing sort order",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "sensitiveCategories",
+            "type": "boolean",
+            "description": "Filtering potentially unsafe content.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "0"
+            ]
+          },
+          {
+            "name": "categoryId",
+            "type": "string",
+            "description": "Filter listings returned by category id.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "postcode",
+            "type": "string",
+            "description": "Filter listings returned by postcode.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "radius",
+            "type": "string",
+            "description": "Filter listings returned to those within the radius distance of the location.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "locationTiers",
+            "type": "integer",
+            "description": "Filter listings returned to those within a number of location tiers of the location",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "suburb",
+            "type": "string",
+            "description": "Filter listings returned to those within the given suburb. Repeat the parameter to include multiple suburbs in the filter.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "state",
+            "type": "string",
+            "description": "Filter listings returned to those within the given state. Repeat the parameter to include multiple states in the filter.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "ACT",
+              "NSW",
+              "NT",
+              "QLD",
+              "SA",
+              "TAS",
+              "VIC",
+              "WA"
+            ]
+          },
+          {
+            "name": "boundingBox",
+            "type": "string",
+            "description": "Filter listings returned to those within a bounding box.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "content",
+            "type": "string",
+            "description": "Filter listings returned to only those with certain types of content.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "productKeyword",
+            "type": "string",
+            "description": "Filter listings returned to only those containing certain product keywords.",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/ob-20110511/test/getByListingId": {
+      "get": {
+        "operationId": "getByListingIDGetbyListingID",
+        "summary": "This method returns a single listing given its uni...",
+        "description": "This method returns a single listing given its unique ID.",
+        "tags": [
+          "Get by Listing ID"
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "type": "string",
+            "description": "This is the id field of the listing",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "includeReviews",
+            "type": "boolean",
+            "description": "A value of true will mean the response will contain the reviewSummaries and maximum of 10 reviews in the response",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "0"
+            ]
+          },
+          {
+            "name": "includePois",
+            "type": "boolean",
+            "description": "A value of true will mean the response will contain up to a maximum of 10 points of interest (Eg. railway stations, car parks, ATMs) in the response",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "0"
+            ]
+          },
+          {
+            "name": "categoryId",
+            "type": "string",
+            "description": "See POI Category Filtering for details",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v1/test/businesses/{aboutId}/reviews": {
+      "get": {
+        "operationId": "ReviewsReviews",
+        "summary": "This method returns user reviews with additional p...",
+        "description": "This method returns user reviews with additional parametric filtering.",
+        "tags": [
+          "Reviews"
+        ],
+        "parameters": [
+          {
+            "name": "aboutId",
+            "type": "string",
+            "description": "The business whose reviews you are looking for's identifier. This can be found by performing a /search as described above",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "sortType",
+            "type": "string",
+            "description": "DATE - the date reviews are submitted, RATING - the number of ratings for each of the review.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "DATE",
+              "RATING"
+            ]
+          },
+          {
+            "name": "sortOrder",
+            "type": "string",
+            "description": "Sort the reviews, either smallest to largest, or largest to smallest",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "ASC",
+              "DESC"
+            ]
+          },
+          {
+            "name": "offset",
+            "type": "number",
+            "description": "Zero based number of reviews to start pagination from",
+            "in": "query",
+            "required": false,
+            "default": 0
+          },
+          {
+            "name": "limit",
+            "type": "number",
+            "description": "The number of reviews after offset to return",
+            "in": "query",
+            "required": false,
+            "default": 10
+          },
+          {
+            "name": "namespace",
+            "type": "string",
+            "description": "Filter for reviews within a given namespace returned, eg http://www.yelp.com.au",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

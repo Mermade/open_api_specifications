@@ -1,0 +1,1076 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "NCAAFB Trial",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "x-origin": [
+      {
+        "url": "http://developer.sportradar.com/io-docs",
+        "format": "io_docs"
+      }
+    ],
+    "description": "Test our API services using our API Sandbox!    Enter your sport specific TRIAL KEY in the box below. Sportradar's NCAA Football API",
+    "x-mashery-id": "295"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.sportradar.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "Note: For seasons which span multiple calendar years (e.g. 2015-16), use the earlier year as the season parameter (e.g. 2015).  The Golf API season parameter is based on the PGA official season year.",
+    "url": "http://developer.sportradar.com/io-docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "NCAAFB"
+    }
+  ],
+  "paths": {
+    "/ncaafb-t1/{year}/{ncaafb_season}/{ncaafb_season_week}/schedule{format}": {
+      "get": {
+        "operationId": "WeeklyScheduleNCAAFB",
+        "summary": "Obtain schedules for the NCAAFB for a given week.",
+        "tags": [
+          "NCAAFB"
+        ],
+        "parameters": [
+          {
+            "name": "year",
+            "type": "number",
+            "description": "The year of the season",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "2013",
+              "2014",
+              "2015",
+              "2016",
+              "2017"
+            ]
+          },
+          {
+            "name": "ncaafb_season",
+            "type": "string",
+            "description": "The type of season",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "REG"
+            ]
+          },
+          {
+            "name": "ncaafb_season_week",
+            "type": "number",
+            "description": "The week of the season",
+            "in": "path",
+            "required": true,
+            "default": 7
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Desired Output Format",
+            "in": "path",
+            "required": true,
+            "enum": [
+              ".xml",
+              ".json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/ncaafb-t1/{year}/{ncaafb_season}/schedule{format}": {
+      "get": {
+        "operationId": "SeasonScheduleNCAAFB",
+        "summary": "Obtain schedules for the NCAAFB for a given season...",
+        "description": "Obtain schedules for the NCAAFB for a given season.",
+        "tags": [
+          "NCAAFB"
+        ],
+        "parameters": [
+          {
+            "name": "year",
+            "type": "number",
+            "description": "The year of the season",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "2013",
+              "2014",
+              "2015",
+              "2016",
+              "2017"
+            ]
+          },
+          {
+            "name": "ncaafb_season",
+            "type": "string",
+            "description": "The type of season",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "REG"
+            ]
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Desired Output Format",
+            "in": "path",
+            "required": true,
+            "enum": [
+              ".xml",
+              ".json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/ncaafb-t1/{year}/{ncaafb_season}/{ncaafb_season_week}/{away_team}/{home_team}/statistics{format}": {
+      "get": {
+        "operationId": "GameStatisticsNCAAFB",
+        "summary": "Obtain stats for a NCAAFB game for a given week.",
+        "tags": [
+          "NCAAFB"
+        ],
+        "parameters": [
+          {
+            "name": "year",
+            "type": "number",
+            "description": "The year of the season",
+            "in": "path",
+            "required": true,
+            "default": 2016
+          },
+          {
+            "name": "ncaafb_season",
+            "type": "string",
+            "description": "The type of season",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "REG"
+            ]
+          },
+          {
+            "name": "ncaafb_season_week",
+            "type": "number",
+            "description": "The week of the season",
+            "in": "path",
+            "required": true,
+            "default": 2
+          },
+          {
+            "name": "away_team",
+            "type": "string",
+            "description": "The away team",
+            "in": "path",
+            "required": true,
+            "default": "ISU"
+          },
+          {
+            "name": "home_team",
+            "type": "string",
+            "description": "The home team",
+            "in": "path",
+            "required": true,
+            "default": "IOW"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Desired Output Format",
+            "in": "path",
+            "required": true,
+            "enum": [
+              ".xml",
+              ".json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/ncaafb-t1/{year}/{ncaafb_season}/{ncaafb_season_week}/{away_team}/{home_team}/summary{format}": {
+      "get": {
+        "operationId": "GameSummaryNCAAFB",
+        "summary": "Obtain summary for a NCAAFB game for a given week....",
+        "description": "Obtain summary for a NCAAFB game for a given week.",
+        "tags": [
+          "NCAAFB"
+        ],
+        "parameters": [
+          {
+            "name": "year",
+            "type": "number",
+            "description": "The year of the season",
+            "in": "path",
+            "required": true,
+            "default": 2016
+          },
+          {
+            "name": "ncaafb_season",
+            "type": "string",
+            "description": "The type of season",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "REG"
+            ]
+          },
+          {
+            "name": "ncaafb_season_week",
+            "type": "number",
+            "description": "The week of the season",
+            "in": "path",
+            "required": true,
+            "default": 2
+          },
+          {
+            "name": "away_team",
+            "type": "string",
+            "description": "The away team",
+            "in": "path",
+            "required": true,
+            "default": "ISU"
+          },
+          {
+            "name": "home_team",
+            "type": "string",
+            "description": "The home team",
+            "in": "path",
+            "required": true,
+            "default": "IOW"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Desired Output Format",
+            "in": "path",
+            "required": true,
+            "enum": [
+              ".xml",
+              ".json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/ncaafb-t1/{year}/{ncaafb_season}/{ncaafb_season_week}/{away_team}/{home_team}/pbp{format}": {
+      "get": {
+        "operationId": "PlayByPlayNCAAFB",
+        "summary": "Obtain Play By Play stats for a NCAAFB game for a ...",
+        "description": "Obtain Play By Play stats for a NCAAFB game for a given week.",
+        "tags": [
+          "NCAAFB"
+        ],
+        "parameters": [
+          {
+            "name": "year",
+            "type": "number",
+            "description": "The year of the season",
+            "in": "path",
+            "required": true,
+            "default": 2016
+          },
+          {
+            "name": "ncaafb_season",
+            "type": "string",
+            "description": "The type of season",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "REG"
+            ]
+          },
+          {
+            "name": "ncaafb_season_week",
+            "type": "number",
+            "description": "The week of the season",
+            "in": "path",
+            "required": true,
+            "default": 2
+          },
+          {
+            "name": "away_team",
+            "type": "string",
+            "description": "The away team",
+            "in": "path",
+            "required": true,
+            "default": "ISU"
+          },
+          {
+            "name": "home_team",
+            "type": "string",
+            "description": "The home team",
+            "in": "path",
+            "required": true,
+            "default": "IOW"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Desired Output Format",
+            "in": "path",
+            "required": true,
+            "enum": [
+              ".xml",
+              ".json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/ncaafb-t1/{year}/{ncaafb_season}/{ncaafb_season_week}/{away_team}/{home_team}/plays/{play_id}{format}": {
+      "get": {
+        "operationId": "PlaySummaryNCAAFB",
+        "summary": "Obtain the schedule for the NCAA desired week usin...",
+        "description": "Obtain the schedule for the NCAA desired week using the Schedule API (Weekly or Seasonal). Next, choose Pre-Season (PRE), Regular Season (REG), Post-Season (PST) ** Note:2012 and prior only **. Then, enter the HOME and AWAY team for the particular game for which you wish to retrieve the stats. Lastly, go to the Play-by-play feed and choose a PLAY_ID from the links node of the desired play.",
+        "tags": [
+          "NCAAFB"
+        ],
+        "parameters": [
+          {
+            "name": "year",
+            "type": "number",
+            "description": "The year of the season",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "2011",
+              "2012",
+              "2013",
+              "2014",
+              "2015",
+              "2016"
+            ]
+          },
+          {
+            "name": "ncaafb_season",
+            "type": "string",
+            "description": "The type of season",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "REG",
+              "PRE",
+              "PST"
+            ]
+          },
+          {
+            "name": "ncaafb_season_week",
+            "type": "number",
+            "description": "The week of the season",
+            "in": "path",
+            "required": true,
+            "default": 2
+          },
+          {
+            "name": "away_team",
+            "type": "string",
+            "description": "The away team",
+            "in": "path",
+            "required": true,
+            "default": "ISU"
+          },
+          {
+            "name": "home_team",
+            "type": "string",
+            "description": "The home team",
+            "in": "path",
+            "required": true,
+            "default": "IOW"
+          },
+          {
+            "name": "play_id",
+            "type": "string",
+            "description": "The id for a given play",
+            "in": "path",
+            "required": true,
+            "default": "3cf7fba6-3d0a-419f-abb5-cb83914a208f"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Desired Output Format",
+            "in": "path",
+            "required": true,
+            "enum": [
+              ".xml",
+              ".json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/ncaafb-t1/{year}/{ncaafb_season}/{ncaafb_season_week}/{away_team}/{home_team}/boxscore{format}": {
+      "get": {
+        "operationId": "BoxscoreNCAAFB",
+        "summary": "Obtain a boxscore for a NCAAFB game for a given we...",
+        "description": "Obtain a boxscore for a NCAAFB game for a given week.",
+        "tags": [
+          "NCAAFB"
+        ],
+        "parameters": [
+          {
+            "name": "year",
+            "type": "number",
+            "description": "The year of the season",
+            "in": "path",
+            "required": true,
+            "default": 2016
+          },
+          {
+            "name": "ncaafb_season",
+            "type": "string",
+            "description": "The type of season",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "REG"
+            ]
+          },
+          {
+            "name": "ncaafb_season_week",
+            "type": "number",
+            "description": "The week of the season",
+            "in": "path",
+            "required": true,
+            "default": 2
+          },
+          {
+            "name": "away_team",
+            "type": "string",
+            "description": "The away team",
+            "in": "path",
+            "required": true,
+            "default": "ISU"
+          },
+          {
+            "name": "home_team",
+            "type": "string",
+            "description": "The home team",
+            "in": "path",
+            "required": true,
+            "default": "IOW"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Desired Output Format",
+            "in": "path",
+            "required": true,
+            "enum": [
+              ".xml",
+              ".json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/ncaafb-t1/{year}/{ncaafb_season}/{ncaafb_season_week}/{away_team}/{home_team}/extended-boxscore{format}": {
+      "get": {
+        "operationId": "ExtendedBoxscoreNCAAFB",
+        "summary": "Obtain a boxscore for a NCAAFB game for a given we...",
+        "description": "Obtain a boxscore for a NCAAFB game for a given week.",
+        "tags": [
+          "NCAAFB"
+        ],
+        "parameters": [
+          {
+            "name": "year",
+            "type": "number",
+            "description": "The year of the season",
+            "in": "path",
+            "required": true,
+            "default": 2016
+          },
+          {
+            "name": "ncaafb_season",
+            "type": "string",
+            "description": "The type of season",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "REG"
+            ]
+          },
+          {
+            "name": "ncaafb_season_week",
+            "type": "number",
+            "description": "The week of the season",
+            "in": "path",
+            "required": true,
+            "default": 2
+          },
+          {
+            "name": "away_team",
+            "type": "string",
+            "description": "The away team",
+            "in": "path",
+            "required": true,
+            "default": "ISU"
+          },
+          {
+            "name": "home_team",
+            "type": "string",
+            "description": "The home team",
+            "in": "path",
+            "required": true,
+            "default": "IOW"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Desired Output Format",
+            "in": "path",
+            "required": true,
+            "enum": [
+              ".xml",
+              ".json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/ncaafb-t1/polls/{poll_name}/{year}/{ncaafb_season_week}/rankings{format}": {
+      "get": {
+        "operationId": "RankingsNCAAFB",
+        "summary": "Obtain the NCAAFB poll rankings for a given poll a...",
+        "description": "Obtain the NCAAFB poll rankings for a given poll and week.",
+        "tags": [
+          "NCAAFB"
+        ],
+        "parameters": [
+          {
+            "name": "poll_name",
+            "type": "string",
+            "description": "The name of the poll (AP25, EU25, CFP25, FCSC25, H25, and FCS25)",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "AP25",
+              "EU25",
+              "CFP25",
+              "FCSC25",
+              "H25",
+              "FCS25"
+            ]
+          },
+          {
+            "name": "year",
+            "type": "number",
+            "description": "The year of the season",
+            "in": "path",
+            "required": true,
+            "default": 2016
+          },
+          {
+            "name": "ncaafb_season_week",
+            "type": "number",
+            "description": "The week of the season",
+            "in": "path",
+            "required": true,
+            "default": 12
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Desired Output Format",
+            "in": "path",
+            "required": true,
+            "enum": [
+              ".xml",
+              ".json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/ncaafb-t1/{year}/{ncaafb_season}/{ncaafb_season_week}/{away_team}/{home_team}/roster{format}": {
+      "get": {
+        "operationId": "GameRosterNCAAFB",
+        "summary": "Obtain the team rosters for a NCAAFB game for a gi...",
+        "description": "Obtain the team rosters for a NCAAFB game for a given week.",
+        "tags": [
+          "NCAAFB"
+        ],
+        "parameters": [
+          {
+            "name": "year",
+            "type": "number",
+            "description": "The year of the season",
+            "in": "path",
+            "required": true,
+            "default": 2016
+          },
+          {
+            "name": "ncaafb_season",
+            "type": "string",
+            "description": "The type of season",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "REG"
+            ]
+          },
+          {
+            "name": "ncaafb_season_week",
+            "type": "number",
+            "description": "The week of the season",
+            "in": "path",
+            "required": true,
+            "default": 2
+          },
+          {
+            "name": "away_team",
+            "type": "string",
+            "description": "The away team",
+            "in": "path",
+            "required": true,
+            "default": "ISU"
+          },
+          {
+            "name": "home_team",
+            "type": "string",
+            "description": "The home team",
+            "in": "path",
+            "required": true,
+            "default": "IOW"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Desired Output Format",
+            "in": "path",
+            "required": true,
+            "enum": [
+              ".xml",
+              ".json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/ncaafb-t1/teams/{division}/hierarchy{format}": {
+      "get": {
+        "operationId": "TeamHierarchyNCAAFB",
+        "summary": "Obtain the NCAAFB team hierarchy of a given divisi...",
+        "description": "Obtain the NCAAFB team hierarchy of a given division.",
+        "tags": [
+          "NCAAFB"
+        ],
+        "parameters": [
+          {
+            "name": "division",
+            "type": "string",
+            "description": "The NCAAFB division",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "FBS",
+              "FCS",
+              "D2",
+              "D3",
+              "NAIA",
+              "USCAA"
+            ]
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Desired Output Format",
+            "in": "path",
+            "required": true,
+            "enum": [
+              ".xml",
+              ".json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/ncaafb-t1/teams/{team}/roster{format}": {
+      "get": {
+        "operationId": "TeamRosterNCAAFB",
+        "summary": "Obtain the NCAAFB roster for a given team.",
+        "tags": [
+          "NCAAFB"
+        ],
+        "parameters": [
+          {
+            "name": "team",
+            "type": "string",
+            "description": "The NCAAFB team",
+            "in": "path",
+            "required": true,
+            "default": "IOW"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Desired Output Format",
+            "in": "path",
+            "required": true,
+            "enum": [
+              ".xml",
+              ".json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/ncaafb-t1/teams/{division}/{year}/{ncaafb_season}/standings{format}": {
+      "get": {
+        "operationId": "StandingsNCAAFB",
+        "summary": "Obtain the Standings for a given division.",
+        "tags": [
+          "NCAAFB"
+        ],
+        "parameters": [
+          {
+            "name": "division",
+            "type": "string",
+            "description": "The NCAAFB division",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "FBS",
+              "FCS"
+            ]
+          },
+          {
+            "name": "year",
+            "type": "number",
+            "description": "The year of the season",
+            "in": "path",
+            "required": true,
+            "default": 2016
+          },
+          {
+            "name": "ncaafb_season",
+            "type": "string",
+            "description": "The type of season",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "REG"
+            ]
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Desired Output Format",
+            "in": "path",
+            "required": true,
+            "enum": [
+              ".xml",
+              ".json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/ncaafb-t1/teams/{team}/{year}/{ncaafb_season}/statistics{format}": {
+      "get": {
+        "operationId": "SeasonalStatisticsNCAAFB",
+        "summary": "Obtain the NCAAFB Seasonal Stats for a given team....",
+        "description": "Obtain the NCAAFB Seasonal Stats for a given team.",
+        "tags": [
+          "NCAAFB"
+        ],
+        "parameters": [
+          {
+            "name": "team",
+            "type": "string",
+            "description": "The NCAAFB team",
+            "in": "path",
+            "required": true,
+            "default": "IOW"
+          },
+          {
+            "name": "year",
+            "type": "number",
+            "description": "The year of the season",
+            "in": "path",
+            "required": true,
+            "default": 2016
+          },
+          {
+            "name": "ncaafb_season",
+            "type": "string",
+            "description": "The type of season",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "REG"
+            ]
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Desired Output Format",
+            "in": "path",
+            "required": true,
+            "enum": [
+              ".xml",
+              ".json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/ncaafb-t1/{year}/{ncaafb_season}/{ncaafb_season_week}/{division}/leaders{format}": {
+      "get": {
+        "operationId": "WeeklyDivisionLeadersNCAAFB",
+        "summary": "provides the division leaders, and their correspon...",
+        "description": "provides the division leaders, and their corresponding stats, for the categories of passing, rushing, and receiving",
+        "tags": [
+          "NCAAFB"
+        ],
+        "parameters": [
+          {
+            "name": "year",
+            "type": "number",
+            "description": "The year of the season",
+            "in": "path",
+            "required": true,
+            "default": 2016
+          },
+          {
+            "name": "ncaafb_season",
+            "type": "string",
+            "description": "The type of season",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "PRE",
+              "REG",
+              "PST"
+            ]
+          },
+          {
+            "name": "ncaafb_season_week",
+            "type": "number",
+            "description": "The week of the season",
+            "in": "path",
+            "required": true,
+            "default": 8
+          },
+          {
+            "name": "division",
+            "type": "string",
+            "description": "The NCAAFB division",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "FBS",
+              "FCS"
+            ]
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Desired Output Format",
+            "in": "path",
+            "required": true,
+            "enum": [
+              ".xml",
+              ".json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

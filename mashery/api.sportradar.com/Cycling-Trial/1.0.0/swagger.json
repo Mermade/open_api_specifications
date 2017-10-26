@@ -1,0 +1,454 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Cycling Trial",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "x-origin": [
+      {
+        "url": "http://developer.sportradar.com/io-docs",
+        "format": "io_docs"
+      }
+    ],
+    "description": "Test our API services using our API Sandbox!    Enter your sport specific TRIAL KEY in the box below. Sportradar's Cycling API",
+    "x-mashery-id": "12364"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.sportradar.com",
+  "basePath": "/cycling-t1/en",
+  "externalDocs": {
+    "description": "Note: For seasons which span multiple calendar years (e.g. 2015-16), use the earlier year as the season parameter (e.g. 2015).  The Golf API season parameter is based on the PGA official season year.",
+    "url": "http://developer.sportradar.com/io-docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Cycling"
+    }
+  ],
+  "paths": {
+    "/races/{race_id}/summary{format}": {
+      "get": {
+        "operationId": "RaceSummaryCycling",
+        "summary": "Provides information on a given race",
+        "tags": [
+          "Cycling"
+        ],
+        "parameters": [
+          {
+            "name": "race_id",
+            "type": "string",
+            "description": "Race ID found in the Tournament Schedule endpoint",
+            "in": "path",
+            "required": true,
+            "default": "sr:race:271584"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Desired Output Format",
+            "in": "path",
+            "required": true,
+            "enum": [
+              ".xml",
+              ".json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/riders/{rider_id}/profile{format}": {
+      "get": {
+        "operationId": "RiderProfileCycling",
+        "summary": "Provides information for a given rider",
+        "tags": [
+          "Cycling"
+        ],
+        "parameters": [
+          {
+            "name": "rider_id",
+            "type": "string",
+            "description": "The ID of the rider",
+            "in": "path",
+            "required": true,
+            "default": "sr:rider:41433"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Desired Output Format",
+            "in": "path",
+            "required": true,
+            "enum": [
+              ".xml",
+              ".json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/schedules/{year-}{month-}{day}/schedule{format}": {
+      "get": {
+        "operationId": "ScheduleCycling",
+        "summary": "Provides the schedule for a given day",
+        "tags": [
+          "Cycling"
+        ],
+        "parameters": [
+          {
+            "name": "year",
+            "type": "number",
+            "description": "The calendar year",
+            "in": "query",
+            "required": true,
+            "enum": [
+              "2014",
+              "2015",
+              "2016",
+              "2017"
+            ]
+          },
+          {
+            "name": "month",
+            "type": "number",
+            "description": "The calendar month",
+            "in": "query",
+            "required": true,
+            "enum": [
+              "01",
+              "02",
+              "03",
+              "04",
+              "05",
+              "06",
+              "07",
+              "08",
+              "09",
+              "10",
+              "11",
+              "12"
+            ]
+          },
+          {
+            "name": "day",
+            "type": "number",
+            "description": "The calendar day",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "01",
+              "02",
+              "03",
+              "04",
+              "05",
+              "06",
+              "07",
+              "08",
+              "09",
+              "10",
+              "11",
+              "12",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31"
+            ]
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Desired Output Format",
+            "in": "path",
+            "required": true,
+            "enum": [
+              ".xml",
+              ".json"
+            ]
+          },
+          {
+            "name": "year-",
+            "type": "string",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "month-",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stages/{stage_id}/summary{format}": {
+      "get": {
+        "operationId": "StageSummaryCycling",
+        "summary": "Provides information on a given stage",
+        "tags": [
+          "Cycling"
+        ],
+        "parameters": [
+          {
+            "name": "stage_id",
+            "type": "string",
+            "description": "Stage ID found in the Tournament Schedule endpoint",
+            "in": "path",
+            "required": true,
+            "default": "sr:stage:271592"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Desired Output Format",
+            "in": "path",
+            "required": true,
+            "enum": [
+              ".xml",
+              ".json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/teams/{team_id}/profile{format}": {
+      "get": {
+        "operationId": "TeamProfileCycling",
+        "summary": "Provides information for a given team",
+        "tags": [
+          "Cycling"
+        ],
+        "parameters": [
+          {
+            "name": "team_id",
+            "type": "string",
+            "description": "The ID of the team",
+            "in": "path",
+            "required": true,
+            "default": "sr:team:33029"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Desired Output Format",
+            "in": "path",
+            "required": true,
+            "enum": [
+              ".xml",
+              ".json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/tournaments/{race_tournament_id}/info{format}": {
+      "get": {
+        "operationId": "TournamentInfoCycling",
+        "summary": "Provides a list of competitors from a given tourna...",
+        "description": "Provides a list of competitors from a given tournament",
+        "tags": [
+          "Cycling"
+        ],
+        "parameters": [
+          {
+            "name": "race_tournament_id",
+            "type": "string",
+            "description": "Tournament ID found in the Tournament List API",
+            "in": "path",
+            "required": true,
+            "default": "sr:race_tournament:270956"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Desired Output Format",
+            "in": "path",
+            "required": true,
+            "enum": [
+              ".xml",
+              ".json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/tournaments{format}": {
+      "get": {
+        "operationId": "TournamentListCycling",
+        "summary": "Provides a list of all tournaments",
+        "tags": [
+          "Cycling"
+        ],
+        "parameters": [
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Desired Output Format",
+            "in": "path",
+            "required": true,
+            "enum": [
+              ".xml",
+              ".json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/tournaments/{race_tournament_id}/schedule{format}": {
+      "get": {
+        "operationId": "TournamentScheduleCycling",
+        "summary": "Provides the schedule for a given tournament",
+        "tags": [
+          "Cycling"
+        ],
+        "parameters": [
+          {
+            "name": "race_tournament_id",
+            "type": "string",
+            "description": "Tournament ID found in the Tournament List API",
+            "in": "path",
+            "required": true,
+            "default": "sr:race_tournament:270956"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Desired Output Format",
+            "in": "path",
+            "required": true,
+            "enum": [
+              ".xml",
+              ".json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

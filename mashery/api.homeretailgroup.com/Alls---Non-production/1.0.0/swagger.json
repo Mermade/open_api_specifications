@@ -1,0 +1,2705 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "All APIs - Non-production",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "x-origin": [
+      {
+        "url": "http://developers.homeretailgroup.com/io-docs",
+        "format": "io_docs"
+      }
+    ],
+    "description": "Test our API services directly from the documentation. You may want to use this page in conjunction with: These IO Docs provide access to all of our APIs in a non-production environment. This includes all Open Access APIs as well as our Transactional APIs, allowing basket management and order placement, and our API for customer account management. Access to the Transactional APIs in production is made available on an invitation basis to partners with well-defined use cases that can drive significant volume. Access to the Customer API in production is tightly restricted and typically only granted to partners with whom we have a contractual relationship covering all necessary aspects of data protection. \n\nNote that the payload version supported by each API may differ between brands. For information on the preferred version to use in each case, please refer to the respective API documentation page e.g. [Location](docs/api__documentation/location/)",
+    "x-mashery-id": "2570"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.homeretailgroup.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "1) API overview and per-endpoint information (e.g. Location API)2) Using the API3) HTTP Headers4) Exceptions and Errors",
+    "url": "http://developers.homeretailgroup.com/io-docs/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Location"
+    },
+    {
+      "name": "Product"
+    },
+    {
+      "name": "Search"
+    },
+    {
+      "name": "Stock"
+    },
+    {
+      "name": "Basket"
+    },
+    {
+      "name": "Order"
+    },
+    {
+      "name": "Customer"
+    }
+  ],
+  "paths": {
+    "/location/{brand}/store": {
+      "get": {
+        "operationId": "StoresLocationget",
+        "summary": "Find the nearest stores to any given position (whe...",
+        "description": "Find the nearest stores to any given position (whether defined by address, town or geocoordinates).",
+        "tags": [
+          "Location"
+        ],
+        "parameters": [
+          {
+            "name": "brand",
+            "type": "string",
+            "description": "Brand under which the store operates.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "argos",
+              "homebase"
+            ]
+          },
+          {
+            "name": "origin",
+            "type": "string",
+            "description": "The start point of a search. \n\nThis can be one of:- \n\n\nPost code (e.g. MK9 2NW)\nLocality (e.g. Milton Keynes)\nOSGB36 grid reference easting and northing (e.g. 487600,234500) \nWGS84 latitude and longitude (e.g. 52.002038,-0.725337). \n\nNote that the API uses the presence of a decimal point to determine whether coordinates are latitude/longitude or eastings/northings.  If a locality is used and it does not uniquely identify an area then the API will return a choice of localities that can be used to narrow down the search.",
+            "in": "query",
+            "required": true,
+            "default": "MK9 2NW"
+          },
+          {
+            "name": "maxResults",
+            "type": "number",
+            "description": "An integer used to restrict the number of results in the payload. The default value is 10.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "maxDistance",
+            "type": "number",
+            "description": "This parameter is used to restrict results to sites within the specified distance from the origin (with units of distance as per the scale parameter)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "scale",
+            "type": "string",
+            "description": "The units used to define the maximum distance filter and also the distances returned in the payload.  If this parameter is omitted then km is assumed.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "km",
+              "miles"
+            ]
+          },
+          {
+            "name": "closeMatches",
+            "type": "boolean",
+            "description": "A boolean used to apply fuzzy logic matches to the value in the origin parameter.  The default value is false.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "useBarriers",
+            "type": "boolean",
+            "description": "A boolean used to determine whether natural barriers (rivers, seas, bridges) should be factored into the distance of matching locations.  The default value is true.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The Accept header is used to negotiate the payload format and version to be supplied. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "Accept-Encoding",
+            "type": "string",
+            "description": "Signifies that a consumer wishes the API to respond with a compressed payload (for instance: gzip).  Refer to HTTP Headers for details. If the header is omitted, the API will respond with uncompressed data.",
+            "in": "header",
+            "required": false,
+            "default": "gzip"
+          },
+          {
+            "name": "X-Original-User-Agent",
+            "type": "string",
+            "description": "Used to allow identification of consuming channel and versions of software being used. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/location/{brand}/store/{storeID}": {
+      "get": {
+        "operationId": "StoreLocationget",
+        "summary": "Retrieve information about a specific store.",
+        "tags": [
+          "Location"
+        ],
+        "parameters": [
+          {
+            "name": "brand",
+            "type": "string",
+            "description": "Brand for which the location is requested",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "argos",
+              "homebase"
+            ]
+          },
+          {
+            "name": "storeID",
+            "type": "string",
+            "description": "Store ID of the store for which details are being requested",
+            "in": "path",
+            "required": true,
+            "default": "9009"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The Accept header is used to negotiate the payload format and version to be supplied. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "Accept-Encoding",
+            "type": "string",
+            "description": "Signifies that a consumer wishes the API to respond with a compressed payload (for instance: gzip).  Refer to HTTP Headers for details. If the header is omitted, the API will respond with uncompressed data.",
+            "in": "header",
+            "required": false,
+            "default": "gzip"
+          },
+          {
+            "name": "X-Original-User-Agent",
+            "type": "string",
+            "description": "Used to allow identification of consuming channel and versions of software being used. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/location/address": {
+      "get": {
+        "operationId": "AddressLocationget",
+        "summary": "Find UK addresses based on post code or partial ad...",
+        "description": "Find UK addresses based on post code or partial address details. This call returns a single Location/Address structure if the parameters uniquely identify an address and a Location/AddressList structure if multiple addresses are found.",
+        "tags": [
+          "Location"
+        ],
+        "parameters": [
+          {
+            "name": "houseNumber",
+            "type": "string",
+            "description": "House number.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "streetName",
+            "type": "string",
+            "description": "Street Name.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "town",
+            "type": "string",
+            "description": "Town.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "county",
+            "type": "string",
+            "description": "County.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "postCode",
+            "type": "string",
+            "description": "Post code. This can be any valid UK outward code (i.e. the part before the space such as \"NN5\") or a complete code (e.g. \"NN5 5DF\").",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "maxResults",
+            "type": "string",
+            "description": "An integer used to restrict the number of results in the payload. If omitted, up to 512 results may be returned.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "closeMatches",
+            "type": "boolean",
+            "description": "A boolean used to apply fuzzy logic matches to the value in the origin parameter. The default value is false.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "sort",
+            "type": "string",
+            "description": "The sort order for the results.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "best-match",
+              "alphanumeric"
+            ]
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The Accept header is used to negotiate the payload format and version to be supplied. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "Accept-Encoding",
+            "type": "string",
+            "description": "Signifies that a consumer wishes the API to respond with a compressed payload (for instance: gzip).  Refer to HTTP Headers for details. If the header is omitted, the API will respond with uncompressed data.",
+            "in": "header",
+            "required": false,
+            "default": "gzip"
+          },
+          {
+            "name": "X-Original-User-Agent",
+            "type": "string",
+            "description": "Used to allow identification of consuming channel and versions of software being used. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/product/{brand}/{productID}": {
+      "get": {
+        "operationId": "ProductProductget",
+        "summary": "Fetches information about one or more products. A ...",
+        "description": "Fetches information about one or more products. A request with a single product number in the URL will return a detailed payload including all image URLs for that product. A request with multiple product numbers using the query parameter (id) will return a less-detailed payload per product, e.g. with only one thumbnail image URL similar to the payload output structure of the Search API.",
+        "tags": [
+          "Product"
+        ],
+        "parameters": [
+          {
+            "name": "brand",
+            "type": "string",
+            "description": "Brand for which the product details are requested",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "argos",
+              "homebase"
+            ]
+          },
+          {
+            "name": "productID",
+            "type": "string",
+            "description": "The product for which information is required. Only to be populated for single product requests. To return multiple product in a single call, all product numbers should be included in the repeating id query parameter.",
+            "in": "path",
+            "required": true,
+            "default": "9802759"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The Accept header is used to negotiate the payload format and version to be supplied. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "Accept-Encoding",
+            "type": "string",
+            "description": "Signifies that a consumer wishes the API to respond with a compressed payload (for instance: gzip).  Refer to HTTP Headers for details. If the header is omitted, the API will respond with uncompressed data.",
+            "in": "header",
+            "required": false,
+            "default": "gzip"
+          },
+          {
+            "name": "X-Original-User-Agent",
+            "type": "string",
+            "description": "Used to allow identification of consuming channel and versions of software being used. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/search/argos/{searchType}/{categoryID}": {
+      "get": {
+        "operationId": "ArgossearchSearchget",
+        "summary": "Perform a text-based search.",
+        "tags": [
+          "Search"
+        ],
+        "parameters": [
+          {
+            "name": "searchType",
+            "type": "string",
+            "description": "Whether to perform a general product seaarch or to search via our product category hierarchy. Valid values: search, category. Defaults to general search if omitted.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "search",
+              "category"
+            ]
+          },
+          {
+            "name": "categoryID",
+            "type": "string",
+            "description": "The parent product category ID for a given product set when conducting a category search. Omitting this when conducting a category search will provide the top-tier categories. This element should not be populated for a general search-type search.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "query",
+            "type": "string",
+            "description": "The text to be searched for. This needs to be URL-encoded. If searching for product by identifier, characters such as \"/\" should be omitted.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "pageNumber",
+            "type": "integer",
+            "description": "Including this parameter will return search results starting at the given page number. Defaults to 1 if omitted.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "pageSize",
+            "type": "integer",
+            "description": "The number of results to return. It also defines the size of pages when used in combination with the pageNumber parameter. Defaults to 20 if omitted.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "sort",
+            "type": "string",
+            "description": "The order in which the results are to be presented. The options available for this parameter are presented in the Options element within the payload returned by a previous search. Defaults to \"Relevance\" if omitted.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "refine",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "A repeating parameter defining a set of filters to be applied to the search results. The options available for this parameter are presented in the Options element within the payload returned by a previous search.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "minPrice",
+            "type": "number",
+            "format": "float",
+            "description": "Allows for refinement of search results by price. It should only be used for searches that will provide a <ProductList> element in the response. This parameter supports up to two decimal places and sets the lowest price of items to be included in the response payload.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "maxPrice",
+            "type": "number",
+            "format": "float",
+            "description": "Allows for refinement of a product result set by price. As such, it should only be used for searches that will provide a <ProductList> element in the response. This parameter supports up to two decimal places and sets the highest price of items to be included in the response payload.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "priceCut",
+            "type": "boolean",
+            "description": "Filters products to only include those in the \"Price Cuts\" category hierarchy.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "seeAll",
+            "type": "boolean",
+            "description": "This should only be used for a search based on a category at least two levels down in the hierarchy.  It forces the category search to respond with all the products within that category and all of its sub-categories. It can also be used in all category searches when query parameters are applied to sort, refine, price and for paginations.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The Accept header is used to negotiate the payload format and version to be supplied. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "Accept-Encoding",
+            "type": "string",
+            "description": "Signifies that a consumer wishes the API to respond with a compressed payload (for instance: gzip).  Refer to HTTP Headers for details. If the header is omitted, the API will respond with uncompressed data.",
+            "in": "header",
+            "required": false,
+            "default": "gzip"
+          },
+          {
+            "name": "X-Original-User-Agent",
+            "type": "string",
+            "description": "Used to allow identification of consuming channel and versions of software being used. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/search/homebase/{searchType}/{categoryID}/{query}": {
+      "get": {
+        "operationId": "HomebasesearchSearchget",
+        "summary": "Perform a text-based search.",
+        "tags": [
+          "Search"
+        ],
+        "parameters": [
+          {
+            "name": "searchType",
+            "type": "string",
+            "description": "Whether to perform a general product seaarch or to search via our product category hierarchy. Valid values: search, category. Defaults to general search if omitted.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "search",
+              "category"
+            ]
+          },
+          {
+            "name": "categoryID",
+            "type": "string",
+            "description": "The parent product category ID for a given product set when conducting a category search. Omitting this when conducting a category search will provide the top-tier categories. This element should not be populated for a general search-type search.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "query",
+            "type": "string",
+            "description": "The text to be searched for. This needs to be URL-encoded.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "pageNumber",
+            "type": "integer",
+            "description": "Including this parameter will return search results starting at the given page number. Defaults to 1 if omitted.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "pageSize",
+            "type": "integer",
+            "description": "The number of results to return. It also defines the size of pages when used in combination with the pageNumber parameter. Defaults to 20 if omitted.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "sort",
+            "type": "string",
+            "description": "The order in which the results are to be presented. The options available for this parameter are presented in the Options element within the payload returned by a previous search. Defaults to \"Relevance\" if omitted.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "refine",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "A repeating parameter defining a set of filters to be applied to the search results. The options available for this parameter are presented in the Options element within the payload returned by a previous search.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "minPrice",
+            "type": "number",
+            "format": "float",
+            "description": "Allows for refinement of search results by price. It should only be used for searches that will provide a <ProductList> element in the response. This parameter supports up to two decimal places and sets the lowest price of items to be included in the response payload.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "maxPrice",
+            "type": "number",
+            "format": "float",
+            "description": "Allows for refinement of a product result set by price. As such, it should only be used for searches that will provide a <ProductList> element in the response. This parameter supports up to two decimal places and sets the highest price of items to be included in the response payload.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "seeAll",
+            "type": "boolean",
+            "description": "This should only be used for a search based on a category at least two levels down in the hierarchy.  It forces the category search to respond with all the products within that category and all of its sub-categories. It can also be used in all category searches when query parameters are applied to sort, refine, price and for paginations.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The Accept header is used to negotiate the payload format and version to be supplied. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "Accept-Encoding",
+            "type": "string",
+            "description": "Signifies that a consumer wishes the API to respond with a compressed payload (for instance: gzip).  Refer to HTTP Headers for details. If the header is omitted, the API will respond with uncompressed data.",
+            "in": "header",
+            "required": false,
+            "default": "gzip"
+          },
+          {
+            "name": "X-Original-User-Agent",
+            "type": "string",
+            "description": "Used to allow identification of consuming channel and versions of software being used. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stock/argos": {
+      "post": {
+        "operationId": "ArgoshomedeliveryleadtimequeryStockpost",
+        "summary": "Check the lead time for delivery of a basket of pr...",
+        "description": "Check the lead time for delivery of a basket of products to a given address.",
+        "tags": [
+          "Stock"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The Accept header is used to negotiate the payload format and version to be supplied. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "Accept-Encoding",
+            "type": "string",
+            "description": "Signifies that a consumer wishes the API to respond with a compressed payload (for instance: gzip).  Refer to HTTP Headers for details. If the header is omitted, the API will respond with uncompressed data.",
+            "in": "header",
+            "required": false,
+            "default": "gzip"
+          },
+          {
+            "name": "X-Original-User-Agent",
+            "type": "string",
+            "description": "Used to allow identification of consuming channel and versions of software being used. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/stock/homebase": {
+      "post": {
+        "operationId": "Homebasein-storestockavailabilityqueryStockpost",
+        "summary": "Check the availability of a basket of products acr...",
+        "description": "Check the availability of a basket of products across a list of stores. The API call will return a status for each item reserved per store queried and whether it may be reserved or ordered into store for collection (e.g. via the Order API. For descriptions of statuses refer to the documentation.",
+        "tags": [
+          "Stock"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content-Type defines whether the request payload is in JSON or XML.",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json",
+              "application/xml"
+            ]
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The Accept header is used to negotiate the payload format and version to be supplied. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "Accept-Encoding",
+            "type": "string",
+            "description": "Signifies that a consumer wishes the API to respond with a compressed payload (for instance: gzip).  Refer to HTTP Headers for details. If the header is omitted, the API will respond with uncompressed data.",
+            "in": "header",
+            "required": false,
+            "default": "gzip"
+          },
+          {
+            "name": "X-Original-User-Agent",
+            "type": "string",
+            "description": "Used to allow identification of consuming channel and versions of software being used. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "get": {
+        "operationId": "Homebasein-storestockavailabilityStockget",
+        "summary": "Homebase also offer a GET method of the Stock API....",
+        "description": "Homebase also offer a GET method of the Stock API.  This may also be more heavily-cached, meaning that its accuracy may be lower (this may be balanced by its improved performance when cached)is limited in the number of products and stores that can be queried and .",
+        "tags": [
+          "Stock"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The Accept header is used to negotiate the payload format and version to be supplied. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "Accept-Encoding",
+            "type": "string",
+            "description": "Signifies that a consumer wishes the API to respond with a compressed payload (for instance: gzip).  Refer to HTTP Headers for details. If the header is omitted, the API will respond with uncompressed data.",
+            "in": "header",
+            "required": false,
+            "default": "gzip"
+          },
+          {
+            "name": "X-Original-User-Agent",
+            "type": "string",
+            "description": "Used to allow identification of consuming channel and versions of software being used. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "store",
+            "type": "integer",
+            "description": "Homebase store number.  This parameter can be repeated to include up to five different stores.",
+            "in": "query",
+            "required": true,
+            "default": 92
+          },
+          {
+            "name": "product",
+            "type": "integer",
+            "description": "Homebase product number.  This parameter can be repeated to include up to ten different products.",
+            "in": "query",
+            "required": true,
+            "default": 16374
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/basket/{brand}/{basketID}": {
+      "post": {
+        "operationId": "BasketBasketpost",
+        "summary": "Create or update an entire basket of products. The...",
+        "description": "Create or update an entire basket of products. The updated basket will be returned having been revalued (e.g. in line with existing promotions).",
+        "tags": [
+          "Basket"
+        ],
+        "parameters": [
+          {
+            "name": "brand",
+            "type": "string",
+            "description": "Brand for which the basket is to be created/updated.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "argos",
+              "homebase"
+            ]
+          },
+          {
+            "name": "basketID",
+            "type": "string",
+            "description": "The identifier of an existing basket. If included then the contents of the payload will be added to an existing basket. If omitted then a new basket will be created (and the resource URI, including the new BasketID, will be returned in the HTTP Location header).",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "currency",
+            "type": "string",
+            "description": "The currency to use across all financial amounts.  GBP is returned in cases where this parameter is not specified or if it is an unrecognised or unsupported currency.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "authToken",
+            "type": "string",
+            "description": "A security token representing an existing journey. It is returned by a previously-successful log-in or by creation of an anonymous basket.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "trustToken",
+            "type": "string",
+            "description": "The trustToken is used alongside the authToken to maintain access to our APIs when served over HTTPS. It is returned by a successful log-in or by creation of an anonymous basket.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The Accept header is used to negotiate the payload format and version to be supplied. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "Accept-Encoding",
+            "type": "string",
+            "description": "Signifies that a consumer wishes the API to respond with a compressed payload (for instance: gzip).  Refer to HTTP Headers for details. If the header is omitted, the API will respond with uncompressed data.",
+            "in": "header",
+            "required": false,
+            "default": "gzip"
+          },
+          {
+            "name": "X-Original-User-Agent",
+            "type": "string",
+            "description": "Used to allow identification of consuming channel and versions of software being used. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "get": {
+        "operationId": "BasketBasketget",
+        "summary": "Retrieves details of a basket of products. This in...",
+        "description": "Retrieves details of a basket of products. This includes details on individual items in the basket such as product name, quantity, price, adjustments, etc as well as the basket's overall value, taking into account all relevant promotions.",
+        "tags": [
+          "Basket"
+        ],
+        "parameters": [
+          {
+            "name": "brand",
+            "type": "string",
+            "description": "Brand for which the basket is to be retrieved.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "argos",
+              "homebase"
+            ]
+          },
+          {
+            "name": "basketID",
+            "type": "string",
+            "description": "An identifier of the basket for which details are required.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "currency",
+            "type": "string",
+            "description": "The currency to use across all financial amounts.  GBP is returned in cases where this parameter is not specified or if it is an unrecognised or unsupported currency.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "authToken",
+            "type": "string",
+            "description": "A security token representing an existing journey. It is returned by a previously-successful log-in or by creation of an anonymous basket.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "trustToken",
+            "type": "string",
+            "description": "The trustToken is used alongside the authToken to maintain access to our APIs when served over HTTPS. It is returned by a successful log-in or by creation of an anonymous basket.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The Accept header is used to negotiate the payload format and version to be supplied. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "Accept-Encoding",
+            "type": "string",
+            "description": "Signifies that a consumer wishes the API to respond with a compressed payload (for instance: gzip).  Refer to HTTP Headers for details. If the header is omitted, the API will respond with uncompressed data.",
+            "in": "header",
+            "required": false,
+            "default": "gzip"
+          },
+          {
+            "name": "X-Original-User-Agent",
+            "type": "string",
+            "description": "Used to allow identification of consuming channel and versions of software being used. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "BasketBasketdelete",
+        "summary": "Deletes a basket.",
+        "tags": [
+          "Basket"
+        ],
+        "parameters": [
+          {
+            "name": "brand",
+            "type": "string",
+            "description": "Brand for which the basket is to be deleted.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "argos",
+              "homebase"
+            ]
+          },
+          {
+            "name": "basketID",
+            "type": "string",
+            "description": "An identifier of the basket for which details are required. If a BasketID is included in the URL, the contents of the payload will be added to an existing basket. If no BasketID is included, a new basket will be created. The resource URI, including BasketID, of the new basket will be returned in the HTTP Location header.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "authToken",
+            "type": "string",
+            "description": "A security token representing an existing journey. It is returned by a previously-successful log-in or by creation of an anonymous basket.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "trustToken",
+            "type": "string",
+            "description": "The trustToken is used alongside the authToken to maintain access to our APIs when served over HTTPS. It is returned by a successful log-in or by creation of an anonymous basket.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The Accept header is used to negotiate the payload format and version to be supplied. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "Accept-Encoding",
+            "type": "string",
+            "description": "Signifies that a consumer wishes the API to respond with a compressed payload (for instance: gzip).  Refer to HTTP Headers for details. If the header is omitted, the API will respond with uncompressed data.",
+            "in": "header",
+            "required": false,
+            "default": "gzip"
+          },
+          {
+            "name": "X-Original-User-Agent",
+            "type": "string",
+            "description": "Used to allow identification of consuming channel and versions of software being used. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/basket/brand/basketID": {},
+    "/order/argos": {
+      "post": {
+        "operationId": "Argosreservationforin-storecollectionOrderpost",
+        "summary": "Reserve a basket of products for in-store collecti...",
+        "description": "Reserve a basket of products for in-store collection",
+        "tags": [
+          "Order"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The Accept header is used to negotiate the payload format and version to be supplied. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "Accept-Encoding",
+            "type": "string",
+            "description": "Signifies that a consumer wishes the API to respond with a compressed payload (for instance: gzip).  Refer to HTTP Headers for details. If the header is omitted, the API will respond with uncompressed data.",
+            "in": "header",
+            "required": false,
+            "default": "gzip"
+          },
+          {
+            "name": "X-Original-User-Agent",
+            "type": "string",
+            "description": "Used to allow identification of consuming channel and versions of software being used. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/order/argos/collection": {
+      "get": {
+        "operationId": "ArgosreservationcollectionOrderget",
+        "summary": "Tells our systems that the customer has arrived in...",
+        "description": "Tells our systems that the customer has arrived in-store, such that the team can get the products ready.",
+        "tags": [
+          "Order"
+        ],
+        "parameters": [
+          {
+            "name": "collectionId",
+            "type": "string",
+            "description": "Reservation collection identifier as returned at the time of creating the reservation.",
+            "in": "query",
+            "required": true,
+            "default": "123456"
+          },
+          {
+            "name": "collectionCode",
+            "type": "string",
+            "description": "Reservation collection code returned at the time of creating the reservation.",
+            "in": "query",
+            "required": true,
+            "default": "1234"
+          },
+          {
+            "name": "storeId",
+            "type": "string",
+            "description": "Store number of the store where the reservation was made.",
+            "in": "query",
+            "required": true,
+            "default": "9044"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The Accept header is used to negotiate the payload format and version to be supplied. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "Accept-Encoding",
+            "type": "string",
+            "description": "Signifies that a consumer wishes the API to respond with a compressed payload (for instance: gzip).  Refer to HTTP Headers for details. If the header is omitted, the API will respond with uncompressed data.",
+            "in": "header",
+            "required": false,
+            "default": "gzip"
+          },
+          {
+            "name": "X-Original-User-Agent",
+            "type": "string",
+            "description": "Used to allow identification of consuming channel and versions of software being used. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/order/argos/orderID": {
+      "delete": {
+        "operationId": "ArgosorderOrderdelete",
+        "summary": "Cancel an order.",
+        "tags": [
+          "Order"
+        ],
+        "parameters": [
+          {
+            "name": "orderID",
+            "type": "string",
+            "description": "Identifier of the order to be cancelled.",
+            "in": "query",
+            "required": true,
+            "default": "1234567890"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The Accept header is used to negotiate the payload format and version to be supplied. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "Accept-Encoding",
+            "type": "string",
+            "description": "Signifies that a consumer wishes the API to respond with a compressed payload (for instance: gzip).  Refer to HTTP Headers for details. If the header is omitted, the API will respond with uncompressed data.",
+            "in": "header",
+            "required": false,
+            "default": "gzip"
+          },
+          {
+            "name": "X-Original-User-Agent",
+            "type": "string",
+            "description": "Used to allow identification of consuming channel and versions of software being used. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/customer/{brand}": {
+      "post": {
+        "operationId": "RegistrationCustomerpost",
+        "summary": "Creates a customer account and logs them in.",
+        "tags": [
+          "Customer"
+        ],
+        "parameters": [
+          {
+            "name": "brand",
+            "type": "string",
+            "description": "Brand for which the customer wants to register.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "argos",
+              "homebase"
+            ]
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The Accept header is used to negotiate the payload format and version to be supplied. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "Accept-Encoding",
+            "type": "string",
+            "description": "Signifies that a consumer wishes the API to respond with a compressed payload (for instance: gzip).  Refer to HTTP Headers for details. If the header is omitted, the API will respond with uncompressed data.",
+            "in": "header",
+            "required": false,
+            "default": "gzip"
+          },
+          {
+            "name": "X-Original-User-Agent",
+            "type": "string",
+            "description": "Used to allow identification of consuming channel and versions of software being used. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/customer/{brand}/passwordResetToken": {
+      "post": {
+        "operationId": "PasswordresetrequestCustomerpost",
+        "summary": "Triggers the password reset process for a given ac...",
+        "description": "Triggers the password reset process for a given account.",
+        "tags": [
+          "Customer"
+        ],
+        "parameters": [
+          {
+            "name": "brand",
+            "type": "string",
+            "description": "Brand with which the customer has registered.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "argos",
+              "homebase"
+            ]
+          },
+          {
+            "name": "emailId",
+            "type": "string",
+            "description": "Email id with which the customer has registered.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The Accept header is used to negotiate the payload format and version to be supplied. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "Accept-Encoding",
+            "type": "string",
+            "description": "Signifies that a consumer wishes the API to respond with a compressed payload (for instance: gzip).  Refer to HTTP Headers for details. If the header is omitted, the API will respond with uncompressed data.",
+            "in": "header",
+            "required": false,
+            "default": "gzip"
+          },
+          {
+            "name": "X-Original-User-Agent",
+            "type": "string",
+            "description": "Used to allow identification of consuming channel and versions of software being used. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/customer/{brand}/authToken": {
+      "get": {
+        "operationId": "Authenticationtoken(i.e.login)Customerget",
+        "summary": "Logs a registered Customer in and retrieves the ne...",
+        "description": "Logs a registered Customer in and retrieves the necessary tokens to operate other APIs in a logged-in state. This API can also be used to generate web cookies for anonymous customers, for instance to allow a transition from an API-based journey to one using the website.",
+        "tags": [
+          "Customer"
+        ],
+        "parameters": [
+          {
+            "name": "brand",
+            "type": "string",
+            "description": "Brand with which the customer has registered.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "argos",
+              "homebase"
+            ]
+          },
+          {
+            "name": "loginId",
+            "type": "string",
+            "description": "Customer identifier. Not required if the API call is to retrieve a set of web cookies ahead of a redirect to the main website.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "password",
+            "type": "string",
+            "description": "Current password.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "authToken",
+            "type": "string",
+            "description": "A security token representing an existing journey. It is returned by a previously-successful log-in or by creation of an anonymous basket. See also the mergeBasket parameter.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "trustToken",
+            "type": "string",
+            "description": "The trustToken is used alongside the authToken to maintain access to our APIs when served over HTTPS. It is returned by a successful log-in or by creation of an anonymous basket.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "mergeBasket",
+            "type": "boolean",
+            "description": "A customer may have had a basket previously saved against their account. If their journey up until the login has resulted in the creation of another basket (for which an authToken will have been issued by a previous call to the Basket API) may include this flag as well as the authToken. The API will then merge the two baskets.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The Accept header is used to negotiate the payload format and version to be supplied. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "Accept-Encoding",
+            "type": "string",
+            "description": "Signifies that a consumer wishes the API to respond with a compressed payload (for instance: gzip).  Refer to HTTP Headers for details. If the header is omitted, the API will respond with uncompressed data.",
+            "in": "header",
+            "required": false,
+            "default": "gzip"
+          },
+          {
+            "name": "X-Original-User-Agent",
+            "type": "string",
+            "description": "Used to allow identification of consuming channel and versions of software being used. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/customer/{brand}/authToken/{currentAuthToken}": {
+      "delete": {
+        "operationId": "Authenticationtoken(i.e.logout)Customerdelete",
+        "summary": "Logs out a logged-in customer.",
+        "tags": [
+          "Customer"
+        ],
+        "parameters": [
+          {
+            "name": "brand",
+            "type": "string",
+            "description": "Brand with which the Customer has registered.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "argos",
+              "homebase"
+            ]
+          },
+          {
+            "name": "currentAuthToken",
+            "type": "string",
+            "description": "A security token representing an existing journey. It is returned by a successful log-in or by creation of an anonymous basket.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "loginId",
+            "type": "string",
+            "description": "Customer identifier.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "trustToken",
+            "type": "string",
+            "description": "The trustToken is used alongside the authToken to maintain access to our APIs when served over HTTPS. It is returned by a successful log-in or by creation of an anonymous basket.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The Accept header is used to negotiate the payload format and version to be supplied. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "Accept-Encoding",
+            "type": "string",
+            "description": "Signifies that a consumer wishes the API to respond with a compressed payload (for instance: gzip).  Refer to HTTP Headers for details. If the header is omitted, the API will respond with uncompressed data.",
+            "in": "header",
+            "required": false,
+            "default": "gzip"
+          },
+          {
+            "name": "X-Original-User-Agent",
+            "type": "string",
+            "description": "Used to allow identification of consuming channel and versions of software being used. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/customer/{brand}/{customerID}/password": {
+      "post": {
+        "operationId": "PasswordCustomerpost",
+        "summary": "Allows a customer to change their password.",
+        "tags": [
+          "Customer"
+        ],
+        "parameters": [
+          {
+            "name": "brand",
+            "type": "string",
+            "description": "Brand with which the customer has registered.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "argos",
+              "homebase"
+            ]
+          },
+          {
+            "name": "customerID",
+            "type": "string",
+            "description": "Unique code identifying the customer. This is returned within the HTTP Headers at the time of login or registration.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "loginId",
+            "type": "string",
+            "description": "Customer identifier (email address).",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "oldPassword",
+            "type": "string",
+            "description": "Existing password.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "newPassword",
+            "type": "string",
+            "description": "New password.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "authToken",
+            "type": "string",
+            "description": "A security token representing an existing journey. It is returned by a successful log-in or by creation of an anonymous basket.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "trustToken",
+            "type": "string",
+            "description": "The trustToken is used alongside the authToken to maintain access to our APIs when served over HTTPS. It is returned by a successful log-in or by creation of an anonymous basket.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The Accept header is used to negotiate the payload format and version to be supplied. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "Accept-Encoding",
+            "type": "string",
+            "description": "Signifies that a consumer wishes the API to respond with a compressed payload (for instance: gzip).  Refer to HTTP Headers for details. If the header is omitted, the API will respond with uncompressed data.",
+            "in": "header",
+            "required": false,
+            "default": "gzip"
+          },
+          {
+            "name": "X-Original-User-Agent",
+            "type": "string",
+            "description": "Used to allow identification of consuming channel and versions of software being used. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/customer/{brand}/{customerID}": {
+      "get": {
+        "operationId": "DetailsCustomerget",
+        "summary": "Retrieve customer account details.",
+        "tags": [
+          "Customer"
+        ],
+        "parameters": [
+          {
+            "name": "brand",
+            "type": "string",
+            "description": "Brand with which the customer has registered.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "argos",
+              "homebase"
+            ]
+          },
+          {
+            "name": "customerID",
+            "type": "string",
+            "description": "Unique code identifying the customer. This is returned within the HTTP Headers at the time of login or registration.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "authToken",
+            "type": "string",
+            "description": "A security token representing an existing journey. It is returned by a successful log-in.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "trustToken",
+            "type": "string",
+            "description": "The trustToken is used alongside the authToken to maintain access to our APIs when served over HTTPS. It is returned by a successful log-in or by creation of an anonymous basket.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The Accept header is used to negotiate the payload format and version to be supplied. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "Accept-Encoding",
+            "type": "string",
+            "description": "Signifies that a consumer wishes the API to respond with a compressed payload (for instance: gzip).  Refer to HTTP Headers for details. If the header is omitted, the API will respond with uncompressed data.",
+            "in": "header",
+            "required": false,
+            "default": "gzip"
+          },
+          {
+            "name": "X-Original-User-Agent",
+            "type": "string",
+            "description": "Used to allow identification of consuming channel and versions of software being used. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "operationId": "DetailsCustomerpost",
+        "summary": "Update customer account details.",
+        "tags": [
+          "Customer"
+        ],
+        "parameters": [
+          {
+            "name": "brand",
+            "type": "string",
+            "description": "Brand with which the customer has registered.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "argos",
+              "homebase"
+            ]
+          },
+          {
+            "name": "customerID",
+            "type": "string",
+            "description": "Unique code identifying the customer. This is returned within the HTTP Headers at the time of login or registration.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "authToken",
+            "type": "string",
+            "description": "A security token representing an existing journey. It is returned by a successful log-in.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "trustToken",
+            "type": "string",
+            "description": "The trustToken is used alongside the authToken to maintain access to our APIs when served over HTTPS. It is returned by a successful log-in or by creation of an anonymous basket.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The Accept header is used to negotiate the payload format and version to be supplied. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "Accept-Encoding",
+            "type": "string",
+            "description": "Signifies that a consumer wishes the API to respond with a compressed payload (for instance: gzip).  Refer to HTTP Headers for details. If the header is omitted, the API will respond with uncompressed data.",
+            "in": "header",
+            "required": false,
+            "default": "gzip"
+          },
+          {
+            "name": "X-Original-User-Agent",
+            "type": "string",
+            "description": "Used to allow identification of consuming channel and versions of software being used. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/customer/brand/customerID": {},
+    "/customer/{brand}/{customerID}/addressList": {
+      "get": {
+        "operationId": "AddressesCustomerget",
+        "summary": "Retrieve a customer's address list.",
+        "tags": [
+          "Customer"
+        ],
+        "parameters": [
+          {
+            "name": "brand",
+            "type": "string",
+            "description": "Brand with which the customer has registered.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "argos",
+              "homebase"
+            ]
+          },
+          {
+            "name": "customerID",
+            "type": "string",
+            "description": "Unique code identifying the customer. This is returned within the HTTP Headers at the time of login or registration.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "authToken",
+            "type": "string",
+            "description": "A security token representing an existing journey. It is returned by a successful log-in.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "trustToken",
+            "type": "string",
+            "description": "The trustToken is used alongside the authToken to maintain access to our APIs when served over HTTPS. It is returned by a successful log-in or by creation of an anonymous basket.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The Accept header is used to negotiate the payload format and version to be supplied. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "Accept-Encoding",
+            "type": "string",
+            "description": "Signifies that a consumer wishes the API to respond with a compressed payload (for instance: gzip).  Refer to HTTP Headers for details. If the header is omitted, the API will respond with uncompressed data.",
+            "in": "header",
+            "required": false,
+            "default": "gzip"
+          },
+          {
+            "name": "X-Original-User-Agent",
+            "type": "string",
+            "description": "Used to allow identification of consuming channel and versions of software being used. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/customer/{brand}/{customerID}/addressList/address": {
+      "post": {
+        "operationId": "AddressCustomerpost",
+        "summary": "Add a new address to a customer's address list.",
+        "tags": [
+          "Customer"
+        ],
+        "parameters": [
+          {
+            "name": "brand",
+            "type": "string",
+            "description": "Brand with which the customer has registered.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "argos",
+              "homebase"
+            ]
+          },
+          {
+            "name": "customerID",
+            "type": "string",
+            "description": "Unique code identifying the customer. This is returned within the HTTP Headers at the time of login or registration.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "authToken",
+            "type": "string",
+            "description": "A security token representing an existing journey. It is returned by a successful log-in.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "trustToken",
+            "type": "string",
+            "description": "The trustToken is used alongside the authToken to maintain access to our APIs when served over HTTPS. It is returned by a successful log-in or by creation of an anonymous basket.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The Accept header is used to negotiate the payload format and version to be supplied. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "Accept-Encoding",
+            "type": "string",
+            "description": "Signifies that a consumer wishes the API to respond with a compressed payload (for instance: gzip).  Refer to HTTP Headers for details. If the header is omitted, the API will respond with uncompressed data.",
+            "in": "header",
+            "required": false,
+            "default": "gzip"
+          },
+          {
+            "name": "X-Original-User-Agent",
+            "type": "string",
+            "description": "Used to allow identification of consuming channel and versions of software being used. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/customer/{brand}/{customerID}/addressList/address/{addressID}": {
+      "put": {
+        "operationId": "AddressCustomerput",
+        "summary": "Replace an address within a customer's address lis...",
+        "description": "Replace an address within a customer's address list.",
+        "tags": [
+          "Customer"
+        ],
+        "parameters": [
+          {
+            "name": "brand",
+            "type": "string",
+            "description": "Brand with which the customer has registered.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "argos",
+              "homebase"
+            ]
+          },
+          {
+            "name": "addressID",
+            "type": "string",
+            "description": "The line id of the customer address to be updated (as returned by a previous GET Addresses call).",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "customerID",
+            "type": "string",
+            "description": "Unique code identifying the customer. This is returned within the HTTP Headers at the time of login or registration.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "authToken",
+            "type": "string",
+            "description": "A security token representing an existing journey. It is returned by a successful log-in.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "trustToken",
+            "type": "string",
+            "description": "The trustToken is used alongside the authToken to maintain access to our APIs when served over HTTPS. It is returned by a successful log-in or by creation of an anonymous basket.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The Accept header is used to negotiate the payload format and version to be supplied. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "Accept-Encoding",
+            "type": "string",
+            "description": "Signifies that a consumer wishes the API to respond with a compressed payload (for instance: gzip).  Refer to HTTP Headers for details. If the header is omitted, the API will respond with uncompressed data.",
+            "in": "header",
+            "required": false,
+            "default": "gzip"
+          },
+          {
+            "name": "X-Original-User-Agent",
+            "type": "string",
+            "description": "Used to allow identification of consuming channel and versions of software being used. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "AddressCustomerdelete",
+        "summary": "Deletes an adddress from the customer's address li...",
+        "description": "Deletes an adddress from the customer's address list.",
+        "tags": [
+          "Customer"
+        ],
+        "parameters": [
+          {
+            "name": "brand",
+            "type": "string",
+            "description": "Brand with which the customer has registered.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "argos",
+              "homebase"
+            ]
+          },
+          {
+            "name": "customerID",
+            "type": "string",
+            "description": "Unique code identifying the customer. This is returned within the HTTP Headers at the time of login or registration.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "addressID",
+            "type": "string",
+            "description": "The line id of the customer address to be updated (as returned by a previous GET Addresses call).",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "authToken",
+            "type": "string",
+            "description": "A security token representing an existing journey. It is returned by a successful log-in.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "trustToken",
+            "type": "string",
+            "description": "The trustToken is used alongside the authToken to maintain access to our APIs when served over HTTPS. It is returned by a successful log-in or by creation of an anonymous basket.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The Accept header is used to negotiate the payload format and version to be supplied. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "Accept-Encoding",
+            "type": "string",
+            "description": "Signifies that a consumer wishes the API to respond with a compressed payload (for instance: gzip).  Refer to HTTP Headers for details. If the header is omitted, the API will respond with uncompressed data.",
+            "in": "header",
+            "required": false,
+            "default": "gzip"
+          },
+          {
+            "name": "X-Original-User-Agent",
+            "type": "string",
+            "description": "Used to allow identification of consuming channel and versions of software being used. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/customer/brand/customerID/addressList/address/addressID": {},
+    "/customer/{brand}/{customerID}/favouriteStores": {
+      "get": {
+        "operationId": "FavouritestoresCustomerget",
+        "summary": "Retrieve a customer's list of favourite stores.",
+        "tags": [
+          "Customer"
+        ],
+        "parameters": [
+          {
+            "name": "brand",
+            "type": "string",
+            "description": "Brand with which the customer has registered.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "argos",
+              "homebase"
+            ]
+          },
+          {
+            "name": "customerID",
+            "type": "string",
+            "description": "Unique code identifying the customer. This is returned within the HTTP Headers at the time of login or registration.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "authToken",
+            "type": "string",
+            "description": "A security token representing an existing journey. It is returned by a successful log-in.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "trustToken",
+            "type": "string",
+            "description": "The trustToken is used alongside the authToken to maintain access to our APIs when served over HTTPS. It is returned by a successful log-in or by creation of an anonymous basket.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The Accept header is used to negotiate the payload format and version to be supplied. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "Accept-Encoding",
+            "type": "string",
+            "description": "Signifies that a consumer wishes the API to respond with a compressed payload (for instance: gzip).  Refer to HTTP Headers for details. If the header is omitted, the API will respond with uncompressed data.",
+            "in": "header",
+            "required": false,
+            "default": "gzip"
+          },
+          {
+            "name": "X-Original-User-Agent",
+            "type": "string",
+            "description": "Used to allow identification of consuming channel and versions of software being used. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "put": {
+        "operationId": "FavouritestoresCustomerput",
+        "summary": "Set a customer's list of favourite stores.  This i...",
+        "description": "Set a customer's list of favourite stores.  This is the same API call whether creating the list for the first time or updating.  Note that the entire list has to be updated, changes to individual lines is not possible.",
+        "tags": [
+          "Customer"
+        ],
+        "parameters": [
+          {
+            "name": "brand",
+            "type": "string",
+            "description": "Brand with which the customer has registered.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "argos",
+              "homebase"
+            ]
+          },
+          {
+            "name": "customerID",
+            "type": "string",
+            "description": "Unique code identifying the customer. This is returned within the HTTP Headers at the time of login or registration.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "authToken",
+            "type": "string",
+            "description": "A security token representing an existing journey. It is returned by a successful log-in.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "trustToken",
+            "type": "string",
+            "description": "The trustToken is used alongside the authToken to maintain access to our APIs when served over HTTPS. It is returned by a successful log-in or by creation of an anonymous basket.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The Accept header is used to negotiate the payload format and version to be supplied. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "Accept-Encoding",
+            "type": "string",
+            "description": "Signifies that a consumer wishes the API to respond with a compressed payload (for instance: gzip).  Refer to HTTP Headers for details. If the header is omitted, the API will respond with uncompressed data.",
+            "in": "header",
+            "required": false,
+            "default": "gzip"
+          },
+          {
+            "name": "X-Original-User-Agent",
+            "type": "string",
+            "description": "Used to allow identification of consuming channel and versions of software being used. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/customer/brand/customerID/favouriteStores": {},
+    "/customer/{brand}/{customerID}/preferences": {
+      "get": {
+        "operationId": "PreferencesCustomerget",
+        "summary": "Retrieve a customer's marketing preferences.",
+        "tags": [
+          "Customer"
+        ],
+        "parameters": [
+          {
+            "name": "brand",
+            "type": "string",
+            "description": "Brand with which the customer has registered.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "argos",
+              "homebase"
+            ]
+          },
+          {
+            "name": "customerID",
+            "type": "string",
+            "description": "Unique code identifying the customer. This is returned within the HTTP Headers at the time of login or registration.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "authToken",
+            "type": "string",
+            "description": "A security token representing an existing journey. It is returned by a successful log-in.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "trustToken",
+            "type": "string",
+            "description": "The trustToken is used alongside the authToken to maintain access to our APIs when served over HTTPS. It is returned by a successful log-in or by creation of an anonymous basket.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The Accept header is used to negotiate the payload format and version to be supplied. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "Accept-Encoding",
+            "type": "string",
+            "description": "Signifies that a consumer wishes the API to respond with a compressed payload (for instance: gzip).  Refer to HTTP Headers for details. If the header is omitted, the API will respond with uncompressed data.",
+            "in": "header",
+            "required": false,
+            "default": "gzip"
+          },
+          {
+            "name": "X-Original-User-Agent",
+            "type": "string",
+            "description": "Used to allow identification of consuming channel and versions of software being used. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/customer/{brand}/{customerID}/preference": {
+      "put": {
+        "operationId": "PreferencesCustomerput",
+        "summary": "Allows a customer to update their marketing prefer...",
+        "description": "Allows a customer to update their marketing preferences.",
+        "tags": [
+          "Customer"
+        ],
+        "parameters": [
+          {
+            "name": "brand",
+            "type": "string",
+            "description": "Brand with whom the customer wants to register/de-register.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "argos",
+              "homebase"
+            ]
+          },
+          {
+            "name": "customerID",
+            "type": "string",
+            "description": "Unique code identifying the customer. This is returned within the HTTP Headers at the time of login or registration.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "authToken",
+            "type": "string",
+            "description": "A security token representing an existing journey. It is returned by a successful log-in.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "trustToken",
+            "type": "string",
+            "description": "The trustToken is used alongside the authToken to maintain access to our APIs when served over HTTPS. It is returned by a successful log-in or by creation of an anonymous basket.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The Accept header is used to negotiate the payload format and version to be supplied. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "Accept-Encoding",
+            "type": "string",
+            "description": "Signifies that a consumer wishes the API to respond with a compressed payload (for instance: gzip).  Refer to HTTP Headers for details. If the header is omitted, the API will respond with uncompressed data.",
+            "in": "header",
+            "required": false,
+            "default": "gzip"
+          },
+          {
+            "name": "X-Original-User-Agent",
+            "type": "string",
+            "description": "Used to allow identification of consuming channel and versions of software being used. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/customer/{brand}/preference/newsLetterSubscription": {
+      "post": {
+        "operationId": "NewslettersubscriptionCustomerpost",
+        "summary": "Update a customer's marketing preferences.  Note t...",
+        "description": "Update a customer's marketing preferences.  Note that this does not require the customer to be logged-in, as they can subscribe to marketing material whether they are registered or not.",
+        "tags": [
+          "Customer"
+        ],
+        "parameters": [
+          {
+            "name": "brand",
+            "type": "string",
+            "description": "Brand with which the customer has registered.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "argos",
+              "homebase"
+            ]
+          },
+          {
+            "name": "emailId",
+            "type": "string",
+            "description": "Email address to be registered/de-registered.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "receiveOffers",
+            "type": "boolean",
+            "description": "Whether or not to receive offers from Home Retail Group.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "shareDetails",
+            "type": "boolean",
+            "description": "Whether or not the details can be shared with third parties.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The Accept header is used to negotiate the payload format and version to be supplied. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "Accept-Encoding",
+            "type": "string",
+            "description": "Signifies that a consumer wishes the API to respond with a compressed payload (for instance: gzip).  Refer to HTTP Headers for details. If the header is omitted, the API will respond with uncompressed data.",
+            "in": "header",
+            "required": false,
+            "default": "gzip"
+          },
+          {
+            "name": "X-Original-User-Agent",
+            "type": "string",
+            "description": "Used to allow identification of consuming channel and versions of software being used. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/customer/{brand}/{customerID}/storedCards": {
+      "get": {
+        "operationId": "StoredcardsCustomerget",
+        "summary": "Retrieve a customer's stored cards.  These will be...",
+        "description": "Retrieve a customer's stored cards.  These will be shown as masked PANs, showing enough information for the customer to recognise the card only.",
+        "tags": [
+          "Customer"
+        ],
+        "parameters": [
+          {
+            "name": "brand",
+            "type": "string",
+            "description": "Brand with which the customer has registered.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "argos",
+              "homebase"
+            ]
+          },
+          {
+            "name": "customerID",
+            "type": "string",
+            "description": "Unique code identifying the customer. This is returned within the HTTP Headers at the time of login or registration.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "authToken",
+            "type": "string",
+            "description": "A security token representing an existing journey. It is returned by a successful log-in or by creation of an anonymous basket.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "trustToken",
+            "type": "string",
+            "description": "The trustToken is used alongside the authToken to maintain access to our APIs when served over HTTPS. It is returned by a successful log-in or by creation of an anonymous basket.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The Accept header is used to negotiate the payload format and version to be supplied. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "Accept-Encoding",
+            "type": "string",
+            "description": "Signifies that a consumer wishes the API to respond with a compressed payload (for instance: gzip).  Refer to HTTP Headers for details. If the header is omitted, the API will respond with uncompressed data.",
+            "in": "header",
+            "required": false,
+            "default": "gzip"
+          },
+          {
+            "name": "X-Original-User-Agent",
+            "type": "string",
+            "description": "Used to allow identification of consuming channel and versions of software being used. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/customer/{brand}/{customerID}/storedCards/{cardID}": {
+      "post": {
+        "operationId": "StoredcardCustomerpost",
+        "summary": "Updates one of a customer's stored cards (e.g. to ...",
+        "description": "Updates one of a customer's stored cards (e.g. to extend a \"valid until\" date or to change the name associated with the card.",
+        "tags": [
+          "Customer"
+        ],
+        "parameters": [
+          {
+            "name": "brand",
+            "type": "string",
+            "description": "Brand with which the customer has registered.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "argos",
+              "homebase"
+            ]
+          },
+          {
+            "name": "customerID",
+            "type": "string",
+            "description": "Unique code identifying the customer. This is returned within the HTTP Headers at the time of login or registration.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "cardID",
+            "type": "string",
+            "description": "The line id of the card to be updated (as returned by a previous GET Stored Cards call).",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "authToken",
+            "type": "string",
+            "description": "A security token representing an existing journey. It is returned by a successful log-in or by creation of an anonymous basket.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "trustToken",
+            "type": "string",
+            "description": "The trustToken is used alongside the authToken to maintain access to our APIs when served over HTTPS. It is returned by a successful log-in or by creation of an anonymous basket.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The Accept header is used to negotiate the payload format and version to be supplied. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "Accept-Encoding",
+            "type": "string",
+            "description": "Signifies that a consumer wishes the API to respond with a compressed payload (for instance: gzip).  Refer to HTTP Headers for details. If the header is omitted, the API will respond with uncompressed data.",
+            "in": "header",
+            "required": false,
+            "default": "gzip"
+          },
+          {
+            "name": "X-Original-User-Agent",
+            "type": "string",
+            "description": "Used to allow identification of consuming channel and versions of software being used. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "StoredcardCustomerdelete",
+        "summary": "Deletes a previously-registered card.",
+        "tags": [
+          "Customer"
+        ],
+        "parameters": [
+          {
+            "name": "brand",
+            "type": "string",
+            "description": "Brand with which the Customer has registered.",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "argos",
+              "homebase"
+            ]
+          },
+          {
+            "name": "customerID",
+            "type": "string",
+            "description": "Unique code identifying the customer. This is returned within the HTTP Headers at the time of login or registration.",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "cardID",
+            "type": "string",
+            "description": "The line id of the card to be deleted (as returned by a previous GET Stored Cards call).",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "authToken",
+            "type": "string",
+            "description": "A security token representing an existing journey. It is returned by a successful log-in or by creation of an anonymous basket.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "trustToken",
+            "type": "string",
+            "description": "The trustToken is used alongside the authToken to maintain access to our APIs when served over HTTPS. It is returned by a successful log-in or by creation of an anonymous basket.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "The Accept header is used to negotiate the payload format and version to be supplied. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "Accept-Encoding",
+            "type": "string",
+            "description": "Signifies that a consumer wishes the API to respond with a compressed payload (for instance: gzip).  Refer to HTTP Headers for details. If the header is omitted, the API will respond with uncompressed data.",
+            "in": "header",
+            "required": false,
+            "default": "gzip"
+          },
+          {
+            "name": "X-Original-User-Agent",
+            "type": "string",
+            "description": "Used to allow identification of consuming channel and versions of software being used. Refer to HTTP Headers for details.",
+            "in": "header",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/customer/brand/customerID/storedCards/cardID": {}
+  },
+  "definitions": {}
+}

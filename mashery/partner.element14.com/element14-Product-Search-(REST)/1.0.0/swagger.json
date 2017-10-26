@@ -1,0 +1,209 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "element14 Product Search API (REST)",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "x-origin": [
+      {
+        "url": "http://partner.element14.com/io-docs",
+        "format": "io_docs"
+      }
+    ],
+    "description": "Documentation for Premier Farnell Product Search API (SOAP) element14 Product Search API (REST)",
+    "x-mashery-id": "30"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "partner.element14.com",
+  "basePath": "/catalog",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "http://partner.element14.com/io-docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Product Search"
+    }
+  ],
+  "paths": {
+    "/products": {
+      "get": {
+        "operationId": "SearchbyManufacturerPartNumberProductSearch",
+        "summary": "Returns Product information based on a search of t...",
+        "description": "Returns Product information based on a search of the manufacturer part number",
+        "tags": [
+          "Product Search"
+        ],
+        "parameters": [
+          {
+            "name": "term",
+            "type": "string",
+            "description": "field:term (e.g.  manuPartNum:LM339ADT) Note: These examples are specific to the uk.farnell.com store.",
+            "in": "query",
+            "required": true,
+            "default": "manuPartNum:LM339ADT"
+          },
+          {
+            "name": "storeInfo.id",
+            "type": "string",
+            "description": "Store identifier",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "uk.farnell.com",
+              "au.element14.com",
+              "cn.element14.com",
+              "hk.element14.com",
+              "in.element14.com",
+              "kr.element14.com",
+              "my.element14.com",
+              "nz.element14.com",
+              "ph.element14.com",
+              "sg.element14.com",
+              "th.element14.com",
+              "tw.element14.com",
+              "at.farnell.com",
+              "be.farnell.com",
+              "bg.farnell.com",
+              "ch.farnell.com",
+              "cpc.farnell.com",
+              "cpcireland.farnell.com",
+              "cz.farnell.com",
+              "de.farnell.com",
+              "dk.farnell.com",
+              "ee.farnell.com",
+              "es.farnell.com",
+              "export.farnell.com",
+              "fi.farnell.com",
+              "fr.farnell.com",
+              "hu.farnell.com",
+              "ie.farnell.com",
+              "il.farnell.com",
+              "it.farnell.com",
+              "lt.farnell.com",
+              "lv.farnell.com",
+              "nl.farnell.com",
+              "no.farnell.com",
+              "onecall.farnell.com",
+              "pl.farnell.com",
+              "pt.farnell.com",
+              "ro.farnell.com",
+              "ru.farnell.com",
+              "se.farnell.com",
+              "si.farnell.com",
+              "sk.farnell.com",
+              "tr.farnell.com",
+              "canada.newark.com",
+              "mexico.newark.com",
+              "www.newark.com"
+            ]
+          },
+          {
+            "name": "resultsSettings.offset",
+            "type": "string",
+            "description": "Start index of for the query. Note: For any given search paging is possible for first 500 items. After that user encounters un-predictable results. Please refine your search term for optimal results. Mandatory for Keyword Search",
+            "in": "query",
+            "required": false,
+            "default": "0"
+          },
+          {
+            "name": "resultsSettings.numberOfResults",
+            "type": "string",
+            "description": "Number of results to be returned. Note: For any given search paging is possible for first 500 items. After that user encounters un-predictable results. Please refine your search term for optimal results. Mandatory for Keyword Search",
+            "in": "query",
+            "required": false,
+            "default": "1"
+          },
+          {
+            "name": "resultsSettings.refinements.filters",
+            "type": "string",
+            "description": "In Stock, if true will only bring back products that are in stock. ROHS Compliant, if true will bring back products which comply with ROHS specification.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "inStock",
+              "rohsCompliant",
+              "rohsCompliant,inStock"
+            ]
+          },
+          {
+            "name": "resultsSettings.responseGroup",
+            "type": "string",
+            "description": "Filter output. See documentation for greater detail.",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "small",
+              "medium",
+              "large",
+              "none",
+              "prices",
+              "inventory"
+            ]
+          },
+          {
+            "name": "callInfo.omitXmlSchema",
+            "type": "boolean",
+            "description": "Strip XML Namespace. XML data format only",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "callInfo.callback",
+            "type": "string",
+            "description": "JSONP Callback wrapper name. Not recommended for use with XML output.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "callInfo.responseDataFormat",
+            "type": "string",
+            "description": "Output format as JSON or XML",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

@@ -1,0 +1,962 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Backoffice API",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "x-origin": [
+      {
+        "url": "http://developer.reviewpro.com/io-docs",
+        "format": "io_docs"
+      }
+    ],
+    "description": "IMPORTANT: The IO-DOCS cosole currently does not support UTF-8 encoding - this an issue reported to Mashery.  However, if you call our endpoints directly the output will be correctly encoded. All calls require you to log in or provide an API key. IMPORTANT: Backoffice API also requires you to sign your call using HMAC signature (sig generation example).",
+    "x-mashery-id": "7548"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.reviewpro.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "You can also browse our written documentation.",
+    "url": "http://developer.reviewpro.com/io-docs/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Product"
+    },
+    {
+      "name": "Catalog product"
+    },
+    {
+      "name": "User"
+    },
+    {
+      "name": "Group"
+    },
+    {
+      "name": "Competitors"
+    },
+    {
+      "name": "Outlets"
+    }
+  ],
+  "paths": {
+    "/product": {
+      "post": {
+        "operationId": "CreateproductProduct",
+        "summary": "Create a product (request body specification)",
+        "tags": [
+          "Product"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "json",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/product/{id}": {
+      "put": {
+        "operationId": "UpdateproductProduct",
+        "summary": "Update a product (request body specification)",
+        "tags": [
+          "Product"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "product id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "json",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "get": {
+        "operationId": "GetproductProduct",
+        "summary": "Look up a product by id and source type",
+        "tags": [
+          "Product"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "product id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "sourceType",
+            "type": "integer",
+            "description": "source type id",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DeleteproductProduct",
+        "summary": "Delete a product by id and source type",
+        "tags": [
+          "Product"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "product id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "sourceType",
+            "type": "integer",
+            "description": "source type id",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/products": {
+      "get": {
+        "operationId": "ListproductsProduct",
+        "summary": "Look up all products for an account",
+        "tags": [
+          "Product"
+        ],
+        "parameters": [
+          {
+            "name": "sourceType",
+            "type": "integer",
+            "description": "source type id",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "offset",
+            "type": "integer",
+            "description": "index of first result",
+            "in": "query",
+            "required": false,
+            "default": 0
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "maximum number of results returned (max value is 100)",
+            "in": "query",
+            "required": false,
+            "default": 10
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/catalogProducts": {
+      "post": {
+        "operationId": "ListcatalogproductsCatalogproduct",
+        "summary": "Search for catalog products (documentation)",
+        "tags": [
+          "Catalog product"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "json",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/user": {
+      "post": {
+        "operationId": "CreateuserUser",
+        "summary": "Create a user (request body specification)",
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "sourceType",
+            "type": "integer",
+            "description": "source type id",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "json",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/user/{username}": {
+      "put": {
+        "operationId": "UpdateuserUser",
+        "summary": "Update a user (request body specification)",
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "type": "string",
+            "description": "username",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "sourceType",
+            "type": "integer",
+            "description": "source type id",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "json",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "get": {
+        "operationId": "GetuserUser",
+        "summary": "Look up a user by username",
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "type": "string",
+            "description": "username",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "sourceType",
+            "type": "integer",
+            "description": "source type id",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DeleteuserUser",
+        "summary": "Delete a user by username",
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "type": "string",
+            "description": "username",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "operationId": "ListusersUser",
+        "summary": "Look up all users for an account",
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "sourceType",
+            "type": "integer",
+            "description": "source type id",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "integer",
+            "description": "index of first result",
+            "in": "query",
+            "required": false,
+            "default": 0
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "maximum number of results returned (max value is 100)",
+            "in": "query",
+            "required": false,
+            "default": 10
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/group": {
+      "post": {
+        "operationId": "CreategroupGroup",
+        "summary": "Create a group (request body specification)",
+        "tags": [
+          "Group"
+        ],
+        "parameters": [
+          {
+            "name": "sourceType",
+            "type": "integer",
+            "description": "source type id",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "json",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/group/{id}": {
+      "put": {
+        "operationId": "UpdategroupGroup",
+        "summary": "Update a group (request body specification)",
+        "tags": [
+          "Group"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "integer",
+            "description": "group id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "sourceType",
+            "type": "integer",
+            "description": "source type id",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "json",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "get": {
+        "operationId": "GetgroupGroup",
+        "summary": "Look up a group by id",
+        "tags": [
+          "Group"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "integer",
+            "description": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "sourceType",
+            "type": "integer",
+            "description": "source type id",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DeletegroupGroup",
+        "summary": "Delete a group by id",
+        "tags": [
+          "Group"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "integer",
+            "description": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/groups": {
+      "get": {
+        "operationId": "ListgroupsGroup",
+        "summary": "Look up all groups for an account",
+        "tags": [
+          "Group"
+        ],
+        "parameters": [
+          {
+            "name": "sourceType",
+            "type": "integer",
+            "description": "source type id",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "type": "integer",
+            "description": "index of first result",
+            "in": "query",
+            "required": false,
+            "default": 0
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "maximum number of results returned (max value is 100)",
+            "in": "query",
+            "required": false,
+            "default": 10
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/product/{id}/competitors": {
+      "put": {
+        "operationId": "UpdateproductcompetitorsCompetitors",
+        "summary": "Update list of competitors for a product (document...",
+        "description": "Update list of competitors for a product (documentation)",
+        "tags": [
+          "Competitors"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "product id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "sourceType",
+            "type": "integer",
+            "description": "source type id",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "json",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "get": {
+        "operationId": "GetproductcompetitorsCompetitors",
+        "summary": "Look up list of competitors for a product",
+        "tags": [
+          "Competitors"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "product id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "sourceType",
+            "type": "integer",
+            "description": "source type id",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/group/{id}/competitors": {
+      "put": {
+        "operationId": "UpdategroupcompetitorsCompetitors",
+        "summary": "Update list of competitors for a group (request bo...",
+        "description": "Update list of competitors for a group (request body specification)",
+        "tags": [
+          "Competitors"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "integer",
+            "description": "group id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "json",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "get": {
+        "operationId": "GetgroupcompetitorsCompetitors",
+        "summary": "Look up list of competitors for a group",
+        "tags": [
+          "Competitors"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "integer",
+            "description": "group id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/outlets": {
+      "get": {
+        "operationId": "ListoutletsOutlets",
+        "summary": "List outlets by category, group and product",
+        "tags": [
+          "Outlets"
+        ],
+        "parameters": [
+          {
+            "name": "catId",
+            "type": "string",
+            "description": "the id of the category",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "gid",
+            "type": "integer",
+            "description": "the product group id",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "pids",
+            "type": "string",
+            "description": "a comma separated list of product ids",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "status",
+            "type": "string",
+            "description": "the optional status of outlets; if not specified the ACTIVE are shown",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "operationId": "CreateoutletOutlets",
+        "summary": "Create an outlet (request body specification)",
+        "tags": [
+          "Outlets"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "json",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/outlets/{id}": {
+      "put": {
+        "operationId": "UpdateoutletOutlets",
+        "summary": "Update an outlet (request body specification)",
+        "tags": [
+          "Outlets"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "json",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DeleteoutletOutlets",
+        "summary": "Delete an outlet by id",
+        "tags": [
+          "Outlets"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

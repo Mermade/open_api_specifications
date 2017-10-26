@@ -12,6 +12,12 @@
       "name": "MIT",
       "url": "https://opensource.org/licenses/MIT"
     },
+    "x-origin": [
+      {
+        "url": "http://developer.stats.com/io-docs",
+        "format": "io_docs"
+      }
+    ],
     "description": "The API calls below can be used to test the Input and Output of our API endpoints.  You'll need an API key and an assigned secret to access the live data and so if you haven't contacted us yet, now is the time!  Our sales staff would be happy to set you up with trial access so you can begin to evaluate the product. Cricket",
     "x-mashery-id": "2110"
   },
@@ -59,6 +65,9 @@
     },
     {
       "name": "Cricket - Leaders"
+    },
+    {
+      "name": "Cricket - Team World Rankings"
     },
     {
       "name": "Cricket - Stories, Headlines, Images"
@@ -1898,6 +1907,78 @@
         }
       }
     },
+    "/stats/cricket/{leaguePath}/worldRankings/teams/": {
+      "get": {
+        "operationId": "Cricket-TeamWorldRankingsCricket-TeamWorldRankings",
+        "summary": "ICC Team World Rankings",
+        "tags": [
+          "Cricket - Team World Rankings"
+        ],
+        "parameters": [
+          {
+            "name": "leaguePath",
+            "type": "string",
+            "description": "Enter league uriPath - full list available in the cricket/leagues endpoint",
+            "in": "path",
+            "required": true,
+            "enum": [
+              "icc"
+            ]
+          },
+          {
+            "name": "season",
+            "type": "integer",
+            "description": "To get team lists for a different season, enter the year as YYYY.\n Note: Seasons that span years like NBA 2013-2014 would be entered as 2013.\n  Default - the current season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "eventTypeId",
+            "type": "integer",
+            "description": "Will return events for the specified eventType only. See the league specific eventTypes decode endpoint for a complete list of event types available for any given league.\n  Default - All event types",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "15"
+            ]
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "description": "Preferred response type.\n  Default - json",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
     "/editorial/cricket/icc/stories/headlines/": {
       "get": {
         "operationId": "ICC-HeadlinesCricket-Stories,Headlines,Images",
@@ -2236,8 +2317,7 @@
             "type": "integer",
             "description": "Photo ID",
             "in": "path",
-            "required": true,
-            "default": "abcdefg"
+            "required": true
           },
           {
             "name": "accept",
@@ -2290,8 +2370,7 @@
             "type": "integer",
             "description": "Photo ID",
             "in": "path",
-            "required": true,
-            "default": "abcdefg"
+            "required": true
           },
           {
             "name": "accept",
@@ -2374,6 +2453,13 @@
               "tvStations",
               "venues"
             ]
+          },
+          {
+            "name": "allSeasons",
+            "type": "boolean",
+            "description": "For seasonStructure only. To get complete history of league, select allSeasons=TRUE. Only those permissioned for all historic data will be able to utilize the 'allSeasons' option.\n  Default - false",
+            "in": "query",
+            "required": false
           },
           {
             "name": "languageId",

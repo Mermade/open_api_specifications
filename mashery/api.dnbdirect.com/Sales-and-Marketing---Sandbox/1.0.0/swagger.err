@@ -1,0 +1,523 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Sales and Marketing API - Sandbox",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "x-origin": [
+      {
+        "url": "http://dnbdirect.mashery.com/iodocs",
+        "format": "io_docs"
+      }
+    ],
+    "description": "Test our API services using I/O Docs. Give it a shot by entering your key and the values for the below methods",
+    "x-mashery-id": "434"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.dnbdirect.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "http://dnbdirect.mashery.com/iodocs/docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Search Methods"
+    }
+  ],
+  "paths": {
+    "/rest/search/company/{name}": {
+      "get": {
+        "operationId": "FindCompanyByKeywordSearchMethods",
+        "summary": "Returns limited search results of companies based ...",
+        "description": "Returns limited search results of companies based on keyword. If you are implementing an autocomplete feature, we suggest using this call as it will be the quickest due to limited backend processing and a smaller payload on the response.",
+        "tags": [
+          "Search Methods"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "type": "string",
+            "description": "",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "username",
+            "type": "string",
+            "description": "DnB username",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "password",
+            "type": "string",
+            "description": "DnB password",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "",
+            "in": "header",
+            "required": false,
+            "default": "application/json"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/rest/company/{uniqueId}": {
+      "get": {
+        "operationId": "GetCompanyDetailSearchMethods",
+        "summary": "Returns a reduced subset of company details for a ...",
+        "description": "Returns a reduced subset of company details for a given Hoover's Company ID or DUNS.",
+        "tags": [
+          "Search Methods"
+        ],
+        "parameters": [
+          {
+            "name": "uniqueId",
+            "type": "string",
+            "description": "Company ID - OR - DUNS number",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "view",
+            "type": "string",
+            "description": "",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "simple",
+              "basic",
+              "full"
+            ]
+          },
+          {
+            "name": "postBodyContentType",
+            "type": "string",
+            "description": "",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          },
+          {
+            "name": "username",
+            "type": "string",
+            "description": "DnB username",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "password",
+            "type": "string",
+            "description": "DnB password",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "",
+            "in": "header",
+            "required": false,
+            "default": "application/json"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/rest/company/{uniqueId}/financial/summary": {
+      "get": {
+        "operationId": "GetCompanyFinancialSummarySearchMethods",
+        "summary": "Returns financial summary for the company associat...",
+        "description": "Returns financial summary for the company associated with the given DUNS or Hoover's Company ID.",
+        "tags": [
+          "Search Methods"
+        ],
+        "parameters": [
+          {
+            "name": "uniqueId",
+            "type": "string",
+            "description": "Company ID - OR - DUNS number",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "postBodyContentType",
+            "type": "string",
+            "description": "",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          },
+          {
+            "name": "username",
+            "type": "string",
+            "description": "DnB username",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "password",
+            "type": "string",
+            "description": "DnB password",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "",
+            "in": "header",
+            "required": false,
+            "default": "application/json"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/rest/search/company/advanced": {
+      "post": {
+        "operationId": "AdvancedCompanySearchSearchMethods",
+        "summary": "Returns search result of companies based on varyin...",
+        "description": "Returns search result of companies based on varying different criteria.",
+        "tags": [
+          "Search Methods"
+        ],
+        "parameters": [
+          {
+            "name": "hit_offset",
+            "type": "integer",
+            "description": "Result offset number (0 returns first)",
+            "in": "query",
+            "required": false,
+            "default": 0
+          },
+          {
+            "name": "max_records",
+            "type": "integer",
+            "description": "Maximum records to return",
+            "in": "query",
+            "required": false,
+            "default": 20
+          },
+          {
+            "name": "sort_direction",
+            "type": "string",
+            "description": "",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "ascending",
+              "descending"
+            ]
+          },
+          {
+            "name": "order_by",
+            "type": "string",
+            "description": "Field to order results by",
+            "in": "query",
+            "required": false,
+            "default": "company_name"
+          },
+          {
+            "name": "body",
+            "type": "body",
+            "description": "JSON object containing input parameters",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "username",
+            "type": "string",
+            "description": "DnB username",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "password",
+            "type": "string",
+            "description": "DnB password",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "",
+            "in": "header",
+            "required": false,
+            "default": "application/json"
+          },
+          {
+            "name": "Accept-Encoding",
+            "type": "string",
+            "description": "",
+            "in": "header",
+            "required": false,
+            "default": "gzip,deflate,sdch"
+          },
+          {
+            "name": "Accept-Language",
+            "type": "string",
+            "description": "",
+            "in": "header",
+            "required": false,
+            "default": "en-US,en;q=0.8"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/rest/person/{uniqueId}/{coOfficial}": {
+      "get": {
+        "operationId": "GetPersonDetailSearchMethods",
+        "summary": "Returns all the person details for a given Company...",
+        "description": "Returns all the person details for a given Company ID or DUNS and co-Official Id.",
+        "tags": [
+          "Search Methods"
+        ],
+        "parameters": [
+          {
+            "name": "uniqueId",
+            "type": "string",
+            "description": "D&B Company ID",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "coOfficial",
+            "type": "string",
+            "description": "Company official (person) id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "view",
+            "type": "string",
+            "description": "Company Data View: simple, basic or full",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "simple",
+              "basic",
+              "full"
+            ]
+          },
+          {
+            "name": "connect_mail",
+            "type": "boolean",
+            "description": "",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "1",
+              "0"
+            ]
+          },
+          {
+            "name": "convert_currency_to",
+            "type": "string",
+            "description": "",
+            "in": "query",
+            "required": false,
+            "default": "usd"
+          },
+          {
+            "name": "username",
+            "type": "string",
+            "description": "DnB username",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "password",
+            "type": "string",
+            "description": "DnB password",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "",
+            "in": "header",
+            "required": false,
+            "default": "application/json"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/rest/search/person/advanced": {
+      "post": {
+        "operationId": "AdvancedPersonSearchSearchMethods",
+        "summary": "Returns search result of people based on varying d...",
+        "description": "Returns search result of people based on varying different criteria.",
+        "tags": [
+          "Search Methods"
+        ],
+        "parameters": [
+          {
+            "name": "hit_offset",
+            "type": "integer",
+            "description": "Result offset number (0 returns first)",
+            "in": "query",
+            "required": false,
+            "default": 0
+          },
+          {
+            "name": "max_records",
+            "type": "integer",
+            "description": "Maximum records to return",
+            "in": "query",
+            "required": false,
+            "default": 20
+          },
+          {
+            "name": "sort_direction",
+            "type": "string",
+            "description": "Result sort order",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "ascending",
+              "descending"
+            ]
+          },
+          {
+            "name": "order_by",
+            "type": "string",
+            "description": "Field to order results by",
+            "in": "query",
+            "required": false,
+            "default": "company_name"
+          },
+          {
+            "name": "body",
+            "type": "string",
+            "description": "JSON object containing input parameters",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "",
+            "in": "header",
+            "required": false,
+            "default": "application/json"
+          },
+          {
+            "name": "username",
+            "type": "string",
+            "description": "DnB username",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "password",
+            "type": "string",
+            "description": "DnB password",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

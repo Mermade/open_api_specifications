@@ -1,0 +1,1723 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "LE Open Data API",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "url": "https://github.com/mermade/mashery2openapi"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "x-origin": [
+      {
+        "url": "https://developer.airfranceklm.com/io-docs",
+        "format": "io_docs"
+      }
+    ],
+    "description": "A great place to start playing with the APIs. ",
+    "x-mashery-id": "5085"
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "api.airfranceklm.com",
+  "basePath": "/",
+  "externalDocs": {
+    "description": "You can also view our written documentation.",
+    "url": "https://developer.airfranceklm.com/io-docs"
+  },
+  "consumes": [],
+  "produces": [],
+  "securityDefinitions": {
+    "key": {
+      "type": "apiKey",
+      "name": "apikey",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Flight Offers"
+    },
+    {
+      "name": "amenities"
+    }
+  ],
+  "paths": {
+    "/flightoffers/available-offers": {
+      "post": {
+        "operationId": "AvailableOffersFlightOffers",
+        "summary": "",
+        "tags": [
+          "Flight Offers"
+        ],
+        "parameters": [
+          {
+            "name": "AFKL-TRAVEL-Country",
+            "type": "string",
+            "description": "Please use country code. E.g. NL (overrides Accept-Language country)",
+            "in": "header",
+            "required": true,
+            "default": "NL"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Please use 'application/hal+json;profile=com.afklm.b2c.flightoffers.available-offers.v1;charset=utf8'",
+            "in": "header",
+            "required": true,
+            "default": "application/hal+json;profile=com.afklm.b2c.flightoffers.available-offers.v1;charset=utf8"
+          },
+          {
+            "name": "AFKL-TRAVEL-Host",
+            "type": "string",
+            "description": "Please use 'KL' or 'AF'.",
+            "in": "header",
+            "required": true,
+            "default": "KL"
+          },
+          {
+            "name": "Accept-Language",
+            "type": "string",
+            "description": "Indicates the response language and country expected. e.g. nl-NL indicates language=nl (Dutch) &amp; country=NL (Netherlands)",
+            "in": "header",
+            "required": true,
+            "default": "en-US"
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Please use 'application/json'.",
+            "in": "header",
+            "required": true,
+            "default": "application/json"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/AvailableOffers"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "get": {
+        "operationId": "CreateAvailableOffersFlightOffers",
+        "summary": "",
+        "tags": [
+          "Flight Offers"
+        ],
+        "parameters": [
+          {
+            "name": "AFKL-TRAVEL-Country",
+            "type": "string",
+            "description": "Specifies the country of end-user the consumer is requesting for",
+            "in": "header",
+            "required": true,
+            "default": "NL"
+          },
+          {
+            "name": "d",
+            "type": "string",
+            "description": "Encrypted Flight product ID. To get the value either call POST Available offers/lowest fare offers",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Use 'Accept: application/hal+json or Accept:  */*'",
+            "in": "header",
+            "required": true,
+            "default": "application/hal+json"
+          },
+          {
+            "name": "AFKL-TRAVEL-Host",
+            "type": "string",
+            "description": "Either 'AF' (AirFrance) or 'KL' (KLM)",
+            "in": "header",
+            "required": true,
+            "default": "KL"
+          },
+          {
+            "name": "Accept-Language",
+            "type": "string",
+            "description": "Indicates the response language and country expected. e.g. nl-NL indicates language=nl (Dutch) &amp; country=NL (Netherlands)",
+            "in": "header",
+            "required": true,
+            "default": "EN-en"
+          },
+          {
+            "name": "minimumAccuracy",
+            "type": "string",
+            "description": "Specifies the minimum requested accuracy. Will override the default minimum accuracy. Low minimum accuracy will enforce TripPlanner GetDayData to be used instead of FareFlexPricerUpsell",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/flightoffers/lowest-fare-offers": {
+      "post": {
+        "operationId": "LowestFareOffersFlightOffers",
+        "summary": "",
+        "tags": [
+          "Flight Offers"
+        ],
+        "parameters": [
+          {
+            "name": "expand-suggested-flights",
+            "type": "string",
+            "description": "Boolean value either 'true' or 'false' (For True: Detailed suggested flight details will be displyed in response; For false, Less flight details will be displayed in response).",
+            "in": "query",
+            "required": true,
+            "default": "false"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Accepts tells the server what formats it is allowed to send back to you. e.g. 'Accept: application/hal+json or Accept:  */*'",
+            "in": "header",
+            "required": true,
+            "default": "application/hal+json"
+          },
+          {
+            "name": "AFKL-TRAVEL-Country",
+            "type": "string",
+            "description": "Specifies the country of end-user the consumer is requesting for",
+            "in": "header",
+            "required": true,
+            "default": "NL"
+          },
+          {
+            "name": "AFKL-TRAVEL-Host",
+            "type": "string",
+            "description": "Either 'AF' (AirFrance) or 'KL' (KLM)",
+            "in": "header",
+            "required": true,
+            "default": "KL"
+          },
+          {
+            "name": "Accept-Language",
+            "type": "string",
+            "description": "Indicates the response language and country expected. e.g. nl-NL indicates language=nl (Dutch) &amp; country=NL (Netherlands)",
+            "in": "header",
+            "required": true,
+            "default": "EN-en"
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Please use 'application/json'.",
+            "in": "header",
+            "required": true,
+            "default": "application/json"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/LowestFareOffers"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "get": {
+        "operationId": "CreateLowestFareOffersFlightOffers",
+        "summary": "",
+        "tags": [
+          "Flight Offers"
+        ],
+        "parameters": [
+          {
+            "name": "AFKL-TRAVEL-Country",
+            "type": "string",
+            "description": "Specifies the country of end-user the consumer is requesting for",
+            "in": "header",
+            "required": true,
+            "default": "NL"
+          },
+          {
+            "name": "d",
+            "type": "string",
+            "description": "Encrypted Flight product ID. To get the value either call POST Available offers/lowest fare offers",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "AFKL-TRAVEL-Host",
+            "type": "string",
+            "description": "Either 'AF' (AirFrance) or 'KL' (KLM)",
+            "in": "header",
+            "required": true,
+            "default": "KL"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Use 'Accept: application/hal+json or Accept:  */*'",
+            "in": "header",
+            "required": true,
+            "default": "application/hal+json"
+          },
+          {
+            "name": "Accept-Language",
+            "type": "string",
+            "description": "Indicates the response language and country expected. e.g. nl-NL indicates language=nl (Dutch) &amp; country=NL (Netherlands)",
+            "in": "header",
+            "required": true,
+            "default": "en-US"
+          },
+          {
+            "name": "dateInterval",
+            "type": "string",
+            "description": "Format: YYYY-MM-DD/YYYY-MM-DD NB Currently only support for one dateInterval, so for RETURN offers only. Maximum 60 days interval interval if Type is 'Day'",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/flightoffers/reference-data": {
+      "get": {
+        "operationId": "ReferenceDataFlightOffers",
+        "summary": "",
+        "tags": [
+          "Flight Offers"
+        ],
+        "parameters": [
+          {
+            "name": "country",
+            "type": "string",
+            "description": "",
+            "in": "query",
+            "required": false,
+            "default": "NL"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Use 'Accept: application/hal+json or Accept: */*'",
+            "in": "header",
+            "required": true,
+            "default": "application/hal+json"
+          },
+          {
+            "name": "AFKL-TRAVEL-Country",
+            "type": "string",
+            "description": "Specifies the country of end-user the consumer is requesting for",
+            "in": "header",
+            "required": true,
+            "default": "NL"
+          },
+          {
+            "name": "AFKL-TRAVEL-Host",
+            "type": "string",
+            "description": "Either 'AF' (AirFrance) or 'KL' (KLM)",
+            "in": "header",
+            "required": true,
+            "default": "KL"
+          },
+          {
+            "name": "station",
+            "type": "string",
+            "description": "",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "host",
+            "type": "string",
+            "description": "",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Accept-Language",
+            "type": "string",
+            "description": "Indicates the response language and country expected. e.g. nl-NL indicates language=nl (Dutch) &amp; country=NL (Netherlands)",
+            "in": "header",
+            "required": true,
+            "default": "en-US"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/flightoffers/flight-products/{id}/tax-breakdown": {
+      "get": {
+        "operationId": "FP/TaxBreakdownFlightOffers",
+        "summary": "",
+        "tags": [
+          "Flight Offers"
+        ],
+        "parameters": [
+          {
+            "name": "AFKL-TRAVEL-Country",
+            "type": "string",
+            "description": "Specifies the country of end-user the consumer is requesting for",
+            "in": "header",
+            "required": true,
+            "default": "NL"
+          },
+          {
+            "name": "id",
+            "type": "string",
+            "description": "Encrypted Flight product ID. To get the value either call POST Available offers/lowest fare offers",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "AFKL-TRAVEL-Host",
+            "type": "string",
+            "description": "Either 'AF' (AirFrance) or 'KL' (KLM)",
+            "in": "header",
+            "required": true,
+            "default": "KL"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Use 'Accept: application/hal+json or Accept: */*'",
+            "in": "header",
+            "required": true,
+            "default": "application/hal+json"
+          },
+          {
+            "name": "Accept-Language",
+            "type": "string",
+            "description": "Indicates the response language and country expected. e.g. nl-NL indicates language=nl (Dutch) &amp; country=NL (Netherlands)",
+            "in": "header",
+            "required": true,
+            "default": "en-US"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/flightoffers/flight-products/{id}/upsell-offers": {
+      "get": {
+        "operationId": "FP/UpsellOffersFlightOffers",
+        "summary": "",
+        "tags": [
+          "Flight Offers"
+        ],
+        "parameters": [
+          {
+            "name": "AFKL-TRAVEL-Country",
+            "type": "string",
+            "description": "Specifies the country of end-user the consumer is requesting for",
+            "in": "header",
+            "required": true,
+            "default": "NL"
+          },
+          {
+            "name": "id",
+            "type": "string",
+            "description": "Encrypted Flight product ID. To get the value either call POST Available offers/lowest fare offers",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "AFKL-TRAVEL-Host",
+            "type": "string",
+            "description": "Either 'AF' (AirFrance) or 'KL' (KLM)",
+            "in": "header",
+            "required": true,
+            "default": "KL"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Use 'Accept: application/hal+json or Accept:  */*'",
+            "in": "header",
+            "required": true,
+            "default": "application/hal+json"
+          },
+          {
+            "name": "Accept-Language",
+            "type": "string",
+            "description": "Indicates the response language and country expected. e.g. nl-NL indicates language=nl (Dutch) &amp; country=NL (Netherlands)",
+            "in": "header",
+            "required": true,
+            "default": "en-US"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/flightoffers/upsell-offers": {
+      "post": {
+        "operationId": "UpsellOffersFlightOffers",
+        "summary": "",
+        "tags": [
+          "Flight Offers"
+        ],
+        "parameters": [
+          {
+            "name": "AFKL-TRAVEL-Host",
+            "type": "string",
+            "description": "Either 'AF' (AirFrance) or 'KL' (KLM)",
+            "in": "header",
+            "required": true,
+            "default": "KL"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Use 'Accept: application/hal+json or Accept: */*'",
+            "in": "header",
+            "required": true,
+            "default": "application/hal+json"
+          },
+          {
+            "name": "Accept-Language",
+            "type": "string",
+            "description": "Indicates the response country and language expected. e.g. nl-NL indicates language=nl (Ducth) &amp; country=NL (Netherlands)",
+            "in": "header",
+            "required": true,
+            "default": "en-US"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/UpsellOffers"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/flightoffers/flight-products/{id}/ticket-conditions": {
+      "get": {
+        "operationId": "FP/TicketConditionsFlightOffers",
+        "summary": "",
+        "tags": [
+          "Flight Offers"
+        ],
+        "parameters": [
+          {
+            "name": "AFKL-TRAVEL-Country",
+            "type": "string",
+            "description": "Specifies the country of end-user the consumer is requesting for",
+            "in": "header",
+            "required": true,
+            "default": "NL"
+          },
+          {
+            "name": "id",
+            "type": "string",
+            "description": "Encrypted Flight product ID. To get the value either call POST Available offers/lowest fare offers",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "AFKL-TRAVEL-Host",
+            "type": "string",
+            "description": "Either 'AF' (AirFrance) or 'KL' (KLM)",
+            "in": "header",
+            "required": true,
+            "default": "KL"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Use 'Accept: application/hal+json or Accept:  */*'",
+            "in": "header",
+            "required": true,
+            "default": "application/hal+json"
+          },
+          {
+            "name": "Accept-Language",
+            "type": "string",
+            "description": "Indicates the response country and language expected. e.g. nl-NL indicates language=nl (Ducth) &amp; country=NL (Netherlands)",
+            "in": "header",
+            "required": true,
+            "default": "en-US"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/flightoffers/ticket-conditions/{tripIdentifier}": {
+      "get": {
+        "operationId": "TicketConditions(trip)FlightOffers",
+        "summary": "",
+        "tags": [
+          "Flight Offers"
+        ],
+        "parameters": [
+          {
+            "name": "AFKL-TRAVEL-Country",
+            "type": "string",
+            "description": "Specifies the country of end-user the consumer is requesting for",
+            "in": "header",
+            "required": true,
+            "default": "NL"
+          },
+          {
+            "name": "tripIdentifier",
+            "type": "string",
+            "description": "Provide the information in this format, origin:departuredate@time:flightnumber:selligclass>destination Eg., AMS:20150130@1630:KL1234:Y>BCN",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "discountCode",
+            "type": "string",
+            "description": "Internet discount code",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "AFKL-TRAVEL-Host",
+            "type": "string",
+            "description": "Either'AF' (AirFrance) or 'KL' (KLM)",
+            "in": "header",
+            "required": true,
+            "default": "KL"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Use 'Accept: application/hal+json or Accept: */*'",
+            "in": "header",
+            "required": true,
+            "default": "application/hal+json"
+          },
+          {
+            "name": "ticketedDate",
+            "type": "string",
+            "description": "Date of ticketing when requesting conditions for reservation.",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "Accept-Language",
+            "type": "string",
+            "description": "Indicates the response country and language expected. e.g. nl-NL indicates language=nl (Ducth) &amp; country=NL (Netherlands)",
+            "in": "header",
+            "required": true,
+            "default": "en-US"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/flightoffers/ticket-conditions": {
+      "get": {
+        "operationId": "TicketConditions(shop)FlightOffers",
+        "summary": "",
+        "tags": [
+          "Flight Offers"
+        ],
+        "parameters": [
+          {
+            "name": "AFKL-TRAVEL-Country",
+            "type": "string",
+            "description": "Specifies the country of end-user the consumer is requesting for",
+            "in": "header",
+            "required": true,
+            "default": "NL"
+          },
+          {
+            "name": "reservationId",
+            "type": "string",
+            "description": "Id of the conversation state where the selected Flight Product is stored in.",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Use 'Accept: application/hal+json or Accept: */*'",
+            "in": "header",
+            "required": true,
+            "default": "application/hal+json"
+          },
+          {
+            "name": "AFKL-TRAVEL-Host",
+            "type": "string",
+            "description": "Either 'AF' (AirFrance) or 'KL' (KLM)",
+            "in": "header",
+            "required": true,
+            "default": "KL"
+          },
+          {
+            "name": "Accept-Language",
+            "type": "string",
+            "description": "Indicates the response country and language expected. e.g. nl-NL indicates language=nl (Ducth) &amp; country=NL (Netherlands)",
+            "in": "header",
+            "required": true,
+            "default": "en-US"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/flightoffers/flight-products/{id}/related-products": {
+      "get": {
+        "operationId": "FP/RelatedProductsFlightOffers",
+        "summary": "",
+        "tags": [
+          "Flight Offers"
+        ],
+        "parameters": [
+          {
+            "name": "AFKL-TRAVEL-Country",
+            "type": "string",
+            "description": "Specifies the country of end-user the consumer is requesting for",
+            "in": "header",
+            "required": true,
+            "default": "NL"
+          },
+          {
+            "name": "id",
+            "type": "string",
+            "description": "Encrypted Flight product ID. To get the value either call POST Available offers/lowest fare offers",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "AFKL-TRAVEL-Host",
+            "type": "string",
+            "description": "Either 'AF' (AirFrance) or 'KL' (KLM)",
+            "in": "header",
+            "required": true,
+            "default": "KL"
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Use 'Accept: application/hal+json or Accept:  */*'",
+            "in": "header",
+            "required": true,
+            "default": "application/hal+json"
+          },
+          {
+            "name": "Accept-Language",
+            "type": "string",
+            "description": "Indicates the response country and language expected. e.g. nl-NL indicates language=nl (Ducth) &amp; country=NL (Netherlands)",
+            "in": "header",
+            "required": true,
+            "default": "en-US"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/inspire/amenities": {
+      "get": {
+        "operationId": "getAmenitiesUsingGETamenities",
+        "summary": "Get aircraft amenities",
+        "tags": [
+          "amenities"
+        ],
+        "parameters": [
+          {
+            "name": "AFKL-TRAVEL-Country",
+            "type": "string",
+            "description": "Please use country code. E.g. NL (overrides Accept-Language country)",
+            "in": "header",
+            "required": true,
+            "default": "NL"
+          },
+          {
+            "name": "AFKL-TRAVEL-Host",
+            "type": "string",
+            "description": "Please use 'KL' or 'AF'.",
+            "in": "header",
+            "required": true,
+            "default": "AF"
+          },
+          {
+            "name": "Accept-Language",
+            "type": "string",
+            "description": "Indicates the response language and country expected. e.g. nl-NL indicates language=nl (Dutch) &amp; country=NL (Netherlands)",
+            "in": "header",
+            "required": true,
+            "default": "fr-FR"
+          },
+          {
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Content type of the request payload",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ]
+          },
+          {
+            "name": "Accept",
+            "type": "string",
+            "description": "Content type of the response payload",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/hal+json;charset=UTF-8;profile=com.afklm.inspire.amenities.v2"
+            ]
+          },
+          {
+            "name": "acv",
+            "type": "string",
+            "description": "Aicraft Configuration Version, 3 alphanumeric characters. Example : 38C, 38C, 77B, A42",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "flight",
+            "type": "string",
+            "description": "Flight airline, number and date (yyyy-MM-dd), separated by an underscore.Can provide mutiple flights with comma separated values.  Example : AF_7021_2017-05-18",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "cabinClass",
+            "type": "string",
+            "description": "Cabin class, string (ECONOMY,PREMIUM,BUSINESS,FIRST).  Example : ECONOMY",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "type": "string",
+            "description": "Limit (>= 0)",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "response_sample",
+            "type": "string",
+            "description": "Sample response payload",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "produces": [
+          "application/hal+json;charset=UTF-8;profile=com.afklm.inspire.amenities.v2"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "cities": {
+      "type": "object",
+      "properties": {}
+    },
+    "countries": {
+      "type": "object",
+      "properties": {}
+    },
+    "ShoppingCarts": {
+      "type": "object",
+      "properties": {}
+    },
+    "ReferenceData": {
+      "type": "object",
+      "properties": {}
+    },
+    "FPRelatedProducts": {
+      "type": "object",
+      "properties": {}
+    },
+    "FPTaxBreakdown": {
+      "type": "object",
+      "properties": {}
+    },
+    "TicketConditionstrip": {
+      "description": "Internet discount code",
+      "type": "object",
+      "properties": {}
+    },
+    "TicketConditionsshop": {
+      "type": "object",
+      "properties": {}
+    },
+    "FPUpsellOffers": {
+      "type": "object",
+      "properties": {}
+    },
+    "UpsellOffers": {
+      "type": "object",
+      "properties": {
+        "cabinClass": {
+          "type": "string",
+          "enum": [
+            "ECONOMY",
+            "BUSINESS"
+          ]
+        },
+        "passengerCount": {
+          "description": "Describes the number of passengers. Total number of passengers must be 1-9.",
+          "type": "object",
+          "properties": {
+            "YOUNG_ADULT": {
+              "description": "Number of young adults. 12-15 years.",
+              "type": "integer",
+              "default": 0
+            },
+            "INFANT": {
+              "description": "Number of infants. Under 2 years.",
+              "type": "integer",
+              "default": 0
+            },
+            "CHILD": {
+              "description": "Number of children. 2-11 years.",
+              "type": "integer",
+              "default": 0
+            },
+            "ADULT": {
+              "description": "Number of adults. 16 years and older.",
+              "type": "integer",
+              "default": 1
+            }
+          },
+          "required": [
+            "YOUNG_ADULT",
+            "INFANT",
+            "CHILD",
+            "ADULT"
+          ]
+        },
+        "requestedConnections": {
+          "maxItems": 6,
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "farebase": {
+                "type": "string"
+              },
+              "segments": {
+                "type": "array",
+                "items": {
+                  "description": "Segment is a single flight from its origin to its destination with possibly stops in between.",
+                  "type": "object",
+                  "properties": {
+                    "origin": {
+                      "description": "Airport is an IATA defined location. Airport can actually be a location of type: 1 - Off-Line Point 2 - Metropolitan Area 3 - Airport 4 - Bus Station 5 - Railway Station 6 - Heliport 7 - Ferry Port ",
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "description": "IATA location code",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "code"
+                      ]
+                    },
+                    "destination": {
+                      "description": "Airport is an IATA defined location. Airport can actually be a location of type: 1 - Off-Line Point 2 - Metropolitan Area 3 - Airport 4 - Bus Station 5 - Railway Station 6 - Heliport 7 - Ferry Port ",
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "description": "IATA location code",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "code"
+                      ]
+                    },
+                    "departureDateTime": {
+                      "format": "date-time",
+                      "description": "The date and time of the departure of the segment in local time of the origin. Format is: 'YYYY-MM[-DD]/YYYY-MM[-DD]'",
+                      "type": "string"
+                    },
+                    "marketingFlightNumber": {
+                      "description": "Max of four digits, when less than 3 then prefix with zeroes up till 3 digits. For example: 006, 022, 1001.",
+                      "type": "string"
+                    },
+                    "marketingFlightCarrier": {
+                      "description": "IATA airline code",
+                      "type": "string"
+                    },
+                    "sellingClass": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "origin",
+                    "destination",
+                    "departureDateTime",
+                    "marketingFlightNumber",
+                    "marketingFlightCarrier",
+                    "sellingClass"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "farebase"
+            ]
+          }
+        }
+      },
+      "required": [
+        "cabinClass",
+        "passengerCount",
+        "requestedConnections"
+      ]
+    },
+    "FPTicketConditions": {
+      "type": "object",
+      "properties": {}
+    },
+    "FO/LowestFareOffers": {
+      "type": "object",
+      "properties": {}
+    },
+    "LowestFareOffers": {
+      "description": "Lowest-fare-offers request the lowest available fare offers for the given details.",
+      "type": "object",
+      "properties": {
+        "cabinClass": {
+          "description": "Code for cabin class. ",
+          "type": "string",
+          "enum": [
+            "ECONOMY",
+            "BUSINESS"
+          ]
+        },
+        "discountCode": {
+          "description": "code for IDC discount.",
+          "type": "string"
+        },
+        "passengerCount": {
+          "description": "Describes the number of passengers.  Total number of passengers of type ADULT &amp; CHILD must be between 1 and maximumNumberOfSeats. Number of INFANTS must be &lt;= number of ADULTS.",
+          "type": "object",
+          "properties": {
+            "YOUNG_ADULT": {
+              "description": "Number of young adults. 12-15 years. ",
+              "type": "integer",
+              "default": 0
+            },
+            "INFANT": {
+              "description": "Number of infants. Under 2 years.",
+              "type": "integer",
+              "default": 0
+            },
+            "CHILD": {
+              "description": "Number of children. 2-11 years.",
+              "type": "integer",
+              "default": 0
+            },
+            "ADULT": {
+              "description": "Number of adults. 16 years and older.",
+              "type": "integer",
+              "default": 1
+            }
+          },
+          "required": [
+            "YOUNG_ADULT",
+            "INFANT",
+            "CHILD",
+            "ADULT"
+          ]
+        },
+        "currency": {
+          "description": "Indicates the currency to be used for prices in response.  Three letter currency code according to ISO 4217.",
+          "type": "string",
+          "default": "EUR"
+        },
+        "minimumAccuracy": {
+          "description": "Threshold for accuracy. Overrides default threshold. When accuracy is below supplied threshold, backend will switch to more accurate source.  NB Currently TripPlanner GetBudgetSearch is fast, less accurate source and TripPlanner GetData is more accurate source.",
+          "type": "integer"
+        },
+        "type": {
+          "description": "Indicates the type of request being fired. See LowestFareType.",
+          "type": "string",
+          "enum": [
+            "OVERALL",
+            "MONTH",
+            "DAY"
+          ]
+        },
+        "requestedConnections": {
+          "maxItems": 6,
+          "type": "array",
+          "items": {
+            "description": "Specification of a connection as part of request. Connection is specified by EITHER origin and destination (any flight) OR ordered list of segments (selected flight).",
+            "type": "object",
+            "properties": {
+              "maxDaysOfStay": {
+                "description": "Maximum days of stay at the destination of the Connection.",
+                "type": "integer"
+              },
+              "minDaysOfStay": {
+                "description": "Minimum days of stay at the destination of the Connection.",
+                "type": "integer"
+              },
+              "dateInterval": {
+                "description": "Format is: 'YYYY-MM[-DD]/YYYY-MM[-DD]'.  Date interval describes the range of dates that should be used to find lowest fares/flights for the Connection. Maximum 60 days interval if Type is 'Day'",
+                "type": "string"
+              },
+              "origin": {
+                "description": "StationView is helper object. StationView is specified by EITHER City OR Airport.",
+                "type": "object",
+                "properties": {
+                  "airport": {
+                    "description": "Airport is an IATA defined location. Airport can actually be a location of type: 1 - Off-Line Point 2 - Metropolitan Area 3 - Airport 4 - Bus Station 5 - Railway Station 6 - Heliport 7 - Ferry Port ",
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "description": "IATA location code.",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "code"
+                    ]
+                  }
+                }
+              },
+              "destination": {
+                "description": "StationView is helper object. StationView is specified by EITHER City OR Airport.",
+                "type": "object",
+                "properties": {
+                  "airport": {
+                    "description": "Airport is an IATA defined location. Airport can actually be a location of type: 1 - Off-Line Point 2 - Metropolitan Area 3 - Airport 4 - Bus Station 5 - Railway Station 6 - Heliport 7 - Ferry Port ",
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "description": "IATA location code.",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "code"
+                    ]
+                  }
+                }
+              },
+              "segments": {
+                "type": "array",
+                "items": {
+                  "description": "Segment is a single flight from its origin to its destination with possibly stops in between.",
+                  "type": "object",
+                  "properties": {
+                    "farebase": {
+                      "description": "A <b>fare basis code</b> or <b>FBC</b> specifies the rules of an airline's fare. Fare codes starts with a single letter, called a booking code, representing the type of ticket and fare, followed by optional letters and digits, representing a specific set of fare rules, for instance how many days in advance the ticket needs to be booked, corporate discounts, or other special promotional elements (<a href='http://en.wikipedia.org/wiki/Fare_basis_code'><font color='#0000ff'><u>http://en.wikipedia.org/wiki/Fare_basis_code</u></font></a>)",
+                      "type": "object"
+                    },
+                    "origin": {
+                      "description": "Airport is an IATA defined location. Airport can actually be a location of type: 1 - Off-Line Point 2 - Metropolitan Area 3 - Airport 4 - Bus Station 5 - Railway Station 6 - Heliport 7 - Ferry Port ",
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "description": "IATA location code.",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "code"
+                      ]
+                    },
+                    "destination": {
+                      "description": "Airport is an IATA defined location. Airport can actually be a location of type: 1 - Off-Line Point 2 - Metropolitan Area 3 - Airport 4 - Bus Station 5 - Railway Station 6 - Heliport 7 - Ferry Port ",
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "description": "IATA location code.",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "code"
+                      ]
+                    },
+                    "departureDateTime": {
+                      "format": "date-time",
+                      "description": "DateTime of departure of the segment flight. It is specified as local time at origin of the segment.",
+                      "type": "string"
+                    },
+                    "marketingFlight": {
+                      "description": "Marketing representation of the flight.",
+                      "type": "object",
+                      "properties": {
+                        "number": {
+                          "description": "Flight number. Max of four digits, when less than 3 then prefix with zeroes up till 3 digits. For example: 006, 022, 1001.",
+                          "type": "string"
+                        },
+                        "carrier": {
+                          "description": "Carrier that is connected to the flight. Can be different for MarketingFlight and OperatingFlight.",
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "description": "IATA airline code.",
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "code"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "number",
+                        "carrier"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "farebase",
+                    "origin",
+                    "destination",
+                    "departureDateTime",
+                    "marketingFlight"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "dateInterval"
+            ]
+          }
+        },
+        "shortest": {
+          "description": "Indicates whether shortest route should be found",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "cabinClass",
+        "passengerCount",
+        "currency",
+        "type",
+        "requestedConnections"
+      ]
+    },
+    "FO/AvailableOffers": {
+      "type": "object",
+      "properties": {}
+    },
+    "AvailableOffers": {
+      "description": "Available-offers request the lowest available flight offers for the given details. Request contains number of passengers per type, cabin class, currency and a list of connections.",
+      "type": "object",
+      "properties": {
+        "cabinClass": {
+          "description": "Code for cabin class. Either ECONOMY or BUSINESS for now.",
+          "type": "string",
+          "enum": [
+            "ECONOMY",
+            "BUSINESS"
+          ]
+        },
+        "discountCode": {
+          "description": "Internet discount code",
+          "type": "string"
+        },
+        "passengerCount": {
+          "description": "Describes the number of passengers. Total number of passengers must be 1-9.",
+          "type": "object",
+          "properties": {
+            "YOUNG_ADULT": {
+              "description": "Number of young adults. 12-15 years.",
+              "type": "integer",
+              "default": 0
+            },
+            "INFANT": {
+              "description": "Number of infants. Under 2 years.",
+              "type": "integer",
+              "default": 0
+            },
+            "CHILD": {
+              "description": "Number of children. 2-11 years.",
+              "type": "integer",
+              "default": 0
+            },
+            "ADULT": {
+              "description": "Number of adults. 16 years and older.",
+              "type": "integer",
+              "default": 1
+            }
+          },
+          "required": [
+            "YOUNG_ADULT",
+            "INFANT",
+            "CHILD",
+            "ADULT"
+          ]
+        },
+        "currency": {
+          "description": "Indicates the currency to be used for prices in response.  Three letter currency code according to ISO 4217.",
+          "type": "string",
+          "default": "EUR"
+        },
+        "minimumAccuracy": {
+          "description": "Minimum accuracy requested as percentage.",
+          "type": "integer"
+        },
+        "requestedConnections": {
+          "type": "array",
+          "items": {
+            "description": "Specification of a connection as part of request. Connection is specified by EITHER origin and destination (any flight) OR ordered list of segments (selected flight).",
+            "type": "object",
+            "properties": {
+              "origin": {
+                "description": "StationView is helper object. StationView is specified by EITHER City OR Airport.",
+                "type": "object",
+                "properties": {
+                  "airport": {
+                    "description": "City is an IATA defined location where an Airport is located.",
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "description": "IATA location code",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "code"
+                    ]
+                  }
+                }
+              },
+              "destination": {
+                "description": "StationView is helper object. StationView is specified by EITHER City OR Airport.",
+                "type": "object",
+                "properties": {
+                  "airport": {
+                    "description": "City is an IATA defined location where an Airport is located.",
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "description": "IATA location code",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "code"
+                    ]
+                  }
+                }
+              },
+              "departureDate": {
+                "description": "String representing the departure date requested for the Connection. Format is: 'YYYY-MM[-DD]",
+                "type": "string"
+              }
+            }
+          },
+          "addConnections": {
+            "type": "object",
+            "properties": {
+              "origin": {
+                "description": "StationView is helper object. StationView is specified by EITHER City OR Airport.",
+                "type": "object",
+                "properties": {
+                  "airport": {
+                    "description": "City is an IATA defined location where an Airport is located.",
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "description": "IATA location code",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "code"
+                    ]
+                  }
+                }
+              },
+              "destination": {
+                "description": "StationView is helper object. StationView is specified by EITHER City OR Airport.",
+                "type": "object",
+                "properties": {
+                  "airport": {
+                    "description": "City is an IATA defined location where an Airport is located.",
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "description": "IATA location code",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "code"
+                    ]
+                  }
+                }
+              },
+              "departureDate": {
+                "description": "String representing the departure date requested for the Connection. Format is: 'YYYY-MM[-DD]",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "segments": {
+          "maxItems": 6,
+          "type": "array",
+          "items": {
+            "description": "Segment is a direct flight from its origin to its destination.",
+            "type": "object",
+            "properties": {
+              "farebase": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "description": "Farebase code for the segment.",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code"
+                ]
+              },
+              "origin": {
+                "description": "Airport is an IATA defined location. Airport can actually be a location of type: 1 - Off-Line Point 2 - Metropolitan Area 3 - Airport 4 - Bus Station 5 - Railway Station 6 - Heliport 7 - Ferry Port ",
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "description": "IATA location code",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code"
+                ]
+              },
+              "destination": {
+                "description": "Airport is an IATA defined location. Airport can actually be a location of type: 1 - Off-Line Point 2 - Metropolitan Area 3 - Airport 4 - Bus Station 5 - Railway Station 6 - Heliport 7 - Ferry Port ",
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "description": "IATA location code",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code"
+                ]
+              },
+              "departureDateTime": {
+                "format": "date-time",
+                "description": "DateTime of departure of the segment flight. It is specified as local time at origin of the segment.",
+                "type": "string"
+              },
+              "marketingFlight": {
+                "description": "Marketing representation of the flight.",
+                "type": "object",
+                "properties": {
+                  "number": {
+                    "description": "Max of four digits, when less than 3 then prefix with zeroes up till 3 digits. For example: 006, 022, 1001.",
+                    "type": "string"
+                  },
+                  "carrier": {
+                    "description": "Carrier that is connected to the flight. Can be different for MarketingFlight and OperatingFlight.",
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "description": "IATA airline code",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "code"
+                    ]
+                  }
+                },
+                "required": [
+                  "number",
+                  "carrier"
+                ]
+              }
+            },
+            "required": [
+              "destination",
+              "departureDateTime",
+              "marketingFlight"
+            ]
+          }
+        },
+        "shortest": {
+          "description": "Indicates whether shortest route should be found",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "cabinClass",
+        "currency"
+      ]
+    },
+    "AircraftAmenitiesView": {
+      "type": "object",
+      "properties": {
+        "cabinClasses": {
+          "type": "object",
+          "description": "Amenities by cabin class"
+        }
+      }
+    },
+    "AmenitiesCategoryView": {
+      "type": "object",
+      "required": [
+        "label"
+      ],
+      "properties": {
+        "label": {
+          "type": "string",
+          "example": "Comfort",
+          "description": "Amenity category label to be displayed."
+        }
+      }
+    },
+    "AmenitiesListView": {
+      "type": "object",
+      "required": [
+        "amenities",
+        "amenitiesNb"
+      ],
+      "properties": {
+        "amenities": {
+          "type": "array",
+          "example": "WIFI,IFE,SEAT_FULL_FLAT",
+          "description": "List of amenities codes.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "amenitiesNb": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of amenities."
+        }
+      }
+    },
+    "AmenityView": {
+      "type": "object",
+      "required": [
+        "category",
+        "label"
+      ],
+      "properties": {
+        "category": {
+          "type": "string",
+          "example": "EQUIPMENT",
+          "description": "Category code."
+        },
+        "imageUrl": {
+          "type": "string",
+          "example": "http://objects.airfrance.com/FR/common/common/img/pictos/WIFI.jpg",
+          "description": "Amenity pictogram to be displayed."
+        },
+        "label": {
+          "type": "string",
+          "example": "In-Flight Entertainment",
+          "description": "Amenity label to be displayed."
+        }
+      }
+    },
+    "ErrorView": {
+      "type": "object",
+      "required": [
+        "error",
+        "requestId"
+      ],
+      "properties": {
+        "error": {
+          "type": "string",
+          "example": "Missing parameter: xxx.",
+          "description": "Error message."
+        },
+        "requestId": {
+          "type": "string",
+          "example": "c1f3c206-7b3d-4ce0-abb3-968a3788eba4",
+          "description": "Unique identifier of the request."
+        }
+      }
+    },
+    "EmbeddedErrorView": {
+      "type": "object",
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "example": 404,
+          "description": "Corresponding HTTP status."
+        },
+        "message": {
+          "type": "string",
+          "example": "XXX not found.",
+          "description": "Error message."
+        }
+      }
+    },
+    "AmenitiesView": {
+      "type": "object",
+      "required": [
+        "acv"
+      ],
+      "properties": {
+        "acv": {
+          "type": "object",
+          "description": "Map between an ACV and its amenities"
+        },
+        "amenities": {
+          "type": "object",
+          "description": "Map between an amenity code and its definition."
+        },
+        "categories": {
+          "type": "object",
+          "description": "Map between an amenity category code and its definition."
+        },
+        "errors": {
+          "type": "array",
+          "description": "Embeds errors if the entire response is not an error."
+        }
+      }
+    }
+  }
+}
